@@ -36,6 +36,7 @@
     "documentation": "/v1/docs/Exchange",
     "documenttree": "/v1/docs/Exchange",
     "documenttreeV2": "/v2/docs/Exchange",
+    "sandbox": "/v1/sandboxrun/Exchange",
     "feature":[
       {
         "name": "sandBox",
