@@ -58,17 +58,17 @@
   },
    "supportConfig": [{ 
 		"bug": {
-			"label": "bug,REPLACEME",
+			"label": "bug,Exchange",
 			"template": "bug.md",
 			"assignees": "TaniaS210489"
 		},
 		"feedback": {
-			"label": "feedback,REPLACEME",
+			"label": "feedback,Exchange",
 			"template": "feedback.md",
 			"assignees": "TaniaS210489"
 		},
 		"enhancement": {
-			"label": "enhancement,REPLACEME",
+			"label": "enhancement,Exchange",
 			"template": "feature.md",
 			"assignees": "TaniaS210489"
 		}
