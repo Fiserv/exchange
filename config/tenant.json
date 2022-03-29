@@ -1,6 +1,6 @@
 {
   "title": "Exchange-Demo",
-  "name": "Exchange",
+  "name": "ExchangeDemo",
   "brand": "Fiserv",
   "brandLogoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Fiserv_Logo.jpg",
   "solution": ["financial-institutions"],
@@ -31,11 +31,11 @@
     "logoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Portal_Logo.png",
     "description": "To onboard properly into the Developer Studio as a tenant each product must support these APIs so that we can retrieve product specific API specifications and documentation.",
     "longDescription":"To onboard properly into the Developer Studi as a tenant each product must support these APIs so that we can retrieve product specific API specifications and documentation.",
-    "apiSpecification": "/v1/apis/Exchange",
-    "layout": "/v1/layouts/Exchange",
-    "documentation": "/v1/docs/Exchange",
-    "documenttree": "/v1/docs/Exchange",
-    "documenttreeV2": "/v2/docs/Exchange",
+    "apiSpecification": "/v1/apis/ExchangeDemo",
+    "layout": "/v1/layouts/ExchangeDemo",
+    "documentation": "/v1/docs/ExchangeDemo",
+    "documenttree": "/v1/docs/ExchangeDemo",
+    "documenttreeV2": "/v2/docs/ExchangeDemo",
     "feature":[
       {
         "name": "sandBox",
