@@ -41,15 +41,15 @@ featuredFeatures:
     bullets: ["bullet1", "bullet2" ]  
     relatedDocs:
       - relatedDoc: 
-        title: REPLACEME
+        title: Boarding
         description: REPLACEME
-        link: ./docs/REPLACE-ME1.md
+        link: /docs/boarding.md
       - relatedDoc: 
-        title: REPLACEME
+        title: Funding
         description: REPLACEME
         link: ./docs/REPLACE-ME2.md
       - relatedDoc: 
-        title: REPLACEME
+        title: Settlement
         description: REPLACEME
         link: ./docs/REPLACE-ME3.md
     relatedAPIs:
