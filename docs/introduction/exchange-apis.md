@@ -1,8 +1,14 @@
 # Introduction
 
-Exchange offers a full boarding and funding experience avaliable through RESTful APIS. These will be used for our three main solutions: 
+Exchange offers a full boarding and funding experience avaliable through RESTful API. All requests and response will be sent in the JSON format, and a postman collection is avaliable for integration support *here*
+
+These will be used for our funding solutions: 
 * Instructional Funding
 * Managed Funding
-* Split Funding Solutions
-  * Avaliable for Instructional and Managed Funding
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+* Split Funding 
+  * Avaliable for Instructional as 'Instructional Split' and 'Instructional Split by Transaction' or Managed as 'Managed Split by Summary' and 'Managed Split by Transaction'
+
+Our API is split into three main sections: 
+*  [Boarding]
+*  [Funding]
+*  [Offerings]
