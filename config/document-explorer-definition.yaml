@@ -34,7 +34,7 @@
       open: true
       sections:
         - title: Exchange APIs
-          link: docs/introduction/exchange-APIs.md
+          link: docs/introduction/exchange-apis.md
 - sections:
   - title: Getting Started
     link: docs/getting-started.md
