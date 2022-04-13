@@ -1,6 +1,6 @@
 # Introduction
 
-Exchange offers a full boarding and funding experience avaliable through RESTful API. All requests and response will be sent in the JSON format, and a postman collection is avaliable for integration support *here
+Exchange offers a full boarding and funding experience avaliable through RESTful API. All requests and response will be sent in the JSON format, and a postman collection is avaliable for integration support *here*
 
 These will be used for our funding solutions: 
 * Instructional Funding
