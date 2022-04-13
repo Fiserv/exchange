@@ -9,6 +9,6 @@ These will be used for our funding solutions:
   * Avaliable for Instructional as 'Instructional Split' and 'Instructional Split by Transaction' or Managed as 'Managed Split by Summary' and 'Managed Split by Transaction'
 
 Our API is split into three main sections: 
-*  [Boarding]
-*  [Funding]
-*  [Offerings]
+*  Boarding
+*  Funding
+*  Offerings
