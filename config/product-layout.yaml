@@ -42,16 +42,16 @@ featuredFeatures:
     relatedDocs:
       - relatedDoc: 
         title: Boarding
-        description: REPLACEME
+        description: End-to-end merchant boarding is avaliable through API.
         link: /docs/boarding.md
       - relatedDoc: 
         title: Funding
-        description: REPLACEME
-        link: ./docs/REPLACE-ME2.md
+        description: Funding instructions and split details that can be sent through API.
+        link: ./docs/funding.md
       - relatedDoc: 
-        title: Settlement
-        description: REPLACEME
-        link: ./docs/REPLACE-ME3.md
+        title: Reporting
+        description: Settlement details and reporting avaliable through Exchange.
+        link: ./docs/reporting.md
     relatedAPIs:
       - relatedAPI: 
         title: REPLACEME
