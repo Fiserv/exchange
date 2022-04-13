@@ -11,7 +11,7 @@ These will be used for our funding solutions:
 Our API is split into three main sections: 
 *  Boarding
 *  Funding
- * *Including Funding details and reporting
+ * *Including Funding details and reporting*
 *  Offerings
 
 API found under boarding will support merchant on-boarding. Exchange allows end-to-end, flexible boarding through our API to create the Merchant Hierarchy desired.
