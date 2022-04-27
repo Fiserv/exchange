@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link   <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url.  
+  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link   <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url. " 
     post:
       tags:
       - OAuth Token
