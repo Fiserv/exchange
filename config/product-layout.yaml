@@ -64,7 +64,7 @@ featuredFeatures:
         type: "post"        
         path: "/v1/funding/instruction"
       - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "get"        
-        path: "/v1/REPLACEME3"
+        title: Get Settlement Info
+        description: Retrieve settlement information
+        type: "post"        
+        path: "/account/settlement-info"
