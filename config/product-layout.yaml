@@ -54,15 +54,15 @@ featuredFeatures:
         link: ./docs/reporting.md
     relatedAPIs:
       - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "patch"        
-        path: "/v1/REPLACEME1"
-      - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
+        title: Add Application
+        description: Add a new Merchant application
         type: "post"        
-        path: "/v1/REPLACEME2"
+        path: "/v1/merchant/application"
+      - relatedAPI: 
+        title: Funding Instruction
+        description: Send Funding Instruction
+        type: "post"        
+        path: "/v1/funding/instruction"
       - relatedAPI: 
         title: REPLACEME
         description: REPLACEME
