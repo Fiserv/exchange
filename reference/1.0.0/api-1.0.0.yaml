@@ -11,6 +11,8 @@ paths:
     post:
       tags:
       - OAuth Token
+      x-group-name: Oauth
+      x-proxy-name: Token
       summary: Get Token
       description: "In order to get the token you need to set the authentication for this endpoint to basic auth.  \n Input the __client_id__ as username and __client_secret__ as password.  \n \n After receiving the token please update the other endpoints authentication with the given token changing the authentication type to __OAuth 2.0__. "
       operationId: GET_OAUTH_TOKEN
