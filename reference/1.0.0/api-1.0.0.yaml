@@ -40,6 +40,8 @@ paths:
     post:
       tags:
       - Offerings
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Available Offerings
       summary: Retrieve Available Offerings
       description: Retrieve Available Offerings
       requestBody:
@@ -66,6 +68,8 @@ paths:
     post:
       tags:
       - Offerings
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Processing Offerings
       summary: Retrieve Processing Offerings
       description: Retrieve Processing Offerings
       requestBody:
@@ -92,6 +96,8 @@ paths:
     post:
       tags:
       - Offerings
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Online Offerings
       summary: Retrieve Equipment/Online Offerings
       description: Retrieve Equipment/Online Offerings
       requestBody:
@@ -118,6 +124,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Add Application
       summary: Add Merchant
       description: Add Merchant
       requestBody:
@@ -144,6 +152,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Update Merchant
       summary: Update Merchant
       description: Update Merchant Details
       requestBody:
@@ -170,6 +180,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Add Merchant Subgroup
       summary: Add Subgroup
       description: Add Subgroup
       requestBody:
@@ -196,6 +208,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Update Merchant Subgroup
       summary: Update Subgroup
       description: Update Subgroup
       requestBody:
@@ -222,6 +236,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Add Merchant Outlet
       summary: Add Outlet
       description: Add Outlet
       requestBody:
@@ -248,6 +264,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Update Merchant Outlet
       summary: Update Outlet
       description: Update Outlet
       requestBody:
@@ -274,6 +292,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Retrieve Merchant Application
       summary: Application Retrieve
       description: Application Retrieve
       requestBody:
@@ -300,6 +320,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Application Status Check
       summary: Application Status Check
       description: Check the status of an application
       requestBody:
@@ -326,6 +348,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Application Submission
       summary: Application Submission
       description: Application Submission
       requestBody:
@@ -352,6 +376,8 @@ paths:
     post:
       tags:
       - Application Boarding
+      x-group-name: Boarding
+      x-proxy-name: Add non-processing Merchant Application
       summary: Add Non-Processing Merchant
       description: Add Non-Processing Merchant
       requestBody:
@@ -378,6 +404,8 @@ paths:
     post:
       tags:
       - Risk Screening
+      x-group-name: Risk Screening
+      x-proxy-name: Retrieve Risk Reports for Screening
       summary: Retrieve Risk Available Reports List for Screening
       description: Retrieve Risk Available Reports List for Screening
       requestBody:
@@ -404,6 +432,8 @@ paths:
     post:
       tags:
       - Risk Screening
+      x-group-name: Risk Screening
+      x-proxy-name: Retrieve Risk Full Reports for Screening
       summary: Retrieve Risk Full Report for Screening
       description: Retrieve Risk Full Report for Screening
       requestBody:
@@ -430,6 +460,8 @@ paths:
     post:
       tags:
       - Risk Screening
+      x-group-name: Risk Screening
+      x-proxy-name: Overwrite AML report for Screening 
       summary: Overwriting AML Report for Screening (OFAC Report)
       description: Overwriting AML Report for Screening (OFAC Report)
       requestBody:
@@ -456,6 +488,8 @@ paths:
     post:
       tags:
       - Risk Monitoring
+      x-group-name: Risk Monitoring
+      x-proxy-name: Retrieve Risk Avaliable reports list for Monitoring
       summary: Retrieve Risk Available Reports List for Monitoring
       description: Retrieve Risk Available Reports List for Monitoring
       requestBody:
@@ -482,6 +516,8 @@ paths:
     post:
       tags:
       - Risk Monitoring
+      x-group-name: Risk Monitoring
+      x-proxy-name: Retrieve Risk Full Reports for Monitoring
       summary: Retrieve Risk Full Reports for Monitoring
       description: Retrieve Risk Full Reports for Monitoring
       requestBody:
@@ -508,6 +544,8 @@ paths:
     post:
       tags:
       - Risk Monitoring
+      x-group-name: Risk Monitoring
+      x-proxy-name: Overwrite AML report for Monitoring
       summary: Overwriting AML Report for Monitoring (OFAC Report)
       description: Overwriting AML Report for Monitoring (OFAC Report)
       requestBody:
@@ -534,6 +572,8 @@ paths:
     post:
       tags:
       - Funding Instruction
+      x-group-name: Funding
+      x-proxy-name: Funding Instruction
       summary: Funding Instruction
       description: A single merchant, simplified structure
       operationId: funding_instruction
@@ -561,6 +601,8 @@ paths:
     post:
       tags:
       - Funding Instruction
+      x-group-name: Funding
+      x-proxy-name: Funding Detailed-Instruction
       summary: Funding Details Instruction
       description: a single merchant, extended structure
       operationId: funding_details_instruction
@@ -588,6 +630,8 @@ paths:
     post:
       tags:
       - Account Operations
+      x-group-name: Account Operations
+      x-proxy-name: Reserve Releease
       summary: Account Reserve Release
       description: Account Reserve Release
       operationId: release_reserve
@@ -615,6 +659,8 @@ paths:
     post:
       tags:
       - Account Operations
+      x-group-name: Account Operations
+      x-proxy-name: Get Account Balance
       summary: Get Account Balance
       description: Gets the account balance
       operationId: get_account_balance
@@ -642,6 +688,8 @@ paths:
     post:
       tags:
       - Account Operations
+      x-group-name: Account Operations
+      x-proxy-name: Get Settlement Rejects
       summary: Get Settlement Rejects
       description: Get a list of all rejected settlement transactions under a PFAC and the related merchants. Can be filtered to only display certain transactions.
       operationId: GET_SETTLEMENT_REJECTS
@@ -670,6 +718,8 @@ paths:
       tags:
       - Account Operations
       summary: Get Trade Info
+      x-group-name: Account Operations
+      x-proxy-name: Get Trade Info
       description: Get Trade Info
       operationId: GET_TRADE_INFO
       requestBody:
@@ -696,6 +746,8 @@ paths:
     post:
       tags:
       - Account Operations
+      x-group-name: Account Operations
+      x-proxy-name: Get Settlement Info
       summary: Get Settlement Info
       description: Get Settlement Info
       operationId: GET_SETTLEMENT_INFO
@@ -723,6 +775,8 @@ paths:
     post:
       tags:
       - Account Operations
+      x-group-name: Account Operations
+      x-proxy-name: Get Account Summary
       summary: Get Account Summary
       description: Get Account Summary
       operationId: GET_ACCOUNT_SUMMARY
@@ -749,7 +803,9 @@ paths:
   /transaction/:
     post:
       tags:
-      - Search Transactions
+      - Transactions
+      x-group-name: Search Transactions
+      x-proxy-name: Search Transactions
       summary: Search Transactions
       description: Search Transactions, Including Refund, Not Rejected
       operationId: TRANSACTION_SEARCH
@@ -777,6 +833,8 @@ paths:
     post:
       tags:
       - Search Transactions
+      x-group-name: Transactions
+      x-proxy-name: Search Rejects
       summary: Search Transactions Rejects
       description: Search Transactions Rejects
       operationId: TRANSACTION_SEARCH_REJECTS
@@ -804,6 +862,8 @@ paths:
     post:
       tags:
       - Search Transactions
+      x-group-name: Transactions
+      x-proxy-name: Adjustments
       summary: Search Transactions Adjustments
       description: Search Transactions Adjustments
       operationId: TRANSACTION_SEARCH_ADJUSTMENTS
@@ -831,6 +891,8 @@ paths:
     post:
       tags:
       - Search Transactions
+      x-group-name: Transactions
+      x-proxy-name: Chargebacks
       summary: Search Transactions Chargebacks
       description: Search Transactions Chargebacks
       operationId: TRANSACTION_SEARCH_CHARGEBACKS
@@ -858,6 +920,8 @@ paths:
     post:
       tags:
       - Search Transactions
+      x-group-name: Transactions
+      x-proxy-name: Chargeback Adjustment
       summary: Search Transactions Chargeback-adjustments
       description: Search Transactions Chargeback-adjustments
       operationId: TRANSACTION_SEARCH_CHARGEBACK_ADJUSTMENTS
@@ -885,6 +949,8 @@ paths:
     post:
       tags:
       - Information Retrieval
+      x-group-name: Information Retrieval
+      x-proxy-name: Get Bank Details
       summary: Get Bank Account Detail
       description: Get Bank Account Detail
       operationId: get_bank_detail
@@ -912,6 +978,8 @@ paths:
     post:
       tags:
       - Split Funding by Transaction
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Funding Details
       summary: Split Funding Instruction
       description: A funding instruction to sub-merchant and other involved entities
       requestBody:
@@ -938,6 +1006,8 @@ paths:
     post:
       tags:
       - Split Funding by Transaction
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Status
       summary: Split Funding Instruction
       description: A funding status of each sub-merchant and other involved entities
       requestBody:
