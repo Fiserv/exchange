@@ -33,6 +33,8 @@
       link:
       open: true
       sections:
+        - title: Exchange 
+          link: docs/introduction/exchange-intro.md
         - title: Exchange APIs
           link: docs/introduction/exchange-apis.md
 - sections:
