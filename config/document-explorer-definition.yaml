@@ -40,29 +40,22 @@
     link: docs/funding.md
     open: true
     sections:
-    - title: Setup a Tenant
-      link: docs/getting-started/setup-tenant/setup-tenant.md
-    - title: Deploy Tenant
-      link: docs/getting-started/setup-tenant/deploy-tenant.md
-    - title: Register Tenant
-      link: docs/getting-started/setup-tenant/register-tenant.md
-    - title: Code a Tenant
-      link: docs/getting-started/code-a-tenant/code-tenant.md
-    - title: Preview & Publish
-      link: docs/getting-started/preview-and-publish-content/preview-and-publish.md
-- sections:
-  - title: Getting Started
-    link: docs/getting-started.md
-    open: true
-    sections:
-    - title: Setup a Tenant
-      link: docs/getting-started/setup-tenant/setup-tenant.md
-    - title: Deploy Tenant
-      link: docs/getting-started/setup-tenant/deploy-tenant.md
-    - title: Register Tenant
-      link: docs/getting-started/setup-tenant/register-tenant.md
-    - title: Code a Tenant
-      link: docs/getting-started/code-a-tenant/code-tenant.md
-    - title: Preview & Publish
-      link: docs/getting-started/preview-and-publish-content/preview-and-publish.md
+    - title: Account Operations
+      link: docs/getting-started/setup-tenant/account-operations.md
+    - title: Boarding
+      link: docs/getting-started/setup-tenant/boarding.md
+    - title: Funding
+      link: docs/getting-started/setup-tenant/funding.md
+    - title: Information Retrieval
+      link: docs/getting-started/code-a-tenant/information-retrieval.md
+    - title: Oauth
+      link: docs/getting-started/preview-and-publish-content/oauth.md
+    - title: Offerings
+      link: docs/getting-started/preview-and-publish-content/offerings.md
+    - title: Risk 
+      link: docs/getting-started/preview-and-publish-content/risk.md
+    - title: Split Funding by Transaction 
+      link: docs/getting-started/preview-and-publish-content/split-details.md
+    - title: Transactions 
+      link: docs/getting-started/preview-and-publish-content/transactions.md
 
