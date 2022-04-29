@@ -41,21 +41,21 @@
     open: true
     sections:
     - title: Account Operations
-      link: docs/getting-started/setup-tenant/account-operations.md
+      link: docs/getting-started/account-operations.md
     - title: Boarding
-      link: docs/getting-started/setup-tenant/boarding.md
+      link: docs/getting-started/boarding.md
     - title: Funding
-      link: docs/getting-started/setup-tenant/funding.md
+      link: docs/getting-started/funding.md
     - title: Information Retrieval
-      link: docs/getting-started/code-a-tenant/information-retrieval.md
+      link: docs/getting-startedinformation-retrieval.md
     - title: Oauth
-      link: docs/getting-started/preview-and-publish-content/oauth.md
+      link: docs/getting-started/oauth.md
     - title: Offerings
-      link: docs/getting-started/preview-and-publish-content/offerings.md
+      link: docs/getting-started/offerings.md
     - title: Risk 
-      link: docs/getting-started/preview-and-publish-content/risk.md
+      link: docs/getting-started/risk.md
     - title: Split Funding by Transaction 
-      link: docs/getting-started/preview-and-publish-content/split-details.md
+      link: docs/getting-started/split-details.md
     - title: Transactions 
-      link: docs/getting-started/preview-and-publish-content/transactions.md
+      link: docs/getting-started/transactions.md
 
