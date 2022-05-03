@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link   <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url. "
+  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link   <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url.  \n #### __Integration Guide__ \n Exchange Integration Guide can be accessed from this links:<a href='/project/downloaddocument/Exchange Configuration Portal Guide for Alliance.pdf' target='_blank'>\nConfig Portal Guide,</a> \n<a href='/project/downloaddocument/Exchange Boarding Portal for Alliance.pdf' target='_blank'>\nBoarding Portal Guide,</a> \n <a href='/project/downloaddocument/Exchange Boarding APIs Integration Guide.pdf' target='_blank'>\nBoarding APIs Integration Guide,</a> \n <a href='/project/downloaddocument/Exchange Funding APIs Integration Guide v3.0.pdf' target='_blank'>\nFunding APIs Integration Guide</a> "
   version: 2.0.0
 servers:
 - url: https://uat-fd-pfac-c-api.technologi.co.uk
@@ -36,6 +36,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+##########################BOARDING##########################
   /offering/available:
     post:
       tags:
@@ -96,10 +97,10 @@ paths:
     post:
       tags:
       - Offerings
-      x-group-name: Offerings
-      x-proxy-name: Retrieve Online Offerings
       summary: Retrieve Equipment/Online Offerings
       description: Retrieve Equipment/Online Offerings
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Online Offerings
       requestBody:
         description: Retrieve Requested Equipment/Online Offerings for Alliance and Partner PFACs
         content:
@@ -400,6 +401,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+##########################BOARDING##########################
+##########################RISK##############################
   /intelligence/retrieve_intelligence:
     post:
       tags:
@@ -568,6 +571,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+##########################RISK##############################
+##########################FUNDING##########################
   /funding/instruction:
     post:
       tags:
@@ -655,6 +660,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+##########################FUNDING##########################
+##########################TRANSACTION INFO##########################
   /account/balance:
     post:
       tags:
@@ -717,9 +724,9 @@ paths:
     post:
       tags:
       - Account Operations
-      summary: Get Trade Info
       x-group-name: Account Operations
       x-proxy-name: Get Trade Info
+      summary: Get Trade Info
       description: Get Trade Info
       operationId: GET_TRADE_INFO
       requestBody:
@@ -803,7 +810,7 @@ paths:
   /transaction/:
     post:
       tags:
-      - Transactions
+      - Search Transactions
       x-group-name: Search Transactions
       x-proxy-name: Search Transactions
       summary: Search Transactions
@@ -945,6 +952,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+##########################TRANSACTION INFO##########################
+#####################OTHERS#################################
   /account/bank-details:
     post:
       tags:
@@ -974,6 +983,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+#####################OTHERS#################################
+##########################SPLIT FUNDING##########################  
   /split/transaction-details:
     post:
       tags:
@@ -1030,6 +1041,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+##########################SPLIT FUNDING##########################  
 components:
   schemas:
     grant_type_object:
@@ -1083,10 +1095,148 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/Result'
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitorFullReport'
+        additionalProperties:
+          type: object
+          properties:
+            hash_key:
+              type: string
+            intelligence_ref:
+              $ref: '#/components/schemas/EntityReference'
+            entity_type:
+              $ref: '#/components/schemas/EntityType'
+            third_party_source:
+              $ref: '#/components/schemas/ThirdPartySource'
+            report_type:
+              $ref: '#/components/schemas/ReportType'
+            parent_type:
+              $ref: '#/components/schemas/ParentType'
+            alliance_unique_id:
+              $ref: '#/components/schemas/AllianceID'
+            partner_unique_id:
+              $ref: '#/components/schemas/PartnerID'
+            request_data:
+              oneOf:
+                - $ref: '#/components/schemas/PersonOverwrite'
+                - $ref: '#/components/schemas/BusinessOverwrite'
+            response_data:
+              type: object
+              properties:
+                unique_id:
+                  type: number
+                  example: 8101182
+                score:
+                  type: number
+                  example: 80
+                business:
+                  $ref: '#/components/schemas/possibleMatchBusinessBlock'
+                person:
+                  $ref: '#/components/schemas/possibleMatchPersonBlock'
+                match_reference:
+                  $ref: '#/components/schemas/EntityReference'
+                original_status:
+                  type: string
+                  description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+                  enum:
+                  - PM
+                  - EM
+                  - NM
+                status:
+                  type: string
+                  description: 'decision made from user'
+                  enum:
+                  - PM
+                  - EM
+                  - NM
+                is_overwritten:
+                  type: string
+                  description: '1 = Yes, 0 = No'
+                  enum:
+                  - 1
+                  - 0
+                review_info:
+                  $ref: '#/components/schemas/reviewInfo'
+                watchlist:
+                  $ref: '#/components/schemas/watchlistReport'
+                credit_reference:
+                  $ref: '#/components/schemas/creditReference'
+                possible_matches:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/possibleMatch'
+                overall_evaluation:
+                  $ref: '#/components/schemas/OverallEvaluation'
+                third_party_source:
+                  type: string
+                  example: 'AcurisSearch'
+                date_updated:
+                  $ref: '#/components/schemas/DateyMdTime'
+            original_copy:
+              $ref: '#/components/schemas/OriginalCopy'
+            expiry_date:
+              $ref: '#/components/schemas/Date'
+            date_added:
+              $ref: '#/components/schemas/DateyMdTime'
+            date_updated:
+              $ref: '#/components/schemas/DateyMdTime'
+        intelligence:
+          type: object
+          properties:
+            merchant:
+              type: object
+              properties:
+                merchant_id:
+                  $ref: '#/components/schemas/MID'
+            review_note:
+              $ref: '#/components/schemas/ReviewNote'
+            report_reference:
+              $ref: '#/components/schemas/EntityReference'
+            overwrite:
+              type: array
+              items:
+                $ref: '#/components/schemas/MonitorOverwriteBlock'
+            request_source:
+              $ref: '#/components/schemas/RequestSource'
+    PersonOverwrite:
+      type: object
+      properties:
+        business_ref:
+          $ref: '#/components/schemas/EntityReference'
+        country_code:
+          $ref: '#/components/schemas/CountryCodeLetter'
+        business_name:
+          $ref: '#/components/schemas/BusinessName'
+        mcc_code:
+          $ref: '#/components/schemas/MCC'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        incorporated_date:
+          $ref: '#/components/schemas/Date'
+        business_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        business_sub_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        trading_name:
+          $ref: '#/components/schemas/BusinessName'
+        address:
+          $ref: '#/components/schemas/AddressReportShort'
+    ####fix
+    BusinessOverwrite:
+      type: object
+      properties:
+        principal_ref:
+          $ref: '#/components/schemas/EntityReference'
+        forename:
+          $ref: '#/components/schemas/FirstName'
+        surname:
+          $ref: '#/components/schemas/LastName'
+        ownership_percentage:
+          $ref: '#/components/schemas/OwnershipPerc'
+        date_of_birth:
+          $ref: '#/components/schemas/Date'
+        nationality:
+          $ref: '#/components/schemas/EntityReference'
+        current_address:
+          $ref: '#/components/schemas/ReportAddressBlock'
     RetrieveMonitoringResponseBlock:
       type: object
       properties:
@@ -1115,14 +1265,35 @@ components:
         corporate_directors:
           $ref: '#/components/schemas/CorporateDirector'
         corporate_financials:
-          $ref: '#/components/schemas/MonitorCreditSafeFullReportDetail_corporate_financials'
+          type: object
+          properties:
+            financial_accounts:
+              type: string
+            payment_performance:
+              type: object
+              properties:
+                monthly_data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MonitorCreditFinancialMonthly'
+            trade_payment:
+              $ref: '#/components/schemas/MonitorCreditFinTradePayment'
+            percentage_change:
+              $ref: '#/components/schemas/MonitorCreditFinPercChange'
+            ltd_company_cais:
+              $ref: '#/components/schemas/MonitorCreditFinCAI'
         corporate_summary:
-          $ref: '#/components/schemas/MonitorCreditSafeFullReportDetail_corporate_summary'
+          type: object
+          properties:
+            company_summary:
+              $ref: '#/components/schemas/MonitorCreditSumCompany'
+            director_summary:
+              $ref: '#/components/schemas/MonitorCreditSumDirector'
         corporate_rating:
           $ref: '#/components/schemas/MonitorCreditFinaRate'
         third_party_source:
           type: string
-          example: Creditsafe
+          example: 'Creditsafe'
         date_added:
           $ref: '#/components/schemas/DateTime'
     MonitorCreditFinaRate:
@@ -1275,11 +1446,27 @@ components:
         dormancy_flag:
           type: string
         changes:
-          $ref: '#/components/schemas/MonitorCreditSumCompany_changes'
+          type: object
+          properties:
+            number_reg_office_changes_last_12_month:
+              type: string
+            number_mem_arts_changes_last_12_month:
+              type: string
         legal_notices:
-          $ref: '#/components/schemas/MonitorCreditSumCompany_legal_notices'
+          type: object
+          properties:
+            summary_count:
+              type: string
         alerts:
-          $ref: '#/components/schemas/MonitorCreditSumCompany_alerts'
+          type: object
+          properties:
+            notes_count:
+              type: string
+            notes:
+              type: array
+              items:
+                additionalProperties:
+                  type: string
         windup_orders:
           $ref: '#/components/schemas/MonitorCreditSumCompanyWindUp'
         liquidators:
@@ -1340,10 +1527,13 @@ components:
         filing_details:
           $ref: '#/components/schemas/filingDetail'
         filling_details:
-          $ref: '#/components/schemas/MonitorCreditSumBankrupt_filling_details'
+          type: object
+          properties:
+            filed_with:
+              type: string
     MonitorCreditSumDissolve:
       type: object
-      properties:
+      properties: 
         number_intention_to_dissolve:
           type: string
         time_since_last_intention_to_dissolve:
@@ -1358,7 +1548,7 @@ components:
           type: string
     MonitorCreditSumVolunteer:
       type: object
-      properties:
+      properties: 
         number_approval_vol_arrangement:
           type: string
         time_since_last_approval_vol_arrangement:
@@ -1377,7 +1567,7 @@ components:
           type: string
     MonitorCreditSumCompanyAdmin:
       type: object
-      properties:
+      properties:        
         number_appointment_administrator:
           type: string
         time_since_last_appointment_administrator:
@@ -1454,14 +1644,24 @@ components:
         monthly_data:
           type: array
           items:
-            type: object
             additionalProperties:
               type: string
     MonitorCreditFinTradePayment:
       type: object
       properties:
         trade_payment_summary:
-          $ref: '#/components/schemas/MonitorCreditFinTradePayment_trade_payment_summary'
+          type: object
+          properties:
+            currency:
+              $ref: '#/components/schemas/Currency'
+            total_trades_number:
+              type: string
+            total_trades_balance:
+              type: string
+            continuous_trades_number:
+              type: string
+            recent_high_credit:
+              type: string
         continuous:
           $ref: '#/components/schemas/MonitorCreditFinTradePaymentDetail'
         combined:
@@ -1472,7 +1672,7 @@ components:
       type: object
       properties:
         currency:
-          $ref: '#/components/schemas/Currency'
+            $ref: '#/components/schemas/Currency'
         number:
           type: string
         balance:
@@ -1528,8 +1728,8 @@ components:
           type: string
         percent_change_debt_gearing:
           type: string
-        percentage_change_net_asset:
-          type: string
+        percentage_change_net_asset: 
+          type: string   
     MonitorCreditFinancialMonthly:
       type: object
       properties:
@@ -1544,15 +1744,23 @@ components:
       properties:
         number_current_directors:
           type: string
-          example: "1"
+          example:
+            '1'
         number_previous_directors:
           type: string
-          example: "1"
+          example:
+            '1'
         number_of_disqualifications:
           type: string
-          example: "1"
+          example:
+            '1'
         directors:
-          $ref: '#/components/schemas/CorporateDirector_directors'
+          type: object
+          properties:
+            current_directors:
+              type: array
+              items:
+                $ref: '#/components/schemas/MonitorCreditSafeDirector'
     MonitorCreditSafeDirector:
       type: object
       properties:
@@ -1561,18 +1769,20 @@ components:
         director_flag:
           type: string
           enum:
-          - "1"
-          - "0"
+            - '1'
+            - '0'
         director_number:
           type: string
-          example: "1"
+          example:
+            '1'
         appointment_date:
           $ref: '#/components/schemas/Date'
         resignation_date:
           $ref: '#/components/schemas/Date'
         number_of_convictions:
           type: string
-          example: "1"
+          example:
+            '1'
         director_details:
           $ref: '#/components/schemas/MonitorCreditSafeDetail'
     MonitorCreditSafeDetail:
@@ -1588,16 +1798,17 @@ components:
           $ref: '#/components/schemas/Date'
         occupation:
           type: string
-          example: Director
+          example: 'Director'
         nationality:
           type: string
-          example: American
+          example: 'American'
     CorporateStructure:
       type: object
       properties:
         number_principle_shareholders:
           type: string
-          example: "1"
+          example:
+            '1'
         parent_company:
           $ref: '#/components/schemas/CorporateStructureCompany'
         ultimate_parent_company:
@@ -1605,19 +1816,16 @@ components:
         share_capital:
           type: array
           items:
-            type: object
             additionalProperties:
               type: string
         shareholdings:
           type: array
           items:
-            type: object
             additionalProperties:
               type: string
         shareholders:
           type: array
           items:
-            type: object
             additionalProperties:
               type: string
     CorporateStructureCompany:
@@ -1629,10 +1837,12 @@ components:
           $ref: '#/components/schemas/RegNumber'
         business_type:
           type: string
-          example: other
+          example:
+            'other'
         company_status:
           type: string
-          example: other
+          example:
+            'other'
         vat_number:
           $ref: '#/components/schemas/TaxID'
         address:
@@ -1642,13 +1852,13 @@ components:
       properties:
         business_type:
           type: string
-          example: Limited
+          example: 'Limited'
         company_status:
           type: string
-          example: Active
+          example: 'Active'
         reference_number:
           type: string
-          example: "45889050"
+          example: '45889050'
         legal_name:
           $ref: '#/components/schemas/BusinessName'
         registration_number:
@@ -1690,13 +1900,13 @@ components:
           $ref: '#/components/schemas/ZipCode'
         country:
           type: string
-          description: ISO2 Country
-          example: US
+          example: 'US'
+          description: 'ISO2 Country'
         summary:
           $ref: '#/components/schemas/AddressSummary'
     AddressSummary:
       type: string
-      example: Sheila Lane, Sparks, NV 89431
+      example: 'Sheila Lane, Sparks, NV 89431'
     CCLSDetail:
       type: object
       properties:
@@ -1707,16 +1917,20 @@ components:
       properties:
         number_of_previous_searches:
           type: string
-          example: "1"
+          example:
+            '1'
         number_of_previous_searches_3_months:
           type: string
-          example: "1"
+          example:
+            '1'
         number_of_previous_searches_6_months:
           type: string
-          example: "1"
+          example:
+            '1'
         number_of_previous_searches_12_months:
           type: string
-          example: "1"
+          example:
+            '1'
     filingDetail:
       type: object
       properties:
@@ -1735,7 +1949,7 @@ components:
           $ref: '#/components/schemas/MCC'
         description:
           type: string
-          example: MCC description
+          example: 'MCC description'
     MonitorFullReportDetail:
       type: object
       properties:
@@ -1746,7 +1960,10 @@ components:
         third_party_source:
           $ref: '#/components/schemas/ThirdPartySource'
         request_reference:
-          $ref: '#/components/schemas/MonitorFullReportDetail_request_reference'
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
         entity_type:
           $ref: '#/components/schemas/EntityType'
         company:
@@ -1754,14 +1971,135 @@ components:
         person:
           $ref: '#/components/schemas/IntelligencePrincipalBlock'
         intelligence_report:
-          $ref: '#/components/schemas/MonitorFullReportDetail_intelligence_report'
+          type: object
+          properties:
+            possible_matches:
+              type: array
+              items:
+                $ref: '#/components/schemas/possibleMatch'
+            overall_evaluation:
+              $ref: '#/components/schemas/OverallEvaluation'
+            original_status:
+              type: string
+              description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+              enum:
+              - PM
+              - EM
+              - NM
+            status:
+              type: string
+              description: 'decision made from user'
+              enum:
+              - PM
+              - EM
+              - NM
+            is_overwritten:
+              type: string
+              description: '1 = Yes, 0 = No'
+              enum:
+              - 1
+              - 0
+            review_info:
+              type: array
+              items:
+                $ref: '#/components/schemas/reviewInfo'
         date_added:
           $ref: '#/components/schemas/DateTime'
+    OverallEvaluation:
+      type: object
+      properties:
+        negative_hit:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        pep_hits:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        enforcement_hits:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        sanctions_hits:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        previous_sanctions:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        financial_regulator:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        disqualified_director_match:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        adverse_media_match:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        insolvent_match:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        deceased:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        business_has_pep:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
     MonitorIntelligenceCompanyBlock:
       type: object
       properties:
         business:
-          $ref: '#/components/schemas/MonitorIntelligenceCompanyBlock_business'
+          type: object
+          properties:
+            business_ref:
+              $ref: '#/components/schemas/EntityReference'
+            country_code:
+              $ref: '#/components/schemas/CountryCodeLetter'
+            business_name:
+              $ref: '#/components/schemas/BusinessName'
+            mcc_code:
+              $ref: '#/components/schemas/MCC'
+            registration_number:
+              $ref: '#/components/schemas/RegNumber'
+            incorporated_date:
+              $ref: '#/components/schemas/Date'
+            business_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            business_sub_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            trading_name:
+              $ref: '#/components/schemas/BusinessName'
+            address:
+              $ref: '#/components/schemas/AddressReportShort'
     RetrieveHitResponseBlock:
       type: object
       properties:
@@ -1823,27 +2161,27 @@ components:
     MonitorFactorName:
       type: string
       enum:
-      - Company Name Change
-      - Financial Regulator
-      - Law Enforcement
-      - Deceased
-      - Sanctions
-      - Address Change
-      - Director Change
-      - Telephone Number Change
-      - Company Status Change
-      - 'Days Beyond Terms Change '
-      - Bankruptcy
-      - Possible OFAC
-      - PEP
-      - Disqualified Director
-      - Insolvency
-      - Adverse Media
+        - 'Company Name Change'
+        - 'Financial Regulator'
+        - 'Law Enforcement'
+        - 'Deceased'
+        - 'Sanctions'
+        - 'Address Change'
+        - 'Director Change'
+        - 'Telephone Number Change'
+        - 'Company Status Change'
+        - 'Days Beyond Terms Change '
+        - 'Bankruptcy'
+        - 'Possible OFAC'
+        - 'PEP'
+        - 'Disqualified Director'
+        - 'Insolvency'
+        - 'Adverse Media'
     MonitorThirdPartySource:
       type: string
       enum:
-      - creditsafe
-      - acuris_business_monitor
+        - 'creditsafe'
+        - 'acuris_business_monitor'
     MonitorDataHit:
       type: object
       properties:
@@ -1852,7 +2190,7 @@ components:
           items:
             $ref: '#/components/schemas/OFACHitAlert'
         intelligence_references:
-          $ref: '#/components/schemas/IntelligenceRef'
+            $ref: '#/components/schemas/IntelligenceRef'
     IntelligenceRef:
       type: object
       properties:
@@ -1894,57 +2232,58 @@ components:
           $ref: '#/components/schemas/MonitorFactor'
     MonitoringRules:
       type: string
-      description: The name of configured monitoring rule
-      example: Monitor Rule
+      description: 'The name of configured monitoring rule'
+      example:
+        'Monitor Rule'
     MonitorFactor:
       type: string
-      description: Factors which are used for monitoring
+      description: 'Factors which are used for monitoring'
       enum:
-      - B_BANKRUPTCY_EVENT_US
-      - B_POSSIBLE_OFAC_EVENT_US
-      - B_COMPANY_NAME_CHANGE_EVENT_XX
-      - B_NEGATIVE_FINANCIAL_REGULATOR
-      - B_NEGATIVE_LAW_ENFORCEMENT
-      - B_DECEASED_EVENT_XX
-      - B_NEGATIVE_SANCTIONS
-      - B_ADDRESS_CHANGE_EVENT_XX
-      - B_DIRECTOR_CHANGE_EVENT_XX
-      - B_TELEPHONE_NUMBER_CHANGE_EVENT_XX
-      - B_COMPANY_STATUS_EVENT_US
-      - B_DBT_CHANGE_EVENT_US
-      - B_NEGATIVE_HAS_PEP
-      - P_PEP_EVENT_XX
-      - P_SANCTION_EVENT_XX
-      - P_DECEASED_EVENT_XX
-      - P_LAWENFORCEMENT_EVENT_XX
-      - P_FINANCIALREGULATOR_EVENT_XX
-      - P_DISQUALIFIEDDIRECTOR_EVENT_XX
-      - P_INSOLVENT_EVENT_XX
-      - P_ADVERSEMEDIA_EVENT_XX
+        - 'B_BANKRUPTCY_EVENT_US'
+        - 'B_POSSIBLE_OFAC_EVENT_US'
+        - 'B_COMPANY_NAME_CHANGE_EVENT_XX'
+        - 'B_NEGATIVE_FINANCIAL_REGULATOR'
+        - 'B_NEGATIVE_LAW_ENFORCEMENT'
+        - 'B_DECEASED_EVENT_XX'
+        - 'B_NEGATIVE_SANCTIONS'
+        - 'B_ADDRESS_CHANGE_EVENT_XX'
+        - 'B_DIRECTOR_CHANGE_EVENT_XX'
+        - 'B_TELEPHONE_NUMBER_CHANGE_EVENT_XX'
+        - 'B_COMPANY_STATUS_EVENT_US'
+        - 'B_DBT_CHANGE_EVENT_US'
+        - 'B_NEGATIVE_HAS_PEP'
+        - 'P_PEP_EVENT_XX'
+        - 'P_SANCTION_EVENT_XX'
+        - 'P_DECEASED_EVENT_XX'
+        - 'P_LAWENFORCEMENT_EVENT_XX'
+        - 'P_FINANCIALREGULATOR_EVENT_XX'
+        - 'P_DISQUALIFIEDDIRECTOR_EVENT_XX'
+        - 'P_INSOLVENT_EVENT_XX'
+        - 'P_ADVERSEMEDIA_EVENT_XX'
     MonitorDecision:
       type: string
-      description: Monitoring decision
+      description: 'Monitoring decision'
       enum:
-      - ALERT
-      - IGNORE
+        - 'ALERT'
+        - 'IGNORE'
     DecisionMade:
       type: string
-      description: Has OFAC hits? 1= Yes 0= No
+      description: 'Has OFAC hits? 1= Yes 0= No'
       enum:
-      - "0"
-      - "1"
+        - '0'
+        - '1'
     OFACHit:
       type: string
-      description: Has OFAC hits? 1= Yes 0= No
+      description: 'Has OFAC hits? 1= Yes 0= No'
       enum:
-      - "0"
-      - "1"
+        - '0'
+        - '1'
     MaterialChangeHit:
       type: string
-      description: Has Material Change hits? 1= Yes 0= No
+      description: 'Has Material Change hits? 1= Yes 0= No'
       enum:
-      - "0"
-      - "1"
+        - '0'
+        - '1'
     GetBankRequest:
       type: object
       properties:
@@ -1991,9 +2330,6 @@ components:
         bank_account_type:
           $ref: '#/components/schemas/BankAccountTypeRetrieve'
     RetrieveIntelligenceFullRequest:
-      required:
-      - application_reference
-      - reports
       type: object
       properties:
         application_reference:
@@ -2002,21 +2338,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportBlock'
-    RetrieveIntelligenceFullResponse:
       required:
+      - application_reference
       - reports
-      - result
+    RetrieveIntelligenceFullResponse:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/Result'
         reports:
-          $ref: '#/components/schemas/RetrieveIntelligenceFullResponse_reports'
+          type: object
+          properties:
+            PEP_SANCTION_PRINCIPAL:
+              $ref: '#/components/schemas/PepSancPrincipal'
+            PEP_SANCTION_BUSINESS:
+              $ref: '#/components/schemas/PepSancBusiness'
+      required:
+      - result
+      - reports
     RetrieveHitRequest:
       type: object
       properties:
         search:
-          $ref: '#/components/schemas/RetrieveHitRequest_search'
+          type: object
+          properties:
+            merchant_id:
+              $ref: '#/components/schemas/MID'
+            decision_made:
+              type: string
+              description: 'Decision already made? 1= Yes 0= No'
+              enum:
+                - '1'
+                - '0'
     RetrieveMonitoringRequest:
       type: object
       properties:
@@ -2038,12 +2391,15 @@ components:
     ReportType:
       type: string
       enum:
-      - NEW_SANCTION_REPORT
+        - 'NEW_SANCTION_REPORT'
     OverwriteMonitorRequest:
       type: object
       properties:
         merchant:
-          $ref: '#/components/schemas/OverwriteMonitorRequest_merchant'
+          type: object
+          properties:
+            merchant_id:
+              $ref: '#/components/schemas/MID'
         review_note:
           $ref: '#/components/schemas/ReviewNote'
         report_reference:
@@ -2075,7 +2431,10 @@ components:
       type: object
       properties:
         application:
-          $ref: '#/components/schemas/MonitorFullReportDetail_request_reference'
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
         overwrite:
           type: array
           items:
@@ -2088,25 +2447,54 @@ components:
         operation:
           $ref: '#/components/schemas/AMLOverwriteOperation'
         additionalProperties:
-          $ref: '#/components/schemas/OverwriteAMLResponseBlock_additionalProperties'
+          type: object
+          properties:
+            hash_key:
+              type: string
+            entity_type:
+              $ref: '#/components/schemas/EntityType'
+            report_type:
+              $ref: '#/components/schemas/ReportType'
+            parent_type:
+              $ref: '#/components/schemas/ParentType'
+            alliance_unique_id:
+              $ref: '#/components/schemas/AllianceID'
+            partner_unique_id:
+              $ref: '#/components/schemas/PartnerID'
+            third_party_source:
+              $ref: '#/components/schemas/ThirdPartySource'
+            request_data:
+              $ref: '#/components/schemas/IntelligenceCompanyBlock'
+            response_data:
+              $ref: '#/components/schemas/IntelligencePrincipalBlock'
+            date_added:
+              $ref: '#/components/schemas/DateTime'
+            date_updated:
+              $ref: '#/components/schemas/DateTime'
+            expiry_date:
+              $ref: '#/components/schemas/Date'
+            original_copy:
+              $ref: '#/components/schemas/OriginalCopy'
+            is_test_data:
+              $ref: '#/components/schemas/IsTestData'
     OriginalCopy:
       type: string
       enum:
-      - "0"
-      - "1"
+        - '0'
+        - '1'
     IsTestData:
       type: string
       enum:
-      - "0"
-      - "1"
+        - '0'
+        - '1'
     PartnerID:
       type: string
-      description: Alliance unique ID in the system in Exchange
-      example: "160000999"
+      example: '160000999'
+      description: 'Alliance unique ID in the system in Exchange'
     AllianceID:
       type: string
-      description: Alliance unique ID in the system in Exchange
-      example: "160000777"
+      example: '160000777'
+      description: 'Alliance unique ID in the system in Exchange'
     AMLOverwriteOperation:
       type: object
       properties:
@@ -2136,8 +2524,8 @@ components:
             $ref: '#/components/schemas/PossibleMatchOverwriteBlock'
     ReviewNote:
       type: string
-      description: A note from the reviewer
-      example: This is my review
+      description: 'A note from the reviewer'
+      example: 'This is my review'
     PossibleMatchOverwriteBlock:
       type: object
       properties:
@@ -2207,7 +2595,10 @@ components:
         entity_type:
           $ref: '#/components/schemas/EntityType'
         request_reference:
-          $ref: '#/components/schemas/MonitorFullReportDetail_request_reference'
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
         company:
           $ref: '#/components/schemas/IntelligenceCompanyBlock'
         person:
@@ -2220,10 +2611,95 @@ components:
       type: object
       properties:
         business:
-          $ref: '#/components/schemas/IntelligenceCompanyBlock_business'
+          type: object
+          properties:
+            business_ref:
+              $ref: '#/components/schemas/EntityReference'
+            country_code:
+              $ref: '#/components/schemas/CountryCodeLetter'
+            business_name:
+              $ref: '#/components/schemas/BusinessName'
+            mcc_code:
+              $ref: '#/components/schemas/MCC'
+            registration_number:
+              $ref: '#/components/schemas/RegNumber'
+            incorporated_date:
+              $ref: '#/components/schemas/DateOnly'
+            business_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            business_sub_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            tax_id:
+              $ref: '#/components/schemas/TaxID'
+            address:
+              $ref: '#/components/schemas/AddressReportShort'
+            principals:
+              type: object
+              properties:
+                principal_ref:
+                  $ref: '#/components/schemas/EntityReference'
+                forename:
+                  $ref: '#/components/schemas/FirstName'
+                surname:
+                  $ref: '#/components/schemas/LastName'
+                date_of_birth:
+                  $ref: '#/components/schemas/Date'
+                email:
+                  $ref: '#/components/schemas/Email'
+                ownership_percentage:
+                  $ref: '#/components/schemas/OwnershipPerc'
+                nationality:
+                  $ref: '#/components/schemas/EntityReference'
+                current_address:
+                  $ref: '#/components/schemas/ReportAddressBlock'
+                role:
+                  $ref: '#/components/schemas/Position'
+            decision_purpose:
+              type: string
+              enum: 
+              - BOARDING
         outlet:
-          $ref: '#/components/schemas/IntelligenceCompanyBlock_outlet'
-    ReportBankShort:
+          type: object
+          properties:
+            outlet_ref:
+              $ref: '#/components/schemas/EntityReference'
+            trading_name:
+              $ref: '#/components/schemas/BusinessName'
+            mcc_code:
+              $ref: '#/components/schemas/EntityReference'
+            average_delivery_days:
+              $ref: '#/components/schemas/DeliveryDay'
+            delivery_0_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_1_to_7_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_8_to_14_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_15_to_30_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_over_30_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            outlet_type:
+              type: string
+              enum:
+              - FACE_TO_FACE
+            monthly_card_turnover:
+              $ref: '#/components/schemas/MCardATO'
+            monthly_turnover:
+              $ref: '#/components/schemas/MATO'
+            annual_turnover:
+              $ref: '#/components/schemas/ATO'
+            annual_card_turnover:
+              $ref: '#/components/schemas/CardATO'
+            average_transaction_value:
+              $ref: '#/components/schemas/ATV'
+            address:
+              $ref: '#/components/schemas/AddressReportShort'
+            bank: 
+              type: array
+              items:
+                $ref: '#/components/schemas/ReportBankShort'
+    ReportBankShort: 
       type: object
       properties:
         bank_ref:
@@ -2236,11 +2712,18 @@ components:
           $ref: '#/components/schemas/dda'
         account_type:
           type: string
-          example: IBAN
+          example: 'IBAN'
         business_type:
           $ref: '#/components/schemas/BusinessLegalEntity'
-        proprietor:
-          $ref: '#/components/schemas/ReportBankShort_proprietor'
+        proprietor: 
+          type: object
+          properties:
+            first_name:
+              $ref: '#/components/schemas/FirstName'
+            surname:
+              $ref: '#/components/schemas/LastName'
+            date_of_birth:
+              $ref: '#/components/schemas/Date'
     AddressReportShort:
       type: object
       properties:
@@ -2254,10 +2737,12 @@ components:
           $ref: '#/components/schemas/CountryCodeLetter'
     MCardATO:
       type: string
-      example: "20000.00"
+      example:
+        "20000.00"
     MATO:
       type: string
-      example: "20000.00"
+      example:
+        "20000.00"
     ReportAddressBlock:
       type: object
       properties:
@@ -2303,32 +2788,99 @@ components:
           items:
             $ref: '#/components/schemas/possibleMatch'
         overall_evaluation:
-          $ref: '#/components/schemas/MonitorFullReportDetail_intelligence_report_overall_evaluation'
+          type: object
+          properties:
+            negative_hit:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            pep_hits:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            enforcement_hits:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            sanctions_hits:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            previous_sanctions:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            financial_regulator:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            disqualified_director_match:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            adverse_media_match:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            insolvent_match:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            deceased:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            business_has_pep:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
         original_status:
           type: string
-          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
           enum:
           - PM
           - EM
           - NM
         status:
           type: string
-          description: decision made from user
+          description: 'decision made from user'
           enum:
           - PM
           - EM
           - NM
         is_overwritten:
           type: string
-          description: 1 = Yes, 0 = No
+          description: '1 = Yes, 0 = No'
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         third_party_source:
           type: string
-          description: decision made from user
+          description: 'decision made from user'
           enum:
           - AcurisSearch
         date_updated:
@@ -2341,32 +2893,99 @@ components:
           items:
             $ref: '#/components/schemas/possibleMatch'
         overall_evaluation:
-          $ref: '#/components/schemas/MonitorFullReportDetail_intelligence_report_overall_evaluation'
+          type: object
+          properties:
+            negative_hit:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            pep_hits:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            enforcement_hits:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            sanctions_hits:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            previous_sanctions:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            financial_regulator:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            disqualified_director_match:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            adverse_media_match:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            insolvent_match:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            deceased:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
+            business_has_pep:
+              type: string
+              enum:
+              - PM
+              - EM
+              - NM
         original_status:
           type: string
-          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
           enum:
           - PM
           - EM
           - NM
         status:
           type: string
-          description: decision made from user
+          description: 'decision made from user'
           enum:
           - PM
           - EM
           - NM
         is_overwritten:
           type: string
-          description: 1 = Yes, 0 = No
+          description: '1 = Yes, 0 = No'
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         third_party_source:
           type: string
-          description: decision made from user
+          description: 'decision made from user'
           enum:
           - AcurisSearch
         date_updated:
@@ -2388,24 +3007,24 @@ components:
           $ref: '#/components/schemas/EntityReference'
         original_status:
           type: string
-          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
           enum:
           - PM
           - EM
           - NM
         status:
           type: string
-          description: decision made from user
+          description: 'decision made from user'
           enum:
           - PM
           - EM
           - NM
         is_overwritten:
           type: string
-          description: 1 = Yes, 0 = No
+          description: '1 = Yes, 0 = No'
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         watchlist:
@@ -2421,7 +3040,11 @@ components:
           type: number
           example: 8101182
         title:
-          $ref: '#/components/schemas/possibleMatchBusinessBlock_title'
+          type: object
+          properties:
+            description:
+              type: string
+              example: "Ms"
         alternativeTitle:
           type: string
         first_name:
@@ -2441,15 +3064,19 @@ components:
         isDeceased:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         gender:
           type: string
           enum:
           - Male
           - Female
         nationality:
-          $ref: '#/components/schemas/possibleMatchBusinessBlock_nationality'
+          type: object
+          properties:
+            nationality:
+              type: string
+              example: "American"
         imageURL:
           type: string
         telephone_number:
@@ -2465,77 +3092,78 @@ components:
         isPEP:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isSanctionsCurrent:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isSanctionsPrevious:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isLawEnforcement:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isFinancialregulator:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isDisqualifiedDirector:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isInsolvent:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isAdverseMedia:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         addresses:
           type: array
-          items:
+          items: 
             $ref: '#/components/schemas/Addresses'
         aliases:
           type: array
-          example: []
           items: {}
+          example: []
         sanctions:
           type: array
-          example: []
           items: {}
+          example: []
         notes:
           type: array
-          items:
+          items: 
             $ref: '#/components/schemas/ReportNote'
         linkedBusinesses:
           type: array
-          example: []
           items: {}
+          example: []
         linkedPersons:
           type: array
-          items:
+          items: 
             $ref: '#/components/schemas/LinkedPersonReport'
         politicalPositions:
           type: array
-          example: []
           items: {}
+          example: []
         external_link:
           type: object
           additionalProperties:
             type: array
-            items:
+            items: 
               $ref: '#/components/schemas/Link'
+      
     possibleMatch:
       type: object
       properties:
@@ -2551,24 +3179,24 @@ components:
           $ref: '#/components/schemas/EntityReference'
         original_status:
           type: string
-          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
           enum:
           - PM
           - EM
           - NM
         status:
           type: string
-          description: decision made from user
+          description: 'decision made from user'
           enum:
           - PM
           - EM
           - NM
         is_overwritten:
           type: string
-          description: 1 = Yes, 0 = No
+          description: '1 = Yes, 0 = No'
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         watchlist:
@@ -2579,31 +3207,31 @@ components:
           $ref: '#/components/schemas/DateyMdTime'
     DateyMdTime:
       type: string
-      example: 2022-Mar-18 13:02:38
+      example: '2022-Mar-18 13:02:38'
     creditReference:
       type: object
       properties:
         disqualified_director_match:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         adverse_media_match:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         insolvent_match:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         deceased:
           type: string
-          description: 1 = Yes, 0 = No
+          description: '1 = Yes, 0 = No'
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         date_of_death:
           $ref: '#/components/schemas/Date'
     watchlistReport:
@@ -2612,33 +3240,33 @@ components:
         pep_hits:
           type: string
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         pep_level:
           type: string
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         enforcement_hits:
           type: string
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         sanctions_hits:
           type: string
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         previous_sanctions:
           type: string
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
         financial_regulator:
           type: string
           enum:
-          - "1"
-          - "0"
+          - 1
+          - 0
     reviewInfo:
       type: object
       properties:
@@ -2657,7 +3285,11 @@ components:
           type: number
           example: 8101182
         title:
-          $ref: '#/components/schemas/possibleMatchBusinessBlock_title'
+          type: object
+          properties:
+            description:
+              type: string
+              example: "Ms"
         alternativeTitle:
           type: string
         first_name:
@@ -2677,15 +3309,19 @@ components:
         isDeceased:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         gender:
           type: string
           enum:
           - Male
           - Female
         nationality:
-          $ref: '#/components/schemas/possibleMatchBusinessBlock_nationality'
+          type: object
+          properties:
+            nationality:
+              type: string
+              example: "American"
         imageURL:
           type: string
         telephone_number:
@@ -2701,76 +3337,76 @@ components:
         isPEP:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isSanctionsCurrent:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isSanctionsPrevious:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isLawEnforcement:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isFinancialregulator:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isDisqualifiedDirector:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isInsolvent:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         isAdverseMedia:
           type: string
           enum:
-          - "true"
-          - "false"
+          - true
+          - false
         addresses:
           type: array
-          items:
+          items: 
             $ref: '#/components/schemas/Addresses'
         aliases:
           type: array
-          example: []
           items: {}
+          example: []
         sanctions:
           type: array
-          example: []
           items: {}
+          example: []
         notes:
           type: array
-          items:
+          items: 
             $ref: '#/components/schemas/ReportNote'
         linkedBusinesses:
           type: array
-          example: []
           items: {}
+          example: []
         linkedPersons:
           type: array
-          items:
+          items: 
             $ref: '#/components/schemas/LinkedPersonReport'
         politicalPositions:
           type: array
-          example: []
           items: {}
+          example: []
         external_link:
           type: object
           additionalProperties:
             type: array
-            items:
+            items: 
               $ref: '#/components/schemas/Link'
     Link:
       type: string
@@ -2808,16 +3444,20 @@ components:
         postcode:
           $ref: '#/components/schemas/ZipCode'
         country:
-          $ref: '#/components/schemas/Addresses_country'
+          type: object
+          properties:
+            name:
+              type: string
+              example: "United States of America"
     CountryCodeLetter:
       type: string
-      example: USA
+      example: "USA"
     DateOnly:
       type: string
-      example: 13-06-2000
+      example: "13-06-2000"
     DateTime:
       type: string
-      example: 2022-01-01 12:00:00
+      example: "2022-01-01 12:00:00"
     ReportBlock:
       type: object
       properties:
@@ -2826,19 +3466,62 @@ components:
         intelligence_ref:
           $ref: '#/components/schemas/EntityReference'
     RetrieveIntelligenceRequest:
-      required:
-      - application
       type: object
       properties:
         application:
-          $ref: '#/components/schemas/MonitorFullReportDetail_request_reference'
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+      required:
+      - application
     RetrieveIntelligenceResponse:
       type: object
       properties:
         application_reference:
-          $ref: '#/components/schemas/ApplicationRef'
+           $ref: '#/components/schemas/ApplicationRef'
         aml_check_response:
-          $ref: '#/components/schemas/RetrieveIntelligenceResponse_aml_check_response'
+          type: object
+          properties:
+            check_purpose:
+              type: string
+              enum:
+              - BOARDING
+            decision:
+              type: string
+              enum:
+              - REFER
+              - PREAPPROVE
+              - APPROVE
+            original_decision:
+              type: string
+              enum:
+              - REFER
+              - PREAPPROVE
+              - APPROVE
+            risk_band_id:
+              type: string
+              example: "1"
+            original_risk_band_id:
+              type: string
+              example: "1"
+            entity_decisions:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityDecisionsBlock'
+            intelligence_references:
+              type: array
+              items:
+                $ref: '#/components/schemas/IntelligenceReferenceBlock'
+            aml_reviewer:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/Reviewer'
+                user_name:
+                  $ref: '#/components/schemas/UserName'
+                email:
+                  $ref: '#/components/schemas/Email'
     EntityDecisionsBlock:
       type: object
       properties:
@@ -2886,19 +3569,23 @@ components:
       - PRINCIPAL
       - BUSINESS
     EntityReference:
-      maxLength: 24
-      minLength: 24
       type: string
-      example: 6234795714d105062c143e92
+      minLength: 24
+      maxLength: 24
+      example: 
+        "6234795714d105062c143e92"
     Name:
       type: string
-      example: Miss Megan Sharp
+      example:
+        "Miss Megan Sharp"
     Reviewer:
       type: string
-      example: John Doe
+      example:
+        "John Doe"
     UserName:
       type: string
-      example: pfac.user
+      example:
+        "pfac.user"
     Get_Trade_Account_Request:
       required:
       - currency
@@ -3063,6 +3750,9 @@ components:
       - currency
       - merchant_id
       - total_amount
+      - transaction_type
+      - transaction_date
+      - split_details
       type: object
       properties:
         processing_merchant_id:
@@ -3085,6 +3775,8 @@ components:
           $ref: '#/components/schemas/AuthCode'
         invoice_id:
           $ref: '#/components/schemas/InvoiceID'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
         split_details:
           $ref: '#/components/schemas/TrasnactionSplitDetail'
       description: Instruction request
@@ -3118,6 +3810,8 @@ components:
           $ref: '#/components/schemas/SplitTransactionResponse_summary'
     SplitFundingStatusRequest:
       type: object
+      required:
+        - transaction_date
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
@@ -3127,6 +3821,8 @@ components:
           $ref: '#/components/schemas/InvoiceID'
         transaction_date:
           $ref: '#/components/schemas/Date'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
     SplitFundingStatusResponse:
       type: object
       properties:
@@ -3150,6 +3846,8 @@ components:
           $ref: '#/components/schemas/AuthCode'
         invoice_id:
           $ref: '#/components/schemas/InvoiceID'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
         split_details:
           $ref: '#/components/schemas/TrasnactionSplitDetail'
         status:
@@ -3162,14 +3860,21 @@ components:
           - FAILED
           - REPROCESS
           - DISCARDED
+    CaseNumber:
+      type: string
+      description: 'Case number from the chargeback or chargeback reversal transaction'
+      example: "812669"
+      minLength: 1
+      maxLength: 20
     TransactionType:
       type: string
-      description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback'
+      description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback, 4-Chargeback Reversal'
       example: "1"
       enum:
       - "1"
       - "2"
       - "3"
+      - "4"
     TransactionId:
       maxLength: 20
       type: string
@@ -3239,7 +3944,7 @@ components:
       type: string
       description: date
       format: yyyy-mm-dd
-      example: 2019-08-30T00:00:00.000+0000
+      example: 2019-08-30
     transaction:
       type: object
       properties:
@@ -3284,7 +3989,7 @@ components:
           example: "8888000000493032"
         funded_date:
           type: string
-          example: 2019-07-08T00:00:00.000+0000
+          example: 2019-07-08
         card_type:
           type: string
           example: "00001"
@@ -3299,7 +4004,7 @@ components:
           example: "009070806150"
         batch_date:
           type: string
-          example: 2019-07-08T00:00:00.000+0000
+          example: 2019-07-08
         authorization_code:
           type: string
           example: 00881P
@@ -3314,7 +4019,7 @@ components:
           example: MCWDV18EB
         transaction_date:
           type: string
-          example: 2019-07-08T00:00:00.000+0000
+          example: 2019-07-08
         transaction_amount:
           type: number
           example: 80
@@ -3377,7 +4082,7 @@ components:
           example: 80
         authorization_date:
           type: string
-          example: 0021-07-07T00:00:00.000+0000
+          example: 0021-07-07
         transaction_time:
           type: string
           example: 0800:00:00
@@ -3585,7 +4290,7 @@ components:
       type: string
       description: Settlement date
       format: yyyy-mm-dd
-      example: 2019-08-30T00:00:00.000+0000
+      example: 2019-08-30
     settlement_type:
       type: string
       description: The type of settlement, credit or debit
@@ -3625,7 +4330,7 @@ components:
       type: string
       description: Effective date
       format: yyyy-mm-dd
-      example: 2019-08-30T00:00:00.000+0000
+      example: 2019-08-30
     Reprocess_Settlement_RejectRequest:
       required:
       - settlement_ref
@@ -3679,7 +4384,45 @@ components:
         amount:
           type: string
           description: Amount to be funded to this account
-      description: An account block
+        split_details:
+          $ref: '#/components/schemas/SplitAccounts'
+    SplitAccounts:  
+      type: object
+      properties:
+        account_type:
+          type: string
+          enum: 
+            - 'SPLIT_ACCOUNT' 
+        amount:
+          type: string
+          example: '0.00'
+        split_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitAccountArray'
+    SplitAccountArray:
+      type: object
+      properties:
+        total_amount:
+          type: string
+          example: "0.00"
+        merchant_id:
+          $ref: '#/components/schemas/MID'
+        account:
+          type: array
+          items:
+            $ref: '#/components/schemas/SplitAccountsArrays'
+    SplitAccountsArrays:
+      type: object
+      properties:
+        account_type:
+          type: string
+          enum: 
+            - 'REVENUE_ACCOUNT' 
+            - 'FEE_ACCOUNT'
+            - 'PFAC_REVENUE_ACCOUNT'
+        amount:
+          type: string
     AccountResponse:
       required:
       - account_type
@@ -3727,6 +4470,24 @@ components:
         amount: "1000.00"
       - account_type: FEE_ACCOUNT
         amount: "100.00"
+      - account_type: SPLIT_ACCOUNT
+        amount: "0.00"
+        split_details: [
+                {
+                    "total_amount": "0.00",
+                    "merchant_id": "700100000006327",
+                    "accounts": [
+                        {
+                            "account_type": "REVENUE_ACCOUNT",
+                            "amount": "-5.00"
+                        },
+                        {
+                            "account_type": "FEE_ACCOUNT",
+                            "amount": "5.00"
+                        }
+                    ]
+                }
+            ]
       items:
         $ref: '#/components/schemas/Account'
     AccountsArrayResponse:
@@ -4791,7 +5552,7 @@ components:
     OfferDate:
       type: string
       description: 'Available date of the package from: yyyy-mm-dd hh:mm:ss'
-      example: 2021-01-01T00:00:00.000+0000
+      example: 2021-01-01
     Order:
       type: string
       description: Item order in this offering
@@ -4828,11 +5589,11 @@ components:
         offer_code_from:
           type: string
           description: 'Available date of the package from: yyyy-dd-mm 00:00:00'
-          example: 2021-01-01T00:00:00.000+0000
+          example: 2021-01-01
         offer_code_to:
           type: string
           description: 'Available date of the package until: yyyy-dd-mm 00:00:00'
-          example: 2021-01-12T00:00:00.000+0000
+          example: 2021-01-12
         offer_code_status:
           type: string
           description: 'Offer code active: 1 Active 2 Inactive'
@@ -6122,7 +6883,7 @@ components:
         service:
           type: array
           items:
-            $ref: '#/components/schemas/OnlineService'
+            $ref: '#/components/schemas/EquipmentService'
         service_charges:
           $ref: '#/components/schemas/ServiceChargesBlock'
     ServiceChargesBlock:
@@ -6263,21 +7024,6 @@ components:
           $ref: '#/components/schemas/Date'
         date_updated:
           $ref: '#/components/schemas/Date'
-    OnlineService:
-      type: object
-      properties:
-        service_api_code:
-          $ref: '#/components/schemas/APICode'
-        service_external_id:
-          $ref: '#/components/schemas/ExtID'
-        service_type:
-          $ref: '#/components/schemas/ServiceType'
-        service_for:
-          $ref: '#/components/schemas/EquipmentServiceFor'
-        service_for_group:
-          $ref: '#/components/schemas/EquipmentServiceForGroup'
-        service_name:
-          $ref: '#/components/schemas/ItemName'
     SettlementFrequency:
       type: string
       description: Settlement Funding or Billing Frequency - 1= Daily 2= Weekly 3=Monthly
@@ -6377,14 +7123,6 @@ components:
       type: string
       description: Service for Equipment as Value Added Services
       example: POS_VAS
-    ServiceType:
-      type: string
-      description: Service type for Equipment
-      example: VAR
-    EquipmentServiceForGroup:
-      type: string
-      description: Service for Group
-      example: ONLINE_PRODUCT
     APICode:
       type: string
       description: the identifier for API
@@ -6788,8 +7526,8 @@ components:
       type: string
       description: 'Is active item? - 1: Yes 0: No'
       enum:
-      - "1"
       - "0"
+      - "1"
     ItemName:
       type: string
       description: Item Name
@@ -6897,13 +7635,13 @@ components:
     DDA:
       type: string
       description: Merchant bank DDA
-      example: "123456789000"
+      example: '123456789000'
     ABA:
       maxLength: 9
       minLength: 9
       type: string
       description: Merchant bank ABA
-      example: "123456789"
+      example: '123456789'
     BankAccountType:
       type: string
       description: Account Type - c= checking s= saving
@@ -6913,14 +7651,14 @@ components:
     BankAccountTypeRetrieve:
       type: string
       enum:
-      - CHECKING
-      - SAVING
+      - 'CHECKING'
+      - 'SAVING'
     BankFor:
       type: string
       enum:
-      - CREDIT
-      - DEBIT
-      - CHARGEBACK
+      - 'CREDIT'
+      - 'DEBIT'
+      - 'CHARGEBACK'
     LegalName:
       type: string
       description: Business legal name
@@ -6966,16 +7704,13 @@ components:
       description: IRS Status - Not Excluded, Foreign Entity Verfication Pending, Foreign Entity Identified before '1/1/11' , Foreign Identity Verified, Non Profit Verification Pending, Non Profit Verified, Goverment Entity, Financial Institution
       enum:
       - "N"
-      - A
-      - B
-      - F
-      - D
-      - C
-      - G
-      - J
-    IrsName:
-      type: string
-      description: IRS filing name
+      - "A"
+      - "B"
+      - "F"
+      - "D"
+      - "C"
+      - "G"
+      - "J"
     ProjectName:
       type: string
       description: Project Name
@@ -6989,11 +7724,14 @@ components:
       type: string
       description: Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant
       enum:
-      - R
-      - MOTO
-      - E
-      - H
-      - RT
+      - "R"
+      - "MOTO"
+      - "E"
+      - "H"
+      - "RT"
+    IrsName:
+      type: string
+      description: IRS filing name
     TinType:
       type: string
       description: 1 = SSN, 2 = EIN, 3 = OTHER TAX ID
@@ -7019,7 +7757,7 @@ components:
     Date:
       type: string
       description: date mm-dd-yyyy
-      example: 2020-01-01
+      example: '2020-01-01'
     ATV:
       type: string
       description: average ticket sales amount
@@ -7148,13 +7886,7 @@ components:
       enum:
       - Mr.
       - Mrs.
-      - Ms.
-      - Miss.
-      - Madam
-      - Dr.
-      - Sr.
-      - Jr.
-      - Sir.
+      - Miss
     FirstName:
       type: string
       description: First name
@@ -7176,14 +7908,14 @@ components:
       description: Position in the company
       example: CEO
       enum:
-      - TR
-      - OW
-      - PA
-      - CEO
-      - SEC
-      - DIR
-      - OTH
-      - SP
+          - "TR"
+          - "OW"
+          - "PA"
+          - "CEO"
+          - "SEC"
+          - "DIR"
+          - "OTH"
+          - "SP"
     Email:
       type: string
       description: Email addess
@@ -7280,31 +8012,31 @@ components:
       type: string
       description: 'Business Zone: Business District, Industrial, Residential'
       enum:
-      - B
-      - I
-      - R
+      - "B"
+      - "I"
+      - "R"
     BusinessLocation:
       type: string
-      description: Business Location - APT , Door to Door, Flea Market/Kiosk, Home, Isolated, Mall, Office, Other, Shopping Area
+      description: 'Business Location - APT , Door to Door, Flea Market/Kiosk, Home, Isolated, Mall, Office, Other, Shopping Area'
       enum:
-      - A
-      - D
-      - F
-      - H
-      - I
-      - M
-      - O
-      - U
-      - S
+      - "A"
+      - "D"
+      - "F"
+      - "H"
+      - "I"
+      - "M"
+      - "O"
+      - "U"
+      - "S"
     GroundFloor:
       type: string
-      description: On ground floor?
+      description: 'On ground floor?'
       enum:
-      - G
-      - O
+      - "G"
+      - "O"
     SqFtCount:
       type: string
-      description: Square ft count 1 - 250 2 - 251-500 3 - 2000 4- 2000+
+      description: 'Square ft count 1 - 250 2 - 251-500 3 - 2000 4- 2000+'
       enum:
       - "1"
       - "2"
@@ -7312,7 +8044,7 @@ components:
       - "4"
     NoBuildingFloors:
       type: string
-      description: If ground floor = O
+      description: 'If ground floor = O'
       enum:
       - "1"
       - "2"
@@ -7320,16 +8052,16 @@ components:
       - "4"
     VisitationRequired:
       type: string
-      description: Is Visitation Required? 0 = no 1 = yes
+      description: 'Is Visitation Required? 0 = no 1 = yes'
       enum:
       - "0"
       - "1"
     StatementType:
       type: string
-      description: FCDS Detail, FDCS Summary
+      description: 'FCDS Detail, FDCS Summary'
       enum:
-      - F
-      - G
+      - "F"
+      - "G"
     TransProcessMode:
       type: string
       description: 'Transaction Process Mode: Paper Deposits/Voice Auth, Batch Auth and Deposit, Electronic Cash Register, Electronic Draft Capture, Tape Depositor, Peaper Deposits/Terminal Auth, On = US Cash advance outlet, Reserved for Future use, Funding Account Only'
@@ -7756,7 +8488,7 @@ components:
           example: "1"
         to:
           type: string
-          description: The price of this tier will apply to this number of the transaction do not present if there is no ending number
+          description: 'The price of this tier will apply to this number of the transaction do not present if there is no ending number'
           example: "100"
     Criteria_business_address:
       type: object
@@ -7801,7 +8533,7 @@ components:
           type: string
           description: __Description:__ Time
           format: YYYY-MM-DD HH:MM:SS
-          example: 2018-05-27 12:34:23
+          example: "2018-05-27 12:34:23"
         explanation:
           type: string
           description: __Description:__ Explanation
@@ -7811,450 +8543,3 @@ components:
       properties:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
-    MonitorCreditSafeFullReportDetail_corporate_financials_payment_performance:
-      type: object
-      properties:
-        monthly_data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitorCreditFinancialMonthly'
-      example: null
-    MonitorCreditSafeFullReportDetail_corporate_financials:
-      type: object
-      properties:
-        financial_accounts:
-          type: string
-        payment_performance:
-          $ref: '#/components/schemas/MonitorCreditSafeFullReportDetail_corporate_financials_payment_performance'
-        trade_payment:
-          $ref: '#/components/schemas/MonitorCreditFinTradePayment'
-        percentage_change:
-          $ref: '#/components/schemas/MonitorCreditFinPercChange'
-        ltd_company_cais:
-          $ref: '#/components/schemas/MonitorCreditFinCAI'
-      example: null
-    MonitorCreditSafeFullReportDetail_corporate_summary:
-      type: object
-      properties:
-        company_summary:
-          $ref: '#/components/schemas/MonitorCreditSumCompany'
-        director_summary:
-          $ref: '#/components/schemas/MonitorCreditSumDirector'
-      example: null
-    MonitorCreditSumCompany_changes:
-      type: object
-      properties:
-        number_reg_office_changes_last_12_month:
-          type: string
-        number_mem_arts_changes_last_12_month:
-          type: string
-      example: null
-    MonitorCreditSumCompany_legal_notices:
-      type: object
-      properties:
-        summary_count:
-          type: string
-      example: null
-    MonitorCreditSumCompany_alerts:
-      type: object
-      properties:
-        notes_count:
-          type: string
-        notes:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: string
-      example: null
-    MonitorCreditSumBankrupt_filling_details:
-      type: object
-      properties:
-        filed_with:
-          type: string
-      example: null
-    MonitorCreditFinTradePayment_trade_payment_summary:
-      type: object
-      properties:
-        currency:
-          $ref: '#/components/schemas/Currency'
-        total_trades_number:
-          type: string
-        total_trades_balance:
-          type: string
-        continuous_trades_number:
-          type: string
-        recent_high_credit:
-          type: string
-      example: null
-    CorporateDirector_directors:
-      type: object
-      properties:
-        current_directors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitorCreditSafeDirector'
-      example: null
-    MonitorFullReportDetail_request_reference:
-      type: object
-      properties:
-        application_reference:
-          $ref: '#/components/schemas/ApplicationRef'
-      example: null
-    MonitorFullReportDetail_intelligence_report_overall_evaluation:
-      type: object
-      properties:
-        negative_hit:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        pep_hits:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        enforcement_hits:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        sanctions_hits:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        previous_sanctions:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        financial_regulator:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        disqualified_director_match:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        adverse_media_match:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        insolvent_match:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        deceased:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-        business_has_pep:
-          type: string
-          enum:
-          - PM
-          - EM
-          - NM
-      example: null
-    MonitorFullReportDetail_intelligence_report:
-      type: object
-      properties:
-        possible_matches:
-          type: array
-          items:
-            $ref: '#/components/schemas/possibleMatch'
-        overall_evaluation:
-          $ref: '#/components/schemas/MonitorFullReportDetail_intelligence_report_overall_evaluation'
-        original_status:
-          type: string
-          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
-          enum:
-          - PM
-          - EM
-          - NM
-        status:
-          type: string
-          description: decision made from user
-          enum:
-          - PM
-          - EM
-          - NM
-        is_overwritten:
-          type: string
-          description: 1 = Yes, 0 = No
-          enum:
-          - "1"
-          - "0"
-        review_info:
-          type: array
-          items:
-            $ref: '#/components/schemas/reviewInfo'
-      example: null
-    MonitorIntelligenceCompanyBlock_business:
-      type: object
-      properties:
-        business_ref:
-          $ref: '#/components/schemas/EntityReference'
-        country_code:
-          $ref: '#/components/schemas/CountryCodeLetter'
-        business_name:
-          $ref: '#/components/schemas/BusinessName'
-        mcc_code:
-          $ref: '#/components/schemas/MCC'
-        registration_number:
-          $ref: '#/components/schemas/RegNumber'
-        incorporated_date:
-          $ref: '#/components/schemas/Date'
-        business_type:
-          $ref: '#/components/schemas/BusinessLegalEntity'
-        business_sub_type:
-          $ref: '#/components/schemas/BusinessLegalEntity'
-        trading_name:
-          $ref: '#/components/schemas/BusinessName'
-        address:
-          $ref: '#/components/schemas/AddressReportShort'
-      example: null
-    RetrieveIntelligenceFullResponse_reports:
-      type: object
-      properties:
-        PEP_SANCTION_PRINCIPAL:
-          $ref: '#/components/schemas/PepSancPrincipal'
-        PEP_SANCTION_BUSINESS:
-          $ref: '#/components/schemas/PepSancBusiness'
-      example: null
-    RetrieveHitRequest_search:
-      type: object
-      properties:
-        merchant_id:
-          $ref: '#/components/schemas/MID'
-        decision_made:
-          type: string
-          description: Decision already made? 1= Yes 0= No
-          enum:
-          - "1"
-          - "0"
-      example: null
-    OverwriteMonitorRequest_merchant:
-      type: object
-      properties:
-        merchant_id:
-          $ref: '#/components/schemas/MID'
-      example: null
-    OverwriteAMLResponseBlock_additionalProperties:
-      type: object
-      properties:
-        hash_key:
-          type: string
-        entity_type:
-          $ref: '#/components/schemas/EntityType'
-        report_type:
-          $ref: '#/components/schemas/ReportType'
-        parent_type:
-          $ref: '#/components/schemas/ParentType'
-        alliance_unique_id:
-          $ref: '#/components/schemas/AllianceID'
-        partner_unique_id:
-          $ref: '#/components/schemas/PartnerID'
-        third_party_source:
-          $ref: '#/components/schemas/ThirdPartySource'
-        request_data:
-          $ref: '#/components/schemas/IntelligenceCompanyBlock'
-        response_data:
-          $ref: '#/components/schemas/IntelligencePrincipalBlock'
-        date_added:
-          $ref: '#/components/schemas/DateTime'
-        date_updated:
-          $ref: '#/components/schemas/DateTime'
-        expiry_date:
-          $ref: '#/components/schemas/Date'
-        original_copy:
-          $ref: '#/components/schemas/OriginalCopy'
-        is_test_data:
-          $ref: '#/components/schemas/IsTestData'
-      example: null
-    IntelligenceCompanyBlock_business_principals:
-      type: object
-      properties:
-        principal_ref:
-          $ref: '#/components/schemas/EntityReference'
-        forename:
-          $ref: '#/components/schemas/FirstName'
-        surname:
-          $ref: '#/components/schemas/LastName'
-        date_of_birth:
-          $ref: '#/components/schemas/Date'
-        email:
-          $ref: '#/components/schemas/Email'
-        ownership_percentage:
-          $ref: '#/components/schemas/OwnershipPerc'
-        nationality:
-          $ref: '#/components/schemas/EntityReference'
-        current_address:
-          $ref: '#/components/schemas/ReportAddressBlock'
-        role:
-          $ref: '#/components/schemas/Position'
-      example: null
-    IntelligenceCompanyBlock_business:
-      type: object
-      properties:
-        business_ref:
-          $ref: '#/components/schemas/EntityReference'
-        country_code:
-          $ref: '#/components/schemas/CountryCodeLetter'
-        business_name:
-          $ref: '#/components/schemas/BusinessName'
-        mcc_code:
-          $ref: '#/components/schemas/MCC'
-        registration_number:
-          $ref: '#/components/schemas/RegNumber'
-        incorporated_date:
-          $ref: '#/components/schemas/DateOnly'
-        business_type:
-          $ref: '#/components/schemas/BusinessLegalEntity'
-        business_sub_type:
-          $ref: '#/components/schemas/BusinessLegalEntity'
-        tax_id:
-          $ref: '#/components/schemas/TaxID'
-        address:
-          $ref: '#/components/schemas/AddressReportShort'
-        principals:
-          $ref: '#/components/schemas/IntelligenceCompanyBlock_business_principals'
-        decision_purpose:
-          type: string
-          enum:
-          - BOARDING
-      example: null
-    IntelligenceCompanyBlock_outlet:
-      type: object
-      properties:
-        outlet_ref:
-          $ref: '#/components/schemas/EntityReference'
-        trading_name:
-          $ref: '#/components/schemas/BusinessName'
-        mcc_code:
-          $ref: '#/components/schemas/EntityReference'
-        average_delivery_days:
-          $ref: '#/components/schemas/DeliveryDay'
-        delivery_0_days:
-          $ref: '#/components/schemas/DeliveryPerc'
-        delivery_1_to_7_days:
-          $ref: '#/components/schemas/DeliveryPerc'
-        delivery_8_to_14_days:
-          $ref: '#/components/schemas/DeliveryPerc'
-        delivery_15_to_30_days:
-          $ref: '#/components/schemas/DeliveryPerc'
-        delivery_over_30_days:
-          $ref: '#/components/schemas/DeliveryPerc'
-        outlet_type:
-          type: string
-          enum:
-          - FACE_TO_FACE
-        monthly_card_turnover:
-          $ref: '#/components/schemas/MCardATO'
-        monthly_turnover:
-          $ref: '#/components/schemas/MATO'
-        annual_turnover:
-          $ref: '#/components/schemas/ATO'
-        annual_card_turnover:
-          $ref: '#/components/schemas/CardATO'
-        average_transaction_value:
-          $ref: '#/components/schemas/ATV'
-        address:
-          $ref: '#/components/schemas/AddressReportShort'
-        bank:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportBankShort'
-      example: null
-    ReportBankShort_proprietor:
-      type: object
-      properties:
-        first_name:
-          $ref: '#/components/schemas/FirstName'
-        surname:
-          $ref: '#/components/schemas/LastName'
-        date_of_birth:
-          $ref: '#/components/schemas/Date'
-      example: null
-    possibleMatchBusinessBlock_title:
-      type: object
-      properties:
-        description:
-          type: string
-          example: Ms
-      example: null
-    possibleMatchBusinessBlock_nationality:
-      type: object
-      properties:
-        nationality:
-          type: string
-          example: American
-      example: null
-    Addresses_country:
-      type: object
-      properties:
-        name:
-          type: string
-          example: United States of America
-      example: null
-    RetrieveIntelligenceResponse_aml_check_response_aml_reviewer:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/Reviewer'
-        user_name:
-          $ref: '#/components/schemas/UserName'
-        email:
-          $ref: '#/components/schemas/Email'
-      example: null
-    RetrieveIntelligenceResponse_aml_check_response:
-      type: object
-      properties:
-        check_purpose:
-          type: string
-          enum:
-          - BOARDING
-        decision:
-          type: string
-          enum:
-          - REFER
-          - PREAPPROVE
-          - APPROVE
-        original_decision:
-          type: string
-          enum:
-          - REFER
-          - PREAPPROVE
-          - APPROVE
-        risk_band_id:
-          type: string
-          example: "1"
-        original_risk_band_id:
-          type: string
-          example: "1"
-        entity_decisions:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityDecisionsBlock'
-        intelligence_references:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntelligenceReferenceBlock'
-        aml_reviewer:
-          $ref: '#/components/schemas/RetrieveIntelligenceResponse_aml_check_response_aml_reviewer'
-      example: null
