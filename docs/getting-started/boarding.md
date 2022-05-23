@@ -1,2 +1,5 @@
 # Boarding
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+Exchange offers end-to-end Boarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct Merchant Hierarchy. This includes adding, and updating merchant applications in progress before submitting them.
+
+For the standard Merchant - Chain - Outlet Hierarchy three calls are needed to submit an application.
+
