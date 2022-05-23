@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link   <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url.  \n #### __Integration Guide__ \n Exchange Integration Guide can be accessed from this links:<a href='/project/downloaddocument/Exchange Configuration Portal Guide for Alliance.pdf' target='_blank'>\nConfig Portal Guide,</a> \n<a href='/project/downloaddocument/Exchange Boarding Portal for Alliance.pdf' target='_blank'>\nBoarding Portal Guide,</a> \n <a href='/project/downloaddocument/Exchange Boarding APIs Integration Guide.pdf' target='_blank'>\nBoarding APIs Integration Guide,</a> \n <a href='/project/downloaddocument/Exchange Funding APIs Integration Guide v3.0.pdf' target='_blank'>\nFunding APIs Integration Guide</a> "
+  description: " Collection of API Documentation for Fiserv Exchange. For Authentication please use OAuth 2.0 token "
   version: 2.0.0
 servers:
 - url: https://uat-fd-pfac-c-api.technologi.co.uk
@@ -408,7 +408,7 @@ paths:
       tags:
       - Risk Screening
       x-group-name: Risk Screening
-      x-proxy-name: Retrieve Risk Reports for Screening
+      x-proxy-name: Retrieve Avaliable Reports
       summary: Retrieve Risk Available Reports List for Screening
       description: Retrieve Risk Available Reports List for Screening
       requestBody:
@@ -436,7 +436,7 @@ paths:
       tags:
       - Risk Screening
       x-group-name: Risk Screening
-      x-proxy-name: Retrieve Risk Full Reports for Screening
+      x-proxy-name: Retrieve Full Report for Screening
       summary: Retrieve Risk Full Report for Screening
       description: Retrieve Risk Full Report for Screening
       requestBody:
@@ -464,7 +464,7 @@ paths:
       tags:
       - Risk Screening
       x-group-name: Risk Screening
-      x-proxy-name: Overwrite AML report for Screening 
+      x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
       summary: Overwriting AML Report for Screening (OFAC Report)
       description: Overwriting AML Report for Screening (OFAC Report)
       requestBody:
@@ -487,12 +487,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+  /intelligence/overwrite_risk_reports:
+    post:
+      tags:
+      - Risk Screening
+      x-group-name: Risk Screening
+      x-proxy-name: Overwrite Credit Risk report for screening
+      summary: Overwriting CREDIT RISK Report for Screening (Diligence Reports), only for Full Services
+      description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
+      requestBody:
+        description: Overwriting CREDIT RISK Report for Screening (OFAC Report)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OverwriteCreditRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverwriteCreditResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
   /monitoring/retrieve_hits:
     post:
       tags:
       - Risk Monitoring
       x-group-name: Risk Monitoring
-      x-proxy-name: Retrieve Risk Avaliable reports list for Monitoring
+      x-proxy-name: Retrieve Risk Avaliable Reports List for monitoring
       summary: Retrieve Risk Available Reports List for Monitoring
       description: Retrieve Risk Available Reports List for Monitoring
       requestBody:
@@ -548,7 +576,7 @@ paths:
       tags:
       - Risk Monitoring
       x-group-name: Risk Monitoring
-      x-proxy-name: Overwrite AML report for Monitoring
+      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
       summary: Overwriting AML Report for Monitoring (OFAC Report)
       description: Overwriting AML Report for Monitoring (OFAC Report)
       requestBody:
@@ -1090,6 +1118,49 @@ components:
           type: string
           description: the refresh token
           example: f17717317f4ea744b04fce476428b74529ada809
+    OverwriteCreditRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        overwrite:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverwriteRiskBlock'
+    OverwriteRiskBlock:
+      type: object
+      properties:
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        overall_decision:
+          $ref: '#/components/schemas/RiskOverallDecision'
+        email:
+          $ref: '#/components/schemas/Email'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+    RiskOverallDecision:
+      type: string
+      enum:
+        - 'CONFIRM'
+        - 'DISCOUNT'
+    OverwriteCreditResponseBlock:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        additionalProperties:
+          type: object
+          description: 'Reports returning from Diligence'
     OverwriteMonitorResponseBlock:
       type: object
       properties:
@@ -3308,6 +3379,7 @@ components:
           type: string
         isDeceased:
           type: string
+          example: "False"
           enum:
           - true
           - false
@@ -3316,6 +3388,7 @@ components:
           enum:
           - Male
           - Female
+          example: "Female"
         nationality:
           type: object
           properties:
@@ -3326,51 +3399,62 @@ components:
           type: string
         telephone_number:
           type: string
+          example: "1477855436"
         fax_number:
           type: string
+          example: "023922002222"
         mobile_number:
           type: string
+          example: "1477855436"
         email:
           $ref: '#/components/schemas/Email'
         pepLevel:
           type: string
         isPEP:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isSanctionsCurrent:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isSanctionsPrevious:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isLawEnforcement:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isFinancialregulator:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isDisqualifiedDirector:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isInsolvent:
           type: string
+          example: "False"
           enum:
           - true
           - false
         isAdverseMedia:
           type: string
+          example: "False"
           enum:
           - true
           - false
@@ -3421,6 +3505,7 @@ components:
           type: string
     ReportNote:
       type: object
+      example: "Note for report"
       properties:
         dataSource:
           type: string
@@ -3485,16 +3570,19 @@ components:
           properties:
             check_purpose:
               type: string
+              example: "BOARDING"
               enum:
               - BOARDING
             decision:
               type: string
+              example: "APPROVE"
               enum:
               - REFER
               - PREAPPROVE
               - APPROVE
             original_decision:
               type: string
+              example: "REFER"
               enum:
               - REFER
               - PREAPPROVE
@@ -3531,6 +3619,7 @@ components:
           $ref: '#/components/schemas/EntityReference'
         decision:
           type: string
+          example: "REFER"
           enum:
           - REFER
           - PREAPPROVE
@@ -3586,6 +3675,7 @@ components:
       type: string
       example:
         "pfac.user"
+
     Get_Trade_Account_Request:
       required:
       - currency
