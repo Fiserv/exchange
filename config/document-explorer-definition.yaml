@@ -50,7 +50,7 @@
       link: docs/getting-started/funding.md
     - title: Information Retrieval
       link: docs/getting-started/information-retrieval.md
-    - title: Oauth
+    - title: Authentication
       link: docs/getting-started/oauth.md
     - title: Offerings
       link: docs/getting-started/offerings.md
