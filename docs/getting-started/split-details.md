@@ -1,2 +1,7 @@
-# Boarding
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+#Split Funding by Transaction
+
+# Instructional Split by Transaction & Managed Split by Transaction
+
+Managed and Instructional Split by transaction both support split details sent by API for a processing MID. This will require identifiers for the transaction to be sent, along with the details on how the transaction will be split between the processing and non processing entities. Split **cannot** be defined other processing merchants on the system (only for itself).
+
+This is accompanied by the `/split/status/` endpoint in order to check the funding status of a MIDs transaction and for its involed entities
