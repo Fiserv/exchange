@@ -39,7 +39,7 @@
           link: docs/introduction/exchange-apis.md
 - sections:
   - title: Additional API Info
-    link: docs/funding.md
+    link: docs/api-info.md
     open: true
     sections:
     - title: Account Operations
