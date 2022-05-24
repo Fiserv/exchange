@@ -1,2 +1,3 @@
-# Boarding
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+# Information Retrieval
+
+The Bank Details for a Merchant that is boarded on the system under the PayFac can be retrieved using the `/account/bank-details` request.
