@@ -839,7 +839,7 @@ paths:
     post:
       tags:
       - Search Transactions
-      x-group-name: Search Transactions
+      x-group-name: Transactions
       x-proxy-name: Search Transactions
       summary: Search Transactions
       description: Search Transactions, Including Refund, Not Rejected
