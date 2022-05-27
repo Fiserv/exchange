@@ -38,6 +38,13 @@
         - title: Exchange APIs
           link: docs/introduction/exchange-apis.md
 - sections:
+    - title: Guide Documentation
+      link:
+      open: false
+      sections:
+        - title: Boarding API Integration Guide 
+          link: docs/introduction/exchange-boarding-guide.md
+- sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
     open: true
