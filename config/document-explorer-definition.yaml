@@ -42,8 +42,18 @@
       link:
       open: false
       sections:
-        - title: Boarding API Integration Guide 
-          link: docs/introduction/exchange-boarding-guide.md
+        - title: Add Application Sample
+          link: docs/introduction/add_application.md
+        - title: Add Outlet Sample
+          link: docs/introduction/add_outlet.md
+        - title: Application Status Check Sample
+          link: docs/introduction/application_status_check.md
+        - title: Application Submit Sample
+          link: docs/introduction/application_submit.md
+        - title: Merchant Boarding Sample
+          link: docs/introduction/boarding_merchant.md
+        - title: Retrieve Application Sample
+          link: docs/introduction/retrieve_application.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
