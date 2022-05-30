@@ -1,6 +1,7 @@
-## `/boarding/application` RETRIEVE_APPLICATION
+# `/boarding/application` RETRIEVE_APPLICATION
+
+## REQUEST:
 ```
-REQUEST:
 {
   "operation": {
     "operation_type": "RETRIEVE_MERCHANT_HIERARCHY",
@@ -10,8 +11,9 @@ REQUEST:
     "application_reference": "33300000000"
   }
 }
-
-RESPONSE:
+```
+##RESPONSE:
+```
 {
     "result": "SUCCESS",
     "operation": {
@@ -678,7 +680,5 @@ RESPONSE:
     ],
     "has_generated_documents": "1"
 }
-
-
 
 ```
