@@ -43,17 +43,17 @@
       open: false
       sections:
         - title: Add Application Sample
-          link: docs/introduction/add_application.md
+          link: docs/introduction/samples/add_application.md
         - title: Add Outlet Sample
-          link: docs/introduction/add_outlet.md
+          link: docs/introduction/samples/add_outlet.md
         - title: Application Status Check Sample
-          link: docs/introduction/application_status_check.md
+          link: docs/introduction/samples/application_status_check.md
         - title: Application Submit Sample
-          link: docs/introduction/application_submit.md
+          link: docs/introduction/samples/application_submit.md
         - title: Merchant Boarding Sample
-          link: docs/introduction/boarding_merchant.md
+          link: docs/introduction/samples/boarding_merchant.md
         - title: Retrieve Application Sample
-          link: docs/introduction/retrieve_application.md
+          link: docs/introduction/samples/retrieve_application.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
