@@ -38,23 +38,6 @@
         - title: Exchange APIs
           link: docs/introduction/exchange-apis.md
 - sections:
-    - title: Guide Documentation
-      link:
-      open: false
-      sections:
-        - title: Add Application Sample
-          link: docs/introduction/samples/add_application.md
-        - title: Add Outlet Sample
-          link: docs/introduction/samples/add_outlet.md
-        - title: Application Status Check Sample
-          link: docs/introduction/samples/application_status_check.md
-        - title: Application Submit Sample
-          link: docs/introduction/samples/application_submit.md
-        - title: Merchant Boarding Sample
-          link: docs/introduction/samples/boarding_merchant.md
-        - title: Retrieve Application Sample
-          link: docs/introduction/samples/retrieve_application.md
-- sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
     open: true
@@ -77,4 +60,21 @@
       link: docs/getting-started/split-details.md
     - title: Transactions 
       link: docs/getting-started/transactions.md
+- sections:
+    - title: Guide Documentation
+      link: docs/introduction/exchange-boarding-guide.md
+      open: true
+      sections:
+        - title: Add Application Sample
+          link: docs/introduction/samples/add_application.md
+        - title: Add Outlet Sample
+          link: docs/introduction/samples/add_outlet.md
+        - title: Application Status Check Sample
+          link: docs/introduction/samples/application_status_check.md
+        - title: Application Submit Sample
+          link: docs/introduction/samples/application_submit.md
+        - title: Merchant Boarding Sample
+          link: docs/introduction/samples/boarding_merchant.md
+        - title: Retrieve Application Sample
+          link: docs/introduction/samples/retrieve_application.md
 
