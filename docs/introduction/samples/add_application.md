@@ -1,6 +1,7 @@
-## `/boarding/application` ADD_APPLICATION
+# `/boarding/application` ADD_APPLICATION
+
+##REQUEST :
 ```
-REQUEST :
 {
     "request_source": {
         "initiator": "ALLIANCE",
@@ -107,8 +108,10 @@ REQUEST :
         }
     }
 }
+```
 
-RESPONSE :
+##RESPONSE :
+```
 {
     "result": "SUCCESS",
     "operation": {
@@ -329,6 +332,4 @@ RESPONSE :
         }
     ]
 }
-
-
 ```
