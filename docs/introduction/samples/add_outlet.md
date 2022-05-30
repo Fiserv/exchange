@@ -1,6 +1,7 @@
-## `/boarding/otulet` ADD_OUTLET
+# `/boarding/outlet` ADD_OUTLET
+
+## REQUEST:
 ```
-REQUEST:
 {
    "request_source":{
       "initiator":"ALLIANCE",
@@ -58,8 +59,9 @@ REQUEST:
       ]
    }
 }
-
-RESPONSE:
+```
+## RESPONSE:
+```
 {
     "result": "SUCCESS",
     "operation": {
