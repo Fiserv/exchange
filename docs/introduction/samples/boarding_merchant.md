@@ -1,6 +1,7 @@
-## `/boarding/merchant` ADD_MERCHANT_SUBGROUP
+# `/boarding/merchant` ADD_MERCHANT_SUBGROUP
+
+## REQUEST:
 ```
-REQUEST:
 {
     "request_source": {
         "initiator": "ALLIANCE",
@@ -39,8 +40,10 @@ REQUEST:
     ]
     }
 }
+```
 
-RESPONSE:
+## RESPONSE:
+```
 {
     "result": "SUCCESS",
     "operation": {
@@ -124,9 +127,4 @@ RESPONSE:
         ]
     }
 }
-
-
-
-
-
 ```
