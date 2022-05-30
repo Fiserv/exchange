@@ -1,6 +1,8 @@
-## `/boarding/application` APPLICATION_STATUS_CHECK
+# `/boarding/application` APPLICATION_STATUS_CHECK
+
+## REQUEST:
+
 ```
-REQUEST:
 {
   "request_source": {
         "initiator": "ALLIANCE",
@@ -14,8 +16,10 @@ REQUEST:
     "application_reference": "333000000000"
   }
 }
+```
 
-REQUEST:
+## RESPONSE:
+```
 {
     "result": "SUCCESS",
     "operation": {
@@ -100,10 +104,4 @@ REQUEST:
         }
     ]
 }
-
-
-
-
-
-
 ```
