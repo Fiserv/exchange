@@ -1,6 +1,8 @@
-# `/boarding/application` ADD_APPLICATION
+#  ADD_APPLICATION
 
-## REQUEST :
+## `/boarding/application`
+
+### REQUEST :
 ```
 {
     "request_source": {
@@ -110,7 +112,7 @@
 }
 ```
 
-## RESPONSE :
+### RESPONSE :
 ```
 {
     "result": "SUCCESS",
