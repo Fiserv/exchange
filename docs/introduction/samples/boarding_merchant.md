@@ -1,6 +1,8 @@
-# `/boarding/merchant` ADD_MERCHANT_SUBGROUP
+#  ADD_MERCHANT_SUBGROUP
 
-## REQUEST:
+## `/boarding/merchant`
+
+### REQUEST:
 ```
 {
     "request_source": {
@@ -42,7 +44,7 @@
 }
 ```
 
-## RESPONSE:
+### RESPONSE:
 ```
 {
     "result": "SUCCESS",
