@@ -1,6 +1,8 @@
-# `/boarding/application` APPLICATION_STATUS_CHECK
+# APPLICATION_STATUS_CHECK
 
-## REQUEST:
+## `/boarding/application` 
+
+### REQUEST:
 
 ```
 {
@@ -18,7 +20,7 @@
 }
 ```
 
-## RESPONSE:
+### RESPONSE:
 ```
 {
     "result": "SUCCESS",
