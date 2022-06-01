@@ -1,6 +1,8 @@
-# `/boarding/application` RETRIEVE_APPLICATION
+#  RETRIEVE_APPLICATION
 
-## REQUEST:
+## `/boarding/application`
+
+### REQUEST:
 ```
 {
   "operation": {
@@ -12,7 +14,7 @@
   }
 }
 ```
-##RESPONSE:
+### RESPONSE:
 ```
 {
     "result": "SUCCESS",
