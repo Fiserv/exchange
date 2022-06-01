@@ -1,6 +1,8 @@
-# `/boarding/outlet` ADD_OUTLET
+# ADD_OUTLET
 
-## REQUEST:
+## `/boarding/outlet`
+
+### REQUEST:
 ```
 {
    "request_source":{
@@ -60,7 +62,7 @@
    }
 }
 ```
-## RESPONSE:
+### RESPONSE:
 ```
 {
     "result": "SUCCESS",
