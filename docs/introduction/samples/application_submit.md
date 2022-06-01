@@ -1,6 +1,8 @@
-# `/boarding/application` APPLICATION_SUBMIT
+# APPLICATION_SUBMIT
 
-## REQUEST:
+## `/boarding/application` 
+
+### REQUEST:
 ```
 {
   "request_source": {
@@ -16,7 +18,7 @@
   }
 }
 ```
-## RESPONSE:
+### RESPONSE:
 ```
 {
     "result": "SUCCESS",
