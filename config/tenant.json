@@ -60,17 +60,17 @@
 		"bug": {
 			"label": "bug,Exchange",
 			"template": "bug.md",
-			"assignees": "TaniaS210489"
+			"assignees": "up-t-j"
 		},
 		"feedback": {
 			"label": "feedback,Exchange",
 			"template": "feedback.md",
-			"assignees": "TaniaS210489"
+			"assignees": "up-t-j"
 		},
 		"enhancement": {
 			"label": "enhancement,Exchange",
 			"template": "feature.md",
-			"assignees": "TaniaS210489"
+			"assignees": "up-t-j"
 		}
 	}]
 }
