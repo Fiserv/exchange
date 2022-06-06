@@ -5115,7 +5115,9 @@ components:
           maxLength: 6
           type: string
           description: The version of the operation
-          example: '123456'
+          example: '2.0.0'
+
+
     AddNonProcessingApplicationRequest:
       type: object
       properties:
