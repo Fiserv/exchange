@@ -61,7 +61,7 @@
     - title: Transaction operations 
       link: docs/getting-started/transactions.md
     - title: Reporting & Settlement 
-      link: docs/getting-started/transactions.md
+      link: docs/getting-started/reporting.md
 - sections:
     - title: Guide documentation
       link: docs/introduction/exchange-boarding-guide.md
