@@ -47,7 +47,7 @@ featuredFeatures:
       - relatedDoc: 
         title: Funding
         description: Funding instructions and split details that can be sent through API.
-        link: ./docs/getting-started/boarding.md
+        link: ./docs/getting-started/funding.md
       - relatedDoc: 
         title: Reporting & Settlement
         description: Settlement details and reporting avaliable through Exchange.
