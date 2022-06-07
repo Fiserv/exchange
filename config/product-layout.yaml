@@ -41,7 +41,7 @@ featuredFeatures:
     bullets: ["bullet1", "bullet2" ]  
     relatedDocs:
       - relatedDoc: 
-        title: Boarding
+        title: Sub-merchant boarding
         description: End-to-end merchant boarding is avaliable through API.
         link: ./docs/getting-started/boarding.md
       - relatedDoc: 
@@ -49,7 +49,7 @@ featuredFeatures:
         description: Funding instructions and split details that can be sent through API.
         link: ./docs/getting-started/boarding.md
       - relatedDoc: 
-        title: Reporting
+        title: Reporting & Settlement
         description: Settlement details and reporting avaliable through Exchange.
         link: ./docs/getting-started/reporting.md
     relatedAPIs:
