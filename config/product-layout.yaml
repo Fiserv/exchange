@@ -42,7 +42,7 @@ featuredFeatures:
     relatedDocs:
       - relatedDoc: 
         title: Sub-merchant boarding
-        description: End-to-end merchant boarding is avaliable through API.
+        description: End-to-end sub-merchant onboarding is avaliable through API and UI.
         link: ./docs/getting-started/boarding.md
       - relatedDoc: 
         title: Funding
