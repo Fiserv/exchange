@@ -13,3 +13,8 @@ Exchange allows applications that have been started and in `open` status to be m
 ### OFAC checks and Credit risk checks
 
 After initial configurations, OFAC and Credit risk checks can be included in the flow for merchants boarded by API and decisions can be reviewed and overwritten, and accepted (where applicable) by API request. 
+
+### Relevant content: 
+
+- [Onboarding](?path=docs/getting-started/boarding.md)
+- [Ofac and Risk](?path=docs/getting-started/risk.md)
