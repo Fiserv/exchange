@@ -42,9 +42,9 @@
     link: docs/getting-started/api-info.md
     open: true
     sections:
-    - title: Account Operations
+    - title: Virtual Account Operations
       link: docs/getting-started/account-operations.md
-    - title: Boarding
+    - title: Submerchant Boarding
       link: docs/getting-started/boarding.md
     - title: Funding
       link: docs/getting-started/funding.md
@@ -52,13 +52,13 @@
       link: docs/getting-started/information-retrieval.md
     - title: Authentication
       link: docs/getting-started/oauth.md
-    - title: Offerings
+    - title: Pricing + Equipment Offerings
       link: docs/getting-started/offerings.md
-    - title: Risk 
+    - title: OFAC and Credit Risk 
       link: docs/getting-started/risk.md
     - title: Split Funding by Transaction 
       link: docs/getting-started/split-details.md
-    - title: Transactions 
+    - title: Transaction Operations 
       link: docs/getting-started/transactions.md
 - sections:
     - title: Guide Documentation
