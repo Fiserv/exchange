@@ -27,7 +27,7 @@ We offer two funding endpoints for instructional funding, `/funding/instruction`
 
 ### Reporting
 
-Exchange offers reporting through the use of settlements and segregation of funds through virtual accounts, which can be retrieved by API with the `/settlement/rejects` and `/account/settlement-info`
+Exchange offers reporting through the use of settlements and segregation of funds through virtual accounts, which can be retrieved by API with the `/settlement/rejects` and `/account/settlement-info` for more information please see the reporting section in additional API info.
 
 ### Equipment and Pricing offerings  
 
