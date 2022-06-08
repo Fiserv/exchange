@@ -44,7 +44,7 @@
     sections:
     - title: Virtual account operations
       link: docs/getting-started/account-operations.md
-    - title: Submerchant Onboarding
+    - title: Submerchant onboarding
       link: docs/getting-started/boarding.md
     - title: Funding
       link: docs/getting-started/funding.md
@@ -83,4 +83,4 @@
   - title: Release notes
     sections:
     - title: June 2022
-      link: docs/release-notes/2022/June.md
+      link: docs/release-notes/2022/june.md
