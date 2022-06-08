@@ -79,3 +79,8 @@
           link: docs/introduction/samples/boarding_merchant.md
         - title: Retrieve application sample
           link: docs/introduction/samples/retrieve_application.md
+- sections:
+  - title: Release notes
+    sections:
+    - title: June 2022
+      link: docs/release-notes/2022/June.md
