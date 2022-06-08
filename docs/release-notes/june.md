@@ -9,4 +9,4 @@
 - Access to [Introduction](?path=docs/introduction/exchange-intro.md) docs.
 - Access to [Additional API info](?path=docs/getting-started/api-info.md) docs to provide additional info for API specs.
 - Access to  [Guide documentation](?path=docs/introduction/exchange-boarding-guide.md) docs for samples from the guides.
-- Access to API Explorer for Exchange.
+- Access to [API explorer](../api?type=post&path=/v1/apis) for Exchange.
