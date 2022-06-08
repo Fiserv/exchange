@@ -36,7 +36,7 @@ Virtual accounts hold calculated funding information for sub-merchants in order 
 
 ### Trade accounts
 
-The `/account/trade-info` endpoint allows the PayFac to retrieve a gransaction summary of the merchant MID on a specific date. This is segregated by trade accounts, which return the following categorised 'accounts' : 
+The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the merchant MID on a specific date. This is segregated by trade accounts, which return the following categorised 'accounts' : 
 
 | Category      | Key |
 | :---:        |    :----:   |
