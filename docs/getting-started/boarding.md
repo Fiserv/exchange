@@ -368,7 +368,7 @@ Applications that are invalid will respond with the errors and their locations s
 
 <!--
 type: tab
-titles: additionalDataCommon, JSON Example Merchant, JSON Example Outlet 
+titles: Update Merchant, JSON Example Merchant, JSON Example Outlet 
 -->
 
 The `/boarding/merchant` endpoint supports updating for the merchant and subgroup, while the `/boarding/outlet` allows the outlet to be updated.
