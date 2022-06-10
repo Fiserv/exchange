@@ -1,5 +1,17 @@
 # Transactions
 
-## Viewing Transactions
+## Viewing transaction details
 
-The API under transactions allows the PayFac to view the transactions recieved in the transaction file for a merchant ID. Database operators can be used herein order to searh and filter between dates and values for the merchant ID , and can be used to filter the Tranasction Records, Chargeback Adjustment Records, Chargeback Records, and Reject records,
+Exchange is able to retrieve the details of transactions that are recieved for MIDs on the system
+This is facilitated by `/transaction/...` endpoints that can be viewed in the API Explorer. 
+A 'query' can be created by adjusting the database operator and values being searched for:
+```
+        "location_id": {
+            "operator": "EQ",
+            "value": "202205290001"
+            },
+        "date_added": {
+            "operator": "EQ",
+            "value": "2022-05-16"
+        }
+```
