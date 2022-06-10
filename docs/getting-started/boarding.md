@@ -7,7 +7,7 @@ Exchange offers end-to-end Boarding through API that is facilitated through Addi
 For the standard *Merchant - Chain - Outlet*  Hierarchy, three calls are needed to submit an application.
 This can include pricing and equipment for the Merchant that is required, and the billing and funding settings for the Merchant. 
 
-![](/assets/images/merchant hierarchy.png)
+![standard_hierarchy](/assets/images/merchant hierarchy.png)
 
 ### Adding the Merchant and Chain
 
