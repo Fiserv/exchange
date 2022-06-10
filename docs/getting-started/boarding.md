@@ -407,6 +407,34 @@ JSON format for `UPDATE_MERCHANT`:
     }
 }
 ```
+---
+
+<!-- type: tab -->
+
+SON format for `UPDATE_MERCHANT`:
+
+```json
+{
+    "request_source": {
+        "initiator": "ALLIANCE",
+        "alliance_code": "ALLIANCE"
+    },
+    "operation": {
+        "operation_type": "UPDATE_MERCHANT",
+        "version": "2.0.0"
+    },
+    "application": {
+        "application_reference": "3330XXXXX"
+    },
+    "merchant": {
+        "business_entity": {
+            "legal_name": "MMISTest J1",
+            "ownership_entity_type": "L",
+            "application_reference": "333000025742"
+        }
+    }
+}
+```
 
 <!-- type: tab-end -->
 
