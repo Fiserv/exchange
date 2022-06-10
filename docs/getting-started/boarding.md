@@ -13,7 +13,7 @@ This can include pricing and equipment for the Merchant that is required, and th
 
 <!--
 type: tab
-titles: Add Application, JSON Example
+titles: Add Application, JSON Add Application Example
 -->
 
 The `/boarding/application` endpoint supports adding the Merchant and Chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
@@ -127,7 +127,7 @@ JSON format for `ADD_APPLICATION`:
 
 <!--
 type: tab
-titles: Add Outlet, JSON Example
+titles: Add Outlet, JSON Add Outlet Example
 -->
 
 The `/boarding/outlet` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard Merchant-Chain-Outlet merchant hierarchy).
@@ -331,7 +331,7 @@ JSON format for `ADD_OUTLET`:
 
 <!--
 type: tab
-titles: Application Submit, JSON Example
+titles: Application Submit, JSON Application Submit Example
 -->
 
 The `/boarding/application` endpoint supports adding the submitting the application based on the reference parsed. This also requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this
@@ -370,7 +370,7 @@ Applications that are invalid will respond with the errors and their locations s
 
 <!--
 type: tab
-titles: Update Merchant, JSON Example Merchant
+titles: Update Merchant, JSON Update Merchant Example 
 -->
 
 The `/boarding/merchant` endpoint supports updating for the merchant and subgroup, while the `/boarding/outlet` allows the outlet to be updated.
