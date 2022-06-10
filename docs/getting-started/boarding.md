@@ -368,7 +368,7 @@ Applications that are invalid will respond with the errors and their locations s
 
 <!--
 type: tab
-titles: Update Merchant, JSON Example Merchant, JSON Example Outlet 
+titles: Update Merchant, JSON Example Merchant
 -->
 
 The `/boarding/merchant` endpoint supports updating for the merchant and subgroup, while the `/boarding/outlet` allows the outlet to be updated.
@@ -384,34 +384,6 @@ The application reference must be added to the request, and operation type based
 <!-- type: tab -->
 
 JSON format for `UPDATE_MERCHANT`:
-
-```json
-{
-    "request_source": {
-        "initiator": "ALLIANCE",
-        "alliance_code": "ALLIANCE"
-    },
-    "operation": {
-        "operation_type": "UPDATE_MERCHANT",
-        "version": "2.0.0"
-    },
-    "application": {
-        "application_reference": "3330XXXXX"
-    },
-    "merchant": {
-        "business_entity": {
-            "legal_name": "MMISTest J1",
-            "ownership_entity_type": "L",
-            "application_reference": "333000025742"
-        }
-    }
-}
-```
----
-
-<!-- type: tab -->
-
-SON format for `UPDATE_MERCHANT`:
 
 ```json
 {
