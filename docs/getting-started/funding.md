@@ -3,8 +3,9 @@
 This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the Merchants for the system to process the funding automatically.
 
 ## Instructional Funding
+### What is Instructional funding?
 
-For Instructional Funding, the `/funding/instruction` endpoint can be uesd in order to direct funds for a given merchant ID. 
+Instructional funding, allows the use of the `/funding/instruction` endpoint in order to direct funds for a given merchant ID, where the merchant revenue amount and PayFac fee amount is directed by the request. 
 Instructional funding also supports instructions sent through the `/funding/detailed-instruction` endpoint, where additional information can be added within an instruction through a 'details' block for reporting purposes. (details do not affect the funding, just act as information)
 
 ## Split Funding - Instructional Split and by Transaction
