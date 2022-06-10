@@ -11,7 +11,7 @@ This can include pricing and equipment for the Merchant that is required, and th
 
 <!--
 type: tab
-titles: additionalDataCommon, JSON Example
+titles: Add Application, JSON Example
 -->
 
 The `/boarding/application` endpoint supports adding the Merchant and Chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
@@ -329,7 +329,7 @@ JSON format for `ADD_OUTLET`:
 
 <!--
 type: tab
-titles: additionalDataCommon, JSON Example
+titles: Application Submit, JSON Example
 -->
 
 The `/boarding/application` endpoint supports adding the submitting the application based on the reference parsed. This also requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this
