@@ -51,7 +51,35 @@ After retrieving the available reports for a merchant, the user can then view th
 #### Overwrite intelligence reports
 
 Once a report has been reviewed, the user will be able to overwrite the decision for the reports using the `/monitoring/overwrite_intelligence_report` endpoint.
-This will require the `report_reference` to define the report, and the `intelligence_report` for the entities report that is being overwritten. The status will be sent in the request in order for the review to be made. The `status`can be sent as `"NM"` for No Matches, and `"EM"` for an Exact Match.
+This will require the `report_reference` to define the report, and the `intelligence_report` for the entities report that is being overwritten. The status will be sent in the request in order for the review to be made. The `status` can be sent as `"NM"` for No Matches, and `"EM"` for an Exact Match.
+
+## Standard Process timeline steps
 
 
+<!--
+type: tab
+titles: Screening steps, Monitoring Steps
+-->
 
+#### Screening
+
+1. User will board new application to system, and return the application status *"awaiting checks"*.
+2. User will return all available reports using the `intelligence/retrieve_intelligence` with the `application_reference`.
+3. User will retrieve specific reports using `intelligence/retrieve_report` for the `application_reference`, `intelligence_ref`, and `third_party_source`.
+4. User will overwrite details for the aml reports using `intelligence/overwrite_aml_reports` for the `application_reference` with the details needed for overwriting.
+5. User will overwrite details for the credit risk using `intelligence/overwrite_risk_reports` for the `application_reference` with the details needed for overwriting.
+6. Final decision to be made for AML and Credit risk, using the `intelligence/decision` for the `application_reference` with the AML and Risk decision.
+
+---
+
+<!-- type: tab -->
+
+#### Monitoring
+
+1. User will use `monitoring/retrieve_hits` to check if any alerts have occured for their `merchant_id`, and return the alert summary and available reports list.
+2. User will retrieve reports using `/monitoring/retrieve_report` for the entity and `report_reference` to return the report details.
+3. User will overwrite the report using the `monitoring/overwrite_intelligence_report` endpoint for the `application_reference` with the details needed for overwriting.
+
+<!-- type: tab-end -->
+
+---
