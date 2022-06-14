@@ -38,7 +38,7 @@ The `/intelligence/overwrite_risk_reports` will be used to overwrite a credit ri
 
 #### Application decision
 
-After the reports for AML and credit risk have been reviewed for an application, the user can use the `intelligence/decision` endpoint in order to make a decision for the AML and Credit Risk Process. The `decision` will be used to approve or decline the application, where `APPROVE` and `DECLINE` can be sent.
+After the reports for AML and credit risk have been reviewed for an application, the user can use the `/intelligence/decision` endpoint in order to make a decision for the AML and Credit Risk Process. The `decision` will be used to approve or decline the application, where `APPROVE` and `DECLINE` can be sent.
 
 ## Monitoring
 
