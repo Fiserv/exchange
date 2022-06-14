@@ -6,7 +6,7 @@ If using Risk services in Exchange the PayFac will be able enable Credit risk an
 The PayFac will be responsible for reviewing any possible matches retrieved at the business and pricinipal levels to ensure that there is not match with the OFAC list. 
 
 <!-- theme: danger -->
-> If an OFAC hit is confirmed, the merchant cannot be boarded and if already on the system will be held from funding.
+> **If an OFAC hit is confirmed, the merchant cannot be boarded and if already on the system will be held from funding.**
 
  
 ## Screening
