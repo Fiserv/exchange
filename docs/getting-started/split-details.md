@@ -10,7 +10,7 @@ Instructional Split by transaction requires the instructions to be sent through 
 
 This is accompanied by the `/split/status` endpoint in order to check the funding status of a MIDs transaction and for its involved entities
 
-If the `/split/details` request has incorrect identifiers, the amounts not instructed will be held in the merchants Hold account for reprocessing using `/split/details` again with the correct information.
+If the `/split/transaction-details` request has incorrect identifiers, the amounts not instructed will be held in the merchants Hold account for reprocessing using  `/split/transaction-details` again with the correct information.
 
 <!--
 type: tab
@@ -150,5 +150,5 @@ JSON format for `/split/transactions-details` , where `transaction_type` defines
 
 ## Split status
 
-The `/split/status` allows the user to view the status of a defined split, using the same identifiers that were used to send the initial `/split/details` request.
-This will respond with the current `status` of the split. Notably this can be used to see if a split has failed, and if it needs reprocessing through the `/split/details` again, or if the split has been successful.
+The `/split/status` allows the user to view the status of a defined split, using the same identifiers that were used to send the initial  `/split/transaction-details` request.
+This will respond with the current `status` of the split. Notably this can be used to see if a split has failed, and if it needs reprocessing through the  `/split/transaction-details` again, or if the split has been successful.
