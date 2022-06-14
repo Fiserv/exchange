@@ -16,7 +16,7 @@ After retrieving the reports, the PayFac will manually review all potential matc
 If confirming the report, the PayFac is confirming that the potential match is valid. To discount , means that the potential match in incorrect and does not match the business or principal. For Credit risk reports, the user will have to confirm the reports and make the underwriting decision for the application (only available for 'full-service' clients). 
 
 <!-- theme: danger -->
-> For AML, the application will be cancelled if any potential match is confirmed. 
+> **For AML, the application will be cancelled if any potential match is confirmed.** 
 
 ### Available screening API
 
