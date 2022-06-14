@@ -8,7 +8,7 @@ Three of the split funding solutions we offer require or allow instructions to b
 
 Instructional Split by transaction requires the instructions to be sent through the `/split/transaction-details` endpoint, where the request is sent on a transaction-by-transaction basis that must contain identifiers for Exchange to identify the transaction. The split can define how each Sale, Refund and Chargeback is funded and to the defined MID.
 
-This is accompanied by the `/split/status/` endpoint in order to check the funding status of a MIDs transaction and for its involved entities
+This is accompanied by the `/split/status` endpoint in order to check the funding status of a MIDs transaction and for its involved entities
 
 
 <!--
@@ -149,5 +149,5 @@ JSON format for `/split/transactions-details` , where `transaction_type` defines
 
 ## Split status
 
-The `/split/status/` allows the user to view the status of a defined split, using the same identifiers that were used to send the initial `/split/details/` request.
+The `/split/status` allows the user to view the status of a defined split, using the same identifiers that were used to send the initial `/split/details` request.
 This will respond with the current `status` of the split. If a split has been discarded or reprocessed, this will be available to view
