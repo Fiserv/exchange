@@ -2,4 +2,4 @@
 
 #### In this section
 
-Additional API information to pair with the Specs provided in the [API explorer](../api?type=post&path=/v1/apis)
+In this section you will find ddditional information to pair with the full API Specs provided in the [API explorer](../api?type=post&path=/v1/apis).
