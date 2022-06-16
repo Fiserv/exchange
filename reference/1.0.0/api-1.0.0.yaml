@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0 . The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
+  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0. The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in JSON format. For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
   version: 2.0.0
 servers:
 - url: https://uat-fd-pfac-c-api.technologi.co.uk
@@ -14,7 +14,7 @@ paths:
       x-group-name: Oauth
       x-proxy-name: Token
       summary: Get Token
-      description: "In order to get the token you need to set the authentication for this endpoint to basic auth.  \n Input the __client_id__ as username and __client_secret__ as password.  \n \n After receiving the token please update the other endpoints authentication with the given token changing the authentication type to __OAuth 2.0__. "
+      description: "In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. "
       operationId: GET_OAUTH_TOKEN
       requestBody:
         description: Transaction Search
