@@ -1,11 +1,11 @@
 # Reporting in Exchange
 
-Exchange functions uses virtual accounts and automatic settlement generation for reporting purposes. 
+Exchange functions using virtual accounts and automatic settlement generation for reporting purposes. 
 
 ## Settlement
 
 Settlements can be retrieved by UI or API and will show the type of settlement (Credit or Debit), effective date, settlement details, status and reference. 
-This is handled using the `/account/settlement-info` endpoint on a MID basis. This reports the 
+This is handled using the `/account/settlement-info` endpoint on a MID basis. 
 The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the Merchant Bank account.
 
 ## Rejects
