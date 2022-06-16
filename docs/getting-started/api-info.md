@@ -1,3 +1,5 @@
 # Additional API Info
 
-Please see additional Exchange API info regarding each section below 
+#### In this section
+
+In this section you will find additional information to pair with the full API Specs provided in the [API explorer](../api?type=post&path=/v1/apis).

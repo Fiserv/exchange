@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0 . The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
+  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0. The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in JSON format. For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
   version: 2.0.0
 servers:
 - url: https://uat-fd-pfac-c-api.technologi.co.uk
@@ -14,7 +14,7 @@ paths:
       x-group-name: Oauth
       x-proxy-name: Token
       summary: Get Token
-      description: "In order to get the token you need to set the authentication for this endpoint to basic auth.  \n Input the __client_id__ as username and __client_secret__ as password.  \n \n After receiving the token please update the other endpoints authentication with the given token changing the authentication type to __OAuth 2.0__. "
+      description: "In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. "
       operationId: GET_OAUTH_TOKEN
       requestBody:
         description: Transaction Search
@@ -44,7 +44,7 @@ paths:
       x-group-name: Offerings
       x-proxy-name: Retrieve Available Offerings
       summary: Retrieve Available Offerings
-      description: Retrieve Available Offerings
+      description: Retrieve Available Offerings setup for Equipment and pricing.
       requestBody:
         description: Retrieve Available Offerings for Alliance and Partner PFACs
         content:
@@ -72,7 +72,7 @@ paths:
       x-group-name: Offerings
       x-proxy-name: Retrieve Processing Offerings
       summary: Retrieve Processing Offerings
-      description: Retrieve Processing Offerings
+      description: Retrieve Processing Offerings for pricing from the ID retrieved using /offering/available/
       requestBody:
         description: Retrieve Requested Processing Offerings for Alliance and Partner PFACs
         content:
@@ -98,7 +98,7 @@ paths:
       tags:
       - Offerings
       summary: Retrieve Equipment/Online Offerings
-      description: Retrieve Equipment/Online Offerings
+      description: Retrieve Equipment or Online Offerings from the ID retrieved using /offering/available/
       x-group-name: Offerings
       x-proxy-name: Retrieve Online Offerings
       requestBody:
@@ -125,10 +125,10 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Add Application
       summary: Add Merchant
-      description: Add Merchant
+      description: Add new Merchant application
       requestBody:
         description: Adding a new Merchant Application
         content:
@@ -153,10 +153,10 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Update Merchant
       summary: Update Merchant
-      description: Update Merchant Details
+      description: Update Merchant application Details
       requestBody:
         description: Updating a Merchant Application
         content:
@@ -181,7 +181,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Add Merchant Subgroup
       summary: Add Subgroup
       description: Add Subgroup
@@ -209,7 +209,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Update Merchant Subgroup
       summary: Update Subgroup
       description: Update Subgroup
@@ -237,7 +237,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Add Merchant Outlet
       summary: Add Outlet
       description: Add Outlet
@@ -265,7 +265,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Update Merchant Outlet
       summary: Update Outlet
       description: Update Outlet
@@ -293,7 +293,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Retrieve Merchant Application
       summary: Application Retrieve
       description: Application Retrieve
@@ -321,7 +321,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Application Status Check
       summary: Application Status Check
       description: Check the status of an application
@@ -349,7 +349,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Application Submission
       summary: Application Submission
       description: Application Submission
@@ -377,7 +377,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Boarding
+      x-group-name: Submerchant Boarding
       x-proxy-name: Add non-processing Merchant Application
       summary: Add Non-Processing Merchant
       description: Add Non-Processing Merchant
@@ -515,6 +515,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+  /intelligence/decision:
+    post:
+      tags:
+      - Risk Screening
+      x-group-name: Risk Screening
+      x-proxy-name: Risk Decision
+      summary: Used to make the decision for the AML and CREDIT RISK process. 
+      description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+      requestBody:
+        description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecisionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecisionResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+
   /monitoring/retrieve_hits:
     post:
       tags:
@@ -1143,11 +1172,43 @@ components:
           $ref: '#/components/schemas/Email'
         review_note:
           $ref: '#/components/schemas/ReviewNote'
+    DecisionRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        RISK:
+          type: object
+          properties:
+            decision:
+              $ref: '#/components/schemas/DecisionRISK'
+            risk_reviewer_comments:
+              $ref: '#/components/schemas/ReviewNote'
+    DecisionResponseBlock:
+      required:
+      - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+      allOf:
+      - $ref: '#/components/schemas/DecisionOperation'
+      - $ref: '#/components/schemas/DecisionApplicationFullDetail'
     RiskOverallDecision:
       type: string
+      example: CONFIRM
       enum:
         - 'CONFIRM'
         - 'DISCOUNT'
+    DecisionRISK:
+     type: string
+     example: DECLINE
+     enum:
+        - 'APPROVE'
+        - 'DECLINE'
     OverwriteCreditResponseBlock:
       type: object
       properties:
@@ -5041,6 +5102,18 @@ components:
             version: 2.0.0
           allOf:
           - $ref: '#/components/schemas/GeneralOperation'
+    DecisionOperation:
+      required:
+      - operation
+      type: object
+      properties:
+        operation:
+          description: Operation
+          example:
+            operation_type: UNDERWRITING_APPROVE
+            version: 2.0.0
+          allOf:
+          - $ref: '#/components/schemas/GeneralOperation'
     AddApplicationOperation:
       required:
       - operation
@@ -6228,6 +6301,22 @@ components:
           $ref: '#/components/schemas/HierarchyTemplate'
         substatuses:
           $ref: '#/components/schemas/SubStatus'
+    DecisionApplicationFullDetail:
+      type: object
+      properties:
+
+        alliance:
+          $ref: '#/components/schemas/AllianceDetail'
+        application:
+          $ref: '#/components/schemas/MerchantResponse'
+        outlets:
+          $ref: '#/components/schemas/OutletArray'
+        merchant_sub_groups:
+          $ref: '#/components/schemas/SubGroupArray'
+        application_relation:
+          $ref: '#/components/schemas/DecisionApplicationRelation'
+        substatuses:
+          $ref: '#/components/schemas/SubStatus'
     OutletArray:
       type: array
       items:
@@ -6380,6 +6469,33 @@ components:
         hold_suspend_flag:
           $ref: '#/components/schemas/HoldSuspend'
     ApplicationRelation:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/SystemID'
+        application_reference:
+          $ref: '#/components/schemas/Reference'
+        business_id:
+          $ref: '#/components/schemas/SystemID'
+        merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        main_owner:
+          $ref: '#/components/schemas/SystemID'
+        main_outlet:
+          $ref: '#/components/schemas/SystemID'
+        total_outlets:
+          $ref: '#/components/schemas/TotalNode'
+        total_subgroups:
+          $ref: '#/components/schemas/TotalNode'
+        owner:
+          $ref: '#/components/schemas/OwnerRefArray'
+        merchant_sub_group:
+          $ref: '#/components/schemas/SubGroupRefArray'
+        date_added:
+          $ref: '#/components/schemas/Date'
+        date_updated:
+          $ref: '#/components/schemas/Date'
+    DecisionApplicationRelation:
       type: object
       properties:
         _id:
