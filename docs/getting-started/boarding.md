@@ -2,7 +2,7 @@
 
 ## Boarding by API
 
-Exchange offers end-to-end merchant Boarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct Merchant Hierarchy. This includes adding, and updating merchant applications in progress before submitting them.
+Exchange offers end-to-end merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct Merchant Hierarchy. This includes adding, and updating merchant applications in progress before submitting them.
 
 For the standard Merchant - Chain - Outlet Hierarchy, three calls are needed to submit an application.
 This can include pricing and equipment for the Merchant that is required, and the billing and funding settings for the Merchant. 
@@ -335,7 +335,7 @@ type: tab
 titles: Application Submit, JSON Application Submit Example
 -->
 
-The `/boarding/application` endpoint supports adding the submitting the application based on the reference parsed. This also requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this
+The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
 
 ---
 
