@@ -17,13 +17,13 @@ type: tab
 titles: Instructional funding, JSON Instructional funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md)  can be used to summarise the transactions and support calculating the fee amount to taken.
+The Instructional funding request will be constructed based on how the PayFac wants to fund the merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken.
 
 ---
 
 <!-- type: tab -->
 
-JSON format for `/funding/instruction` , where `REVENUE_ACCOUNT` defines the merchant revenue recieved from Instructional hold and `FEE_ACCOUNT` definds the PayFac fee taken.
+JSON format for `/funding/instruction` , where `REVENUE_ACCOUNT` defines the merchant revenue recieved from Instructional hold and `FEE_ACCOUNT` defines the PayFac fee taken.
 
 Supported accounts added to this request include:
 - REVENUE_ACCOUNT
@@ -60,7 +60,7 @@ Split funding allows the PayFac to direct funds from a merchant to third parties
 
 ### Instructional Split
 
-Instructional Split funding extends the functionality of the `/funding/instruction` in order to facilitate the 'SPLIT' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be recieved by the non-processing PayFac.
+Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'SPLIT' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be recieved by the non-processing PayFac.
 
 ### Constructing the split instruction request
 
@@ -69,13 +69,13 @@ type: tab
 titles: Split instructional funding, JSON instructional funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the merchants instructional hold, and define splti amounts sent to non-processing merchants. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md)  can be used to summarise the transactions and support calculating the fee amount to taken and to define the split.
+The Instructional funding request will be constructed based on how the PayFac wants to fund the merchants instructional hold, and define split amounts sent to non-processing merchants. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md) and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken and to define the split.
 
 ---
 
 <!-- type: tab -->
 
-JSON format for `/funding/instruction` , where `REVENUE_ACCOUNT` defines the merchant revenue recieved from Instructional hold and `FEE_ACCOUNT` defines the PayFac fee taken and `SPLIT_ACCOUNT` is used to define the split amounts send to third parties. The `"split_details"` can direct funds to multiple third parties on the system, where the mid used `merchant_id` will be the `internal_mid` of the entity on the system. 
+JSON format for `/funding/instruction` , where `REVENUE_ACCOUNT` defines the merchant revenue recieved from Instructional hold and `FEE_ACCOUNT` defines the PayFac fee taken and `SPLIT_ACCOUNT` is used to define the split amounts sent to third parties. The `"split_details"` block can direct funds to multiple third parties on the system, where the mid used `merchant_id` will be the `internal_mid` of the third party on the system. 
 
 Supported accounts added to this request include:
 - REVENUE_ACCOUNT
