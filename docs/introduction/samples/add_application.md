@@ -206,7 +206,7 @@
                 ]
             }
         ],
-        "parent_pfac_node_external_id": "PEIB7-00000-00000-00000-00000-00000-00000
+        "parent_pfac_node_external_id": "PEIB7-00000-00000-00000-00000-00000-00000",
         "multiple_outlet": "0",
         "application_reference": "333000000000",
         "application_status_external_id": "APSE6-00000-00000-00000-00000-00000-00000",
