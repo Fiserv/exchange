@@ -128,7 +128,7 @@
         "sales_owner_user_external_id": "USR7F-00000-00000-00000-00000-00000-00000",
         "risk_owner_user_external_id": "USR7F-00000-00000-00000-00000-00000-00000",
         "creator_user_external_id": "USR7F-00000-00000-00000-00000-00000-00000",
-        "merchant_status_external_id": "OPSC7-00000-00000-00000-00000-00000-00000
+        "merchant_status_external_id": "OPSC7-00000-00000-00000-00000-00000-00000",
         "alliance_external_id": "ALLCC-00000-00000-00000-00000-00000-00000",
         "application_external_id": "APL73-00000-00000-00000-00000-00000-00000",
         "sales_owner_user_id": "123",
