@@ -1,6 +1,6 @@
 # OAuth
 
-To generate token for authorisation, the 	`/oauth/token/` endpoint may be used, and credentials must be sent as a Basic Auth Header with the request.
+To generate token for authorisation, the 	`/oauth/token` endpoint may be used, and credentials must be sent as a Basic Auth Header with the request.
 
 # Postman
 
