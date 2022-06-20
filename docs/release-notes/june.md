@@ -2,7 +2,7 @@
 
 ## v1.0.0 
 
-### June 8, 2022
+### June 23rd, 2022
 
 #### *What's New*
 - Initial release for Exchange to Dev Studio.
