@@ -1098,6 +1098,62 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /split/reprocessing:
+    post:
+      tags:
+      - Split Funding by Transaction
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Reprocessing
+      summary: Split Funding Instruction
+      description: Reprocessing unprocessed data present in the Merchant Hold Account
+      requestBody:
+        description: Funding Instructions for unprocessed transactions in Merchant Hold Account
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitFundingReprocessingRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitFundingReprocessingResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /split/discard:
+    post:
+      tags:
+      - Split Funding by Transaction
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Discard
+      summary: Split Funding Instruction
+      description: Discarding unprocessed transactions present in the Merchant Hold Account
+      requestBody:
+        description: Funding Instructions to discard unprocessed transactions in Merchant Hold Account
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitFundingDiscardRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitFundingDiscardResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
 ##########################SPLIT FUNDING##########################  
 components:
   schemas:
@@ -4011,6 +4067,104 @@ components:
           - FAILED
           - REPROCESS
           - DISCARDED
+    SplitFundingReprocessingRequest:
+      required:
+      - accounts
+      - currency
+      - merchant_id
+      - total_amount
+      - transaction_type
+      - transaction_date
+      - split_details
+      type: object
+      properties:
+        processing_merchant_id:
+          type: string
+          description: Unique processing merchant identifier who is the owner of this transaction
+          example: "123456789038"
+        amount:
+          type: string
+          description: Total funding amount to be reprocessed
+          example: "100.00"
+        currency:
+          $ref: '#/components/schemas/currency'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionType'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        authorization_code:
+          $ref: '#/components/schemas/AuthCode'
+        invoice_id:
+          $ref: '#/components/schemas/InvoiceID'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
+        split_details:
+          $ref: '#/components/schemas/TrasnactionSplitDetail'
+        reason:
+          type: string
+          description: Reason for reprocessing a transaction
+    SplitFundingReprocessingResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        summary:
+          $ref: '#/components/schemas/SplitTransactionResponse_summary'
+    SplitFundingDiscardRequest:
+      required:
+      - accounts
+      - currency
+      - merchant_id
+      - total_amount
+      - transaction_type
+      - transaction_date
+      type: object
+      properties:
+        processing_merchant_id:
+          type: string
+          description: Unique processing merchant identifier who is the owner of this transaction
+          example: "123456789038"
+        amount:
+          type: string
+          description: Total funding amount to be reprocessed
+          example: "100.00"
+        currency:
+          $ref: '#/components/schemas/currency'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionType'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        authorization_code:
+          $ref: '#/components/schemas/AuthCode'
+        invoice_id:
+          $ref: '#/components/schemas/InvoiceID'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
+    SplitFundingDiscardResponse:
+      type: "object"
+      properties:
+        result:
+          example: "success"
+        summary:
+          $ref: "#/components/schemas/Accounts"
+        original_processing_date:
+          type: string
+          example: "2022-01-10"  
+    Accounts:
+      type: array
+      items:
+        type: object
+        properties:
+          account_type:
+            type: string
+            example: "ADJUSTMENT"
+          balance:
+            type: string
+            example: "-100"      
     CaseNumber:
       type: string
       description: 'Case number from the chargeback or chargeback reversal transaction'
@@ -4019,13 +4173,14 @@ components:
       maxLength: 20
     TransactionType:
       type: string
-      description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback, 4-Chargeback Reversal'
+      description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback, 4-Chargeback Reversal, 5-Reprocess'
       example: "1"
       enum:
       - "1"
       - "2"
       - "3"
       - "4"
+      - "5"
     TransactionId:
       maxLength: 20
       type: string
@@ -6884,6 +7039,12 @@ components:
           $ref: '#/components/schemas/AdditionalInformation'
         mcc_code:
           $ref: '#/components/schemas/MCC'
+        seasonal_business:
+          $ref: "#/components/schemas/Seasonal_business"
+        seasonal_start_month:
+          $ref: "#/components/schemas/Seasonal_Start_Month"
+        seasonal_end_month:
+          $ref: "#/components/schemas/Seasonal_End_Month"
         curr_code:
           $ref: '#/components/schemas/Currency'
         mastercard_sales:
@@ -7979,6 +8140,48 @@ components:
       type: string
       description: MCC Code
       example: "5544"
+    Seasonal_business:
+      maxLength: 4
+      minLength: 1
+      type: string
+      description: seasonal business
+      example: "1"
+      enum:
+      - "0"
+      - "1"
+    Seasonal_Start_Month:
+      type: string
+      example: "JANUARY"
+      enum:
+      - "JANUARY"
+      - "FEBRUARY"
+      - "MARCH"
+      - "APRIL"
+      - "MAY"
+      - "JUNE"
+      - "JULY"
+      - "AUGUST"
+      - "SEPTEMBER"
+      - "OCTOBER"
+      - "NOVEMBER"
+      - "DECEMBER"
+    Seasonal_End_Month:
+      type: string
+      example: "MARCH"
+      enum:
+      - "JANUARY"
+      - "FEBRUARY"
+      - "MARCH"
+      - "APRIL"
+      - "MAY"
+      - "JUNE"
+      - "JULY"
+      - "AUGUST"
+      - "SEPTEMBER"
+      - "OCTOBER"
+      - "NOVEMBER"
+      - "DECEMBER"  
+        
     Date:
       type: string
       description: date mm-dd-yyyy
