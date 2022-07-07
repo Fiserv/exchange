@@ -4276,6 +4276,7 @@ components:
           example: "62ab1f857c5de6318f74e2a9"
     documentdata1:
       type: object
+      description: Used if configured document has entity links
       properties:
         first_name:
           type: string
@@ -5648,8 +5649,11 @@ components:
       - $ref: '#/components/schemas/OfferingCreiteria'
     ListAvailableOffersResponse:
       type: object
-      additionalProperties:
-        $ref: '#/components/schemas/PackageBlock'
+      properties:
+        example package:
+          $ref: '#/components/schemas/PackageBlock'
+        example package 2:
+          $ref: '#/components/schemas/PackageBlock'
     RequestedProcessingOffer:
       type: object
       properties:
