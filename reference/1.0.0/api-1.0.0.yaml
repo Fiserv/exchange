@@ -401,6 +401,87 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+  /boarding/applicationuploadfile:
+    post:
+      tags:
+      - Application Boarding
+      x-group-name: Additional Documents
+      x-proxy-name: Upload Additional Documents
+      summary: Uploading Additional Documents
+      description: Uploading Additional Documents
+      requestBody:
+        $ref: '#/components/requestBodies/statusMode'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/applicationuploadfileResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+                
+  /boarding/documentlisttenantuploaddocumentcategories:
+    post:
+      tags:
+      - Application Boarding
+      x-group-name: Additional Documents
+      x-proxy-name: Configured Document Categories
+      summary: Configured Document Categories
+      description: List of Additional Documents Configured
+      requestBody:
+        description: List of Additional Documents Configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/documentlisttenantuploaddocumentcategoriesRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/documentlisttenantuploaddocumentcategoriesResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+                
+  /boarding/applicationuploadadditionaldocuments:
+    post:
+      tags:
+      - Application Boarding
+      x-group-name: Additional Documents
+      x-proxy-name: Upload Additional Documents to Prospect
+      summary: Submitting additional documents to prospect
+      description: Submitting additional documents to prospect
+      requestBody:
+        description: Submitting additional documents to prospect
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/applicationuploadadditionaldocumentsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/applicationuploadadditionaldocumentsResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
 ##########################BOARDING##########################
 ##########################RISK##############################
   /intelligence/retrieve_intelligence:
@@ -1156,6 +1237,24 @@ paths:
                 $ref: '#/components/schemas/Error'    
 ##########################SPLIT FUNDING##########################  
 components:
+  requestBodies:
+    statusMode:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              request:
+                type: object
+                properties:
+                  applications:
+                    $ref: '#/components/schemas/applicationUF'
+                  document_data:
+                    $ref: '#/components/schemas/documentdata1'
+              file:
+                type: string
+                format: binary   
   schemas:
     grant_type_object:
       type: object
@@ -4153,7 +4252,104 @@ components:
           $ref: "#/components/schemas/Accounts"
         original_processing_date:
           type: string
-          example: "2022-01-10"  
+          example: "2022-01-10"
+    applicationuploadfileResponse:
+      type: object
+      properties:
+        result:
+          example: "success"
+    applicationUF:
+      type: object
+      properties:
+        application_reference:
+          type: string
+          description: application reference number
+          example: "333000010344"
+        tenant_udc_external_id:
+          type: string
+          example: "TDCAB-DDAB5-5F9C4-7D2F4-5F47C-D407F-EC1BD"
+        entity_type:
+          type: string
+          example: "PRINCIPAL"
+        document_for:
+          type: string
+          example: "62ab1f857c5de6318f74e2a9"
+    documentdata1:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: "Sharjeel"
+        second_name:
+          type: string
+          example: "Faisal"
+        surname:
+          type: string
+          example: "Mirza"
+        date_of_birth:
+          type: string
+          example: "1998/05/31"
+        document_id:
+          type: string
+          example: "CWR442DF2FD"
+        issued_date:
+          type: string
+          example: "2022/06/10"
+        expiry_date:
+          type: string
+          example: "2032/06/10"
+        document_issuer:
+          type: string
+          example: "Test"
+        issuing_state:
+          type: string
+          example: "CA"
+        issuing_country:
+          type: string
+          example: "840"  
+    applicationuploadadditionaldocumentsRequest:
+      required:
+      - application
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/operation'
+        application:
+          $ref: '#/components/schemas/application'
+        note:
+          type: string
+          description: Any comments to the underwriter related to the documents upload
+          example: "Test"
+    applicationuploadadditionaldocumentsResponse:
+      type: object
+      properties:
+        result:
+          example: "success"  
+    
+    documentlisttenantuploaddocumentcategoriesRequest:
+      type: object
+    documentlisttenantuploaddocumentcategoriesResponse:
+      type: object
+      properties:
+        result:
+          example: "success"
+    operation:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: "APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS"
+        version:
+          type: string
+          example: "Version 2.0.0"    
+    
+    application:
+      type: object
+      properties:
+        application_reference:
+          type: string
+          example: "333000010344"
+                    
     Accounts:
       type: array
       items:
