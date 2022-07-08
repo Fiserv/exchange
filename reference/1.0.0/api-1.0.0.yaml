@@ -405,7 +405,7 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Additional Documents
+      x-group-name: Submerchant Boarding
       x-proxy-name: Upload Additional Documents
       summary: Uploading Additional Documents
       description: Uploading Additional Documents
@@ -429,10 +429,10 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Additional Documents
+      x-group-name: Submerchant Boarding
       x-proxy-name: Configured Document Categories
       summary: Configured Document Categories
-      description: List of Additional Documents Configured
+      description: Will list all documents configured
       requestBody:
         description: List of Additional Documents Configured
         content:
@@ -458,10 +458,10 @@ paths:
     post:
       tags:
       - Application Boarding
-      x-group-name: Additional Documents
+      x-group-name: Submerchant Boarding
       x-proxy-name: Upload Additional Documents to Prospect
       summary: Submitting additional documents to prospect
-      description: Submitting additional documents to prospect
+      description: 'For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data depend on how the document being uploaded was configured.'
       requestBody:
         description: Submitting additional documents to prospect
         content:
@@ -4271,9 +4271,19 @@ components:
         entity_type:
           type: string
           example: "PRINCIPAL"
+          enum:
+            - "PRINCIPAL"
+            - "BUSINESS"
+            - "OUTLET_CONTACT"
+            - "BUSINESS_CONTACT"
         document_for:
           type: string
+          description: 'ID for the specified Entity, retrievable through retrieve_merchant_hierarchy request. Principal - Uses "owner_ref" | Business - Uses "merchant_ref"| Outlet Contact - Uses "owner_ref" |Business Contact - Uses Registration address "contact_ref"  '
           example: "62ab1f857c5de6318f74e2a9"
+      required:
+        - application_reference
+        - tenant_udc_external_id
+
     documentdata1:
       type: object
       description: Used if configured document has entity links
@@ -4333,7 +4343,46 @@ components:
       type: object
       properties:
         result:
-          example: "success"
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operation_document'
+        document_categories:
+          $ref: '#/components/schemas/DocumentCategories'
+    DocumentCategories:
+      type: array
+      items:
+        $ref: '#/components/schemas/documentCategoriesObject'
+    documentCategoriesObject:
+      type: object
+      properties:
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        document_reference:
+          description: 'User input reference during configuration'
+          type: string
+          example: "Passport"
+        status:
+          type: string
+          example: "1"
+          enum:
+            - "1"
+            - "0"
+        tenant_udc_external_id:
+          type: string
+          description: "External ID of Document Configured"
+          example: "JKLF3-DDAB5-BJKL3-SDK34-5F47C-D407F-334AS"
+        alliance_external_id:
+            $ref: '#/components/schemas/ExtID'
+        document_category:
+          type: string
+          example: "Proof of ID"
+          description: "Category added during configuration of document"
+          enum:
+            - Proof of ID
+            - Proof of Business
+            - Proof of Bank
+            - Other
     operation:
       type: object
       properties:
@@ -4342,8 +4391,13 @@ components:
           example: "APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS"
         version:
           type: string
-          example: "Version 2.0.0"    
-    
+          example: "2.0.0"    
+    operation_document:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: "DOCUMENT_LIST_TENANT_UPLOAD_DOCUMENT_TYPES"
     application:
       type: object
       properties:
@@ -8179,24 +8233,26 @@ components:
           $ref: '#/components/schemas/City'
         country_code:
           $ref: '#/components/schemas/Country'
-        account_holder_name:
-          $ref: '#/components/schemas/AccountHolder'
+        zip_code:
+          $ref: '#/components/schemas/ZipCode'
+        county_code:
+          $ref: '#/components/schemas/State'
         street_line_1:
           $ref: '#/components/schemas/AddressLine1'
+        suite_apart_number:
+          $ref: '#/components/schemas/Apartment'
+        province:
+          $ref: '#/components/schemas/Province'
+        floor:
+          $ref: '#/components/schemas/Floor'
+        account_holder_name:
+          $ref: '#/components/schemas/AccountHolder'
         account_type:
           type: array
           items:
             $ref: '#/components/schemas/BankFor'
         bank_account_type:
           $ref: '#/components/schemas/BankAccountType'
-        house_number:
-          $ref: '#/components/schemas/HouseNumber'
-        house_name:
-          $ref: '#/components/schemas/HouseName'
-        zip_code:
-          $ref: '#/components/schemas/ZipCode'
-        county_code:
-          $ref: '#/components/schemas/State'
         dda_number:
           $ref: '#/components/schemas/DDA'
         routing_number:
