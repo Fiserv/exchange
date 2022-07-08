@@ -9230,7 +9230,7 @@ components:
           example: AcurisSearch
         date_updated:
           $ref: '#/components/schemas/DateyMdTime'
-      example: null
+       
     OverwriteMonitorResponseBlock_additionalProperties:
       type: object
       properties:
@@ -9264,13 +9264,13 @@ components:
           $ref: '#/components/schemas/DateyMdTime'
         date_updated:
           $ref: '#/components/schemas/DateyMdTime'
-      example: null
+       
     OverwriteMonitorResponseBlock_intelligence_merchant:
       type: object
       properties:
         merchant_id:
           $ref: '#/components/schemas/MID'
-      example: null
+       
     OverwriteMonitorResponseBlock_intelligence:
       type: object
       properties:
@@ -9286,7 +9286,7 @@ components:
             $ref: '#/components/schemas/MonitorOverwriteBlock'
         request_source:
           $ref: '#/components/schemas/RequestSource'
-      example: null
+       
     MonitorCreditSafeFullReportDetail_corporate_financials_payment_performance:
       type: object
       properties:
@@ -9294,7 +9294,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MonitorCreditFinancialMonthly'
-      example: null
+       
     MonitorCreditSafeFullReportDetail_corporate_financials:
       type: object
       properties:
@@ -9308,7 +9308,7 @@ components:
           $ref: '#/components/schemas/MonitorCreditFinPercChange'
         ltd_company_cais:
           $ref: '#/components/schemas/MonitorCreditFinCAI'
-      example: null
+       
     MonitorCreditSafeFullReportDetail_corporate_summary:
       type: object
       properties:
@@ -9316,7 +9316,7 @@ components:
           $ref: '#/components/schemas/MonitorCreditSumCompany'
         director_summary:
           $ref: '#/components/schemas/MonitorCreditSumDirector'
-      example: null
+       
     MonitorCreditSumCompany_changes:
       type: object
       properties:
@@ -9324,13 +9324,13 @@ components:
           type: string
         number_mem_arts_changes_last_12_month:
           type: string
-      example: null
+       
     MonitorCreditSumCompany_legal_notices:
       type: object
       properties:
         summary_count:
           type: string
-      example: null
+       
     MonitorCreditSumCompany_alerts:
       type: object
       properties:
@@ -9342,13 +9342,13 @@ components:
             type: object
             additionalProperties:
               type: string
-      example: null
+       
     MonitorCreditSumBankrupt_filling_details:
       type: object
       properties:
         filed_with:
           type: string
-      example: null
+       
     MonitorCreditFinTradePayment_trade_payment_summary:
       type: object
       properties:
@@ -9362,7 +9362,7 @@ components:
           type: string
         recent_high_credit:
           type: string
-      example: null
+       
     CorporateDirector_directors:
       type: object
       properties:
@@ -9370,7 +9370,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MonitorCreditSafeDirector'
-      example: null
+       
     MonitorFullReportDetail_intelligence_report:
       type: object
       properties:
@@ -9404,7 +9404,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/reviewInfo'
-      example: null
+       
     MonitorIntelligenceCompanyBlock_business:
       type: object
       properties:
@@ -9428,7 +9428,7 @@ components:
           $ref: '#/components/schemas/BusinessName'
         address:
           $ref: '#/components/schemas/AddressReportShort'
-      example: null
+       
     RetrieveIntelligenceFullResponse_reports:
       type: object
       properties:
@@ -9436,7 +9436,7 @@ components:
           $ref: '#/components/schemas/PepSancPrincipal'
         PEP_SANCTION_BUSINESS:
           $ref: '#/components/schemas/PepSancBusiness'
-      example: null
+       
     RetrieveHitRequest_search:
       type: object
       properties:
@@ -9479,7 +9479,7 @@ components:
           $ref: '#/components/schemas/OriginalCopy'
         is_test_data:
           $ref: '#/components/schemas/IsTestData'
-      example: null
+       
     IntelligenceCompanyBlock_business_principals:
       type: object
       properties:
@@ -9501,7 +9501,7 @@ components:
           $ref: '#/components/schemas/ReportAddressBlock'
         role:
           $ref: '#/components/schemas/Position'
-      example: null
+       
     IntelligenceCompanyBlock_business:
       type: object
       properties:
@@ -9531,7 +9531,7 @@ components:
           type: string
           enum:
           - BOARDING
-      example: null
+       
     IntelligenceCompanyBlock_outlet:
       type: object
       properties:
@@ -9573,7 +9573,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportBankShort'
-      example: null
+       
     ReportBankShort_proprietor:
       type: object
       properties:
@@ -9583,7 +9583,7 @@ components:
           $ref: '#/components/schemas/LastName'
         date_of_birth:
           $ref: '#/components/schemas/Date'
-      example: null
+       
     BusinessIntelligenceReportBlockDetail_overall_evaluation:
       type: object
       properties:
@@ -9653,28 +9653,28 @@ components:
           - PM
           - EM
           - NM
-      example: null
+       
     possibleMatchBusinessBlock_title:
       type: object
       properties:
         description:
           type: string
           example: Ms
-      example: null
+       
     possibleMatchBusinessBlock_nationality:
       type: object
       properties:
         nationality:
           type: string
           example: American
-      example: null
+       
     Addresses_country:
       type: object
       properties:
         name:
           type: string
           example: United States of America
-      example: null
+       
     RetrieveIntelligenceResponse_aml_check_response_aml_reviewer:
       type: object
       properties:
@@ -9684,7 +9684,7 @@ components:
           $ref: '#/components/schemas/UserName'
         email:
           $ref: '#/components/schemas/Email'
-      example: null
+       
     RetrieveIntelligenceResponse_aml_check_response:
       type: object
       properties:
@@ -9723,7 +9723,7 @@ components:
             $ref: '#/components/schemas/IntelligenceReferenceBlock'
         aml_reviewer:
           $ref: '#/components/schemas/RetrieveIntelligenceResponse_aml_check_response_aml_reviewer'
-      example: null
+       
     Accounts_inner:
       type: object
       properties:
