@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0. The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in JSON format. For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
+  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link   <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url.  \n #### __Integration Guide__ \n Exchange Integration Guide can be accessed from this links:<a href='/project/downloaddocument/Exchange Configuration Portal Guide for Alliance.pdf' target='_blank'>\nConfig Portal Guide,</a> \n<a href='/project/downloaddocument/Exchange Boarding Portal for Alliance.pdf' target='_blank'>\nBoarding Portal Guide,</a> \n <a href='/project/downloaddocument/Exchange Boarding APIs Integration Guide.pdf' target='_blank'>\nBoarding APIs Integration Guide,</a> \n <a href='/project/downloaddocument/Exchange Funding APIs Integration Guide v3.0.pdf' target='_blank'>\nFunding APIs Integration Guide</a> \n <a href='/project/downloaddocument/Split Funding - Instructional Split by Transaction User Guide V1.pdf' target='_blank'>\nSplit Funding - Instructional Split by Transaction User Guide</a> \n <a href='/project/downloaddocument/Split Funding - Managed Split by Summary User Guide V1.pdf' target='_blank'>\nSplit Funding - Managed Split by Summary User Guide</a> \n <a href='/project/downloaddocument/Split Funding - Instructional Split User Guide V1.pdf' target='_blank'>\nSplit Funding - Instructional Split User Guide</a> \n <a href='/project/downloaddocument/Split Funding - Managed Split by Transaction User Guide V1.pdf' target='_blank'>\nSplit Funding - Managed Split by Transaction User Guide</a> \n <a href='/project/downloaddocument/RISK Integration Guide.pdf' target='_blank'>\nRisk Integration Guide</a>"
   version: 2.0.0
 servers:
 - url: https://uat-fd-pfac-c-api.technologi.co.uk
@@ -11,10 +11,8 @@ paths:
     post:
       tags:
       - OAuth Token
-      x-group-name: Oauth
-      x-proxy-name: Token
       summary: Get Token
-      description: "In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. "
+      description: 'In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. '
       operationId: GET_OAUTH_TOKEN
       requestBody:
         description: Transaction Search
@@ -36,13 +34,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-##########################BOARDING##########################
+      x-group-name: Oauth
+      x-proxy-name: Token
   /offering/available:
     post:
       tags:
       - Offerings
-      x-group-name: Offerings
-      x-proxy-name: Retrieve Available Offerings
       summary: Retrieve Available Offerings
       description: Retrieve Available Offerings setup for Equipment and pricing.
       requestBody:
@@ -65,12 +62,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Available Offerings
   /offering/processing:
     post:
       tags:
       - Offerings
-      x-group-name: Offerings
-      x-proxy-name: Retrieve Processing Offerings
       summary: Retrieve Processing Offerings
       description: Retrieve Processing Offerings for pricing from the ID retrieved using /offering/available/
       requestBody:
@@ -93,14 +90,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Processing Offerings
   /offering/equipment:
     post:
       tags:
       - Offerings
       summary: Retrieve Equipment/Online Offerings
       description: Retrieve Equipment or Online Offerings from the ID retrieved using /offering/available/
-      x-group-name: Offerings
-      x-proxy-name: Retrieve Online Offerings
       requestBody:
         description: Retrieve Requested Equipment/Online Offerings for Alliance and Partner PFACs
         content:
@@ -121,12 +118,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Offerings
+      x-proxy-name: Retrieve Online Offerings
   /boarding/application:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Application
       summary: Add Merchant
       description: Add new Merchant application
       requestBody:
@@ -149,12 +146,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add Application
   /boarding//merchant:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant
       summary: Update Merchant
       description: Update Merchant application Details
       requestBody:
@@ -177,12 +174,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Update Merchant
   /boarding///merchant:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Merchant Subgroup
       summary: Add Subgroup
       description: Add Subgroup
       requestBody:
@@ -205,12 +202,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add Merchant Subgroup
   /boarding////merchant:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Subgroup
       summary: Update Subgroup
       description: Update Subgroup
       requestBody:
@@ -233,12 +230,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Update Merchant Subgroup
   /boarding/outlet:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Merchant Outlet
       summary: Add Outlet
       description: Add Outlet
       requestBody:
@@ -261,12 +258,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add Merchant Outlet
   /boarding//outlet:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Outlet
       summary: Update Outlet
       description: Update Outlet
       requestBody:
@@ -289,12 +286,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Update Merchant Outlet
   /boarding/////merchant:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Application
       summary: Application Retrieve
       description: Application Retrieve
       requestBody:
@@ -317,12 +314,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Merchant Application
   /boarding///application:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Application Status Check
       summary: Application Status Check
       description: Check the status of an application
       requestBody:
@@ -345,12 +342,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Application Status Check
   /boarding//application:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Application Submission
       summary: Application Submission
       description: Application Submission
       requestBody:
@@ -373,12 +370,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Application Submission
   /boarding/nonprocessingapplication:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add non-processing Merchant Application
       summary: Add Non-Processing Merchant
       description: Add Non-Processing Merchant
       requestBody:
@@ -401,12 +398,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add non-processing Merchant Application
   /boarding/applicationuploadfile:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Upload Additional Documents
       summary: Uploading Additional Documents
       description: Uploading Additional Documents
       requestBody:
@@ -424,13 +421,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-                
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Upload Additional Documents
   /boarding/documentlisttenantuploaddocumentcategories:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Configured Document Categories
       summary: Configured Document Categories
       description: Will list all documents configured
       requestBody:
@@ -453,15 +449,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-                
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Configured Document Categories
   /boarding/applicationuploadadditionaldocuments:
     post:
       tags:
       - Application Boarding
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Upload Additional Documents to Prospect
       summary: Submitting additional documents to prospect
-      description: 'For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data depend on how the document being uploaded was configured.'
+      description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data depend on how the document being uploaded was configured.
       requestBody:
         description: Submitting additional documents to prospect
         content:
@@ -482,14 +477,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-##########################BOARDING##########################
-##########################RISK##############################
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Upload Additional Documents to Prospect
   /intelligence/retrieve_intelligence:
     post:
       tags:
       - Risk Screening
-      x-group-name: Risk Screening
-      x-proxy-name: Retrieve Avaliable Reports
       summary: Retrieve Risk Available Reports List for Screening
       description: Retrieve Risk Available Reports List for Screening
       requestBody:
@@ -512,12 +505,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Retrieve Avaliable Reports
   /intelligence/retrieve_report:
     post:
       tags:
       - Risk Screening
-      x-group-name: Risk Screening
-      x-proxy-name: Retrieve Full Report for Screening
       summary: Retrieve Risk Full Report for Screening
       description: Retrieve Risk Full Report for Screening
       requestBody:
@@ -540,12 +533,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Retrieve Full Report for Screening
   /intelligence/overwrite_aml_reports:
     post:
       tags:
       - Risk Screening
-      x-group-name: Risk Screening
-      x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
       summary: Overwriting AML Report for Screening (OFAC Report)
       description: Overwriting AML Report for Screening (OFAC Report)
       requestBody:
@@ -568,12 +561,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
   /intelligence/overwrite_risk_reports:
     post:
       tags:
       - Risk Screening
-      x-group-name: Risk Screening
-      x-proxy-name: Overwrite Credit Risk report for screening
       summary: Overwriting CREDIT RISK Report for Screening (Diligence Reports), only for Full Services
       description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
       requestBody:
@@ -596,13 +589,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Overwrite Credit Risk report for screening
   /intelligence/decision:
     post:
       tags:
       - Risk Screening
-      x-group-name: Risk Screening
-      x-proxy-name: Risk Decision
-      summary: Used to make the decision for the AML and CREDIT RISK process. 
+      summary: AML and CREDIT RISK decision.
       description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
       requestBody:
         description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
@@ -624,13 +617,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-
+      x-group-name: Risk Screening
+      x-proxy-name: Risk Decision
   /monitoring/retrieve_hits:
     post:
       tags:
       - Risk Monitoring
-      x-group-name: Risk Monitoring
-      x-proxy-name: Retrieve Risk Avaliable Reports List for monitoring
       summary: Retrieve Risk Available Reports List for Monitoring
       description: Retrieve Risk Available Reports List for Monitoring
       requestBody:
@@ -653,12 +645,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Monitoring
+      x-proxy-name: Retrieve Risk Avaliable Reports List for monitoring
   /monitoring/retrieve_report:
     post:
       tags:
       - Risk Monitoring
-      x-group-name: Risk Monitoring
-      x-proxy-name: Retrieve Risk Full Reports for Monitoring
       summary: Retrieve Risk Full Reports for Monitoring
       description: Retrieve Risk Full Reports for Monitoring
       requestBody:
@@ -681,12 +673,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Monitoring
+      x-proxy-name: Retrieve Risk Full Reports for Monitoring
   /monitoring/overwrite_monitoring_report:
     post:
       tags:
       - Risk Monitoring
-      x-group-name: Risk Monitoring
-      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
       summary: Overwriting AML Report for Monitoring (OFAC Report)
       description: Overwriting AML Report for Monitoring (OFAC Report)
       requestBody:
@@ -709,14 +701,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-##########################RISK##############################
-##########################FUNDING##########################
+      x-group-name: Risk Monitoring
+      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
   /funding/instruction:
     post:
       tags:
       - Funding Instruction
-      x-group-name: Funding
-      x-proxy-name: Funding Instruction
       summary: Funding Instruction
       description: A single merchant, simplified structure
       operationId: funding_instruction
@@ -740,12 +730,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Funding
+      x-proxy-name: Funding Instruction
   /funding/detailed-instruction:
     post:
       tags:
       - Funding Instruction
-      x-group-name: Funding
-      x-proxy-name: Funding Detailed-Instruction
       summary: Funding Details Instruction
       description: a single merchant, extended structure
       operationId: funding_details_instruction
@@ -769,12 +759,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Funding
+      x-proxy-name: Funding Detailed-Instruction
   /reserve/release:
     post:
       tags:
       - Account Operations
-      x-group-name: Account Operations
-      x-proxy-name: Reserve Releease
       summary: Account Reserve Release
       description: Account Reserve Release
       operationId: release_reserve
@@ -798,14 +788,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-##########################FUNDING##########################
-##########################TRANSACTION INFO##########################
+      x-group-name: Account Operations
+      x-proxy-name: Reserve Releease
   /account/balance:
     post:
       tags:
       - Account Operations
-      x-group-name: Account Operations
-      x-proxy-name: Get Account Balance
       summary: Get Account Balance
       description: Gets the account balance
       operationId: get_account_balance
@@ -829,12 +817,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Account Operations
+      x-proxy-name: Get Account Balance
   /settlement/rejects:
     post:
       tags:
       - Account Operations
-      x-group-name: Account Operations
-      x-proxy-name: Get Settlement Rejects
       summary: Get Settlement Rejects
       description: Get a list of all rejected settlement transactions under a PFAC and the related merchants. Can be filtered to only display certain transactions.
       operationId: GET_SETTLEMENT_REJECTS
@@ -858,12 +846,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Account Operations
+      x-proxy-name: Get Settlement Rejects
   /account/trade-info:
     post:
       tags:
       - Account Operations
-      x-group-name: Account Operations
-      x-proxy-name: Get Trade Info
       summary: Get Trade Info
       description: Get Trade Info
       operationId: GET_TRADE_INFO
@@ -887,12 +875,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Account Operations
+      x-proxy-name: Get Trade Info
   /account/settlement-info:
     post:
       tags:
       - Account Operations
-      x-group-name: Account Operations
-      x-proxy-name: Get Settlement Info
       summary: Get Settlement Info
       description: Get Settlement Info
       operationId: GET_SETTLEMENT_INFO
@@ -916,12 +904,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Account Operations
+      x-proxy-name: Get Settlement Info
   /account/account-summary:
     post:
       tags:
       - Account Operations
-      x-group-name: Account Operations
-      x-proxy-name: Get Account Summary
       summary: Get Account Summary
       description: Get Account Summary
       operationId: GET_ACCOUNT_SUMMARY
@@ -945,12 +933,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Account Operations
+      x-proxy-name: Get Account Summary
   /transaction/:
     post:
       tags:
       - Search Transactions
-      x-group-name: Transactions
-      x-proxy-name: Search Transactions
       summary: Search Transactions
       description: Search Transactions, Including Refund, Not Rejected
       operationId: TRANSACTION_SEARCH
@@ -974,12 +962,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Transactions
+      x-proxy-name: Search Transactions
   /transaction/rejects:
     post:
       tags:
       - Search Transactions
-      x-group-name: Transactions
-      x-proxy-name: Search Rejects
       summary: Search Transactions Rejects
       description: Search Transactions Rejects
       operationId: TRANSACTION_SEARCH_REJECTS
@@ -1003,12 +991,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Transactions
+      x-proxy-name: Search Rejects
   /transaction/adjustments:
     post:
       tags:
       - Search Transactions
-      x-group-name: Transactions
-      x-proxy-name: Adjustments
       summary: Search Transactions Adjustments
       description: Search Transactions Adjustments
       operationId: TRANSACTION_SEARCH_ADJUSTMENTS
@@ -1032,12 +1020,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Transactions
+      x-proxy-name: Adjustments
   /transaction/chargebacks:
     post:
       tags:
       - Search Transactions
-      x-group-name: Transactions
-      x-proxy-name: Chargebacks
       summary: Search Transactions Chargebacks
       description: Search Transactions Chargebacks
       operationId: TRANSACTION_SEARCH_CHARGEBACKS
@@ -1061,12 +1049,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Transactions
+      x-proxy-name: Chargebacks
   /transaction/chargeback-adjustments:
     post:
       tags:
       - Search Transactions
-      x-group-name: Transactions
-      x-proxy-name: Chargeback Adjustment
       summary: Search Transactions Chargeback-adjustments
       description: Search Transactions Chargeback-adjustments
       operationId: TRANSACTION_SEARCH_CHARGEBACK_ADJUSTMENTS
@@ -1090,14 +1078,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-##########################TRANSACTION INFO##########################
-#####################OTHERS#################################
+      x-group-name: Transactions
+      x-proxy-name: Chargeback Adjustment
   /account/bank-details:
     post:
       tags:
       - Information Retrieval
-      x-group-name: Information Retrieval
-      x-proxy-name: Get Bank Details
       summary: Get Bank Account Detail
       description: Get Bank Account Detail
       operationId: get_bank_detail
@@ -1121,14 +1107,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-#####################OTHERS#################################
-##########################SPLIT FUNDING##########################  
+      x-group-name: Information Retrieval
+      x-proxy-name: Get Bank Details
   /split/transaction-details:
     post:
       tags:
       - Split Funding by Transaction
-      x-group-name: Split Funding by Transaction
-      x-proxy-name: Split Funding Details
       summary: Split Funding Instruction
       description: A funding instruction to sub-merchant and other involved entities
       requestBody:
@@ -1151,12 +1135,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Funding Details
   /split/status:
     post:
       tags:
       - Split Funding by Transaction
-      x-group-name: Split Funding by Transaction
-      x-proxy-name: Split Status
       summary: Split Funding Instruction
       description: A funding status of each sub-merchant and other involved entities
       requestBody:
@@ -1179,12 +1163,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Status
   /split/reprocessing:
     post:
       tags:
       - Split Funding by Transaction
-      x-group-name: Split Funding by Transaction
-      x-proxy-name: Split Reprocessing
       summary: Split Funding Instruction
       description: Reprocessing unprocessed data present in the Merchant Hold Account
       requestBody:
@@ -1207,12 +1191,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Reprocessing
   /split/discard:
     post:
       tags:
       - Split Funding by Transaction
-      x-group-name: Split Funding by Transaction
-      x-proxy-name: Split Discard
       summary: Split Funding Instruction
       description: Discarding unprocessed transactions present in the Merchant Hold Account
       requestBody:
@@ -1234,27 +1218,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'    
-##########################SPLIT FUNDING##########################  
+                $ref: '#/components/schemas/Error'
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Discard
 components:
-  requestBodies:
-    statusMode:
-      required: true
-      content:
-        multipart/form-data:
-          schema:
-            type: object
-            properties:
-              request:
-                type: object
-                properties:
-                  applications:
-                    $ref: '#/components/schemas/applicationUF'
-                  document_data:
-                    $ref: '#/components/schemas/documentdata1'
-              file:
-                type: string
-                format: binary   
   schemas:
     grant_type_object:
       type: object
@@ -1331,17 +1298,9 @@ components:
       type: object
       properties:
         application:
-          type: object
-          properties:
-            application_reference:
-              $ref: '#/components/schemas/ApplicationRef'
+          $ref: '#/components/schemas/OverwriteCreditRequest_application'
         RISK:
-          type: object
-          properties:
-            decision:
-              $ref: '#/components/schemas/DecisionRISK'
-            risk_reviewer_comments:
-              $ref: '#/components/schemas/ReviewNote'
+          $ref: '#/components/schemas/DecisionRequest_RISK'
     DecisionResponseBlock:
       required:
       - request_source
@@ -1356,14 +1315,14 @@ components:
       type: string
       example: CONFIRM
       enum:
-        - 'CONFIRM'
-        - 'DISCOUNT'
+      - CONFIRM
+      - DISCOUNT
     DecisionRISK:
-     type: string
-     example: DECLINE
-     enum:
-        - 'APPROVE'
-        - 'DECLINE'
+      type: string
+      example: DECLINE
+      enum:
+      - APPROVE
+      - DECLINE
     OverwriteCreditResponseBlock:
       type: object
       properties:
@@ -1506,7 +1465,6 @@ components:
           $ref: '#/components/schemas/BusinessName'
         address:
           $ref: '#/components/schemas/AddressReportShort'
-    ####fix
     BusinessOverwrite:
       type: object
       properties:
@@ -1814,13 +1772,14 @@ components:
         filing_details:
           $ref: '#/components/schemas/filingDetail'
         filling_details:
+          $ref: '#/components/schemas/MonitorCreditSumBankrupt_filling_details'
           type: object
           properties:
             filed_with:
               type: string
     MonitorCreditSumDissolve:
       type: object
-      properties: 
+      properties:
         number_intention_to_dissolve:
           type: string
         time_since_last_intention_to_dissolve:
@@ -1835,7 +1794,7 @@ components:
           type: string
     MonitorCreditSumVolunteer:
       type: object
-      properties: 
+      properties:
         number_approval_vol_arrangement:
           type: string
         time_since_last_approval_vol_arrangement:
@@ -1854,7 +1813,7 @@ components:
           type: string
     MonitorCreditSumCompanyAdmin:
       type: object
-      properties:        
+      properties:
         number_appointment_administrator:
           type: string
         time_since_last_appointment_administrator:
@@ -1959,7 +1918,7 @@ components:
       type: object
       properties:
         currency:
-            $ref: '#/components/schemas/Currency'
+          $ref: '#/components/schemas/Currency'
         number:
           type: string
         balance:
@@ -2015,8 +1974,8 @@ components:
           type: string
         percent_change_debt_gearing:
           type: string
-        percentage_change_net_asset: 
-          type: string   
+        percentage_change_net_asset:
+          type: string
     MonitorCreditFinancialMonthly:
       type: object
       properties:
@@ -2031,16 +1990,13 @@ components:
       properties:
         number_current_directors:
           type: string
-          example:
-            '1'
+          example: "1"
         number_previous_directors:
           type: string
-          example:
-            '1'
+          example: "1"
         number_of_disqualifications:
           type: string
-          example:
-            '1'
+          example: "1"
         directors:
           type: object
           properties:
@@ -2056,20 +2012,18 @@ components:
         director_flag:
           type: string
           enum:
-            - '1'
-            - '0'
+          - "1"
+          - "0"
         director_number:
           type: string
-          example:
-            '1'
+          example: "1"
         appointment_date:
           $ref: '#/components/schemas/Date'
         resignation_date:
           $ref: '#/components/schemas/Date'
         number_of_convictions:
           type: string
-          example:
-            '1'
+          example: "1"
         director_details:
           $ref: '#/components/schemas/MonitorCreditSafeDetail'
     MonitorCreditSafeDetail:
@@ -2085,17 +2039,16 @@ components:
           $ref: '#/components/schemas/Date'
         occupation:
           type: string
-          example: 'Director'
+          example: Director
         nationality:
           type: string
-          example: 'American'
+          example: American
     CorporateStructure:
       type: object
       properties:
         number_principle_shareholders:
           type: string
-          example:
-            '1'
+          example: "1"
         parent_company:
           $ref: '#/components/schemas/CorporateStructureCompany'
         ultimate_parent_company:
@@ -2124,12 +2077,10 @@ components:
           $ref: '#/components/schemas/RegNumber'
         business_type:
           type: string
-          example:
-            'other'
+          example: other
         company_status:
           type: string
-          example:
-            'other'
+          example: other
         vat_number:
           $ref: '#/components/schemas/TaxID'
         address:
@@ -2139,13 +2090,13 @@ components:
       properties:
         business_type:
           type: string
-          example: 'Limited'
+          example: Limited
         company_status:
           type: string
-          example: 'Active'
+          example: Active
         reference_number:
           type: string
-          example: '45889050'
+          example: "45889050"
         legal_name:
           $ref: '#/components/schemas/BusinessName'
         registration_number:
@@ -2187,13 +2138,13 @@ components:
           $ref: '#/components/schemas/ZipCode'
         country:
           type: string
-          example: 'US'
-          description: 'ISO2 Country'
+          description: ISO2 Country
+          example: US
         summary:
           $ref: '#/components/schemas/AddressSummary'
     AddressSummary:
       type: string
-      example: 'Sheila Lane, Sparks, NV 89431'
+      example: Sheila Lane, Sparks, NV 89431
     CCLSDetail:
       type: object
       properties:
@@ -2204,20 +2155,16 @@ components:
       properties:
         number_of_previous_searches:
           type: string
-          example:
-            '1'
+          example: "1"
         number_of_previous_searches_3_months:
           type: string
-          example:
-            '1'
+          example: "1"
         number_of_previous_searches_6_months:
           type: string
-          example:
-            '1'
+          example: "1"
         number_of_previous_searches_12_months:
           type: string
-          example:
-            '1'
+          example: "1"
     filingDetail:
       type: object
       properties:
@@ -2236,7 +2183,7 @@ components:
           $ref: '#/components/schemas/MCC'
         description:
           type: string
-          example: 'MCC description'
+          example: MCC description
     MonitorFullReportDetail:
       type: object
       properties:
@@ -2448,27 +2395,27 @@ components:
     MonitorFactorName:
       type: string
       enum:
-        - 'Company Name Change'
-        - 'Financial Regulator'
-        - 'Law Enforcement'
-        - 'Deceased'
-        - 'Sanctions'
-        - 'Address Change'
-        - 'Director Change'
-        - 'Telephone Number Change'
-        - 'Company Status Change'
-        - 'Days Beyond Terms Change '
-        - 'Bankruptcy'
-        - 'Possible OFAC'
-        - 'PEP'
-        - 'Disqualified Director'
-        - 'Insolvency'
-        - 'Adverse Media'
+      - Company Name Change
+      - Financial Regulator
+      - Law Enforcement
+      - Deceased
+      - Sanctions
+      - Address Change
+      - Director Change
+      - Telephone Number Change
+      - Company Status Change
+      - 'Days Beyond Terms Change '
+      - Bankruptcy
+      - Possible OFAC
+      - PEP
+      - Disqualified Director
+      - Insolvency
+      - Adverse Media
     MonitorThirdPartySource:
       type: string
       enum:
-        - 'creditsafe'
-        - 'acuris_business_monitor'
+      - creditsafe
+      - acuris_business_monitor
     MonitorDataHit:
       type: object
       properties:
@@ -2477,7 +2424,7 @@ components:
           items:
             $ref: '#/components/schemas/OFACHitAlert'
         intelligence_references:
-            $ref: '#/components/schemas/IntelligenceRef'
+          $ref: '#/components/schemas/IntelligenceRef'
     IntelligenceRef:
       type: object
       properties:
@@ -2519,58 +2466,57 @@ components:
           $ref: '#/components/schemas/MonitorFactor'
     MonitoringRules:
       type: string
-      description: 'The name of configured monitoring rule'
-      example:
-        'Monitor Rule'
+      description: The name of configured monitoring rule
+      example: Monitor Rule
     MonitorFactor:
       type: string
-      description: 'Factors which are used for monitoring'
+      description: Factors which are used for monitoring
       enum:
-        - 'B_BANKRUPTCY_EVENT_US'
-        - 'B_POSSIBLE_OFAC_EVENT_US'
-        - 'B_COMPANY_NAME_CHANGE_EVENT_XX'
-        - 'B_NEGATIVE_FINANCIAL_REGULATOR'
-        - 'B_NEGATIVE_LAW_ENFORCEMENT'
-        - 'B_DECEASED_EVENT_XX'
-        - 'B_NEGATIVE_SANCTIONS'
-        - 'B_ADDRESS_CHANGE_EVENT_XX'
-        - 'B_DIRECTOR_CHANGE_EVENT_XX'
-        - 'B_TELEPHONE_NUMBER_CHANGE_EVENT_XX'
-        - 'B_COMPANY_STATUS_EVENT_US'
-        - 'B_DBT_CHANGE_EVENT_US'
-        - 'B_NEGATIVE_HAS_PEP'
-        - 'P_PEP_EVENT_XX'
-        - 'P_SANCTION_EVENT_XX'
-        - 'P_DECEASED_EVENT_XX'
-        - 'P_LAWENFORCEMENT_EVENT_XX'
-        - 'P_FINANCIALREGULATOR_EVENT_XX'
-        - 'P_DISQUALIFIEDDIRECTOR_EVENT_XX'
-        - 'P_INSOLVENT_EVENT_XX'
-        - 'P_ADVERSEMEDIA_EVENT_XX'
+      - B_BANKRUPTCY_EVENT_US
+      - B_POSSIBLE_OFAC_EVENT_US
+      - B_COMPANY_NAME_CHANGE_EVENT_XX
+      - B_NEGATIVE_FINANCIAL_REGULATOR
+      - B_NEGATIVE_LAW_ENFORCEMENT
+      - B_DECEASED_EVENT_XX
+      - B_NEGATIVE_SANCTIONS
+      - B_ADDRESS_CHANGE_EVENT_XX
+      - B_DIRECTOR_CHANGE_EVENT_XX
+      - B_TELEPHONE_NUMBER_CHANGE_EVENT_XX
+      - B_COMPANY_STATUS_EVENT_US
+      - B_DBT_CHANGE_EVENT_US
+      - B_NEGATIVE_HAS_PEP
+      - P_PEP_EVENT_XX
+      - P_SANCTION_EVENT_XX
+      - P_DECEASED_EVENT_XX
+      - P_LAWENFORCEMENT_EVENT_XX
+      - P_FINANCIALREGULATOR_EVENT_XX
+      - P_DISQUALIFIEDDIRECTOR_EVENT_XX
+      - P_INSOLVENT_EVENT_XX
+      - P_ADVERSEMEDIA_EVENT_XX
     MonitorDecision:
       type: string
-      description: 'Monitoring decision'
+      description: Monitoring decision
       enum:
-        - 'ALERT'
-        - 'IGNORE'
+      - ALERT
+      - IGNORE
     DecisionMade:
       type: string
-      description: 'Has OFAC hits? 1= Yes 0= No'
+      description: Has OFAC hits? 1= Yes 0= No
       enum:
-        - '0'
-        - '1'
+      - "0"
+      - "1"
     OFACHit:
       type: string
-      description: 'Has OFAC hits? 1= Yes 0= No'
+      description: Has OFAC hits? 1= Yes 0= No
       enum:
-        - '0'
-        - '1'
+      - "0"
+      - "1"
     MaterialChangeHit:
       type: string
-      description: 'Has Material Change hits? 1= Yes 0= No'
+      description: Has Material Change hits? 1= Yes 0= No
       enum:
-        - '0'
-        - '1'
+      - "0"
+      - "1"
     GetBankRequest:
       type: object
       properties:
@@ -2647,16 +2593,7 @@ components:
       type: object
       properties:
         search:
-          type: object
-          properties:
-            merchant_id:
-              $ref: '#/components/schemas/MID'
-            decision_made:
-              type: string
-              description: 'Decision already made? 1= Yes 0= No'
-              enum:
-                - '1'
-                - '0'
+          $ref: '#/components/schemas/RetrieveHitRequest_search'
     RetrieveMonitoringRequest:
       type: object
       properties:
@@ -2678,7 +2615,7 @@ components:
     ReportType:
       type: string
       enum:
-        - 'NEW_SANCTION_REPORT'
+      - NEW_SANCTION_REPORT
     OverwriteMonitorRequest:
       type: object
       properties:
@@ -2767,21 +2704,21 @@ components:
     OriginalCopy:
       type: string
       enum:
-        - '0'
-        - '1'
+      - "0"
+      - "1"
     IsTestData:
       type: string
       enum:
-        - '0'
-        - '1'
+      - "0"
+      - "1"
     PartnerID:
       type: string
-      example: '160000999'
-      description: 'Alliance unique ID in the system in Exchange'
+      description: Alliance unique ID in the system in Exchange
+      example: "160000999"
     AllianceID:
       type: string
-      example: '160000777'
-      description: 'Alliance unique ID in the system in Exchange'
+      description: Alliance unique ID in the system in Exchange
+      example: "160000777"
     AMLOverwriteOperation:
       type: object
       properties:
@@ -2811,8 +2748,8 @@ components:
             $ref: '#/components/schemas/PossibleMatchOverwriteBlock'
     ReviewNote:
       type: string
-      description: 'A note from the reviewer'
-      example: 'This is my review'
+      description: A note from the reviewer
+      example: This is my review
     PossibleMatchOverwriteBlock:
       type: object
       properties:
@@ -2943,7 +2880,7 @@ components:
                   $ref: '#/components/schemas/Position'
             decision_purpose:
               type: string
-              enum: 
+              enum:
               - BOARDING
         outlet:
           type: object
@@ -2982,11 +2919,11 @@ components:
               $ref: '#/components/schemas/ATV'
             address:
               $ref: '#/components/schemas/AddressReportShort'
-            bank: 
+            bank:
               type: array
               items:
                 $ref: '#/components/schemas/ReportBankShort'
-    ReportBankShort: 
+    ReportBankShort:
       type: object
       properties:
         bank_ref:
@@ -2999,10 +2936,10 @@ components:
           $ref: '#/components/schemas/dda'
         account_type:
           type: string
-          example: 'IBAN'
+          example: IBAN
         business_type:
           $ref: '#/components/schemas/BusinessLegalEntity'
-        proprietor: 
+        proprietor:
           type: object
           properties:
             first_name:
@@ -3024,12 +2961,10 @@ components:
           $ref: '#/components/schemas/CountryCodeLetter'
     MCardATO:
       type: string
-      example:
-        "20000.00"
+      example: "20000.00"
     MATO:
       type: string
-      example:
-        "20000.00"
+      example: "20000.00"
     ReportAddressBlock:
       type: object
       properties:
@@ -3294,24 +3229,24 @@ components:
           $ref: '#/components/schemas/EntityReference'
         original_status:
           type: string
-          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
           enum:
           - PM
           - EM
           - NM
         status:
           type: string
-          description: 'decision made from user'
+          description: decision made from user
           enum:
           - PM
           - EM
           - NM
         is_overwritten:
           type: string
-          description: '1 = Yes, 0 = No'
+          description: 1 = Yes, 0 = No
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         watchlist:
@@ -3418,7 +3353,7 @@ components:
           - false
         addresses:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/Addresses'
         aliases:
           type: array
@@ -3430,7 +3365,7 @@ components:
           example: []
         notes:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/ReportNote'
         linkedBusinesses:
           type: array
@@ -3438,7 +3373,7 @@ components:
           example: []
         linkedPersons:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/LinkedPersonReport'
         politicalPositions:
           type: array
@@ -3448,9 +3383,9 @@ components:
           type: object
           additionalProperties:
             type: array
-            items: 
+            items:
               $ref: '#/components/schemas/Link'
-      
+
     possibleMatch:
       type: object
       properties:
@@ -3473,17 +3408,17 @@ components:
           - NM
         status:
           type: string
-          description: 'decision made from user'
+          description: decision made from user
           enum:
           - PM
           - EM
           - NM
         is_overwritten:
           type: string
-          description: '1 = Yes, 0 = No'
+          description: 1 = Yes, 0 = No
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         watchlist:
@@ -3494,31 +3429,31 @@ components:
           $ref: '#/components/schemas/DateyMdTime'
     DateyMdTime:
       type: string
-      example: '2022-Mar-18 13:02:38'
+      example: 2022-Mar-18 13:02:38
     creditReference:
       type: object
       properties:
         disqualified_director_match:
           type: string
           enum:
-          - true
-          - false
+          - "true"
+          - "false"
         adverse_media_match:
           type: string
           enum:
-          - true
-          - false
+          - "true"
+          - "false"
         insolvent_match:
           type: string
           enum:
-          - true
-          - false
+          - "true"
+          - "false"
         deceased:
           type: string
-          description: '1 = Yes, 0 = No'
+          description: 1 = Yes, 0 = No
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         date_of_death:
           $ref: '#/components/schemas/Date'
     watchlistReport:
@@ -3527,33 +3462,33 @@ components:
         pep_hits:
           type: string
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         pep_level:
           type: string
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         enforcement_hits:
           type: string
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         sanctions_hits:
           type: string
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         previous_sanctions:
           type: string
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
         financial_regulator:
           type: string
           enum:
-          - 1
-          - 0
+          - "1"
+          - "0"
     reviewInfo:
       type: object
       properties:
@@ -3676,7 +3611,7 @@ components:
           - false
         addresses:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/Addresses'
         aliases:
           type: array
@@ -3688,7 +3623,7 @@ components:
           example: []
         notes:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/ReportNote'
         linkedBusinesses:
           type: array
@@ -3696,7 +3631,7 @@ components:
           example: []
         linkedPersons:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/LinkedPersonReport'
         politicalPositions:
           type: array
@@ -3706,7 +3641,7 @@ components:
           type: object
           additionalProperties:
             type: array
-            items: 
+            items:
               $ref: '#/components/schemas/Link'
     Link:
       type: string
@@ -3721,12 +3656,12 @@ components:
           type: string
     ReportNote:
       type: object
-      example: "Note for report"
       properties:
         dataSource:
           type: string
         text:
           type: string
+      example: Note for report
     Addresses:
       type: object
       properties:
@@ -3752,13 +3687,13 @@ components:
               example: "United States of America"
     CountryCodeLetter:
       type: string
-      example: "USA"
+      example: USA
     DateOnly:
       type: string
-      example: "13-06-2000"
+      example: 13-06-2000
     DateTime:
       type: string
-      example: "2022-01-01 12:00:00"
+      example: 2022-01-01 12:00:00
     ReportBlock:
       type: object
       properties:
@@ -3835,7 +3770,7 @@ components:
           $ref: '#/components/schemas/EntityReference'
         decision:
           type: string
-          example: "REFER"
+          example: REFER
           enum:
           - REFER
           - PREAPPROVE
@@ -3874,24 +3809,19 @@ components:
       - PRINCIPAL
       - BUSINESS
     EntityReference:
-      type: string
-      minLength: 24
       maxLength: 24
-      example: 
-        "6234795714d105062c143e92"
+      minLength: 24
+      type: string
+      example: 6234795714d105062c143e92
     Name:
       type: string
-      example:
-        "Miss Megan Sharp"
+      example: Miss Megan Sharp
     Reviewer:
       type: string
-      example:
-        "John Doe"
+      example: John Doe
     UserName:
       type: string
-      example:
-        "pfac.user"
-
+      example: pfac.user
     Get_Trade_Account_Request:
       required:
       - currency
@@ -4055,10 +3985,10 @@ components:
       - accounts
       - currency
       - merchant_id
-      - total_amount
-      - transaction_type
-      - transaction_date
       - split_details
+      - total_amount
+      - transaction_date
+      - transaction_type
       type: object
       properties:
         processing_merchant_id:
@@ -4115,9 +4045,9 @@ components:
         summary:
           $ref: '#/components/schemas/SplitTransactionResponse_summary'
     SplitFundingStatusRequest:
-      type: object
       required:
-        - transaction_date
+      - transaction_date
+      type: object
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
@@ -4171,10 +4101,10 @@ components:
       - accounts
       - currency
       - merchant_id
-      - total_amount
-      - transaction_type
-      - transaction_date
       - split_details
+      - total_amount
+      - transaction_date
+      - transaction_type
       type: object
       properties:
         processing_merchant_id:
@@ -4217,8 +4147,8 @@ components:
       - currency
       - merchant_id
       - total_amount
-      - transaction_type
       - transaction_date
+      - transaction_type
       type: object
       properties:
         processing_merchant_id:
@@ -4244,21 +4174,24 @@ components:
         case_number:
           $ref: '#/components/schemas/CaseNumber'
     SplitFundingDiscardResponse:
-      type: "object"
+      type: object
       properties:
         result:
-          example: "success"
+          example: success
         summary:
-          $ref: "#/components/schemas/Accounts"
+          $ref: '#/components/schemas/Accounts'
         original_processing_date:
           type: string
-          example: "2022-01-10"
+          example: 2022-01-10
     applicationuploadfileResponse:
       type: object
       properties:
         result:
-          example: "success"
+          example: success
     applicationUF:
+      required:
+      - application_reference
+      - tenant_udc_external_id
       type: object
       properties:
         application_reference:
@@ -4267,57 +4200,53 @@ components:
           example: "333000010344"
         tenant_udc_external_id:
           type: string
-          example: "TDCAB-DDAB5-5F9C4-7D2F4-5F47C-D407F-EC1BD"
+          example: TDCAB-DDAB5-5F9C4-7D2F4-5F47C-D407F-EC1BD
         entity_type:
           type: string
-          example: "PRINCIPAL"
+          example: PRINCIPAL
           enum:
-            - "PRINCIPAL"
-            - "BUSINESS"
-            - "OUTLET_CONTACT"
-            - "BUSINESS_CONTACT"
+          - PRINCIPAL
+          - BUSINESS
+          - OUTLET_CONTACT
+          - BUSINESS_CONTACT
         document_for:
           type: string
           description: 'ID for the specified Entity, retrievable through retrieve_merchant_hierarchy request. Principal - Uses "owner_ref" | Business - Uses "merchant_ref"| Outlet Contact - Uses "owner_ref" |Business Contact - Uses Registration address "contact_ref"  '
-          example: "62ab1f857c5de6318f74e2a9"
-      required:
-        - application_reference
-        - tenant_udc_external_id
-
+          example: 62ab1f857c5de6318f74e2a9
     documentdata1:
       type: object
-      description: Used if configured document has entity links
       properties:
         first_name:
           type: string
-          example: "Sharjeel"
+          example: Sharjeel
         second_name:
           type: string
-          example: "Faisal"
+          example: Faisal
         surname:
           type: string
-          example: "Mirza"
+          example: Mirza
         date_of_birth:
           type: string
-          example: "1998/05/31"
+          example: 1998/05/31
         document_id:
           type: string
-          example: "CWR442DF2FD"
+          example: CWR442DF2FD
         issued_date:
           type: string
-          example: "2022/06/10"
+          example: 2022/06/10
         expiry_date:
           type: string
-          example: "2032/06/10"
+          example: 2032/06/10
         document_issuer:
           type: string
-          example: "Test"
+          example: Test
         issuing_state:
           type: string
-          example: "CA"
+          example: CA
         issuing_country:
           type: string
-          example: "840"  
+          example: "840"
+      description: Used if configured document has entity links
     applicationuploadadditionaldocumentsRequest:
       required:
       - application
@@ -4330,13 +4259,12 @@ components:
         note:
           type: string
           description: Any comments to the underwriter related to the documents upload
-          example: "Test"
+          example: Test
     applicationuploadadditionaldocumentsResponse:
       type: object
       properties:
         result:
-          example: "success"  
-    
+          example: success
     documentlisttenantuploaddocumentcategoriesRequest:
       type: object
     documentlisttenantuploaddocumentcategoriesResponse:
@@ -4344,7 +4272,7 @@ components:
       properties:
         result:
           type: string
-          example: "SUCCESS"
+          example: SUCCESS
         operation:
           $ref: '#/components/schemas/operation_document'
         document_categories:
@@ -4359,69 +4287,61 @@ components:
         parent_type:
           $ref: '#/components/schemas/ParentType'
         document_reference:
-          description: 'User input reference during configuration'
           type: string
-          example: "Passport"
+          description: User input reference during configuration
+          example: Passport
         status:
           type: string
           example: "1"
           enum:
-            - "1"
-            - "0"
+          - "1"
+          - "0"
         tenant_udc_external_id:
           type: string
-          description: "External ID of Document Configured"
-          example: "JKLF3-DDAB5-BJKL3-SDK34-5F47C-D407F-334AS"
+          description: External ID of Document Configured
+          example: JKLF3-DDAB5-BJKL3-SDK34-5F47C-D407F-334AS
         alliance_external_id:
-            $ref: '#/components/schemas/ExtID'
+          $ref: '#/components/schemas/ExtID'
         document_category:
           type: string
-          example: "Proof of ID"
-          description: "Category added during configuration of document"
+          description: Category added during configuration of document
+          example: Proof of ID
           enum:
-            - Proof of ID
-            - Proof of Business
-            - Proof of Bank
-            - Other
+          - Proof of ID
+          - Proof of Business
+          - Proof of Bank
+          - Other
     operation:
       type: object
       properties:
         operation_type:
           type: string
-          example: "APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS"
+          example: APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS
         version:
           type: string
-          example: "2.0.0"    
+          example: 2.0.0
     operation_document:
       type: object
       properties:
         operation_type:
           type: string
-          example: "DOCUMENT_LIST_TENANT_UPLOAD_DOCUMENT_TYPES"
+          example: DOCUMENT_LIST_TENANT_UPLOAD_DOCUMENT_TYPES
     application:
       type: object
       properties:
         application_reference:
           type: string
           example: "333000010344"
-                    
     Accounts:
       type: array
       items:
-        type: object
-        properties:
-          account_type:
-            type: string
-            example: "ADJUSTMENT"
-          balance:
-            type: string
-            example: "-100"      
+        $ref: '#/components/schemas/Accounts_inner'
     CaseNumber:
-      type: string
-      description: 'Case number from the chargeback or chargeback reversal transaction'
-      example: "812669"
-      minLength: 1
       maxLength: 20
+      minLength: 1
+      type: string
+      description: Case number from the chargeback or chargeback reversal transaction
+      example: "812669"
     TransactionType:
       type: string
       description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback, 4-Chargeback Reversal, 5-Reprocess'
@@ -4501,7 +4421,7 @@ components:
       type: string
       description: date
       format: yyyy-mm-dd
-      example: 2019-08-30
+      example: 2019-08-30T00:00:00.000+0000
     transaction:
       type: object
       properties:
@@ -4546,7 +4466,7 @@ components:
           example: "8888000000493032"
         funded_date:
           type: string
-          example: 2019-07-08
+          example: 2019-07-08T00:00:00.000+0000
         card_type:
           type: string
           example: "00001"
@@ -4561,7 +4481,7 @@ components:
           example: "009070806150"
         batch_date:
           type: string
-          example: 2019-07-08
+          example: 2019-07-08T00:00:00.000+0000
         authorization_code:
           type: string
           example: 00881P
@@ -4576,7 +4496,7 @@ components:
           example: MCWDV18EB
         transaction_date:
           type: string
-          example: 2019-07-08
+          example: 2019-07-08T00:00:00.000+0000
         transaction_amount:
           type: number
           example: 80
@@ -4639,7 +4559,7 @@ components:
           example: 80
         authorization_date:
           type: string
-          example: 0021-07-07
+          example: 0021-07-07T00:00:00.000+0000
         transaction_time:
           type: string
           example: 0800:00:00
@@ -4847,7 +4767,7 @@ components:
       type: string
       description: Settlement date
       format: yyyy-mm-dd
-      example: 2019-08-30
+      example: 2019-08-30T00:00:00.000+0000
     settlement_type:
       type: string
       description: The type of settlement, credit or debit
@@ -4887,7 +4807,7 @@ components:
       type: string
       description: Effective date
       format: yyyy-mm-dd
-      example: 2019-08-30
+      example: 2019-08-30T00:00:00.000+0000
     Reprocess_Settlement_RejectRequest:
       required:
       - settlement_ref
@@ -4943,16 +4863,16 @@ components:
           description: Amount to be funded to this account
         split_details:
           $ref: '#/components/schemas/SplitAccounts'
-    SplitAccounts:  
+    SplitAccounts:
       type: object
       properties:
         account_type:
           type: string
-          enum: 
-            - 'SPLIT_ACCOUNT' 
+          enum:
+          - SPLIT_ACCOUNT
         amount:
           type: string
-          example: '0.00'
+          example: "0.00"
         split_details:
           type: array
           items:
@@ -4974,10 +4894,10 @@ components:
       properties:
         account_type:
           type: string
-          enum: 
-            - 'REVENUE_ACCOUNT' 
-            - 'FEE_ACCOUNT'
-            - 'PFAC_REVENUE_ACCOUNT'
+          enum:
+          - REVENUE_ACCOUNT
+          - FEE_ACCOUNT
+          - PFAC_REVENUE_ACCOUNT
         amount:
           type: string
     AccountResponse:
@@ -5594,9 +5514,7 @@ components:
           maxLength: 6
           type: string
           description: The version of the operation
-          example: '2.0.0'
-
-
+          example: 2.0.0
     AddNonProcessingApplicationRequest:
       type: object
       properties:
@@ -6128,7 +6046,7 @@ components:
     OfferDate:
       type: string
       description: 'Available date of the package from: yyyy-mm-dd hh:mm:ss'
-      example: 2021-01-01
+      example: 2021-01-01T00:00:00.000+0000
     Order:
       type: string
       description: Item order in this offering
@@ -6165,11 +6083,11 @@ components:
         offer_code_from:
           type: string
           description: 'Available date of the package from: yyyy-dd-mm 00:00:00'
-          example: 2021-01-01
+          example: 2021-01-01T00:00:00.000+0000
         offer_code_to:
           type: string
           description: 'Available date of the package until: yyyy-dd-mm 00:00:00'
-          example: 2021-01-12
+          example: 2021-01-12T00:00:00.000+0000
         offer_code_status:
           type: string
           description: 'Offer code active: 1 Active 2 Inactive'
@@ -6713,7 +6631,6 @@ components:
     DecisionApplicationFullDetail:
       type: object
       properties:
-
         alliance:
           $ref: '#/components/schemas/AllianceDetail'
         application:
@@ -7294,11 +7211,11 @@ components:
         mcc_code:
           $ref: '#/components/schemas/MCC'
         seasonal_business:
-          $ref: "#/components/schemas/Seasonal_business"
+          $ref: '#/components/schemas/Seasonal_business'
         seasonal_start_month:
-          $ref: "#/components/schemas/Seasonal_Start_Month"
+          $ref: '#/components/schemas/Seasonal_Start_Month'
         seasonal_end_month:
-          $ref: "#/components/schemas/Seasonal_End_Month"
+          $ref: '#/components/schemas/Seasonal_End_Month'
         curr_code:
           $ref: '#/components/schemas/Currency'
         mastercard_sales:
@@ -7891,8 +7808,8 @@ components:
           $ref: '#/components/schemas/Currency'
         is_tier_price:
           type: string
-          example: "0"
           description: 'Is tier pricing - 1: Yes 0: No'
+          example: "0"
           enum:
           - "0"
           - "1"
@@ -8095,15 +8012,15 @@ components:
       - $ref: '#/components/schemas/ServiceChargeBlock'
     IsInvisible:
       type: string
-      example: "0"
       description: 'Is the charge invisible to boarding user? - 1: Yes 0: No'
+      example: "0"
       enum:
       - "0"
       - "1"
     IsMandatory:
       type: string
-      example: "1"
       description: 'Is the charge mandatory? - 1: Yes 0: No'
+      example: "1"
       enum:
       - "0"
       - "1"
@@ -8124,8 +8041,8 @@ components:
       - "2"
     MergeredCharge:
       type: string
-      example: "0"
       description: 'Is the charge used for Secure and Non-secure? - 1: Yes 0: No'
+      example: "0"
       enum:
       - "0"
       - "1"
@@ -8148,14 +8065,14 @@ components:
     FeeCollection:
       type: string
       description: Fee collection
-      example: "BLENDED"
+      example: BLENDED
       enum:
       - INTERCHANGE
       - BLENDED
     IsActivated:
       type: string
-      example: "1"
       description: 'Is active item? - 1: Yes 0: No'
+      example: "1"
       enum:
       - "0"
       - "1"
@@ -8268,32 +8185,32 @@ components:
     DDA:
       type: string
       description: Merchant bank DDA
-      example: '123456789000'
+      example: "123456789000"
     ABA:
       maxLength: 9
       minLength: 9
       type: string
       description: Merchant bank ABA
-      example: '123456789'
+      example: "123456789"
     BankAccountType:
       type: string
       description: Account Type - checking, saving
-      example: "CHECKING"
+      example: CHECKING
       enum:
       - CHECKING
       - SAVING
     BankAccountTypeRetrieve:
       type: string
       enum:
-      - 'CHECKING'
-      - 'SAVING'
+      - CHECKING
+      - SAVING
     BankFor:
       type: string
-      example: "CREDIT, DEBIT, CHARGEBACK"
+      example: CREDIT, DEBIT, CHARGEBACK
       enum:
-      - 'CREDIT'
-      - 'DEBIT'
-      - 'CHARGEBACK'
+      - CREDIT
+      - DEBIT
+      - CHARGEBACK
     LegalName:
       type: string
       description: Business legal name
@@ -8305,7 +8222,7 @@ components:
     BusinessLegalEntity:
       type: string
       description: S = ASSOCIATION/ESTATE/TRUST, G = GOVERNMENT, I = INTERNATIONAL/ORG, L = LIMITED LIABILITY CO, N = PARTNERSHIP, O = PROPRIETORSHIP, V = PRIVATE CORP, U = PUBLIC CORP, X = TAX EXEMPT ORGANIZATION
-      example: "L"
+      example: L
       enum:
       - L
       - G
@@ -8342,13 +8259,13 @@ components:
       example: "N"
       enum:
       - "N"
-      - "A"
-      - "B"
-      - "F"
-      - "D"
-      - "C"
-      - "G"
-      - "J"
+      - A
+      - B
+      - F
+      - D
+      - C
+      - G
+      - J
     ProjectName:
       type: string
       description: Project Name
@@ -8362,13 +8279,13 @@ components:
     BusinessCategory:
       type: string
       description: Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant
-      example: "MOTO"
+      example: MOTO
       enum:
-      - "R"
-      - "MOTO"
-      - "E"
-      - "H"
-      - "RT"
+      - R
+      - MOTO
+      - E
+      - H
+      - RT
     IrsName:
       type: string
       description: IRS filing name
@@ -8407,41 +8324,40 @@ components:
       - "1"
     Seasonal_Start_Month:
       type: string
-      example: "JANUARY"
+      example: JANUARY
       enum:
-      - "JANUARY"
-      - "FEBRUARY"
-      - "MARCH"
-      - "APRIL"
-      - "MAY"
-      - "JUNE"
-      - "JULY"
-      - "AUGUST"
-      - "SEPTEMBER"
-      - "OCTOBER"
-      - "NOVEMBER"
-      - "DECEMBER"
+      - JANUARY
+      - FEBRUARY
+      - MARCH
+      - APRIL
+      - MAY
+      - JUNE
+      - JULY
+      - AUGUST
+      - SEPTEMBER
+      - OCTOBER
+      - NOVEMBER
+      - DECEMBER
     Seasonal_End_Month:
       type: string
-      example: "MARCH"
+      example: MARCH
       enum:
-      - "JANUARY"
-      - "FEBRUARY"
-      - "MARCH"
-      - "APRIL"
-      - "MAY"
-      - "JUNE"
-      - "JULY"
-      - "AUGUST"
-      - "SEPTEMBER"
-      - "OCTOBER"
-      - "NOVEMBER"
-      - "DECEMBER"  
-        
+      - JANUARY
+      - FEBRUARY
+      - MARCH
+      - APRIL
+      - MAY
+      - JUNE
+      - JULY
+      - AUGUST
+      - SEPTEMBER
+      - OCTOBER
+      - NOVEMBER
+      - DECEMBER
     Date:
       type: string
       description: date mm-dd-yyyy
-      example: '2020-01-01'
+      example: 2020-01-01
     ATV:
       type: string
       description: average ticket sales amount
@@ -8461,10 +8377,10 @@ components:
     ChipFlag:
       type: string
       description: Are card with chip transactions taken? - Y= yes N= No
+      example: "Y"
       enum:
       - "Y"
       - "N"
-      example: "Y"
     RecurringFlag:
       type: string
       description: Have recurring transaction? 1= Yes 0=No
@@ -8491,7 +8407,7 @@ components:
     AMEXType:
       type: string
       description: AMEX Type D = PASS THRU/ESA, OB = OPT BLUE, NA = NOT APPLICABLE
-      example: "OB"
+      example: OB
       enum:
       - D
       - OB
@@ -8535,8 +8451,8 @@ components:
           $ref: '#/components/schemas/Date'
         personal_guarantee:
           type: string
-          example: "N"
           description: 'Is personal guarantee - N: No Y: Yes'
+          example: "N"
           enum:
           - "N"
           - "Y"
@@ -8572,7 +8488,7 @@ components:
     Title:
       type: string
       description: Name title
-      example: "Mr."
+      example: Mr.
       enum:
       - Mr.
       - Mrs.
@@ -8598,14 +8514,14 @@ components:
       description: Position in the company
       example: CEO
       enum:
-          - "TR"
-          - "OW"
-          - "PA"
-          - "CEO"
-          - "SEC"
-          - "DIR"
-          - "OTH"
-          - "SP"
+      - TR
+      - OW
+      - PA
+      - CEO
+      - SEC
+      - DIR
+      - OTH
+      - SP
     Email:
       type: string
       description: Email addess
@@ -8702,33 +8618,33 @@ components:
       type: string
       description: 'Business Zone: Business District, Industrial, Residential'
       enum:
-      - "B"
-      - "I"
-      - "R"
+      - B
+      - I
+      - R
     BusinessLocation:
       type: string
-      description: 'Business Location - APT , Door to Door, Flea Market/Kiosk, Home, Isolated, Mall, Office, Other, Shopping Area'
+      description: Business Location - APT , Door to Door, Flea Market/Kiosk, Home, Isolated, Mall, Office, Other, Shopping Area
       enum:
-      - "A"
-      - "D"
-      - "F"
-      - "H"
-      - "I"
-      - "M"
-      - "O"
-      - "U"
-      - "S"
+      - A
+      - D
+      - F
+      - H
+      - I
+      - M
+      - O
+      - U
+      - S
     GroundFloor:
       type: string
-      description: 'On ground floor?'
-      example: "G"
+      description: On ground floor?
+      example: G
       enum:
-      - "G"
-      - "O"
+      - G
+      - O
     SqFtCount:
       type: string
+      description: Square ft count 1 - 250 2 - 251-500 3 - 2000 4- 2000+
       example: "1"
-      description: 'Square ft count 1 - 250 2 - 251-500 3 - 2000 4- 2000+'
       enum:
       - "1"
       - "2"
@@ -8736,8 +8652,8 @@ components:
       - "4"
     NoBuildingFloors:
       type: string
+      description: If ground floor = O
       example: "1"
-      description: 'If ground floor = O'
       enum:
       - "1"
       - "2"
@@ -8745,18 +8661,18 @@ components:
       - "4"
     VisitationRequired:
       type: string
+      description: Is Visitation Required? 0 = no 1 = yes
       example: "1"
-      description: 'Is Visitation Required? 0 = no 1 = yes'
       enum:
       - "0"
       - "1"
     StatementType:
       type: string
-      example: "F"
-      description: 'FCDS Detail, FDCS Summary'
+      description: FCDS Detail, FDCS Summary
+      example: F
       enum:
-      - "F"
-      - "G"
+      - F
+      - G
     TransProcessMode:
       type: string
       description: 'Transaction Process Mode: Paper Deposits/Voice Auth, Batch Auth and Deposit, Electronic Cash Register, Electronic Draft Capture, Tape Depositor, Peaper Deposits/Terminal Auth, On = US Cash advance outlet, Reserved for Future use, Funding Account Only'
@@ -8774,22 +8690,22 @@ components:
       - "9"
     BillingFlag:
       type: string
-      example: "1"
       description: 'A billing node indicator - if 1: this node is merchant billing level'
+      example: "1"
       enum:
       - "0"
       - "1"
     FundingFlag:
       type: string
-      example: "1"
       description: 'A funding node indicator - if 1: this node is merchant funding level'
+      example: "1"
       enum:
       - "0"
       - "1"
     ReserveFlag:
       type: string
-      example: "1"
       description: 'A reserve node indicator - if 1: this node is merchant reserve level'
+      example: "1"
       enum:
       - "0"
       - "1"
@@ -8817,7 +8733,7 @@ components:
     PricingLevel:
       type: string
       description: 'A Pricing definition level - if Business: all outlets use the same price - if Outlet: each outlet can define its own price - NOT USED for Instructional Funding PFAC'
-      example: "Business"
+      example: Business
       enum:
       - Business
       - Outlet
@@ -8830,8 +8746,8 @@ components:
       - "2"
     ChargebackSettlementMethod:
       type: string
-      example: "1"
       description: 'Merchant changeback recoup method - 1: Net 2: Debit Merchant'
+      example: "1"
       enum:
       - "1"
       - "2"
@@ -8862,8 +8778,8 @@ components:
       - "2"
     HoldSuspend:
       type: string
-      example: "0"
       description: 'Is this node hold/suspended - 0: No 1: Hold 2: Suspend'
+      example: "0"
       enum:
       - "0"
       - "1"
@@ -9195,7 +9111,7 @@ components:
           example: "1"
         to:
           type: string
-          description: 'The price of this tier will apply to this number of the transaction do not present if there is no ending number'
+          description: The price of this tier will apply to this number of the transaction do not present if there is no ending number
           example: "100"
     Criteria_business_address:
       type: object
@@ -9240,7 +9156,7 @@ components:
           type: string
           description: __Description:__ Time
           format: YYYY-MM-DD HH:MM:SS
-          example: "2018-05-27 12:34:23"
+          example: 2018-05-27 12:34:23
         explanation:
           type: string
           description: __Description:__ Explanation
@@ -9250,3 +9166,588 @@ components:
       properties:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
+    OverwriteCreditRequest_application:
+      type: object
+      properties:
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+    DecisionRequest_RISK:
+      type: object
+      properties:
+        decision:
+          $ref: '#/components/schemas/DecisionRISK'
+        risk_reviewer_comments:
+          $ref: '#/components/schemas/ReviewNote'
+    OverwriteMonitorResponseBlock_additionalProperties_response_data:
+      type: object
+      properties:
+        unique_id:
+          type: number
+          example: 8101182
+        score:
+          type: number
+          example: 80
+        business:
+          $ref: '#/components/schemas/possibleMatchBusinessBlock'
+        person:
+          $ref: '#/components/schemas/possibleMatchPersonBlock'
+        match_reference:
+          $ref: '#/components/schemas/EntityReference'
+        original_status:
+          type: string
+          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          enum:
+          - PM
+          - EM
+          - NM
+        status:
+          type: string
+          description: decision made from user
+          enum:
+          - PM
+          - EM
+          - NM
+        is_overwritten:
+          type: string
+          description: 1 = Yes, 0 = No
+          enum:
+          - "1"
+          - "0"
+        review_info:
+          $ref: '#/components/schemas/reviewInfo'
+        watchlist:
+          $ref: '#/components/schemas/watchlistReport'
+        credit_reference:
+          $ref: '#/components/schemas/creditReference'
+        possible_matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/possibleMatch'
+        overall_evaluation:
+          $ref: '#/components/schemas/OverallEvaluation'
+        third_party_source:
+          type: string
+          example: AcurisSearch
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+      example: null
+    OverwriteMonitorResponseBlock_additionalProperties:
+      type: object
+      properties:
+        hash_key:
+          type: string
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        report_type:
+          $ref: '#/components/schemas/ReportType'
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        alliance_unique_id:
+          $ref: '#/components/schemas/AllianceID'
+        partner_unique_id:
+          $ref: '#/components/schemas/PartnerID'
+        request_data:
+          oneOf:
+          - $ref: '#/components/schemas/PersonOverwrite'
+          - $ref: '#/components/schemas/BusinessOverwrite'
+        response_data:
+          $ref: '#/components/schemas/OverwriteMonitorResponseBlock_additionalProperties_response_data'
+        original_copy:
+          $ref: '#/components/schemas/OriginalCopy'
+        expiry_date:
+          $ref: '#/components/schemas/Date'
+        date_added:
+          $ref: '#/components/schemas/DateyMdTime'
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+      example: null
+    OverwriteMonitorResponseBlock_intelligence_merchant:
+      type: object
+      properties:
+        merchant_id:
+          $ref: '#/components/schemas/MID'
+      example: null
+    OverwriteMonitorResponseBlock_intelligence:
+      type: object
+      properties:
+        merchant:
+          $ref: '#/components/schemas/OverwriteMonitorResponseBlock_intelligence_merchant'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+        report_reference:
+          $ref: '#/components/schemas/EntityReference'
+        overwrite:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorOverwriteBlock'
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+      example: null
+    MonitorCreditSafeFullReportDetail_corporate_financials_payment_performance:
+      type: object
+      properties:
+        monthly_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorCreditFinancialMonthly'
+      example: null
+    MonitorCreditSafeFullReportDetail_corporate_financials:
+      type: object
+      properties:
+        financial_accounts:
+          type: string
+        payment_performance:
+          $ref: '#/components/schemas/MonitorCreditSafeFullReportDetail_corporate_financials_payment_performance'
+        trade_payment:
+          $ref: '#/components/schemas/MonitorCreditFinTradePayment'
+        percentage_change:
+          $ref: '#/components/schemas/MonitorCreditFinPercChange'
+        ltd_company_cais:
+          $ref: '#/components/schemas/MonitorCreditFinCAI'
+      example: null
+    MonitorCreditSafeFullReportDetail_corporate_summary:
+      type: object
+      properties:
+        company_summary:
+          $ref: '#/components/schemas/MonitorCreditSumCompany'
+        director_summary:
+          $ref: '#/components/schemas/MonitorCreditSumDirector'
+      example: null
+    MonitorCreditSumCompany_changes:
+      type: object
+      properties:
+        number_reg_office_changes_last_12_month:
+          type: string
+        number_mem_arts_changes_last_12_month:
+          type: string
+      example: null
+    MonitorCreditSumCompany_legal_notices:
+      type: object
+      properties:
+        summary_count:
+          type: string
+      example: null
+    MonitorCreditSumCompany_alerts:
+      type: object
+      properties:
+        notes_count:
+          type: string
+        notes:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+      example: null
+    MonitorCreditSumBankrupt_filling_details:
+      type: object
+      properties:
+        filed_with:
+          type: string
+      example: null
+    MonitorCreditFinTradePayment_trade_payment_summary:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        total_trades_number:
+          type: string
+        total_trades_balance:
+          type: string
+        continuous_trades_number:
+          type: string
+        recent_high_credit:
+          type: string
+      example: null
+    CorporateDirector_directors:
+      type: object
+      properties:
+        current_directors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorCreditSafeDirector'
+      example: null
+    MonitorFullReportDetail_intelligence_report:
+      type: object
+      properties:
+        possible_matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/possibleMatch'
+        overall_evaluation:
+          $ref: '#/components/schemas/OverallEvaluation'
+        original_status:
+          type: string
+          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          enum:
+          - PM
+          - EM
+          - NM
+        status:
+          type: string
+          description: decision made from user
+          enum:
+          - PM
+          - EM
+          - NM
+        is_overwritten:
+          type: string
+          description: 1 = Yes, 0 = No
+          enum:
+          - "1"
+          - "0"
+        review_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/reviewInfo'
+      example: null
+    MonitorIntelligenceCompanyBlock_business:
+      type: object
+      properties:
+        business_ref:
+          $ref: '#/components/schemas/EntityReference'
+        country_code:
+          $ref: '#/components/schemas/CountryCodeLetter'
+        business_name:
+          $ref: '#/components/schemas/BusinessName'
+        mcc_code:
+          $ref: '#/components/schemas/MCC'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        incorporated_date:
+          $ref: '#/components/schemas/Date'
+        business_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        business_sub_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        trading_name:
+          $ref: '#/components/schemas/BusinessName'
+        address:
+          $ref: '#/components/schemas/AddressReportShort'
+      example: null
+    RetrieveIntelligenceFullResponse_reports:
+      type: object
+      properties:
+        PEP_SANCTION_PRINCIPAL:
+          $ref: '#/components/schemas/PepSancPrincipal'
+        PEP_SANCTION_BUSINESS:
+          $ref: '#/components/schemas/PepSancBusiness'
+      example: null
+    RetrieveHitRequest_search:
+      type: object
+      properties:
+        merchant_id:
+          $ref: '#/components/schemas/MID'
+        decision_made:
+          type: string
+          description: Decision already made? 1= Yes 0= No
+          enum:
+          - "1"
+          - "0"
+    OverwriteAMLResponseBlock_additionalProperties:
+      type: object
+      properties:
+        hash_key:
+          type: string
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        report_type:
+          $ref: '#/components/schemas/ReportType'
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        alliance_unique_id:
+          $ref: '#/components/schemas/AllianceID'
+        partner_unique_id:
+          $ref: '#/components/schemas/PartnerID'
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        request_data:
+          $ref: '#/components/schemas/IntelligenceCompanyBlock'
+        response_data:
+          $ref: '#/components/schemas/IntelligencePrincipalBlock'
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+        date_updated:
+          $ref: '#/components/schemas/DateTime'
+        expiry_date:
+          $ref: '#/components/schemas/Date'
+        original_copy:
+          $ref: '#/components/schemas/OriginalCopy'
+        is_test_data:
+          $ref: '#/components/schemas/IsTestData'
+      example: null
+    IntelligenceCompanyBlock_business_principals:
+      type: object
+      properties:
+        principal_ref:
+          $ref: '#/components/schemas/EntityReference'
+        forename:
+          $ref: '#/components/schemas/FirstName'
+        surname:
+          $ref: '#/components/schemas/LastName'
+        date_of_birth:
+          $ref: '#/components/schemas/Date'
+        email:
+          $ref: '#/components/schemas/Email'
+        ownership_percentage:
+          $ref: '#/components/schemas/OwnershipPerc'
+        nationality:
+          $ref: '#/components/schemas/EntityReference'
+        current_address:
+          $ref: '#/components/schemas/ReportAddressBlock'
+        role:
+          $ref: '#/components/schemas/Position'
+      example: null
+    IntelligenceCompanyBlock_business:
+      type: object
+      properties:
+        business_ref:
+          $ref: '#/components/schemas/EntityReference'
+        country_code:
+          $ref: '#/components/schemas/CountryCodeLetter'
+        business_name:
+          $ref: '#/components/schemas/BusinessName'
+        mcc_code:
+          $ref: '#/components/schemas/MCC'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        incorporated_date:
+          $ref: '#/components/schemas/DateOnly'
+        business_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        business_sub_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        tax_id:
+          $ref: '#/components/schemas/TaxID'
+        address:
+          $ref: '#/components/schemas/AddressReportShort'
+        principals:
+          $ref: '#/components/schemas/IntelligenceCompanyBlock_business_principals'
+        decision_purpose:
+          type: string
+          enum:
+          - BOARDING
+      example: null
+    IntelligenceCompanyBlock_outlet:
+      type: object
+      properties:
+        outlet_ref:
+          $ref: '#/components/schemas/EntityReference'
+        trading_name:
+          $ref: '#/components/schemas/BusinessName'
+        mcc_code:
+          $ref: '#/components/schemas/EntityReference'
+        average_delivery_days:
+          $ref: '#/components/schemas/DeliveryDay'
+        delivery_0_days:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_1_to_7_days:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_8_to_14_days:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_15_to_30_days:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_over_30_days:
+          $ref: '#/components/schemas/DeliveryPerc'
+        outlet_type:
+          type: string
+          enum:
+          - FACE_TO_FACE
+        monthly_card_turnover:
+          $ref: '#/components/schemas/MCardATO'
+        monthly_turnover:
+          $ref: '#/components/schemas/MATO'
+        annual_turnover:
+          $ref: '#/components/schemas/ATO'
+        annual_card_turnover:
+          $ref: '#/components/schemas/CardATO'
+        average_transaction_value:
+          $ref: '#/components/schemas/ATV'
+        address:
+          $ref: '#/components/schemas/AddressReportShort'
+        bank:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportBankShort'
+      example: null
+    ReportBankShort_proprietor:
+      type: object
+      properties:
+        first_name:
+          $ref: '#/components/schemas/FirstName'
+        surname:
+          $ref: '#/components/schemas/LastName'
+        date_of_birth:
+          $ref: '#/components/schemas/Date'
+      example: null
+    BusinessIntelligenceReportBlockDetail_overall_evaluation:
+      type: object
+      properties:
+        negative_hit:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        pep_hits:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        enforcement_hits:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        sanctions_hits:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        previous_sanctions:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        financial_regulator:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        disqualified_director_match:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        adverse_media_match:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        insolvent_match:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        deceased:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+        business_has_pep:
+          type: string
+          enum:
+          - PM
+          - EM
+          - NM
+      example: null
+    possibleMatchBusinessBlock_title:
+      type: object
+      properties:
+        description:
+          type: string
+          example: Ms
+      example: null
+    possibleMatchBusinessBlock_nationality:
+      type: object
+      properties:
+        nationality:
+          type: string
+          example: American
+      example: null
+    Addresses_country:
+      type: object
+      properties:
+        name:
+          type: string
+          example: United States of America
+      example: null
+    RetrieveIntelligenceResponse_aml_check_response_aml_reviewer:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Reviewer'
+        user_name:
+          $ref: '#/components/schemas/UserName'
+        email:
+          $ref: '#/components/schemas/Email'
+      example: null
+    RetrieveIntelligenceResponse_aml_check_response:
+      type: object
+      properties:
+        check_purpose:
+          type: string
+          example: BOARDING
+          enum:
+          - BOARDING
+        decision:
+          type: string
+          example: APPROVE
+          enum:
+          - REFER
+          - PREAPPROVE
+          - APPROVE
+        original_decision:
+          type: string
+          example: REFER
+          enum:
+          - REFER
+          - PREAPPROVE
+          - APPROVE
+        risk_band_id:
+          type: string
+          example: "1"
+        original_risk_band_id:
+          type: string
+          example: "1"
+        entity_decisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityDecisionsBlock'
+        intelligence_references:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntelligenceReferenceBlock'
+        aml_reviewer:
+          $ref: '#/components/schemas/RetrieveIntelligenceResponse_aml_check_response_aml_reviewer'
+      example: null
+    Accounts_inner:
+      type: object
+      properties:
+        account_type:
+          type: string
+          example: ADJUSTMENT
+        balance:
+          type: string
+          example: "-100"
+  requestBodies:
+    statusMode:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              request:
+                type: object
+                properties:
+                  applications:
+                    $ref: '#/components/schemas/applicationUF'
+                  document_data:
+                    $ref: '#/components/schemas/documentdata1'
+              file:
+                type: string
+                format: binary
+      required: true
