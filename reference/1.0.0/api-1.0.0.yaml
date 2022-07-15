@@ -400,7 +400,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Add non-processing Merchant Application
-  /boarding/applicationuploadfile:
+  /fdapplication/upload_additional_documents:
     post:
       tags:
       - Application Boarding
@@ -423,7 +423,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Upload Additional Documents
-  /boarding/documentlisttenantuploaddocumentcategories:
+  /boarding/document_categories:
     post:
       tags:
       - Application Boarding
@@ -451,7 +451,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Configured Document Categories
-  /boarding/applicationuploadadditionaldocuments:
+  /fdapplication/upload_additional_files:
     post:
       tags:
       - Application Boarding
