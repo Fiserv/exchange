@@ -20,7 +20,7 @@ The available categories are:
 
 - Proof of ID
 - Proof of Business
-- Proof of Adress
+- Proof of Address
 - Other
 
 These will have documents grouped within this category during the configuration done. The `tenant_udc_external_id` will be returned for the categories displayed.
