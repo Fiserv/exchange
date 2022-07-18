@@ -36,7 +36,7 @@ Example request body:
 ```
 {
     "application": {
-        "application_reference": "333020220715,
+        "application_reference": "333020220715",
         "tenant_udc_external_id": "TDC08-23KS2-823JR-72240-34KDF-CAE91-EFB47"
     }
 }
