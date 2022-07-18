@@ -30,7 +30,7 @@ These will have documents grouped within this category during the configuration 
 The files to upload will be sent through the `/fdapplication/upload_additional_files` for the application application reference stated, and will require the payload to be sent as form-data. 
 The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
 
-The request must contain the application reference, and the external id of what entity the document is for. ### MEtA Datata mandatory... populate request
+The request must contain the application reference, and the external id of what entity the document is for.
 
 Example request body:
 ```
@@ -42,7 +42,7 @@ Example request body:
 }
 ```
 
-However, this will be dependant on the configuration of the documents. If mandatory meta data has been configured for the document, this must be added in the request body under a `document_data` object.
+However, this request body will be dependant on the configuration of the documents. If mandatory meta data has been configured for the document, this must be added in the request body under a `document_data` object, seen below.
 
 ```
 {
