@@ -455,10 +455,10 @@ paths:
     post:
       tags:
       - Application Boarding
-      summary: Submitting additional documents to prospect
+      summary: Submitting additional documents 
       description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data depend on how the document being uploaded was configured.
       requestBody:
-        description: Submitting additional documents to prospect
+        description: Submitting additional documents 
         content:
           application/json:
             schema:
