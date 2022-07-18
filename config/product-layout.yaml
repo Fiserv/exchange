@@ -33,7 +33,7 @@ header:
   whoIsItFor: Payment Facilitators
   image: 
     link: "/assets/images/Fiserv_Logo.jpg"
-    altText: REPLACEME™
+    altText: Fiserv logo
 featuredFeatures:
   - title: Payment Facilitators
     description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
