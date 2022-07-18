@@ -68,7 +68,7 @@ featuredFeatures:
         description: Retrieve settlement information
         type: "post"        
         path: "/account/settlement-info"
-   - title: Marketplaces
+  - title: Marketplaces
     description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
     tags: ["boarding", "funding", "settlement", "reporting"]
     bullets: ["bullet1", "bullet2" ]  
@@ -101,7 +101,7 @@ featuredFeatures:
         description: Retrieve settlement information
         type: "post"        
         path: "/account/settlement-info"
-   - title: Single & Multi-mid 
+  - title: Single & Multi-mid 
     description:  Supporting Single and Multi mid solutions 
     tags: ["boarding", "funding", "settlement", "reporting"]
     bullets: ["bullet1", "bullet2" ]  
