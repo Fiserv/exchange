@@ -255,4 +255,16 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
 
 ---
 
+
 We are able to view each of the charge items that have been configured to be available in the processing offering.
+
+### Retrieving online and equipment offerings
+
+To retrieve online and equipment offerings, we will repeat the process above using the `/offering/equipment` endpoint, where we specify the `external_id` for each in the `equipment_offering_external_id`.
+```json
+{
+    "equipment_offering":{
+        "equipment_offering_external_id":"XXXXX"
+    }
+}
+```
