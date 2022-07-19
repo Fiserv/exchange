@@ -1,7 +1,7 @@
 # Funding
 
 #### On this section
-This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the Merchants for the system to process the funding automatically.
+This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the merchants for the system to process the funding automatically.
 
 ## Instructional Funding
 
