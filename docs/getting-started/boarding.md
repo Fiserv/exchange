@@ -1,25 +1,23 @@
-# Sub-merchant Onboarding
+# Merchant Onboarding
 
 ## Boarding by API
 
-Exchange offers end-to-end sub-merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct sub-merchant hierarchy. This includes adding, and updating sub-merchant applications in progress before submitting them.
+Exchange offers end-to-end merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct merchant hierarchy. This includes adding, and updating merchant applications in progress before submitting them.
 
-For the standard Merchant - Chain - Outlet Hierarchy, three calls are needed to submit an application.
-This can include pricing and equipment for the sub-merchant  that is required, and the billing and funding settings for the sub-merchant. 
+For the standard merchant - chain - outlet Hierarchy, three calls are needed to submit an application.
+This can include pricing and equipment for the merchant  that is required, and the billing and funding settings for the merchant. 
 
 <!-- !align: center -->
 ![hierarchy](/assets/images/hierarchy.png)
 
-### Adding the Merchant and Chain levels
+### Adding the merchant and chain levels
 
 <!--
 type: tab
 titles: Add Application, JSON Add Application Example
 -->
 
-The `/boarding/application` endpoint supports adding the Merchant and Chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
-
-
+The `/boarding/application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
 
 ---
 
@@ -131,7 +129,7 @@ type: tab
 titles: Add Outlet, JSON Add Outlet Example
 -->
 
-The `/boarding/outlet` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the sub-merchant applications subgroup (as to add for the standard Merchant-Chain-Outlet hierarchy).
+The `/boarding/outlet` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy).
 
 
 
@@ -365,7 +363,7 @@ JSON format for `APPLICATION_SUBMIT`:
 
 ### Updating an Application
 
-While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the Merchant.
+While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the merchant.
 An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and a complete application can be submit by using the `APPLICATION_SUBMIT` request (pending validation). 
 Applications that are invalid will respond with the errors and their locations so that the entity may be updated, and resubmit. 
 
