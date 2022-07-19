@@ -7,7 +7,7 @@ Exchange offers a end-to-end merchant on-boarding and funding experience avaliab
 ## What is avaliable?
 
 APIs avaliable can be viewed on the API Explorer, and cover:
-- merchant on-boarding
+- Merchant on-boarding
 - Funding 
 - Reporting
 - OFAC and Credit Risk
