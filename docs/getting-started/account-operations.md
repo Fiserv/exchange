@@ -1,7 +1,7 @@
 #  Account Operations and Settlement Info
 ## Virtual Accounts  
 
-Exchange uses 'virtual accounts' in order to segregate funding for sub-merchants on the system. These virtual accounts are present for each level of the sub-merchant hierarchy, and the PayFac hierarchy in Exchange. These do not correlate to any *actual* bank accounts for the sub-merchants or PayFac.
+Exchange uses 'virtual accounts' in order to segregate funding for merchants on the system. These virtual accounts are present for each level of the merchant hierarchy, and the PayFac hierarchy in Exchange. These do not correlate to any *actual* bank accounts for the merchants or PayFac.
 
 ## Virtual Account Operations
 
@@ -50,13 +50,13 @@ net_transaction_amount = transaction_amount - refund_amount + rejected_amount - 
 
 ### Get Trade Info
 
-The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the sub-merchants MID on a specific date by API, and will return the amounts in each trade account listed in the above table, as well as the number of transactions received.
+The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the merchants MID on a specific date by API, and will return the amounts in each trade account listed in the above table, as well as the number of transactions received.
 
 ## Settlement info
 
 Settlements can be retrieved by UI or API and will show the type of settlement (Credit or Debit), effective date, settlement details, status and reference. 
 This is handled using the `/account/settlement-info` endpoint on a MID basis.
-The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the sub-merchants Bank account.
+The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the merchants Bank account.
 
 ### Get settlement info
 
@@ -65,5 +65,5 @@ Retrieve the settlement info for a given MID on a specified date through the `/a
 ### Get Settlement Rejects
 
 In the scenario that an ACH reject occurs, the `/settlement/rejects` will report a rejected settlement for the MID.
-The settlement reference can be used to trace a rejected settlement to its inital settlement response from `/account/settlement-info` in order to see the instructions that were sent. The reject endpoint will pull details for the rejected settlement, including a reason code, and the deposit that was rejected for the sub-merchants. The Fee amount taken for the PayFac is removed from the response for a sub-merchants rejected settlement. 
+The settlement reference can be used to trace a rejected settlement to its inital settlement response from `/account/settlement-info` in order to see the instructions that were sent. The reject endpoint will pull details for the rejected settlement, including a reason code, and the deposit that was rejected for the merchants. The Fee amount taken for the PayFac is removed from the response for a merchants rejected settlement. 
 
