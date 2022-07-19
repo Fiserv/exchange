@@ -1,16 +1,16 @@
-# Merchant Onboarding
+# Sub-merchant Onboarding
 
 ## Boarding by API
 
-Exchange offers end-to-end merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct Merchant Hierarchy. This includes adding, and updating merchant applications in progress before submitting them.
+Exchange offers end-to-end sub-merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct sub-merchant hierarchy. This includes adding, and updating sub-merchant applications in progress before submitting them.
 
 For the standard Merchant - Chain - Outlet Hierarchy, three calls are needed to submit an application.
-This can include pricing and equipment for the Merchant that is required, and the billing and funding settings for the Merchant. 
+This can include pricing and equipment for the sub-merchant  that is required, and the billing and funding settings for the sub-merchant. 
 
 <!-- !align: center -->
 ![hierarchy](/assets/images/hierarchy.png)
 
-### Adding the Merchant and Chain
+### Adding the Merchant and Chain levels
 
 <!--
 type: tab
@@ -131,7 +131,7 @@ type: tab
 titles: Add Outlet, JSON Add Outlet Example
 -->
 
-The `/boarding/outlet` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard Merchant-Chain-Outlet merchant hierarchy).
+The `/boarding/outlet` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the sub-merchant applications subgroup (as to add for the standard Merchant-Chain-Outlet hierarchy).
 
 
 
@@ -374,13 +374,13 @@ type: tab
 titles: Update Merchant, JSON Update Merchant Example 
 -->
 
-The `/boarding/merchant` endpoint supports updating for the merchant and subgroup, while the `/boarding/outlet` allows the outlet to be updated.
+The `/boarding/merchant` endpoint supports updating for the merchant level and subgroup level, while the `/boarding/outlet` allows the outlet to be updated.
 To update the outets and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
 The application reference must be added to the request, and operation type based on the update being made.
 
-- UPDATE_MERCHANT at `/boarding/merchant` for merchant
-- UPDATE_MERCHANT_SUB_GROUP at `/boarding/merchant` for subgroup
-- UPDATE_OUTLET at `/boarding/outlet` for outlet
+- UPDATE_MERCHANT at `/boarding/merchant` for merchant level.
+- UPDATE_MERCHANT_SUB_GROUP at `/boarding/merchant` for subgroup level.
+- UPDATE_OUTLET at `/boarding/outlet` for outlet level.
 
 ---
 
