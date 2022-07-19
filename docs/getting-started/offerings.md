@@ -251,5 +251,8 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
     ]
 }
 ```
+<!-- type: tab-end -->
+
+---
 
 We are able to view each of the charge items that have been configured to be available in the processing offering.
