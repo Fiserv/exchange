@@ -100,7 +100,6 @@ Used to return package and offering `external_id` that may be used for boarding 
 <!-- type: tab-end -->
 
 ---
-
 ### Retrieving the processing offering
 
 Using the information from the offer package response, we can now use the `/offering/processing` endpoint to retrieve information about the specified processing offering using its `external_id`. For the example below, we want to gather the information configured for the processing offering above with `"transaction_pricing_external_id"` *"TPI6B-34KLA-F81C9-B9617-08C45-6A1B1-2B8E6"*
@@ -254,7 +253,6 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
 <!-- type: tab-end -->
 
 ---
-
 
 We are able to view each of the charge items that have been configured to be available in the processing offering.
 
