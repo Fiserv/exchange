@@ -16,7 +16,7 @@ First, we must retrieve the offer package that contains the equipment offerings 
 
 <!--
 type: tab
-titles: Available Offerings Request, Available Offerings Response
+titles: Available Offer Packages Request, Available Offer Packages Response
 -->
 
 JSON format request for `LIST_AVAILABLE_OFFERINGS`:
@@ -100,3 +100,156 @@ Used to return package and offering `external_id` that may be used for boarding 
 <!-- type: tab-end -->
 
 ---
+
+### Retrieving the processing offering
+
+Using the information from the offer package response, we can now use the `/offering/processing` endpoint to retrieve information about the specified processing offering using its `external_id`. For the example below, we want to gather the information configured for the processing offering above with `"transaction_pricing_external_id"` *"TPI6B-34KLA-F81C9-B9617-08C45-6A1B1-2B8E6"*
+
+<!--
+type: tab
+titles: Specified Processing Offering Request, Specified Processing Offering Response
+-->
+
+JSON format request for `RETRIEVE_PROCESSING_OFFERING`:
+
+```json
+{
+    "request_source": {
+        "initiator": "ALLIANCE",
+        "alliance_code": "ALLIANCE"
+    },
+    "operation": {
+        "operation_type": "RETRIEVE_PROCESSING_OFFERING",
+        "version": "2.0.0"
+    },
+    "processing_offering":{
+        "transaction_pricing_external_id":"TPI6B-34KLA-F81C9-B9617-08C45-6A1B1-2B8E6"
+    }
+
+}
+```
+---
+
+<!-- type: tab -->
+
+JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
+
+```json
+{
+    "result": "SUCCESS",
+    "operation": {
+        "operation_type": "RETRIEVE_PROCESSING_OFFERING",
+        "version": "2.0.0"
+    },
+    "charge_item_groups": [
+        {
+            "charge_item_group_external_id": "CIG69-E5AB2-5F5D3-91E60-850F9-1ED7B-C4AD7",
+            "alliance_external_id": "ALL87-C6C9D-E2B11-D357A-DEBFF-C3907-64955",
+            "acquirer_external_id": "MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9",
+            "processing_platform": "OTHER",
+            "fee_collection_type": "INTERCHANGE",
+            "charge_item_group_name": "RegressionTransGroup",
+            "charge_item_group_ref": "147852",
+            "order_by": "2",
+            "item_status": "1",
+            "language_code": "en_gb",
+            "date_added": "2021-06-17 17:33:50",
+            "charge_items": [
+                {
+                    "charge_item_external_id": "CHID9-F2F62-30CBF-7C081-7B017-55BBC-990CF",
+                    "alliance_external_id": "ALL87-C6C9D-E2B11-D357A-DEBFF-C3907-64955",
+                    "acquirer_external_id": "MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9",
+                    "processing_platform": "OTHER",
+                    "charge_item_name": "RegressionTransactionCharge",
+                    "charge_item_ref": "14785",
+                    "fee_collection_type": "INTERCHANGE",
+                    "is_merged_charges": "0",
+                    "charge_decimals": "2",
+                    "order_by": "3",
+                    "item_status": "1",
+                    "language_code": "en_gb",
+                    "date_added": "2021-06-17 17:29:27",
+                    "charges": [
+                        {
+                            "charge_item_external_id": "CHID9-F2F62-30CBF-7C081-7B017-55BBC-990CF",
+                            "category": "1",
+                            "fee_type": "2",
+                            "minimum_base_charge": "10.00000",
+                            "maximum_base_charge": "10.00000",
+                            "default_base_charge": "10.00000",
+                            "status": "1"
+                        }
+                    ],
+                    "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
+                    "charge_item_group_external_id": "CIG69-E5AB2-5F5D3-91E60-850F9-1ED7B-C4AD7",
+                    "is_activated": "1",
+                    "is_mandatory": "0",
+                    "is_invisible": "0",
+                    "charge_item_prices": [
+                        {
+                            "charge_item_price_charges": [
+                                {
+                                    "tier_number": "0",
+                                    "fee_type": "2",
+                                    "category": "1",
+                                    "minimum_base_charge": "10.00",
+                                    "maximum_base_charge": "10.00",
+                                    "default_base_charge": "10.00",
+                                    "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
+                                    "charge_item_group_external_id": "CIG69-E5AB2-5F5D3-91E60-850F9-1ED7B-C4AD7",
+                                    "charge_item_external_id": "CHID9-F2F62-30CBF-7C081-7B017-55BBC-990CF"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "service_charge_items": [
+        {
+            "service_charge_item_external_id": "SCI6D-0FB58-F1900-2B425-59B03-EBF71-96934",
+            "alliance_external_id": "ALL87-C6C9D-E2B11-D357A-DEBFF-C3907-64955",
+            "acquirer_external_id": "MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9",
+            "service_item_name": "RegressionServiceItem",
+            "service_item_type": "1",
+            "service_frequency": "1",
+            "processing_platform": "OTHER",
+            "order_by": "108",
+            "service_ownership": "1",
+            "charge_decimals": "2",
+            "charge_ref": "147852",
+            "item_status": "1",
+            "instalment_available": "1",
+            "language_code": "en_gb",
+            "date_added": "2021-06-17 17:39:06",
+            "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
+            "is_activated": "1",
+            "is_mandatory": "0",
+            "is_invisible": "0",
+            "service_item_charges": [
+                {
+                    "fee_type": "2",
+                    "minimum_base_charge": "10.00",
+                    "maximum_base_charge": "10.00",
+                    "default_base_charge": "10.00",
+                    "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
+                    "service_charge_item_external_id": "SCI6D-0FB58-F1900-2B425-59B03-EBF71-96934"
+                }
+            ],
+            "charges": [
+                {
+                    "service_charge_item_external_id": "SCI6D-0FB58-F1900-2B425-59B03-EBF71-96934",
+                    "fee_type": "2",
+                    "minimum_base_charge": "10.00",
+                    "maximum_base_charge": "10.00",
+                    "default_base_charge": "10.00",
+                    "status": "1"
+                }
+            ]
+        }
+    ]
+}
+```
+
+We are able to view each of the charge items that have been configured to be available in the processing offering.
