@@ -2,7 +2,7 @@
 
 ## Risk services available in Exchange
 
-If using Risk services in Exchange the PayFac will be able enable Credit risk and OFAC Screening, as well as OFAC monitoring for the Merchant. 
+If using Risk services in Exchange the PayFac will be able enable Credit risk and OFAC Screening, as well as OFAC monitoring for the merchant. 
 The PayFac will be responsible for reviewing any possible matches retrieved at the business and pricinipal levels to ensure that there is not match with the OFAC list. 
 
 <!-- theme: danger -->
