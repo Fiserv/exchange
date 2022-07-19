@@ -6,7 +6,7 @@ Exchange functions using virtual accounts and automatic settlement generation fo
 
 Settlements can be retrieved by UI or API and will show the type of settlement (Credit or Debit), effective date, settlement details, status and reference. 
 This is handled using the `/account/settlement-info` endpoint on a MID basis. 
-The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the Merchant Bank account.
+The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the merchants bank account.
 
 ## Rejects
 
@@ -32,7 +32,7 @@ A 'query' can be created by adjusting the database operator and values being sea
 
 ## Virtual accounts
 
-Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any phyisical bank accounts for the sub-merchants or PayFacs
+Virtual accounts hold calculated funding information for merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any phyisical bank accounts for the merchants or PayFacs
 
 ### Trade accounts
 
