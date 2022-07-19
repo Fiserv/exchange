@@ -7,7 +7,7 @@ Exchange offers a end-to-end sub-merchant on-boarding and funding experience ava
 ## What is avaliable?
 
 APIs avaliable can be viewed on the API Explorer, and cover:
-- Submerchant on-boarding
+- Sub-merchant on-boarding
 - Funding 
 - Reporting
 - OFAC and Credit Risk
