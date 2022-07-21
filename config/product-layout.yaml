@@ -30,7 +30,7 @@
 header:
   productName: Exchange
   productionDescription: Exchange is a platform that brings together all the functionality required by a payment facilitator or marketplace to manage their smerchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
-  whoIsItFor: Payment Facilitators
+  whoIsItFor: Payment Facilitators,                                                                    Marketplaces
   image: 
     link: "/assets/images/Fiserv_Logo.jpg"
     altText: Fiserv logo
@@ -38,7 +38,7 @@ featuredFeatures:
   - title: Payment Facilitators
     description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
     tags: ["boarding", "funding", "settlement", "reporting"]
-    bullets: ["bullet1", "bullet2" ]  
+    bullets: ["boarding", "funding", "settlement", "reporting"]  
     relatedDocs:
       - relatedDoc: 
         title: Sub-merchant boarding
@@ -71,7 +71,7 @@ featuredFeatures:
   - title: Marketplaces
     description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
     tags: ["boarding", "funding", "settlement", "reporting"]
-    bullets: ["bullet1", "bullet2" ]  
+    bullets: ["boarding", "funding", "settlement", "reporting"]  
     relatedDocs:
       - relatedDoc: 
         title: Sub-merchant boarding
@@ -104,7 +104,7 @@ featuredFeatures:
   - title: Single & Multi-mid 
     description:  Supporting Single and Multi mid solutions 
     tags: ["boarding", "funding", "settlement", "reporting"]
-    bullets: ["bullet1", "bullet2" ]  
+    bullets: ["boarding", "funding", "settlement", "reporting"] 
     relatedDocs:
       - relatedDoc: 
         title: Sub-merchant boarding
