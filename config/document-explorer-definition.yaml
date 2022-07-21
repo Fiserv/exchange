@@ -85,8 +85,6 @@
 - sections:
     - title: Release Notes
       sections:
-        - title: June 2022 
-          link: docs/release-notes/june.md
-        - title: July 2022 
-          link: docs/release-notes/july.md
+        - title: 2022 
+          link: docs/release-notes/2022.md
 
