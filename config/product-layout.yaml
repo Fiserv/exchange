@@ -101,36 +101,4 @@ featuredFeatures:
         description: Retrieve settlement information
         type: "post"        
         path: "/account/settlement-info"
-  - title: Single & Multi-mid 
-    description:  Supporting Single and Multi mid solutions 
-    tags: ["boarding", "funding", "settlement", "reporting"]
-    bullets: ["boarding", "funding", "settlement", "reporting"] 
-    relatedDocs:
-      - relatedDoc: 
-        title: Sub-merchant boarding
-        description: End-to-end sub-merchant onboarding is avaliable through API and UI.
-        link: /docs/getting-started/boarding.md
-      - relatedDoc: 
-        title: Funding
-        description: Funding instructions and split details that can be sent through API.
-        link: /docs/getting-started/funding.md
-      - relatedDoc: 
-        title: Reporting & Settlement
-        description: Settlement details and reporting avaliable through Exchange.
-        link: /docs/getting-started/reporting.md
-    relatedAPIs:
-      - relatedAPI: 
-        title: Add Application
-        description: Add a new Merchant application
-        type: "post"        
-        path: "/merchant/application"
-      - relatedAPI: 
-        title: Funding Instruction
-        description: Send Funding Instruction
-        type: "post"        
-        path: "/v1/funding/instruction"
-      - relatedAPI: 
-        title: Get Settlement Info
-        description: Retrieve settlement information
-        type: "post"        
-        path: "/account/settlement-info"
+
