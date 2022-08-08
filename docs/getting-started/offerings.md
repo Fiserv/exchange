@@ -266,3 +266,7 @@ To retrieve online and equipment offerings, we will repeat the process above usi
     }
 }
 ```
+
+### Adding the offerings during boarding
+
+Now we have retrieved all the information required, we can start adding these during boarding. The `offer_package_external_id` for the offer package and the  processing offering will need to be added to the pricing level of the application, and the equipment will be added at the outlet. For the standard application, where pricing is added at the Business level, we add the processing offering and package in the `ADD_APPLICATION` request.
