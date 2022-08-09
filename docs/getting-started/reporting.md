@@ -12,7 +12,7 @@ The reference is uniquely assigned when the settlement is generated, and the *ef
 
 In the scenario that an ACH reject occurs, the `/settlement/rejects` will report a rejected settlement for the MID.
 The settlement reference can be used to trade a rejected settlement to its inital settlement response from `/account/settlement-info` in order to see the instructions that were sent.
-The reject endpoint will pull details for the rejected settlement, including a reason code, and the deposit that was rejected for the merchant. The Fee amount taken for the PayFac is removed from the response for a merchant rejected settlement. 
+The reject endpoint will pull details for the rejected settlement, including a reason code, and the deposit that was rejected for the sub-merchant. 
 
 ## Transaction details
 
@@ -32,7 +32,7 @@ A 'query' can be created by adjusting the database operator and values being sea
 
 ## Virtual accounts
 
-Virtual accounts hold calculated funding information for merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any phyisical bank accounts for the merchants or PayFacs
+Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any phyisical bank accounts for the sub-merchants or PayFacs
 
 ### Trade accounts
 
