@@ -1,16 +1,16 @@
-# Merchant Onboarding
+# Sub-merchant Onboarding
 
 ## Boarding by API
 
-Exchange offers end-to-end merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct merchant hierarchy. This includes adding, and updating merchant applications in progress before submitting them.
+Exchange offers end-to-end sub-merchant onboarding through API that is facilitated through Adding Applications, Subgroups and Outlets in order to create the correct sub-merchant hierarchy. This includes adding, and updating sub-merchant applications in progress before submitting them.
 
 For the standard merchant - chain - outlet Hierarchy, three calls are needed to submit an application.
-This can include pricing and equipment for the merchant  that is required, and the billing and funding settings for the merchant. 
+This can include pricing and equipment for the sub-merchant  that is required, and the billing and funding settings for the sub-merchant. 
 
 <!-- !align: center -->
 ![hierarchy](/assets/images/hierarchy.png)
 
-### Adding the merchant and chain levels
+### Adding the sub-merchant and chain levels
 
 <!--
 type: tab
@@ -363,7 +363,7 @@ JSON format for `APPLICATION_SUBMIT`:
 
 ### Updating an Application
 
-While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the merchant.
+While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant.
 An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and a complete application can be submit by using the `APPLICATION_SUBMIT` request (pending validation). 
 Applications that are invalid will respond with the errors and their locations so that the entity may be updated, and resubmit. 
 
