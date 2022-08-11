@@ -271,5 +271,292 @@ To retrieve online and equipment offerings, we will repeat the process above usi
 
 Now we have retrieved all the information required, we can start adding these during boarding. The `offer_package_external_id` for the offer package and the  processing offering will need to be added to the pricing level of the application, and the equipment will be added at the outlet. For the standard application, where pricing is added at the Business level, we add the processing offering and package in the `ADD_APPLICATION` request.
 
+## Adding Offer Package and Processing offering to Application
+
+In order to add this to the application, we must add the `"acquiring_offer"` and `"package_external_id"`. This is added within the `"merchant"` block.
+The acquiring offer will be structured as seen below, where we will define the transaction pricing used (Processing offering), and the charge items from the processing offering we want to use. we will then define the actual charge we want to use for the offer, `perc_charge` and `base_charge`  in the `charge_item_price_charges`. The min, max and default are retrieved from the retrieval calls above. We also have to define identifiers for the object, using the information from the retrieval calls for the pricing. The items `"is_activated": "1",`, `"is_boarding_activated": "1",` should be used to indicate the charge is selected.
+
+Please see below sample of an acquiring offer, and a sample of how this can be used in the add_application payload
 
 
+<!--
+type: tab
+titles: Acquiring offer Block + Offer Package, Sample being used in ADD_APPLICATION
+-->
+
+JSON format for acquiring offer and offer package:
+
+```json
+"acquiring_offer": {
+    "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+    "transaction_pricing_name": "Standard Entitlement",
+    "transaction_pricing_ref": null,
+    "currency": "USD",
+    "is_tier_price": "0",
+    "tier_price_type": "1",
+    "fee_collection_type": "INTERCHANGE",
+    "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+    "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+    "processing_platform": "OTHER",
+    "charge_items": [
+        {
+            "charge_item_external_id": "CHXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "charge_item_group_external_id": "CIXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "charge_item_name": "Visa Mastercard Discover",
+            "charge_item_ref": "10011",
+            "fee_collection_type": "INTERCHANGE",
+            "charge_decimals": "2",
+            "is_invisible": "0",
+            "is_activated": "1",
+            "is_boarding_activated": "1",
+            "is_mandatory": "1",
+            "is_merged_charges": "0",
+            "charge_item_prices": [
+                {
+                    "charge_item_price_charges": [
+                        {
+                            "fee_type": "1",
+                            "category": "3",
+                            "minimum_perc_charge": "0.00000",
+                            "maximum_perc_charge": "0.00000",
+                            "default_perc_charge": "0.00000",
+                            "perc_charge": "0.00000"
+                        },
+                        {
+                            "fee_type": "2",
+                            "category": "3",
+                            "minimum_base_charge": "0.00000",
+                            "maximum_base_charge": "0.00000",
+                            "default_base_charge": "0.00000",
+                            "base_charge": "0.00000"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "charge_item_external_id": "CHTXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "charge_item_group_external_id": "CIGXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "charge_item_name": "AmexOptBlue",
+            "charge_item_ref": "777-1000105251",
+            "fee_collection_type": "INTERCHANGE",
+            "charge_decimals": "2",
+            "is_invisible": "0",
+            "is_activated": "1",
+            "is_boarding_activated": "1",
+            "is_mandatory": "1",
+            "is_merged_charges": "0",
+            "charge_item_prices": [
+                {
+                    "charge_item_price_charges": [
+                        {
+                            "fee_type": "1",
+                            "category": "3",
+                            "minimum_perc_charge": "0.00000",
+                            "maximum_perc_charge": "0.00000",
+                            "default_perc_charge": "0.00000",
+                            "perc_charge": "0.00000"
+                        },
+                        {
+                            "fee_type": "2",
+                            "category": "3",
+                            "minimum_base_charge": "0.00000",
+                            "maximum_base_charge": "0.00000",
+                            "default_base_charge": "0.00000",
+                            "base_charge": "0.00000"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+},
+"package_external_id": "OPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+
+```
+---
+
+<!-- type: tab -->
+
+JSON sample request in `ADD_APPLICATION`:
+
+```json
+{
+    "request_source": {
+        "initiator": "ALLIANCE",
+        "alliance_code": "ALLIANCE"
+    },
+    "operation": {
+        "operation_type": "ADD_APPLICATION",
+        "version": "2.0.0"
+    },
+    "merchant": {
+        "billing_level": "3",
+        "funding_level": "3",
+        "funding_settings": {
+            "delay_funding_flag": "0",
+            "reserve_type": "1",
+            "set_reserve_target": "0",
+            "billing_frequency": "1",
+            "funding_frequency": "1"
+        },
+        "pricing_level": "BUSINESS",
+        "take_reserves_flag": "1",
+        "reserve_entity_level": "1",
+        "settlement_method": "1",
+        "allow_split_flag": "0",
+        "business_entity": {
+            "legal_name": "MMISTEST Legalname",
+            "ownership_entity_type": "L",
+            "tin_type": "1",
+            "business_tin_ssn_number": "111989898",
+            "irs_filing_name": "MMISTEST Legalname",
+            "business_category": "R",
+            "application_type": "RETAIL",
+            "project_name": "test",
+            "security_code": "4000",
+            "reg_number": "1111111",
+            "mcc_code": "5999",
+            "date_incorporated": "2010-01-20",
+            "foundation_date": "2010-01-20",
+            "incorp_state": "CA",
+            "foreign_entity": "0",
+            "irs_status": "N"
+        },
+        "registration_address": {
+            "zip_code": "12345",
+            "suite_apart_number": "1",
+            "floor": "1",
+            "street_line_1": "High Street",
+            "street_line_2": "Street Way",
+            "city": "City",
+            "county_code": "CA",
+            "country_code": "840"
+        },
+        "owners": [
+            {
+                "owner_title": "Mr.",
+                "owner_first_name": "First",
+                "owner_second_name": "",
+                "owner_surname": "Last",
+                "contact_dob": "1994-07-13",
+                "owner_nationality": "826",
+                "owner_position": "OW",
+                "owner_phone_code": "US|1",
+                "owner_phone_no": "12345676667",
+                "owner_date_started": "2019-12-12",
+                "owner_email": "emailadress@domain.com",
+                "owner_tin_ssn_number": "111989898",
+                "is_main_principal": "1",
+                "ownership_perc": "100",
+                "personal_guarantee": "Y",
+                "contacts": [
+                    {
+                        "zip_code": "65890",
+                        "suite_apart_number": "1",
+                        "floor": "5",
+                        "province": "t",
+                        "street_line_1": "12 Street Way",
+                        "street_line_2": "GOOD WAY",
+                        "city": "SPRINGFIELD",
+                        "county_code": "CA",
+                        "date_from": "2020-05-29",
+                        "country_code": "840"
+                    }
+                ]
+            }
+        ],
+        "acquiring_offer": {
+            "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "transaction_pricing_name": "Standard Entitlement",
+            "transaction_pricing_ref": null,
+            "currency": "USD",
+            "is_tier_price": "0",
+            "tier_price_type": "1",
+            "fee_collection_type": "INTERCHANGE",
+            "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "processing_platform": "OTHER",
+            "charge_items": [
+                {
+                    "charge_item_external_id": "CHXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "charge_item_group_external_id": "CIXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "charge_item_name": "Visa Mastercard Discover",
+                    "charge_item_ref": "10011",
+                    "fee_collection_type": "INTERCHANGE",
+                    "charge_decimals": "2",
+                    "is_invisible": "0",
+                    "is_activated": "1",
+                    "is_boarding_activated": "1",
+                    "is_mandatory": "1",
+                    "is_merged_charges": "0",
+                    "charge_item_prices": [
+                        {
+                            "charge_item_price_charges": [
+                                {
+                                    "fee_type": "1",
+                                    "category": "3",
+                                    "minimum_perc_charge": "0.00000",
+                                    "maximum_perc_charge": "0.00000",
+                                    "default_perc_charge": "0.00000",
+                                    "perc_charge": "0.00000"
+                                },
+                                {
+                                    "fee_type": "2",
+                                    "category": "3",
+                                    "minimum_base_charge": "0.00000",
+                                    "maximum_base_charge": "0.00000",
+                                    "default_base_charge": "0.00000",
+                                    "base_charge": "0.00000"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "charge_item_external_id": "CHTXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "charge_item_group_external_id": "CIGXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "charge_item_name": "AmexOptBlue",
+                    "charge_item_ref": "777-1000105251",
+                    "fee_collection_type": "INTERCHANGE",
+                    "charge_decimals": "2",
+                    "is_invisible": "0",
+                    "is_activated": "1",
+                    "is_boarding_activated": "1",
+                    "is_mandatory": "1",
+                    "is_merged_charges": "0",
+                    "charge_item_prices": [
+                        {
+                            "charge_item_price_charges": [
+                                {
+                                    "fee_type": "1",
+                                    "category": "3",
+                                    "minimum_perc_charge": "0.00000",
+                                    "maximum_perc_charge": "0.00000",
+                                    "default_perc_charge": "0.00000",
+                                    "perc_charge": "0.00000"
+                                },
+                                {
+                                    "fee_type": "2",
+                                    "category": "3",
+                                    "minimum_base_charge": "0.00000",
+                                    "maximum_base_charge": "0.00000",
+                                    "default_base_charge": "0.00000",
+                                    "base_charge": "0.00000"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "package_external_id": "OPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "merchant_sub_group": {
+            "group_name": "SUB GROUP"
+        }
+    }
+}
+```
+<!-- type: tab-end -->
+
+---
