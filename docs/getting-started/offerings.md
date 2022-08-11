@@ -445,7 +445,7 @@ JSON sample request in `ADD_APPLICATION`:
                 "owner_phone_code": "US|1",
                 "owner_phone_no": "12345676667",
                 "owner_date_started": "2019-12-12",
-                "owner_email": "emailadress@domain.com",
+                "owner_email": "technologi@technologi.co.uk",
                 "owner_tin_ssn_number": "111989898",
                 "is_main_principal": "1",
                 "ownership_perc": "100",
@@ -560,3 +560,5 @@ JSON sample request in `ADD_APPLICATION`:
 <!-- type: tab-end -->
 
 ---
+
+## Adding Equipment/Online from Offer Package to Outlet
