@@ -6,7 +6,7 @@ To generate token for authorisation, the `/oauth/token` endpoint may be used, an
 
 ## Importing
 
-The Postman collection for Exchange can be imported via link or file, by clicking 'import'. Please see the sample collection for Exchange [here](https://www.getpostman.com/collections/8ccc7b5124bb99c89a54).
+The Postman collection for Exchange can be imported via link or file, by clicking 'import'. Please see the sample collection for Exchange [here](https://www.getpostman.com/collections/7cbf9a140d0c6cf81130).
 
 ![postman](/assets/images/import_postman.png)
 
