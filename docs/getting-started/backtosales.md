@@ -5,8 +5,9 @@
 ### In Manual Review / Back to Sales
 
 When using shared services, the user may be asked to provide additional documentation during the credit risk screening process. 
-This will occur when an application is being manually reviewed, and may require suppoer documents such as Bank statements or proof of address. 
+This will occur when an application is being manually reviewed, and may require supporting documents such as Bank statements or proof of address. 
 This response will be sent to Exchange from credit as a 'back to sales' response, with a comment to let the user know why this has occured and what is required.
+This will be checked by retrieving the merchant applications information through `/boarding/application` operation `'RETRIEVE_MERCHANT_HIERARCHY'` , where the `"credit_risk_check_response"` block will contain the current credit risk check info for the application. A `"decision": "MORE_INFO_REQUIRED"` indicates that the back to sales message has been recieved and is ready to be processed, where the risk reviewers comment `"credit_risk_comments":` can be viewed in order to know what is required to upload.
 
 ### Response process
 
