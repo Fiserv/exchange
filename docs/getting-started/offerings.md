@@ -561,4 +561,243 @@ JSON sample request in `ADD_APPLICATION`:
 
 ---
 
-## Adding Equipment/Online from Offer Package to Outlet
+## Adding an Online offering to an Outlet
+
+To add the online offering, we will use the information from the equipment retrieval endpoint and add this to the outlet in an object `online_offer` in the `ADD_OUTLET` endpoint. This will need to send the service charge being used and its pricing, with an `"is_selected":"1"`
+
+<!--
+type: tab
+titles: Acquiring offer Block + Offer Package, Sample being used in ADD_APPLICATION
+-->
+
+JSON format for online offer:
+
+```json
+"online_offer": {
+    "equipment_offering_external_id": "EQO71-976F2-9B3A2-E6B30-899E8-A264F-595C2",
+    "selected_offer_item": null,
+    "bundles": [
+        {
+            "equipment_bundle_external_id": "EQB97-65669-A9F56-0BDF2-A497F-91EF2-091C4",
+            "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+            "bundle_name": "SYSTEM_GENERATED",
+            "is_boarding_activated": null,
+            "bundle_items": [
+                {
+                    "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+                    "is_mandatory": "0",
+                    "is_invisible": "0",
+                    "service": {
+                        "service_external_id": "PRO2F-331FF-49FA7-176DE-FF658-30FD3-D4624",
+                        "service_type": "VAR",
+                        "service_name": "CardKnox PEv1 RC",
+                        "service_api_code": "92382",
+                        "service_for": "ECOM",
+                        "service_for_group": "ONLINE_PRODUCT"
+                    },
+                    "service_charges": [
+                        {
+                            "service_charge_item_external_id": "SCIAD-8016B-83A79-5EB99-EDF48-B33BD-2A881",
+                            "alliance_external_id": "ALLE4-D361D-7EFC4-5F6E2-28A52-61F35-5DEB5",
+                            "service_item_name": "Owned Infi",
+                            "service_item_type": "2",
+                            "service_item_for": "1",
+                            "service_frequency": "1",
+                            "order_by": "27",
+                            "service_ownership": "1",
+                            "charge_decimals": "2",
+                            "is_selected": "1",
+                            "item_status": "1",
+                            "instalment_available": "2",
+                            "language_code": "en_gb",
+                            "date_added": "2022-02-25 13:07:43",
+                            "fee_type": "3",
+                            "minimum_base_charge": "0.00",
+                            "maximum_base_charge": "0.00",
+                            "default_base_charge": "0.00",
+                            "base_charge": "0.00",
+                            "minimum_perc_charge": "0.00",
+                            "maximum_perc_charge": "0.00",
+                            "default_perc_charge": "0.00",
+                            "perc_charge": "0.00"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "agreement_length": null
+},
+```
+---
+
+<!-- type: tab -->
+
+JSON sample request in `ADD_OUTLET`:
+
+```json
+{
+    "request_source": {
+        "initiator": "ALLIANCE",
+        "alliance_code": "ALLIANCE",
+    },
+    "operation": {
+        "operation_type": "ADD_OUTLET",
+        "version": "2.0.0"
+    },
+    "application": {
+        "application_reference": "3330XXXXXX"
+    },
+    "outlet": {
+        "parent_mid": "7001000XXXXXXX",
+        "trade_name": "outlet",
+        "outlet_website": "http://netpay.co.uk",
+        "pricing_type": "002",
+        "store_number": "12",
+        "primary_email_address": "technologi@technologi.co.uk",
+        "business_zone": "B",
+        "business_location": "H",
+        "ground_floor": "G",
+        "square_foot_count": "1",
+        "number_of_building_floors": "1",
+        "visitation_required": "1",
+        "statement_type": "F",
+        "number_of_employees": "12",
+        "statement_delivery_method": "P",
+        "mcc_code": "5999",
+        "seasonal_business": "1",
+        "seasonal_start_month": "JANUARY",
+        "seasonal_end_month": "FEBRUARY",
+        "currencies": "USD",
+        "mastercard_sales": "300000",
+        "visa_sales": "300000",
+        "visa_mastercard_sales": "600000",
+        "turnover_bus_to_bus_perc": "0",
+        "turnover_bus_to_cons_perc": "100",
+        "card_bus_to_bus_perc": "0",
+        "card_bus_to_cons_perc": "100",
+        "highest_ticket_sales_amt": "100",
+        "sales_ftf_perc": "100",
+        "sales_keyed_perc": "0",
+        "sales_phone_perc": "0",
+        "sales_mail_perc": "0",
+        "sales_internet_perc": "0",
+        "sales_tradeshow_perc": "0",
+        "annual_turnover": "600000",
+        "annual_card_turnover": "600000",
+        "average_delivery_days": "0",
+        "delivery_0_days_perc": "100",
+        "delivery_1_to_7_days_perc": "0",
+        "delivery_8_to_14_days_perc": "0",
+        "delivery_15_to_30_days_perc": "0",
+        "delivery_over_30_days_perc": "0",
+        "prod_serv_sold": "SELLING",
+        "sales_moto_perc": "0",
+        "avg_ticket_sales_amt": "10",
+        "chip_flag": "Y",
+        "recurring_flag": "1",
+        "transaction_process_mode": "2",
+        "has_full_pmnt_bef_del": "0",
+        "contacts": [
+            {
+                "contact_type": "OT",
+                "contact_title": "",
+                "contact_first_name": "firstname",
+                "contact_last_name": "lastname",
+                "country_code": "840",
+                "city": "City",
+                "zip_code": "12345",
+                "street_line_1": "street",
+                "county_code": "CA",
+                "floor": "1",
+                "suite_apart_number": "1",
+                "house_number": "11",
+                "house_name": "housename",
+                "email_address": "technologi@technologi.co.uk",
+                "ent_telephone_code": "US|01",
+                "telephone_number": "12345678"
+            }
+        ],
+        "online_offer": {
+            "equipment_offering_external_id": "EQOXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "selected_offer_item": null,
+            "bundles": [
+                {
+                    "equipment_bundle_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "equipment_bundle_item_external_id": "EBIXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "bundle_name": "SYSTEM_GENERATED",
+                    "is_boarding_activated": null,
+                    "bundle_items": [
+                        {
+                            "equipment_bundle_item_external_id": "EBIXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                            "is_mandatory": "0",
+                            "is_invisible": "0",
+                            "service": {
+                                "service_external_id": "PRXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                "service_type": "VAR",
+                                "service_name": "VAR Name",
+                                "service_api_code": "00001",
+                                "service_for": "ECOM",
+                                "service_for_group": "ONLINE_PRODUCT"
+                            },
+                            "service_charges": [
+                                {
+                                    "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                    "alliance_external_id": "ALLXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                    "service_item_name": "Owned",
+                                    "service_item_type": "2",
+                                    "service_item_for": "1",
+                                    "service_frequency": "1",
+                                    "order_by": "27",
+                                    "service_ownership": "1",
+                                    "charge_decimals": "2",
+                                    "is_selected": "1",
+                                    "item_status": "1",
+                                    "instalment_available": "2",
+                                    "language_code": "en_gb",
+                                    "date_added": "2022-02-25 13:07:43",
+                                    "fee_type": "3",
+                                    "minimum_base_charge": "0.00",
+                                    "maximum_base_charge": "0.00",
+                                    "default_base_charge": "0.00",
+                                    "base_charge": "0.00",
+                                    "minimum_perc_charge": "0.00",
+                                    "maximum_perc_charge": "0.00",
+                                    "default_perc_charge": "0.00",
+                                    "perc_charge": "0.00"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "agreement_length": null
+        },
+        "banks": [
+            {
+                "bank_name": "Bank Name",
+                "bank_city": "Bank City",
+                "country_code": "840",
+                "zip_code": "21345-1234",
+                "county_code": "AL",
+                "street_line_1": "Street Line",
+                "floor": "",
+                "suite_apart_number": "",
+                "province": " prov",
+                "account_holder_name": "Test Account",
+                "account_type": [
+                    "CREDIT",
+                    "DEBIT",
+                    "CHARGEBACK"
+                ],
+                "bank_account_type": "CHECKING",
+                "dda_number": "111111111111",
+                "routing_number": "111111111"
+            }
+        ]
+    }
+}
+```
+<!-- type: tab-end -->
+
+---
