@@ -267,11 +267,11 @@ To retrieve online and equipment offerings, we will repeat the process above usi
 }
 ```
 
-### Adding the offerings during boarding
+## Adding the offerings during boarding
 
 Now we have retrieved all the information required, we can start adding these during boarding. The `offer_package_external_id` for the offer package and the  processing offering will need to be added to the pricing level of the application, and the equipment will be added at the outlet. For the standard application, where pricing is added at the Business level, we add the processing offering and package in the `ADD_APPLICATION` request.
 
-## Adding Offer Package and Processing offering to Application
+### Adding Offer Package and Processing offering to Application
 
 In order to add this to the application, we must add the `"acquiring_offer"` and `"package_external_id"`. This is added within the `"merchant"` block.
 The acquiring offer will be structured as seen below, where we will define the transaction pricing used (Processing offering), and the charge items from the processing offering we want to use. we will then define the actual charge we want to use for the offer, `perc_charge` and `base_charge`  in the `charge_item_price_charges`. The min, max and default are retrieved from the retrieval calls above. We also have to define identifiers for the object, using the information from the retrieval calls for the pricing. The items `"is_activated": "1",`, `"is_boarding_activated": "1",` should be used to indicate the charge is selected.
@@ -561,9 +561,9 @@ JSON sample request in `ADD_APPLICATION`:
 
 ---
 
-## Adding an Online offering to an Outlet
+### Adding an Online offering to an Outlet
 
-To add the online offering, we will use the information from the equipment retrieval endpoint and add this to the outlet in an object `online_offer` in the `ADD_OUTLET` endpoint. This will need to send the service charge being used and its pricing, with an `"is_selected":"1"`
+To add the online offering, we will use the information from the equipment retrieval endpoint and add this to the outlet in an object `online_offer` in the `ADD_OUTLET` endpoint. This will need to send the service charge being used and its pricing, with an `"is_selected":"1"` . Mulitple items from an offering can be added to an outlet, and can be added alongside regular equipment offerings. 
 
 <!--
 type: tab
@@ -801,3 +801,10 @@ JSON sample request in `ADD_OUTLET`:
 <!-- type: tab-end -->
 
 ---
+
+
+### Adding an Equipment offering to an Outlet
+
+Similar to the online offer, we will need to add an additional object to the outlet request. Multiple pieces of equipment can be added to an outlet, and can be added alongside online offerings. We will need to add an `"equipment_offer"` block that containts the equipment offering we want to use from the offer package added on the `ADD_APPLICATION` request.
+
+
