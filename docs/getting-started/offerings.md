@@ -817,31 +817,31 @@ JSON format for acquiring offer and offer package:
 
 ```json
 "online_offer": {
-            "equipment_offering_external_id": "EQO71-976F2-9B3A2-E6B30-899E8-A264F-595C2",
+            "equipment_offering_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "selected_offer_item": null,
             "bundles": [
                 {
-                    "equipment_bundle_external_id": "EQB97-65669-A9F56-0BDF2-A497F-91EF2-091C4",
-                    "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+                    "equipment_bundle_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "equipment_bundle_item_external_id": "EBXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "bundle_name": "SYSTEM_GENERATED",
                     "is_boarding_activated": null,
                     "bundle_items": [
                         {
-                            "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+                            "equipment_bundle_item_external_id": "EBXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                             "is_mandatory": "0",
                             "is_invisible": "0",
                             "service": {
-                                "service_external_id": "PRO2F-331FF-49FA7-176DE-FF658-30FD3-D4624",
+                                "service_external_id": "PRXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                                 "service_type": "VAR",
                                 "service_name": "VAR",
-                                "service_api_code": "92382",
+                                "service_api_code": "12345",
                                 "service_for": "ECOM",
                                 "service_for_group": "ONLINE_PRODUCT"
                             },
                             "service_charges": [
                                 {
-                                    "service_charge_item_external_id": "SCIAD-8016B-83A79-5EB99-EDF48-B33BD-2A881",
-                                    "alliance_external_id": "ALLE4-D361D-7EFC4-5F6E2-28A52-61F35-5DEB5",
+                                    "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                    "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                                     "service_item_name": "Owned",
                                     "service_item_type": "2",
                                     "service_item_for": "1",
@@ -879,26 +879,20 @@ JSON format for acquiring offer and offer package:
 JSON sample request in `ADD_APPLICATION`:
 
 ```json
-{
-    "request_source": {
-        "initiator": "ALLIANCE",
-        "alliance_code": "MOTIONSOFT",
-        "partner_code": "A"
-    },
     "operation": {
         "operation_type": "ADD_OUTLET",
         "version": "2.0.0"
     },
     "application": {
-        "application_reference": "333000019351"
+        "application_reference": "XXXXXXX"
     },
     "outlet": {
-        "parent_mid": "700100000020725",
+        "parent_mid": "70010XXXXXXXXX",
         "trade_name": "outlet",
-        "outlet_website": "http://netpay.co.uk",
+        "outlet_website": "http://technologi.co.uk",
         "pricing_type": "002",
         "store_number": "12",
-        "primary_email_address": "akariya.kulvijit@netpay.co.uk",
+        "primary_email_address": "technologi@technologi.co.uk",
         "business_zone": "B",
         "business_location": "H",
         "ground_floor": "G",
@@ -945,87 +939,68 @@ JSON sample request in `ADD_APPLICATION`:
         "contacts": [
             {
                 "contact_type": "OT",
-                "contact_title": "Mr.",
-                "contact_first_name": "Alex",
-                "contact_last_name": "Fat",
+                "contact_title": "Ms.",
+                "contact_first_name": "Jane",
+                "contact_last_name": "Doe",
                 "country_code": "840",
                 "city": "City",
                 "zip_code": "12345",
-                "street_line_1": "BerlinStreet",
+                "street_line_1": "Street 1",
                 "county_code": "CA",
                 "floor": "1",
                 "suite_apart_number": "2",
                 "house_number": "13",
                 "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
+                "email_address": "technologi@technologi.co.uk",
                 "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869"
+                "telephone_number": "7412345678"
             },
             {
                 "contact_type": "B",
-                "contact_title": "Mr.",
-                "contact_first_name": "Alex",
-                "contact_last_name": "Fat",
+                "contact_title": "Ms.",
+                "contact_first_name": "Jane",
+                "contact_last_name": "Doe",
                 "country_code": "840",
                 "city": "City",
                 "zip_code": "12345",
-                "street_line_1": "BerlinStreet",
+                "street_line_1": "Street 1",
                 "county_code": "CA",
                 "floor": "1",
                 "suite_apart_number": "2",
                 "house_number": "13",
-                "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
+                "house_name": "name",
+                "email_address": "technologi@technologi.co.uk",
                 "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869",
-                "bill_to": "Alex"
+                "telephone_number": "7123456789",
+                "bill_to": "Jane"
             },
-            {
-                "contact_type": "S",
-                "contact_title": "Mr.",
-                "contact_first_name": "Alex",
-                "contact_last_name": "Fat",
-                "country_code": "840",
-                "city": "City",
-                "zip_code": "12345",
-                "street_line_1": "BerlinStreet",
-                "county_code": "CA",
-                "floor": "1",
-                "suite_apart_number": "2",
-                "house_number": "13",
-                "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
-                "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869",
-                "ship_to": "Alex"
-            }
         ],
         "online_offer": {
-            "equipment_offering_external_id": "EQO71-976F2-9B3A2-E6B30-899E8-A264F-595C2",
+            "equipment_offering_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "selected_offer_item": null,
             "bundles": [
                 {
-                    "equipment_bundle_external_id": "EQB97-65669-A9F56-0BDF2-A497F-91EF2-091C4",
-                    "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+                    "equipment_bundle_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "equipment_bundle_item_external_id": "EBXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "bundle_name": "SYSTEM_GENERATED",
                     "is_boarding_activated": null,
                     "bundle_items": [
                         {
-                            "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+                            "equipment_bundle_item_external_id": "EBXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                             "is_mandatory": "0",
                             "is_invisible": "0",
                             "service": {
-                                "service_external_id": "PRO2F-331FF-49FA7-176DE-FF658-30FD3-D4624",
+                                "service_external_id": "PRXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                                 "service_type": "VAR",
-                                "service_name": "CardKnox PEv1 RC",
-                                "service_api_code": "92382",
+                                "service_name": "VAR",
+                                "service_api_code": "12345",
                                 "service_for": "ECOM",
                                 "service_for_group": "ONLINE_PRODUCT"
                             },
                             "service_charges": [
                                 {
-                                    "service_charge_item_external_id": "SCIAD-8016B-83A79-5EB99-EDF48-B33BD-2A881",
-                                    "alliance_external_id": "ALLE4-D361D-7EFC4-5F6E2-28A52-61F35-5DEB5",
+                                    "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                    "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                                     "service_item_name": "Owned",
                                     "service_item_type": "2",
                                     "service_item_for": "1",
@@ -1057,15 +1032,15 @@ JSON sample request in `ADD_APPLICATION`:
         },
         "banks": [
             {
-                "bank_name": "Bank of America",
+                "bank_name": "Bank name",
                 "bank_city": "ATMORE",
                 "country_code": "840",
-                "zip_code": "36502-8856",
+                "zip_code": "12345-1234",
                 "county_code": "AL",
-                "street_line_1": "JACK SPRINGS RD",
+                "street_line_1": "Street Name 1 ",
                 "floor": "",
                 "suite_apart_number": "",
-                "province": "ESCAMBIA ALABAMA",
+                "province": "ALABAMA",
                 "account_holder_name": "Test Account",
                 "account_type": [
                     "CREDIT",
