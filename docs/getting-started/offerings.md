@@ -42,7 +42,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 ```json
 {
 	"Example package name": {
-		"package_external_id": "TPI6B-4AEA4-34KLA-E7B5D-F81C9-58F7D-2B8E6",
+		"package_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
 		"package_name": "Example package name",
 		"offer_code": "6565",
 		"package_weight": "100",
@@ -52,9 +52,9 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 		"offer_code_status": "1",
 		"processing_offers": [
 			{
-				"transaction_pricing_external_id": "TPI6B-34KLA-F81C9-B9617-08C45-6A1B1-2B8E6",
-				"alliance_external_id": "DEBFF-C6C9D-CCE93-34KLA-DEBFF-C3907-6A1B1",
-				"acquirer_external_id": "MAC85-34KLA-02AAF-CCE93-DEBFF-0979A-F81C9",
+				"transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+				"alliance_external_id": "DEXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+				"acquirer_external_id": "MACXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
 				"processing_platform": "OTHER",
 				"transaction_pricing_name": "ProcessingPricing",
 				"transaction_pricing_ref": "12345",
@@ -79,7 +79,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 				"equipment_offering_ref": "",
 				"language_code": "en_gb",
 				"is_dcc": "0",
-				"equipment_offering_external_id": "EQOE4-CFD68-34KLA-90849-8DD4F-DEBFF-1FE5B"
+				"equipment_offering_external_id": "EQXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 			}
 		],
 		"online_offers": [
@@ -90,7 +90,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 				"equipment_offering_ref": "",
 				"language_code": "en_gb",
 				"is_dcc": "0",
-				"equipment_offering_external_id": "EQO85-B670A-34KLA-3DBBA-08C45-C3747-08C45"
+				"equipment_offering_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
 			}
 		]
 	}
@@ -122,7 +122,7 @@ JSON format request for `RETRIEVE_PROCESSING_OFFERING`:
         "version": "2.0.0"
     },
     "processing_offering":{
-        "transaction_pricing_external_id":"TPI6B-34KLA-F81C9-B9617-08C45-6A1B1-2B8E6"
+        "transaction_pricing_external_id":"TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
     }
 
 }
@@ -142,9 +142,9 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
     },
     "charge_item_groups": [
         {
-            "charge_item_group_external_id": "CIG69-E5AB2-5F5D3-91E60-850F9-1ED7B-C4AD7",
-            "alliance_external_id": "ALL87-C6C9D-E2B11-D357A-DEBFF-C3907-64955",
-            "acquirer_external_id": "MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9",
+            "charge_item_group_external_id": "CIXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX,
             "processing_platform": "OTHER",
             "fee_collection_type": "INTERCHANGE",
             "charge_item_group_name": "Transaction Group",
@@ -155,9 +155,9 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
             "date_added": "2021-06-17 17:33:50",
             "charge_items": [
                 {
-                    "charge_item_external_id": "CHID9-F2F62-30CBF-7C081-7B017-55BBC-990CF",
-                    "alliance_external_id": "ALL87-C6C9D-E2B11-D357A-DEBFF-C3907-64955",
-                    "acquirer_external_id": "MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9",
+                    "charge_item_external_id": "CHXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "processing_platform": "OTHER",
                     "charge_item_name": "Transaction Charge",
                     "charge_item_ref": "14785",
@@ -170,7 +170,7 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
                     "date_added": "2021-06-17 17:29:27",
                     "charges": [
                         {
-                            "charge_item_external_id": "CHID9-F2F62-30CBF-7C081-7B017-55BBC-990CF",
+                            "charge_item_external_id": "CHXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                             "category": "1",
                             "fee_type": "2",
                             "minimum_base_charge": "10.00000",
@@ -179,8 +179,8 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
                             "status": "1"
                         }
                     ],
-                    "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
-                    "charge_item_group_external_id": "CIG69-E5AB2-5F5D3-91E60-850F9-1ED7B-C4AD7",
+                    "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "charge_item_group_external_id": "CIXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "is_activated": "1",
                     "is_mandatory": "0",
                     "is_invisible": "0",
@@ -194,9 +194,9 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
                                     "minimum_base_charge": "10.00",
                                     "maximum_base_charge": "10.00",
                                     "default_base_charge": "10.00",
-                                    "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
-                                    "charge_item_group_external_id": "CIG69-E5AB2-5F5D3-91E60-850F9-1ED7B-C4AD7",
-                                    "charge_item_external_id": "CHID9-F2F62-30CBF-7C081-7B017-55BBC-990CF"
+                                    "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                    "charge_item_group_external_id": "CIXXX-XXXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                    "charge_item_external_id": "CHXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
                                 }
                             ]
                         }
@@ -207,9 +207,9 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
     ],
     "service_charge_items": [
         {
-            "service_charge_item_external_id": "SCI6D-0FB58-F1900-2B425-59B03-EBF71-96934",
-            "alliance_external_id": "ALL87-C6C9D-E2B11-D357A-DEBFF-C3907-64955",
-            "acquirer_external_id": "MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9",
+            "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "service_item_name": "Service Item",
             "service_item_type": "1",
             "service_frequency": "1",
@@ -222,7 +222,7 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
             "instalment_available": "1",
             "language_code": "en_gb",
             "date_added": "2021-06-17 17:39:06",
-            "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
+            "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "is_activated": "1",
             "is_mandatory": "0",
             "is_invisible": "0",
@@ -232,13 +232,13 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
                     "minimum_base_charge": "10.00",
                     "maximum_base_charge": "10.00",
                     "default_base_charge": "10.00",
-                    "transaction_pricing_external_id": "TPI6B-3B10D-97EC5-B9617-E49CE-6A1B1-58F7D",
-                    "service_charge_item_external_id": "SCI6D-0FB58-F1900-2B425-59B03-EBF71-96934"
+                    "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
                 }
             ],
             "charges": [
                 {
-                    "service_charge_item_external_id": "SCI6D-0FB58-F1900-2B425-59B03-EBF71-96934",
+                    "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "fee_type": "2",
                     "minimum_base_charge": "10.00",
                     "maximum_base_charge": "10.00",
