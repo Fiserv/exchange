@@ -1050,7 +1050,7 @@ JSON sample request in `ADD_OUTLET`:
                 ],
                 "bank_account_type": "CHECKING",
                 "dda_number": "46456461234",
-                "routing_number": "026009593"
+                "routing_number": "123456789"
             }
         ]
     }
