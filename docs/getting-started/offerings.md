@@ -813,7 +813,7 @@ type: tab
 titles: online_offer block, Sample being used in ADD_OUTLET
 -->
 
-JSON format for acquiring offer and offer package:
+JSON format snippet for online offer:
 
 ```json
 "online_offer": {
@@ -876,7 +876,7 @@ JSON format for acquiring offer and offer package:
 
 <!-- type: tab -->
 
-JSON sample request in `ADD_APPLICATION`:
+JSON sample request in `ADD_OUTLET`:
 
 ```json
 {
