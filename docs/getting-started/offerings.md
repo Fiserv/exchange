@@ -810,10 +810,10 @@ Similar to the online offer, we will need to add an additional object to the out
 
 <!--
 type: tab
-titles: Offer block, Sample being used in ADD_OUTLET
+titles: Equipment Offer block, Sample being used in ADD_OUTLET
 -->
 
-JSON format snippet for online offer:
+JSON format snippet for equipment offer:
 
 ```json
 "online_offer": {
