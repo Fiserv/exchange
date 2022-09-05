@@ -805,7 +805,7 @@ JSON sample request in `ADD_OUTLET`:
 
 ### Adding an Equipment offering to an Outlet
 
-Similar to the online offer, we will need to add an additional object to the outlet request. Multiple pieces of equipment can be added to an outlet, and can be added alongside online offerings. We will need to add an `"equipment_offer"` block that containts the equipment offering we want to use from the offer package added on the `ADD_APPLICATION` request.
+Similar to the online offer, we will need to add an additional object to the outlet request. Multiple pieces of equipment can be added to an outlet, and can be added alongside online offerings. We will need to add an `"equipment_offer"` block that contains the equipment offering we want to use from the offer package added on the `ADD_APPLICATION` request. This requires some additional fields that are not included in the retrieval to indicate if the product quantity and if this is selected, `is_selected`, and `terminal_quantity`.
 
 
 <!--
