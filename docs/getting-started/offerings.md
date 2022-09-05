@@ -144,7 +144,7 @@ JSON format response for `RETRIEVE_PROCESSING_OFFERING`:
         {
             "charge_item_group_external_id": "CIXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "alliance_external_id": "ALXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-            "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX,
+            "acquirer_external_id": "MAXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "processing_platform": "OTHER",
             "fee_collection_type": "INTERCHANGE",
             "charge_item_group_name": "Transaction Group",
