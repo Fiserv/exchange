@@ -56,7 +56,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 				"alliance_external_id": "DEXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
 				"acquirer_external_id": "MACXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
 				"processing_platform": "OTHER",
-				"transaction_pricing_name": "ProcessingPricing",
+				"transaction_pricing_name": "Processing Pricing",
 				"transaction_pricing_ref": "12345",
 				"non_processing_flag": "0",
 				"fee_collection_type": "INTERCHANGE",
@@ -73,7 +73,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 		],
 		"equipment_offers": [
 			{
-				"offering_name": "EquipmentOffering",
+				"offering_name": "Equipment Offering",
 				"equipment_terminal_network": "NASHVILLE",
 				"acquiring_only": "0",
 				"equipment_offering_ref": "",
@@ -84,7 +84,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 		],
 		"online_offers": [
 			{
-				"offering_name": "OnlineOffering",
+				"offering_name": "Online Offering",
 				"equipment_terminal_network": "NASHVILLE",
 				"acquiring_only": "0",
 				"equipment_offering_ref": "",
@@ -289,7 +289,7 @@ JSON format for acquiring offer and offer package:
 ```json
 "acquiring_offer": {
     "transaction_pricing_external_id": "TPXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-    "transaction_pricing_name": "Standard Entitlement",
+    "transaction_pricing_name": "Standard Pricing",
     "transaction_pricing_ref": null,
     "currency": "USD",
     "is_tier_price": "0",
