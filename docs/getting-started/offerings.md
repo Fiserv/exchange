@@ -879,6 +879,7 @@ JSON format for acquiring offer and offer package:
 JSON sample request in `ADD_APPLICATION`:
 
 ```json
+{
     "operation": {
         "operation_type": "ADD_OUTLET",
         "version": "2.0.0"
