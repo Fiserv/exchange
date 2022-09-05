@@ -90,7 +90,7 @@ JSON format response for `LIST_AVAILABLE_OFFERINGS`:
 				"equipment_offering_ref": "",
 				"language_code": "en_gb",
 				"is_dcc": "0",
-				"equipment_offering_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
+				"equipment_offering_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 			}
 		]
 	}
