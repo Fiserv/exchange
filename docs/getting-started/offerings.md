@@ -574,32 +574,32 @@ JSON format for online offer:
 
 ```json
 "online_offer": {
-    "equipment_offering_external_id": "EQO71-976F2-9B3A2-E6B30-899E8-A264F-595C2",
+    "equipment_offering_external_id": "EQXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
     "selected_offer_item": null,
     "bundles": [
         {
-            "equipment_bundle_external_id": "EQB97-65669-A9F56-0BDF2-A497F-91EF2-091C4",
-            "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+            "equipment_bundle_external_id": "EQXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+            "equipment_bundle_item_external_id": "EBXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "bundle_name": "SYSTEM_GENERATED",
             "is_boarding_activated": null,
             "bundle_items": [
                 {
-                    "equipment_bundle_item_external_id": "EBIE6-51130-5F0B8-96EC9-95D7C-DC167-AD9EA",
+                    "equipment_bundle_item_external_id": "EBXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "is_mandatory": "0",
                     "is_invisible": "0",
                     "service": {
-                        "service_external_id": "PRO2F-331FF-49FA7-176DE-FF658-30FD3-D4624",
+                        "service_external_id": "PROXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                         "service_type": "VAR",
-                        "service_name": "CardKnox PEv1 RC",
-                        "service_api_code": "92382",
+                        "service_name": "VAR",
+                        "service_api_code": "XXXXX",
                         "service_for": "ECOM",
                         "service_for_group": "ONLINE_PRODUCT"
                     },
                     "service_charges": [
                         {
-                            "service_charge_item_external_id": "SCIAD-8016B-83A79-5EB99-EDF48-B33BD-2A881",
-                            "alliance_external_id": "ALLE4-D361D-7EFC4-5F6E2-28A52-61F35-5DEB5",
-                            "service_item_name": "Owned Infi",
+                            "service_charge_item_external_id": "SCXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                            "alliance_external_id": "ALLXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                            "service_item_name": "Owned",
                             "service_item_type": "2",
                             "service_item_for": "1",
                             "service_frequency": "1",
