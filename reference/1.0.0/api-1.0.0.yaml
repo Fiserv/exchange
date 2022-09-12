@@ -2,8 +2,9 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url.  \n #### __Integration Guide__ \n Exchange Integration Guide can be accessed from this links: <ul><li><a href='/project/downloaddocument/Exchange Configuration Portal Guide for Alliance.pdf' target='_blank'>Config Portal Guide</a></li><li><a href='/project/downloaddocument/Exchange Boarding Portal for Alliance.pdf' target='_blank'>Boarding Portal Guide</a></li><li><a href='/project/downloaddocument/Exchange Boarding APIs Integration Guide.pdf' target='_blank'>Boarding APIs Integration Guide</a></li><li><a href='/project/downloaddocument/Exchange Funding APIs Integration Guide v3.0.pdf' target='_blank'>Funding APIs Integration Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Instructional Split by Transaction User Guide V1.pdf' target='_blank'>Split Funding - Instructional Split by Transaction User Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Managed Split by Summary User Guide V1.pdf' target='_blank'>Split Funding - Managed Split by Summary User Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Instructional Split User Guide V1.pdf' target='_blank'>Split Funding - Instructional Split User Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Managed Split by Transaction User Guide V1.pdf' target='_blank'>Split Funding - Managed Split by Transaction User Guide</a></li><li><a href='/project/downloaddocument/RISK Integration Guide.pdf' target='_blank'>Risk Integration Guide</a></li><li><a href='/project/downloaddocument/Exchange Merchant Portal Guide for Alliances.pdf' target='_blank'>Merchant Portal Guide</a></li><ul>"
+  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0. The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in JSON format. For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
   version: 2.0.0
+  
 servers:
   - url: https://uat-fd-pfac-c-api.technologi.co.uk
 paths:
@@ -1109,6 +1110,178 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-group-name: Information Retrieval
       x-proxy-name: Get Bank Details
+#####################MERCHANT#################################
+##########################MAINTENANCE##########################
+  /maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Create Maintenance Case
+      x-proxy-name: Maintenance Case
+      summary: Creating Maintenance Case
+      description: Creating Maintenance Case for a merchant
+      requestBody:
+        description: Creating a Maintenance Case for a merchant
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  //maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Update Maintenance Case
+      x-proxy-name: Update a Maintenance Case
+      summary: Updating a Maintenance Case
+      description: Updating a Maintenance Case for a boarded Merchant. Can be used to update bank information at the billing level, and pricing for managed funding.
+      requestBody:
+        description: Updating a Maintenance Case for a Merchant. Information in the payload will depend on scenario and info being updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  ///maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Submit Maintenance Case
+      x-proxy-name: Submit Maintenance Case
+      summary: Submitting a Maintenance Case
+      description: Submitting a Maintenance Case for a Merchant
+      requestBody:
+        description: Submitting a Maintenance Case for a Merchant
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  ////maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Search Maintenance Case
+      x-proxy-name: Search Maintenance Case
+      summary: Searching a Maintenance Case
+      description: Searching for a Maintenance Case already created
+      requestBody:
+        description: Searching for a Maintenance Case already created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceSearchRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceSearchResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /////maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Retrieve Maintenance Case
+      x-proxy-name: Retrieve Maintenance Case
+      summary: Retrieving a Maintenace Case
+      description: Retrieving a Maintenance Case already Created
+      requestBody:
+        description: Retrieving a Maintenance Case already Created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /maintenance/cancel:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Cancel Maintenance Case
+      summary: Cancelling a Maintenance Case
+      description: Cancelling a Maintenance Case
+      requestBody:
+        description: Cancelling a Maintenance Case
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+          
+        
+##########################SPLIT FUNDING##########################  
   /split/transaction-details:
     post:
       tags:
@@ -1169,7 +1342,7 @@ paths:
     post:
       tags:
         - Split Funding by Transaction
-      summary: Split Reproces
+      summary: Split Reprocess
       description: Reprocessing unprocessed data present in the Merchant Hold Account
       requestBody:
         description: Funding Instructions for unprocessed transactions in Merchant Hold Account
@@ -4056,6 +4229,8 @@ components:
         - transaction_date
       type: object
       properties:
+        transaction_type:
+          $ref: '#/components/schemas/TransactionType'
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
         authorization_code:
@@ -4190,6 +4365,580 @@ components:
         original_processing_date:
           type: string
           example: 2022-01-10
+    CreateMaintenanceRequest:
+      required:
+      - request_source
+      - operation
+      - merchant
+      - maintenance
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationmm'
+        merchant:
+          $ref: '#/components/schemas/merchantmm'
+        maintenance:
+          $ref: '#/components/schemas/maintenance'
+    requestsource:
+      type: object
+      properties:
+        initiator:
+          type: string
+          description: who initiated the maintenance case
+          example: "PROVIDER"
+        alliance_code:
+          type: string
+          description: the alliance code
+          example: "FIRSTDATA"
+    operationmm:
+      type: object
+      properties:    
+        operation_type:
+          type: string
+          description: type of operation
+          example: "CREATE_MAINTENANCE"
+    operationum:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: type of operation
+          example: "UPDATE_MAINTENANCE"  
+    merchantmm:
+      type: object
+      properties:
+        merchant_reference:
+          type: string
+          description: the merchant reference number
+          example: "3001484"
+    
+    maintenance:
+      type: object
+      properties:
+        maintenance_types:
+          $ref: '#/components/schemas/maintenancetypes'
+    
+    maintenancetypes:
+      type: array
+      items:
+        type: string
+        example: "CHANGE_BANK"
+        enum:
+        - CHANGE_BANK
+        - CHANGE_PRICING
+    CreateMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operationmm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetails'
+          
+    UpdateMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationum'
+        merchant:
+          $ref: '#/components/schemas/merchantmm'
+        maintenance:
+          $ref: '#/components/schemas/maintenanceum'
+    SubmitMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationsm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancesm'
+    MaintenanceSearchRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationms'
+        search:
+          $ref: '#/components/schemas/search'
+    RetrieveMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationrm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancesm'
+    CancelMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationcm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancesm'
+    CancelMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operationcm'
+        message:
+          type: string
+          example: "Maintenance Case Successfully Cancelled"  
+    operationcm:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: "MAINTENANCE_CANCEL"    
+    operationrm:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: type of operation being carried out
+          example: "RETRIEVE_MAINTENANCE"
+            
+    
+    
+    operationms:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: type of operation being carried out
+          example: "MAINTENANCE_SEARCH"
+    search:
+      type: object
+      properties:
+        page:
+          type: string
+          description: page number for maintenance cases
+          example: "1"
+        limit:
+          type: string
+          description: number of maintenance cases to be presented per page
+          example: "50"
+        merchant_reference:
+          type: string
+          description: "3001483"
+                
+    operationsm:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: the type of operation being carried out
+          example: "SUBMIT_MAINTENANCE"
+    maintenancesm:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case being submitted
+          example: "MC3000000633"
+ 
+    SubmitMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operationsm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumr'    
+              
+    MaintenanceSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        response:
+          $ref: '#/components/schemas/response'
+    response:
+      type: object
+      properties:
+        limit:
+          type: string
+          description: number of maintenance cases presented per page
+          example: "50"
+        page:
+          type: string
+          description: page number of maintenance cases
+          example: "1"
+        summary_status:
+          type: string
+          description: status of maintenance case search
+          example: "FOUND"
+        maintenance:
+          type: array
+          items:
+            type: object
+            properties:
+              maintenance_reference:
+                type: string
+                example: "MC3000000633"
+              maintenance_types:
+                $ref: '#/components/schemas/mt'
+              merchant_reference:
+                type: string
+                example: "3001483"
+              business_legal_name:
+                type: string
+                example: "OST 18"
+              parent_type:
+                type: string
+                example: "Alliance"
+              contact_first_name:
+                type: string
+                example: "Jane"
+              contact_last_name:
+                type: string
+                example: "Doe"
+              date_added:
+                type: string
+                example: "2022-08-30 10:05:53"
+              maintenance_external_id:
+                type: string
+                example: "MTNA9-5972B-1E9DF-868A2-DADF8-871D4-CD942"
+              creator_user_external_id:
+                type: string
+                example: "USR19-F03B8-2DCC3-659A8-D685F-260E8-D5826"
+              status_external_id:
+                type: string
+                example: "MTS08-8FCFD-71056-20D7A-BF420-98B25-C8631"
+              maintenance_status:
+                type: string
+                example: "Completed"
+              owner_user_external_id:
+                type: string
+                example: "USR19-F03B8-2DCC3-659A8-D685F-260E8-D5826"
+    mt:
+      type: array
+      items:
+        type: string
+        example: "CHANGE_BANK"
+    RetrieveMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumr'
+        
+            
+                            
+                              
+      
+          
+    maintenanceum:
+      type: object
+      description: To define the maintenance case being update, and for what entity. If the subgroup bank or pricing is being updated, this can be sent with the subgroup object. If the outlet bank or pricing is being updated, this can be sent with the outlet object.
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number of the maintenance case created
+          example: "MC3000000633"
+        subgroup:
+          $ref: '#/components/schemas/subgroupum'
+        outlet:
+          $ref: '#/components/schemas/outletum'
+        
+    subgroupum:
+      type: object
+      properties:
+        internal_mid:
+          type: string
+          description: internal mid of funding level entity
+          example: "865785678567"
+        business_entity:
+          $ref: '#/components/schemas/businessentity'
+    outletum:
+      type: object
+      properties:
+        internal_mid:
+          type: string
+          description: internal mid of funding level entity
+          example: "865785678567"
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDetail'
+    businessentity:
+      type: object
+      properties:
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDetail'
+    UpdateMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumr'
+        
+    maintenancedetailsumr:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case updated
+          example: "MC3000000633"
+        merchant_reference:
+          type: string
+          description: the merchant reference number for the maintenance case updated
+          example: "3001483"
+        maintenance_types:
+          $ref: '#/components/schemas/maintenance'
+        old_details:
+          $ref: '#/components/schemas/odumr'
+        new_details:
+          $ref: '#/components/schemas/ndumr'
+    ndumr:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/ndb'
+    ndb:
+      type: object
+      properties:
+        62d929bf81b78a006d7be44a:
+          $ref: '#/components/schemas/banknd'
+  
+    banknd:
+      type: object
+      properties:
+        internal_mid:
+          type: string
+          description: internal mid of the entity for which the information is being changed
+          example: "865785678567"
+        banks:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: bank id of the new bank
+                example: "62d91c7681b78a00594dd392"
+                
+            
+    odumr:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/mmod'
+    mmod:
+      type: object
+      properties:
+        62d929bf81b78a006d7be44a:
+          $ref: '#/components/schemas/bankod'
+    
+    bankod:
+      type: object
+      properties:
+        62d91c7681b78a00594dd392:
+          $ref: '#/components/schemas/bidod'
+    bidod:
+      type: object
+      properties:
+        bank_city:
+          type: string
+          description: name of the city where the old bank was located
+          example: "Phoenix"
+        country_code:
+          type: string
+          description: country code where the old bank is located
+          example: "840"
+        account_holder_name:
+          type: string
+          description: account holder's name
+          example: "Jane Doe"
+        account_type:
+          $ref: '#/components/schemas/accounttypes'
+        zip_code:
+          type: string
+          description: zip code of the city in which the bank is located
+          example: "44444"
+        county_code:
+          type: string
+          description: county code for the old bank
+          example: "CA"
+        street_line_1:
+          type: string
+          description: first line of address of the old bank
+          example: "30 Saxon Gate"
+        bank_account_type:
+          type: string
+          description: type of bank account
+          example: "CHECKING"
+        dda_number:
+          type: string
+          description: DDA number for the old bank
+          example: "444444444444444444"
+        dda_number_masked:
+          type: string
+          description: masked DDA number for the old bank
+          example: "**************4444"
+        routing_number:
+          type: string
+          description: routing number for the old bank
+          example: "444444444"
+        routing_number_masked:
+          type: string
+          description: masked routing number for the old bank
+          example: "*****4444"
+        _id:
+          type: string
+          description: bank id for the old bank
+          example: "62d91c7681b78a00594dd392"
+                    
+    accounttypes:
+      type: array
+      items:
+        type: string
+        example: [CREDIT, DEBIT, CHARGEBACK]    
+                                                          
+            
+    maintenancemmr:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number
+          example: "MC3000000610"
+        merchant_reference:
+          type: string
+          description: the merchant reference number
+          example: "3001484"
+        maintenance_status:
+          type: string
+          description: status of the maintenance case
+          example: "Open"
+        maintenance_external_id:
+          type: string
+          description: the maintenance case external id
+          example: "MTNCB-651E4-E0CCC-5453A-1C07D-5E526-AF699"
+        creator_user_external_id:
+          type: string
+          description: the external id for creator user
+          example: "USR42-6D362-009A1-592CC-E1042-093C4-64974"
+        status_external_id:
+          type: string
+          description: the external id for the maintenance case status
+          example: "MTS5F-AC517-BB9D5-91A67-4BC5C-EE080-961E1"
+        owner_user_external_id:
+          type: string
+          example: "USR42-6D362-009A1-592CC-E1042-093C4-64974"
+    maintenancedetails:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case created
+          example: "MC3000000610"
+        merchant_reference:
+          type: string
+          description: the merchant reference number for the maintenance case created
+          example: "3001484"
+        maintenance_types:
+          $ref: '#/components/schemas/maintenance'
+        old_details:
+          $ref: '#/components/schemas/subgroupsmm'
+    subgroupsmm:
+      type: object
+      properties:
+        62e9225181b78a009a0e7852:
+          $ref: '#/components/schemas/banksmm'
+    banksmm:
+      type: object
+      properties:
+        62e91c4281b78a009a0e784c:
+          $ref: '#/components/schemas/bankdetailsmm'
+    bankdetailsmm:
+      type: object
+      properties:
+        bank_name:
+          type: string
+          description: name of the bank in the old details
+          example: "banknnn"
+        bank_city:
+          type: string
+          description: city the bank is located in the old details
+          example: "Los Angeles"
+        country_code:
+          type: string
+          description: the country code according to the ISO3 format
+          example: "840"
+        account_holder_name:
+          type: string
+          description: name of the account holder
+          example: "Paolo"
+        account_type:
+          type: array
+          items:
+            type: string
+            example: ["DEBIT", "CREDIT"]
+        zip_code:
+          type: string
+          description: the zip code of the bank in the old details
+          example: "3333333333"
+        street_line_1:
+          type: string
+          description: First line of Address of the bank in the old details
+          example: "Apartment 32, Melrose Avenue"
+        bank_account_type:
+          type: string
+          description: bank account type of the previous bank
+          example: "CHECKING"
+        dda_number:
+          type: string
+          description: DDA number of the bank in the old details
+          example: "222222222222222222"
+        dda_number_masked:
+          type: string
+          description: masked DDA number of the bank in the old details
+          example: "**************2222"
+        routing_number:
+          type: string
+          description: routing number for the previous bank
+          example: "982354671"
+        routing_number_masked:
+          type: string
+          description: routing number for the previous number masked
+          example: "*****4671"
+        _id:
+          type: string
+          description: bank id of the bank in the old details
+          example: "62e91c4281b78a009a0e784c"      
+                            
+          
+
     applicationuploadfileResponse:
       type: object
       properties:
@@ -5422,7 +6171,7 @@ components:
             operation_type: ADD_APPLICATION
             version: 2.0.0
           allOf:
-            - $ref: '#/components/schemas/GeneralOperation'
+            - $ref: '#/components/schemas/OperationAddApplication'
     ApplicationStatusCheckOperation:
       required:
         - operation
@@ -5434,7 +6183,7 @@ components:
             operation_type: APPLICATION_STATUS_CHECK
             version: 2.0.0
           allOf:
-            - $ref: '#/components/schemas/GeneralOperation'
+            - $ref: '#/components/schemas/OperationAddApplication'
     DecisionOperation:
       required:
         - operation
@@ -5458,7 +6207,7 @@ components:
             operation_type: ADD_APPLICATION
             version: 2.0.0
           allOf:
-            - $ref: '#/components/schemas/GeneralOperation'
+            - $ref: '#/components/schemas/OperationAddApplication'
     AddSubGroupOperation:
       required:
         - operation
@@ -5494,7 +6243,7 @@ components:
             operation_type: RETRIEVE_MERCHANT_HIERARCHY
             version: 2.0.0
           allOf:
-            - $ref: '#/components/schemas/GeneralOperation'
+            - $ref: '#/components/schemas/OperationAddApplication'
     ApplicationSubmissionOperation:
       required:
         - operation
@@ -5506,7 +6255,7 @@ components:
             operation_type: APPLICATION_SUBMIT
             version: 2.0.0
           allOf:
-            - $ref: '#/components/schemas/GeneralOperation'
+            - $ref: '#/components/schemas/OperationAddApplication'
     GeneralOperation:
       required:
         - operation_type
@@ -5516,7 +6265,31 @@ components:
         operation_type:
           maxLength: 30
           type: string
-          description: The type of the operation
+          description: The type of the operation. This will change the operation of the endpoint
+          enum: 
+          - ADD_APPLICATION
+          - APPLICATION_SUBMIT
+          - RETRIEVE_MERCHANT_HIERARCHY
+        version:
+          maxLength: 6
+          type: string
+          description: The version of the operation
+          example: 2.0.0
+    OperationAddApplication:
+      required:
+        - operation_type
+        - version
+      type: object
+      properties:
+        operation_type:
+          maxLength: 30
+          type: string
+          description: The type of the operation. This will change the operation of the endpoint /boarding/application
+          enum: 
+          - ADD_APPLICATION
+          - APPLICATION_SUBMIT
+          - RETRIEVE_MERCHANT_HIERARCHY
+          - APPLICATION_STATUS_CHECK
         version:
           maxLength: 6
           type: string
@@ -8179,6 +8952,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BankFor'
+          example: ["CREDIT" , 
+          "DEBIT", 
+          "CHARGEBACK" ]
         bank_account_type:
           $ref: '#/components/schemas/BankAccountType'
         dda_number:
@@ -8217,11 +8993,10 @@ components:
         - SAVING
     BankFor:
       type: string
-      example: CREDIT, DEBIT, CHARGEBACK
       enum:
-        - CREDIT
-        - DEBIT
-        - CHARGEBACK
+        - "CREDIT"
+        - "DEBIT"
+        - "CHARGEBACK"
     LegalName:
       type: string
       description: Business legal name
@@ -8245,8 +9020,11 @@ components:
         - U
         - X
     RegNumber:
+      maxLength: 21
+      minLength: 1
       type: string
       description: Company registration number
+      example: "2333"
     ForeignEntity:
       type: string
       description: 'Is the Business a Foreign entity? - 1: Yes 0: No'
@@ -8300,6 +9078,7 @@ components:
     IrsName:
       type: string
       description: IRS filing name
+      example: "Example IRS name"
     TinType:
       type: string
       description: 1 = SSN, 2 = EIN, 3 = OTHER TAX ID
@@ -8316,8 +9095,11 @@ components:
         - "0"
         - "1"
     TaxID:
+      maxLength: 15
+      minLength: 1
       type: string
       description: Tax ID
+      example: "1111"
     MCC:
       maxLength: 4
       minLength: 4
