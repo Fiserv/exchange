@@ -398,7 +398,7 @@ JSON format for `UPDATE_MERCHANT`:
         "business_entity": {
             "legal_name": "MMISTest 1",
             "ownership_entity_type": "L",
-            "application_reference": "333000025742"
+            "application_reference": "33300XXXX"
         }
     }
 }
