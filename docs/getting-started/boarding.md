@@ -26,11 +26,6 @@ The `/boarding/application` endpoint supports adding the merchant and chain leve
 JSON format for `ADD_APPLICATION`:
 
 ```json
-{
-    "request_source": {
-        "initiator": "ALLIANCE",
-        "alliance_code": "mm"
-    },
     "operation": {
         "operation_type": "ADD_APPLICATION",
         "version": "2.0.0"
@@ -80,30 +75,30 @@ JSON format for `ADD_APPLICATION`:
         },
         "owners": [
             {
-                "owner_title": "Mr.",
-                "owner_first_name": "jay",
+                "owner_title": "Ms.",
+                "owner_first_name": "Jane",
                 "owner_second_name": "",
-                "owner_surname": "dawson",
+                "owner_surname": "Doe",
                 "contact_dob": "1994-07-13",
                 "owner_nationality": "826",
                 "owner_position": "OW",
                 "owner_phone_code": "US|1",
-                "owner_phone_no": "7999902037",
+                "owner_phone_no": "7234567893",
                 "owner_date_started": "2019-12-12",
-                "owner_email": "akariya.kulvijit@technologi.co.uk",
-                "owner_tin_ssn_number": "856230520",
+                "owner_email": "technologi@technologi.co.uk",
+                "owner_tin_ssn_number": "111989898",
                 "is_main_principal": "1",
                 "ownership_perc": "100",
                 "personal_guarantee": "Y",
                 "contacts": [
                     {
-                        "zip_code": "65890",
+                        "zip_code": "12345",
                         "suite_apart_number": "1",
                         "floor": "5",
                         "province": "t",
-                        "street_line_1": "12 SPRINGFIELD RD",
-                        "street_line_2": "GOOD WAY",
-                        "city": "SPRINGFIELD",
+                        "street_line_1": "Street Example 1",
+                        "street_line_2": "Street Exanmple",
+                        "city": "City Example",
                         "county_code": "CA",
                         "date_from": "2020-05-29",
                         "country_code": "840"
@@ -158,7 +153,7 @@ JSON format for `ADD_OUTLET`:
         "outlet_website": "http://netpay.co.uk",
         "pricing_type": "002",
         "store_number": "12",
-        "primary_email_address": "akariya.kulvijit@netpay.co.uk",
+        "primary_email_address": "technologi@technologi.co.uk",
         "business_zone": "B",
         "business_location": "H",
         "ground_floor": "O",
@@ -206,39 +201,39 @@ JSON format for `ADD_OUTLET`:
             {
                 "contact_type": "OT",
                 "contact_title": "Mr.",
-                "contact_first_name": "Jay",
-                "contact_last_name": "Dawson",
+                "contact_first_name": "Jane",
+                "contact_last_name": "Doe",
                 "country_code": "840",
                 "city": "City",
                 "zip_code": "12345",
-                "street_line_1": "BerlinStreet",
+                "street_line_1": "Example Street",
                 "county_code": "CA",
                 "floor": "1",
                 "suite_apart_number": "2",
                 "house_number": "13",
-                "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
+                "house_name": "",
+                "email_address": "technologi@technologi.co.uk",
                 "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869"
+                "telephone_number": "742345678"
             },
             {
                 "contact_type": "B",
-                "contact_title": "Mr.",
-                "contact_first_name": "Alex",
-                "contact_last_name": "Fat",
+                "contact_title": "Ms.",
+                "contact_first_name": "Jane",
+                "contact_last_name": "Doe",
                 "country_code": "840",
                 "city": "City",
                 "zip_code": "12345",
-                "street_line_1": "BerlinStreet",
+                "street_line_1": "Example Street 1",
                 "county_code": "CA",
                 "floor": "1",
                 "suite_apart_number": "2",
                 "house_number": "13",
                 "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
+                "email_address": "technologi@technologi.co.uk,
                 "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869",
-                "bill_to": "Alex"
+                "telephone_number": "723566455",
+                "bill_to": "Jane"
             }
         ],
         "online_offer": {
@@ -314,8 +309,8 @@ JSON format for `ADD_OUTLET`:
                     "CHARGEBACK"
                 ],
                 "bank_account_type": "CHECKING",
-                "dda_number": "46456461234",
-                "routing_number": "026009593"
+                "dda_number": "4642355454",
+                "routing_number": "123456789"
             }
         ]
     }
@@ -401,7 +396,7 @@ JSON format for `UPDATE_MERCHANT`:
     },
     "merchant": {
         "business_entity": {
-            "legal_name": "MMISTest J1",
+            "legal_name": "MMISTest 1",
             "ownership_entity_type": "L",
             "application_reference": "333000025742"
         }
