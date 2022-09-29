@@ -1116,8 +1116,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Create Maintenance Case
-      x-proxy-name: Maintenance Case
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Create Merchant Case
       summary: Creating Maintenance Case
       description: Creating Maintenance Case for a merchant
       requestBody:
@@ -1144,8 +1144,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Update Maintenance Case
-      x-proxy-name: Update a Maintenance Case
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Update Maintenance Case
       summary: Updating a Maintenance Case
       description: Updating a Maintenance Case for a boarded Merchant. Can be used to update bank information at the billing level, and pricing for managed funding.
       requestBody:
@@ -1172,8 +1172,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Submit Maintenance Case
-      x-proxy-name: Submit Maintenance Case
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Update Maintenance Case
       summary: Submitting a Maintenance Case
       description: Submitting a Maintenance Case for a Merchant
       requestBody:
@@ -1200,8 +1200,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Search Maintenance Case
-      x-proxy-name: Search Maintenance Case
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Search Maintenance Cases
       summary: Searching a Maintenance Case
       description: Searching for a Maintenance Case already created
       requestBody:
@@ -1228,7 +1228,7 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Retrieve Maintenance Case
+      x-group-name: Merchant Maintenance
       x-proxy-name: Retrieve Maintenance Case
       summary: Retrieving a Maintenace Case
       description: Retrieving a Maintenance Case already Created
@@ -1256,7 +1256,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Cancel Maintenance Case
+      x-proxy-name: Cancel Maintenance Case
+      x-group-name: Merchant Maintenance
       summary: Cancelling a Maintenance Case
       description: Cancelling a Maintenance Case
       requestBody:
