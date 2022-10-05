@@ -2,7 +2,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0 . The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
+  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0. The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in JSON format. For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
   version: 2.0.0
 servers:
 - url: https://uat-fd-pfac-c-api.technologi.co.uk
@@ -14,7 +14,7 @@ paths:
       x-group-name: Oauth
       x-proxy-name: Token
       summary: Get Token
-      description: "In order to get the token you need to set the authentication for this endpoint to basic auth.  \n Input the __client_id__ as username and __client_secret__ as password.  \n \n After receiving the token please update the other endpoints authentication with the given token changing the authentication type to __OAuth 2.0__. "
+      description: "In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. "
       operationId: GET_OAUTH_TOKEN
       requestBody:
         description: Transaction Search
@@ -515,6 +515,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+  /intelligence/decision:
+    post:
+      tags:
+      - Risk Screening
+      x-group-name: Risk Screening
+      x-proxy-name: Risk Decision
+      summary: Used to make the decision for the AML and CREDIT RISK process. 
+      description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+      requestBody:
+        description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecisionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecisionResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+
   /monitoring/retrieve_hits:
     post:
       tags:
@@ -1069,6 +1098,62 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /split/reprocessing:
+    post:
+      tags:
+      - Split Funding by Transaction
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Reprocessing
+      summary: Split Funding Instruction
+      description: Reprocessing unprocessed data present in the Merchant Hold Account
+      requestBody:
+        description: Funding Instructions for unprocessed transactions in Merchant Hold Account
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitFundingReprocessingRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitFundingReprocessingResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /split/discard:
+    post:
+      tags:
+      - Split Funding by Transaction
+      x-group-name: Split Funding by Transaction
+      x-proxy-name: Split Discard
+      summary: Split Funding Instruction
+      description: Discarding unprocessed transactions present in the Merchant Hold Account
+      requestBody:
+        description: Funding Instructions to discard unprocessed transactions in Merchant Hold Account
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitFundingDiscardRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitFundingDiscardResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
 ##########################SPLIT FUNDING##########################  
 components:
   schemas:
@@ -1143,11 +1228,43 @@ components:
           $ref: '#/components/schemas/Email'
         review_note:
           $ref: '#/components/schemas/ReviewNote'
+    DecisionRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        RISK:
+          type: object
+          properties:
+            decision:
+              $ref: '#/components/schemas/DecisionRISK'
+            risk_reviewer_comments:
+              $ref: '#/components/schemas/ReviewNote'
+    DecisionResponseBlock:
+      required:
+      - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+      allOf:
+      - $ref: '#/components/schemas/DecisionOperation'
+      - $ref: '#/components/schemas/DecisionApplicationFullDetail'
     RiskOverallDecision:
       type: string
+      example: CONFIRM
       enum:
         - 'CONFIRM'
         - 'DISCOUNT'
+    DecisionRISK:
+     type: string
+     example: DECLINE
+     enum:
+        - 'APPROVE'
+        - 'DECLINE'
     OverwriteCreditResponseBlock:
       type: object
       properties:
@@ -3950,6 +4067,104 @@ components:
           - FAILED
           - REPROCESS
           - DISCARDED
+    SplitFundingReprocessingRequest:
+      required:
+      - accounts
+      - currency
+      - merchant_id
+      - total_amount
+      - transaction_type
+      - transaction_date
+      - split_details
+      type: object
+      properties:
+        processing_merchant_id:
+          type: string
+          description: Unique processing merchant identifier who is the owner of this transaction
+          example: "123456789038"
+        amount:
+          type: string
+          description: Total funding amount to be reprocessed
+          example: "100.00"
+        currency:
+          $ref: '#/components/schemas/currency'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionType'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        authorization_code:
+          $ref: '#/components/schemas/AuthCode'
+        invoice_id:
+          $ref: '#/components/schemas/InvoiceID'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
+        split_details:
+          $ref: '#/components/schemas/TrasnactionSplitDetail'
+        reason:
+          type: string
+          description: Reason for reprocessing a transaction
+    SplitFundingReprocessingResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        summary:
+          $ref: '#/components/schemas/SplitTransactionResponse_summary'
+    SplitFundingDiscardRequest:
+      required:
+      - accounts
+      - currency
+      - merchant_id
+      - total_amount
+      - transaction_type
+      - transaction_date
+      type: object
+      properties:
+        processing_merchant_id:
+          type: string
+          description: Unique processing merchant identifier who is the owner of this transaction
+          example: "123456789038"
+        amount:
+          type: string
+          description: Total funding amount to be reprocessed
+          example: "100.00"
+        currency:
+          $ref: '#/components/schemas/currency'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionType'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        authorization_code:
+          $ref: '#/components/schemas/AuthCode'
+        invoice_id:
+          $ref: '#/components/schemas/InvoiceID'
+        case_number:
+          $ref: '#/components/schemas/CaseNumber'
+    SplitFundingDiscardResponse:
+      type: "object"
+      properties:
+        result:
+          example: "success"
+        summary:
+          $ref: "#/components/schemas/Accounts"
+        original_processing_date:
+          type: string
+          example: "2022-01-10"  
+    Accounts:
+      type: array
+      items:
+        type: object
+        properties:
+          account_type:
+            type: string
+            example: "ADJUSTMENT"
+          balance:
+            type: string
+            example: "-100"      
     CaseNumber:
       type: string
       description: 'Case number from the chargeback or chargeback reversal transaction'
@@ -3958,13 +4173,14 @@ components:
       maxLength: 20
     TransactionType:
       type: string
-      description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback, 4-Chargeback Reversal'
+      description: 'Type of the required split transaction: 1-Purchase, 2-Refund, 3-Chargeback, 4-Chargeback Reversal, 5-Reprocess'
       example: "1"
       enum:
       - "1"
       - "2"
       - "3"
       - "4"
+      - "5"
     TransactionId:
       maxLength: 20
       type: string
@@ -5038,6 +5254,18 @@ components:
           description: Operation
           example:
             operation_type: APPLICATION_STATUS_CHECK
+            version: 2.0.0
+          allOf:
+          - $ref: '#/components/schemas/GeneralOperation'
+    DecisionOperation:
+      required:
+      - operation
+      type: object
+      properties:
+        operation:
+          description: Operation
+          example:
+            operation_type: UNDERWRITING_APPROVE
             version: 2.0.0
           allOf:
           - $ref: '#/components/schemas/GeneralOperation'
@@ -6228,6 +6456,22 @@ components:
           $ref: '#/components/schemas/HierarchyTemplate'
         substatuses:
           $ref: '#/components/schemas/SubStatus'
+    DecisionApplicationFullDetail:
+      type: object
+      properties:
+
+        alliance:
+          $ref: '#/components/schemas/AllianceDetail'
+        application:
+          $ref: '#/components/schemas/MerchantResponse'
+        outlets:
+          $ref: '#/components/schemas/OutletArray'
+        merchant_sub_groups:
+          $ref: '#/components/schemas/SubGroupArray'
+        application_relation:
+          $ref: '#/components/schemas/DecisionApplicationRelation'
+        substatuses:
+          $ref: '#/components/schemas/SubStatus'
     OutletArray:
       type: array
       items:
@@ -6380,6 +6624,33 @@ components:
         hold_suspend_flag:
           $ref: '#/components/schemas/HoldSuspend'
     ApplicationRelation:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/SystemID'
+        application_reference:
+          $ref: '#/components/schemas/Reference'
+        business_id:
+          $ref: '#/components/schemas/SystemID'
+        merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        main_owner:
+          $ref: '#/components/schemas/SystemID'
+        main_outlet:
+          $ref: '#/components/schemas/SystemID'
+        total_outlets:
+          $ref: '#/components/schemas/TotalNode'
+        total_subgroups:
+          $ref: '#/components/schemas/TotalNode'
+        owner:
+          $ref: '#/components/schemas/OwnerRefArray'
+        merchant_sub_group:
+          $ref: '#/components/schemas/SubGroupRefArray'
+        date_added:
+          $ref: '#/components/schemas/Date'
+        date_updated:
+          $ref: '#/components/schemas/Date'
+    DecisionApplicationRelation:
       type: object
       properties:
         _id:
@@ -6768,6 +7039,12 @@ components:
           $ref: '#/components/schemas/AdditionalInformation'
         mcc_code:
           $ref: '#/components/schemas/MCC'
+        seasonal_business:
+          $ref: "#/components/schemas/Seasonal_business"
+        seasonal_start_month:
+          $ref: "#/components/schemas/Seasonal_Start_Month"
+        seasonal_end_month:
+          $ref: "#/components/schemas/Seasonal_End_Month"
         curr_code:
           $ref: '#/components/schemas/Currency'
         mastercard_sales:
@@ -7863,6 +8140,48 @@ components:
       type: string
       description: MCC Code
       example: "5544"
+    Seasonal_business:
+      maxLength: 4
+      minLength: 1
+      type: string
+      description: seasonal business
+      example: "1"
+      enum:
+      - "0"
+      - "1"
+    Seasonal_Start_Month:
+      type: string
+      example: "JANUARY"
+      enum:
+      - "JANUARY"
+      - "FEBRUARY"
+      - "MARCH"
+      - "APRIL"
+      - "MAY"
+      - "JUNE"
+      - "JULY"
+      - "AUGUST"
+      - "SEPTEMBER"
+      - "OCTOBER"
+      - "NOVEMBER"
+      - "DECEMBER"
+    Seasonal_End_Month:
+      type: string
+      example: "MARCH"
+      enum:
+      - "JANUARY"
+      - "FEBRUARY"
+      - "MARCH"
+      - "APRIL"
+      - "MAY"
+      - "JUNE"
+      - "JULY"
+      - "AUGUST"
+      - "SEPTEMBER"
+      - "OCTOBER"
+      - "NOVEMBER"
+      - "DECEMBER"  
+        
     Date:
       type: string
       description: date mm-dd-yyyy

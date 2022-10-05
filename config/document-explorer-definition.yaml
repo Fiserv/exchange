@@ -62,6 +62,8 @@
       link: docs/getting-started/transactions.md
     - title: Reporting & Settlement 
       link: docs/getting-started/reporting.md
+    - title: Back to Sales
+      link: docs/getting-started/backtosales.md
 - sections:
     - title: Guide documentation
       link: docs/introduction/exchange-boarding-guide.md
@@ -83,5 +85,6 @@
 - sections:
     - title: Release Notes
       sections:
-        - title: June 2022 
-          link: docs/release-notes/june.md
+        - title: 2022 
+          link: docs/release-notes/2022.md
+

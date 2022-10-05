@@ -1,7 +1,7 @@
 # Funding
 
 #### On this section
-This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the Merchants for the system to process the funding automatically.
+This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the sub-merchants for the system to process the funding automatically.
 
 ## Instructional Funding
 
@@ -17,7 +17,7 @@ type: tab
 titles: Instructional funding, JSON Instructional funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken.
+The Instructional funding request will be constructed based on how the PayFac wants to fund the sub-merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken.
 
 ---
 
@@ -56,7 +56,7 @@ Supported accounts added to this request include:
 ## Intructional Split
 
 ### What is split funding?
-Split funding allows the PayFac to direct funds from a merchant to third parties on the system. Three of the split funding solutions we offer require or allow instructions to be sent by API to facilitate funding. This page contains info for one method, Instructional split. 
+Split funding allows the PayFac to direct funds from a processing sub-merchant to third parties on the system. Three of the split funding solutions we offer require or allow instructions to be sent by API to facilitate funding. This page contains info for one method, Instructional split. 
 
 ### Instructional Split
 
@@ -69,7 +69,7 @@ type: tab
 titles: Split instructional funding, JSON instructional funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the merchants instructional hold, and define split amounts sent to non-processing merchants. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md) and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken and to define the split.
+The Instructional funding request will be constructed based on how the PayFac wants to fund the proessing merchants instructional hold, and define split amounts sent to non-processing merchants. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md) and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken and to define the split.
 
 ---
 
