@@ -1173,7 +1173,7 @@ paths:
       tags:
       - Merchant Maintenance
       x-group-name: Merchant Maintenance
-      x-proxy-name: Update Maintenance Case
+      x-proxy-name: Submit Maintenance Case
       summary: Submitting a Maintenance Case
       description: Submitting a Maintenance Case for a Merchant
       requestBody:
