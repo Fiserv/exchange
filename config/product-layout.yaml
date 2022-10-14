@@ -43,15 +43,15 @@ featuredFeatures:
       - relatedDoc: 
         title: Sub-merchant boarding
         description: End-to-end sub-merchant onboarding is avaliable through API and UI.
-        link: /docs/getting-started/boarding.md
+        link: docs/getting-started/boarding.md
       - relatedDoc: 
         title: Funding
         description: Funding instructions and split details that can be sent through API.
-        link: /docs/getting-started/funding.md
+        link: docs/getting-started/funding.md
       - relatedDoc: 
         title: Reporting & Settlement
         description: Settlement details and reporting avaliable through Exchange.
-        link: /docs/getting-started/reporting.md
+        link: docs/getting-started/reporting.md
     relatedAPIs:
       - relatedAPI: 
         title: Add Application
