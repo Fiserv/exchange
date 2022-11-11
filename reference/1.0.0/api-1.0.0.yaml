@@ -2,9 +2,8 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Exchange you use your API token, the authentication type is: OAuth 2.0. The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in JSON format. For security purposes your IP needs to be whitelisted in order to perform any operations on the given endpoints."
+  description: "To authenticate with Technologi you use your API token, the authentication type is: __OAuth 2.0__  \n The Authentication token should be sent as an authorization header for every request.  \n  \n  The Request and Reposes will always be in __JSON__ format.  \n \n #### __Security__  \n For security purposes your __IP__ needs to be whitelisted in order to perform any operations on the given endpoints.  \n #### __Postman__ \n The Postman library can be accessed from this link <a href='/project/downloaddocument/Exchange APIs.postman_collection.json' target='_blank'>Exchange APIs library</a>, simply go in your Postman click import than import from link and copy paste the url.  \n #### __Integration Guide__ \n Exchange Integration Guide can be accessed from this links: <ul><li><a href='/project/downloaddocument/Exchange Configuration Portal Guide for Alliance.pdf' target='_blank'>Config Portal Guide</a></li><li><a href='/project/downloaddocument/Exchange Boarding Portal for Alliance.pdf' target='_blank'>Boarding Portal Guide</a></li><li><a href='/project/downloaddocument/Exchange Boarding APIs Integration Guide.pdf' target='_blank'>Boarding APIs Integration Guide</a></li><li><a href='/project/downloaddocument/Exchange Funding APIs Integration Guide v3.0.pdf' target='_blank'>Funding APIs Integration Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Instructional Split by Transaction User Guide V1.pdf' target='_blank'>Split Funding - Instructional Split by Transaction User Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Managed Split by Summary User Guide V1.pdf' target='_blank'>Split Funding - Managed Split by Summary User Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Instructional Split User Guide V1.pdf' target='_blank'>Split Funding - Instructional Split User Guide</a></li><li><a href='/project/downloaddocument/Split Funding - Managed Split by Transaction User Guide V1.pdf' target='_blank'>Split Funding - Managed Split by Transaction User Guide</a></li><li><a href='/project/downloaddocument/RISK Integration Guide.pdf' target='_blank'>Risk Integration Guide</a></li><li><a href='/project/downloaddocument/Exchange Merchant Portal Guide for Alliances.pdf' target='_blank'>Merchant Portal Guide</a></li><ul>"
   version: 2.0.0
-  
 servers:
   - url: https://uat-fd-pfac-c-api.technologi.co.uk
 paths:
@@ -401,12 +400,12 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Add non-processing Merchant Application
-  /boarding/applicationuploadfile:
+  /fdapplication/upload_additional_files:
     post:
       tags:
         - Application Boarding
-      summary: Uploading Additional Documents
-      description: Uploading Additional Documents
+      summary: Uploading Additional Documents to Exchange
+      description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
       responses:
@@ -424,12 +423,12 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Upload Additional Documents
-  /boarding/documentlisttenantuploaddocumentcategories:
+  /boarding/document_categories:
     post:
       tags:
         - Application Boarding
       summary: Configured Document Categories
-      description: Will list all documents configured
+      description: Will list all documents configured that can be sent through Upload Additional Files endpoint.
       requestBody:
         description: List of Additional Documents Configured
         content:
@@ -452,14 +451,14 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Configured Document Categories
-  /boarding/applicationuploadadditionaldocuments:
+  /fdapplication/submit_additional_documents:
     post:
       tags:
         - Application Boarding
       summary: Submitting additional documents to application
-      description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data depend on how the document being uploaded was configured.
+      description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
       requestBody:
-        description: Submitting additional documents to prospect
+        description: Submitting additional documents for Application
         content:
           application/json:
             schema:
@@ -479,7 +478,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
-      x-proxy-name: Upload Additional Documents to Prospect
+      x-proxy-name: Submit additional documents for Application
   /intelligence/retrieve_intelligence:
     post:
       tags:
@@ -1116,10 +1115,10 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Merchant Maintenance
-      x-proxy-name: Create Merchant Case
+      x-group-name: Create Maintenance Case
+      x-proxy-name: Maintenance Case
       summary: Creating Maintenance Case
-      description: Creating Maintenance Case for a merchant
+      description: Creating Maintenance Case for a merchant to update bank information, or pricing (Managed funding)
       requestBody:
         description: Creating a Maintenance Case for a merchant
         content:
@@ -1144,8 +1143,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Merchant Maintenance
-      x-proxy-name: Update Maintenance Case
+      x-group-name: Update Maintenance Case
+      x-proxy-name: Update a Maintenance Case
       summary: Updating a Maintenance Case
       description: Updating a Maintenance Case for a boarded Merchant. Can be used to update bank information at the billing level, and pricing for managed funding.
       requestBody:
@@ -1162,6 +1161,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateMaintenanceResponse'
+              examples:
+                  Bank Change:
+                    $ref: '#/components/schemas/UpdateMaintenanceResponse'
+                  Pricing Change:
+                    $ref: '#/components/schemas/UpdateMaintenanceResponsePricing'
         default:
           description: Unexpected Error
           content:
@@ -1172,7 +1176,7 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Merchant Maintenance
+      x-group-name: Submit Maintenance Case
       x-proxy-name: Submit Maintenance Case
       summary: Submitting a Maintenance Case
       description: Submitting a Maintenance Case for a Merchant
@@ -1200,8 +1204,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Merchant Maintenance
-      x-proxy-name: Search Maintenance Cases
+      x-group-name: Search Maintenance Case
+      x-proxy-name: Search Maintenance Case
       summary: Searching a Maintenance Case
       description: Searching for a Maintenance Case already created
       requestBody:
@@ -1228,7 +1232,7 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-group-name: Merchant Maintenance
+      x-group-name: Retrieve Maintenance Case
       x-proxy-name: Retrieve Maintenance Case
       summary: Retrieving a Maintenace Case
       description: Retrieving a Maintenance Case already Created
@@ -1256,8 +1260,7 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-proxy-name: Cancel Maintenance Case
-      x-group-name: Merchant Maintenance
+      x-group-name: Cancel Maintenance Case
       summary: Cancelling a Maintenance Case
       description: Cancelling a Maintenance Case
       requestBody:
@@ -4427,8 +4430,20 @@ components:
         type: string
         example: "CHANGE_BANK"
         enum:
-        - CHANGE_BANK
-        - CHANGE_PRICING
+          - UPDATE_PROCESSING_PRICING
+          - UPDATE_EQUIPMENT_PRICING
+          - UPDATE_ONLINE_PRICING
+          - CHANGE_BANK
+    maintenancetypesPricing:
+      type: array
+      items:
+        type: string
+        example: "CHANGE_BANK"
+        enum:
+          - UPDATE_PROCESSING_PRICING
+          - UPDATE_EQUIPMENT_PRICING
+          - UPDATE_ONLINE_PRICING
+          - CHANGE_BANK
     CreateMaintenanceResponse:
       type: object
       properties:
@@ -4702,7 +4717,16 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
-        
+    UpdateMaintenanceResponsePricing:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumrPricing'
     maintenancedetailsumr:
       type: object
       properties:
@@ -4715,12 +4739,44 @@ components:
           description: the merchant reference number for the maintenance case updated
           example: "3001483"
         maintenance_types:
-          $ref: '#/components/schemas/maintenance'
+          $ref: '#/components/schemas/maintenancetypes'
         old_details:
           $ref: '#/components/schemas/odumr'
         new_details:
           $ref: '#/components/schemas/ndumr'
+    maintenancedetailsumrPricing:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case updated
+          example: "MC3000000633"
+        merchant_reference:
+          type: string
+          description: the merchant reference number for the maintenance case updated
+          example: "3001483"
+        maintenance_types:
+          type: array
+          description: Maintenance type being updated
+          items:
+            type: string
+            example: 
+              UPDATE_PROCESSING_PRICING
+            enum:
+              - UPDATE_PROCESSING_PRICING
+              - UPDATE_EQUIPMENT_PRICING
+              - UPDATE_ONLINE_PRICING
+              - CHANGE_BANK
+        old_details:
+          $ref: '#/components/schemas/odumrPricing'
+        new_details:
+          $ref: '#/components/schemas/ndumrPricing'
     ndumr:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/ndb'
+    ndumrPricing:
       type: object
       properties:
         outlets:
@@ -4759,7 +4815,16 @@ components:
       properties:
         62d929bf81b78a006d7be44a:
           $ref: '#/components/schemas/bankod'
-    
+    odumrPricing:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/mmodPricing'
+    mmodPricing:
+      type: object
+      properties:
+        62d929bf81b78a006d7be44a:
+          $ref: '#/components/schemas/EquipmentOffering'
     bankod:
       type: object
       properties:
@@ -4868,7 +4933,7 @@ components:
           description: the merchant reference number for the maintenance case created
           example: "3001484"
         maintenance_types:
-          $ref: '#/components/schemas/maintenance'
+          $ref: '#/components/schemas/maintenancetypes'
         old_details:
           $ref: '#/components/schemas/subgroupsmm'
     subgroupsmm:
@@ -4887,11 +4952,11 @@ components:
         bank_name:
           type: string
           description: name of the bank in the old details
-          example: "banknnn"
+          example: "Bank Name"
         bank_city:
           type: string
           description: city the bank is located in the old details
-          example: "Los Angeles"
+          example: "City Name"
         country_code:
           type: string
           description: the country code according to the ISO3 format
@@ -4899,7 +4964,7 @@ components:
         account_holder_name:
           type: string
           description: name of the account holder
-          example: "Paolo"
+          example: "Jane Doe"
         account_type:
           type: array
           items:
@@ -4912,7 +4977,7 @@ components:
         street_line_1:
           type: string
           description: First line of Address of the bank in the old details
-          example: "Apartment 32, Melrose Avenue"
+          example: "Address Line"
         bank_account_type:
           type: string
           description: bank account type of the previous bank
@@ -4920,11 +4985,11 @@ components:
         dda_number:
           type: string
           description: DDA number of the bank in the old details
-          example: "222222222222222222"
+          example: "22222222222"
         dda_number_masked:
           type: string
           description: masked DDA number of the bank in the old details
-          example: "**************2222"
+          example: "*******2222"
         routing_number:
           type: string
           description: routing number for the previous bank
@@ -4936,7 +5001,7 @@ components:
         _id:
           type: string
           description: bank id of the bank in the old details
-          example: "62e91c4281b78a009a0e784c"      
+          example: "62e12c4987b78a223a0e784c"      
                             
           
 
@@ -4975,13 +5040,13 @@ components:
       properties:
         first_name:
           type: string
-          example: Sharjeel
+          example: Jane
         second_name:
           type: string
-          example: Faisal
+          example: Doe
         surname:
           type: string
-          example: Mirza
+          example: Lane
         date_of_birth:
           type: string
           example: 1998/05/31
@@ -7777,10 +7842,6 @@ components:
           $ref: '#/components/schemas/AddressBlock'
         merchant_node_id:
           $ref: '#/components/schemas/NodeID'
-        communication_language":
-          $ref: '#/components/schemas/Language'
-        pos_language:
-          $ref: '#/components/schemas/Language'
         owners:
           $ref: '#/components/schemas/Owners'
         application_external_id:
