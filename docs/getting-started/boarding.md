@@ -92,7 +92,7 @@ JSON format for `ADD_APPLICATION`:
                 "owner_phone_code": "US|1",
                 "owner_phone_no": "7999902037",
                 "owner_date_started": "2019-12-12",
-                "owner_email": "akariya.kulvijit@technologi.co.uk",
+                "owner_email": "technologi@technologi.co.uk",
                 "owner_tin_ssn_number": "856230520",
                 "is_main_principal": "1",
                 "ownership_perc": "100",
@@ -160,7 +160,7 @@ JSON format for `ADD_OUTLET`:
         "outlet_website": "http://netpay.co.uk",
         "pricing_type": "002",
         "store_number": "12",
-        "primary_email_address": "akariya.kulvijit@netpay.co.uk",
+        "primary_email_address": "technologi@technologi.co.uk",
         "business_zone": "B",
         "business_location": "H",
         "ground_floor": "O",
@@ -219,15 +219,15 @@ JSON format for `ADD_OUTLET`:
                 "suite_apart_number": "2",
                 "house_number": "13",
                 "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
+                "email_address": "technologi@technologi.co.uk",
                 "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869"
+                "telephone_number": "12232222323"
             },
             {
                 "contact_type": "B",
-                "contact_title": "Mr.",
-                "contact_first_name": "Alex",
-                "contact_last_name": "Fat",
+                "contact_title": "Ms.",
+                "contact_first_name": "Jane",
+                "contact_last_name": "Doe",
                 "country_code": "840",
                 "city": "City",
                 "zip_code": "12345",
@@ -237,10 +237,10 @@ JSON format for `ADD_OUTLET`:
                 "suite_apart_number": "2",
                 "house_number": "13",
                 "house_name": "Dolos",
-                "email_address": "akariya.kulvijit@netpay.co.uk",
+                "email_address": "technologi@technologi.co.uk",
                 "ent_telephone_code": "US|01",
-                "telephone_number": "7425325869",
-                "bill_to": "Alex"
+                "telephone_number": "12232222323",
+                "bill_to": "Jane"
             }
         ],
         "online_offer": {
