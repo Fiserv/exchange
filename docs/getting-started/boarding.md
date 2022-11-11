@@ -83,9 +83,9 @@ JSON format for `ADD_APPLICATION`:
         "owners": [
             {
                 "owner_title": "Mr.",
-                "owner_first_name": "jay",
+                "owner_first_name": "Jane",
                 "owner_second_name": "",
-                "owner_surname": "dawson",
+                "owner_surname": "Doe",
                 "contact_dob": "1994-07-13",
                 "owner_nationality": "826",
                 "owner_position": "OW",
@@ -208,8 +208,8 @@ JSON format for `ADD_OUTLET`:
             {
                 "contact_type": "OT",
                 "contact_title": "Mr.",
-                "contact_first_name": "Jay",
-                "contact_last_name": "Dawson",
+                "contact_first_name": "Jane",
+                "contact_last_name": "Doe",
                 "country_code": "840",
                 "city": "City",
                 "zip_code": "12345",
