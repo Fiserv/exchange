@@ -31,5 +31,5 @@ Exchange offers reporting through the use of settlements and segregation of fund
 
 ### Equipment and Pricing offerings  
 
-Offerings are avaliable to view and add to sub-merchants through the API. Offerings will contain transaction pricing, equipment, and online products that can be added during boarding. This is primarily used for the *Managed Funding* to add equipment and pricing, where pricing will perform calculations for the PayFac instead of instructions sent via API, but is also used to send entitlements.
+Offerings are avaliable to view and add to sub-merchants through the API. Offerings will contain transaction pricing, equipment, and online products that can be added during boarding. This is primarily used for the *Managed Funding* to add equipment and pricing, where pricing will perform calculations for the PayFac instead of instructions sent via API, but is also used to send entitlements. Test
 

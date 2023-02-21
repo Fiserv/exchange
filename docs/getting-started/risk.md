@@ -47,7 +47,7 @@ If an OFAC alert has been raised, the system will automatically *hold* the sub-m
 
 ### Available monitoring API
 
-#### Retrieve monotoring hits
+#### Retrieve monitoring hits
 
 The user will be able to retrieve the hits recieved for a sub-merchant that is being monitored through the `/monitoring/retrieve_hits` endpoint. This can be called to summarise if there are any reports that need to be reviewed, and requires the `merchant_id` to be sent to identify which sub-merchant is being checked. This will respond with the type of entity the hit was found on, which factor (ie. Director Change) and which third party the information was sourced from.
 

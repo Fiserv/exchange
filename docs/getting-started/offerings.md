@@ -102,7 +102,7 @@ Used to return package and offering `external_id` that may be used for boarding 
 ---
 ### Retrieving the processing offering
 
-Using the information from the offer package response, we can now use the `/offering/processing` endpoint to retrieve information about the specified processing offering using its `external_id`. For the example below, we want to gather the information configured for the processing offering above with `"transaction_pricing_external_id"` *"TPI6B-34KLA-F81C9-B9617-08C45-6A1B1-2B8E6"*
+Using the information from the offer package response, we can now use the `/offering/processing` endpoint to retrieve information about the specified processing offering using its `external_id`. For the example below, we want to gather the information configured for the processing offering retrieved in the above payload using its  `"transaction_pricing_external_id"` 
 
 <!--
 type: tab
@@ -338,7 +338,7 @@ JSON format for acquiring offer and offer package:
             "charge_item_external_id": "CHTXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "charge_item_group_external_id": "CIGXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
             "charge_item_name": "AmexOptBlue",
-            "charge_item_ref": "777-1000105251",
+            "charge_item_ref": "123-1000123456",
             "fee_collection_type": "INTERCHANGE",
             "charge_decimals": "2",
             "is_invisible": "0",
@@ -482,7 +482,7 @@ JSON sample request in `ADD_APPLICATION`:
                     "charge_item_external_id": "CHXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "charge_item_group_external_id": "CIXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "charge_item_name": "Visa Mastercard Discover",
-                    "charge_item_ref": "10011",
+                    "charge_item_ref": "12345",
                     "fee_collection_type": "INTERCHANGE",
                     "charge_decimals": "2",
                     "is_invisible": "0",
@@ -517,7 +517,7 @@ JSON sample request in `ADD_APPLICATION`:
                     "charge_item_external_id": "CHTXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "charge_item_group_external_id": "CIGXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     "charge_item_name": "AmexOptBlue",
-                    "charge_item_ref": "777-1000105251",
+                    "charge_item_ref": "123-1000123456",
                     "fee_collection_type": "INTERCHANGE",
                     "charge_decimals": "2",
                     "is_invisible": "0",
