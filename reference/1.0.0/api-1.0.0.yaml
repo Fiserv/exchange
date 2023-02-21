@@ -1161,11 +1161,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateMaintenanceResponse'
-              examples:
-                  Bank Change:
-                    $ref: '#/components/schemas/UpdateMaintenanceResponse'
-                  Pricing Change:
-                    $ref: '#/components/schemas/UpdateMaintenanceResponsePricing'
         default:
           description: Unexpected Error
           content:
