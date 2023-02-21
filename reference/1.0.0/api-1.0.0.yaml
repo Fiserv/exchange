@@ -1161,11 +1161,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateMaintenanceResponse'
-              examples:
-                  Bank Change:
-                    $ref: '#/components/schemas/UpdateMaintenanceResponse'
-                  Pricing Change:
-                    $ref: '#/components/schemas/UpdateMaintenanceResponsePricing'
         default:
           description: Unexpected Error
           content:
@@ -1260,6 +1255,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
+
+      x-proxy-name: Cancel Maintenance Case
       x-group-name: Cancel Maintenance Case
       summary: Cancelling a Maintenance Case
       description: Cancelling a Maintenance Case
