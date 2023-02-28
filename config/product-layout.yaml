@@ -44,6 +44,8 @@ header:
     altText: Fiserv logo
 featuredFeatures:
   - title: Payment Facilitators
+    groupName: Product offerings
+    featured: true
     description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
     tags: ["boarding", "funding", "settlement", "reporting"]
     bullets: ["boarding", "funding", "settlement", "reporting"]  
@@ -77,6 +79,8 @@ featuredFeatures:
         type: "post"        
         path: "/account/settlement-info"
   - title: Marketplaces
+    groupName: Product offerings
+    featured: true
     description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
     tags: ["boarding", "funding", "settlement", "reporting"]
     bullets: ["boarding", "funding", "settlement", "reporting"]  
