@@ -30,7 +30,7 @@
 header:
   productName: Exchange
   productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
-  whoIsItFor: Payment Facilitators, Marketplaces
+  whoIsItFor: Payment Facilitators, Marketplaces.
   getStarted: /docs/exchange-intro.md
   benefits:
     - title: Boarding
