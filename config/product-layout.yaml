@@ -28,17 +28,15 @@
 # the delivery of this work
 ################################################################################
 header:
-  productName: Exchange
   productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
-  whoIsItFor: Payment Facilitators, Marketplaces.
-  getStarted: /docs/exchange-intro.md
-  benefits:
-    - title: Boarding
-      description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
-    - title: Funding
-      description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
-    - title: Reconciliation 
-      description: Settlement details and reporting avaliable through Exchange.
+getStarted: /docs/exchange-intro.md
+benefits:
+  - title: Boarding
+  description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
+  - title: Funding
+  description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
+  - title: Reconciliation 
+  description: Settlement details and reporting avaliable through Exchange.
   image: 
     link: "/assets/images/Fiserv_Logo.jpg"
     altText: Fiserv logo
