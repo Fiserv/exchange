@@ -32,14 +32,15 @@ header:
 getStarted: /docs/exchange-intro.md
 benefits:
   - title: Boarding
-  description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
+  	description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
   - title: Funding
-  description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
+  	description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
   - title: Reconciliation 
-  description: Settlement details and reporting avaliable through Exchange.
-  image: 
-    link: "/assets/images/Fiserv_Logo.jpg"
-    altText: Fiserv logo
+  	description: Settlement details and reporting avaliable through Exchange.
+guides:
+	-title: Boarding API guide
+	description: Boarding a standard location through our API
+	link: docs/getting-started/boarding.md
 featuredFeatures:
   - title: Payment Facilitators
     groupName: Product offerings
