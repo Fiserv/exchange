@@ -28,19 +28,19 @@
 # the delivery of this work
 ################################################################################
 header:
-  productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
+  productDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
 getStarted: /docs/exchange-intro.md
 benefits:
-   - title: Boarding
+  - title: Boarding
      description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
-   - title: Funding
+  - title: Funding
      description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
-   - title: Reconciliation 
+  - title: Reconciliation 
      description: Settlement details and reporting avaliable through Exchange.
 guides:
-   - title: Boarding API guide
-     description: Boarding a standard location through our API
-     link: docs/getting-started/boarding.md
+  - title: Boarding API guide
+    description: Boarding a standard location through our API
+    link: docs/getting-started/boarding.md
 featuredFeatures:
   - title: Payment Facilitators
     featured: true
@@ -48,13 +48,13 @@ featuredFeatures:
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
-   - title: Marketplaces
+  - title: Marketplaces
     featured: true
     description:  Supporting Marketplace offerings with split payments
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding 
-   - title: PayFac Lite
+  - title: PayFac Lite
     featured: true
     description:  Get the PayFac experience 
     relatedDocs:
@@ -92,4 +92,4 @@ featuredFeatures:
     relatedAPIs: 
       - type: post
         title: Get Settlement Info    
-        path: /account/settlement-info         
+        path: /account/settlement-info           
