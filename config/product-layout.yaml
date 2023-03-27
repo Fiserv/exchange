@@ -43,70 +43,53 @@ guides:
      link: docs/getting-started/boarding.md
 featuredFeatures:
   - title: Payment Facilitators
-    groupName: Product offerings
     featured: true
-    description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
+    description:  Supporting payment faciliators services and requirments
     relatedDocs:
-      - relatedDoc: 
+      - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
-        description: End-to-end sub-merchant onboarding is avaliable through API and UI.
-        link: /docs/getting-started/boarding.md
-      - relatedDoc: 
-        title: Funding
-        description: Funding instructions and split details that can be sent through API.
-        link: /docs/getting-started/funding.md
-      - relatedDoc: 
-        title: Reporting & Settlement
-        description: Settlement details and reporting avaliable through Exchange.
-        link: /docs/getting-started/reporting.md
-    relatedAPIs:
-      - relatedAPI: 
-        title: Add Application
-        description: Add a new Merchant application
-        type: "post"        
-        path: "/merchant/application"
-      - relatedAPI: 
-        title: Funding Instruction
-        description: Send Funding Instruction
-        type: "post"        
-        path: "/v1/funding/instruction"
-      - relatedAPI: 
-        title: Get Settlement Info
-        description: Retrieve settlement information
-        type: "post"        
-        path: "/account/settlement-info"
-  - title: Marketplaces
-    groupName: Product offerings
+   - title: Marketplaces
     featured: true
-    description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
-    tags: ["boarding", "funding", "settlement", "reporting"]
-    bullets: ["boarding", "funding", "settlement", "reporting"]  
+    description:  Supporting Marketplace offerings with split payments
     relatedDocs:
-      - relatedDoc: 
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding 
+   - title: PayFac Lite
+    featured: true
+    description:  Get the PayFac experience 
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding 
+  - title: Boarding
+    groupname: API Suite
+    featured: true
+    description:  End-to-end boarding API 
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
-        description: End-to-end sub-merchant onboarding is avaliable through API and UI.
-        link: /docs/getting-started/boarding.md
-      - relatedDoc: 
-        title: Funding
-        description: Funding instructions and split details that can be sent through API.
-        link: /docs/getting-started/funding.md
-      - relatedDoc: 
-        title: Reporting & Settlement
-        description: Settlement details and reporting avaliable through Exchange.
-        link: /docs/getting-started/reporting.md
-    relatedAPIs:
-      - relatedAPI: 
-        title: Add Application
-        description: Add a new Merchant application
-        type: "post"        
-        path: "/merchant/application"
-      - relatedAPI: 
-        title: Funding Instruction
-        description: Send Funding Instruction
-        type: "post"        
-        path: "/v1/funding/instruction"
-      - relatedAPI: 
-        title: Get Settlement Info
-        description: Retrieve settlement information
-        type: "post"        
-        path: "/account/settlement-info"
+    relatedAPIs: 
+      - type: post
+        title: Add Application       
+        path: /merchant/application
+  - title: Funding
+    groupname: API Suite
+    featured: true
+    description:  Funding instructions and split details that can be sent through API.
+    relatedDocs:
+      - link: /docs/getting-started/funding.md
+        title: Instruct funding
+    relatedAPIs: 
+      - type: post
+        title: Funding Instruction       
+        path: /v1/funding/instruction        
+  - title: Reporting & Settlement
+    groupname: API Suite
+    featured: true
+    description:   Settlement details and reporting avaliable through Exchange.
+    relatedDocs: 
+        - link: /docs/getting-started/reporting.md  
+          title: Reporting
+    relatedAPIs: 
+      - type: post
+        title: Get Settlement Info    
+        path: /account/settlement-info         
