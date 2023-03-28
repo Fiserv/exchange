@@ -28,6 +28,7 @@
 # the delivery of this work
 ################################################################################
 header:
+header:
   productDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
 getStarted: /docs/exchange-intro.md
 benefits:
@@ -61,29 +62,29 @@ featuredFeatures:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding 
   - title: Boarding
-    groupname: API Suite
+    groupName: API Suite
     featured: true
     description:  End-to-end boarding API 
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
     relatedAPIs: 
-      - type: post
-        title: Add Application       
+      - type: post       
         path: /merchant/application
+        title: Add Application
   - title: Funding
-    groupname: API Suite
+    groupName: API Suite
     featured: true
     description:  Funding instructions and split details that can be sent through API.
     relatedDocs:
-      - link: /docs/getting-started/funding.md
+      - link: docs/getting-started/funding.md
         title: Instruct funding
     relatedAPIs: 
       - type: post
         title: Funding Instruction       
         path: /v1/funding/instruction        
   - title: Reporting & Settlement
-    groupname: API Suite
+    groupName: API Suite
     featured: true
     description:   Settlement details and reporting avaliable through Exchange.
     relatedDocs: 
@@ -92,4 +93,4 @@ featuredFeatures:
     relatedAPIs: 
       - type: post
         title: Get Settlement Info    
-        path: /account/settlement-info           
+        path: /account/settlement-info   
