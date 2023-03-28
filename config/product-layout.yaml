@@ -28,7 +28,7 @@
 # the delivery of this work
 ################################################################################
 header:
-  productDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
+  productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
 getStarted: /docs/introduction/exchange-intro.md
 benefits:
   - title: Boarding
