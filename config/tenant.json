@@ -20,10 +20,10 @@
   
   "apiVersions": [
       {
-        "version": "1.0.0",
+        "version": "3.0.0",
         "versionType": "major",
         "releaseNotesPath": "/release-notes/release-notes-1.0.0.md",
-        "apiSpecFileNames": ["api-1.0.0"]
+        "apiSpecFileNames": ["api-1.0.0","api-3.0.0"]
       }
   ],
   "product": {
