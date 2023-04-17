@@ -14,6 +14,8 @@ paths:
       summary: Add an Application
       description: Adds a merchant and a subgroup
       operationId: ADD_APPLICATION
+      x-group-name: Sub-merchant Boarding
+      x-proxy-name: Add Application
       responses:
         '405':
           description: Invalid input
@@ -44,6 +46,8 @@ paths:
       summary: Update a Merchant
       description: Update Merchant data of an existing application
       operationId: UPDATE_MERCHANT
+      x-group-name: Sub-merchant Boarding
+      x-proxy-name: Update Merchant
       responses:
         '405':
           description: Invalid input
@@ -73,6 +77,8 @@ paths:
         - Application Boarding
       summary: Add Subgroup
       description: Add Subgroup
+      x-group-name: Sub-merchant Boarding
+      x-proxy-name: Add Subgroup
       requestBody:
         description: Adding a new Merchant Subgroup
         content:
@@ -93,14 +99,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Merchant Subgroup
   /boarding/subgroup/update:
     post:
       tags:
         - Application Boarding
       summary: Update Subgroup
       description: Update Subgroup
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Update Merchant Subgroup
       requestBody:
         description: Updating a Merchant Subgroup
         content:
@@ -121,8 +127,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Subgroup
       
   /boarding/subgroup/retrieve:
     post:
@@ -243,6 +247,8 @@ paths:
       summary: Retrieve Available Offerings
       description: Retrieve Available Offerings
       operationId: LIST_AVAILABLE_OFFERINGS
+      x-group-name: Submerchant Offerings
+      x-proxy-name: Retrieve Available Offerings
       responses:
         '405':
           description: Invalid input
@@ -273,6 +279,8 @@ paths:
       summary: Retrieve Processing Offering
       description: Retrieve Processing Offering
       operationId: RETRIEVE_PROCESSING_OFFERING
+      x-group-name: Submerchant Offerings
+      x-proxy-name: Retrieve Processing Offerings
       responses:
         '405':
           description: Invalid input
@@ -303,6 +311,8 @@ paths:
       summary: Retrieve Equipment Offering
       description: Retrieve Equipment Offering
       operationId: RETRIEVE_EQUIPMENT_OFFERING
+      x-group-name: Submerchant Offerings
+      x-proxy-name: Retrieve Equipment Offerings
       responses:
         '405':
           description: Invalid input
@@ -333,6 +343,8 @@ paths:
       summary: Retrieve Online Offering
       description: Retrieve Online Offering
       operationId: RETRIEVE_ONLINE_OFFERING
+      x-group-name: Submerchant Offerings
+      x-proxy-name: Retrieve Online Offerings
       responses:
         '405':
           description: Invalid input
