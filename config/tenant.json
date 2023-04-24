@@ -22,8 +22,8 @@
       {
         "version": "2.0.0",
         "versionType": "minor",
-        "releaseNotesPath": "/release-notes/release-notes-1.0.0.md",
-        "apiSpecFileNames": ["api-1.0.0"]
+        "releaseNotesPath": "/release-notes/release-notes-2.0.0.md",
+        "apiSpecFileNames": ["api-2.0.0"]
       },
       {
         "version": "3.0.0",
