@@ -777,8 +777,7 @@ paths:
     post:
       tags:
         - Funding Instruction
-      summary: "Funding instruction can distribute the funds according to merchant\
-        \ id, currency, total amount and accounts."
+      summary: "Funding instruction can distribute the funds according to merchant id, currency, total amount and accounts."
       x-group-name: Funding
       x-proxy-name: Funding Instruction
       operationId: fundingInstruction
