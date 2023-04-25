@@ -696,8 +696,7 @@ paths:
     post:
       tags:
         - Settlement Reject
-      summary: "Get settlement rejected information by merchant id, settlement date\
-        \ and/or reject date."
+      summary: "Get settlement rejected information by merchant id, settlement date and/or reject date."
       operationId: getSettlementRejects
       x-group-name: Account Operations
       x-proxy-name: Get Settlement Rejects
