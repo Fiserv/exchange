@@ -612,329 +612,329 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
-  /transaction/authorizations:
-    post:
-      tags:
-        - Search Transactions
-      summary: Get authorization transactions.
-      operationId: searchAuthorizationTransactions
-      x-group-name: Transactions
-      x-proxy-name: Authorizations
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthorizationSearchRequest'
-        required: true
-      responses:
-        "404":
-          description: Transactions not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the transactions
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchResponse'
+  # /transaction/authorizations:
+  #   post:
+  #     tags:
+  #       - Search Transactions
+  #     summary: Get authorization transactions.
+  #     operationId: searchAuthorizationTransactions
+  #     x-group-name: Transactions
+  #     x-proxy-name: Authorizations
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/AuthorizationSearchRequest'
+  #       required: true
+  #     responses:
+  #       "404":
+  #         description: Transactions not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "200":
+  #         description: Found the transactions
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/SearchResponse'
   
-  /funding/detailed-instruction:
-    post:
-      tags:
-        - Funding Instruction
-      summary: Details instruction allows to provide more breakdown details about
-        the amounts to be instructed.
-      operationId: fundingDetailsInstruction
-      x-group-name: Funding
-      x-proxy-name: Funding Detailed-Instruction
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FundingDetailsInstructionRequest'
-        required: true
-      responses:
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Success for funding details instruction
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FundingInstructionResponse'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-  /funding/chargeback:
-    post:
-      tags:
-        - Funding Instruction
-      summary: Chargeback instruction allows for chargeback money to be recovered
-        from merchants
-      operationId: chargebackInstruction
-      x-group-name: Funding
-      x-proxy-name: Chargeback Instruction
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargebackInstructionRequest'
-        required: true
-      responses:
-        "200":
-          description: Success for chargeback instruction
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FundingInstructionResponse'
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-  /account/trade-info:
-    post:
-      tags:
-        - Account Operations
-      summary: "Get trade information by merchant id, date and currency."
-      operationId: tradeAccount
-      x-group-name: Account Operations
-      x-proxy-name: Get Trade Info
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TradeAccountInfoRequest'
-        required: true
-      responses:
-        "200":
-          description: Found the trade info
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradeAccountInfoResponse'
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-  /account/settlement-info:
-    post:
-      tags:
-        - Account Operations
-      summary: "Get settlement information by merchant id, settlement date and currency."
-      operationId: getSettlementInfo
-      x-group-name: Account Operations
-      x-proxy-name: Get Settlement Info
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SettlementInfoRequest'
-        required: true
-      responses:
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the settlement info
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SettlementInfoResponse'
-  /account/bank-details:
-    post:
-      tags:
-        - Account Operations
-      summary: "Get account bank details by merchant id, and alliance ."
-      operationId: getAccountBankDetails
-      x-group-name: Information Retrieval
-      x-proxy-name: Get Bank Details
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AccountBankDetailsRequest'
-        required: true
-      responses:
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the account bank details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountBankDetailsResponse'
-  /account/balance:
-    post:
-      tags:
-        - Account Operations
-      summary: "Get account balance by merchant id, account type and currency."
-      operationId: getBalanceAccount
-      x-group-name: Account Operations
-      x-proxy-name: Get Account Balance
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AccountBalanceRequest'
-        required: true
-      responses:
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the account balance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountBalanceResponse'
-  /account/account-summary:
-    post:
-      tags:
-        - Account Operations
-      summary: "Get account summary by merchant id, date and currency."
-      operationId: getAccountSummary
-      x-group-name: Account Operations
-      x-proxy-name: Get Account Summary
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AccountSummaryRequest'
-        required: true
-      responses:
-        "200":
-          description: Found the account summary
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountSummaryResponse'
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
+  # /funding/detailed-instruction:
+  #   post:
+  #     tags:
+  #       - Funding Instruction
+  #     summary: Details instruction allows to provide more breakdown details about
+  #       the amounts to be instructed.
+  #     operationId: fundingDetailsInstruction
+  #     x-group-name: Funding
+  #     x-proxy-name: Funding Detailed-Instruction
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/FundingDetailsInstructionRequest'
+  #       required: true
+  #     responses:
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "200":
+  #         description: Success for funding details instruction
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/FundingInstructionResponse'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  # /funding/chargeback:
+  #   post:
+  #     tags:
+  #       - Funding Instruction
+  #     summary: Chargeback instruction allows for chargeback money to be recovered
+  #       from merchants
+  #     operationId: chargebackInstruction
+  #     x-group-name: Funding
+  #     x-proxy-name: Chargeback Instruction
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/ChargebackInstructionRequest'
+  #       required: true
+  #     responses:
+  #       "200":
+  #         description: Success for chargeback instruction
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/FundingInstructionResponse'
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  # /account/trade-info:
+  #   post:
+  #     tags:
+  #       - Account Operations
+  #     summary: "Get trade information by merchant id, date and currency."
+  #     operationId: tradeAccount
+  #     x-group-name: Account Operations
+  #     x-proxy-name: Get Trade Info
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/TradeAccountInfoRequest'
+  #       required: true
+  #     responses:
+  #       "200":
+  #         description: Found the trade info
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/TradeAccountInfoResponse'
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  # /account/settlement-info:
+  #   post:
+  #     tags:
+  #       - Account Operations
+  #     summary: "Get settlement information by merchant id, settlement date and currency."
+  #     operationId: getSettlementInfo
+  #     x-group-name: Account Operations
+  #     x-proxy-name: Get Settlement Info
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/SettlementInfoRequest'
+  #       required: true
+  #     responses:
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "200":
+  #         description: Found the settlement info
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/SettlementInfoResponse'
+  # /account/bank-details:
+  #   post:
+  #     tags:
+  #       - Account Operations
+  #     summary: "Get account bank details by merchant id, and alliance ."
+  #     operationId: getAccountBankDetails
+  #     x-group-name: Information Retrieval
+  #     x-proxy-name: Get Bank Details
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/AccountBankDetailsRequest'
+  #       required: true
+  #     responses:
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "200":
+  #         description: Found the account bank details
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/AccountBankDetailsResponse'
+  # /account/balance:
+  #   post:
+  #     tags:
+  #       - Account Operations
+  #     summary: "Get account balance by merchant id, account type and currency."
+  #     operationId: getBalanceAccount
+  #     x-group-name: Account Operations
+  #     x-proxy-name: Get Account Balance
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/AccountBalanceRequest'
+  #       required: true
+  #     responses:
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "200":
+  #         description: Found the account balance
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/AccountBalanceResponse'
+  # /account/account-summary:
+  #   post:
+  #     tags:
+  #       - Account Operations
+  #     summary: "Get account summary by merchant id, date and currency."
+  #     operationId: getAccountSummary
+  #     x-group-name: Account Operations
+  #     x-proxy-name: Get Account Summary
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       in: header
+  #       required: false
+  #       schema:
+  #         type: integer
+  #         format: int32
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/AccountSummaryRequest'
+  #       required: true
+  #     responses:
+  #       "200":
+  #         description: Found the account summary
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/AccountSummaryResponse'
+  #       "404":
+  #         description: Merchant/Account not found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
+  #       "400":
+  #         description: BadRequest
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ApiError'
 
 components:
   schemas:
