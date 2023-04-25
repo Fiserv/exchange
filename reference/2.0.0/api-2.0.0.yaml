@@ -3,7 +3,7 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
+  description: "To authenticate with Fiserv you use your API token, where the authentication type is: OAuth 2.0"
   version: 2.0.0
 servers:
   - url: https://uat-fd-pfac-c-api.technologi.co.uk
