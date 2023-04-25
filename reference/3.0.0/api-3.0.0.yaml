@@ -455,7 +455,7 @@ paths:
   /transaction:
     post:
       tags:
-      - Search Transactions
+        - Search Transactions
       summary: Get normal transactions.
       operationId: searchTransactions
       x-group-name: Transactions
@@ -495,7 +495,7 @@ paths:
   /transaction/rejects:
     post:
       tags:
-      - Search Transactions
+        - Search Transactions
       summary: Get reject transactions.
       operationId: searchRejectTransactions
       x-group-name: Transactions
@@ -535,7 +535,7 @@ paths:
   /transaction/chargebacks:
     post:
       tags:
-      - Search Transactions
+        - Search Transactions
       summary: Get chargeback transactions.
       operationId: searchChargebackTransactions
       x-group-name: Transactions
@@ -575,7 +575,7 @@ paths:
   /transaction/chargeback-adjustments:
     post:
       tags:
-      - Search Transactions
+        - Search Transactions
       summary: Get chargeback adjustment transactions.
       operationId: searchChargebackAdjustmentTransactions
       x-group-name: Transactions
@@ -615,7 +615,7 @@ paths:
   /transaction/authorizations:
     post:
       tags:
-      - Search Transactions
+        - Search Transactions
       summary: Get authorization transactions.
       operationId: searchAuthorizationTransactions
       x-group-name: Transactions
@@ -655,7 +655,7 @@ paths:
   /transaction/adjustments:
     post:
       tags:
-      - Search Transactions
+        - Search Transactions
       summary: Get adjustment transactions.
       x-group-name: Transactions
       x-proxy-name: Adjustments
@@ -695,7 +695,7 @@ paths:
   /settlement/rejects:
     post:
       tags:
-      - Settlement Reject
+        - Settlement Reject
       summary: "Get settlement rejected information by merchant id, settlement date\
         \ and/or reject date."
       operationId: getSettlementRejects
@@ -736,11 +736,11 @@ paths:
   /reserve/release:
     post:
       tags:
-      - Reserve Release
+        - Reserve Release
       summary: "Move fund by merchant id, total amount, currency and accounts."
       operationId: reserveReleaseAccount
       x-group-name: Account Operations
-      x-proxy-name: Reserve Releease
+      x-proxy-name: Reserve Release
       parameters:
       - name: X-API-VERSION
         in: header
@@ -776,7 +776,7 @@ paths:
   /funding/instruction:
     post:
       tags:
-      - Funding Instruction
+        - Funding Instruction
       summary: "Funding instruction can distribute the funds according to merchant\
         \ id, currency, total amount and accounts."
       x-group-name: Funding
@@ -817,7 +817,7 @@ paths:
   /funding/detailed-instruction:
     post:
       tags:
-      - Funding Instruction
+        - Funding Instruction
       summary: Details instruction allows to provide more breakdown details about
         the amounts to be instructed.
       operationId: fundingDetailsInstruction
@@ -858,7 +858,7 @@ paths:
   /funding/chargeback:
     post:
       tags:
-      - Funding Instruction
+        - Funding Instruction
       summary: Chargeback instruction allows for chargeback money to be recovered
         from merchants
       operationId: chargebackInstruction
@@ -899,7 +899,7 @@ paths:
   /account/trade-info:
     post:
       tags:
-      - Account Operations
+        - Account Operations
       summary: "Get trade information by merchant id, date and currency."
       operationId: tradeAccount
       x-group-name: Account Operations
@@ -939,7 +939,7 @@ paths:
   /account/settlement-info:
     post:
       tags:
-      - Account Operations
+        - Account Operations
       summary: "Get settlement information by merchant id, settlement date and currency."
       operationId: getSettlementInfo
       x-group-name: Account Operations
@@ -979,7 +979,7 @@ paths:
   /account/bank-details:
     post:
       tags:
-      - Account Operations
+        - Account Operations
       summary: "Get account bank details by merchant id, and alliance ."
       operationId: getAccountBankDetails
       x-group-name: Information Retrieval
@@ -1019,7 +1019,7 @@ paths:
   /account/balance:
     post:
       tags:
-      - Account Operations
+        - Account Operations
       summary: "Get account balance by merchant id, account type and currency."
       operationId: getBalanceAccount
       x-group-name: Account Operations
@@ -1059,7 +1059,7 @@ paths:
   /account/account-summary:
     post:
       tags:
-      - Account Operations
+        - Account Operations
       summary: "Get account summary by merchant id, date and currency."
       operationId: getAccountSummary
       x-group-name: Account Operations
