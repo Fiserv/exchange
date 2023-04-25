@@ -612,6 +612,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
+  /transaction/authorizations:
+    post:
+      tags:
+        - Search Transactions
+      summary: Get authorization transactions.
+      operationId: searchAuthorizationTransactions
+      x-group-name: Transactions
+      x-proxy-name: Authorizations
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationSearchRequest'
+        required: true
+      responses:
+        "404":
+          description: Transactions not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
   
 
 components:
