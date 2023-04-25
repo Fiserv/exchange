@@ -790,7 +790,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-group-name: Account Operations
-      x-proxy-name: Reserve Releease
+      x-proxy-name: Reserve Release
   /account/balance:
     post:
       tags:
