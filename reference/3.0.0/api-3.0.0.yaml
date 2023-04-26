@@ -55,7 +55,7 @@ paths:
       summary: "Details instruction allows to provide more breakdown details about the amounts to be instructed."
       operationId: fundingDetailsInstruction
       x-group-name: Funding
-      x-proxy-name: Funding Detailed-Instruction
+      x-proxy-name: Funding Detailed Instruction
       parameters:
       - name: X-API-VERSION
         in: header
