@@ -5,12 +5,12 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-  - url: https://uat-fd-pfac-c-api.technologi.co.uk
+- url: https://uat-fd-pfac-c-api.technologi.co.uk
 paths:
   /funding/instruction:
     post:
       tags:
-        - Funding Instruction
+      - Funding Instruction
       summary: "Funding instruction can distribute the funds according to merchant id, currency, total amount and accounts."
       x-group-name: Funding
       x-proxy-name: Funding Instruction
@@ -51,9 +51,8 @@ paths:
   /funding/detailed-instruction:
     post:
       tags:
-        - Funding Instruction
-      summary: Details instruction allows to provide more breakdown details about
-        the amounts to be instructed.
+      - Funding Instruction
+      summary: "Details instruction allows to provide more breakdown details about the amounts to be instructed."
       operationId: fundingDetailsInstruction
       x-group-name: Funding
       x-proxy-name: Funding Detailed-Instruction
@@ -83,48 +82,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FundingInstructionResponse'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-                
-  /funding/chargeback:
-    post:
-      tags:
-        - Funding Instruction
-      summary: Chargeback instruction allows for chargeback money to be recovered
-        from merchants
-      operationId: chargebackInstruction
-      x-group-name: Funding
-      x-proxy-name: Chargeback Instruction
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargebackInstructionRequest'
-        required: true
-      responses:
-        "200":
-          description: Success for chargeback instruction
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FundingInstructionResponse'
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
         "400":
           description: BadRequest
           content:
