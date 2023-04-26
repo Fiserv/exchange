@@ -855,47 +855,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-  # /funding/detailed-instruction:
-  #   post:
-  #     tags:
-  #       - Funding Instruction
-  #     summary: Details instruction allows to provide more breakdown details about
-  #       the amounts to be instructed.
-  #     operationId: fundingDetailsInstruction
-  #     x-group-name: Funding
-  #     x-proxy-name: Funding Detailed-Instruction
-  #     parameters:
-  #     - name: X-API-VERSION
-  #       in: header
-  #       required: false
-  #       schema:
-  #         type: integer
-  #         format: int32
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/FundingDetailsInstructionRequest'
-  #       required: true
-  #     responses:
-  #       "404":
-  #         description: Merchant/Account not found
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ApiError'
-  #       "200":
-  #         description: Success for funding details instruction
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/FundingInstructionResponse'
-  #       "400":
-  #         description: BadRequest
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ApiError'
+  /funding/detailed-instruction:
+    post:
+      tags:
+        - Funding Instruction
+      summary: Details instruction allows to provide more breakdown details about
+        the amounts to be instructed.
+      operationId: fundingDetailsInstruction
+      x-group-name: Funding
+      x-proxy-name: Funding Detailed-Instruction
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundingDetailsInstructionRequest'
+        required: true
+      responses:
+        "404":
+          description: Merchant/Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Success for funding details instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingInstructionResponse'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   # /funding/chargeback:
   #   post:
   #     tags:
