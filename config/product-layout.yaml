@@ -56,7 +56,7 @@ featuredFeatures:
         title: Sub-merchant boarding 
   - title: PayFac Lite
     featured: true
-    description:  Get the PayFac experience 
+    description:  Supporting PayFac Lite 
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding 
