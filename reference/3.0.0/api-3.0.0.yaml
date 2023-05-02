@@ -10216,8 +10216,8 @@ components:
         details:
           type: array
           description: details - at least one details.
-          items:
-            $ref: '#/components/schemas/DetailsDTO'
+          # items:
+          #   $ref: '#/components/schemas/DetailsDTO'
         split_details:
           type: array
           description: accounts details - at least one account.
