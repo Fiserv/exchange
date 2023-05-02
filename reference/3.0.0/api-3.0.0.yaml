@@ -10213,16 +10213,16 @@ components:
           type: number
           description: account amount - Cannot be empty.
           example: 5
-        # details:
-        #   type: array
-        #   description: details - at least one details.
-        #   items:
-           # $ref: '#/components/schemas/DetailsDTO'
+        details:
+          type: array
+          description: details - at least one details.
+          items:
+           $ref: '#/components/schemas/DetailsDTO'
         # split_details:
         #   type: array
         #   description: accounts details - at least one account.
         #   items:
-           # $ref: '#/components/schemas/TransactionInstructionDetailedIns'
+        #     $ref: '#/components/schemas/TransactionInstructionDetailedIns'
         type:
           type: string
           description: instruction type (CREDIT/DEBIT)
