@@ -84,7 +84,7 @@
           
 - sections:
     - title: Release Notes
-      sections:
-        - title: 2022 
-          link: docs/release-notes/2022.md
+      open : false
+      link: docs/release-notes/2022.md
+          
 
