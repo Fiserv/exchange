@@ -33,13 +33,13 @@ getStarted: /docs/introduction/exchange-intro.md
 benefits:
   - title: Boarding
     description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
-    icon: assets/images/business_icon_4848.png
+    icon: assets/images/business_icon_square.png
   - title: Funding
     description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
-    icon: assets/images/money_icon_4848.png
+    icon: assets/images/money_icon_square.png
   - title: Reconciliation 
     description: Settlement details and reporting avaliable through Exchange.
-    icon: assets/images/statement_icon_48.png
+    icon: assets/images/statement_icon_square.png
 guides:
   - title: Boarding API guide
     description: Boarding a standard location through our API
