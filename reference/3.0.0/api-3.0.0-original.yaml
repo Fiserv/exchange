@@ -11086,6 +11086,85 @@ components:
           - CREDIT
           - DEBIT
       description: chargeback accounts - at least one account.
+    AccountDetailsDTOSplit:
+      required:
+      - account_type
+      - amount
+      - details
+      type: object
+      properties:
+        account_type:
+          type: string
+          description: account type - Cannot be empty.
+          example: REVENUE
+          enum:
+          - TRADE_ACCOUNT
+          - CHARGEBACK_ACCOUNT
+          - FEE_ACCOUNT
+          - REVENUE_ACCOUNT
+          - RESERVE_ACCOUNT
+          - CHARGEBACK_RECOVERY_ACCOUNT
+          - INSTRUCTIONAL_HOLD_ACCOUNT
+          - ROLLING_RESERVE_ACCOUNT
+          - RESERVE_DEDUCTION_ACCOUNT
+          - RESERVE_RELEASE_ACCOUNT
+          - MERCHANT_FEE_ACCOUNT
+          - SERVICE_FEE_ACCOUNT
+          - FEE_COLLECT_ACCOUNT
+          - REJECT_HOLD_ACCOUNT
+          - ADJUSTMENT_ACCOUNT
+          - REJECT_REPROCESS_ACCOUNT
+          - SUSPEND_ACCOUNT
+          - HOLD_ACCOUNT
+          - PFAC_REVENUE_ACCOUNT
+          - PFAC_RESERVE_ACCOUNT
+          - DELAY_FUNDING_ACCOUNT
+          - GROSS_FEE_ACCOUNT
+          - REJECT_ADJUSTMENT_ACCOUNT
+          - PFAC_ADJUSTMENT_ACCOUNT
+          - SPLIT_ACCOUNT
+          - TRADE
+          - CHARGEBACK
+          - FEE
+          - REVENUE
+          - RESERVE
+          - CHARGEBACK_RECOVERY
+          - INSTRUCTIONAL_HOLD
+          - ROLLING_RESERVE
+          - RESERVE_DEDUCTION
+          - RESERVE_RELEASE
+          - MERCHANT_FEE
+          - SERVICE_FEE
+          - FEE_COLLECT
+          - REJECT_HOLD
+          - ADJUSTMENT
+          - REJECT_REPROCESS
+          - SUSPEND
+          - HOLD
+          - PFAC_REVENUE
+          - PFAC_RESERVE
+          - DELAY_FUNDING
+          - GROSS_FEE
+          - REJECT_ADJUSTMENT
+          - PFAC_ADJUSTMENT
+          - SPLIT
+        amount:
+          type: number
+          description: account amount - Cannot be empty.
+          example: 5
+        details:
+          type: array
+          description: details - at least one details.
+          items:
+            $ref: '#/components/schemas/DetailsDTO'
+        type:
+          type: string
+          description: instruction type (CREDIT/DEBIT)
+          example: CREDIT
+          enum:
+          - CREDIT
+          - DEBIT
+      description: chargeback accounts - at least one account.
 
     FundingDetailsInstructionRequest:
       required:
@@ -11133,7 +11212,7 @@ components:
           type: array
           description: accounts - at least one account.
           items:
-            $ref: '#/components/schemas/AccountDetailsDTO'
+            $ref: '#/components/schemas/AccountDTOSplit'
       description: accounts details - at least one account.
     ChargebackInstructionRequest:
       required:
