@@ -65,7 +65,7 @@
     - title: Back to Sales
       link: docs/getting-started/backtosales.md
 - sections:
-    - title: Guide documentation
+    - title: Additional Samples
       link: docs/introduction/exchange-boarding-guide.md
       open: true
       sections:
