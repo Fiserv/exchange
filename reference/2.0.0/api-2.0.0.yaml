@@ -936,7 +936,7 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-group-name: Account Operations
       x-proxy-name: Get Account Summary
-  /transaction/:
+  /transaction:
     post:
       tags:
         - Search Transactions
