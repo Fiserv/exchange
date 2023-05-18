@@ -121,7 +121,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Offerings
       x-proxy-name: Retrieve Online Offerings
-  /boarding/application:
+  /boarding/add_application:
     post:
       tags:
         - Application Boarding
@@ -149,7 +149,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Add Application
-  /boarding//merchant:
+  /boarding/update_merchant:
     post:
       tags:
         - Application Boarding
@@ -177,7 +177,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Update Merchant
-  /boarding///merchant:
+  /boarding/subgroup/add:
     post:
       tags:
         - Application Boarding
@@ -205,7 +205,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Add Merchant Subgroup
-  /boarding////merchant:
+  /boarding/subgroup/update:
     post:
       tags:
         - Application Boarding
@@ -233,7 +233,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Update Merchant Subgroup
-  /boarding/outlet:
+  /boarding/outlet/add:
     post:
       tags:
         - Application Boarding
@@ -261,7 +261,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Add Merchant Outlet
-  /boarding//outlet:
+  /boarding/outlet/update:
     post:
       tags:
         - Application Boarding
