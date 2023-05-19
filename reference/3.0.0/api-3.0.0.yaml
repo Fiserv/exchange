@@ -2170,7 +2170,7 @@ components:
                                 example: 2
                               feature_category: 
                                 type: string
-                                example: POS_NEXO
+                                example: POS
                               feature_api_code: 
                                 type: string
                                 example: RECLN1
@@ -2306,7 +2306,7 @@ components:
                                 example: SCIC7-7F911-62F1F-AEE21-10E6B-B6481-6F2B6
                               service_item_name: 
                                 type: string
-                                example: Cyber Source Setup
+                                example: Service Setup
                               service_item_type: 
                                 type: string
                                 example: 2
