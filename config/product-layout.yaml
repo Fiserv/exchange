@@ -37,7 +37,7 @@ benefits:
   - title: Funding
     description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
     icon: assets/images/money_icon_square.png
-  - title: Reconciliation 
+  - title: Settlement 
     description: Settlement details and reporting avaliable through Exchange.
     icon: assets/images/statement_icon_square.png
 guides:
