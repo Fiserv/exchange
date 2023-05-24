@@ -1267,6 +1267,13 @@ paths:
       summary: Get Token
       description: 'In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. '
       operationId: GET_OAUTH_TOKEN
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Transaction Search
         content:
@@ -1297,6 +1304,13 @@ paths:
       x-proxy-name: Create Maintenance Case
       summary: Creating Maintenance Case
       description: Creating Maintenance Case for a merchant to update bank information, or pricing (Managed funding)
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Creating a Maintenance Case for a merchant
         content:
@@ -1325,6 +1339,13 @@ paths:
       x-proxy-name: Update Maintenance Case
       summary: Updating a Maintenance Case
       description: Updating a Maintenance Case for a boarded Merchant. Can be used to update bank information at the billing level, and pricing for managed funding.
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Updating a Maintenance Case for a Merchant. Information in the payload will depend on scenario and info being updated.
         content:
@@ -1353,6 +1374,13 @@ paths:
       x-proxy-name: Submit Maintenance Case
       summary: Submitting a Maintenance Case
       description: Submitting a Maintenance Case for a Merchant
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Submitting a Maintenance Case for a Merchant
         content:
@@ -1381,6 +1409,13 @@ paths:
       x-proxy-name: Search Maintenance Case
       summary: Searching a Maintenance Case
       description: Searching for a Maintenance Case already created
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Searching for a Maintenance Case already created
         content:
@@ -1409,6 +1444,13 @@ paths:
       x-proxy-name: Retrieve Maintenance Case
       summary: Retrieving a Maintenace Case
       description: Retrieving a Maintenance Case already Created
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Retrieving a Maintenance Case already Created
         content:
@@ -1437,6 +1479,13 @@ paths:
       x-group-name: Cancel Maintenance Case
       summary: Cancelling a Maintenance Case
       description: Cancelling a Maintenance Case
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Cancelling a Maintenance Case
         content:
@@ -1467,6 +1516,13 @@ paths:
       operationId: get_bank_detail
       requestBody:
         description: Get merchant bank information
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
         content:
           application/json:
             schema:
@@ -1493,6 +1549,13 @@ paths:
         - Application Boarding
       summary: Add Non-Processing Merchant
       description: Add Non-Processing Merchant
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Adding a new Non-Processing Merchant Application
         content:
@@ -1521,6 +1584,13 @@ paths:
         - Application Boarding
       summary: Uploading Additional Documents to Exchange
       description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
       responses:
@@ -1544,6 +1614,13 @@ paths:
         - Application Boarding
       summary: Configured Document Categories
       description: Will list all documents configured that can be sent through Upload Additional Files endpoint.
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: List of Additional Documents Configured
         content:
@@ -1572,6 +1649,13 @@ paths:
         - Application Boarding
       summary: Submitting additional documents to application
       description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Submitting additional documents for Application
         content:
@@ -1600,6 +1684,13 @@ paths:
         - Risk Screening
       summary: Retrieve Risk Available Reports List for Screening
       description: Retrieve Risk Available Reports List for Screening
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Screening
         content:
@@ -1628,6 +1719,13 @@ paths:
         - Risk Screening
       summary: Retrieve Risk Full Report for Screening
       description: Retrieve Risk Full Report for Screening
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Retrieve Risk Full Report for Screening
         content:
@@ -1656,6 +1754,13 @@ paths:
         - Risk Screening
       summary: Overwriting AML Report for Screening (OFAC Report)
       description: Overwriting AML Report for Screening (OFAC Report)
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Overwriting AML Report for Screening (OFAC Report)
         content:
@@ -1684,6 +1789,13 @@ paths:
         - Risk Screening
       summary: Overwriting CREDIT RISK Report for Screening (Diligence Reports), only for Full Services
       description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Overwriting CREDIT RISK Report for Screening (OFAC Report)
         content:
@@ -1712,6 +1824,13 @@ paths:
         - Risk Screening
       summary: AML and CREDIT RISK decision.
       description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
         content:
@@ -1740,6 +1859,13 @@ paths:
         - Risk Monitoring
       summary: Retrieve Risk Available Reports List for Monitoring
       description: Retrieve Risk Available Reports List for Monitoring
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Monitoring
         content:
@@ -1768,6 +1894,13 @@ paths:
         - Risk Monitoring
       summary: Retrieve Risk Full Reports for Monitoring
       description: Retrieve Risk Full Reports for Monitoring
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Retrieve Risk Full Reports for Monitoring
         content:
@@ -1796,6 +1929,13 @@ paths:
         - Risk Monitoring
       summary: Overwriting AML Report for Monitoring (OFAC Report)
       description: Overwriting AML Report for Monitoring (OFAC Report)
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
       requestBody:
         description: Overwriting AML Report for Monitoring (OFAC Report)
         content:
