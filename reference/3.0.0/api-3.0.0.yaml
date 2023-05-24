@@ -1514,8 +1514,6 @@ paths:
       summary: Get Bank Account Detail
       description: Get Bank Account Detail
       operationId: get_bank_detail
-      requestBody:
-        description: Get merchant bank information
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1523,6 +1521,8 @@ paths:
         schema:
           type: integer
           format: int32
+      requestBody:
+        description: Get merchant bank information
         content:
           application/json:
             schema:
