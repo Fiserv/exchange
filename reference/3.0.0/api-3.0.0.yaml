@@ -295,7 +295,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Outlet
+      x-proxy-name: Update Merchant Outlet
   /offering/available:
     post:
       tags:
@@ -855,6 +855,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
+  /funding/chargeback:
+    post:
+      tags:
+        - Funding Instruction
+      summary: Chargeback instruction allows for chargeback money to be recovered
+        from merchants
+      operationId: chargebackInstruction
+      x-group-name: Funding
+      x-proxy-name: Chargeback Instruction
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargebackInstructionRequest'
+        required: true
+      responses:
+        "200":
+          description: Success for chargeback instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingInstructionResponse'
+        "404":
+          description: Merchant/Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   /account/trade-info:
     post:
       tags:
@@ -1015,9 +1056,888 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-
+  /transaction-instruction/update-transaction-details:
+    post:
+      tags:
+      - Transaction Instruction
+      summary: "Transaction funding instruction can distribute the funds according\
+        \ to merchant id, currency, total amount and accounts."
+      operationId: updateSplitInstruction
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInstructionTransactionRequest'
+        required: true
+      responses:
+        "404":
+          description: Merchant not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Success for transaction instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInstructionResponse'
+  /transaction-instruction/transaction-details:
+    post:
+      tags:
+      - Transaction Instruction
+      summary: "Transaction funding instruction can distribute the funds according\
+        \ to merchant id, currency, total amount and accounts."
+      operationId: splitInstruction
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInstructionTransactionRequest'
+        required: true
+      responses:
+        "404":
+          description: Merchant not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Success for transaction instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInstructionResponse'
+  /transaction-instruction/status:
+    post:
+      tags:
+      - Transaction Instruction
+      summary: Transaction funding instruction status can be provided to verify the
+        status of a transaction.
+      operationId: splitInstructionStatus
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInstructionIdentifierRequest'
+        required: true
+      responses:
+        "404":
+          description: Merchant not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Success for transaction instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInstructionStatusResponse'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /transaction-instruction/reprocess:
+    post:
+      tags:
+      - Transaction Instruction
+      summary: Transaction funding instruction can be provided to reprocess failed
+        transactions.
+      operationId: splitReprocess
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInstructionReprocessRequest'
+        required: true
+      responses:
+        "404":
+          description: Merchant not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Success for transaction instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInstructionReprocessResponse'
+  /transaction-instruction/error-transactions:
+    post:
+      tags:
+      - Transaction Instruction
+      summary: Get failed paginated transaction instructions.
+      operationId: getErroredTransactions
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInstructionErrorsRequest'
+        required: true
+      responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInstructionErrorsResponse'
+        "404":
+          description: Transactions not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /transaction-instruction/discard:
+    post:
+      tags:
+      - Transaction Instruction
+      summary: Transaction funding instruction can be provided to reprocess failed
+        transactions.
+      operationId: discardTransaction
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInstructionDiscardRequest'
+        required: true
+      responses:
+        "200":
+          description: Success for transaction instruction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionInstructionDiscardResponse'
+        "404":
+          description: Merchant not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /oauth/token:
+    post:
+      tags:
+        - OAuth Token
+      summary: Get Token
+      description: 'In order to get the token you need to set the authentication for this endpoint to basic auth. Input the client_id as username and client_secret as password. After receiving the token please update the other endpoints authentication with the given token changing the authentication type to OAuth 2.0. '
+      operationId: GET_OAUTH_TOKEN
+      requestBody:
+        description: Transaction Search
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refresh_token'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth_Response'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-group-name: Oauth
+      x-proxy-name: Token
+  /maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Create Maintenance Case
+      summary: Creating Maintenance Case
+      description: Creating Maintenance Case for a merchant to update bank information, or pricing (Managed funding)
+      requestBody:
+        description: Creating a Maintenance Case for a merchant
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  //maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Update Maintenance Case
+      summary: Updating a Maintenance Case
+      description: Updating a Maintenance Case for a boarded Merchant. Can be used to update bank information at the billing level, and pricing for managed funding.
+      requestBody:
+        description: Updating a Maintenance Case for a Merchant. Information in the payload will depend on scenario and info being updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  ///maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Submit Maintenance Case
+      summary: Submitting a Maintenance Case
+      description: Submitting a Maintenance Case for a Merchant
+      requestBody:
+        description: Submitting a Maintenance Case for a Merchant
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  ////maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Search Maintenance Case
+      summary: Searching a Maintenance Case
+      description: Searching for a Maintenance Case already created
+      requestBody:
+        description: Searching for a Maintenance Case already created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceSearchRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceSearchResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /////maintenance:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Retrieve Maintenance Case
+      summary: Retrieving a Maintenace Case
+      description: Retrieving a Maintenance Case already Created
+      requestBody:
+        description: Retrieving a Maintenance Case already Created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /maintenance/cancel:
+    post:
+      tags:
+      - Merchant Maintenance
+      x-proxy-name: Merchant Maintenance
+      x-group-name: Cancel Maintenance Case
+      summary: Cancelling a Maintenance Case
+      description: Cancelling a Maintenance Case
+      requestBody:
+        description: Cancelling a Maintenance Case
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelMaintenanceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelMaintenanceResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+          
+  /account/bank-details:
+    post:
+      tags:
+        - Information Retrieval
+      summary: Get Bank Account Detail
+      description: Get Bank Account Detail
+      operationId: get_bank_detail
+      requestBody:
+        description: Get merchant bank information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetBankRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBankResponse'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-group-name: Information Retrieval
+      x-proxy-name: Get Bank Details
+  /boarding/nonprocessingapplication:
+    post:
+      tags:
+        - Application Boarding
+      summary: Add Non-Processing Merchant
+      description: Add Non-Processing Merchant
+      requestBody:
+        description: Adding a new Non-Processing Merchant Application
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddNonProcessingApplicationRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddNonProcessingApplicationResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add non-processing Merchant Application
+  /fdapplication/upload_additional_files:
+    post:
+      tags:
+        - Application Boarding
+      summary: Uploading Additional Documents to Exchange
+      description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
+      requestBody:
+        $ref: '#/components/requestBodies/statusMode'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/applicationuploadfileResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Upload Additional Documents
+  /boarding/document_categories:
+    post:
+      tags:
+        - Application Boarding
+      summary: Configured Document Categories
+      description: Will list all documents configured that can be sent through Upload Additional Files endpoint.
+      requestBody:
+        description: List of Additional Documents Configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/documentlisttenantuploaddocumentcategoriesRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/documentlisttenantuploaddocumentcategoriesResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Configured Document Categories
+  /fdapplication/submit_additional_documents:
+    post:
+      tags:
+        - Application Boarding
+      summary: Submitting additional documents to application
+      description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
+      requestBody:
+        description: Submitting additional documents for Application
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/applicationuploadadditionaldocumentsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/applicationuploadadditionaldocumentsResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Submit additional documents for Application
+  /intelligence/retrieve_intelligence:
+    post:
+      tags:
+        - Risk Screening
+      summary: Retrieve Risk Available Reports List for Screening
+      description: Retrieve Risk Available Reports List for Screening
+      requestBody:
+        description: Retrieve Risk Available Reports List for Screening
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveIntelligenceRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveIntelligenceResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Retrieve Avaliable Reports
+  /intelligence/retrieve_report:
+    post:
+      tags:
+        - Risk Screening
+      summary: Retrieve Risk Full Report for Screening
+      description: Retrieve Risk Full Report for Screening
+      requestBody:
+        description: Retrieve Risk Full Report for Screening
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveIntelligenceFullRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveIntelligenceFullResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Retrieve Full Report for Screening
+  /intelligence/overwrite_aml_reports:
+    post:
+      tags:
+        - Risk Screening
+      summary: Overwriting AML Report for Screening (OFAC Report)
+      description: Overwriting AML Report for Screening (OFAC Report)
+      requestBody:
+        description: Overwriting AML Report for Screening (OFAC Report)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OverwriteAMLRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverwriteAMLResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
+  /intelligence/overwrite_risk_reports:
+    post:
+      tags:
+        - Risk Screening
+      summary: Overwriting CREDIT RISK Report for Screening (Diligence Reports), only for Full Services
+      description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
+      requestBody:
+        description: Overwriting CREDIT RISK Report for Screening (OFAC Report)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OverwriteCreditRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverwriteCreditResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Overwrite Credit Risk report for screening
+  /intelligence/decision:
+    post:
+      tags:
+        - Risk Screening
+      summary: AML and CREDIT RISK decision.
+      description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+      requestBody:
+        description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecisionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecisionResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Screening
+      x-proxy-name: Risk Decision
+  /monitoring/retrieve_hits:
+    post:
+      tags:
+        - Risk Monitoring
+      summary: Retrieve Risk Available Reports List for Monitoring
+      description: Retrieve Risk Available Reports List for Monitoring
+      requestBody:
+        description: Retrieve Risk Available Reports List for Monitoring
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveHitRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveHitResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Monitoring
+      x-proxy-name: Retrieve Risk Avaliable Reports List for monitoring
+  /monitoring/retrieve_report:
+    post:
+      tags:
+        - Risk Monitoring
+      summary: Retrieve Risk Full Reports for Monitoring
+      description: Retrieve Risk Full Reports for Monitoring
+      requestBody:
+        description: Retrieve Risk Full Reports for Monitoring
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveMonitoringRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveMonitoringResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Monitoring
+      x-proxy-name: Retrieve Risk Full Reports for Monitoring
+  /monitoring/overwrite_monitoring_report:
+    post:
+      tags:
+        - Risk Monitoring
+      summary: Overwriting AML Report for Monitoring (OFAC Report)
+      description: Overwriting AML Report for Monitoring (OFAC Report)
+      requestBody:
+        description: Overwriting AML Report for Monitoring (OFAC Report)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OverwriteMonitorRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverwriteMonitorResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Risk Monitoring
+      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)    
 components:
   schemas:
+    settlement_date:
+      type: string
+      description: Settlement date
+      format: yyyy-mm-dd
+      example: 2019-08-30T00:00:00.000+0000
+    TransactionInstructionTransactionRequest:
+      required:
+      - amount
+      - currency
+      - processing_merchant_id
+      - split_details
+      - transaction_date
+      - transaction_type
+      type: object
+      properties:
+        transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+          type: string
+          description: Date of transaction - Cannot be empty.
+          example: 2021-09-02
+
+        transaction_type:
+          type: integer
+          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+            \ 4: Chargeback Reversal"
+          format: int32
+          example: 1
+        transaction_id:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Id for a transaction
+          example: "001"
+        authorization_code:
+          maxLength: 8
+          minLength: 1
+          type: string
+          description: Authorisation code for a transaction
+          example: "123456"
+        invoice_id:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Invoice Id for a transaction
+          example: "123456789012"
+        case_number:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Case number for a chargeback
+          example: TX0001
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        amount:
+          type: number
+          description: total amount of transaction - Cannot be empty.
+          example: 100.0
+        currency:
+          type: object
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            numericCode:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            symbol:
+              type: string
+            numericCodeAsString:
+              type: string
+          description: Currency - Cannot be empty.
+          example: USD
+        processing_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+          type: string
+          description: Date of processing.
+          example: 2021-09-02
+        split_details:
+          type: array
+          description: details - at least one details.
+          items:
+            $ref: '#/components/schemas/TransactionInstructionDetailsDTO'
+
     AddApplication:
       type: object
       properties:
@@ -2170,7 +3090,7 @@ components:
                                 example: 2
                               feature_category: 
                                 type: string
-                                example: POS
+                                example: POS_NEXO
                               feature_api_code: 
                                 type: string
                                 example: RECLN1
@@ -2306,7 +3226,7 @@ components:
                                 example: SCIC7-7F911-62F1F-AEE21-10E6B-B6481-6F2B6
                               service_item_name: 
                                 type: string
-                                example: Service Setup
+                                example: Cyber Source Setup
                               service_item_type: 
                                 type: string
                                 example: 2
@@ -4608,35 +5528,6 @@ components:
           description: Amount for this account
           example: "100"
       description: An account block
-
-    AccountsArray:
-      type: array
-      description: 'Array of merchant''s accounts: at least one account is required'
-      example:
-        - account_type: REVENUE_ACCOUNT
-          amount: "1000.00"
-        - account_type: FEE_ACCOUNT
-          amount: "100.00"
-        - account_type: SPLIT_ACCOUNT
-          amount: "0.00"
-          split_details: [
-            {
-              "total_amount": "0.00",
-              "merchant_id": "700100000006327",
-              "accounts": [
-                {
-                  "account_type": "REVENUE_ACCOUNT",
-                  "amount": "-5.00"
-                },
-                {
-                  "account_type": "FEE_ACCOUNT",
-                  "amount": "5.00"
-                }
-              ]
-            }
-          ]
-      items:
-        $ref: '#/components/schemas/Account'
     AccountsArrayResponse:
       type: array
       description: 'Array of merchant''s accounts: all accounts is required'
@@ -9930,13 +10821,13 @@ components:
       type: object
       properties:
         amount:
-          type: number
+          type: string
           description: amount for transaction instruction - Cannot be empty.
-          example: 100.0
+          example: "100.0"
         account_type:
           type: string
           description: account type - Cannot be empty.
-          example: "400000000005"
+          example: "REVENUE"
           enum:
           - TRADE_ACCOUNT
           - CHARGEBACK_ACCOUNT
@@ -9997,9 +10888,9 @@ components:
       type: object
       properties:
         total_amount:
-          type: number
+          type: string
           description: total amount for transaction instruction - Cannot be empty.
-          example: 100.0
+          example: "100.0"
         merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -11455,7 +12346,7 @@ components:
         accounts:
           type: array
           items:
-            $ref: '#/components/schemas/SplitAccountArray'
+            $ref: '#/components/schemas/AccountDetailRequest'
     DestinationsDTO:
       type: object
       properties:
@@ -11759,3 +12650,3708 @@ components:
           type: number
         chargeback_reversal:
           type: number
+    refresh_token:
+      required:
+        - grant_type
+      type: object
+      discriminator:
+        propertyName: grant_type
+        mapping:
+          client_credentials: '#/components/schemas/grant_type_object'
+      allOf:
+        - $ref: '#/components/schemas/grant_type_object'
+        - $ref: '#/components/schemas/refresh_token_object'
+    OAuth_Response:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Access token key
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yq9gPZKvEN_gNmLEsc_9u15tay_9DqZx46XMxdjt_MvuhsIZdZXIqEeSInKg6shYl-oWcrliXEc1KSJPIyrACvrZIcN5Y8mNEEZ9Sfm11-918etADfloKkckZBZG605pvnTQvcSS88vCTLkb_gsqVU8c17kR2thPBsU09pzfwAIRoG7c2NQveDliGrK8UWUoqu5lCPsDWihM_ZpoMfPxIxaN6NNVNfP2dk2rsKmgpz-PlEHvX6ReEVpUeMNbSdXU.wXWVwAxNifIuWuKtUPGBdLTfFtR9ubXUGKHFROEMkMg
+        token_type:
+          type: string
+          description: the type of the token
+          example: bearer
+        expires_in:
+          type: number
+          description: 'Time until the token expires, displayed in __seconds__ '
+          example: 3600
+        refresh_token:
+          type: string
+          description: the refresh token
+          example: f17717317f4ea744b04fce476428b74529ada809
+    OverwriteCreditRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        overwrite:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverwriteRiskBlock'
+    OverwriteRiskBlock:
+      type: object
+      properties:
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        overall_decision:
+          $ref: '#/components/schemas/RiskOverallDecision'
+        email:
+          $ref: '#/components/schemas/Email'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+    DecisionRequest:
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/OverwriteCreditRequest_application'
+        RISK:
+          $ref: '#/components/schemas/DecisionRequest_RISK'
+    DecisionResponseBlock:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+      allOf:
+        - $ref: '#/components/schemas/DecisionOperation'
+        - $ref: '#/components/schemas/DecisionApplicationFullDetail'
+    OverwriteCreditRequest_application:
+      type: object
+      properties:
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+    DecisionRequest_RISK:
+      type: object
+      properties:
+        decision:
+          $ref: '#/components/schemas/DecisionRISK'
+        risk_reviewer_comments:
+          $ref: '#/components/schemas/ReviewNote'
+    OverwriteMonitorResponseBlock_additionalProperties_response_data:
+      type: object
+      properties:
+        unique_id:
+          type: number
+          example: 8101182
+        score:
+          type: number
+          example: 80
+        business:
+          $ref: '#/components/schemas/possibleMatchBusinessBlock'
+        person:
+          $ref: '#/components/schemas/possibleMatchPersonBlock'
+        match_reference:
+          $ref: '#/components/schemas/EntityReference'
+        original_status:
+          type: string
+          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          enum:
+            - PM
+            - EM
+            - NM
+        status:
+          type: string
+          description: decision made from user
+          enum:
+            - PM
+            - EM
+            - NM
+        is_overwritten:
+          type: string
+          description: 1 = Yes, 0 = No
+          enum:
+            - "1"
+            - "0"
+        review_info:
+          $ref: '#/components/schemas/reviewInfo'
+        watchlist:
+          $ref: '#/components/schemas/watchlistReport'
+        credit_reference:
+          $ref: '#/components/schemas/creditReference'
+        possible_matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/possibleMatch'
+        overall_evaluation:
+          $ref: '#/components/schemas/OverallEvaluation'
+        third_party_source:
+          type: string
+          example: AcurisSearch
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+
+    RiskOverallDecision:
+      type: string
+      example: CONFIRM
+      enum:
+        - CONFIRM
+        - DISCOUNT
+    DecisionRISK:
+      type: string
+      example: DECLINE
+      enum:
+        - APPROVE
+        - DECLINE
+    OverwriteCreditResponseBlock:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        additionalProperties:
+          type: object
+          description: 'Reports returning from Diligence'
+    OverwriteMonitorResponseBlock:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        additionalProperties:
+          type: object
+          properties:
+            hash_key:
+              type: string
+            intelligence_ref:
+              $ref: '#/components/schemas/EntityReference'
+            entity_type:
+              $ref: '#/components/schemas/EntityType'
+            third_party_source:
+              $ref: '#/components/schemas/ThirdPartySource'
+            report_type:
+              $ref: '#/components/schemas/ReportType'
+            parent_type:
+              $ref: '#/components/schemas/ParentType'
+            alliance_unique_id:
+              $ref: '#/components/schemas/AllianceID'
+            partner_unique_id:
+              $ref: '#/components/schemas/PartnerID'
+            request_data:
+              oneOf:
+                - $ref: '#/components/schemas/PersonOverwrite'
+                - $ref: '#/components/schemas/BusinessOverwrite'
+            response_data:
+              type: object
+              properties:
+                unique_id:
+                  type: number
+                  example: 8101182
+                score:
+                  type: number
+                  example: 80
+                business:
+                  $ref: '#/components/schemas/possibleMatchBusinessBlock'
+                person:
+                  $ref: '#/components/schemas/possibleMatchPersonBlock'
+                match_reference:
+                  $ref: '#/components/schemas/EntityReference'
+                original_status:
+                  type: string
+                  description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+                  enum:
+                    - PM
+                    - EM
+                    - NM
+                status:
+                  type: string
+                  description: 'decision made from user'
+                  enum:
+                    - PM
+                    - EM
+                    - NM
+                is_overwritten:
+                  type: string
+                  description: '1 = Yes, 0 = No'
+                  enum:
+                    - 1
+                    - 0
+                review_info:
+                  $ref: '#/components/schemas/reviewInfo'
+                watchlist:
+                  $ref: '#/components/schemas/watchlistReport'
+                credit_reference:
+                  $ref: '#/components/schemas/creditReference'
+                possible_matches:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/possibleMatch'
+                overall_evaluation:
+                  $ref: '#/components/schemas/OverallEvaluation'
+                third_party_source:
+                  type: string
+                  example: 'AcurisSearch'
+                date_updated:
+                  $ref: '#/components/schemas/DateyMdTime'
+            original_copy:
+              $ref: '#/components/schemas/OriginalCopy'
+            expiry_date:
+              $ref: '#/components/schemas/Date'
+            date_added:
+              $ref: '#/components/schemas/DateyMdTime'
+            date_updated:
+              $ref: '#/components/schemas/DateyMdTime'
+        intelligence:
+          type: object
+          properties:
+            merchant:
+              type: object
+              properties:
+                merchant_id:
+                  $ref: '#/components/schemas/MID'
+            review_note:
+              $ref: '#/components/schemas/ReviewNote'
+            report_reference:
+              $ref: '#/components/schemas/EntityReference'
+            overwrite:
+              type: array
+              items:
+                $ref: '#/components/schemas/MonitorOverwriteBlock'
+            request_source:
+              $ref: '#/components/schemas/RequestSource'
+    PersonOverwrite:
+      type: object
+      properties:
+        business_ref:
+          $ref: '#/components/schemas/EntityReference'
+        country_code:
+          $ref: '#/components/schemas/CountryCodeLetter'
+        business_name:
+          $ref: '#/components/schemas/BusinessName'
+        mcc_code:
+          $ref: '#/components/schemas/MCC'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        incorporated_date:
+          $ref: '#/components/schemas/Date'
+        business_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        business_sub_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        trading_name:
+          $ref: '#/components/schemas/BusinessName'
+        address:
+          $ref: '#/components/schemas/AddressReportShort'
+    BusinessOverwrite:
+      type: object
+      properties:
+        principal_ref:
+          $ref: '#/components/schemas/EntityReference'
+        forename:
+          $ref: '#/components/schemas/FirstName'
+        surname:
+          $ref: '#/components/schemas/LastName'
+        ownership_percentage:
+          $ref: '#/components/schemas/OwnershipPerc'
+        date_of_birth:
+          $ref: '#/components/schemas/Date'
+        nationality:
+          $ref: '#/components/schemas/EntityReference'
+        current_address:
+          $ref: '#/components/schemas/ReportAddressBlock'
+    RetrieveMonitoringResponseBlock:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorFullReport'
+    MonitorFullReport:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        intelligence_data (Acuris):
+          $ref: '#/components/schemas/MonitorFullReportDetail'
+        intelligence_data (creditsafe):
+          $ref: '#/components/schemas/MonitorCreditSafeFullReportDetail'
+    MonitorCreditSafeFullReportDetail:
+      type: object
+      properties:
+        corporate_identification:
+          $ref: '#/components/schemas/CreditSafeCorpIdentification'
+        corporate_structure:
+          $ref: '#/components/schemas/CorporateStructure'
+        corporate_directors:
+          $ref: '#/components/schemas/CorporateDirector'
+        corporate_financials:
+          type: object
+          properties:
+            financial_accounts:
+              type: string
+            payment_performance:
+              type: object
+              properties:
+                monthly_data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MonitorCreditFinancialMonthly'
+            trade_payment:
+              $ref: '#/components/schemas/MonitorCreditFinTradePayment'
+            percentage_change:
+              $ref: '#/components/schemas/MonitorCreditFinPercChange'
+            ltd_company_cais:
+              $ref: '#/components/schemas/MonitorCreditFinCAI'
+        corporate_summary:
+          type: object
+          properties:
+            company_summary:
+              $ref: '#/components/schemas/MonitorCreditSumCompany'
+            director_summary:
+              $ref: '#/components/schemas/MonitorCreditSumDirector'
+        corporate_rating:
+          $ref: '#/components/schemas/MonitorCreditFinaRate'
+        third_party_source:
+          type: string
+          example: 'Creditsafe'
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+    MonitorCreditFinaRate:
+      type: object
+      properties:
+        commercial_score:
+          type: string
+        commercial_score_min_value:
+          type: string
+        commercial_score_max_value:
+          type: string
+        credit_rating:
+          type: string
+        credit_limit:
+          type: string
+        company_band:
+          type: string
+        credit_summary:
+          type: string
+        previous_commercial_score:
+          type: string
+        previous_commercial_score_min_value:
+          type: string
+        previous_commercial_score_max_value:
+          type: string
+        previous_credit_limit:
+          type: string
+        previous_credit_summary:
+          type: string
+        stability_odds:
+          type: string
+        score_history:
+          type: string
+        all_average_commercial_score:
+          type: string
+        all_average_stability_odds:
+          type: string
+        industry_average_commercial_score:
+          type: string
+        industry_average_stability_odds:
+          type: string
+        size_average_commercial_score:
+          type: string
+        size_average_stability_odds:
+          type: string
+        age_average_commercial_score:
+          type: string
+        age_average_stability_odds:
+          type: string
+        all_number_lower_score:
+          type: string
+        all_number_same_score:
+          type: string
+        all_number_higher_score:
+          type: string
+        all_percentile:
+          type: string
+        industry_number_lower_score:
+          type: string
+        industry_number_same_score:
+          type: string
+        industry_number_higher_score:
+          type: string
+        ind_percentile:
+          type: string
+        size_number_lower_score:
+          type: string
+        size_number_same_score:
+          type: string
+        size_number_higher_score:
+          type: string
+        size_percentile:
+          type: string
+        age_number_lower_score:
+          type: string
+        age_number_same_score:
+          type: string
+        age_number_higher_score:
+          type: string
+        age_percentile:
+          type: string
+        legal_notices_count:
+          type: string
+    MonitorCreditSumDirector:
+      type: object
+      properties:
+        number_creditors_winddown:
+          type: string
+        number_ccjs_last_12_months:
+          type: string
+        value_ccjs_last_12_months:
+          type: string
+        percentage_failures:
+          type: string
+        number_of_failures:
+          type: string
+        number_disqualifications:
+          type: string
+        number_convictions:
+          type: string
+        number_cifas:
+          type: string
+        number_current_dissolved_directorships:
+          type: string
+        number_directorships_failed:
+          type: string
+        number_directorships_not_failed:
+          type: string
+        number_directorships_compulsory_liquidator:
+          type: string
+        number_directorships_creditor_liquidator:
+          type: string
+        number_directorships_member_liquidator:
+          type: string
+        number_directorships_unknown_liquidator:
+          type: string
+        number_directorships_windup_order:
+          type: string
+        number_directorships_administrator_appointed:
+          type: string
+        number_directorships_administrator_discharge:
+          type: string
+        number_directorships_appointment_administrative_receiver:
+          type: string
+        number_directorships_receiver_appointed:
+          type: string
+        number_directorships_administrative_receiver_cessation:
+          type: string
+        number_directorships_receiver_cessation:
+          type: string
+        number_directorships_approval_voluntary_arrangements:
+          type: string
+        number_directorships_completion_voluntary_arrangements:
+          type: string
+        number_directorships_revocation_voluntary_arrangements:
+          type: string
+        number_directorships_suspension_voluntary_arrangements:
+          type: string
+        number_directorships_reinstated:
+          type: string
+        number_directorships_dissolved:
+          type: string
+    MonitorCreditSumCompany:
+      type: object
+      properties:
+        ccjs:
+          $ref: '#/components/schemas/MonitorCreditSumCompanyCCJ'
+        time_since_last_derogatory_item:
+          type: string
+        dormancy_flag:
+          type: string
+        changes:
+          type: object
+          properties:
+            number_reg_office_changes_last_12_month:
+              type: string
+            number_mem_arts_changes_last_12_month:
+              type: string
+        legal_notices:
+          type: object
+          properties:
+            summary_count:
+              type: string
+        alerts:
+          type: object
+          properties:
+            notes_count:
+              type: string
+            notes:
+              type: array
+              items:
+                additionalProperties:
+                  type: string
+        windup_orders:
+          $ref: '#/components/schemas/MonitorCreditSumCompanyWindUp'
+        liquidators:
+          $ref: '#/components/schemas/MonitorCreditSumCompanyLiquid'
+        receivers:
+          $ref: '#/components/schemas/MonitorCreditSumCompanyRecv'
+        administration:
+          $ref: '#/components/schemas/MonitorCreditSumCompanyAdmin'
+        voluntary_arrangements:
+          $ref: '#/components/schemas/MonitorCreditSumVolunteer'
+        dissolvements:
+          $ref: '#/components/schemas/MonitorCreditSumDissolve'
+        bankruptcy:
+          $ref: '#/components/schemas/MonitorCreditSumBankrupt'
+        tax_lien_filings:
+          $ref: '#/components/schemas/MonitorCreditSumTaxLien'
+        court_judgements:
+          $ref: '#/components/schemas/MonitorCreditSumCourt'
+        uniform_commercial_code_filings:
+          $ref: '#/components/schemas/MonitorCreditUniForm'
+        suits:
+          $ref: '#/components/schemas/MonitorCreditSumSuit'
+    MonitorCreditSumSuit:
+      type: object
+      properties:
+        number_of_suits_filed:
+          type: string
+        filing_details:
+          $ref: '#/components/schemas/filingDetail'
+    MonitorCreditUniForm:
+      type: object
+      properties:
+        number_of_ucc_filed:
+          type: string
+        number_of_cautionary_ucc_filed:
+          type: string
+        filing_details:
+          $ref: '#/components/schemas/filingDetail'
+    MonitorCreditSumCourt:
+      type: object
+      properties:
+        number_of_court_judgements_filed:
+          type: string
+        filing_details:
+          $ref: '#/components/schemas/filingDetail'
+    MonitorCreditSumTaxLien:
+      type: object
+      properties:
+        number_of_tax_liens_filed:
+          type: string
+        filing_details:
+          $ref: '#/components/schemas/filingDetail'
+    MonitorCreditSumBankrupt:
+      type: object
+      properties:
+        bankruptcy_filed:
+          type: string
+        filing_details:
+          $ref: '#/components/schemas/filingDetail'
+        filling_details:
+          $ref: '#/components/schemas/MonitorCreditSumBankrupt_filling_details'
+          type: object
+          properties:
+            filed_with:
+              type: string
+    MonitorCreditSumBankrupt_filling_details:
+      type: object
+      properties:
+        filed_with:
+          type: string
+
+    MonitorCreditSumDissolve:
+      type: object
+      properties:
+        number_intention_to_dissolve:
+          type: string
+        time_since_last_intention_to_dissolve:
+          type: string
+        number_company_dissolved:
+          type: string
+        time_since_last_company_dissolved:
+          type: string
+        number_company_reinstated:
+          type: string
+        time_since_last_company_reinstated:
+          type: string
+    MonitorCreditSumVolunteer:
+      type: object
+      properties:
+        number_approval_vol_arrangement:
+          type: string
+        time_since_last_approval_vol_arrangement:
+          type: string
+        number_revocation_voluntary_arrangement:
+          type: string
+        time_since_last_revocation_vol_arrangement:
+          type: string
+        number_suspension_vol_arrangement:
+          type: string
+        time_since_last_suspension_vol_arrangement:
+          type: string
+        num_completions_vol_arrangement:
+          type: string
+        time_since_last_completion_vol_arrangement:
+          type: string
+    MonitorCreditSumCompanyAdmin:
+      type: object
+      properties:
+        number_appointment_administrator:
+          type: string
+        time_since_last_appointment_administrator:
+          type: string
+        number_discharge_administrator:
+          type: string
+        time_since_last_discharge_administrator:
+          type: string
+    MonitorCreditSumCompanyRecv:
+      type: object
+      properties:
+        number_appointment_receiver:
+          type: string
+        time_since_last_appointment_receiver:
+          type: string
+        number_receiver_ceasing:
+          type: string
+        time_since_last_receiver_ceasing:
+          type: string
+    MonitorCreditSumCompanyLiquid:
+      type: object
+      properties:
+        number_appointment_vol_liquidator:
+          type: string
+        time_since_last_appointment_vol_liquidator:
+          type: string
+        number_appointment_comp_liquidator:
+          type: string
+        time_since_last_appointment_comp_liquidator:
+          type: string
+    MonitorCreditSumCompanyWindUp:
+      type: object
+      properties:
+        number_windup_orders:
+          type: string
+        time_since_last_windup_order:
+          type: string
+        number_resolution_windup:
+          type: string
+        time_since_last_resolution_windup:
+          type: string
+        number_petition_comp_windup:
+          type: string
+        time_since_last_petition_comp_windup:
+          type: string
+        number_dismissed_petition:
+          type: string
+        time_since_last_dismissed_petition:
+          type: string
+        time_since_last_wind_up_hearing:
+          type: string
+    MonitorCreditSumCompanyCCJ:
+      type: object
+      properties:
+        number_ccjs_0_to_72:
+          type: string
+        value_ccjs_0_to_72:
+          type: string
+        number_ccjs_last_12_months:
+          type: string
+        value_ccjs_last_12_months:
+          type: string
+    MonitorCreditFinCAI:
+      type: object
+      properties:
+        number_defaults:
+          type: string
+        value_defaults:
+          type: string
+        age_most_recent:
+          type: string
+        number_settled:
+          type: string
+        monthly_data:
+          type: array
+          items:
+            additionalProperties:
+              type: string
+    MonitorCreditFinTradePayment:
+      type: object
+      properties:
+        trade_payment_summary:
+          type: object
+          properties:
+            currency:
+              $ref: '#/components/schemas/Currency'
+            total_trades_number:
+              type: string
+            total_trades_balance:
+              type: string
+            continuous_trades_number:
+              type: string
+            recent_high_credit:
+              type: string
+        continuous:
+          $ref: '#/components/schemas/MonitorCreditFinTradePaymentDetail'
+        combined:
+          $ref: '#/components/schemas/MonitorCreditFinTradePaymentDetail'
+        total:
+          $ref: '#/components/schemas/MonitorCreditFinTradePaymentDetail'
+    MonitorCreditFinTradePaymentDetail:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        number:
+          type: string
+        balance:
+          type: string
+        current:
+          type: string
+        value_1_to_30_bt:
+          type: string
+        value_31_to_60_bt:
+          type: string
+        value_61_to_90_bt:
+          type: string
+        value_91_plus_bt:
+          type: string
+    MonitorCreditFinPercChange:
+      type: object
+      properties:
+        percentage_change_gross_asset:
+          type: string
+        percentage_change_net_worth:
+          type: string
+        percentage_change_fixed_asset:
+          type: string
+        percentage_change_current_assets:
+          type: string
+        percentage_change_current_liabilities:
+          type: string
+        percent_change_retained_earnings:
+          type: string
+        percent_change_shareholders_funds:
+          type: string
+        percent_change_uk_turnover:
+          type: string
+        percent_change_total_turnover:
+          type: string
+        percent_change_pre_tax_profit_loss:
+          type: string
+        percent_change_retained_profit_loss:
+          type: string
+        percent_change_credit_period:
+          type: string
+        percent_change_working_period:
+          type: string
+        percent_change_issued_period:
+          type: string
+        percent_change_return_on_capital:
+          type: string
+        percent_change_pre_tax_profit_margin:
+          type: string
+        percent_change_borrowing_ratio:
+          type: string
+        percent_change_equity_gearing:
+          type: string
+        percent_change_debt_gearing:
+          type: string
+        percentage_change_net_asset:
+          type: string
+    MonitorCreditFinancialMonthly:
+      type: object
+      properties:
+        date:
+          $ref: '#/components/schemas/Date'
+        dbt:
+          type: string
+        industry:
+          type: string
+    CorporateDirector:
+      type: object
+      properties:
+        number_current_directors:
+          type: string
+          example: "1"
+        number_previous_directors:
+          type: string
+          example: "1"
+        number_of_disqualifications:
+          type: string
+          example: "1"
+        directors:
+          type: object
+          properties:
+            current_directors:
+              type: array
+              items:
+                $ref: '#/components/schemas/MonitorCreditSafeDirector'
+    MonitorCreditSafeDirector:
+      type: object
+      properties:
+        foreign_address:
+          $ref: '#/components/schemas/AddressSummary'
+        director_flag:
+          type: string
+          enum:
+            - "1"
+            - "0"
+        director_number:
+          type: string
+          example: "1"
+        appointment_date:
+          $ref: '#/components/schemas/Date'
+        resignation_date:
+          $ref: '#/components/schemas/Date'
+        number_of_convictions:
+          type: string
+          example: "1"
+        director_details:
+          $ref: '#/components/schemas/MonitorCreditSafeDetail'
+    MonitorCreditSafeDetail:
+      type: object
+      properties:
+        first_name:
+          $ref: '#/components/schemas/FirstName'
+        last_name:
+          $ref: '#/components/schemas/LastName'
+        address:
+          $ref: '#/components/schemas/MonitorCreditAddress'
+        date_of_birth:
+          $ref: '#/components/schemas/Date'
+        occupation:
+          type: string
+          example: Director
+        nationality:
+          type: string
+          example: American
+    CorporateStructure:
+      type: object
+      properties:
+        number_principle_shareholders:
+          type: string
+          example: "1"
+        parent_company:
+          $ref: '#/components/schemas/CorporateStructureCompany'
+        ultimate_parent_company:
+          $ref: '#/components/schemas/CorporateStructureCompany'
+        share_capital:
+          type: array
+          items:
+            additionalProperties:
+              type: string
+        shareholdings:
+          type: array
+          items:
+            additionalProperties:
+              type: string
+        shareholders:
+          type: array
+          items:
+            additionalProperties:
+              type: string
+    CorporateStructureCompany:
+      type: object
+      properties:
+        legal_name:
+          $ref: '#/components/schemas/BusinessName'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        business_type:
+          type: string
+          example: other
+        company_status:
+          type: string
+          example: other
+        vat_number:
+          $ref: '#/components/schemas/TaxID'
+        address:
+          $ref: '#/components/schemas/MonitorCreditAddress'
+    CreditSafeCorpIdentification:
+      type: object
+      properties:
+        business_type:
+          type: string
+          example: Limited
+        company_status:
+          type: string
+          example: Active
+        reference_number:
+          type: string
+          example: "45889050"
+        legal_name:
+          $ref: '#/components/schemas/BusinessName'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        incorporation_date:
+          $ref: '#/components/schemas/Date'
+        trading_start_date:
+          $ref: '#/components/schemas/Date'
+        vat_number:
+          $ref: '#/components/schemas/TaxID'
+        vat_registration_date:
+          $ref: '#/components/schemas/Date'
+        registered_address:
+          $ref: '#/components/schemas/MonitorCreditAddress'
+        sic_codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SICCode'
+        filing_details:
+          $ref: '#/components/schemas/filingDetail'
+        previous_searches:
+          $ref: '#/components/schemas/PreviousSearchMonitoring'
+        ccls:
+          type: array
+          items:
+            $ref: '#/components/schemas/CCLSDetail'
+    MonitorCreditAddress:
+      type: object
+      properties:
+        address_line_1:
+          $ref: '#/components/schemas/AddressLine1'
+        address_line_2:
+          $ref: '#/components/schemas/AddressLine1'
+        town_city:
+          $ref: '#/components/schemas/City'
+        county:
+          $ref: '#/components/schemas/State'
+        postcode:
+          $ref: '#/components/schemas/ZipCode'
+        country:
+          type: string
+          description: ISO2 Country
+          example: US
+        summary:
+          $ref: '#/components/schemas/AddressSummary'
+    AddressSummary:
+      type: string
+      example: Sheila Lane, Sparks, NV 89431
+    CCLSDetail:
+      type: object
+      properties:
+        additionalProperties:
+          type: string
+    PreviousSearchMonitoring:
+      type: object
+      properties:
+        number_of_previous_searches:
+          type: string
+          example: "1"
+        number_of_previous_searches_3_months:
+          type: string
+          example: "1"
+        number_of_previous_searches_6_months:
+          type: string
+          example: "1"
+        number_of_previous_searches_12_months:
+          type: string
+          example: "1"
+    filingDetail:
+      type: object
+      properties:
+        accounts_out_of_date:
+          $ref: '#/components/schemas/Date'
+        latest_accounts_date:
+          $ref: '#/components/schemas/Date'
+        latest_returns_date:
+          $ref: '#/components/schemas/Date'
+        days_to_file_accounts:
+          $ref: '#/components/schemas/Date'
+    SICCode:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/MCC'
+        description:
+          type: string
+          example: MCC description
+    MonitorFullReportDetail:
+      type: object
+      properties:
+        hash_key:
+          type: string
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        request_reference:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        company:
+          $ref: '#/components/schemas/MonitorIntelligenceCompanyBlock'
+        person:
+          $ref: '#/components/schemas/IntelligencePrincipalBlock'
+        intelligence_report:
+          type: object
+          properties:
+            possible_matches:
+              type: array
+              items:
+                $ref: '#/components/schemas/possibleMatch'
+            overall_evaluation:
+              $ref: '#/components/schemas/OverallEvaluation'
+            original_status:
+              type: string
+              description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+              enum:
+                - PM
+                - EM
+                - NM
+            status:
+              type: string
+              description: 'decision made from user'
+              enum:
+                - PM
+                - EM
+                - NM
+            is_overwritten:
+              type: string
+              description: '1 = Yes, 0 = No'
+              enum:
+                - 1
+                - 0
+            review_info:
+              type: array
+              items:
+                $ref: '#/components/schemas/reviewInfo'
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+    OverallEvaluation:
+      type: object
+      properties:
+        negative_hit:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        pep_hits:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        enforcement_hits:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        sanctions_hits:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        previous_sanctions:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        financial_regulator:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        disqualified_director_match:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        adverse_media_match:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        insolvent_match:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        deceased:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+        business_has_pep:
+          type: string
+          enum:
+            - PM
+            - EM
+            - NM
+    MonitorIntelligenceCompanyBlock:
+      type: object
+      properties:
+        business:
+          type: object
+          properties:
+            business_ref:
+              $ref: '#/components/schemas/EntityReference'
+            country_code:
+              $ref: '#/components/schemas/CountryCodeLetter'
+            business_name:
+              $ref: '#/components/schemas/BusinessName'
+            mcc_code:
+              $ref: '#/components/schemas/MCC'
+            registration_number:
+              $ref: '#/components/schemas/RegNumber'
+            incorporated_date:
+              $ref: '#/components/schemas/Date'
+            business_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            business_sub_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            trading_name:
+              $ref: '#/components/schemas/BusinessName'
+            address:
+              $ref: '#/components/schemas/AddressReportShort'
+    RetrieveHitResponseBlock:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        ofacHits:
+          type: array
+          items:
+            $ref: '#/components/schemas/OFACHitBlock'
+    OFACHitBlock:
+      type: object
+      properties:
+        ofac_hit_external_id:
+          $ref: '#/components/schemas/ExtID'
+        alliance_external_id:
+          $ref: '#/components/schemas/ExtID'
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        merchant_id:
+          $ref: '#/components/schemas/MID'
+        business_ref:
+          $ref: '#/components/schemas/EntityReference'
+        merchant_reference:
+          $ref: '#/components/schemas/EntityReference'
+        report_reference_id:
+          $ref: '#/components/schemas/EntityReference'
+        decision_made:
+          $ref: '#/components/schemas/DecisionMade'
+        ofac_hit:
+          $ref: '#/components/schemas/OFACHit'
+        material_change_hit:
+          $ref: '#/components/schemas/MaterialChangeHit'
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+        date_updated:
+          $ref: '#/components/schemas/DateTime'
+        monitoring_data:
+          $ref: '#/components/schemas/MonitorDataHit'
+        monitoring_event_codes:
+          $ref: '#/components/schemas/MonitorEventCodeHit'
+    MonitorEventCodeHit:
+      type: object
+      properties:
+        additionalProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorEventCodeDetail'
+    MonitorEventCodeDetail:
+      type: object
+      properties:
+        factor_code:
+          $ref: '#/components/schemas/MonitorFactor'
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        factor_name:
+          $ref: '#/components/schemas/MonitorFactorName'
+        third_party_source:
+          $ref: '#/components/schemas/MonitorThirdPartySource'
+    MonitorFactorName:
+      type: string
+      enum:
+        - Company Name Change
+        - Financial Regulator
+        - Law Enforcement
+        - Deceased
+        - Sanctions
+        - Address Change
+        - Director Change
+        - Telephone Number Change
+        - Company Status Change
+        - 'Days Beyond Terms Change '
+        - Bankruptcy
+        - Possible OFAC
+        - PEP
+        - Disqualified Director
+        - Insolvency
+        - Adverse Media
+    MonitorThirdPartySource:
+      type: string
+      enum:
+        - creditsafe
+        - acuris_business_monitor
+    MonitorDataHit:
+      type: object
+      properties:
+        alert_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/OFACHitAlert'
+        intelligence_references:
+          $ref: '#/components/schemas/IntelligenceRef'
+    IntelligenceRef:
+      type: object
+      properties:
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        available_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableReportsMonitor'
+    AvailableReportsMonitor:
+      type: object
+      properties:
+        report_type:
+          $ref: '#/components/schemas/ReportType'
+        report_reference:
+          $ref: '#/components/schemas/EntityReference'
+    OFACHitAlert:
+      type: object
+      properties:
+        rule_name:
+          $ref: '#/components/schemas/MonitoringRules'
+        entity_group:
+          $ref: '#/components/schemas/EntityType'
+        original_decision:
+          $ref: '#/components/schemas/MonitorDecision'
+        decision:
+          $ref: '#/components/schemas/MonitorDecision'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        new_value:
+          $ref: '#/components/schemas/AMLStatus'
+        previous_value:
+          $ref: '#/components/schemas/AMLStatus'
+        criteria_value:
+          $ref: '#/components/schemas/AMLStatus'
+        factor_code:
+          $ref: '#/components/schemas/MonitorFactor'
+    MonitoringRules:
+      type: string
+      description: The name of configured monitoring rule
+      example: Monitor Rule
+    MonitorFactor:
+      type: string
+      description: Factors which are used for monitoring
+      enum:
+        - B_BANKRUPTCY_EVENT_US
+        - B_POSSIBLE_OFAC_EVENT_US
+        - B_COMPANY_NAME_CHANGE_EVENT_XX
+        - B_NEGATIVE_FINANCIAL_REGULATOR
+        - B_NEGATIVE_LAW_ENFORCEMENT
+        - B_DECEASED_EVENT_XX
+        - B_NEGATIVE_SANCTIONS
+        - B_ADDRESS_CHANGE_EVENT_XX
+        - B_DIRECTOR_CHANGE_EVENT_XX
+        - B_TELEPHONE_NUMBER_CHANGE_EVENT_XX
+        - B_COMPANY_STATUS_EVENT_US
+        - B_DBT_CHANGE_EVENT_US
+        - B_NEGATIVE_HAS_PEP
+        - P_PEP_EVENT_XX
+        - P_SANCTION_EVENT_XX
+        - P_DECEASED_EVENT_XX
+        - P_LAWENFORCEMENT_EVENT_XX
+        - P_FINANCIALREGULATOR_EVENT_XX
+        - P_DISQUALIFIEDDIRECTOR_EVENT_XX
+        - P_INSOLVENT_EVENT_XX
+        - P_ADVERSEMEDIA_EVENT_XX
+    MonitorDecision:
+      type: string
+      description: Monitoring decision
+      enum:
+        - ALERT
+        - IGNORE
+    DecisionMade:
+      type: string
+      description: Has OFAC hits? 1= Yes 0= No
+      enum:
+        - "0"
+        - "1"
+    OFACHit:
+      type: string
+      description: Has OFAC hits? 1= Yes 0= No
+      enum:
+        - "0"
+        - "1"
+    MaterialChangeHit:
+      type: string
+      description: Has Material Change hits? 1= Yes 0= No
+      enum:
+        - "0"
+        - "1"
+    GetBankRequest:
+      type: object
+      properties:
+        merchant_id:
+          $ref: '#/components/schemas/MID'
+    GetBankResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankRetrieveBlock'
+    BankRetrieveBlock:
+      type: object
+      properties:
+        dda_number:
+          $ref: '#/components/schemas/DDA'
+        routing_number:
+          $ref: '#/components/schemas/ABA'
+        account_holder_name:
+          $ref: '#/components/schemas/AccountHolder'
+        bank_name:
+          $ref: '#/components/schemas/BankName'
+        floor:
+          $ref: '#/components/schemas/Floor'
+        suite_apart_number:
+          $ref: '#/components/schemas/Apartment'
+        street_line_1:
+          $ref: '#/components/schemas/AddressLine1'
+        bank_city:
+          $ref: '#/components/schemas/City'
+        county_code:
+          $ref: '#/components/schemas/State'
+        country_code:
+          $ref: '#/components/schemas/Country'
+        zip_code:
+          $ref: '#/components/schemas/ZipCode'
+        account_type:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankFor'
+        bank_account_type:
+          $ref: '#/components/schemas/BankAccountTypeRetrieve'
+    RetrieveIntelligenceFullRequest:
+      type: object
+      properties:
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportBlock'
+      required:
+        - application_reference
+        - reports
+    RetrieveIntelligenceFullResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        reports:
+          type: object
+          properties:
+            PEP_SANCTION_PRINCIPAL:
+              $ref: '#/components/schemas/PepSancPrincipal'
+            PEP_SANCTION_BUSINESS:
+              $ref: '#/components/schemas/PepSancBusiness'
+      required:
+        - result
+        - reports
+    RetrieveHitRequest:
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/RetrieveHitRequest_search'
+    RetrieveMonitoringRequest:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitoringReportRetrieveBlock'
+    RetrieveHitRequest_search:
+      type: object
+      properties:
+        merchant_id:
+          $ref: '#/components/schemas/MID'
+        decision_made:
+          type: string
+          description: Decision already made? 1= Yes 0= No
+          enum:
+            - "1"
+            - "0"
+    MonitoringReportRetrieveBlock:
+      type: object
+      properties:
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        report_type:
+          $ref: '#/components/schemas/ReportType'
+        report_reference:
+          $ref: '#/components/schemas/EntityReference'
+    ReportType:
+      type: string
+      enum:
+        - NEW_SANCTION_REPORT
+    OverwriteMonitorRequest:
+      type: object
+      properties:
+        merchant:
+          type: object
+          properties:
+            merchant_id:
+              $ref: '#/components/schemas/MID'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+        report_reference:
+          $ref: '#/components/schemas/EntityReference'
+        overwrite:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorOverwriteBlock'
+    MonitorOverwriteBlock:
+      type: object
+      properties:
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        report_type:
+          $ref: '#/components/schemas/ReportType'
+        report_reference:
+          $ref: '#/components/schemas/EntityReference'
+        intelligence_reference:
+          $ref: '#/components/schemas/EntityReference'
+        email:
+          $ref: '#/components/schemas/Email'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+        possible_matches:
+          $ref: '#/components/schemas/PossibleMatchOverwriteBlock'
+    OverwriteAMLRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        overwrite:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverwriteBlock'
+    OverwriteAMLResponseBlock:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        operation:
+          $ref: '#/components/schemas/AMLOverwriteOperation'
+        additionalProperties:
+          type: object
+          properties:
+            hash_key:
+              type: string
+            entity_type:
+              $ref: '#/components/schemas/EntityType'
+            report_type:
+              $ref: '#/components/schemas/ReportType'
+            parent_type:
+              $ref: '#/components/schemas/ParentType'
+            alliance_unique_id:
+              $ref: '#/components/schemas/AllianceID'
+            partner_unique_id:
+              $ref: '#/components/schemas/PartnerID'
+            third_party_source:
+              $ref: '#/components/schemas/ThirdPartySource'
+            request_data:
+              $ref: '#/components/schemas/IntelligenceCompanyBlock'
+            response_data:
+              $ref: '#/components/schemas/IntelligencePrincipalBlock'
+            date_added:
+              $ref: '#/components/schemas/DateTime'
+            date_updated:
+              $ref: '#/components/schemas/DateTime'
+            expiry_date:
+              $ref: '#/components/schemas/Date'
+            original_copy:
+              $ref: '#/components/schemas/OriginalCopy'
+            is_test_data:
+              $ref: '#/components/schemas/IsTestData'
+    OriginalCopy:
+      type: string
+      enum:
+        - "0"
+        - "1"
+    IsTestData:
+      type: string
+      enum:
+        - "0"
+        - "1"
+    PartnerID:
+      type: string
+      description: Alliance unique ID in the system in Exchange
+      example: "160000999"
+    AllianceID:
+      type: string
+      description: Alliance unique ID in the system in Exchange
+      example: "160000777"
+    AMLOverwriteOperation:
+      type: object
+      properties:
+        operation_type:
+          $ref: '#/components/schemas/AMLOverwrite_OperationType'
+      description: The operation to be performed on this endpoint
+    AMLOverwrite_OperationType:
+      type: string
+      description: OVERWRITE_OFAC_REPORT
+      example: OVERWRITE_OFAC_REPORT
+      enum:
+        - OVERWRITE_OFAC_REPORT
+    OverwriteBlock:
+      type: object
+      properties:
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        email:
+          $ref: '#/components/schemas/Email'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+        possible_matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/PossibleMatchOverwriteBlock'
+    ReviewNote:
+      type: string
+      description: A note from the reviewer
+      example: This is my review
+    PossibleMatchOverwriteBlock:
+      type: object
+      properties:
+        match_reference:
+          $ref: '#/components/schemas/EntityReference'
+        status:
+          $ref: '#/components/schemas/AMLStatus'
+        review_info:
+          $ref: '#/components/schemas/ReviewInfoBlock'
+    ReviewInfoBlock:
+      type: object
+      properties:
+        reviewer_name:
+          $ref: '#/components/schemas/Name'
+        reviewer_email:
+          $ref: '#/components/schemas/Email'
+        review_note:
+          $ref: '#/components/schemas/ReviewNote'
+    AMLStatus:
+      type: string
+      enum:
+        - PM
+        - EM
+        - NM
+    PepSancBusiness:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        intelligence_data:
+          $ref: '#/components/schemas/IntelligenceDataBusiness'
+    PepSancPrincipal:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        intelligence_data:
+          $ref: '#/components/schemas/IntelligenceDataPrincipal'
+    IntelligenceDataBusiness:
+      type: object
+      properties:
+        hash_key:
+          type: string
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        company:
+          $ref: '#/components/schemas/IntelligenceCompanyBlock'
+        person:
+          $ref: '#/components/schemas/IntelligencePrincipalBlock'
+        intelligence_report:
+          $ref: '#/components/schemas/BusinessIntelligenceReportBlockDetail'
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+    IntelligenceDataPrincipal:
+      type: object
+      properties:
+        hash_key:
+          type: string
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        request_reference:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+        company:
+          $ref: '#/components/schemas/IntelligenceCompanyBlock'
+        person:
+          $ref: '#/components/schemas/IntelligencePrincipalBlock'
+        intelligence_report:
+          $ref: '#/components/schemas/PrincipalIntelligenceReportBlockDetail'
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+    IntelligenceCompanyBlock:
+      type: object
+      properties:
+        business:
+          type: object
+          properties:
+            business_ref:
+              $ref: '#/components/schemas/EntityReference'
+            country_code:
+              $ref: '#/components/schemas/CountryCodeLetter'
+            business_name:
+              $ref: '#/components/schemas/BusinessName'
+            mcc_code:
+              $ref: '#/components/schemas/MCC'
+            registration_number:
+              $ref: '#/components/schemas/RegNumber'
+            incorporated_date:
+              $ref: '#/components/schemas/DateOnly'
+            business_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            business_sub_type:
+              $ref: '#/components/schemas/BusinessLegalEntity'
+            tax_id:
+              $ref: '#/components/schemas/TaxID'
+            address:
+              $ref: '#/components/schemas/AddressReportShort'
+            principals:
+              type: object
+              properties:
+                principal_ref:
+                  $ref: '#/components/schemas/EntityReference'
+                forename:
+                  $ref: '#/components/schemas/FirstName'
+                surname:
+                  $ref: '#/components/schemas/LastName'
+                date_of_birth:
+                  $ref: '#/components/schemas/Date'
+                email:
+                  $ref: '#/components/schemas/Email'
+                ownership_percentage:
+                  $ref: '#/components/schemas/OwnershipPerc'
+                nationality:
+                  $ref: '#/components/schemas/EntityReference'
+                current_address:
+                  $ref: '#/components/schemas/ReportAddressBlock'
+                role:
+                  $ref: '#/components/schemas/Position'
+            decision_purpose:
+              type: string
+              enum:
+                - BOARDING
+        outlet:
+          type: object
+          properties:
+            outlet_ref:
+              $ref: '#/components/schemas/EntityReference'
+            trading_name:
+              $ref: '#/components/schemas/BusinessName'
+            mcc_code:
+              $ref: '#/components/schemas/EntityReference'
+            average_delivery_days:
+              $ref: '#/components/schemas/DeliveryDay'
+            delivery_0_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_1_to_7_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_8_to_14_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_15_to_30_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            delivery_over_30_days:
+              $ref: '#/components/schemas/DeliveryPerc'
+            outlet_type:
+              type: string
+              enum:
+                - FACE_TO_FACE
+            monthly_card_turnover:
+              $ref: '#/components/schemas/MCardATO'
+            monthly_turnover:
+              $ref: '#/components/schemas/MATO'
+            annual_turnover:
+              $ref: '#/components/schemas/ATO'
+            annual_card_turnover:
+              $ref: '#/components/schemas/CardATO'
+            average_transaction_value:
+              $ref: '#/components/schemas/ATV'
+            address:
+              $ref: '#/components/schemas/AddressReportShort'
+            bank:
+              type: array
+              items:
+                $ref: '#/components/schemas/ReportBankShort'
+    ReportBankShort:
+      type: object
+      properties:
+        bank_ref:
+          $ref: '#/components/schemas/EntityReference'
+        account_name:
+          type: string
+          description: Merchant account holder name
+          example: John
+        account_number:
+          $ref: '#/components/schemas/dda'
+        account_type:
+          type: string
+          example: IBAN
+        business_type:
+          $ref: '#/components/schemas/BusinessLegalEntity'
+        proprietor:
+          type: object
+          properties:
+            first_name:
+              $ref: '#/components/schemas/FirstName'
+            surname:
+              $ref: '#/components/schemas/LastName'
+            date_of_birth:
+              $ref: '#/components/schemas/Date'
+    AddressReportShort:
+      type: object
+      properties:
+        address_line_1:
+          $ref: '#/components/schemas/AddressLine1'
+        city:
+          $ref: '#/components/schemas/City'
+        postcode:
+          $ref: '#/components/schemas/ZipCode'
+        country_code:
+          $ref: '#/components/schemas/CountryCodeLetter'
+    MCardATO:
+      type: string
+      example: "20000.00"
+    MATO:
+      type: string
+      example: "20000.00"
+    ReportAddressBlock:
+      type: object
+      properties:
+        premise:
+          $ref: '#/components/schemas/ZipCode'
+        postcode:
+          $ref: '#/components/schemas/ZipCode'
+        post_town:
+          $ref: '#/components/schemas/City'
+        street:
+          $ref: '#/components/schemas/AddressLine1'
+        country_code:
+          $ref: '#/components/schemas/CountryCodeLetter'
+    IntelligencePrincipalBlock:
+      type: object
+      properties:
+        principal_ref:
+          $ref: '#/components/schemas/EntityReference'
+        forename:
+          $ref: '#/components/schemas/FirstName'
+        surname:
+          $ref: '#/components/schemas/LastName'
+        date_of_birth:
+          $ref: '#/components/schemas/Date'
+        email:
+          $ref: '#/components/schemas/Email'
+        ownership_percentage:
+          $ref: '#/components/schemas/OwnershipPerc'
+        nationality:
+          $ref: '#/components/schemas/EntityReference'
+        current_address:
+          $ref: '#/components/schemas/ReportAddressBlock'
+        role:
+          $ref: '#/components/schemas/Position'
+        entity_number:
+          type: number
+          example: 0
+    BusinessIntelligenceReportBlockDetail:
+      type: object
+      properties:
+        possible_matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/possibleMatch'
+        overall_evaluation:
+          type: object
+          properties:
+            negative_hit:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            pep_hits:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            enforcement_hits:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            sanctions_hits:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            previous_sanctions:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            financial_regulator:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            disqualified_director_match:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            adverse_media_match:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            insolvent_match:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            deceased:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            business_has_pep:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+        original_status:
+          type: string
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+          enum:
+            - PM
+            - EM
+            - NM
+        status:
+          type: string
+          description: 'decision made from user'
+          enum:
+            - PM
+            - EM
+            - NM
+        is_overwritten:
+          type: string
+          description: '1 = Yes, 0 = No'
+          enum:
+            - 1
+            - 0
+        review_info:
+          $ref: '#/components/schemas/reviewInfo'
+        third_party_source:
+          type: string
+          description: 'decision made from user'
+          enum:
+            - AcurisSearch
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+    PrincipalIntelligenceReportBlockDetail:
+      type: object
+      properties:
+        possible_matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/possibleMatch'
+        overall_evaluation:
+          type: object
+          properties:
+            negative_hit:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            pep_hits:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            enforcement_hits:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            sanctions_hits:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            previous_sanctions:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            financial_regulator:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            disqualified_director_match:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            adverse_media_match:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            insolvent_match:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            deceased:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+            business_has_pep:
+              type: string
+              enum:
+                - PM
+                - EM
+                - NM
+        original_status:
+          type: string
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+          enum:
+            - PM
+            - EM
+            - NM
+        status:
+          type: string
+          description: 'decision made from user'
+          enum:
+            - PM
+            - EM
+            - NM
+        is_overwritten:
+          type: string
+          description: '1 = Yes, 0 = No'
+          enum:
+            - 1
+            - 0
+        review_info:
+          $ref: '#/components/schemas/reviewInfo'
+        third_party_source:
+          type: string
+          description: 'decision made from user'
+          enum:
+            - AcurisSearch
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+    BusinessPossibleMatch:
+      type: object
+      properties:
+        unique_id:
+          type: number
+          example: 8101182
+        score:
+          type: number
+          example: 80
+        business:
+          $ref: '#/components/schemas/possibleMatchBusinessBlock'
+        person:
+          $ref: '#/components/schemas/possibleMatchPersonBlock'
+        match_reference:
+          $ref: '#/components/schemas/EntityReference'
+        original_status:
+          type: string
+          description: original decision suggested by Prospect based on the rules possible match, exact match, no match
+          enum:
+            - PM
+            - EM
+            - NM
+        status:
+          type: string
+          description: decision made from user
+          enum:
+            - PM
+            - EM
+            - NM
+        is_overwritten:
+          type: string
+          description: 1 = Yes, 0 = No
+          enum:
+            - "1"
+            - "0"
+        review_info:
+          $ref: '#/components/schemas/reviewInfo'
+        watchlist:
+          $ref: '#/components/schemas/watchlistReport'
+        credit_reference:
+          $ref: '#/components/schemas/creditReference'
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+    possibleMatchBusinessBlock:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 8101182
+        title:
+          type: object
+          properties:
+            description:
+              type: string
+              example: "Ms"
+        alternativeTitle:
+          type: string
+        first_name:
+          $ref: '#/components/schemas/FirstName'
+        middle_name:
+          $ref: '#/components/schemas/SecondName'
+        last_name:
+          $ref: '#/components/schemas/LastName'
+        date_of_birth:
+          type: string
+        year_of_birth:
+          type: string
+        date_of_death:
+          type: string
+        year_of_death:
+          type: string
+        isDeceased:
+          type: string
+          enum:
+            - true
+            - false
+        gender:
+          type: string
+          enum:
+            - Male
+            - Female
+        nationality:
+          type: object
+          properties:
+            nationality:
+              type: string
+              example: "American"
+        imageURL:
+          type: string
+        telephone_number:
+          type: string
+        fax_number:
+          type: string
+        mobile_number:
+          type: string
+        email:
+          $ref: '#/components/schemas/Email'
+        pepLevel:
+          type: string
+        isPEP:
+          type: string
+          enum:
+            - true
+            - false
+        isSanctionsCurrent:
+          type: string
+          enum:
+            - true
+            - false
+        isSanctionsPrevious:
+          type: string
+          enum:
+            - true
+            - false
+        isLawEnforcement:
+          type: string
+          enum:
+            - true
+            - false
+        isFinancialregulator:
+          type: string
+          enum:
+            - true
+            - false
+        isDisqualifiedDirector:
+          type: string
+          enum:
+            - true
+            - false
+        isInsolvent:
+          type: string
+          enum:
+            - true
+            - false
+        isAdverseMedia:
+          type: string
+          enum:
+            - true
+            - false
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Addresses'
+        aliases:
+          type: array
+          items: {}
+          example: []
+        sanctions:
+          type: array
+          items: {}
+          example: []
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportNote'
+        linkedBusinesses:
+          type: array
+          items: {}
+          example: []
+        linkedPersons:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedPersonReport'
+        politicalPositions:
+          type: array
+          items: {}
+          example: []
+        external_link:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Link'
+
+    possibleMatch:
+      type: object
+      properties:
+        unique_id:
+          type: number
+          example: 8101182
+        score:
+          type: number
+          example: 80
+        person:
+          $ref: '#/components/schemas/possibleMatchPersonBlock'
+        match_reference:
+          $ref: '#/components/schemas/EntityReference'
+        original_status:
+          type: string
+          description: 'original decision suggested by Prospect based on the rules possible match, exact match, no match'
+          enum:
+            - PM
+            - EM
+            - NM
+        status:
+          type: string
+          description: 'decision made from user'
+          enum:
+            - PM
+            - EM
+            - NM
+        is_overwritten:
+          type: string
+          description: '1 = Yes, 0 = No'
+          enum:
+            - 1
+            - 0
+        review_info:
+          $ref: '#/components/schemas/reviewInfo'
+        watchlist:
+          $ref: '#/components/schemas/watchlistReport'
+        credit_reference:
+          $ref: '#/components/schemas/creditReference'
+        date_updated:
+          $ref: '#/components/schemas/DateyMdTime'
+    DateyMdTime:
+      type: string
+      example: 2022-Mar-18 13:02:38
+    creditReference:
+      type: object
+      properties:
+        disqualified_director_match:
+          type: string
+          enum:
+            - "true"
+            - "false"
+        adverse_media_match:
+          type: string
+          enum:
+            - "true"
+            - "false"
+        insolvent_match:
+          type: string
+          enum:
+            - "true"
+            - "false"
+        deceased:
+          type: string
+          description: 1 = Yes, 0 = No
+          enum:
+            - "1"
+            - "0"
+        date_of_death:
+          $ref: '#/components/schemas/Date'
+    watchlistReport:
+      type: object
+      properties:
+        pep_hits:
+          type: string
+          enum:
+            - "1"
+            - "0"
+        pep_level:
+          type: string
+          enum:
+            - "1"
+            - "0"
+        enforcement_hits:
+          type: string
+          enum:
+            - "1"
+            - "0"
+        sanctions_hits:
+          type: string
+          enum:
+            - "1"
+            - "0"
+        previous_sanctions:
+          type: string
+          enum:
+            - "1"
+            - "0"
+        financial_regulator:
+          type: string
+          enum:
+            - "1"
+            - "0"
+    reviewInfo:
+      type: object
+      properties:
+        reviewer_name:
+          $ref: '#/components/schemas/Name'
+        reviewer_email:
+          $ref: '#/components/schemas/Email'
+        review_date:
+          $ref: '#/components/schemas/Date'
+        review_note:
+          type: string
+    possibleMatchPersonBlock:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 8101182
+        title:
+          type: object
+          properties:
+            description:
+              type: string
+              example: "Ms"
+        alternativeTitle:
+          type: string
+        first_name:
+          $ref: '#/components/schemas/FirstName'
+        middle_name:
+          $ref: '#/components/schemas/SecondName'
+        last_name:
+          $ref: '#/components/schemas/LastName'
+        date_of_birth:
+          type: string
+        year_of_birth:
+          type: string
+        date_of_death:
+          type: string
+        year_of_death:
+          type: string
+        isDeceased:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        gender:
+          type: string
+          enum:
+            - Male
+            - Female
+          example: "Female"
+        nationality:
+          type: object
+          properties:
+            nationality:
+              type: string
+              example: "American"
+        imageURL:
+          type: string
+        telephone_number:
+          type: string
+          example: "1477855436"
+        fax_number:
+          type: string
+          example: "023922002222"
+        mobile_number:
+          type: string
+          example: "1477855436"
+        email:
+          $ref: '#/components/schemas/Email'
+        pepLevel:
+          type: string
+        isPEP:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isSanctionsCurrent:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isSanctionsPrevious:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isLawEnforcement:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isFinancialregulator:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isDisqualifiedDirector:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isInsolvent:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        isAdverseMedia:
+          type: string
+          example: "False"
+          enum:
+            - true
+            - false
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Addresses'
+        aliases:
+          type: array
+          items: {}
+          example: []
+        sanctions:
+          type: array
+          items: {}
+          example: []
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportNote'
+        linkedBusinesses:
+          type: array
+          items: {}
+          example: []
+        linkedPersons:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedPersonReport'
+        politicalPositions:
+          type: array
+          items: {}
+          example: []
+        external_link:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Link'
+    Link:
+      type: string
+    LinkedPersonReport:
+      type: object
+      properties:
+        personId:
+          type: number
+          example: "string"
+        name:
+          type: string
+          example: "string"
+        association:
+          type: string
+          example: "string"
+    ReportNote:
+      type: object
+      example: "Note for report"
+      properties:
+        dataSource:
+          type: string
+        text:
+          type: string
+    Addresses:
+      type: object
+      properties:
+        address1:
+          type: string
+          example: "string"
+        address2:
+          type: string
+          example: "string"
+        address3:
+          type: string
+          example: "string"
+        address4:
+          type: string
+          example: "string"
+        city:
+          $ref: '#/components/schemas/City'
+        county:
+          $ref: '#/components/schemas/State'
+        postcode:
+          $ref: '#/components/schemas/ZipCode'
+        country:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "United States of America"
+    CountryCodeLetter:
+      type: string
+      example: USA
+    DateOnly:
+      type: string
+      example: 13-06-2000
+    DateTime:
+      type: string
+      example: 2022-01-01 12:00:00
+    ReportBlock:
+      type: object
+      properties:
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+    RetrieveIntelligenceRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+      required:
+        - application
+    RetrieveIntelligenceResponse:
+      type: object
+      properties:
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        aml_check_response:
+          type: object
+          properties:
+            check_purpose:
+              type: string
+              example: "BOARDING"
+              enum:
+                - BOARDING
+            decision:
+              type: string
+              example: "APPROVE"
+              enum:
+                - REFER
+                - PREAPPROVE
+                - APPROVE
+            original_decision:
+              type: string
+              example: "REFER"
+              enum:
+                - REFER
+                - PREAPPROVE
+                - APPROVE
+            risk_band_id:
+              type: string
+              example: "1"
+            original_risk_band_id:
+              type: string
+              example: "1"
+            entity_decisions:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityDecisionsBlock'
+            intelligence_references:
+              type: array
+              items:
+                $ref: '#/components/schemas/IntelligenceReferenceBlock'
+            aml_reviewer:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/Reviewer'
+                user_name:
+                  $ref: '#/components/schemas/UserName'
+                email:
+                  $ref: '#/components/schemas/Email'
+    EntityDecisionsBlock:
+      type: object
+      properties:
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        decision:
+          type: string
+          example: REFER
+          enum:
+            - REFER
+            - PREAPPROVE
+            - APPROVE
+        name:
+          $ref: '#/components/schemas/Name'
+    ThirdPartySource:
+      type: string
+      enum:
+        - PEP_SANCTION_PRINCIPAL
+        - PEP_SANCTION_BUSINESS
+        - AML_DECISION
+    IntelligenceReferenceBlock:
+      type: object
+      properties:
+        third_party_source:
+          $ref: '#/components/schemas/ThirdPartySource'
+        intelligence_ref:
+          $ref: '#/components/schemas/EntityReference'
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityBlock'
+    EntityBlock:
+      type: object
+      properties:
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        entity_reference:
+          $ref: '#/components/schemas/EntityReference'
+        name:
+          $ref: '#/components/schemas/Name'
+    EntityType:
+      type: string
+      enum:
+        - PRINCIPAL
+        - BUSINESS
+    EntityReference:
+      maxLength: 24
+      minLength: 24
+      type: string
+      example: 6234795714d105062c143e92
+    Name:
+      type: string
+      example: Miss Megan Sharp
+    Reviewer:
+      type: string
+      example: John Doe
+    UserName:
+      type: string
+      example: pfac.user
+    Get_Trade_Account_Request:
+      required:
+        - currency
+        - date
+        - merchant_id
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        date:
+          $ref: '#/components/schemas/date'
+      description: Get Trade Account Response
+      allOf:
+        - $ref: '#/components/schemas/MerchantInfo'
+    Get_Trade_Account_Response:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        account:
+          $ref: '#/components/schemas/Get_Trade_Account_Response_account'
+      description: Get Trade Account Response
+    Account_Transaction_Search_Response:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        response:
+          $ref: '#/components/schemas/Account_Transaction_Search_Response_response'
+      description: Transaction Search Repose
+    Account_Transaction_Search_Request:
+      required:
+        - limit
+      type: object
+      properties:
+        limit:
+          type: number
+          description: The limit on how many transaction reports to retrieve
+        page:
+          type: number
+          description: The page where to get those reports from
+        query:
+          $ref: '#/components/schemas/Account_Transaction_Search_Request_query'
+      description: Transaction Search Request
+    Get_Settlement_Info_Request:
+      required:
+        - currency
+        - merchant_id
+        - settlement_date
+      type: object
+      properties:
+        settlement_date:
+          $ref: '#/components/schemas/settlement_date'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Get Settlement Info Request
+      allOf:
+        - $ref: '#/components/schemas/MerchantInfo'
+    Get_Settlement_Info_Response:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        settlment_summary:
+          type: array
+          description: Settlement Information
+          items:
+            $ref: '#/components/schemas/Get_Settlement_Info_Response_settlment_summary'
+        settlement_details:
+          type: array
+          description: Settlement Details
+          items:
+            $ref: '#/components/schemas/Get_Settlement_Info_Response_settlement_details'
+        instructions_received:
+          type: array
+          description: Instruction
+          items:
+            $ref: '#/components/schemas/Get_Settlement_Info_Response_instructions_received'
+      description: Response of get settlement rejects
+    Get_Account_Summary_Request:
+      required:
+        - currency
+        - date
+        - merchant_id
+      type: object
+      properties:
+        date:
+          $ref: '#/components/schemas/date'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Get Settlement Info Request
+      allOf:
+        - $ref: '#/components/schemas/MerchantInfo'
+    Get_Account_Summary_Response:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        trade_summary:
+          $ref: '#/components/schemas/Get_Account_Summary_Response_trade_summary'
+        account_summary:
+          type: array
+          description: Account Summary
+          items:
+            $ref: '#/components/schemas/Get_Account_Summary_Response_account_summary'
+      description: Response of get settlement rejects
+    DestinationsBlock:
+      type: object
+      properties:
+        amount:
+          multipleOf: 0.01
+          type: number
+          description: Amount for the specified destination
+        destination:
+          type: string
+          description: Destination of the specified amount
+    Release_Reserve_Request:
+      required:
+        - accounts
+        - currency
+        - merchant_id
+        - total_amount
+      type: object
+      properties:
+        merchant_id:
+          type: string
+          description: Unique merchant identifier
+          example: "1121212"
+        total_amount:
+          type: string
+          description: Total funding amount
+          example: "1100.00"
+        currency:
+          $ref: '#/components/schemas/currency'
+        accounts:
+          $ref: '#/components/schemas/AccountsArrayRelease'
+      description: Instruction request
+    CreateMaintenanceRequest:
+      required:
+      - request_source
+      - operation
+      - merchant
+      - maintenance
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationmm'
+        merchant:
+          $ref: '#/components/schemas/merchantmm'
+        maintenance:
+          $ref: '#/components/schemas/maintenance'
+    requestsource:
+      type: object
+      properties:
+        initiator:
+          type: string
+          description: who initiated the maintenance case
+          example: "PROVIDER"
+        alliance_code:
+          type: string
+          description: the alliance code
+          example: "FIRSTDATA"
+    operationmm:
+      type: object
+      properties:    
+        operation_type:
+          type: string
+          description: type of operation
+          example: "CREATE_MAINTENANCE"
+    operationum:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: type of operation
+          example: "UPDATE_MAINTENANCE"  
+    merchantmm:
+      type: object
+      properties:
+        merchant_reference:
+          type: string
+          description: the merchant reference number
+          example: "3001484"
+    
+    maintenance:
+      type: object
+      properties:
+        maintenance_types:
+          $ref: '#/components/schemas/maintenancetypes'
+    
+    maintenancetypes:
+      type: array
+      items:
+        type: string
+        example: "CHANGE_BANK"
+        enum:
+          - UPDATE_PROCESSING_PRICING
+          - UPDATE_EQUIPMENT_PRICING
+          - UPDATE_ONLINE_PRICING
+          - CHANGE_BANK
+    maintenancetypesPricing:
+      type: array
+      items:
+        type: string
+        example: "CHANGE_BANK"
+        enum:
+          - UPDATE_PROCESSING_PRICING
+          - UPDATE_EQUIPMENT_PRICING
+          - UPDATE_ONLINE_PRICING
+          - CHANGE_BANK
+    CreateMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operationmm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetails'
+          
+    UpdateMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationum'
+        merchant:
+          $ref: '#/components/schemas/merchantmm'
+        maintenance:
+          $ref: '#/components/schemas/maintenanceum'
+    SubmitMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationsm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancesm'
+    MaintenanceSearchRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationms'
+        search:
+          $ref: '#/components/schemas/search'
+    RetrieveMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationrm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancesm'
+    CancelMaintenanceRequest:
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/requestsource'
+        operation:
+          $ref: '#/components/schemas/operationcm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancesm'
+    CancelMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operationcm'
+        message:
+          type: string
+          example: "Maintenance Case Successfully Cancelled"  
+    operationcm:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: "MAINTENANCE_CANCEL"    
+    operationrm:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: type of operation being carried out
+          example: "RETRIEVE_MAINTENANCE"
+            
+    
+    
+    operationms:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: type of operation being carried out
+          example: "MAINTENANCE_SEARCH"
+    search:
+      type: object
+      properties:
+        page:
+          type: string
+          description: page number for maintenance cases
+          example: "1"
+        limit:
+          type: string
+          description: number of maintenance cases to be presented per page
+          example: "50"
+        merchant_reference:
+          type: string
+          description: "3001483"
+                
+    operationsm:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          description: the type of operation being carried out
+          example: "SUBMIT_MAINTENANCE"
+    maintenancesm:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case being submitted
+          example: "MC3000000633"
+ 
+    SubmitMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operationsm'
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumr'    
+              
+    MaintenanceSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        response:
+          $ref: '#/components/schemas/response'
+    response:
+      type: object
+      properties:
+        limit:
+          type: string
+          description: number of maintenance cases presented per page
+          example: "50"
+        page:
+          type: string
+          description: page number of maintenance cases
+          example: "1"
+        summary_status:
+          type: string
+          description: status of maintenance case search
+          example: "FOUND"
+        maintenance:
+          type: array
+          items:
+            type: object
+            properties:
+              maintenance_reference:
+                type: string
+                example: "MC3000000633"
+              maintenance_types:
+                $ref: '#/components/schemas/mt'
+              merchant_reference:
+                type: string
+                example: "3001483"
+              business_legal_name:
+                type: string
+                example: "OST 18"
+              parent_type:
+                type: string
+                example: "Alliance"
+              contact_first_name:
+                type: string
+                example: "Jane"
+              contact_last_name:
+                type: string
+                example: "Doe"
+              date_added:
+                type: string
+                example: "2022-08-30 10:05:53"
+              maintenance_external_id:
+                type: string
+                example: "MTNA9-5972B-1E9DF-868A2-DADF8-871D4-CD942"
+              creator_user_external_id:
+                type: string
+                example: "USR19-F03B8-2DCC3-659A8-D685F-260E8-D5826"
+              status_external_id:
+                type: string
+                example: "MTS08-8FCFD-71056-20D7A-BF420-98B25-C8631"
+              maintenance_status:
+                type: string
+                example: "Completed"
+              owner_user_external_id:
+                type: string
+                example: "USR19-F03B8-2DCC3-659A8-D685F-260E8-D5826"
+    mt:
+      type: array
+      items:
+        type: string
+        example: "CHANGE_BANK"
+    RetrieveMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumr'
+        
+            
+                            
+                              
+      
+          
+    maintenanceum:
+      type: object
+      description: To define the maintenance case being update, and for what entity. If the subgroup bank or pricing is being updated, this can be sent with the subgroup object. If the outlet bank or pricing is being updated, this can be sent with the outlet object.
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number of the maintenance case created
+          example: "MC3000000633"
+        subgroup:
+          $ref: '#/components/schemas/subgroupum'
+        outlet:
+          $ref: '#/components/schemas/outletum'
+        
+    subgroupum:
+      type: object
+      properties:
+        internal_mid:
+          type: string
+          description: internal mid of funding level entity
+          example: "865785678567"
+        business_entity:
+          $ref: '#/components/schemas/businessentity'
+    outletum:
+      type: object
+      properties:
+        internal_mid:
+          type: string
+          description: internal mid of funding level entity
+          example: "865785678567"
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDetail'
+    businessentity:
+      type: object
+      properties:
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDetail'
+    UpdateMaintenanceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumr'
+    UpdateMaintenanceResponsePricing:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        maintenance:
+          $ref: '#/components/schemas/maintenancemmr'
+        maintenance_details:
+          $ref: '#/components/schemas/maintenancedetailsumrPricing'
+    maintenancedetailsumr:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case updated
+          example: "MC3000000633"
+        merchant_reference:
+          type: string
+          description: the merchant reference number for the maintenance case updated
+          example: "3001483"
+        maintenance_types:
+          $ref: '#/components/schemas/maintenancetypes'
+        old_details:
+          $ref: '#/components/schemas/odumr'
+        new_details:
+          $ref: '#/components/schemas/ndumr'
+    maintenancedetailsumrPricing:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case updated
+          example: "MC3000000633"
+        merchant_reference:
+          type: string
+          description: the merchant reference number for the maintenance case updated
+          example: "3001483"
+        maintenance_types:
+          type: array
+          description: Maintenance type being updated
+          items:
+            type: string
+            example: 
+              UPDATE_PROCESSING_PRICING
+            enum:
+              - UPDATE_PROCESSING_PRICING
+              - UPDATE_EQUIPMENT_PRICING
+              - UPDATE_ONLINE_PRICING
+              - CHANGE_BANK
+        old_details:
+          $ref: '#/components/schemas/odumrPricing'
+        new_details:
+          $ref: '#/components/schemas/ndumrPricing'
+    ndumr:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/ndb'
+    ndumrPricing:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/ndb'
+    ndb:
+      type: object
+      properties:
+        62d929bf81b78a006d7be44a:
+          $ref: '#/components/schemas/banknd'
+  
+    banknd:
+      type: object
+      properties:
+        internal_mid:
+          type: string
+          description: internal mid of the entity for which the information is being changed
+          example: "865785678567"
+        banks:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: bank id of the new bank
+                example: "62d91c7681b78a00594dd392"
+                
+            
+    odumr:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/mmod'
+    mmod:
+      type: object
+      properties:
+        62d929bf81b78a006d7be44a:
+          $ref: '#/components/schemas/bankod'
+    odumrPricing:
+      type: object
+      properties:
+        outlets:
+          $ref: '#/components/schemas/mmodPricing'
+    mmodPricing:
+      type: object
+      properties:
+        62d929bf81b78a006d7be44a:
+          $ref: '#/components/schemas/EquipmentOffering'
+    bankod:
+      type: object
+      properties:
+        62d91c7681b78a00594dd392:
+          $ref: '#/components/schemas/bidod'
+    bidod:
+      type: object
+      properties:
+        bank_city:
+          type: string
+          description: name of the city where the old bank was located
+          example: "Phoenix"
+        country_code:
+          type: string
+          description: country code where the old bank is located
+          example: "840"
+        account_holder_name:
+          type: string
+          description: account holder's name
+          example: "Jane Doe"
+        account_type:
+          $ref: '#/components/schemas/accounttypes'
+        zip_code:
+          type: string
+          description: zip code of the city in which the bank is located
+          example: "44444"
+        county_code:
+          type: string
+          description: county code for the old bank
+          example: "CA"
+        street_line_1:
+          type: string
+          description: first line of address of the old bank
+          example: "30 Saxon Gate"
+        bank_account_type:
+          type: string
+          description: type of bank account
+          example: "CHECKING"
+        dda_number:
+          type: string
+          description: DDA number for the old bank
+          example: "444444444444444444"
+        dda_number_masked:
+          type: string
+          description: masked DDA number for the old bank
+          example: "**************4444"
+        routing_number:
+          type: string
+          description: routing number for the old bank
+          example: "444444444"
+        routing_number_masked:
+          type: string
+          description: masked routing number for the old bank
+          example: "*****4444"
+        _id:
+          type: string
+          description: bank id for the old bank
+          example: "62d91c7681b78a00594dd392"
+                    
+    accounttypes:
+      type: array
+      items:
+        type: string
+        example: [CREDIT, DEBIT, CHARGEBACK]    
+                                                          
+            
+    maintenancemmr:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number
+          example: "MC3000000610"
+        merchant_reference:
+          type: string
+          description: the merchant reference number
+          example: "3001484"
+        maintenance_status:
+          type: string
+          description: status of the maintenance case
+          example: "Open"
+        maintenance_external_id:
+          type: string
+          description: the maintenance case external id
+          example: "MTNCB-651E4-E0CCC-5453A-1C07D-5E526-AF699"
+        creator_user_external_id:
+          type: string
+          description: the external id for creator user
+          example: "USR42-6D362-009A1-592CC-E1042-093C4-64974"
+        status_external_id:
+          type: string
+          description: the external id for the maintenance case status
+          example: "MTS5F-AC517-BB9D5-91A67-4BC5C-EE080-961E1"
+        owner_user_external_id:
+          type: string
+          example: "USR42-6D362-009A1-592CC-E1042-093C4-64974"
+    maintenancedetails:
+      type: object
+      properties:
+        maintenance_reference:
+          type: string
+          description: the maintenance reference number for the maintenance case created
+          example: "MC3000000610"
+        merchant_reference:
+          type: string
+          description: the merchant reference number for the maintenance case created
+          example: "3001484"
+        maintenance_types:
+          $ref: '#/components/schemas/maintenancetypes'
+        old_details:
+          $ref: '#/components/schemas/subgroupsmm'
+    subgroupsmm:
+      type: object
+      properties:
+        62e9225181b78a009a0e7852:
+          $ref: '#/components/schemas/banksmm'
+    banksmm:
+      type: object
+      properties:
+        62e91c4281b78a009a0e784c:
+          $ref: '#/components/schemas/bankdetailsmm'
+    bankdetailsmm:
+      type: object
+      properties:
+        bank_name:
+          type: string
+          description: name of the bank in the old details
+          example: "Bank Name"
+        bank_city:
+          type: string
+          description: city the bank is located in the old details
+          example: "City Name"
+        country_code:
+          type: string
+          description: the country code according to the ISO3 format
+          example: "840"
+        account_holder_name:
+          type: string
+          description: name of the account holder
+          example: "Jane Doe"
+        account_type:
+          type: array
+          items:
+            type: string
+            example: ["DEBIT", "CREDIT"]
+        zip_code:
+          type: string
+          description: the zip code of the bank in the old details
+          example: "3333333333"
+        street_line_1:
+          type: string
+          description: First line of Address of the bank in the old details
+          example: "Address Line"
+        bank_account_type:
+          type: string
+          description: bank account type of the previous bank
+          example: "CHECKING"
+        dda_number:
+          type: string
+          description: DDA number of the bank in the old details
+          example: "22222222222"
+        dda_number_masked:
+          type: string
+          description: masked DDA number of the bank in the old details
+          example: "*******2222"
+        routing_number:
+          type: string
+          description: routing number for the previous bank
+          example: "982354671"
+        routing_number_masked:
+          type: string
+          description: routing number for the previous number masked
+          example: "*****4671"
+        _id:
+          type: string
+          description: bank id of the bank in the old details
+          example: "62e12c4987b78a223a0e784c"      
+                            
+          
+
+    applicationuploadfileResponse:
+      type: object
+      properties:
+        result:
+          example: success
+    applicationUF:
+      required:
+        - application_reference
+        - tenant_udc_external_id
+      type: object
+      properties:
+        application_reference:
+          type: string
+          description: application reference number
+          example: "333000010344"
+        tenant_udc_external_id:
+          type: string
+          example: TDCAB-DDAB5-5F9C4-7D2F4-5F47C-D407F-EC1BD
+        entity_type:
+          type: string
+          example: PRINCIPAL
+          enum:
+            - PRINCIPAL
+            - BUSINESS
+            - OUTLET_CONTACT
+            - BUSINESS_CONTACT
+        document_for:
+          type: string
+          description: 'ID for the specified Entity, retrievable through retrieve_merchant_hierarchy request. Principal - Uses "owner_ref" | Business - Uses "merchant_ref"| Outlet Contact - Uses "owner_ref" |Business Contact - Uses Registration address "contact_ref"  '
+          example: 62ab1f857c5de6318f74e2a9
+    documentdata1:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Jane
+        second_name:
+          type: string
+          example: Doe
+        surname:
+          type: string
+          example: Lane
+        date_of_birth:
+          type: string
+          example: 1998/05/31
+        document_id:
+          type: string
+          example: CWR442DF2FD
+        issued_date:
+          type: string
+          example: 2022/06/10
+        expiry_date:
+          type: string
+          example: 2032/06/10
+        document_issuer:
+          type: string
+          example: Test
+        issuing_state:
+          type: string
+          example: CA
+        issuing_country:
+          type: string
+          example: "840"
+      description: Used if configured document has entity links
+    applicationuploadadditionaldocumentsRequest:
+      required:
+        - application
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/operation'
+        application:
+          $ref: '#/components/schemas/application'
+        note:
+          type: string
+          description: Any comments to the underwriter related to the documents upload
+          example: Test
+    applicationuploadadditionaldocumentsResponse:
+      type: object
+      properties:
+        result:
+          example: success
+    documentlisttenantuploaddocumentcategoriesRequest:
+      type: object
+    documentlisttenantuploaddocumentcategoriesResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: SUCCESS
+        operation:
+          $ref: '#/components/schemas/operation_document'
+        document_categories:
+          $ref: '#/components/schemas/DocumentCategories'
+    DocumentCategories:
+      type: array
+      items:
+        $ref: '#/components/schemas/documentCategoriesObject'
+    documentCategoriesObject:
+      type: object
+      properties:
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        document_reference:
+          type: string
+          description: User input reference during configuration
+          example: Passport
+        status:
+          type: string
+          example: "1"
+          enum:
+            - "1"
+            - "0"
+        tenant_udc_external_id:
+          type: string
+          description: External ID of Document Configured
+          example: JKLF3-DDAB5-BJKL3-SDK34-5F47C-D407F-334AS
+        alliance_external_id:
+          $ref: '#/components/schemas/ExtID'
+        document_category:
+          type: string
+          description: Category added during configuration of document
+          example: Proof of ID
+          enum:
+            - Proof of ID
+            - Proof of Business
+            - Proof of Bank
+            - Other
+    operation:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS
+        version:
+          type: string
+          example: 2.0.0
+    operation_document:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: DOCUMENT_LIST_TENANT_UPLOAD_DOCUMENT_TYPES
+    application:
+      type: object
+      properties:
+        application_reference:
+          type: string
+          example: "333000010344"
+    Accounts:
+      type: array
+      items:
+        $ref: '#/components/schemas/Accounts_inner'
+    CaseNumber:
+      maxLength: 20
+      minLength: 1
+      type: string
+      description: Case number from the chargeback or chargeback reversal transaction
+      example: "812669"
+    InstructionResponse:
+      required:
+        - result
+        - summary
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        summary:
+          $ref: '#/components/schemas/AccountsArrayResponse'
+      description: Instruction result
+    grant_type_object:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: The type of grant requested, can be __Refresh__ or __Client Credentials__
+          example: client_credentials
+          enum:
+            - client_credentials
+    refresh_token_object:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+          description: Returned by the response when __grant_type__ is __client_credentials__
+          example: f17717317f4ea744b04fce476428b74529ada809
+    Get_Account_Summary_Response_account_summary:
+      type: object
+      properties:
+        account_type:
+          $ref: '#/components/schemas/AccountType'
+        total_in:
+          multipleOf: 0.01
+          type: number
+          description: Total Amount In
+          example: 30
+        total_out:
+          multipleOf: 0.01
+          type: number
+          description: Total Amount Out
+          example: 30
+        destinations:
+          type: array
+          description: Destinations
+          items:
+            $ref: '#/components/schemas/DestinationsBlock'
+        balance:
+          multipleOf: 0.01
+          type: number
+          description: Balance in this account
+          example: 50
+        prev_balance:
+          multipleOf: 0.01
+          type: number
+          description: Previous Balance in this account
+          example: 10
+    AccountArrayReleaseReponse:
+      type: array
+      description: Response of the reserve release request
+      example:
+        - account_type: RESERVE_DEDUCTION_ACCOUNT
+          balance: "0.10"
+        - account_type: RESERVE_RELEASE_ACCOUNT
+          balance: "0.00"
+        - account_type: RESERVE_ACCOUNT
+          balance: "205.01"
+        - account_type: ROLLING_RESERVE_ACCOUNT
+          balance: "0.00"
+      items:
+        $ref: '#/components/schemas/AccountArrayReleaseReponse_inner'
+    AccountsArrayRelease:
+      type: array
+      description: 'Array of merchant''s accounts: at least one account is required'
+      example:
+        - account_type: RESERVE_DEDUCTION_ACCOUNT
+          amount: "1000.00"
+          release_reason: Chargeback Recovery
+        - account_type: RESERVE_RELEASE_ACCOUNT
+          amount: "100.00"
+          release_reason: Reserve Limit Decrease
+      items:
+        $ref: '#/components/schemas/AccountsArrayRelease_inner'
+  requestBodies:
+    statusMode:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              request:
+                type: object
+                properties:
+                  applications:
+                    $ref: '#/components/schemas/applicationUF'
+                  document_data:
+                    $ref: '#/components/schemas/documentdata1'
+              file:
+                type: string
+                format: binary
+      required: true
