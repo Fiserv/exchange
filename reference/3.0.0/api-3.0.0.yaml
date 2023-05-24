@@ -855,47 +855,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-  /funding/chargeback:
-    post:
-      tags:
-        - Funding Instruction
-      summary: Chargeback instruction allows for chargeback money to be recovered
-        from merchants
-      operationId: chargebackInstruction
-      x-group-name: Funding
-      x-proxy-name: Chargeback Instruction
-      parameters:
-      - name: X-API-VERSION
-        in: header
-        required: false
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChargebackInstructionRequest'
-        required: true
-      responses:
-        "200":
-          description: Success for chargeback instruction
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FundingInstructionResponse'
-        "404":
-          description: Merchant/Account not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
   /account/trade-info:
     post:
       tags:
@@ -1063,6 +1022,8 @@ paths:
       summary: "Transaction funding instruction can distribute the funds according\
         \ to merchant id, currency, total amount and accounts."
       operationId: updateSplitInstruction
+      x-group-name: Transaction Instruction
+      x-proxy-name: Update Transaction Details
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1102,6 +1063,8 @@ paths:
       summary: "Transaction funding instruction can distribute the funds according\
         \ to merchant id, currency, total amount and accounts."
       operationId: splitInstruction
+      x-group-name: Transaction Instruction
+      x-proxy-name: Transaction Details
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1141,6 +1104,8 @@ paths:
       summary: Transaction funding instruction status can be provided to verify the
         status of a transaction.
       operationId: splitInstructionStatus
+      x-group-name: Transaction Instruction
+      x-proxy-name: Transaction Status
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1180,6 +1145,8 @@ paths:
       summary: Transaction funding instruction can be provided to reprocess failed
         transactions.
       operationId: splitReprocess
+      x-group-name: Transaction Instruction
+      x-proxy-name: Transaction Reprocess
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1218,6 +1185,8 @@ paths:
       - Transaction Instruction
       summary: Get failed paginated transaction instructions.
       operationId: getErroredTransactions
+      x-group-name: Transaction Instruction
+      x-proxy-name: Transaction Instruction Errors
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1257,6 +1226,8 @@ paths:
       summary: Transaction funding instruction can be provided to reprocess failed
         transactions.
       operationId: discardTransaction
+      x-group-name: Transaction Instruction
+      x-proxy-name: Transaction Discard
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1316,8 +1287,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-group-name: Oauth
-      x-proxy-name: Token
+      x-group-name: Authentication
+      x-proxy-name: OAuth Token
   /maintenance:
     post:
       tags:
