@@ -1,39 +1,20 @@
-# Getting Started
+# Introduction
 
-## Welcome to the Developer Studio!
+## What is Exchange?
 
-To onboard into the `Fiserv Developer Studio` as a new Tenant each product must support following APIs standard. So that `Fiserv` will able to retrieve product API specifications and documentation.
- 
-## Setting up Tenant
+The aim of Exchange was to create an end-to-end digital solution for Payment Facilitators and Marketplaces, that allows for integrations of sub-merchant onboarding, reporting, risk decisioning and settlements all in the same platform. Exchange offers two main touchpoints through it's user interface 'Portals' and through API integration.
 
-Products within the Fiserv portfolio that are showcase through the Studio are known as `tenants`.  Tenants standup a `tenant server` that will serve all the content through the studio to developers visiting the Fiserv Developer Studio.
-For more information please refere to [Setup tenant](?path=docs/getting-started/setup-tenant/setup-tenant.md)
+### Sub-merchant boarding configuration avaliable
 
+The PayFac is able to control configuration of the sub-merchant boarding journey through use of the configuration portal. This initial configuration is done through the user interface  and configurations that are setup are used (such as defaults) for API integration. This can allow for a more fluid on-boarding experience for users who have a similar demographic for the sub-merchants being onboarded that may share or default to certain settings and fields.
 
-## Deploying Tenant
+Exchange allows applications that have been started and in `open` status to be modified at all merchants hierarchy levels, and these can be submitted by using the application submit request at endpoint `/boarding/application`when ready. Applications do not expire or stagnate, and can be left and submit whenever the PayFac desired.
 
-New registered Tenant must provide public tenant server.
-For more information please refer to [How to deploy tenant Server](?path=docs/getting-started/setup-tenant/deploy-tenant.md)
+### OFAC checks and Credit risk checks
 
+After initial configurations, OFAC and Credit risk checks can be included in the flow for merchants boarded by API and decisions can be reviewed and overwritten, and accepted (where applicable) by API request. 
 
-## Tenant Registration
+### Relevant content: 
 
-To get started with as a new Studio Tenant, developer needs to setup new account by [Tenant Registration](?path=docs/getting-started/setup-tenant/register-tenant.md)
-
-
-## Code Tenant
-New Tenant can start with [Sample tenant repo](https://github.com/fiserv/sample-tenant) to setup Tenant server. Tenant can also build new codebase with choice of their own programming language. To learn more about this, please refere to [Code Tenant](?path=docs/getting-started/code-a-tenant/code-tenant.md)
-
-___
-
-##  Next steps [Setup Tenant](?path=docs/getting-started/setup-tenant/setup-tenant.md)
-
-
-Need Help ?
-[FAQ](?path=docs/faq/faq.md)
-
-
-___
-
-
- 
+- [Onboarding](?path=docs/getting-started/boarding.md)
+- [Ofac and Risk](?path=docs/getting-started/risk.md)
