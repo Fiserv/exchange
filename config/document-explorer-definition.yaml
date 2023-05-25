@@ -25,7 +25,7 @@
 # resulting from the use of this information. 
 # No warranties, either express or implied, 
 # are granted or extended by this work or 
-# the delivery of this work
+# the delivery of this work-Test
 ################################################################################
 
 - sections:
@@ -65,7 +65,7 @@
     - title: Back to Sales
       link: docs/getting-started/backtosales.md
 - sections:
-    - title: Guide documentation
+    - title: Additional Samples
       link: docs/introduction/exchange-boarding-guide.md
       open: true
       sections:
@@ -84,7 +84,7 @@
           
 - sections:
     - title: Release Notes
-      sections:
-        - title: 2022 
-          link: docs/release-notes/2022.md
+      open : false
+      link: docs/release-notes/2023.md
+          
 
