@@ -226,6 +226,90 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Add Merchant Outlet
+  /boarding/////merchant:
+    post:
+      tags:
+        - Application Boarding
+      summary: Application Retrieve
+      description: Application Retrieve
+      requestBody:
+        description: Application Retrieve
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRetrieveRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationRetrieveResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Merchant Application
+  /boarding///application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Application Status Check
+      description: Check the status of an application
+      requestBody:
+        description: Check the status of an application
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationStatusCheckRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationStatusCheckResponseBlock'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Application Status Check
+  /boarding//application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Application Submission
+      description: Application Submission
+      requestBody:
+        description: Application Submission
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationSubmissionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationRetrieveResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Application Submission
   /boarding/outlet/update:
     post:
       tags:
