@@ -615,7 +615,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/chargebacks:
     post:
       tags:
@@ -655,7 +655,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/chargeback-adjustments:
     post:
       tags:
@@ -695,7 +695,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/authorizations:
     post:
       tags:
@@ -735,7 +735,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/adjustments:
     post:
       tags:
@@ -775,7 +775,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /settlement/rejects:
     post:
       tags:
