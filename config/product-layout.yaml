@@ -56,19 +56,31 @@ featuredFeatures:
     description:  Supporting Marketplace offerings with split payments
     relatedDocs:
       - link: /docs/getting-started/boarding.md
-        title: Sub-merchant boarding 
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
   - title: PayFac Lite
     featured: true
     description:  Supporting PayFac Lite (through UI only currently)
     relatedDocs:
       - link: /docs/getting-started/boarding.md
-        title: Sub-merchant boarding 
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
   - title: Boarding
     groupName: API Suite
     description:  End-to-end boarding API 
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
     relatedAPIs: 
       - type: post       
         path: /merchant/application
