@@ -295,7 +295,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Outlet
+      x-proxy-name: Retrieve Merchant Outlet
+
   /boarding/////merchant:
     post:
       tags:
