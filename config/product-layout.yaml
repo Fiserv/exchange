@@ -51,6 +51,10 @@ featuredFeatures:
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
   - title: Marketplaces
     featured: true
     description:  Supporting Marketplace offerings with split payments
@@ -83,7 +87,7 @@ featuredFeatures:
         title: Reporting & Settlement
     relatedAPIs: 
       - type: post       
-        path: /merchant/application
+        path: /boarding/add_application
         title: Add Application
   - title: Funding
     groupName: API Suite
@@ -94,7 +98,7 @@ featuredFeatures:
     relatedAPIs: 
       - type: post
         title: Funding Instruction       
-        path: /v1/funding/instruction        
+        path: /funding/instruction        
   - title: Reporting & Settlement
     groupName: API Suite
     description:   Settlement details and reporting avaliable through Exchange.
