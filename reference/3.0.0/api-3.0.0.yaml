@@ -2116,26 +2116,11 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         amount:
-          type: number
+          type: string
           description: total amount of transaction - Cannot be empty.
           example: 100.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
-            defaultFractionDigits:
-              type: integer
-              format: int32
-            numericCode:
-              type: integer
-              format: int32
-            displayName:
-              type: string
-            symbol:
-              type: string
-            numericCodeAsString:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         processing_date:
@@ -5408,13 +5393,13 @@ components:
           type: string
           example: 2019-07-08T00:00:00.000+0000
         transaction_amount:
-          type: number
+          type: string
           example: 80
         processed_currency_code:
           type: string
           example: "840"
         submitted_currency_amount:
-          type: number
+          type: string
           example: 0
         submitted_currency_code:
           type: string
@@ -5465,7 +5450,7 @@ components:
           type: string
           example: ""
         authorization_amount:
-          type: number
+          type: string
           example: 80
         authorization_date:
           type: string
@@ -5501,7 +5486,7 @@ components:
           type: string
           example: "0"
         convenience_fee_amount:
-          type: number
+          type: string
           example: 0
         submerchant_id:
           type: string
@@ -5528,7 +5513,7 @@ components:
           type: string
           example: "000000.00"
         total_auth_amount:
-          type: number
+          type: string
           example: 0
         market_specific_indicator:
           type: string
@@ -5555,7 +5540,7 @@ components:
           type: string
           example: "0.0"
         transaction_charges:
-          type: number
+          type: string
           example: 0
         capture_method:
           type: string
@@ -5591,7 +5576,7 @@ components:
           type: string
           example: 0000000.00      0000
         charge_amount_1:
-          type: number
+          type: string
           example: 0
         posting_charge_description_2:
           type: string
@@ -5609,7 +5594,7 @@ components:
           type: string
           example: 0.0960+000000000000.
         charge_amount_2:
-          type: number
+          type: string
           example: 395
         posting_charge_description_3:
           type: string
@@ -5627,7 +5612,7 @@ components:
           type: string
           example: ""
         charge_amount_3:
-          type: number
+          type: string
           example: 0
         posting_charge_description_4:
           type: string
@@ -5645,7 +5630,7 @@ components:
           type: string
           example: ""
         charge_amount_4:
-          type: number
+          type: string
           example: 0
         posting_charge_description_5:
           type: string
@@ -5663,7 +5648,7 @@ components:
           type: string
           example: ""
         charge_amount_5:
-          type: number
+          type: string
           example: 0
         date_added:
           $ref: '#/components/schemas/date'
@@ -5691,7 +5676,7 @@ components:
 
     amount:
       multipleOf: 0.01
-      type: number
+      type: string
       description: The amount in this balance
       example: 140.5
     dda:
@@ -9968,10 +9953,10 @@ components:
       type: object
       properties:
         limit:
-          type: number
+          type: string
           description: The limit on how many transaction reports to retrieve
         page:
-          type: number
+          type: string
           description: The page where to get those reports from
         summary_status:
           type: string
@@ -10043,7 +10028,7 @@ components:
       properties:
         amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Amount to be settled
           example: 30.04
         description:
@@ -10056,7 +10041,7 @@ components:
       properties:
         amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Instructional Amount
           example: 20.04
         account_type:
@@ -10076,32 +10061,32 @@ components:
       properties:
         transaction_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Transaction amount
           example: 140.5
         refund_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Refund amount
           example: 30.5
         net_transaction_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Net Transaction amount
           example: 50
         rejected_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Rejected amount
           example: 80
         chargeback:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Chargeback
           example: 90
         chargeback_reversal:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Chargeback Reversal
           example: 30
       description: Trade Summary
@@ -10769,7 +10754,7 @@ components:
           - SUCCESS
           - ERROR
         response:
-          $ref: '#/components/schemas/BaseResponseDTO'
+          $ref: '#/components/schemas/Account_Transaction_Search_Response_response'
     AdjustmentDateQuery:
       required:
       - and_value
@@ -11302,14 +11287,11 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         amount:
-          type: number
+          type: string
           description: total amount of transaction - Cannot be empty.
           example: 100.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         split_details:
@@ -11456,14 +11438,11 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         amount:
-          type: number
+          type: string
           description: total amount of transaction - Cannot be empty.
           example: 100.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         note:
@@ -11667,12 +11646,11 @@ components:
           - BILLING_INSTRUCTION
           
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         amount:
-          type: number
+          type: string
         settlement_type:
           type: string
           enum:
@@ -11689,12 +11667,11 @@ components:
           - CREDIT
           - DEBIT
         settlement_amount:
-          type: number
+          type: string
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         reject_reason_code:
           type: string
         reject_reason_more_info:
@@ -11757,10 +11734,7 @@ components:
           description: total amount - Cannot be empty.
           example: 5.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         accounts:
@@ -11929,10 +11903,7 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         funding:
@@ -11990,7 +11961,7 @@ components:
             - RESERVE
             - CHARGEBACK
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12026,7 +11997,7 @@ components:
             - SERVICE_FEE
             - GROSS_FEE
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12061,7 +12032,7 @@ components:
           enum:
             - CHARGEBACK
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12166,7 +12137,7 @@ components:
           - PFAC_ADJUSTMENT
           - SPLIT
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12250,7 +12221,7 @@ components:
           - PFAC_ADJUSTMENT
           - SPLIT
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12278,10 +12249,7 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         funding:
@@ -12347,7 +12315,7 @@ components:
           description: adjustment  invoice number - Cannot be empty.
           example: "123456789"
         amount:
-          type: number
+          type: string
           description: adjustment  amount - Cannot be empty.
           example: 10.0
         debit_option:
@@ -12366,10 +12334,7 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000001"
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         date:
@@ -12403,10 +12368,9 @@ components:
           - RESERVE_DEDUCTION
           - GROSS_FEE
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         transaction_source:
           type: string
           enum:
@@ -12414,31 +12378,44 @@ components:
           - ACH
         transaction_amount:
           type: string
+          example: '140.5'
         refund_amount:
           type: string
+          example: '140.5'
         net_transaction_amount:
           type: string
+          example: '140.5'
         rejected_amount:
           type: string
+          example: '140.5'
         chargeback:
           type: string
+          example: '140.5'
         chargeback_reversal:
           type: string
+          example: '140.5'
         deposit_adjustments:
           type: string
+          example: '140.5'
         number_of_transactions:
           type: string
           format: int32
+          example: '10'
         hold_amount:
           type: string
+          example: '140.5'
         reprocessed_amount:
           type: string
+          example: '140.5'
         transaction_hold_amount:
           type: string
+          example: '140.5'
         check_adjustment_amount:
           type: string
+          example: '140.5'
         return_amount:
           type: string
+          example: '140.5'
     TradeAccountInfoResponse:
       type: object
       properties:
@@ -12466,10 +12443,7 @@ components:
           format: date
           example: 2020-02-20
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         merchant_id:
@@ -12481,8 +12455,10 @@ components:
       properties:
         account_type:
           type: string
+          example: 'REVENUE_ACCOUNT'
         amount:
           type: string
+          example: '140.5'
         type:
           type: string
         split_details:
@@ -12514,9 +12490,11 @@ components:
       type: object
       properties:
         amount:
-          type: number
+          type: string
+          example: "17.00"
         description:
           type: string
+          example: "Delay Funding"
         account_type:
           type: string
           enum:
@@ -12583,20 +12561,27 @@ components:
           - CREDIT
           - DEBIT
         settlement_amount:
-          type: number
+          type: string
+          example: "17.00"
         settlement_status:
           type: string
+          example: DEBIT
         dda:
           type: string
+          example: '123456789'
         aba:
           type: string
+          example: '******123'
         effective_date:
           type: string
           format: date
+          example: "2019-08-30T00:00:00.000+0000"
         settlement_ref:
           type: string
+          example: "XYZ"
         mid:
           type: string
+          example: "321000234423"
     SplitDetailResponse:
       type: object
       properties:
@@ -12610,7 +12595,7 @@ components:
       type: object
       properties:
         amount:
-          type: number
+          type: string
         destination:
           type: string
           enum:
@@ -12657,10 +12642,7 @@ components:
       type: object
       properties:
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         account_type:
@@ -12762,10 +12744,9 @@ components:
           - SETTLEMENT_STATEMENT
           - BILLING_INSTRUCTION
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         balance:
           type: string
           example: 0.00
@@ -12804,10 +12785,7 @@ components:
           format: date
           example: 2020-02-06
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         merchant_id:
@@ -12857,17 +12835,17 @@ components:
         description:
           type: string
         total_in:
-          type: number
+          type: string
         total_out:
-          type: number
+          type: string
         balance:
-          type: number
+          type: string
         prev_balance:
-          type: number
+          type: string
         info_balance:
-          type: number
+          type: string
         info_prev_balance:
-          type: number
+          type: string
         destinations:
           type: object
           additionalProperties:
@@ -12896,19 +12874,19 @@ components:
       type: object
       properties:
         transaction_amount:
-          type: number
+          type: string
         refund_amount:
-          type: number
+          type: string
         net_transaction_amount:
-          type: number
+          type: string
         rejected_amount:
-          type: number
+          type: string
         deposit_adjustments:
-          type: number
+          type: string
         chargeback:
-          type: number
+          type: string
         chargeback_reversal:
-          type: number
+          type: string
     refresh_token:
       required:
         - grant_type
@@ -12932,7 +12910,7 @@ components:
           description: the type of the token
           example: bearer
         expires_in:
-          type: number
+          type: string
           description: 'Time until the token expires, displayed in __seconds__ '
           example: 3600
         refresh_token:
@@ -12997,10 +12975,10 @@ components:
       type: object
       properties:
         unique_id:
-          type: number
+          type: string
           example: 8101182
         score:
-          type: number
+          type: string
           example: 80
         business:
           $ref: '#/components/schemas/possibleMatchBusinessBlock'
@@ -13103,10 +13081,10 @@ components:
               type: object
               properties:
                 unique_id:
-                  type: number
+                  type: string
                   example: 8101182
                 score:
-                  type: number
+                  type: string
                   example: 80
                 business:
                   $ref: '#/components/schemas/possibleMatchBusinessBlock'
@@ -14752,7 +14730,7 @@ components:
         role:
           $ref: '#/components/schemas/Position'
         entity_number:
-          type: number
+          type: string
           example: 0
     BusinessIntelligenceReportBlockDetail:
       type: object
@@ -14968,10 +14946,10 @@ components:
       type: object
       properties:
         unique_id:
-          type: number
+          type: string
           example: 8101182
         score:
-          type: number
+          type: string
           example: 80
         business:
           $ref: '#/components/schemas/possibleMatchBusinessBlock'
@@ -15011,7 +14989,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: string
           example: 8101182
         title:
           type: object
@@ -15142,10 +15120,10 @@ components:
       type: object
       properties:
         unique_id:
-          type: number
+          type: string
           example: 8101182
         score:
-          type: number
+          type: string
           example: 80
         person:
           $ref: '#/components/schemas/possibleMatchPersonBlock'
@@ -15256,7 +15234,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: string
           example: 8101182
         title:
           type: object
@@ -15401,7 +15379,7 @@ components:
       type: object
       properties:
         personId:
-          type: number
+          type: string
           example: "string"
         name:
           type: string
@@ -15617,10 +15595,10 @@ components:
       type: object
       properties:
         limit:
-          type: number
+          type: string
           description: The limit on how many transaction reports to retrieve
         page:
-          type: number
+          type: string
           description: The page where to get those reports from
         query:
           $ref: '#/components/schemas/Account_Transaction_Search_Request_query'
@@ -15692,7 +15670,7 @@ components:
       properties:
         amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Amount for the specified destination
         destination:
           type: string
@@ -16547,12 +16525,12 @@ components:
           $ref: '#/components/schemas/AccountType'
         total_in:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Total Amount In
           example: 30
         total_out:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Total Amount Out
           example: 30
         destinations:
@@ -16562,12 +16540,12 @@ components:
             $ref: '#/components/schemas/DestinationsBlock'
         balance:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Balance in this account
           example: 50
         prev_balance:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Previous Balance in this account
           example: 10
     AccountArrayReleaseReponse:
