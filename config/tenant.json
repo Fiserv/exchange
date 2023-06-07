@@ -4,7 +4,7 @@
   "brand": "Fiserv",
   "brandLogoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Fiserv_Logo.jpg",
   "solution": ["financial-institutions"],
-  "brandDescription": "REPLACE ME > Fiserv, Inc. is a global provider of payments and financial services technology solutions. The Company provides account processing and digital banking solutions, card issuer processing and network services, payments, e-commerce, merchant acquiring and processing, and the Clover cloud-based point-of-sale solution. The Company operates through three segments: Merchant Acceptance (Acceptance), Financial Technology (Fintech) and Payments and Network (Payments).",
+  "brandDescription": "Exchange offers Payment Facilitators and Marketplaces integrations for Merchant onboarding, reporting, risk decisioning and settlements all in the same platform.",
   "categories": [
     {
       "name": "businessTypes",
@@ -36,6 +36,7 @@
     "documentation": "/v1/docs/Exchange",
     "documenttree": "/v1/docs/Exchange",
     "documenttreeV2": "/v2/docs/Exchange",
+    "sandbox": "/v1/sandboxrun/Exchange",
     "feature":[
       {
         "name": "sandBox",
@@ -57,19 +58,19 @@
   },
    "supportConfig": [{ 
 		"bug": {
-			"label": "bug,REPLACEME",
+			"label": "bug,Exchange",
 			"template": "bug.md",
-			"assignees": "TaniaS210489"
+			"assignees": "up-t-j"
 		},
 		"feedback": {
-			"label": "feedback,REPLACEME",
+			"label": "feedback,Exchange",
 			"template": "feedback.md",
-			"assignees": "TaniaS210489"
+			"assignees": "up-t-j"
 		},
 		"enhancement": {
-			"label": "enhancement,REPLACEME",
+			"label": "enhancement,Exchange",
 			"template": "feature.md",
-			"assignees": "TaniaS210489"
+			"assignees": "up-t-j"
 		}
 	}]
 }

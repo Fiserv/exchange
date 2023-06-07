@@ -28,43 +28,43 @@
 # the delivery of this work
 ################################################################################
 header:
-  productName: REPLACEME
-  productionDescription: REPLACEME
-  whoIsItFor: REPLACEME
+  productName: Exchange
+  productionDescription: Exchange is a platform that brings together all the functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, sub-merchant onboarding, underwriting, flexible funding options, and reporting.
+  whoIsItFor: Payment Facilitators
   image: 
     link: "/assets/images/Fiserv_Logo.jpg"
     altText: REPLACEME™
 featuredFeatures:
-  - title: REPLACE ME
-    description:  REPLACE ME
-    tags: ["REPLACEME", "REPLACEME", "REPLACEME"]
-    bullets: ["REPLACEME", "REPLACEME" ]  
+  - title: Payment Facilitators
+    description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
+    tags: ["boarding", "funding", "settlement", "reporting"]
+    bullets: ["bullet1", "bullet2" ]  
     relatedDocs:
       - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME1.md
+        title: Sub-merchant boarding
+        description: End-to-end sub-merchant onboarding is avaliable through API and UI.
+        link: docs/getting-started/boarding.md
       - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME2.md
+        title: Funding
+        description: Funding instructions and split details that can be sent through API.
+        link: docs/getting-started/funding.md
       - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME3.md
+        title: Reporting & Settlement
+        description: Settlement details and reporting avaliable through Exchange.
+        link: docs/getting-started/reporting.md
     relatedAPIs:
       - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "patch"        
-        path: "/v1/REPLACEME1"
-      - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
+        title: Add Application
+        description: Add a new Merchant application
         type: "post"        
-        path: "/v1/REPLACEME2"
+        path: "/merchant/application"
       - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "get"        
-        path: "/v1/REPLACEME3"
+        title: Funding Instruction
+        description: Send Funding Instruction
+        type: "post"        
+        path: "/v1/funding/instruction"
+      - relatedAPI: 
+        title: Get Settlement Info
+        description: Retrieve settlement information
+        type: "post"        
+        path: "/account/settlement-info"
