@@ -5747,6 +5747,7 @@ components:
             - PFAC_REVENUE_ACCOUNT
         amount:
           type: string
+          example: '140.5'
     AccountResponse:
       required:
         - account_type
@@ -5810,21 +5811,6 @@ components:
     AccountsDetailsArray:
       type: array
       description: 'Array of merchant''s account details: at least one account is required'
-      example:
-        - account_type: REVENUE_ACCOUNT
-          amount: "550.00"
-          details:
-            item_key: ""
-            item_name: ""
-            item_description: ""
-            item_amount: ""
-        - account_type: FEE_ACCOUNT
-          amount: "550.00"
-          details:
-            item_key: ""
-            item_name: ""
-            item_description: ""
-            item_amount: ""
       items:
         $ref: '#/components/schemas/AccountDetail'
     AccountDetail:
@@ -5839,6 +5825,7 @@ components:
         amount:
           type: string
           description: Amount to be funded to this account
+          example: '140.5'
         details:
           required:
             - item_amount
@@ -5888,12 +5875,15 @@ components:
     ItemKey:
       type: string
       description: Item key
+      example: "my item key"
     ItemDescription:
       type: string
       description: Item description
+      example: "my item description"
     ItemAmount:
       type: string
       description: Item amount
+      example: 'my item amount'
     RetrieveAccountBalance_Operation:
       required:
         - operation_type
@@ -11142,8 +11132,10 @@ components:
       properties:
         amount:
           type: string
+          example: '140.5'
         merchant_id:
           type: string
+          example: '123002882399'
     TransactionInstructionResponse:
       type: object
       properties:
