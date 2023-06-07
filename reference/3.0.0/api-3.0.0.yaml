@@ -12853,11 +12853,9 @@ components:
         trade_summary:
           $ref: '#/components/schemas/TradeSummaryDTO'
         account_summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/AccountSummaryDTO'
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountSummaryDTO'
         settlement_summary:
           type: array
           items:
