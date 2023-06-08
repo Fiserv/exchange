@@ -1,7 +1,7 @@
 # Split Funding by Transaction
 
 ## What is split funding?
-Split funding allows the PayFac to direct funds from a merchant to third parties on the system. 
+Split funding allows the PayFac to direct funds from a processing sub-merchant to third parties on the system. 
 Three of the split funding solutions we offer require or allow instructions to be sent by API to facilitate funding. This page contains info for the two methods for split by transaction.
 
 ### Split Funding - by Transaction
@@ -10,7 +10,7 @@ Instructional Split by transaction requires the instructions to be sent through 
 
 This is accompanied by the `/split/status` endpoint in order to check the funding status of a MIDs transaction and for its involved entities
 
-If the `/split/transaction-details` request has incorrect identifiers, the amounts not instructed will be held in the merchants Hold account for reprocessing using  `/split/transaction-details` again with the correct information.
+If the `/split/transaction-details` request has incorrect identifiers, the amounts not instructed will be held in the sub-merchants Hold account for reprocessing using  `/split/transaction-details` again with the correct information.
 
 <!--
 type: tab

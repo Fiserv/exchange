@@ -28,43 +28,83 @@
 # the delivery of this work
 ################################################################################
 header:
-  productName: Exchange
-  productionDescription: Exchange is a platform that brings together all the functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, sub-merchant onboarding, underwriting, flexible funding options, and reporting.
-  whoIsItFor: Payment Facilitators
-  image: 
-    link: "/assets/images/Fiserv_Logo.jpg"
-    altText: REPLACEME™
+  productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
+getStarted: /docs/introduction/exchange-intro.md
+benefits:
+  - title: Boarding
+    description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
+    icon: assets/images/business_icon_square.png
+  - title: Funding
+    description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
+    icon: assets/images/money_icon_square.png
+  - title: Settlement 
+    description: Settlement details and reporting avaliable through Exchange.
+    icon: assets/images/statement_icon_square.png
+guides:
+  - title: Boarding API guide
+    description: Boarding a standard location through our API
+    link: docs/getting-started/boarding.md
 featuredFeatures:
   - title: Payment Facilitators
-    description:  End-to-end digital solution for Payment Facilitators and Marketplaces. 
-    tags: ["boarding", "funding", "settlement", "reporting"]
-    bullets: ["bullet1", "bullet2" ]  
+    featured: true
+    description:  Supporting payment faciliators services and requirments
     relatedDocs:
-      - relatedDoc: 
+      - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
-        description: End-to-end sub-merchant onboarding is avaliable through API and UI.
-        link: docs/getting-started/boarding.md
-      - relatedDoc: 
+      - link: docs/getting-started/funding.md
         title: Funding
-        description: Funding instructions and split details that can be sent through API.
-        link: docs/getting-started/funding.md
-      - relatedDoc: 
+      - link: docs/getting-started/reporting.md 
         title: Reporting & Settlement
-        description: Settlement details and reporting avaliable through Exchange.
-        link: docs/getting-started/reporting.md
-    relatedAPIs:
-      - relatedAPI: 
-        title: Add Application
-        description: Add a new Merchant application
-        type: "post"        
-        path: "/merchant/application"
-      - relatedAPI: 
-        title: Funding Instruction
-        description: Send Funding Instruction
-        type: "post"        
-        path: "/v1/funding/instruction"
-      - relatedAPI: 
-        title: Get Settlement Info
-        description: Retrieve settlement information
-        type: "post"        
-        path: "/account/settlement-info"
+  - title: Marketplaces
+    featured: true
+    description:  Supporting Marketplace offerings with split payments
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+  - title: PayFac Lite
+    featured: true
+    description:  Supporting PayFac Lite (through UI only currently)
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+  - title: Boarding
+    groupName: API Suite
+    description:  End-to-end boarding API 
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+    relatedAPIs: 
+      - type: post       
+        path: /boarding/add_application
+  - title: Funding
+    groupName: API Suite
+    description:  Funding instructions and split details that can be sent through API.
+    relatedDocs:
+      - link: docs/getting-started/funding.md
+        title: Instruct funding
+    relatedAPIs: 
+      - type: post
+        title: Funding Instruction       
+        path: /funding/instruction        
+  - title: Reporting & Settlement
+    groupName: API Suite
+    description:   Settlement details and reporting avaliable through Exchange.
+    relatedDocs: 
+        - link: /docs/getting-started/reporting.md  
+          title: Reporting
+    relatedAPIs: 
+      - type: post
+        title: Get Settlement Info    
+        path: /account/settlement-info   
