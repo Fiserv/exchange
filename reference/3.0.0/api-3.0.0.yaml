@@ -12593,8 +12593,10 @@ components:
       properties:
         amount:
           type: string
+          example: '140.5'
         destination:
           type: string
+          example: 'REVENUE_ACCOUNT'
           enum:
           - TRADE
           - CHARGEBACK
@@ -12833,16 +12835,22 @@ components:
           type: string
         total_in:
           type: string
+          example: '140.5'
         total_out:
           type: string
+          example: '140.5'
         balance:
           type: string
+          example: '140.5'
         prev_balance:
           type: string
+          example: '140.5'
         info_balance:
           type: string
+          example: '140.5'
         info_prev_balance:
           type: string
+          example: '140.5'
         destinations:
           type: object
           additionalProperties:
@@ -12870,18 +12878,25 @@ components:
       properties:
         transaction_amount:
           type: string
+          example: '140.5'
         refund_amount:
           type: string
+          example: '140.5'
         net_transaction_amount:
           type: string
+          example: '140.5'
         rejected_amount:
           type: string
+          example: '140.5'
         deposit_adjustments:
           type: string
+          example: '140.5'
         chargeback:
           type: string
+          example: '140.5'
         chargeback_reversal:
           type: string
+          example: '140.5'
     refresh_token:
       required:
         - grant_type
@@ -15713,11 +15728,11 @@ components:
         initiator:
           type: string
           description: who initiated the maintenance case
-          example: "PROVIDER"
+          example: "ALLIANCE"
         alliance_code:
           type: string
           description: the alliance code
-          example: "FIRSTDATA"
+          example: "FDMS"
     operationmm:
       type: object
       properties:    
