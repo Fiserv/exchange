@@ -3275,7 +3275,7 @@ components:
                           example: FD150
                         equipment_manufacturer: 
                           type: string
-                          example: FDGL
+                          example: FD
                         equipment_type_code: 
                           type: string
                           example: POS
@@ -3292,7 +3292,7 @@ components:
                                 example: 2
                               feature_category: 
                                 type: string
-                                example: POS_NEXO
+                                example: POS
                               feature_api_code: 
                                 type: string
                                 example: RECLN1
@@ -3428,7 +3428,7 @@ components:
                                 example: SCIC7-7F911-62F1F-AEE21-10E6B-B6481-6F2B6
                               service_item_name: 
                                 type: string
-                                example: Cyber Source Setup
+                                example: Source Setup
                               service_item_type: 
                                 type: string
                                 example: 2
@@ -11643,6 +11643,7 @@ components:
           example: USD
         amount:
           type: string
+          example: 140.5
         settlement_type:
           type: string
           enum:
@@ -11660,14 +11661,17 @@ components:
           - DEBIT
         settlement_amount:
           type: string
+          example: 140.5
         currency:
           type: string
           description: Currency - Cannot be empty.
           example: USD
         reject_reason_code:
           type: string
+          example : XXX
         reject_reason_more_info:
           type: string
+          example: 'more info'
         hierarchy:
           type: string
           enum:
@@ -11675,6 +11679,7 @@ components:
           - PFAC
         merchant_id:
           type: string
+          example: '345200034343'
         details:
           type: array
           items:
