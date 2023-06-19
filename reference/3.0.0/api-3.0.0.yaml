@@ -21,7 +21,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -60,7 +60,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -98,7 +98,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Adding a new Merchant Subgroup
@@ -133,7 +133,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Updating a Merchant Subgroup
@@ -167,7 +167,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieving a Merchant Subgroup
@@ -202,7 +202,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Adding a new Merchant Outlet
@@ -237,7 +237,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Updating a Merchant Outlet
@@ -272,7 +272,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieving a Merchant Outlet
@@ -295,7 +295,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Outlet
+      x-proxy-name: Retrieve Merchant Outlet
   /boarding/////merchant:
     post:
       tags:
@@ -394,7 +394,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -433,7 +433,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -472,7 +472,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -511,7 +511,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -549,7 +549,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -589,7 +589,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -615,7 +615,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/chargebacks:
     post:
       tags:
@@ -629,7 +629,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -655,7 +655,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/chargeback-adjustments:
     post:
       tags:
@@ -669,7 +669,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -695,7 +695,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/authorizations:
     post:
       tags:
@@ -709,7 +709,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -735,7 +735,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/adjustments:
     post:
       tags:
@@ -749,7 +749,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -775,7 +775,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResponse'
+                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /settlement/rejects:
     post:
       tags:
@@ -790,7 +790,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -830,7 +830,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -863,15 +863,16 @@ paths:
         - Funding Instruction
       summary: "Funding instruction can distribute the funds according to merchant\
         \ id, currency, total amount and accounts."
-      x-group-name: Funding
+      x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction
+      x-child-product-name: Funding
       operationId: fundingInstruction
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -905,14 +906,15 @@ paths:
       summary: Details instruction allows to provide more breakdown details about
         the amounts to be instructed.
       operationId: fundingDetailsInstruction
-      x-group-name: Funding
+      x-group-name: Funding by Summary
       x-proxy-name: Funding Detailed-Instruction
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -952,7 +954,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -992,7 +994,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1032,7 +1034,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1072,7 +1074,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1108,12 +1110,13 @@ paths:
       operationId: updateSplitInstruction
       x-group-name: Transaction Instruction
       x-proxy-name: Update Transaction Details
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1149,12 +1152,13 @@ paths:
       operationId: splitInstruction
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Details
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1190,12 +1194,13 @@ paths:
       operationId: splitInstructionStatus
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Status
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1231,12 +1236,13 @@ paths:
       operationId: splitReprocess
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Reprocess
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1271,12 +1277,13 @@ paths:
       operationId: getErroredTransactions
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Instruction Errors
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1312,12 +1319,13 @@ paths:
       operationId: discardTransaction
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Discard
+      x-child-product-name: Funding
       parameters:
       - name: X-API-VERSION
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1356,7 +1364,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Transaction Search
@@ -1393,7 +1401,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Creating a Maintenance Case for a merchant
@@ -1428,7 +1436,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Updating a Maintenance Case for a Merchant. Information in the payload will depend on scenario and info being updated.
@@ -1463,7 +1471,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Submitting a Maintenance Case for a Merchant
@@ -1498,7 +1506,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Searching for a Maintenance Case already created
@@ -1533,7 +1541,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieving a Maintenance Case already Created
@@ -1559,8 +1567,8 @@ paths:
     post:
       tags:
       - Merchant Maintenance
-      x-proxy-name: Merchant Maintenance
-      x-group-name: Cancel Maintenance Case
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Cancel Maintenance Case
       summary: Cancelling a Maintenance Case
       description: Cancelling a Maintenance Case
       parameters:
@@ -1568,7 +1576,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Cancelling a Maintenance Case
@@ -1603,7 +1611,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Get merchant bank information
@@ -1638,7 +1646,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Adding a new Non-Processing Merchant Application
@@ -1673,7 +1681,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
@@ -1703,7 +1711,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: List of Additional Documents Configured
@@ -1738,7 +1746,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Submitting additional documents for Application
@@ -1773,7 +1781,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Screening
@@ -1797,6 +1805,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
       x-proxy-name: Retrieve Avaliable Reports
+      x-child-product-name: Risk
   /intelligence/retrieve_report:
     post:
       tags:
@@ -1808,7 +1817,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Full Report for Screening
@@ -1832,6 +1841,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
       x-proxy-name: Retrieve Full Report for Screening
+      x-child-product-name: Risk
   /intelligence/overwrite_aml_reports:
     post:
       tags:
@@ -1843,7 +1853,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Overwriting AML Report for Screening (OFAC Report)
@@ -1867,6 +1877,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
       x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
+      x-child-product-name: Risk
   /intelligence/overwrite_risk_reports:
     post:
       tags:
@@ -1878,7 +1889,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Overwriting CREDIT RISK Report for Screening (OFAC Report)
@@ -1902,6 +1913,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
       x-proxy-name: Overwrite Credit Risk report for screening
+      x-child-product-name: Risk
   /intelligence/decision:
     post:
       tags:
@@ -1913,7 +1925,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
@@ -1937,6 +1949,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
       x-proxy-name: Risk Decision
+      x-child-product-name: Risk
   /monitoring/retrieve_hits:
     post:
       tags:
@@ -1948,7 +1961,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Monitoring
@@ -1972,6 +1985,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Monitoring
       x-proxy-name: Retrieve Risk Avaliable Reports List for monitoring
+      x-child-product-name: Risk
   /monitoring/retrieve_report:
     post:
       tags:
@@ -1983,7 +1997,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Full Reports for Monitoring
@@ -2007,6 +2021,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Monitoring
       x-proxy-name: Retrieve Risk Full Reports for Monitoring
+      x-child-product-name: Risk
   /monitoring/overwrite_monitoring_report:
     post:
       tags:
@@ -2018,7 +2033,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Overwriting AML Report for Monitoring (OFAC Report)
@@ -2041,8 +2056,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Monitoring
-      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)   
+      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
+      x-child-product-name: Risk
   /transaction_monitoring/search:
+  
     post:
       tags:
         - Transaction Monitoring
@@ -2068,6 +2085,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Transaction Monitoring
+      x-proxy-name: Search Alerts
+      x-child-product-name: Risk
   /transaction_monitoring/retrieve:
     post:
       tags:
@@ -2094,6 +2114,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
+      x-group-name: Transaction Monitoring
+      x-proxy-name: Retrieve Alerts
+      x-child-product-name: Risk
   /transaction_monitoring/decision:
     post:
       tags:
@@ -2120,8 +2143,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Decision
-      x-proxy-name: Make Transaction Monitoring Decision
+      x-group-name: Transaction Monitoring
+      x-proxy-name: Make Decision
+      x-child-product-name: Risk
 components:
   schemas:
     settlement_date:
@@ -2146,7 +2170,7 @@ components:
           example: 2021-09-02
 
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -2180,26 +2204,11 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         amount:
-          type: number
+          type: string
           description: total amount of transaction - Cannot be empty.
           example: 100.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
-            defaultFractionDigits:
-              type: integer
-              format: int32
-            numericCode:
-              type: integer
-              format: int32
-            displayName:
-              type: string
-            symbol:
-              type: string
-            numericCodeAsString:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         processing_date:
@@ -2509,13 +2518,19 @@ components:
           description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
           example: OW
           enum:
+            - VICE PRESIDENT
+            - PRESIDENT
             - TR
             - OW
             - PA
             - CEO
+            - MEMBER LLC
             - SEC
             - DIR
+            - COO
+            - CEO
             - OTH
+            - CFO
             - SP
         owner_phone_code:
           type: string
@@ -3348,7 +3363,7 @@ components:
                           example: FD150
                         equipment_manufacturer: 
                           type: string
-                          example: FDGL
+                          example: FD
                         equipment_type_code: 
                           type: string
                           example: POS
@@ -3365,7 +3380,7 @@ components:
                                 example: 2
                               feature_category: 
                                 type: string
-                                example: POS_NEXO
+                                example: POS
                               feature_api_code: 
                                 type: string
                                 example: RECLN1
@@ -3501,7 +3516,7 @@ components:
                                 example: SCIC7-7F911-62F1F-AEE21-10E6B-B6481-6F2B6
                               service_item_name: 
                                 type: string
-                                example: Cyber Source Setup
+                                example: Source Setup
                               service_item_type: 
                                 type: string
                                 example: 2
@@ -3860,8 +3875,23 @@ components:
                     type: string
                     example: 840
                   owner_position: 
-                    type: string
-                    example: CEO
+                    description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
+                    example: OW
+                    enum:
+                      - VICE PRESIDENT
+                      - PRESIDENT
+                      - TR
+                      - OW
+                      - PA
+                      - CEO
+                      - MEMBER LLC
+                      - SEC
+                      - DIR
+                      - COO
+                      - CEO
+                      - OTH
+                      - CFO
+                      - SP
                   is_main_principal: 
                     type: string
                     example: 1
@@ -4273,7 +4303,7 @@ components:
                     type: object
                     properties: 
                       from: 
-                        type: integer
+                        type: string
                         format: int32
                         example: 1
                 service_items: 
@@ -4713,11 +4743,11 @@ components:
                   format: date
                   example: 2020-01-01
                 business_average_ticket_sales_amt: 
-                  type: integer
+                  type: string
                   format: int32
                   example: 0
                 business_highest_ticket_sales_amt: 
-                  type: integer
+                  type: string
                   format: int32
                   example: 0
                 incorp_state: 
@@ -4764,8 +4794,23 @@ components:
                     type: string
                     example: 840
                   owner_position: 
-                    type: string
-                    example: CEO
+                    description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
+                    example: OW
+                    enum:
+                      - VICE PRESIDENT
+                      - PRESIDENT
+                      - TR
+                      - OW
+                      - PA
+                      - CEO
+                      - MEMBER LLC
+                      - SEC
+                      - DIR
+                      - COO
+                      - CEO
+                      - OTH
+                      - CFO
+                      - SP
                   is_main_principal: 
                     type: string
                     example: 1
@@ -5117,7 +5162,7 @@ components:
                     type: object
                     properties: 
                       from: 
-                        type: integer
+                        type: string
                         format: int32
                         example: 1
                 service_items: 
@@ -5436,13 +5481,13 @@ components:
           type: string
           example: 2019-07-08T00:00:00.000+0000
         transaction_amount:
-          type: number
+          type: string
           example: 80
         processed_currency_code:
           type: string
           example: "840"
         submitted_currency_amount:
-          type: number
+          type: string
           example: 0
         submitted_currency_code:
           type: string
@@ -5493,7 +5538,7 @@ components:
           type: string
           example: ""
         authorization_amount:
-          type: number
+          type: string
           example: 80
         authorization_date:
           type: string
@@ -5529,7 +5574,7 @@ components:
           type: string
           example: "0"
         convenience_fee_amount:
-          type: number
+          type: string
           example: 0
         submerchant_id:
           type: string
@@ -5556,7 +5601,7 @@ components:
           type: string
           example: "000000.00"
         total_auth_amount:
-          type: number
+          type: string
           example: 0
         market_specific_indicator:
           type: string
@@ -5583,7 +5628,7 @@ components:
           type: string
           example: "0.0"
         transaction_charges:
-          type: number
+          type: string
           example: 0
         capture_method:
           type: string
@@ -5619,7 +5664,7 @@ components:
           type: string
           example: 0000000.00      0000
         charge_amount_1:
-          type: number
+          type: string
           example: 0
         posting_charge_description_2:
           type: string
@@ -5637,7 +5682,7 @@ components:
           type: string
           example: 0.0960+000000000000.
         charge_amount_2:
-          type: number
+          type: string
           example: 395
         posting_charge_description_3:
           type: string
@@ -5655,7 +5700,7 @@ components:
           type: string
           example: ""
         charge_amount_3:
-          type: number
+          type: string
           example: 0
         posting_charge_description_4:
           type: string
@@ -5673,7 +5718,7 @@ components:
           type: string
           example: ""
         charge_amount_4:
-          type: number
+          type: string
           example: 0
         posting_charge_description_5:
           type: string
@@ -5691,7 +5736,7 @@ components:
           type: string
           example: ""
         charge_amount_5:
-          type: number
+          type: string
           example: 0
         date_added:
           $ref: '#/components/schemas/date'
@@ -5719,7 +5764,7 @@ components:
 
     amount:
       multipleOf: 0.01
-      type: number
+      type: string
       description: The amount in this balance
       example: 140.5
     dda:
@@ -5790,6 +5835,7 @@ components:
             - PFAC_REVENUE_ACCOUNT
         amount:
           type: string
+          example: '140.5'
     AccountResponse:
       required:
         - account_type
@@ -5852,22 +5898,7 @@ components:
       description: A single instruction detail block
     AccountsDetailsArray:
       type: array
-      description: 'Array of merchant''s account details: at least one accout is required'
-      example:
-        - account_type: REVENUE_ACCOUNT
-          amount: "550.00"
-          details:
-            item_key: ""
-            item_name: ""
-            item_description: ""
-            item_amount: ""
-        - account_type: FEE_ACCOUNT
-          amount: "550.00"
-          details:
-            item_key: ""
-            item_name: ""
-            item_description: ""
-            item_amount: ""
+      description: 'Array of merchant''s account details: at least one account is required'
       items:
         $ref: '#/components/schemas/AccountDetail'
     AccountDetail:
@@ -5882,6 +5913,7 @@ components:
         amount:
           type: string
           description: Amount to be funded to this account
+          example: '140.5'
         details:
           required:
             - item_amount
@@ -5931,12 +5963,15 @@ components:
     ItemKey:
       type: string
       description: Item key
+      example: "my item key"
     ItemDescription:
       type: string
       description: Item description
+      example: "my item description"
     ItemAmount:
       type: string
       description: Item amount
+      example: 'my item amount'
     RetrieveAccountBalance_Operation:
       required:
         - operation_type
@@ -7597,6 +7632,8 @@ components:
           $ref: '#/components/schemas/MID'
         external_mid:
           $ref: '#/components/schemas/MID'
+        marketplace_order_id:
+          $ref: '#/components/schemas/OrderID'
         legal_name:
           $ref: '#/components/schemas/LegalName'
         contact_title:
@@ -7658,6 +7695,7 @@ components:
           $ref: '#/components/schemas/ExtID'
         charges:
           $ref: '#/components/schemas/Charges'
+
     MerchantShort:
       type: object
       properties:
@@ -9430,17 +9468,22 @@ components:
       description: ISO3 nationality code
       example: USA
     Position:
-      type: string
-      description: Position in the company
+      description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
       example: CEO
       enum:
+        - VICE PRESIDENT
+        - PRESIDENT
         - TR
         - OW
         - PA
         - CEO
+        - MEMBER LLC
         - SEC
         - DIR
+        - COO
+        - CEO
         - OTH
+        - CFO
         - SP
     Email:
       type: string
@@ -9463,16 +9506,12 @@ components:
           $ref: '#/components/schemas/AddressLine1'
         county_code:
           $ref: '#/components/schemas/State'
-        house_number:
-          $ref: '#/components/schemas/HouseNumber'
         province:
           $ref: '#/components/schemas/Province'
         suite_apart_number:
           $ref: '#/components/schemas/Apartment'
         floor:
           $ref: '#/components/schemas/Floor'
-        house_name:
-          $ref: '#/components/schemas/HouseName'
     Apartment:
       type: string
       description: Apartment Number
@@ -9481,7 +9520,7 @@ components:
       type: string
       description: Floor
       example: "3"
-    HouseNumber:
+    _nameNumber:
       type: string
       description: House number
       example: "745"
@@ -9992,10 +10031,10 @@ components:
       type: object
       properties:
         limit:
-          type: number
+          type: string
           description: The limit on how many transaction reports to retrieve
         page:
-          type: number
+          type: string
           description: The page where to get those reports from
         summary_status:
           type: string
@@ -10067,7 +10106,7 @@ components:
       properties:
         amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Amount to be settled
           example: 30.04
         description:
@@ -10080,7 +10119,7 @@ components:
       properties:
         amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Instructional Amount
           example: 20.04
         account_type:
@@ -10100,32 +10139,32 @@ components:
       properties:
         transaction_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Transaction amount
           example: 140.5
         refund_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Refund amount
           example: 30.5
         net_transaction_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Net Transaction amount
           example: 50
         rejected_amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Rejected amount
           example: 80
         chargeback:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Chargeback
           example: 90
         chargeback_reversal:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Chargeback Reversal
           example: 30
       description: Trade Summary
@@ -10743,13 +10782,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -10793,7 +10832,7 @@ components:
           - SUCCESS
           - ERROR
         response:
-          $ref: '#/components/schemas/BaseResponseDTO'
+          $ref: '#/components/schemas/Account_Transaction_Search_Response_response'
     AdjustmentDateQuery:
       required:
       - and_value
@@ -10867,13 +10906,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -10944,13 +10983,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -10997,13 +11036,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -11076,13 +11115,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -11104,10 +11143,56 @@ components:
           description: account type - Cannot be empty.
           example: "REVENUE"
           enum:
+          - TRADE_ACCOUNT
+          - CHARGEBACK_ACCOUNT
+          - FEE_ACCOUNT
+          - REVENUE_ACCOUNT
+          - RESERVE_ACCOUNT
+          - CHARGEBACK_RECOVERY_ACCOUNT
+          - INSTRUCTIONAL_HOLD_ACCOUNT
+          - ROLLING_RESERVE_ACCOUNT
+          - RESERVE_DEDUCTION_ACCOUNT
+          - RESERVE_RELEASE_ACCOUNT
+          - MERCHANT_FEE_ACCOUNT
+          - SERVICE_FEE_ACCOUNT
+          - FEE_COLLECT_ACCOUNT
+          - REJECT_HOLD_ACCOUNT
+          - ADJUSTMENT_ACCOUNT
+          - REJECT_REPROCESS_ACCOUNT
+          - SUSPEND_ACCOUNT
+          - HOLD_ACCOUNT
+          - PFAC_REVENUE_ACCOUNT
+          - PFAC_RESERVE_ACCOUNT
+          - DELAY_FUNDING_ACCOUNT
+          - GROSS_FEE_ACCOUNT
+          - REJECT_ADJUSTMENT_ACCOUNT
+          - PFAC_ADJUSTMENT_ACCOUNT
+          - SPLIT_ACCOUNT
+          - TRADE
+          - CHARGEBACK
+          - FEE
           - REVENUE
           - RESERVE
+          - CHARGEBACK_RECOVERY
+          - INSTRUCTIONAL_HOLD
+          - ROLLING_RESERVE
+          - RESERVE_DEDUCTION
+          - RESERVE_RELEASE
+          - MERCHANT_FEE
           - SERVICE_FEE
+          - FEE_COLLECT
+          - REJECT_HOLD
+          - ADJUSTMENT
+          - REJECT_REPROCESS
+          - SUSPEND
+          - HOLD
+          - PFAC_REVENUE
+          - PFAC_RESERVE
+          - DELAY_FUNDING
           - GROSS_FEE
+          - REJECT_ADJUSTMENT
+          - PFAC_ADJUSTMENT
+          - SPLIT
       description: accounts - at least one details.
     TransactionInstructionDetailsDTO:
       required:
@@ -11135,8 +11220,10 @@ components:
       properties:
         amount:
           type: string
+          example: '140.5'
         merchant_id:
           type: string
+          example: '123002882399'
     TransactionInstructionResponse:
       type: object
       properties:
@@ -11166,7 +11253,7 @@ components:
           description: Date of transaction - Cannot be empty.
           example: 2021-09-02
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -11213,7 +11300,7 @@ components:
         currency:
           type: string
         transaction_type:
-          type: integer
+          type: string
           format: int32
         transaction_date:
           type: string
@@ -11246,7 +11333,7 @@ components:
           description: Date of transaction - Cannot be empty.
           example: 2021-09-02
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -11280,14 +11367,11 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         amount:
-          type: number
+          type: string
           description: total amount of transaction - Cannot be empty.
           example: 100.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         split_details:
@@ -11336,25 +11420,25 @@ components:
       type: object
       properties:
         limit:
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
-          type: integer
+          type: string
           format: int32
         transaction_type:
-          type: integer
+          type: string
           description: Type of transaction.
           format: int32
           example: 1
         status:
-          type: integer
+          type: string
           description: Status of transaction.
           format: int32
           example: 1
         processing_pfac_node_id:
-          type: integer
+          type: string
           description: Processing Pfac Node Id.
           format: int32
           example: 1
@@ -11362,13 +11446,13 @@ components:
       type: object
       properties:
         limit:
-          type: integer
+          type: string
           format: int32
         page:
-          type: integer
+          type: string
           format: int32
         count:
-          type: integer
+          type: string
           format: int32
         summary_status:
           type: string
@@ -11400,7 +11484,7 @@ components:
           description: Date of transaction - Cannot be empty.
           example: 2021-09-02
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -11434,14 +11518,11 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         amount:
-          type: number
+          type: string
           description: total amount of transaction - Cannot be empty.
           example: 100.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         note:
@@ -11544,7 +11625,7 @@ components:
             empty.
           example: SET31-8C51D-8AEB4-43357-37C4F-08A7A-BA648
         settlement_accounts_entry_id:
-          type: integer
+          type: string
           description: 'Settlement Accounts Entry ID '
           format: int64
           example: 1234567
@@ -11645,12 +11726,12 @@ components:
           - BILLING_INSTRUCTION
           
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         amount:
-          type: number
+          type: string
+          example: 140.5
         settlement_type:
           type: string
           enum:
@@ -11667,16 +11748,18 @@ components:
           - CREDIT
           - DEBIT
         settlement_amount:
-          type: number
+          type: string
+          example: 140.5
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         reject_reason_code:
           type: string
+          example : XXX
         reject_reason_more_info:
           type: string
+          example: 'more info'
         hierarchy:
           type: string
           enum:
@@ -11684,6 +11767,7 @@ components:
           - PFAC
         merchant_id:
           type: string
+          example: '345200034343'
         details:
           type: array
           items:
@@ -11710,7 +11794,7 @@ components:
           type: string
           description: Encryption of batch entry id
         settlement_batch_entry_id:
-          type: integer
+          type: string
           description: Settlement batch Entry Id
           format: int32
     AccountReserveReleaseRequest:
@@ -11735,10 +11819,7 @@ components:
           description: total amount - Cannot be empty.
           example: 5.0
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         accounts:
@@ -11907,10 +11988,7 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         funding:
@@ -11968,7 +12046,7 @@ components:
             - RESERVE
             - CHARGEBACK
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12004,7 +12082,7 @@ components:
             - SERVICE_FEE
             - GROSS_FEE
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12039,7 +12117,7 @@ components:
           enum:
             - CHARGEBACK
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12144,7 +12222,7 @@ components:
           - PFAC_ADJUSTMENT
           - SPLIT
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12228,7 +12306,7 @@ components:
           - PFAC_ADJUSTMENT
           - SPLIT
         amount:
-          type: number
+          type: string
           description: account amount - Cannot be empty.
           example: 5
         details:
@@ -12256,10 +12334,7 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000005"
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         funding:
@@ -12325,7 +12400,7 @@ components:
           description: adjustment  invoice number - Cannot be empty.
           example: "123456789"
         amount:
-          type: number
+          type: string
           description: adjustment  amount - Cannot be empty.
           example: 10.0
         debit_option:
@@ -12344,10 +12419,7 @@ components:
           description: Id of merchant - Cannot be empty.
           example: "400000000001"
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         date:
@@ -12381,10 +12453,9 @@ components:
           - RESERVE_DEDUCTION
           - GROSS_FEE
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         transaction_source:
           type: string
           enum:
@@ -12392,31 +12463,44 @@ components:
           - ACH
         transaction_amount:
           type: string
+          example: '140.5'
         refund_amount:
           type: string
+          example: '140.5'
         net_transaction_amount:
           type: string
+          example: '140.5'
         rejected_amount:
           type: string
+          example: '140.5'
         chargeback:
           type: string
+          example: '140.5'
         chargeback_reversal:
           type: string
+          example: '140.5'
         deposit_adjustments:
           type: string
+          example: '140.5'
         number_of_transactions:
           type: string
           format: int32
+          example: '10'
         hold_amount:
           type: string
+          example: '140.5'
         reprocessed_amount:
           type: string
+          example: '140.5'
         transaction_hold_amount:
           type: string
+          example: '140.5'
         check_adjustment_amount:
           type: string
+          example: '140.5'
         return_amount:
           type: string
+          example: '140.5'
     TradeAccountInfoResponse:
       type: object
       properties:
@@ -12444,10 +12528,7 @@ components:
           format: date
           example: 2020-02-20
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         merchant_id:
@@ -12459,8 +12540,10 @@ components:
       properties:
         account_type:
           type: string
+          example: 'REVENUE_ACCOUNT'
         amount:
           type: string
+          example: '140.5'
         type:
           type: string
         split_details:
@@ -12476,7 +12559,15 @@ components:
       properties:
         received_datetime:
           type: string
-        received_instruction:
+        funding:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountDetailRequest'
+        billing:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountDetailRequest'
+        chargeback:
           type: array
           items:
             $ref: '#/components/schemas/AccountDetailRequest'
@@ -12484,9 +12575,11 @@ components:
       type: object
       properties:
         amount:
-          type: number
+          type: string
+          example: "17.00"
         description:
           type: string
+          example: "Delay Funding"
         account_type:
           type: string
           enum:
@@ -12553,20 +12646,27 @@ components:
           - CREDIT
           - DEBIT
         settlement_amount:
-          type: number
+          type: string
+          example: "17.00"
         settlement_status:
           type: string
+          example: DEBIT
         dda:
           type: string
+          example: '123456789'
         aba:
           type: string
+          example: '******123'
         effective_date:
           type: string
           format: date
+          example: "2019-08-30T00:00:00.000+0000"
         settlement_ref:
           type: string
+          example: "XYZ"
         mid:
           type: string
+          example: "321000234423"
     SplitDetailResponse:
       type: object
       properties:
@@ -12580,9 +12680,11 @@ components:
       type: object
       properties:
         amount:
-          type: number
+          type: string
+          example: '140.5'
         destination:
           type: string
+          example: 'REVENUE_ACCOUNT'
           enum:
           - TRADE
           - CHARGEBACK
@@ -12627,10 +12729,7 @@ components:
       type: object
       properties:
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         account_type:
@@ -12732,10 +12831,9 @@ components:
           - SETTLEMENT_STATEMENT
           - BILLING_INSTRUCTION
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
+          description: Currency - Cannot be empty.
+          example: USD
         balance:
           type: string
           example: 0.00
@@ -12774,10 +12872,7 @@ components:
           format: date
           example: 2020-02-06
         currency:
-          type: object
-          properties:
-            currencyCode:
-              type: string
+          type: string
           description: Currency - Cannot be empty.
           example: USD
         merchant_id:
@@ -12827,17 +12922,23 @@ components:
         description:
           type: string
         total_in:
-          type: number
+          type: string
+          example: '140.5'
         total_out:
-          type: number
+          type: string
+          example: '140.5'
         balance:
-          type: number
+          type: string
+          example: '140.5'
         prev_balance:
-          type: number
+          type: string
+          example: '140.5'
         info_balance:
-          type: number
+          type: string
+          example: '140.5'
         info_prev_balance:
-          type: number
+          type: string
+          example: '140.5'
         destinations:
           type: object
           additionalProperties:
@@ -12853,11 +12954,9 @@ components:
         trade_summary:
           $ref: '#/components/schemas/TradeSummaryDTO'
         account_summary:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/AccountSummaryDTO'
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountSummaryDTO'
         settlement_summary:
           type: array
           items:
@@ -12866,19 +12965,26 @@ components:
       type: object
       properties:
         transaction_amount:
-          type: number
+          type: string
+          example: '140.5'
         refund_amount:
-          type: number
+          type: string
+          example: '140.5'
         net_transaction_amount:
-          type: number
+          type: string
+          example: '140.5'
         rejected_amount:
-          type: number
+          type: string
+          example: '140.5'
         deposit_adjustments:
-          type: number
+          type: string
+          example: '140.5'
         chargeback:
-          type: number
+          type: string
+          example: '140.5'
         chargeback_reversal:
-          type: number
+          type: string
+          example: '140.5'
     refresh_token:
       required:
         - grant_type
@@ -12902,7 +13008,7 @@ components:
           description: the type of the token
           example: bearer
         expires_in:
-          type: number
+          type: string
           description: 'Time until the token expires, displayed in __seconds__ '
           example: 3600
         refresh_token:
@@ -12967,10 +13073,10 @@ components:
       type: object
       properties:
         unique_id:
-          type: number
+          type: string
           example: 8101182
         score:
-          type: number
+          type: string
           example: 80
         business:
           $ref: '#/components/schemas/possibleMatchBusinessBlock'
@@ -13073,10 +13179,10 @@ components:
               type: object
               properties:
                 unique_id:
-                  type: number
+                  type: string
                   example: 8101182
                 score:
-                  type: number
+                  type: string
                   example: 80
                 business:
                   $ref: '#/components/schemas/possibleMatchBusinessBlock'
@@ -14722,7 +14828,7 @@ components:
         role:
           $ref: '#/components/schemas/Position'
         entity_number:
-          type: number
+          type: string
           example: 0
     BusinessIntelligenceReportBlockDetail:
       type: object
@@ -14938,10 +15044,10 @@ components:
       type: object
       properties:
         unique_id:
-          type: number
+          type: string
           example: 8101182
         score:
-          type: number
+          type: string
           example: 80
         business:
           $ref: '#/components/schemas/possibleMatchBusinessBlock'
@@ -14981,7 +15087,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: string
           example: 8101182
         title:
           type: object
@@ -15112,10 +15218,10 @@ components:
       type: object
       properties:
         unique_id:
-          type: number
+          type: string
           example: 8101182
         score:
-          type: number
+          type: string
           example: 80
         person:
           $ref: '#/components/schemas/possibleMatchPersonBlock'
@@ -15226,7 +15332,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: string
           example: 8101182
         title:
           type: object
@@ -15371,7 +15477,7 @@ components:
       type: object
       properties:
         personId:
-          type: number
+          type: string
           example: "string"
         name:
           type: string
@@ -15587,10 +15693,10 @@ components:
       type: object
       properties:
         limit:
-          type: number
+          type: string
           description: The limit on how many transaction reports to retrieve
         page:
-          type: number
+          type: string
           description: The page where to get those reports from
         query:
           $ref: '#/components/schemas/Account_Transaction_Search_Request_query'
@@ -15662,7 +15768,7 @@ components:
       properties:
         amount:
           multipleOf: 0.01
-          type: number
+          type: string
           description: Amount for the specified destination
         destination:
           type: string
@@ -15710,11 +15816,11 @@ components:
         initiator:
           type: string
           description: who initiated the maintenance case
-          example: "PROVIDER"
+          example: "ALLIANCE"
         alliance_code:
           type: string
           description: the alliance code
-          example: "FIRSTDATA"
+          example: "FDMS"
     operationmm:
       type: object
       properties:    
@@ -16406,6 +16512,170 @@ components:
       properties:
         result:
           example: success
+    documentlisttenantuploaddocumentcategoriesRequest:
+      type: object
+    documentlisttenantuploaddocumentcategoriesResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: SUCCESS
+        operation:
+          $ref: '#/components/schemas/operation_document'
+        document_categories:
+          $ref: '#/components/schemas/DocumentCategories'
+    DocumentCategories:
+      type: array
+      items:
+        $ref: '#/components/schemas/documentCategoriesObject'
+    documentCategoriesObject:
+      type: object
+      properties:
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        document_reference:
+          type: string
+          description: User input reference during configuration
+          example: Passport
+        status:
+          type: string
+          example: "1"
+          enum:
+            - "1"
+            - "0"
+        tenant_udc_external_id:
+          type: string
+          description: External ID of Document Configured
+          example: JKLF3-DDAB5-BJKL3-SDK34-5F47C-D407F-334AS
+        alliance_external_id:
+          $ref: '#/components/schemas/ExtID'
+        document_category:
+          type: string
+          description: Category added during configuration of document
+          example: Proof of ID
+          enum:
+            - Proof of ID
+            - Proof of Business
+            - Proof of Bank
+            - Other
+    operation:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS
+        version:
+          type: string
+          example: 2.0.0
+    operation_document:
+      type: object
+      properties:
+        operation_type:
+          type: string
+          example: DOCUMENT_LIST_TENANT_UPLOAD_DOCUMENT_TYPES
+    application:
+      type: object
+      properties:
+        application_reference:
+          type: string
+          example: "333000010344"
+    Accounts:
+      type: array
+      items:
+        $ref: '#/components/schemas/Accounts_inner'
+    CaseNumber:
+      maxLength: 20
+      minLength: 1
+      type: string
+      description: Case number from the chargeback or chargeback reversal transaction
+      example: "812669"
+    InstructionResponse:
+      required:
+        - result
+        - summary
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        summary:
+          $ref: '#/components/schemas/AccountsArrayResponse'
+      description: Instruction result
+    grant_type_object:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: The type of grant requested, can be __Refresh__ or __Client Credentials__
+          example: client_credentials
+          enum:
+            - client_credentials
+    refresh_token_object:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+          description: Returned by the response when __grant_type__ is __client_credentials__
+          example: f17717317f4ea744b04fce476428b74529ada809
+    Get_Account_Summary_Response_account_summary:
+      type: object
+      properties:
+        account_type:
+          $ref: '#/components/schemas/AccountType'
+        total_in:
+          multipleOf: 0.01
+          type: string
+          description: Total Amount In
+          example: 30
+        total_out:
+          multipleOf: 0.01
+          type: string
+          description: Total Amount Out
+          example: 30
+        destinations:
+          type: array
+          description: Destinations
+          items:
+            $ref: '#/components/schemas/DestinationsBlock'
+        balance:
+          multipleOf: 0.01
+          type: string
+          description: Balance in this account
+          example: 50
+        prev_balance:
+          multipleOf: 0.01
+          type: string
+          description: Previous Balance in this account
+          example: 10
+    AccountArrayReleaseReponse:
+      type: array
+      description: Response of the reserve release request
+      example:
+        - account_type: RESERVE_DEDUCTION_ACCOUNT
+          balance: "0.10"
+        - account_type: RESERVE_RELEASE_ACCOUNT
+          balance: "0.00"
+        - account_type: RESERVE_ACCOUNT
+          balance: "205.01"
+        - account_type: ROLLING_RESERVE_ACCOUNT
+          balance: "0.00"
+      items:
+        $ref: '#/components/schemas/AccountArrayReleaseReponse_inner'
+    AccountsArrayRelease:
+      type: array
+      description: 'Array of merchant''s accounts: at least one account is required'
+      example:
+        - account_type: RESERVE_DEDUCTION_ACCOUNT
+          amount: "1000.00"
+          release_reason: Chargeback Recovery
+        - account_type: RESERVE_RELEASE_ACCOUNT
+          amount: "100.00"
+          release_reason: Reserve Limit Decrease
+      items:
+        $ref: '#/components/schemas/AccountsArrayRelease_inner'
+    OrderID:
+      type: string
+      description: 'OrderID returned from Marketplace submission'
+      example: "oABC1"
     TransactionMonitoringRetrieveRequest:
       type: object
       properties:
@@ -16420,7 +16690,7 @@ components:
           $ref: '#/components/schemas/IsManagedFunding'
         transaction:
           $ref: '#/components/schemas/TransactionMonitoringTransaction'
-        report:
+        Report:
           $ref: '#/components/schemas/TransactionMonitoringReport'
         auth_data:
           $ref: '#/components/schemas/TransactionMonitoringAuthData'
@@ -16807,8 +17077,8 @@ components:
         ruleExpression:
           $ref: '#/components/schemas/TransactionMonitoringRuleExpressions'
         childrenRules:
-          type: array
           description: May recur up to four times depending on depth of rules tree
+          type: array
           items:
             $ref: '#/components/schemas/TransactionMonitoringChildrenRules'
     TransactionMonitoringChildrenRules:
@@ -16872,6 +17142,7 @@ components:
           $ref: '#/components/schemas/TransactionMonitoringOrderNumber'
         ruleExpression:
           $ref: '#/components/schemas/TransactionMonitoringRuleExpressions'
+      
     TransactionMonitoringRuleExpressions:
       type: object
       properties:
@@ -17292,7 +17563,7 @@ components:
       example: 4AUBOLAD3IBQBZN
     SoftDescriptor:
       type: string
-      example: 'TEST*'
+      example: '{/]e.so9#c/)Yfmd@lJ0m;5t3@~wacL_'
     BankReferenceNumber:
       type: string
       example: '125489558'
@@ -17609,11 +17880,11 @@ components:
         reviewer_name:
           type: string
           description: The person who reviews the transaction
-          example: John Michael
+          example: John Doe
         reviewer_email:
           type: string
           description: An email address of person who reviews the transaction
-          example: johnmichael@test.com
+          example: exampleemail@fiserv.com
     TransactionDecision:
       type: string
       description: The decision the user wants to take
@@ -17666,166 +17937,6 @@ components:
       example: >-
         Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
-    documentlisttenantuploaddocumentcategoriesRequest:
-      type: object
-    documentlisttenantuploaddocumentcategoriesResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          example: SUCCESS
-        operation:
-          $ref: '#/components/schemas/operation_document'
-        document_categories:
-          $ref: '#/components/schemas/DocumentCategories'
-    DocumentCategories:
-      type: array
-      items:
-        $ref: '#/components/schemas/documentCategoriesObject'
-    documentCategoriesObject:
-      type: object
-      properties:
-        parent_type:
-          $ref: '#/components/schemas/ParentType'
-        document_reference:
-          type: string
-          description: User input reference during configuration
-          example: Passport
-        status:
-          type: string
-          example: "1"
-          enum:
-            - "1"
-            - "0"
-        tenant_udc_external_id:
-          type: string
-          description: External ID of Document Configured
-          example: JKLF3-DDAB5-BJKL3-SDK34-5F47C-D407F-334AS
-        alliance_external_id:
-          $ref: '#/components/schemas/ExtID'
-        document_category:
-          type: string
-          description: Category added during configuration of document
-          example: Proof of ID
-          enum:
-            - Proof of ID
-            - Proof of Business
-            - Proof of Bank
-            - Other
-    operation:
-      type: object
-      properties:
-        operation_type:
-          type: string
-          example: APPLICATION_SUBMIT_ADDITIONAL_DOCUMENTS
-        version:
-          type: string
-          example: 2.0.0
-    operation_document:
-      type: object
-      properties:
-        operation_type:
-          type: string
-          example: DOCUMENT_LIST_TENANT_UPLOAD_DOCUMENT_TYPES
-    application:
-      type: object
-      properties:
-        application_reference:
-          type: string
-          example: "333000010344"
-    Accounts:
-      type: array
-      items:
-        $ref: '#/components/schemas/Accounts_inner'
-    CaseNumber:
-      maxLength: 20
-      minLength: 1
-      type: string
-      description: Case number from the chargeback or chargeback reversal transaction
-      example: "812669"
-    InstructionResponse:
-      required:
-        - result
-        - summary
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Result'
-        summary:
-          $ref: '#/components/schemas/AccountsArrayResponse'
-      description: Instruction result
-    grant_type_object:
-      type: object
-      properties:
-        grant_type:
-          type: string
-          description: The type of grant requested, can be __Refresh__ or __Client Credentials__
-          example: client_credentials
-          enum:
-            - client_credentials
-    refresh_token_object:
-      type: object
-      properties:
-        refresh_token:
-          type: string
-          description: Returned by the response when __grant_type__ is __client_credentials__
-          example: f17717317f4ea744b04fce476428b74529ada809
-    Get_Account_Summary_Response_account_summary:
-      type: object
-      properties:
-        account_type:
-          $ref: '#/components/schemas/AccountType'
-        total_in:
-          multipleOf: 0.01
-          type: number
-          description: Total Amount In
-          example: 30
-        total_out:
-          multipleOf: 0.01
-          type: number
-          description: Total Amount Out
-          example: 30
-        destinations:
-          type: array
-          description: Destinations
-          items:
-            $ref: '#/components/schemas/DestinationsBlock'
-        balance:
-          multipleOf: 0.01
-          type: number
-          description: Balance in this account
-          example: 50
-        prev_balance:
-          multipleOf: 0.01
-          type: number
-          description: Previous Balance in this account
-          example: 10
-    AccountArrayReleaseReponse:
-      type: array
-      description: Response of the reserve release request
-      example:
-        - account_type: RESERVE_DEDUCTION_ACCOUNT
-          balance: "0.10"
-        - account_type: RESERVE_RELEASE_ACCOUNT
-          balance: "0.00"
-        - account_type: RESERVE_ACCOUNT
-          balance: "205.01"
-        - account_type: ROLLING_RESERVE_ACCOUNT
-          balance: "0.00"
-      items:
-        $ref: '#/components/schemas/AccountArrayReleaseReponse_inner'
-    AccountsArrayRelease:
-      type: array
-      description: 'Array of merchant''s accounts: at least one account is required'
-      example:
-        - account_type: RESERVE_DEDUCTION_ACCOUNT
-          amount: "1000.00"
-          release_reason: Chargeback Recovery
-        - account_type: RESERVE_RELEASE_ACCOUNT
-          amount: "100.00"
-          release_reason: Reserve Limit Decrease
-      items:
-        $ref: '#/components/schemas/AccountsArrayRelease_inner'
   requestBodies:
     statusMode:
       content:
