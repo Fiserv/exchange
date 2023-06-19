@@ -12466,11 +12466,11 @@ components:
         split_details:
           type: array
           items:
-            $ref: '#/components/schemas/SplitDetailResponse'
+            $ref: '#/components/schemas/SplitAccountArray'
         details:
           type: array
           items:
-            $ref: '#/components/schemas/SplitAccountArray'
+            $ref: '#/components/schemas/AccountsDetailsArray'
     InstructionsReceivedDTO:
       type: object
       properties:
