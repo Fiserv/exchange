@@ -17,7 +17,7 @@ type: tab
 titles: Add Application, JSON Add Application Example
 -->
 
-The `/boarding/application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
+The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
 
 ---
 
@@ -328,7 +328,7 @@ type: tab
 titles: Application Submit, JSON Application Submit Example
 -->
 
-The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
+The `/boarding/add_application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
 
 ---
 
@@ -368,7 +368,7 @@ titles: Update Merchant, JSON Update Merchant Example
 -->
 
 The `/boarding/merchant` endpoint supports updating for the merchant level and subgroup level, while the `/boarding/outlet` allows the outlet to be updated.
-To update the outets and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
+To update the outets and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/add_application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
 The application reference must be added to the request, and operation type based on the update being made.
 
 - UPDATE_MERCHANT at `/boarding/merchant` for merchant level.
