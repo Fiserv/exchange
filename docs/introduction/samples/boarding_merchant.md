@@ -7,7 +7,7 @@
 {
     "request_source": {
         "initiator": "ALLIANCE",
-        "alliance_code": "MOTIONSOFT"
+        "alliance_code": "TECHNOLOGI"
     },
     "operation": {
         "operation_type": "ADD_MERCHANT_SUB_GROUP",
