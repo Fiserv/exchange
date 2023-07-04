@@ -2381,8 +2381,8 @@ components:
           type: string
           example: "0"
           enum: 
-            - 1
-            - 0
+            - "1"
+            - "0"
         irs_filing_name:
           description: IRS Filing Name
           type: string
@@ -2406,8 +2406,8 @@ components:
           description: 4000 - Nashville , 5083 - Compass
           example: "4000"
           enum:
-            - 4000
-            - 5083
+            - "4000"
+            - "5083"
         project_name:
           type: string
           example: Test Project
@@ -2447,9 +2447,9 @@ components:
         mcc_code:
           type: string
           description: Merchant Category Code
-          example: 4083
+          example: "4083"
           enum:
-            - 4083
+            - "4083"
         business_category:
           type: string
           description: E - eCommerce, MOTO, R - RETAIL, H - HOTEL, RT - Restaurant
@@ -2554,12 +2554,12 @@ components:
           type: string
           example: 1
           enum : 
-            - 1
-            - 0
+            - "1"
+            - "0"
         ownership_perc:
           description: Ownership of principal being added, principals above 25% ownership should be declared
           type: string
-          example: 100
+          example: "100"
         personal_guarantee:
           type: string
           enum:
@@ -2583,7 +2583,7 @@ components:
           maxLength: 50
         floor:
           type: string
-          example: 1
+          example: "1"
         province:
           description: typically used for non US countries
           type: string
@@ -13208,8 +13208,8 @@ components:
                   type: string
                   description: '1 = Yes, 0 = No'
                   enum:
-                    - 1
-                    - 0
+                    - "1"
+                    - "0"
                 review_info:
                   $ref: '#/components/schemas/reviewInfo'
                 watchlist:
@@ -14048,8 +14048,8 @@ components:
               type: string
               description: '1 = Yes, 0 = No'
               enum:
-                - 1
-                - 0
+                - "1"
+                - "0"
             review_info:
               type: array
               items:
@@ -14924,8 +14924,8 @@ components:
           type: string
           description: '1 = Yes, 0 = No'
           enum:
-            - 1
-            - 0
+            - "1"
+            - "0"
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         third_party_source:
@@ -15029,8 +15029,8 @@ components:
           type: string
           description: '1 = Yes, 0 = No'
           enum:
-            - 1
-            - 0
+            - "1"
+            - "0"
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         third_party_source:
@@ -15045,10 +15045,10 @@ components:
       properties:
         unique_id:
           type: string
-          example: 8101182
+          example: "8101182"
         score:
           type: string
-          example: 80
+          example: "80"
         business:
           $ref: '#/components/schemas/possibleMatchBusinessBlock'
         person:
@@ -15088,7 +15088,7 @@ components:
       properties:
         id:
           type: string
-          example: 8101182
+          example: "8101182"
         title:
           type: object
           properties:
@@ -15114,8 +15114,8 @@ components:
         isDeceased:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         gender:
           type: string
           enum:
@@ -15142,43 +15142,43 @@ components:
         isPEP:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsCurrent:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsPrevious:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isLawEnforcement:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isFinancialregulator:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isDisqualifiedDirector:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isInsolvent:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isAdverseMedia:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         addresses:
           type: array
           items:
@@ -15360,8 +15360,8 @@ components:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         gender:
           type: string
           enum:
@@ -15393,50 +15393,50 @@ components:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsCurrent:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsPrevious:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isLawEnforcement:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isFinancialregulator:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isDisqualifiedDirector:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isInsolvent:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isAdverseMedia:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         addresses:
           type: array
           items:
@@ -16701,7 +16701,7 @@ components:
         - false
         - true
     MerchantStatus:
-      type: number
+      type: string
       enum:
         - 0
         - 1
@@ -17182,7 +17182,6 @@ components:
             $ref: '#/components/schemas/TransactionCriteriaMultiValueDescription'
         childrenCriterionList:
           type: array
-          description: may return up to four times depending on depth of the decision tree
           items:
             $ref: '#/components/schemas/TransactionMonitoringChildrenCriterionList'
     TransactionMonitoringChildrenCriterionList:
@@ -17323,7 +17322,7 @@ components:
       type: string
       example: ROOT
     TransactionMonitoringLevel:
-      type: number
+      type: string
       example: 1
     TransactionMonitoringIsWrapper:
       type: string
@@ -17378,7 +17377,7 @@ components:
       description: The unique identification number of the alliance
       example: Tx Currency Jminsplit
     TransactionMonitoringAllianceId:
-      type: number
+      type: string
       description: The unique identification number of the alliance
       example: 1125874
     TransactionMonitoringTierNumber:
@@ -17388,7 +17387,7 @@ components:
       type: string
       example: '1'
     PfacNodeID:
-      type: number
+      type: string
       description: The unique identification number of the PFAC
       example: 93
     TransactionId:
@@ -17417,15 +17416,15 @@ components:
         Invoice ID; to be used with Authorization Code as a unique combination
         for each transaction; required if transaction ID is not provided
     MerchantIDoptional:
-      type: number
+      type: string
       description: The unique identification number of the Merchant
       example: 30121
     MerchantNodeID:
-      type: number
+      type: string
       description: The unique identification number of the Merchant Node
       example: 80728
     outletID:
-      type: number
+      type: string
       description: The unique identification number of the outlet
       example: 34174
     Recordtype:
@@ -17510,7 +17509,7 @@ components:
       example: XXXX
     AuthorizationAmount:
       type: string
-      example: 10
+      example: "10"
     AuthorizationAmountSign:
       type: string
       enum:
@@ -17518,7 +17517,7 @@ components:
         - '-'
     TotalAuthAmount:
       type: string
-      example: 10
+      example: "10"
     AuthorizationDate:
       type: string
       example: 2022-11-10T00:00:00.000Z
@@ -17634,13 +17633,13 @@ components:
         query:
           $ref: '#/components/schemas/TransactionMonitoringQuery'
     TransactionMonitoringLimit:
-      type: number
+      type: string
       description: Number of Alerts to see per page
       example: 100
       minLength: 1
       maxLength: 1000
     TransactionMonitoringPage:
-      type: number
+      type: string
       description: The Page on which the user wants to see the Alerts
       example: 1
     TransactionMonitoringQuery:
@@ -17902,19 +17901,19 @@ components:
       description: The reference number of the report
       example: 63bea8160e989654e347e274
     TransactionReleaseMerchant:
-      type: number
+      type: string
       description: confirm to release the merchant, 1= yes, 0= no
-      example: 1
+      example: "1"
       enum:
-        - 0
-        - 1
+        - "0"
+        - "1"
     TransactionPassiveMode:
-      type: number
+      type: string
       description: Confirms the mode of the transaction, 1= passive, 0= active
-      example: 1
+      example: "1"
       enum:
-        - 0
-        - 1
+        - "0"
+        - "1"
     TransactionMonitoringDecisionResponse:
       type: object
       properties:
