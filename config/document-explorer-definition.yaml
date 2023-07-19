@@ -29,7 +29,7 @@
 ################################################################################
 
 - sections:
-    - title: Introduction
+    - title: Getting Started
       link:
       open: true
       sections:
