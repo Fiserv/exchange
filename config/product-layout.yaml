@@ -32,7 +32,7 @@ header:
 getStarted: /docs/introduction/exchange-intro.md
 benefits:
   - title: Boarding
-    description: Fast end-to-end sub-merchant onboarding avaliable through suite of APIs and UI.
+    description: Fast end-to-end sub-merchant onboarding available through suite of APIs and UI.
     icon: assets/images/business_icon_square.png
   - title: Funding
     description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
