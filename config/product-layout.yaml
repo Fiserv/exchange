@@ -67,7 +67,7 @@ featuredFeatures:
         title: Reporting & Settlement
   - title: PayFac Lite
     featured: true
-    description:  Supporting PayFac Lite (through UI only currently)
+    description:  Supporting PayFac Lite 
     relatedDocs:
       - link: /docs/getting-started/boarding.md
         title: Sub-merchant boarding
