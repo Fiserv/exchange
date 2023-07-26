@@ -233,7 +233,6 @@ JSON format for `ADD_OUTLET`:
                 "email_address": "technologi@technologi.co.uk,
                 "ent_telephone_code": "US|01",
                 "telephone_number": "723566455",
-                "bill_to": "Jane"
             }
         ],
         "online_offer": {
