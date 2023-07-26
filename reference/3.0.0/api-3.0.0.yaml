@@ -21,7 +21,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -60,7 +60,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -98,7 +98,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Adding a new Merchant Subgroup
@@ -133,7 +133,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Updating a Merchant Subgroup
@@ -167,7 +167,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieving a Merchant Subgroup
@@ -202,7 +202,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Adding a new Merchant Outlet
@@ -237,7 +237,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Updating a Merchant Outlet
@@ -272,7 +272,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieving a Merchant Outlet
@@ -394,7 +394,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -433,7 +433,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -472,7 +472,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -511,7 +511,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       responses:
         '405':
@@ -549,7 +549,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -589,7 +589,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -629,7 +629,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -669,7 +669,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -709,7 +709,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -749,7 +749,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -790,7 +790,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -830,7 +830,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -872,7 +872,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -914,7 +914,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -954,7 +954,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -994,7 +994,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1034,7 +1034,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1074,7 +1074,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1116,7 +1116,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1158,7 +1158,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1200,7 +1200,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1242,7 +1242,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1283,7 +1283,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1325,7 +1325,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         content:
@@ -1364,7 +1364,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Transaction Search
@@ -1401,7 +1401,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Creating a Maintenance Case for a merchant
@@ -1436,7 +1436,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Updating a Maintenance Case for a Merchant. Information in the payload will depend on scenario and info being updated.
@@ -1471,7 +1471,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Submitting a Maintenance Case for a Merchant
@@ -1506,7 +1506,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Searching for a Maintenance Case already created
@@ -1541,7 +1541,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieving a Maintenance Case already Created
@@ -1576,7 +1576,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Cancelling a Maintenance Case
@@ -1611,7 +1611,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Get merchant bank information
@@ -1646,7 +1646,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Adding a new Non-Processing Merchant Application
@@ -1681,7 +1681,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
@@ -1711,7 +1711,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: List of Additional Documents Configured
@@ -1746,7 +1746,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Submitting additional documents for Application
@@ -1781,7 +1781,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Screening
@@ -1817,7 +1817,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Full Report for Screening
@@ -1853,7 +1853,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Overwriting AML Report for Screening (OFAC Report)
@@ -1889,7 +1889,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Overwriting CREDIT RISK Report for Screening (OFAC Report)
@@ -1925,7 +1925,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
@@ -1961,7 +1961,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Monitoring
@@ -1997,7 +1997,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Retrieve Risk Full Reports for Monitoring
@@ -2033,7 +2033,7 @@ paths:
         in: header
         required: false
         schema:
-          type: integer
+          type: string
           format: int32
       requestBody:
         description: Overwriting AML Report for Monitoring (OFAC Report)
@@ -2057,6 +2057,94 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Monitoring
       x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
+      x-child-product-name: Risk
+  /transaction_monitoring/search:
+  
+    post:
+      tags:
+        - Transaction Monitoring
+      summary: Search Transaction Monitoring Alerts
+      description: Search for Alerts raised after Monitoring the Transactions.
+      requestBody:
+        description: Search for Alerts on Transaction for Alliance and Partner PFACs
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionMonitoringSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoringSearchResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Transaction Monitoring
+      x-proxy-name: Search Alerts
+      x-child-product-name: Risk
+  /transaction_monitoring/retrieve:
+    post:
+      tags:
+        - Transaction Monitoring
+      summary: Retrieve Transaction Monitoring Alerts
+      description: Retrieve the Alerts raised after Monitoring the Transactions.
+      requestBody:
+        description: Retrieve the Alerts on Transaction for Alliance and Partner PFACs
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionMonitoringRetrieveRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoringRetrieveResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Transaction Monitoring
+      x-proxy-name: Retrieve Alerts
+      x-child-product-name: Risk
+  /transaction_monitoring/decision:
+    post:
+      tags:
+        - Transaction Monitoring
+      summary: Make Transaction Monitoring Decision
+      description: Make the Decision on the Alerts.
+      requestBody:
+        description: Make the Decision on Transaction for Alliance and Partner PFACs
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionMonitoringDecisionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoringDecisionResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Transaction Monitoring
+      x-proxy-name: Make Decision
       x-child-product-name: Risk
 components:
   schemas:
@@ -2082,7 +2170,7 @@ components:
           example: 2021-09-02
 
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -2293,8 +2381,8 @@ components:
           type: string
           example: "0"
           enum: 
-            - 1
-            - 0
+            - "1"
+            - "0"
         irs_filing_name:
           description: IRS Filing Name
           type: string
@@ -2318,8 +2406,8 @@ components:
           description: 4000 - Nashville , 5083 - Compass
           example: "4000"
           enum:
-            - 4000
-            - 5083
+            - "4000"
+            - "5083"
         project_name:
           type: string
           example: Test Project
@@ -2359,9 +2447,9 @@ components:
         mcc_code:
           type: string
           description: Merchant Category Code
-          example: 4083
+          example: "4083"
           enum:
-            - 4083
+            - "4083"
         business_category:
           type: string
           description: E - eCommerce, MOTO, R - RETAIL, H - HOTEL, RT - Restaurant
@@ -2466,12 +2554,12 @@ components:
           type: string
           example: 1
           enum : 
-            - 1
-            - 0
+            - "1"
+            - "0"
         ownership_perc:
           description: Ownership of principal being added, principals above 25% ownership should be declared
           type: string
-          example: 100
+          example: "100"
         personal_guarantee:
           type: string
           enum:
@@ -2495,7 +2583,7 @@ components:
           maxLength: 50
         floor:
           type: string
-          example: 1
+          example: "1"
         province:
           description: typically used for non US countries
           type: string
@@ -2914,19 +3002,52 @@ components:
       xml:
         name: order
     OnlineOffering:
+      description: The online offering being added. This detail can be retrieved from /offering/retrieve_online_offering
       type: object
       properties:
-        alliance_code:
-          type: string
-          example: 'TEST'
         partner_code:
+          description: Used for Alliances specifying offers for their Partners 
           type: string
           example: 'TEST'
         online_offering_external_id:
+          description: The external ID of the offering being added. If the item is configured to be mandatory, only this offering ID needs to be parsed, and the remaining data will be automatically grabbed.
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-      xml:
-        name: order
+        bundles:
+          description : The Bundle containing the VAR. Bundle is generated by the system or by user to group the online equipment.
+          type: array
+          items: 
+            $ref : '#/components/schemas/RequestBundleItems'
+    RequestBundleItems:
+      type: object
+      properties:
+        online_bundle_external_id:
+          type: string
+          description : The EXID of the online bundle, from /offering/retrieve_online_offering
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        bundles_items: 
+          type: array
+          description : The bundle item, containing the service charges (pricing)
+          items: 
+            $ref : '#/components/schemas/RequestServiceItems' 
+    RequestServiceItems:
+      type: object
+      properties:
+        service_external_id:
+          description: The Service EXID, which contains a service item
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        service_charges: 
+          type: array
+          items: 
+            $ref : '#/components/schemas/ServiceItemExid' 
+    ServiceItemExid:
+      type: object
+      properties:
+        service_item_external_id:
+          description : The service item of the VAR being added. Usually Owned/Purchased.
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
     ResponseRetrieveOffer:
       type: object
       properties:
@@ -4215,7 +4336,7 @@ components:
                     type: object
                     properties: 
                       from: 
-                        type: integer
+                        type: string
                         format: int32
                         example: 1
                 service_items: 
@@ -4655,11 +4776,11 @@ components:
                   format: date
                   example: 2020-01-01
                 business_average_ticket_sales_amt: 
-                  type: integer
+                  type: string
                   format: int32
                   example: 0
                 business_highest_ticket_sales_amt: 
-                  type: integer
+                  type: string
                   format: int32
                   example: 0
                 incorp_state: 
@@ -5074,7 +5195,7 @@ components:
                     type: object
                     properties: 
                       from: 
-                        type: integer
+                        type: string
                         format: int32
                         example: 1
                 service_items: 
@@ -7888,9 +8009,13 @@ components:
         avg_ticket_sales_amt:
           $ref: '#/components/schemas/ATV'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         equipment_offer:
           $ref: '#/components/schemas/EquipmentOffering'
         online_offer:
@@ -10694,13 +10819,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -10818,13 +10943,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -10895,13 +11020,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -10948,13 +11073,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -11027,13 +11152,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -11165,7 +11290,7 @@ components:
           description: Date of transaction - Cannot be empty.
           example: 2021-09-02
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -11212,7 +11337,7 @@ components:
         currency:
           type: string
         transaction_type:
-          type: integer
+          type: string
           format: int32
         transaction_date:
           type: string
@@ -11245,7 +11370,7 @@ components:
           description: Date of transaction - Cannot be empty.
           example: 2021-09-02
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -11332,25 +11457,25 @@ components:
       type: object
       properties:
         limit:
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
-          type: integer
+          type: string
           format: int32
         transaction_type:
-          type: integer
+          type: string
           description: Type of transaction.
           format: int32
           example: 1
         status:
-          type: integer
+          type: string
           description: Status of transaction.
           format: int32
           example: 1
         processing_pfac_node_id:
-          type: integer
+          type: string
           description: Processing Pfac Node Id.
           format: int32
           example: 1
@@ -11358,13 +11483,13 @@ components:
       type: object
       properties:
         limit:
-          type: integer
+          type: string
           format: int32
         page:
-          type: integer
+          type: string
           format: int32
         count:
-          type: integer
+          type: string
           format: int32
         summary_status:
           type: string
@@ -11396,7 +11521,7 @@ components:
           description: Date of transaction - Cannot be empty.
           example: 2021-09-02
         transaction_type:
-          type: integer
+          type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
@@ -11537,7 +11662,7 @@ components:
             empty.
           example: SET31-8C51D-8AEB4-43357-37C4F-08A7A-BA648
         settlement_accounts_entry_id:
-          type: integer
+          type: string
           description: 'Settlement Accounts Entry ID '
           format: int64
           example: 1234567
@@ -11706,7 +11831,7 @@ components:
           type: string
           description: Encryption of batch entry id
         settlement_batch_entry_id:
-          type: integer
+          type: string
           description: Settlement batch Entry Id
           format: int32
     AccountReserveReleaseRequest:
@@ -13120,8 +13245,8 @@ components:
                   type: string
                   description: '1 = Yes, 0 = No'
                   enum:
-                    - 1
-                    - 0
+                    - "1"
+                    - "0"
                 review_info:
                   $ref: '#/components/schemas/reviewInfo'
                 watchlist:
@@ -13960,8 +14085,8 @@ components:
               type: string
               description: '1 = Yes, 0 = No'
               enum:
-                - 1
-                - 0
+                - "1"
+                - "0"
             review_info:
               type: array
               items:
@@ -14836,8 +14961,8 @@ components:
           type: string
           description: '1 = Yes, 0 = No'
           enum:
-            - 1
-            - 0
+            - "1"
+            - "0"
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         third_party_source:
@@ -14941,8 +15066,8 @@ components:
           type: string
           description: '1 = Yes, 0 = No'
           enum:
-            - 1
-            - 0
+            - "1"
+            - "0"
         review_info:
           $ref: '#/components/schemas/reviewInfo'
         third_party_source:
@@ -14957,10 +15082,10 @@ components:
       properties:
         unique_id:
           type: string
-          example: 8101182
+          example: "8101182"
         score:
           type: string
-          example: 80
+          example: "80"
         business:
           $ref: '#/components/schemas/possibleMatchBusinessBlock'
         person:
@@ -15000,7 +15125,7 @@ components:
       properties:
         id:
           type: string
-          example: 8101182
+          example: "8101182"
         title:
           type: object
           properties:
@@ -15026,8 +15151,8 @@ components:
         isDeceased:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         gender:
           type: string
           enum:
@@ -15054,43 +15179,43 @@ components:
         isPEP:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsCurrent:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsPrevious:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isLawEnforcement:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isFinancialregulator:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isDisqualifiedDirector:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isInsolvent:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isAdverseMedia:
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         addresses:
           type: array
           items:
@@ -15272,8 +15397,8 @@ components:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         gender:
           type: string
           enum:
@@ -15305,50 +15430,50 @@ components:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsCurrent:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isSanctionsPrevious:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isLawEnforcement:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isFinancialregulator:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isDisqualifiedDirector:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isInsolvent:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         isAdverseMedia:
           type: string
           example: "False"
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
         addresses:
           type: array
           items:
@@ -16588,7 +16713,1266 @@ components:
       type: string
       description: 'OrderID returned from Marketplace submission'
       example: "oABC1"
-
+    TransactionMonitoringRetrieveRequest:
+      type: object
+      properties:
+        monitoring_hit_id:
+          $ref: '#/components/schemas/TransactionMonitoringHitId'
+    TransactionMonitoringRetrieveResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        is_managed_funding:
+          $ref: '#/components/schemas/IsManagedFunding'
+        transaction:
+          $ref: '#/components/schemas/TransactionMonitoringTransaction'
+        Report:
+          $ref: '#/components/schemas/TransactionMonitoringReport'
+        auth_data:
+          $ref: '#/components/schemas/TransactionMonitoringAuthData'
+    IsSingleMID:
+      type: boolean
+      description: Tells if the transaction involves the managed funding
+      enum:
+        - false
+        - true
+    MerchantStatus:
+      type: string
+      enum:
+        - 0
+        - 1
+    IsManagedFunding:
+      type: boolean
+      description: Tells if the transaction involves the managed funding
+      enum:
+        - true
+        - false
+    TransactionMonitoringTransaction:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/TransactionMonitoringAllianceId'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeID'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIDoptional'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeID'
+        outlet_id:
+          $ref: '#/components/schemas/outletID'
+        location_id:
+          $ref: '#/components/schemas/MID'
+        record_type:
+          $ref: '#/components/schemas/Recordtype'
+        hierarchy_id:
+          $ref: '#/components/schemas/HierarchyID'
+        hierarchy_level_no:
+          $ref: '#/components/schemas/HierarchyLevelNo'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDBAName'
+        store_number:
+          $ref: '#/components/schemas/StoreNumberOptional'
+        external_id:
+          $ref: '#/components/schemas/ExternalID'
+        funded_date:
+          $ref: '#/components/schemas/FundedDate'
+        card_type:
+          $ref: '#/components/schemas/CardTypeOptional'
+        card_number:
+          $ref: '#/components/schemas/CardNumberOptional'
+        terminal_id:
+          $ref: '#/components/schemas/TerminalIDOptional'
+        batch_number:
+          $ref: '#/components/schemas/BatchNumber'
+        batch_date:
+          $ref: '#/components/schemas/BatchDate'
+        authorization_code:
+          $ref: '#/components/schemas/AuthorisationCode'
+        invoice_id:
+          $ref: '#/components/schemas/InvoiceID'
+        reference_number:
+          $ref: '#/components/schemas/ReferenceNumberOptional'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_amount:
+          $ref: '#/components/schemas/TransactionAmountValue'
+        processed_currency_code:
+          $ref: '#/components/schemas/ProcessedCurrencyCode'
+        submitted_currency_amount:
+          $ref: '#/components/schemas/SubmittedCurrencyAmount'
+        submitted_currency_code:
+          $ref: '#/components/schemas/SubmittedCurrencyCode'
+        currency_conversion_rate:
+          $ref: '#/components/schemas/CurrencyConversionRate'
+        transaction_status:
+          $ref: '#/components/schemas/TransactionStatus'
+        reject_indicator:
+          $ref: '#/components/schemas/RejectIndicator'
+        reject_reason:
+          $ref: '#/components/schemas/reject_reason_code'
+        entry_mode:
+          $ref: '#/components/schemas/EntryMode'
+        pc_terminal_capability:
+          $ref: '#/components/schemas/PCterminalCapability'
+        pinless_debit:
+          $ref: '#/components/schemas/PinlessDebit'
+        plan_code:
+          $ref: '#/components/schemas/PlanCode'
+        reclass_code:
+          $ref: '#/components/schemas/ReclassCode'
+        partial_auth_indicator:
+          $ref: '#/components/schemas/PartialAuthIndicator'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionType'
+        transaction_mode:
+          $ref: '#/components/schemas/TransactionMode'
+        transaction_source:
+          $ref: '#/components/schemas/TransactionSource'
+        health_care_card:
+          $ref: '#/components/schemas/HealthCareCard'
+        authorization_amount:
+          $ref: '#/components/schemas/AuthorizationAmount'
+        authorization_date:
+          $ref: '#/components/schemas/AuthorizationDate'
+        expiration_date:
+          $ref: '#/components/schemas/ExpirationDate'
+        transaction_time:
+          $ref: '#/components/schemas/TransactionTime'
+        authorization_sic_code:
+          $ref: '#/components/schemas/AuthorizationSicCode'
+        avs_flag:
+          $ref: '#/components/schemas/AVSFlag'
+        response_code:
+          $ref: '#/components/schemas/ResponseCode'
+        cvc2_result:
+          $ref: '#/components/schemas/Cvc2Result'
+        cvv2_result:
+          $ref: '#/components/schemas/Cvv2Result'
+        special_reference_1:
+          $ref: '#/components/schemas/SpecialReference1'
+        special_reference_2:
+          $ref: '#/components/schemas/SpecialReference2'
+        authorization_response_code:
+          $ref: '#/components/schemas/AuthorisationResponseCode'
+        submerchant_id:
+          $ref: '#/components/schemas/SubmerchantIDoptional'
+        soft_descriptor:
+          $ref: '#/components/schemas/SoftDescriptor'
+        bank_reference_number:
+          $ref: '#/components/schemas/BankReferenceNumber'
+        auth_source:
+          $ref: '#/components/schemas/AuthSource'
+        cat_level:
+          $ref: '#/components/schemas/Catlevel'
+        cardholder_id_method:
+          $ref: '#/components/schemas/CardHolderIDMethod'
+        card_presence_indicator:
+          $ref: '#/components/schemas/CardPresenceIndicator'
+        merchant_reference_number:
+          $ref: '#/components/schemas/MerchantReferenceNumber'
+        total_auth_amount:
+          $ref: '#/components/schemas/TotalAuthAmount'
+        market_specific_indicator:
+          $ref: '#/components/schemas/MarketSpecificIndicator'
+        visa_service_develop:
+          $ref: '#/components/schemas/VisaServiceDevelop'
+        visa_purchase_identifier_format:
+          $ref: '#/components/schemas/VisaPurchaseIdentifierFormat'
+        visa_purchase_identifier:
+          $ref: '#/components/schemas/VisaPurchaseIdentifier'
+        visa_chip_condition_code:
+          $ref: '#/components/schemas/VisaChipConditionCode'
+        mc_security_protocol:
+          $ref: '#/components/schemas/MCSecurityProtocol'
+        mc_cardholder_authentication:
+          $ref: '#/components/schemas/MCCardHolderAuthentication'
+        usage_indicator:
+          $ref: '#/components/schemas/UsageIndicator'
+        airline_ticket_number:
+          $ref: '#/components/schemas/AirlineTicketNumber'
+        transaction_integrity_class:
+          $ref: '#/components/schemas/TransactionIntegrityClass'
+        mobile_indicator:
+          $ref: '#/components/schemas/MobileIndicator'
+        user_data_2:
+          $ref: '#/components/schemas/UserData2'
+    TransactionMonitoringReport:
+      type: object
+      properties:
+        alliance_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_name:
+          $ref: '#/components/schemas/LegalName'
+        merchant_reference:
+          $ref: '#/components/schemas/MerchantReference'
+        location_id:
+          $ref: '#/components/schemas/MID'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionMonitoringTypeValue'
+        auth_tracker:
+          $ref: '#/components/schemas/AuthTracker'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_amount:
+          $ref: '#/components/schemas/TransactionAmountValue'
+        authorization_code:
+          $ref: '#/components/schemas/AuthorisationCode'
+        txm_decision:
+          $ref: '#/components/schemas/TransactionMonitoringOriginalDecision'
+        monitoring_mode:
+          $ref: '#/components/schemas/MonitoringMode'
+        passive_mode_confirm:
+          $ref: '#/components/schemas/TransactionPassiveMode'
+        funding_status:
+          $ref: '#/components/schemas/FundingStatus'
+        rule_actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringRuleActionsBlock'
+        transaction_decisions:
+          $ref: '#/components/schemas/TransactionMonitoringTXNDecisions'
+        submerchant_id:
+          $ref: '#/components/schemas/SubmerchantIDoptional'
+        merchant_status:
+          $ref: '#/components/schemas/MerchantStatus'
+        is_single_mid:
+          $ref: '#/components/schemas/IsSingleMID'
+    TransactionMonitoringAuthData:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/TransactionMonitoringAllianceId'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeID'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIDoptional'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeID'
+        aci:
+          $ref: '#/components/schemas/TXNACI'
+        auth_amount:
+          $ref: '#/components/schemas/AuthorizationAmount'
+        auth_amount_sign:
+          $ref: '#/components/schemas/AuthorizationAmountSign'
+        auth_code:
+          $ref: '#/components/schemas/AuthorisationCode'
+        auth_date:
+          $ref: '#/components/schemas/AuthorizationDate'
+        auth_time:
+          $ref: '#/components/schemas/AuthorizationTime'
+        auth_trans_code:
+          $ref: '#/components/schemas/AuthorizationTransCode'
+        authorization_fee:
+          $ref: '#/components/schemas/AuthorizationFee'
+        authorization_fee_sign:
+          $ref: '#/components/schemas/AuthorizationFeeSign'
+        avs_flag:
+          $ref: '#/components/schemas/AVSFlag'
+        card_type:
+          $ref: '#/components/schemas/CardTypeOptional'
+        cardholder_number:
+          $ref: '#/components/schemas/CardNumberOptional'
+        cavv_ucaf:
+          $ref: '#/components/schemas/TXNCAVVUCAF'
+        currency_code:
+          $ref: '#/components/schemas/TXNCurrrencyCode'
+        expiration_date:
+          $ref: '#/components/schemas/ExpirationDate'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDBAName'
+        mc_pos_data_codes:
+          $ref: '#/components/schemas/MCPOSDataCodes'
+        mc_promotion_code:
+          $ref: '#/components/schemas/MCPromotionCode'
+        network_fee:
+          $ref: '#/components/schemas/NetworkFee'
+        network_fee_sign:
+          $ref: '#/components/schemas/NetworkFeeSign'
+        order_number:
+          $ref: '#/components/schemas/OrderNumber'
+        response_code:
+          $ref: '#/components/schemas/ResponseCode'
+        service_code:
+          $ref: '#/components/schemas/ServiceCode'
+        store_number:
+          $ref: '#/components/schemas/StoreNumberOptional'
+        user_data_2:
+          $ref: '#/components/schemas/UserData2'
+        visa_valid_code:
+          $ref: '#/components/schemas/VisaValidCode'
+        location_id:
+          $ref: '#/components/schemas/MID'
+        record_type:
+          $ref: '#/components/schemas/TXNRecordtype'
+        hierarchy_id:
+          $ref: '#/components/schemas/HierarchyID'
+        date_added:
+          $ref: '#/components/schemas/DATEADDED'
+        date_updated:
+          $ref: '#/components/schemas/DATEUPDATED'
+        hierarchy_level_no:
+          $ref: '#/components/schemas/HierarchyLevelNo'
+    DATEADDED:
+      type: object
+      properties:
+        $date:
+          $ref: '#/components/schemas/TransactionMonitoringDatea'
+    DATEUPDATED:
+      type: object
+      properties:
+        $date:
+          $ref: '#/components/schemas/TransactionMonitoringDateb'
+    TransactionMonitoringDatea:
+      type: object
+      properties:
+        $numberLong:
+          $ref: '#/components/schemas/TransactionMonitoringNumberLonga'
+    TransactionMonitoringDateb:
+      type: object
+      properties:
+        $numberLong:
+          $ref: '#/components/schemas/TransactionMonitoringNumberLongb'
+    TransactionMonitoringNumberLonga:
+      type: string
+      example: '1674125608258'
+    TransactionMonitoringNumberLongb:
+      type: string
+      example: '1674125613535'
+    TXNACI:
+      type: string
+      example: XXX
+    AuthorizationTransCode:
+      type: string
+      example: XXX
+    AuthorizationFee:
+      type: string
+      example: XXX
+    AuthorizationFeeSign:
+      type: string
+      enum:
+        - +
+        - '-'
+    TXNRecordtype:
+      type: string
+      example: AUTHORIZATION_DETAILS
+    TXNCAVVUCAF:
+      type: string
+      example: '0'
+    TXNCurrrencyCode:
+      type: string
+      example: '840'
+    MCPOSDataCodes:
+      type: string
+      example: XXX
+    MCPromotionCode:
+      type: string
+      example: XXX
+    NetworkFee:
+      type: string
+      example: XXX
+    NetworkFeeSign:
+      type: string
+      enum:
+        - +
+        - '-'
+    OrderNumber:
+      type: string
+      example: '0000000000'
+    ServiceCode:
+      type: string
+      example: '201'
+    VisaValidCode:
+      type: string
+      example: XXX
+    TransactionMonitoringRuleActionsBlock:
+      type: string
+      description: The decision sent from the Prospect
+      enum:
+        - LOW_ALERT
+        - HIGH_ALERT
+        - MEDIUM ALERT
+        - PAUSE_INDIVIDUAL_SETTLEMENT
+        - PAUSE_ALL_SETTLEMENTS
+    TransactionMonitoringTXNDecisions:
+      type: object
+      properties:
+        ruleResult:
+          $ref: '#/components/schemas/TransactionMonitoringRuleResult'
+        ruleAction:
+          $ref: '#/components/schemas/TransactionMonitoringRuleAction'
+        ruleName:
+          $ref: '#/components/schemas/TransactionMonitoringRuleName'
+        ruleUniqueId:
+          $ref: '#/components/schemas/MonitoringRulesID'
+        tierNumber:
+          $ref: '#/components/schemas/TransactionMonitoringTierNumber'
+        orderNumber:
+          $ref: '#/components/schemas/TransactionMonitoringOrderNumber'
+        ruleExpression:
+          $ref: '#/components/schemas/TransactionMonitoringRuleExpressions'
+        childrenRules:
+          description: May recur up to four times depending on depth of rules tree
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringChildrenRules'
+    TransactionMonitoringChildrenRules:
+      type: object
+      properties:
+        ruleResult:
+          $ref: '#/components/schemas/TransactionMonitoringRuleResult'
+        ruleAction:
+          $ref: '#/components/schemas/TransactionMonitoringRuleAction'
+        ruleName:
+          $ref: '#/components/schemas/TransactionMonitoringRuleName'
+        ruleUniqueId:
+          $ref: '#/components/schemas/MonitoringRulesID'
+        tierNumber:
+          $ref: '#/components/schemas/TransactionMonitoringTierNumber'
+        orderNumber:
+          $ref: '#/components/schemas/TransactionMonitoringOrderNumber'
+        ruleExpression:
+          $ref: '#/components/schemas/TransactionMonitoringRuleExpressions'
+        childrenRules:
+          type: array
+          description: May recur up to four times depending on depth of rules tree
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringChildrenRulesTwo'
+    TransactionMonitoringChildrenRulesTwo:
+      type: object
+      properties:
+        ruleResult:
+          $ref: '#/components/schemas/TransactionMonitoringRuleResult'
+        ruleAction:
+          $ref: '#/components/schemas/TransactionMonitoringRuleAction'
+        ruleName:
+          $ref: '#/components/schemas/TransactionMonitoringRuleName'
+        ruleUniqueId:
+          $ref: '#/components/schemas/MonitoringRulesID'
+        tierNumber:
+          $ref: '#/components/schemas/TransactionMonitoringTierNumber'
+        orderNumber:
+          $ref: '#/components/schemas/TransactionMonitoringOrderNumber'
+        ruleExpression:
+          $ref: '#/components/schemas/TransactionMonitoringRuleExpressions'
+        childrenRules:
+          type: array
+          description: May recur up to four times depending on depth of rules tree
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringChildrenRulesThree'
+    TransactionMonitoringChildrenRulesThree:
+      type: object
+      properties:
+        ruleResult:
+          $ref: '#/components/schemas/TransactionMonitoringRuleResult'
+        ruleAction:
+          $ref: '#/components/schemas/TransactionMonitoringRuleAction'
+        ruleName:
+          $ref: '#/components/schemas/TransactionMonitoringRuleName'
+        ruleUniqueId:
+          $ref: '#/components/schemas/MonitoringRulesID'
+        tierNumber:
+          $ref: '#/components/schemas/TransactionMonitoringTierNumber'
+        orderNumber:
+          $ref: '#/components/schemas/TransactionMonitoringOrderNumber'
+        ruleExpression:
+          $ref: '#/components/schemas/TransactionMonitoringRuleExpressions'
+      
+    TransactionMonitoringRuleExpressions:
+      type: object
+      properties:
+        criterionResult:
+          $ref: '#/components/schemas/TransactionMonitoringCriterionResult'
+        isWrapper:
+          $ref: '#/components/schemas/TransactionMonitoringIsWrapper'
+        branch:
+          $ref: '#/components/schemas/TransactionMonitoringBranch'
+        level:
+          $ref: '#/components/schemas/TransactionMonitoringLevel'
+        factorCode:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCode'
+        factorCodeDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCodeDescription'
+        factorValue:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValue'
+        factorValueDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValueDescription'
+        comparisonOption:
+          $ref: '#/components/schemas/TransactionMonitoringComparisonOption'
+        criteriaOperation:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaOperation'
+        criteriaValueBase:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaValueBase'
+        criteriaValueBaseDescription:
+          $ref: '#/components/schemas/TransactionCriteriaValueBaseDescription'
+        criteriaValue:
+          $ref: '#/components/schemas/TransactionCriteriaValue'
+        criteriaMultiValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueBlock'
+        criteriaMultiValueDescription:
+          type: object
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueDescription'
+        childrenCriterionList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringChildrenCriterionList'
+    TransactionMonitoringChildrenCriterionList:
+      type: object
+      properties:
+        criterionResult:
+          $ref: '#/components/schemas/TransactionMonitoringCriterionResult'
+        isWrapper:
+          $ref: '#/components/schemas/TransactionMonitoringIsWrapper'
+        branch:
+          $ref: '#/components/schemas/TransactionMonitoringBranch'
+        level:
+          $ref: '#/components/schemas/TransactionMonitoringLevel'
+        factorCode:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCode'
+        factorCodeDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCodeDescription'
+        factorValue:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValue'
+        factorValueDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValueDescription'
+        comparisonOption:
+          $ref: '#/components/schemas/TransactionMonitoringComparisonOption'
+        criteriaOperation:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaOperation'
+        criteriaValueBase:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaValueBase'
+        criteriaValueBaseDescription:
+          $ref: '#/components/schemas/TransactionCriteriaValueBaseDescription'
+        criteriaValue:
+          $ref: '#/components/schemas/TransactionCriteriaValue'
+        criteriaMultiValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueBlock'
+        criteriaMultiValueDescription:
+          type: object
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueDescription'
+        childrenCriterionList:
+          type: array
+          description: may return up to four times depending on depth of the decision tree
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringChildrenCriterionListTwo'
+    TransactionMonitoringChildrenCriterionListTwo:
+      type: object
+      properties:
+        criterionResult:
+          $ref: '#/components/schemas/TransactionMonitoringCriterionResult'
+        isWrapper:
+          $ref: '#/components/schemas/TransactionMonitoringIsWrapper'
+        branch:
+          $ref: '#/components/schemas/TransactionMonitoringBranch'
+        level:
+          $ref: '#/components/schemas/TransactionMonitoringLevel'
+        factorCode:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCode'
+        factorCodeDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCodeDescription'
+        factorValue:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValue'
+        factorValueDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValueDescription'
+        comparisonOption:
+          $ref: '#/components/schemas/TransactionMonitoringComparisonOption'
+        criteriaOperation:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaOperation'
+        criteriaValueBase:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaValueBase'
+        criteriaValueBaseDescription:
+          $ref: '#/components/schemas/TransactionCriteriaValueBaseDescription'
+        criteriaValue:
+          $ref: '#/components/schemas/TransactionCriteriaValue'
+        criteriaMultiValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueBlock'
+        criteriaMultiValueDescription:
+          type: object
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueDescription'
+        childrenCriterionList:
+          type: array
+          description: may return up to four times depending on depth of the decision tree
+          items:
+            $ref: '#/components/schemas/TransactionMonitoringChildrenCriterionListThree'
+    TransactionMonitoringChildrenCriterionListThree:
+      type: object
+      properties:
+        criterionResult:
+          $ref: '#/components/schemas/TransactionMonitoringCriterionResult'
+        isWrapper:
+          $ref: '#/components/schemas/TransactionMonitoringIsWrapper'
+        branch:
+          $ref: '#/components/schemas/TransactionMonitoringBranch'
+        level:
+          $ref: '#/components/schemas/TransactionMonitoringLevel'
+        factorCode:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCode'
+        factorCodeDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorCodeDescription'
+        factorValue:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValue'
+        factorValueDescription:
+          $ref: '#/components/schemas/TransactionMonitoringFactorValueDescription'
+        comparisonOption:
+          $ref: '#/components/schemas/TransactionMonitoringComparisonOption'
+        criteriaOperation:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaOperation'
+        criteriaValueBase:
+          $ref: '#/components/schemas/TransactionMonitoringCriteriaValueBase'
+        criteriaValueBaseDescription:
+          $ref: '#/components/schemas/TransactionCriteriaValueBaseDescription'
+        criteriaValue:
+          $ref: '#/components/schemas/TransactionCriteriaValue'
+        criteriaMultiValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueBlock'
+        criteriaMultiValueDescription:
+          type: object
+          items:
+            $ref: '#/components/schemas/TransactionCriteriaMultiValueDescription'
+    TransactionMonitoringRuleResult:
+      type: string
+      enum:
+        - 'TRUE'
+        - 'FALSE'
+    TransactionCriteriaMultiValueDescription:
+      type: string
+      example: "US Dollar ($)"
+    TransactionMonitoringCriterionResult:
+      type: string
+      enum:
+        - 'TRUE'
+        - 'FALSE'
+    TransactionMonitoringBranch:
+      type: string
+      example: ROOT
+    TransactionMonitoringLevel:
+      type: string
+      example: 1
+    TransactionMonitoringIsWrapper:
+      type: string
+      enum:
+        - NOT_WRAPPER
+        - IS_WRAPPER
+    TransactionMonitoringFactorCode:
+      type: string
+      example: TX_CURRENCY
+    TransactionMonitoringFactorCodeDescription:
+      type: string
+      example: Transaction Currency
+    TransactionMonitoringFactorValue:
+      type: string
+      example: USD
+    TransactionMonitoringFactorValueDescription:
+      type: string
+      example: US Dollar ($)
+    TransactionMonitoringComparisonOption:
+      type: string
+      example: INPUT
+    TransactionMonitoringCriteriaOperation:
+      type: string
+      enum:
+        - IN
+        - GREATER_THAN
+        - LESS_THAN
+        - NOT_IN
+        - LESS_THAN_OR_EQUALS#
+        - GREATER_THAN_OR_EQUALS
+    TransactionMonitoringCriteriaValueBase:
+      type: string
+      example: USD
+    TransactionCriteriaValueBaseDescription:
+      type: string
+      example: US Dollar ($)
+    TransactionCriteriaValue:
+      type: string
+      example: USD
+    TransactionCriteriaMultiValueBlock:
+      example: USD
+    TransactionMonitoringRuleAction:
+      type: string
+      enum:
+        - LOW_ALERT
+        - HIGH_ALERT
+        - MEDIUM ALERT
+        - PAUSE_INDIVIDUAL_SETTLEMENT
+        - PAUSE_ALL_SETTLEMENTS
+    TransactionMonitoringRuleName:
+      type: string
+      description: The unique identification number of the alliance
+      example: Tx Currency Jminsplit
+    TransactionMonitoringAllianceId:
+      type: string
+      description: The unique identification number of the alliance
+      example: 1125874
+    TransactionMonitoringTierNumber:
+      type: string
+      example: '1'
+    TransactionMonitoringOrderNumber:
+      type: string
+      example: '1'
+    PfacNodeID:
+      type: string
+      description: The unique identification number of the PFAC
+      example: 93
+    TransactionId:
+      maxLength: 20
+      type: string
+      description: >-
+        Transaction unique identification (for this PFAC); required if
+        Authorization code and Invoice ID are not provided
+      example: 123456789X
+    TransactionType:
+      type: string
+      description: >-
+        Type of the required split transaction: 1-Purchase, 2-Refund,
+        3-Chargeback, 4-Chargeback Reversal, 5-Reprocess
+      example: '1'
+      enum:
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+    InvoiceID:
+      maxLength: 20
+      type: string
+      description: >-
+        Invoice ID; to be used with Authorization Code as a unique combination
+        for each transaction; required if transaction ID is not provided
+    MerchantIDoptional:
+      type: string
+      description: The unique identification number of the Merchant
+      example: 30121
+    MerchantNodeID:
+      type: string
+      description: The unique identification number of the Merchant Node
+      example: 80728
+    outletID:
+      type: string
+      description: The unique identification number of the outlet
+      example: 34174
+    Recordtype:
+      type: string
+      example: CREDIT_DETAIL_FUNDED
+    HierarchyID:
+      type: string
+      example: '311970029881'
+    HierarchyLevelNo:
+      type: string
+      example: '40'
+    LocationDBAName:
+      type: string
+      example: RENTPAYMENT
+    StoreNumberOptional:
+      type: string
+      example: '60'
+    FundedDate:
+      type: string
+      example: '2022-11-28'
+    CardTypeOptional:
+      type: string
+      example: '00002'
+    CardNumberOptional:
+      type: string
+      example: 434258KFY0XXXXXX
+    TerminalIDOptional:
+      type: string
+      example: '00000'
+    BatchDate:
+      type: string
+      example: '2022-02-01'
+    ReferenceNumberOptional:
+      type: string
+      example: '7092046439706157'
+    ProcessedCurrencyCode:
+      type: string
+      example: '840'
+    SubmittedCurrencyAmount:
+      type: string
+      example: '0.00'
+    SubmittedCurrencyCode:
+      type: string
+      example: '840'
+    CurrencyConversionRate:
+      type: string
+      example: '0E-9'
+    TransactionStatus:
+      type: string
+      example: A
+    RejectIndicator:
+      type: string
+      example: 'N'
+    EntryMode:
+      type: string
+      example: '05'
+    PCterminalCapability:
+      type: string
+      example: '5'
+    PinlessDebit:
+      type: string
+      enum:
+        - 'Y'
+        - 'N'
+    PlanCode:
+      type: string
+      example: M222
+    ReclassCode:
+      type: string
+      example: '0'
+    PartialAuthIndicator:
+      type: string
+      example: XXX
+    TransactionMode:
+      type: string
+      example: E
+    TransactionSource:
+      type: string
+      example: BT
+    HealthCareCard:
+      type: string
+      example: XXXX
+    AuthorizationAmount:
+      type: string
+      example: "10"
+    AuthorizationAmountSign:
+      type: string
+      enum:
+        - +
+        - '-'
+    TotalAuthAmount:
+      type: string
+      example: "10"
+    AuthorizationDate:
+      type: string
+      example: 2022-11-10T00:00:00.000Z
+    ExpirationDate:
+      type: string
+      example: '1124'
+    TransactionTime:
+      type: string
+      example: '00:00:00'
+    AuthorizationTime:
+      type: string
+      example: '00:00:00'
+    AuthorizationSicCode:
+      type: string
+      example: '5499'
+    AVSFlag:
+      type: string
+      example: E
+    ResponseCode:
+      type: string
+      example: XX
+    Cvc2Result:
+      type: string
+      example: XX
+    Cvv2Result:
+      type: string
+      example: XX
+    SpecialReference1:
+      type: string
+      example: XX
+    SpecialReference2:
+      type: string
+      example: XX
+    AuthorisationResponseCode:
+      type: string
+      example: '00'
+    VisaChipConditionCode:
+      type: string
+      example: XX
+    SubmerchantIDoptional:
+      type: string
+      example: 4AUBOLAD3IBQBZN
+    SoftDescriptor:
+      type: string
+      example: '{/]e.so9#c/)Yfmd@lJ0m;5t3@~wacL_'
+    BankReferenceNumber:
+      type: string
+      example: '125489558'
+    MerchantReferenceNumber:
+      type: string
+      example: '36454204'
+    AuthSource:
+      type: string
+      example: '189558'
+    Catlevel:
+      type: string
+      example: '01'
+    CardHolderIDMethod:
+      type: string
+      example: '1'
+    CardPresenceIndicator:
+      type: string
+      example: '0'
+    ExternalID:
+      type: string
+      example: '421970029581'
+    MarketSpecificIndicator:
+      type: string
+      example: XX
+    VisaServiceDevelop:
+      type: string
+      example: XX
+    VisaPurchaseIdentifierFormat:
+      type: string
+      example: XX
+    VisaPurchaseIdentifier:
+      type: string
+      example: XX
+    MCSecurityProtocol:
+      type: string
+      example: XX
+    MCCardHolderAuthentication:
+      type: string
+      example: XX
+    UsageIndicator:
+      type: string
+      example: D
+    AirlineTicketNumber:
+      type: string
+      example: 22XXXXXX
+    TransactionIntegrityClass:
+      type: string
+      example: XX
+    MobileIndicator:
+      type: string
+      example: XX
+    UserData2:
+      type: string
+      example: XX
+    MerchantReference:
+      type: string
+      example: 3003594
+    AuthTracker:
+      type: string
+      example: 396281238190543
+    TransactionMonitoringSearchRequest:
+      type: object
+      properties:
+        limit:
+          $ref: '#/components/schemas/TransactionMonitoringLimit'
+        page:
+          $ref: '#/components/schemas/TransactionMonitoringPage'
+        query:
+          $ref: '#/components/schemas/TransactionMonitoringQuery'
+    TransactionMonitoringLimit:
+      type: string
+      description: Number of Alerts to see per page
+      example: 100
+      minLength: 1
+      maxLength: 1000
+    TransactionMonitoringPage:
+      type: string
+      description: The Page on which the user wants to see the Alerts
+      example: 1
+    TransactionMonitoringQuery:
+      type: object
+      properties:
+        transaction_date:
+          $ref: '#/components/schemas/TransactionDateSearch'
+        merchant_name:
+          $ref: '#/components/schemas/MerchantName'
+        location_id:
+          $ref: '#/components/schemas/MerchantID'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionMonitoringType'
+        transaction_auth_id:
+          $ref: '#/components/schemas/TransactionAuthCode'
+        transaction_amount:
+          $ref: '#/components/schemas/TransactionMonitoringAmount'
+        original_decision:
+          $ref: '#/components/schemas/OriginalDecision'
+        monitoring_mode:
+          $ref: '#/components/schemas/MerchantMonitoringMode'
+        funding_status:
+          $ref: '#/components/schemas/TransactionFundingStatus'
+        overall_decision:
+          $ref: '#/components/schemas/OverallDecision'
+        monitoring_rules:
+          $ref: '#/components/schemas/TransactionMonitoringRules'
+        date_added:
+          $ref: '#/components/schemas/TransactionDateAdded'
+      description: User can use any of the above search options
+    TransactionDateSearch:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/TransactionMonitoringOperator'
+        value:
+          $ref: '#/components/schemas/Date'
+    TransactionMonitoringOperator:
+      type: string
+      description: The operator used in searching the Alerts
+      enum:
+        - EQ
+        - LE
+        - LT
+        - GE
+        - GT
+    MerchantName:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/LegalName'
+    MerchantID:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/MID'
+    TransactionMonitoringType:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/TransactionMonitoringTypeValue'
+    TransactionMonitoringTypeValue:
+      type: string
+      description: The type of the Transaction
+      enum:
+        - PURCHASE
+        - REFUND
+        - CHARGEBACK
+        - CHARGEBACK_REVERSAL
+    TransactionAuthCode:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/AuthorisationCode'
+    AuthorisationCode:
+      type: string
+      description: The Auth code of the Transaction
+      example: 589895
+    TransactionMonitoringAmount:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/TransactionMonitoringOperator'
+        value:
+          $ref: '#/components/schemas/TransactionAmountValue'
+    TransactionAmountValue:
+      type: string
+      description: The Amount that has been paid for the service using the card
+      example: 100
+    OriginalDecision:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/TransactionMonitoringOriginalDecision'
+    TransactionMonitoringOriginalDecision:
+      type: string
+      description: The decision sent from the Prospect
+      enum:
+        - LOW_ALERT
+        - HIGH_ALERT
+        - MEDIUM ALERT
+        - PAUSE_INDIVIDUAL_SETTLEMENT
+        - PAUSE_ALL_SETTLEMENTS
+    MerchantMonitoringMode:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/MonitoringMode'
+    MonitoringMode:
+      type: string
+      description: The monitoring mode of the merchant
+      enum:
+        - Passive
+        - Active
+    TransactionFundingStatus:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/FundingStatus'
+    FundingStatus:
+      type: string
+      description: The Status of Transaction Funding
+      enum:
+        - Processed
+        - Not Processed
+    OverallDecision:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/TransactionMonitoringOverallDecision'
+    TransactionMonitoringOverallDecision:
+      type: string
+      description: The decision made by the reviewer
+      enum:
+        - PAUSE_INDIVIDUAL_SETTLEMENT
+        - PAUSE_ALL_SETTLEMENTS
+        - DISCARD
+    TransactionMonitoringRules:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/MonitoringRulesID'
+    MonitoringRulesID:
+      type: string
+      description: The decision made by the reviewer
+      example: TXR10000000106
+    TransactionDateAdded:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/TransactionMonitoringOperator'
+        value:
+          $ref: '#/components/schemas/DateAdded'
+    DateAdded:
+      type: string
+      description: The date on which transaction is added
+      example: 2022-10-29T00:00:00.000Z
+    TransactionMonitoringSearchResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        response:
+          $ref: '#/components/schemas/TransactionSearchResponse'
+    TransactionSearchResponse:
+      type: object
+      properties:
+        limit:
+          $ref: '#/components/schemas/TransactionMonitoringLimit'
+        page:
+          $ref: '#/components/schemas/TransactionMonitoringPage'
+        summary_status:
+          $ref: '#/components/schemas/TransactionMonitoringSummaryStatus'
+        transaction_monitoring_hits:
+          $ref: '#/components/schemas/TransactionMonitoringHits'
+    TransactionMonitoringSummaryStatus:
+      type: string
+      description: Status of the Transaction Summary
+      example: FOUND
+    TransactionMonitoringHits:
+      type: array
+      items:
+        $ref: '#/components/schemas/TransactionMonitoringHitsBlock'
+    TransactionMonitoringHitsBlock:
+      type: object
+      properties:
+        alliance_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_name:
+          $ref: '#/components/schemas/LegalName'
+        location_id:
+          $ref: '#/components/schemas/MID'
+        transaction_type:
+          $ref: '#/components/schemas/TransactionMonitoringTypeValue'
+        transaction_date:
+          $ref: '#/components/schemas/Date'
+        transaction_amount:
+          $ref: '#/components/schemas/TransactionAmountValue'
+        authorization_code:
+          $ref: '#/components/schemas/AuthorisationCode'
+        txm_decision:
+          $ref: '#/components/schemas/TransactionMonitoringOriginalDecision'
+        monitoring_mode:
+          $ref: '#/components/schemas/MonitoringMode'
+        passive_mode_confirm:
+          $ref: '#/components/schemas/TransactionPassiveMode'
+        user_Decision:
+          $ref: '#/components/schemas/TransactionMonitoringUserDecision'
+        monitoring_hit_id:
+          $ref: '#/components/schemas/TransactionMonitoringHitId'
+    TransactionMonitoringUserDecision:
+      type: string
+      description: The decision made by the reviewer
+      enum:
+        - PAUSE_INDIVIDUAL_SETTLEMENT
+        - PAUSE_ALL_SETTLEMENTS
+        - DISCARD
+    TransactionMonitoringDecisionRequest:
+      type: object
+      properties:
+        monitoring_hit_id:
+          $ref: '#/components/schemas/TransactionMonitoringHitId'
+        decision:
+          $ref: '#/components/schemas/TransactionDecision'
+        release_merchant:
+          $ref: '#/components/schemas/TransactionReleaseMerchant'
+        passive_mode_confirm:
+          $ref: '#/components/schemas/TransactionPassiveMode'
+        reviewer_details:
+          $ref: '#/components/schemas/TransactionReviewerDetails'
+    TransactionReviewerDetails:
+      required:
+        - reviewer_name
+        - reviewer_email
+      type: object
+      properties:
+        reviewer_name:
+          type: string
+          description: The person who reviews the transaction
+          example: John Doe
+        reviewer_email:
+          type: string
+          description: An email address of person who reviews the transaction
+          example: exampleemail@fiserv.com
+    TransactionDecision:
+      type: string
+      description: The decision the user wants to take
+      example: PAUSE_INDIVIDUAL_SETTLEMENT
+      enum:
+        - PAUSE_INDIVIDUAL_SETTLEMENT
+        - DISCARD
+        - CONTINUE
+        - PAUSE_ALL_SETTLEMENTS
+        - ADJUST
+        - CONTINUE
+        - CONFIRM_DECISION
+    TransactionMonitoringHitId:
+      type: string
+      description: The reference number of the report
+      example: 63bea8160e989654e347e274
+    TransactionReleaseMerchant:
+      type: string
+      description: confirm to release the merchant, 1= yes, 0= no
+      example: "1"
+      enum:
+        - "0"
+        - "1"
+    TransactionPassiveMode:
+      type: string
+      description: Confirms the mode of the transaction, 1= passive, 0= active
+      example: "1"
+      enum:
+        - "0"
+        - "1"
+    TransactionMonitoringDecisionResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        response:
+          $ref: '#/components/schemas/TransactionMonitoringResponse'
+    TransactionMonitoringResponse:
+      required:
+        - result
+        - message
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        message:
+          $ref: '#/components/schemas/TransactionMonitoringMessage'
+    TransactionMonitoringMessage:
+      type: string
+      example: >-
+        Decision HIGH_ALERT has been confirmed and updated to
+        PAUSE_INDIVIDUAL_SETTLEMENT.
   requestBodies:
     statusMode:
       content:
