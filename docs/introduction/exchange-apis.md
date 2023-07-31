@@ -11,7 +11,8 @@ APIs avaliable can be viewed on the API Explorer, and cover:
 - Funding 
 - Reporting
 - OFAC and Credit Risk
-- Equipment and Pricing offerings 
+- Equipment and Pricing offerings
+- Transaction Monitoring
 
 These are explained briefly below, where additional API sections can be expanded on the right for more info and full API spec seen in the API explorer.
 
