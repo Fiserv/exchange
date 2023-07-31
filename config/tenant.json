@@ -3,8 +3,8 @@
   "name": "Exchange",
   "brand": "Fiserv",
   "brandLogoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Fiserv_Logo.jpg",
-  "solution": ["merchants", "fintech", "carat"],
-  "brandDescription": "Exchange offers Payment Facilitators and Marketplaces integrations for Merchant onboarding, reporting, risk decisioning and settlements all in the same platform.",
+  "solution": ["financial-institutions", "fintech", "carat"],
+  "brandDescription": "Exchange offers Payment Facilitators and Marketplaces integrations for Merchant onboarding, reporting, risk decisioning and settlements all in the same platform. ",
   "categories": [
     {
       "name": "businessTypes",
