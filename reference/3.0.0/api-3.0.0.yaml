@@ -11934,7 +11934,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5.0
+          example: '5.0'
         release_reason:
           type: string
           description: release reason - Cannot be empty.
