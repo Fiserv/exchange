@@ -2820,7 +2820,7 @@ components:
         chargeback_settlement_method:
           type: string
           description: 0 -N/A, 1 -Instruction, 2 Auto Debit, 3 From UI
-          example: 1
+          example: "1"
           enum:
             - "0"
             - "1"
@@ -2829,7 +2829,7 @@ components:
         chargeback_debit_option:
           type: string
           description: 0 -N/A, 1- Net, 2 Debit
-          example: 1
+          example: "1"
           enum:
             - "0"
             - "1"
@@ -5308,19 +5308,19 @@ components:
                     properties: 
                       reserve_type: 
                         type: string
-                        example: 1
+                        example: "1"
                       reserve_setting: 
                         type: string
-                        example: 2
+                        example: "2"
                       reserve_daily_amount: 
                         type: string
-                        example: 10
+                        example: "10"
                       set_reserve_target: 
                         type: string
-                        example: 1
+                        example: "1"
                       reserve_target_amount: 
                         type: string
-                        example: 0
+                        example: "0"
                   chargeback: 
                     type: object
                     properties: 
@@ -9465,7 +9465,7 @@ components:
     DeliveryPerc:
       type: string
       description: 'the % of delivery in a period of time - same day, 1-7 days, 8-14 ays, 15-30 days, >30 days - the total should be 100 '
-      example: 10
+      example: "10"
     DeliveryDay:
       type: string
       description: average delivery date
@@ -9827,7 +9827,7 @@ components:
     FundingDelayDays:
       type: string
       description: 'Number of days funding is delayed by'
-      example: 1
+      example: "1"
     FundingDay:
       type: string
       description: 'Day of the week in which funding is done - 1: Sunday 2: Monday, 3: Tuesday , 4: Wednesday, 5: Thursday, 6: Friday, 7: Saturday'
@@ -9930,15 +9930,15 @@ components:
     ReserveDelayDays:
       type: string
       description: 'Number of days reserve will be delayed'
-      example: 1
+      example: "1"
     ReserveDailyAmount:
       type: string
       description: 'Daily amount for reserve'
-      example: 10
+      example: "10"
     ReserveTransPerc:
       type: string
       description: 'Percentage of transactions for reserve'
-      example: 5
+      example: "5"
     SetReserveTarget:
       type: string
       description: 'Is there a reserve target - 0: No, 1: Yes'
@@ -9949,7 +9949,7 @@ components:
     ReserveTargetAmount:
       type: string
       description: 'Target amount for reserve'
-      example: 100
+      example: "100"
     AllowSplitFlag:
       type: string
       description: 'Merchant allowed to split revenue - 1: Allowed 0: Not allowed - ONLY Avaulable if PFAC profile has split option'
