@@ -2339,10 +2339,10 @@ components:
           maxLength: 17
         account_type:
           type: array
-          description: CREDIT, DEBIT, CHARGEBACK
+          description: To designate what we settle to the bank CREDIT, DEBIT, CHARGEBACK"
           items:
             type: string
-            example: CREDIT
+            example: 'CREDIT'
       xml:
         name: customer
     NumberEmployees:
@@ -2619,8 +2619,56 @@ components:
         transaction_pricing_external_id:
           type: string
           example: OPK06-3A155-ABCDF-FD3FF-82F6F-TST23-CA98A
+        charge_items:
+          $ref: '#/components/schemas/ChargeItems'
+          
       xml:
         name: acquiring
+    ChargeItems:
+      type: array
+      items: 
+       $ref: '#/components/schemas/ChargeItemArray'
+    ChargeItemArray:
+      type: object
+      properties:
+        charge_item_external_id:
+          $ref: '#/components/schemas/ExtID'
+        charge_item_prices:
+          $ref:  '#/components/schemas/ChargeItemPricesArray'
+    ChargeItemPricesArray:
+      type: array
+      items:
+          $ref: '#/components/schemas/ChargeItemPricesChargesArray'
+    ChargeItemPricesChargesArray:
+      type: object
+      properties:
+        charge_item_price_charges:
+          $ref:  '#/components/schemas/ChargeItemPricesCharges'
+    ChargeItemPricesCharges:
+      type: object
+      properties:
+        fee_type:
+          type: string
+          description: Base or percentage. Retrieved from offer retrieval, where 1 = Percentage, 2 = Base
+          example: '1'
+          enum:
+            - '1'
+            - '2'
+        category:
+          description: Retrieved from offer retrieval. Blended = 3 
+          type: string
+          example: "3"
+          enum:
+            - "3"
+            - "2"
+        base_charge:
+          type: string
+          description: Base charge to be added, decimal precision depends on configuration of pricing. 
+          example: "0.25"
+        percent_charge:
+          type: string
+          description: Percent charge to be added, decimal precision depends on configuration of pricing. 
+          example: "0.25"
     Settings:
       type: object
       properties:
@@ -3820,7 +3868,7 @@ components:
                   example: 2020-01-01
                 int_tax_id: 
                   type: string
-                  example: 999888555
+                  example: "999888555"
                 banks: 
                   type: array
                   items: 
@@ -3834,10 +3882,10 @@ components:
                         example: Sparks
                       country_code: 
                         type: string
-                        example: 840
+                        example: "840"
                       bank_account_number: 
                         type: string
-                        example: 123456789000
+                        example: "123456789000"
                       bank_sort_code: 
                         type: string
                         example: 
@@ -3857,7 +3905,7 @@ components:
                           example: CREDIT
                       zip_code: 
                         type: string
-                        example: 89431
+                        example: '89431'
                       county_code: 
                         type: string
                         example: NV
@@ -7875,9 +7923,13 @@ components:
         reserve_flag:
           $ref: '#/components/schemas/ReserveFlag'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         funding_defaults:
@@ -8024,7 +8076,7 @@ components:
           $ref: '#/components/schemas/OfferPackage'
     UpdateOutlet:
       required:
-        - curr_code
+        - currencies
         - mcc_code
         - parent_mid
         - trade_name
@@ -8056,10 +8108,6 @@ components:
           $ref: '#/components/schemas/StatementType'
         external_mid:
           $ref: '#/components/schemas/MID'
-        clearing_bank:
-          $ref: '#/components/schemas/SettlementBank'
-        funding_bank:
-          $ref: '#/components/schemas/SettlementBank'
         number_of_employees:
           $ref: '#/components/schemas/NumberEmployees'
         primary_email_address:
@@ -8076,7 +8124,7 @@ components:
           $ref: '#/components/schemas/Seasonal_Start_Month'
         seasonal_end_month:
           $ref: '#/components/schemas/Seasonal_End_Month'
-        curr_code:
+        currencies:
           $ref: '#/components/schemas/Currency'
         mastercard_sales:
           $ref: '#/components/schemas/SaleAmount'
@@ -8151,9 +8199,13 @@ components:
         avg_ticket_sales_amt:
           $ref: '#/components/schemas/ATV'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         equipment_offer:
           $ref: '#/components/schemas/EquipmentOffering'
         online_offer:
@@ -8209,9 +8261,13 @@ components:
         reserve_flag:
           $ref: '#/components/schemas/ReserveFlag'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         funding_defaults:
@@ -8626,7 +8682,9 @@ components:
         group_name:
           $ref: '#/components/schemas/BusinessName'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         contacts:
           type: array
           items:
