@@ -2152,7 +2152,7 @@ components:
       type: string
       description: Settlement date
       format: yyyy-mm-dd
-      example: 2019-08-30T00:00:00.000+0000
+      example: 2019-08-30T
     TransactionInstructionTransactionRequest:
       required:
       - amount
@@ -2245,8 +2245,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Principal'
-        parent_entity:
-            $ref: '#/components/schemas/Parent'
         settings:
             $ref: '#/components/schemas/Settings'
         offer_package:
@@ -2264,7 +2262,7 @@ components:
       properties:
         application_reference:
           type: string
-          example: 33300005765
+          example: "33300005765"
         business_entity:
             $ref: '#/components/schemas/BusinessEntity'
         owners:
@@ -2333,20 +2331,24 @@ components:
             - SAVINGS
         dda_number:
           type: string
-          example: 123456789
+          example: '123456789'
           maxLength: 9
         routing_number:
           type: string
-          example: 123456789
+          example: '123456789'
           maxLength: 17
         account_type:
           type: array
-          description: CREDIT, DEBIT, CHARGEBACK
+          description: To designate what we settle to the bank CREDIT, DEBIT, CHARGEBACK"
           items:
             type: string
-            example: CREDIT
+            example: 'CREDIT'
       xml:
         name: customer
+    NumberEmployees:
+      description: number of employees
+      type: string
+      example: '3'
     BusinessEntity:
       type: object
       properties:
@@ -2371,11 +2373,11 @@ components:
           description: registration number of business
           type: string
           maxLength: 21
-          example: 123456789
+          example: '123456789'
         reg_charity_number:
           description: registration number of charity
           type: string
-          example: 123456789
+          example: '123456789'
         foreign_entity:
           description: Is foreign entity? 1 - Yes 0 - No
           type: string
@@ -2437,7 +2439,7 @@ components:
           enum: 
             - "1"
             - "0"
-          example: 1
+          example: "1"
         int_tax_id:
           type: string
           example: "123456789"
@@ -2462,11 +2464,11 @@ components:
             - RT
         foundation_date:
           type: string
-          pattern: '^\d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$'
+          pattern: '^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$'
           example: 2022-01-01
         date_incorporated:
           type: string
-          pattern: '^\d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$'
+          pattern: '^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$'
           example: 2022-01-01
         incorp_state:
           description: 2 Character following ISO 3166-2
@@ -2507,7 +2509,7 @@ components:
           maxLength: 25
         contact_dob:
           type: string
-          pattern: '^\d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$'
+          pattern: '^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$'
           example: 2000-01-01
         owner_nationality:
           type: string
@@ -2538,7 +2540,7 @@ components:
         owner_phone_no:
           type: string
           maxLength: 10
-          example: 3339898988
+          example: '3339898988'
         owner_date_started:
           type: string
           example: 1999-03-31
@@ -2548,11 +2550,11 @@ components:
           maxLength: 40
         owner_tin_ssn_number:
           type: string
-          example: 123456789
+          example: '123456789'
           maxLength: 9
         is_main_principal:
           type: string
-          example: 1
+          example: "1"
           enum : 
             - "1"
             - "0"
@@ -2575,11 +2577,11 @@ components:
       properties:
         zip_code:
           type: string
-          example: 12345
+          example: "12345"
           maxLength: 10
         suite_apart_number:
           type: string
-          example: 1
+          example: "1"
           maxLength: 50
         floor:
           type: string
@@ -2617,8 +2619,56 @@ components:
         transaction_pricing_external_id:
           type: string
           example: OPK06-3A155-ABCDF-FD3FF-82F6F-TST23-CA98A
+        charge_items:
+          $ref: '#/components/schemas/ChargeItems'
+          
       xml:
         name: acquiring
+    ChargeItems:
+      type: array
+      items: 
+       $ref: '#/components/schemas/ChargeItemArray'
+    ChargeItemArray:
+      type: object
+      properties:
+        charge_item_external_id:
+          $ref: '#/components/schemas/ExtID'
+        charge_item_prices:
+          $ref:  '#/components/schemas/ChargeItemPricesArray'
+    ChargeItemPricesArray:
+      type: array
+      items:
+          $ref: '#/components/schemas/ChargeItemPricesChargesArray'
+    ChargeItemPricesChargesArray:
+      type: object
+      properties:
+        charge_item_price_charges:
+          $ref:  '#/components/schemas/ChargeItemPricesCharges'
+    ChargeItemPricesCharges:
+      type: object
+      properties:
+        fee_type:
+          type: string
+          description: Base or percentage. Retrieved from offer retrieval, where 1 = Percentage, 2 = Base
+          example: '1'
+          enum:
+            - '1'
+            - '2'
+        category:
+          description: Retrieved from offer retrieval. Blended = 3 
+          type: string
+          example: "3"
+          enum:
+            - "3"
+            - "2"
+        base_charge:
+          type: string
+          description: Base charge to be added, decimal precision depends on configuration of pricing. 
+          example: "0.25"
+        percent_charge:
+          type: string
+          description: Percent charge to be added, decimal precision depends on configuration of pricing. 
+          example: "0.25"
     Settings:
       type: object
       properties:
@@ -2675,10 +2725,10 @@ components:
             - "3"
         delay_funding_flag:
           type: string
-          example: 1
+          example: "1"
         funding_delay_days:
           type: string
-          example: 2
+          example: "2"
         funding_day:
           type: string
           example: "1"
@@ -2698,7 +2748,7 @@ components:
             - "2"
         same_day_ach:
           type: string
-          example: 1
+          example: "1"
       xml:
         name: funding
     Billing:
@@ -2713,7 +2763,7 @@ components:
             - "3"
         has_transaction_billing:
           type: string
-          example: 1
+          example: '1'
         tx_fees_billing_method:
           description: 0 - Not Applicable, 1 - Net, 2 - Gross
           type: string
@@ -2770,7 +2820,7 @@ components:
         chargeback_settlement_method:
           type: string
           description: 0 -N/A, 1 -Instruction, 2 Auto Debit, 3 From UI
-          example: 1
+          example: "1"
           enum:
             - "0"
             - "1"
@@ -2779,7 +2829,7 @@ components:
         chargeback_debit_option:
           type: string
           description: 0 -N/A, 1- Net, 2 Debit
-          example: 1
+          example: "1"
           enum:
             - "0"
             - "1"
@@ -2792,7 +2842,7 @@ components:
         reserve_type:
           type: string
           description: 0 -N/A, 1 -Normal, 2 Rolling
-          example: 1
+          example: '1'
           enum:
             - "0"
             - "1"
@@ -2800,33 +2850,33 @@ components:
         reserve_entity_level:
           type: string
           description: 1- Outlet, 2 Funding Level
-          example: 1
+          example: '1'
           enum:
             - "1"
             - "2"
         reserve_setting:
           type: string
           description: 1- Percentage, 2 Base
-          example: 1
+          example: '1'
           enum:
             - "1"
             - "2"
         reserve_delay_days:
           type: string
-          example: 1
+          example: '1'
           description: "Max 90 days"
         reserve_daily_amount:
           type: string
-          example: 100
+          example: '100'
         reserve_trans_perc:
           type: string
-          example: 100
+          example: '100'
         set_reserve_target:
           type: string
-          example: 1
+          example: '1'
         reserve_target_amount:
           type: string
-          example: 100
+          example: '100'
       xml:
         name: chargeback
     Subgroup:
@@ -2878,13 +2928,13 @@ components:
           example: Test@test.com
         zip_code:
           type: string
-          example: 12345
+          example: '12345'
         suite_apart_number:
           type: string
-          example: 1
+          example: '1'
         floor:
           type: string
-          example: 1
+          example: '1'
         province:
           description: typically used for non US countries
           type: string
@@ -3071,19 +3121,19 @@ components:
                   example: OC123
                 package_weight: 
                   type: string
-                  example: 50
+                  example: '50'
                 package_channel: 
                   type: string
-                  example: 1
+                  example: '1'
                 package_status: 
                   type: string
-                  example: 1
+                  example: '1'
                 non_processing_flag: 
                   type: string
-                  example: 0
+                  example: '0'
                 offer_code_status: 
                   type: string
-                  example: 1
+                  example: '1'
                 processing_offers: 
                   type: array
                   items: 
@@ -3624,7 +3674,7 @@ components:
               example: APLF6-AF19E-4A7FC-B2834-9275A-CF3AE-A9FE2
             sales_owner_user_id: 
               type: string
-              example: 2675
+              example: '2675'
             merchant_data_id: 
               type: string
               example: 642e8d5143bb7a05360f2837
@@ -3633,25 +3683,25 @@ components:
               example: ALLIANCE
             reserve_flag: 
               type: string
-              example: 0
+              example: '0'
             status_id: 
               type: string
-              example: 1
+              example: '1'
             internal_mid: 
               type: string
-              example: 700100000004360
+              example: '700100000004360'
             billing_level: 
               type: string
-              example: 1
+              example: '1'
             funding_level: 
               type: string
-              example: 1
+              example: '1'
             hold_suspend_flag: 
               type: string
-              example: 0
+              example: '0'
             has_processing_mid: 
               type: string
-              example: 1
+              example: '1'
             legal_name: 
               type: string
               example: Business Legal Name
@@ -3717,13 +3767,13 @@ components:
                   example: 642ea28d43bb7a05360f285a
                 country_code: 
                   type: string
-                  example: 840
+                  example: "840"
                 city: 
                   type: string
                   example: Sparks
                 zip_code: 
                   type: string
-                  example: 89431
+                  example: "89431"
                 street_line_1: 
                   type: string
                   example: Sheila Lane
@@ -3732,10 +3782,10 @@ components:
                   example: NV
                 floor: 
                   type: string
-                  example: 3
+                  example: "3"
                 suite_apart_number: 
                   type: string
-                  example: 20
+                  example: "20"
                 province: 
                   type: string
                   example: Nevada
@@ -3818,7 +3868,7 @@ components:
                   example: 2020-01-01
                 int_tax_id: 
                   type: string
-                  example: 999888555
+                  example: "999888555"
                 banks: 
                   type: array
                   items: 
@@ -3832,10 +3882,10 @@ components:
                         example: Sparks
                       country_code: 
                         type: string
-                        example: 840
+                        example: "840"
                       bank_account_number: 
                         type: string
-                        example: 123456789000
+                        example: "123456789000"
                       bank_sort_code: 
                         type: string
                         example: 
@@ -3855,7 +3905,7 @@ components:
                           example: CREDIT
                       zip_code: 
                         type: string
-                        example: 89431
+                        example: '89431'
                       county_code: 
                         type: string
                         example: NV
@@ -3870,13 +3920,13 @@ components:
                         example: CHECKING
                       dda_number: 
                         type: string
-                        example: 123456789000
+                        example: '123456789000'
                       dda_number_masked: 
                         type: string
                         example: '********9000'
                       routing_number: 
                         type: string
-                        example: 123456789
+                        example: '123456789'
                       routing_number_masked: 
                         type: string
                         example: '*****6789'
@@ -3909,7 +3959,7 @@ components:
                     example: 840
                   owner_position: 
                     description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
-                    example: OW
+                    example: CEO
                     enum:
                       - VICE PRESIDENT
                       - PRESIDENT
@@ -3927,13 +3977,13 @@ components:
                       - SP
                   is_main_principal: 
                     type: string
-                    example: 1
+                    example: '1'
                   ownership_perc: 
                     type: string
-                    example: 50
+                    example: '50'
                   owner_tin_ssn_number: 
                     type: string
-                    example: 999888555
+                    example: '999888555'
                   personal_guarantee: 
                     type: string
                     example: N
@@ -3946,7 +3996,7 @@ components:
                     example: GB|44
                   owner_phone_no: 
                     type: string
-                    example: 1477855436
+                    example: '1477855436'
                   owner_email: 
                     type: string
                     example: john.doe123@technologi.co.uk
@@ -3963,19 +4013,19 @@ components:
                           example: 642ea28d43bb7a05360f285c
                         country_code: 
                           type: string
-                          example: 840
+                          example: '840'
                         city: 
                           type: string
                           example: Sparks
                         floor: 
                           type: string
-                          example: 3
+                          example: '3'
                         suite_apart_number: 
                           type: string
-                          example: 20
+                          example: '20'
                         zip_code: 
                           type: string
-                          example: 89431
+                          example: '89431'
                         street_line_1: 
                           type: string
                           example: Sheila Lane
@@ -4023,7 +4073,7 @@ components:
               example: en_gb
             same_day_ach: 
               type: string
-              example: 0
+              example: "0"
             application_status_external_id: 
               type: string
               example: APSE6-88106-8A5D6-E3F0E-1FBF8-6C93B-95DE4
@@ -4049,82 +4099,82 @@ components:
                       properties: 
                         funding_frequency: 
                           type: string
-                          example: 2
+                          example: "2"
                         funding_day: 
                           type: string
-                          example: 1
+                          example: "1"
                         funding_month: 
                           type: string
-                          example: 0
+                          example: "0"
                         delay_funding_flag: 
                           type: string
-                          example: 0
+                          example: "0"
                         funding_delay_days: 
                           type: string
                           example: "0"
                         settlement_method: 
                           type: string
-                          example: 1
+                          example: "1"
                         tx_instruction_on: 
                           type: string
-                          example: 0
+                          example: "0"
                     billing: 
                       type: object
                       properties: 
                         billing_frequency: 
                           type: string
-                          example: 2
+                          example: "2"
                         billing_day: 
                           type: string
-                          example: 2
+                          example: "2"
                         billing_month: 
                           type: string
-                          example: 0
+                          example: "0"
                         has_transaction_billing: 
                           type: string
-                          example: 0
+                          example: "0"
                         tx_fees_billing_method: 
                           type: string
-                          example: 0
+                          example: "0"
                         other_fees_billing_method: 
                           type: string
-                          example: 1
+                          example: "1"
                         has_equipment_billing: 
                           type: string
-                          example: 1
+                          example: "1"
                         has_service_billing: 
                           type: string
-                          example: 0
+                          example: "0"
                     reserve: 
                       type: object
                       properties: 
                         reserve_type: 
                           type: string
-                          example: 2
+                          example: "2"
                         reserve_setting: 
                           type: string
-                          example: 2
+                          example: "2"
                         reserve_delay_days: 
                           type: string
-                          example: 0
+                          example: "0"
                         reserve_daily_amount: 
                           type: string
-                          example: 10.0000
+                          example: "10.00"
                         set_reserve_target: 
                           type: string
-                          example: 1
+                          example: "1"
                         reserve_target_amount: 
                           type: string
-                          example: 990
+                          example: "990"
                     chargeback: 
                       type: object
                       properties: 
                         chargeback_settlement_method: 
                           type: string
-                          example: 1
+                          example: "1"
                         chargeback_debit_option: 
                           type: string
-                          example: 1
+                          example: "1"
             funding_defaults: 
               type: object
               properties: 
@@ -4536,13 +4586,13 @@ components:
                       example: LastName
                     country_code: 
                       type: string
-                      example: 840
+                      example: "840"
                     city: 
                       type: string
                       example: City
                     zip_code: 
                       type: string
-                      example: 12345
+                      example: "12345"
                     street_line_1: 
                       type: string
                       example: fyfjh
@@ -4852,7 +4902,7 @@ components:
                     example: 100
                   owner_tin_ssn_number: 
                     type: string
-                    example: 666989898
+                    example: '666989898'
                   personal_guarantee: 
                     type: string
                     example: N
@@ -4865,7 +4915,7 @@ components:
                     example: US|1
                   owner_phone_no: 
                     type: string
-                    example: 23989802037
+                    example: '23989802037'
                   owner_email: 
                     type: string
                     example: test@fiserv.com
@@ -4882,16 +4932,16 @@ components:
                           example: 642e8d5043bb7a05360f2836
                         country_code: 
                           type: string
-                          example: 840
+                          example: '840'
                         city: 
                           type: string
                           example: ATMORE
                         floor: 
                           type: string
-                          example: 15
+                          example: '15'
                         suite_apart_number: 
                           type: string
-                          example: 96
+                          example: '96'
                         zip_code: 
                           type: string
                           example: 36502-8856
@@ -4903,25 +4953,25 @@ components:
                           example: AL
             tx_fees_billing_method: 
               type: string
-              example: 0
+              example: '0'
             chargeback_debit_option: 
               type: string
-              example: 1
+              example: '1'
             billing_frequency: 
               type: string
-              example: 1
+              example: '1'
             funding_frequency: 
               type: string
-              example: 1
+              example: '1'
             parent_pfac_node_external_id: 
               type: string
               example: PEI55-927B1-B85A3-8B3C5-65175-D8417-7EFC5
             multiple_outlet: 
               type: string
-              example: 0
+              example: '0'
             application_reference: 
               type: string
-              example: 333000003793
+              example: '333000003793'
             application_type: 
               type: string
               example: NA
@@ -4939,7 +4989,7 @@ components:
               example: en_gb
             same_day_ach: 
               type: string
-              example: 0
+              example: "0"
             application_status_external_id: 
               type: string
               example: APSE6-88106-8A5D6-E3F0E-1FBF8-6C93B-95DE4
@@ -5258,19 +5308,19 @@ components:
                     properties: 
                       reserve_type: 
                         type: string
-                        example: 1
+                        example: "1"
                       reserve_setting: 
                         type: string
-                        example: 2
+                        example: "2"
                       reserve_daily_amount: 
                         type: string
-                        example: 10
+                        example: "10"
                       set_reserve_target: 
                         type: string
-                        example: 1
+                        example: "1"
                       reserve_target_amount: 
                         type: string
-                        example: 0
+                        example: "0"
                   chargeback: 
                     type: object
                     properties: 
@@ -5389,13 +5439,13 @@ components:
                       example: Doe
                     country_code: 
                       type: string
-                      example: 840
+                      example: "840"
                     city: 
                       type: string
                       example: City
                     zip_code: 
                       type: string
-                      example: 12345
+                      example: "12345"
                     street_line_1: 
                       type: string
                       example: Sample Street
@@ -5410,19 +5460,19 @@ components:
                       example: US|1
                     telephone_number: 
                       type: string
-                      example: 3229898988
+                      example: "3229898988"
                     bill_to: 
                       type: string
                       example: Bill to Name
                     floor: 
                       type: string
-                      example: 1
+                      example: "1"
                     suite_apart_number: 
                       type: string
-                      example: 2
+                      example: "2"
               external_mid: 
                 type: string
-                example: 123456789
+                example: "123456789"
     settlement_ref:
       type: string
       description: Unique identifier of the settlement ref
@@ -5437,7 +5487,7 @@ components:
       type: string
       description: date
       format: yyyy-mm-dd
-      example: 2019-08-30T00:00:00.000+0000
+      example: 2019-08-30
     transaction:
       type: object
       properties:
@@ -7873,9 +7923,13 @@ components:
         reserve_flag:
           $ref: '#/components/schemas/ReserveFlag'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         funding_defaults:
@@ -7884,7 +7938,7 @@ components:
           type: string
     OutletRequest:
       required:
-        - curr_code
+        - currencies
         - mcc_code
         - parent_mid
         - trade_name
@@ -7914,12 +7968,8 @@ components:
           $ref: '#/components/schemas/StatementType'
         external_mid:
           $ref: '#/components/schemas/MID'
-        clearing_bank:
-          $ref: '#/components/schemas/SettlementBank'
-        funding_bank:
-          $ref: '#/components/schemas/SettlementBank'
         number_of_employees:
-          $ref: '#/components/schemas/MID'
+          $ref: '#/components/schemas/NumberEmployees'
         primary_email_address:
           $ref: '#/components/schemas/Email'
         internal_mid:
@@ -7934,7 +7984,7 @@ components:
           $ref: '#/components/schemas/Seasonal_Start_Month'
         seasonal_end_month:
           $ref: '#/components/schemas/Seasonal_End_Month'
-        curr_code:
+        currencies:
           $ref: '#/components/schemas/Currency'
         mastercard_sales:
           $ref: '#/components/schemas/SaleAmount'
@@ -8026,7 +8076,7 @@ components:
           $ref: '#/components/schemas/OfferPackage'
     UpdateOutlet:
       required:
-        - curr_code
+        - currencies
         - mcc_code
         - parent_mid
         - trade_name
@@ -8058,12 +8108,8 @@ components:
           $ref: '#/components/schemas/StatementType'
         external_mid:
           $ref: '#/components/schemas/MID'
-        clearing_bank:
-          $ref: '#/components/schemas/SettlementBank'
-        funding_bank:
-          $ref: '#/components/schemas/SettlementBank'
         number_of_employees:
-          $ref: '#/components/schemas/MID'
+          $ref: '#/components/schemas/NumberEmployees'
         primary_email_address:
           $ref: '#/components/schemas/Email'
         internal_mid:
@@ -8078,7 +8124,7 @@ components:
           $ref: '#/components/schemas/Seasonal_Start_Month'
         seasonal_end_month:
           $ref: '#/components/schemas/Seasonal_End_Month'
-        curr_code:
+        currencies:
           $ref: '#/components/schemas/Currency'
         mastercard_sales:
           $ref: '#/components/schemas/SaleAmount'
@@ -8153,9 +8199,13 @@ components:
         avg_ticket_sales_amt:
           $ref: '#/components/schemas/ATV'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         equipment_offer:
           $ref: '#/components/schemas/EquipmentOffering'
         online_offer:
@@ -8211,9 +8261,13 @@ components:
         reserve_flag:
           $ref: '#/components/schemas/ReserveFlag'
         contacts:
-          $ref: '#/components/schemas/Contacts'
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacts'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         funding_defaults:
@@ -8628,7 +8682,9 @@ components:
         group_name:
           $ref: '#/components/schemas/BusinessName'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
         contacts:
           type: array
           items:
@@ -9336,7 +9392,7 @@ components:
         - DECEMBER
     Date:
       type: string
-      description: date mm-dd-yyyy
+      description: date yyyy-mm-dd
       example: 2020-01-01
     ATV:
       type: string
@@ -9363,18 +9419,18 @@ components:
         - "N"
     DiscoverRequired:
       type: string
-      description: Discover Entitlement Required? - Y= yes N= No
+      description: Discover Entitlement Required? - 1= yes 0= No
       example: "Y"
       enum:
-        - "Y"
-        - "N"
+        - "1"
+        - "0"
     AmexRequired:
       type: string
-      description: Amex Entitlement Required? - Y= yes N= No
+      description: Amex Entitlement Required? - 1= yes 0= No
       example: "Y"
       enum:
-        - "Y"
-        - "N"
+        - "1"
+        - "0"
     RecurringFlag:
       type: string
       description: Have recurring transaction? 1= Yes 0=No
@@ -9409,7 +9465,7 @@ components:
     DeliveryPerc:
       type: string
       description: 'the % of delivery in a period of time - same day, 1-7 days, 8-14 ays, 15-30 days, >30 days - the total should be 100 '
-      example: 15%
+      example: "10"
     DeliveryDay:
       type: string
       description: average delivery date
@@ -9596,7 +9652,7 @@ components:
     PhoneNumber:
       type: string
       description: Phone number
-      example: "1477855436"
+      example: "3377855436"
     StoreNumber:
       maxLength: 6
       minLength: 6
@@ -9771,7 +9827,7 @@ components:
     FundingDelayDays:
       type: string
       description: 'Number of days funding is delayed by'
-      example: 1
+      example: "1"
     FundingDay:
       type: string
       description: 'Day of the week in which funding is done - 1: Sunday 2: Monday, 3: Tuesday , 4: Wednesday, 5: Thursday, 6: Friday, 7: Saturday'
@@ -9874,15 +9930,15 @@ components:
     ReserveDelayDays:
       type: string
       description: 'Number of days reserve will be delayed'
-      example: 1
+      example: "1"
     ReserveDailyAmount:
       type: string
       description: 'Daily amount for reserve'
-      example: 10
+      example: "10"
     ReserveTransPerc:
       type: string
       description: 'Percentage of transactions for reserve'
-      example: 5
+      example: "5"
     SetReserveTarget:
       type: string
       description: 'Is there a reserve target - 0: No, 1: Yes'
@@ -9893,7 +9949,7 @@ components:
     ReserveTargetAmount:
       type: string
       description: 'Target amount for reserve'
-      example: 100
+      example: "100"
     AllowSplitFlag:
       type: string
       description: 'Merchant allowed to split revenue - 1: Allowed 0: Not allowed - ONLY Avaulable if PFAC profile has split option'
@@ -11878,7 +11934,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5.0
+          example: '5.0'
         release_reason:
           type: string
           description: release reason - Cannot be empty.
