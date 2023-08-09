@@ -2439,7 +2439,7 @@ components:
           enum: 
             - "1"
             - "0"
-          example: 1
+          example: "1"
         int_tax_id:
           type: string
           example: "123456789"
@@ -2554,7 +2554,7 @@ components:
           maxLength: 9
         is_main_principal:
           type: string
-          example: 1
+          example: "1"
           enum : 
             - "1"
             - "0"
@@ -2577,11 +2577,11 @@ components:
       properties:
         zip_code:
           type: string
-          example: 12345
+          example: "12345"
           maxLength: 10
         suite_apart_number:
           type: string
-          example: 1
+          example: "1"
           maxLength: 50
         floor:
           type: string
@@ -2725,10 +2725,10 @@ components:
             - "3"
         delay_funding_flag:
           type: string
-          example: 1
+          example: "1"
         funding_delay_days:
           type: string
-          example: 2
+          example: "2"
         funding_day:
           type: string
           example: "1"
@@ -2748,7 +2748,7 @@ components:
             - "2"
         same_day_ach:
           type: string
-          example: 1
+          example: "1"
       xml:
         name: funding
     Billing:
@@ -3767,13 +3767,13 @@ components:
                   example: 642ea28d43bb7a05360f285a
                 country_code: 
                   type: string
-                  example: 840
+                  example: "840"
                 city: 
                   type: string
                   example: Sparks
                 zip_code: 
                   type: string
-                  example: 89431
+                  example: "89431"
                 street_line_1: 
                   type: string
                   example: Sheila Lane
@@ -3782,10 +3782,10 @@ components:
                   example: NV
                 floor: 
                   type: string
-                  example: 3
+                  example: "3"
                 suite_apart_number: 
                   type: string
-                  example: 20
+                  example: "20"
                 province: 
                   type: string
                   example: Nevada
@@ -3959,7 +3959,7 @@ components:
                     example: 840
                   owner_position: 
                     description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
-                    example: OW
+                    example: CEO
                     enum:
                       - VICE PRESIDENT
                       - PRESIDENT
@@ -4073,7 +4073,7 @@ components:
               example: en_gb
             same_day_ach: 
               type: string
-              example: 0
+              example: "0"
             application_status_external_id: 
               type: string
               example: APSE6-88106-8A5D6-E3F0E-1FBF8-6C93B-95DE4
@@ -4099,82 +4099,82 @@ components:
                       properties: 
                         funding_frequency: 
                           type: string
-                          example: 2
+                          example: "2"
                         funding_day: 
                           type: string
-                          example: 1
+                          example: "1"
                         funding_month: 
                           type: string
-                          example: 0
+                          example: "0"
                         delay_funding_flag: 
                           type: string
-                          example: 0
+                          example: "0"
                         funding_delay_days: 
                           type: string
                           example: "0"
                         settlement_method: 
                           type: string
-                          example: 1
+                          example: "1"
                         tx_instruction_on: 
                           type: string
-                          example: 0
+                          example: "0"
                     billing: 
                       type: object
                       properties: 
                         billing_frequency: 
                           type: string
-                          example: 2
+                          example: "2"
                         billing_day: 
                           type: string
-                          example: 2
+                          example: "2"
                         billing_month: 
                           type: string
-                          example: 0
+                          example: "0"
                         has_transaction_billing: 
                           type: string
-                          example: 0
+                          example: "0"
                         tx_fees_billing_method: 
                           type: string
-                          example: 0
+                          example: "0"
                         other_fees_billing_method: 
                           type: string
-                          example: 1
+                          example: "1"
                         has_equipment_billing: 
                           type: string
-                          example: 1
+                          example: "1"
                         has_service_billing: 
                           type: string
-                          example: 0
+                          example: "0"
                     reserve: 
                       type: object
                       properties: 
                         reserve_type: 
                           type: string
-                          example: 2
+                          example: "2"
                         reserve_setting: 
                           type: string
-                          example: 2
+                          example: "2"
                         reserve_delay_days: 
                           type: string
-                          example: 0
+                          example: "0"
                         reserve_daily_amount: 
                           type: string
-                          example: 10.0000
+                          example: "10.00"
                         set_reserve_target: 
                           type: string
-                          example: 1
+                          example: "1"
                         reserve_target_amount: 
                           type: string
-                          example: 990
+                          example: "990"
                     chargeback: 
                       type: object
                       properties: 
                         chargeback_settlement_method: 
                           type: string
-                          example: 1
+                          example: "1"
                         chargeback_debit_option: 
                           type: string
-                          example: 1
+                          example: "1"
             funding_defaults: 
               type: object
               properties: 
@@ -4586,13 +4586,13 @@ components:
                       example: LastName
                     country_code: 
                       type: string
-                      example: 840
+                      example: "840"
                     city: 
                       type: string
                       example: City
                     zip_code: 
                       type: string
-                      example: 12345
+                      example: "12345"
                     street_line_1: 
                       type: string
                       example: fyfjh
@@ -4989,7 +4989,7 @@ components:
               example: en_gb
             same_day_ach: 
               type: string
-              example: 0
+              example: "0"
             application_status_external_id: 
               type: string
               example: APSE6-88106-8A5D6-E3F0E-1FBF8-6C93B-95DE4
@@ -5439,13 +5439,13 @@ components:
                       example: Doe
                     country_code: 
                       type: string
-                      example: 840
+                      example: "840"
                     city: 
                       type: string
                       example: City
                     zip_code: 
                       type: string
-                      example: 12345
+                      example: "12345"
                     street_line_1: 
                       type: string
                       example: Sample Street
@@ -5460,19 +5460,19 @@ components:
                       example: US|1
                     telephone_number: 
                       type: string
-                      example: 3229898988
+                      example: "3229898988"
                     bill_to: 
                       type: string
                       example: Bill to Name
                     floor: 
                       type: string
-                      example: 1
+                      example: "1"
                     suite_apart_number: 
                       type: string
-                      example: 2
+                      example: "2"
               external_mid: 
                 type: string
-                example: 123456789
+                example: "123456789"
     settlement_ref:
       type: string
       description: Unique identifier of the settlement ref
@@ -11934,7 +11934,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5.0
+          example: '5.0'
         release_reason:
           type: string
           description: release reason - Cannot be empty.
