@@ -2249,6 +2249,8 @@ components:
             $ref: '#/components/schemas/Settings'
         offer_package:
             $ref: '#/components/schemas/Offer'
+        parent_entity:
+            $ref: '#/components/schemas/Parent'
         acquiring_offer:
             $ref: '#/components/schemas/Acquiring'
         registration_address:
@@ -2281,12 +2283,15 @@ components:
         name: order
     Parent:
       type: object
+      description: Used if supporting multiple partners underneath your hierarchy, designates which node to use.
       properties:
         partner_code:
           type: string
-          example: test
+          description: Partner code of the partner being boarded
+          example: PRTNRA
         parent_mid:
           type: string
+          description: Mid of the node being boarded under. 
           example: '123456789'
       xml:
         name: customer
