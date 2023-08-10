@@ -6389,7 +6389,9 @@ components:
         currencies:
           $ref: '#/components/schemas/Currency'
         banks:
-          $ref: '#/components/schemas/Bank'
+          type: array
+          items:  
+            $ref: '#/components/schemas/Bank'
         contacts:
           type: array
           items:
@@ -6417,10 +6419,6 @@ components:
         ent_telephone_code:
           $ref: '#/components/schemas/PhoneCode'
         telephone_number:
-          $ref: '#/components/schemas/PhoneNumber'
-        ent_alternative_phone_code:
-          $ref: '#/components/schemas/PhoneCode'
-        alternative_phone_number:
           $ref: '#/components/schemas/PhoneNumber'
       allOf:
         - $ref: '#/components/schemas/AddressBlock'
