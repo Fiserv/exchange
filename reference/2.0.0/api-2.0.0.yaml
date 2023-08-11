@@ -1,4 +1,3 @@
-
 ---
 openapi: 3.0.0
 info:
@@ -5246,13 +5245,13 @@ components:
       properties:
         _id:
           type: string
-          example: 5d54252a26f87b00901404f2
+          example: 5d54252a32187b001231404f2
         alliance_id:
           type: string
-          example: "16000180"
+          example: "16000001"
         pfac_node_id:
           type: string
-          example: "19"
+          example: "10"
         merchant_id:
           type: string
           example: "5"
@@ -5267,22 +5266,22 @@ components:
           example: "003"
         hierarchy_id:
           type: string
-          example: "311970029881"
+          example: "52600006201"
         hierarchy_level_no:
           type: string
           example: "60"
         location_id:
           type: string
-          example: "311202575883"
+          example: "52600006201"
         location_dba_name:
           type: string
-          example: RENTPAYMENT
+          example: PAYMENT
         store_number:
           type: string
-          example: ""
+          example: "1"
         external_id:
           type: string
-          example: "8888000000493032"
+          example: "5432000000321032"
         funded_date:
           type: string
           example: 2019-07-08T00:00:00.000+0000
@@ -5291,13 +5290,13 @@ components:
           example: "00001"
         card_number:
           type: string
-          example: "5213331209908509"
+          example: "XXXX0123"
         terminal_id:
           type: string
           example: "00000"
         batch_number:
           type: string
-          example: "009070806150"
+          example: "453272220234"
         batch_date:
           type: string
           example: 2019-07-08T00:00:00.000+0000
@@ -5309,21 +5308,21 @@ components:
           example: RP64199521
         reference_number:
           type: string
-          example: "55131589189083324012993"
+          example: "33444531343334224012993"
         transaction_id:
           type: string
-          example: MCWDV18EB
+          example: CDEF012HF
         transaction_date:
           type: string
           example: 2019-07-08T00:00:00.000+0000
         transaction_amount:
-          type: number
+          type: string
           example: 80
         processed_currency_code:
           type: string
           example: "840"
         submitted_currency_amount:
-          type: number
+          type: string
           example: 0
         submitted_currency_code:
           type: string
@@ -5351,7 +5350,7 @@ components:
           example: "N"
         plan_code:
           type: string
-          example: M119
+          example: V037
         billback_reason:
           type: string
           example: ""
@@ -5374,7 +5373,7 @@ components:
           type: string
           example: ""
         authorization_amount:
-          type: number
+          type: string
           example: 80
         authorization_date:
           type: string
@@ -5387,7 +5386,7 @@ components:
           example: "01"
         authorization_sic_code:
           type: string
-          example: "2265"
+          example: "3333"
         avs_flag:
           type: string
           example: "1"
@@ -5410,7 +5409,7 @@ components:
           type: string
           example: "0"
         convenience_fee_amount:
-          type: number
+          type: string
           example: 0
         submerchant_id:
           type: string
@@ -5437,7 +5436,7 @@ components:
           type: string
           example: "000000.00"
         total_auth_amount:
-          type: number
+          type: string
           example: 0
         market_specific_indicator:
           type: string
@@ -5464,7 +5463,7 @@ components:
           type: string
           example: "0.0"
         transaction_charges:
-          type: number
+          type: string
           example: 0
         capture_method:
           type: string
@@ -5483,7 +5482,7 @@ components:
           example: RP
         user_data_2:
           type: string
-          example: 64199521                                        00          103274              YPS*BLACK HILLS SELF S                               64732401299
+          example: 33322112                                        00          32212              ABC*SAMPLE HILLS SELF S                               56732403332
         posting_charge_description_1:
           type: string
           example: +000000000000.00                             21Y    +000000000000
@@ -5500,7 +5499,7 @@ components:
           type: string
           example: 0000000.00      0000
         charge_amount_1:
-          type: number
+          type: string
           example: 0
         posting_charge_description_2:
           type: string
@@ -5518,7 +5517,7 @@ components:
           type: string
           example: 0.0960+000000000000.
         charge_amount_2:
-          type: number
+          type: string
           example: 395
         posting_charge_description_3:
           type: string
@@ -5536,7 +5535,7 @@ components:
           type: string
           example: ""
         charge_amount_3:
-          type: number
+          type: string
           example: 0
         posting_charge_description_4:
           type: string
@@ -5554,7 +5553,7 @@ components:
           type: string
           example: ""
         charge_amount_4:
-          type: number
+          type: string
           example: 0
         posting_charge_description_5:
           type: string
@@ -5572,7 +5571,7 @@ components:
           type: string
           example: ""
         charge_amount_5:
-          type: number
+          type: string
           example: 0
         date_added:
           $ref: '#/components/schemas/date'
