@@ -2,10 +2,10 @@
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
-  description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0 "
+  description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-  - url: https://uat-api.carat-platforms.fiserv.com
+  - url: https://uat-fd-pfac-c-api.technologi.co.uk
 paths:
   /boarding/add_application:
     post:
@@ -32,18 +32,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseApplication'     
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResponseApplication'
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/AddApplication'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/AddApplication'
-          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/AddApplication'
   /boarding/update_merchant:
@@ -71,18 +62,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseUpdateMerchant'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResponseUpdateMerchant'
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateMerchant'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/UpdateMerchant'
-          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/UpdateMerchant'
   /boarding/subgroup/add:
@@ -405,18 +387,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseRetrieveOffer'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResponseRetrieveOffer'
+
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveOffering'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/RetrieveOffering'
-          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/RetrieveOffering'
   /offering/retrieve_processing_offering:
@@ -444,18 +418,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseProcessingOffer'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResponseProcessingOffer'
+
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveProcessingOffering'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/RetrieveProcessingOffering'
-          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/RetrieveProcessingOffering'
   /offering/retrieve_equipment_offering:
@@ -483,20 +449,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseEquipmentOffer'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResponseEquipmentOffer'
+
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RetrieveEquipmentOffering'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/RetrieveEquipmentOffering'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/RetrieveEquipmentOffering'
+
   /offering/retrieve_online_offering:
     post:
       tags:
@@ -522,20 +481,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOnlineOffer'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResponseOnlineOffer'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RetrieveOnlineOffering'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/RetrieveOnlineOffering'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/RetrieveOnlineOffering'
+
   /transaction:
     post:
       tags:
@@ -2514,8 +2465,7 @@ components:
           maxLength: 25
         contact_dob:
           type: string
-          pattern: '^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$'
-          example: 2000-01-01
+          example: "2000-01-01"
         owner_nationality:
           type: string
           description: ISO3 Country Code
@@ -3844,8 +3794,7 @@ components:
                   example: MOTO
                 foundation_date: 
                   type: string
-                  format: date
-                  example: 2020-01-01
+                  example: "2020-01-01"
                 business_average_ticket_sales_amt: 
                   type: string
                   example: 50.00
@@ -3869,8 +3818,7 @@ components:
                   example: 5999A
                 date_incorporated: 
                   type: string
-                  format: date
-                  example: 2020-01-01
+                  example: "2020-01-01"
                 int_tax_id: 
                   type: string
                   example: "999888555"
@@ -3957,8 +3905,7 @@ components:
                     example: Doe
                   contact_dob: 
                     type: string
-                    format: date
-                    example: 2000-01-01
+                    example: "2000-01-01"
                   owner_nationality: 
                     type: string
                     example: 840
@@ -3994,8 +3941,7 @@ components:
                     example: N
                   owner_date_started: 
                     type: string
-                    format: date
-                    example: 2020-01-01
+                    example: "2020-01-01"
                   owner_phone_code: 
                     type: string
                     example: GB|44
@@ -4828,8 +4774,7 @@ components:
                   example: R
                 foundation_date: 
                   type: string
-                  format: date
-                  example: 2020-01-01
+                  example: "2020-01-01"
                 business_average_ticket_sales_amt: 
                   type: string
                   format: int32
@@ -4855,8 +4800,7 @@ components:
                   example: 5999A
                 date_incorporated: 
                   type: string
-                  format: date
-                  example: 2020-01-01
+                  example: "2020-01-01"
                 int_tax_id: 
                   type: string
                   example: 123047801
@@ -4876,8 +4820,7 @@ components:
                     example: Doe
                   contact_dob: 
                     type: string
-                    format: date
-                    example: 2000-01-01
+                    example: "2000-01-01"
                   owner_nationality: 
                     type: string
                     example: 840
@@ -4913,7 +4856,6 @@ components:
                     example: N
                   owner_date_started: 
                     type: string
-                    format: date
                     example: 2020-02-05
                   owner_phone_code: 
                     type: string
@@ -5555,13 +5497,13 @@ components:
           example: 2019-07-08T00:00:00.000+0000
         authorization_code:
           type: string
-          example: 00881P
+          example: AB4431
         invoice_id:
           type: string
-          example: RP64199521
+          example: AB223212
         reference_number:
           type: string
-          example: "33444531343334224012993"
+          example: "334445316654224012993"
         transaction_id:
           type: string
           example: CDEF012HF
@@ -5732,10 +5674,10 @@ components:
           example: ""
         mobile_indicator:
           type: string
-          example: RP
+          example: AB
         user_data_2:
           type: string
-          example: 33322112                                        00          32212              ABC*SAMPLE HILLS SELF S                               56732403332
+          example: 33322112                                        00          32212              ABC*SAMPLE                               
         posting_charge_description_1:
           type: string
           example: +000000000000.00                             21Y    +000000000000
@@ -9396,7 +9338,7 @@ components:
     Date:
       type: string
       description: date yyyy-mm-dd
-      example: 2020-01-01
+      example: "2020-01-01"
     ATV:
       type: string
       description: average ticket sales amount
