@@ -37,6 +37,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AddApplication'
+            examples: 
+              MinimumPayload:
+                $ref: '#/components/schemas/AddApplication'
+              FullPayload:
+                $ref: '#/components/schemas/AddApplication'
+              
   /boarding/update_merchant:
     post:
       tags:
@@ -2420,12 +2426,12 @@ components:
             - RT
         foundation_date:
           type: string
-          description: YYYY-MM-DD
-          example: 2022-01-01
+          description: "Date, format YYYY-MM-DD"
+          example: "2020-01-01"
         date_incorporated:
           type: string
-          description: YYYY-MM-DD
-          example: 2022-01-01
+          description: "Date, format YYYY-MM-DD"
+          example: "2020-01-01"
         incorp_state:
           description: 2 Character following ISO 3166-2
           type: string
@@ -3794,6 +3800,7 @@ components:
                   example: MOTO
                 foundation_date: 
                   type: string
+                  description: "Date, format YYYY-MM-DD"
                   example: "2020-01-01"
                 business_average_ticket_sales_amt: 
                   type: string
@@ -4774,6 +4781,7 @@ components:
                   example: R
                 foundation_date: 
                   type: string
+                  description: "Date, format YYYY-MM-DD"
                   example: "2020-01-01"
                 business_average_ticket_sales_amt: 
                   type: string
@@ -5432,9 +5440,8 @@ components:
         - USD
     date:
       type: string
-      description: date
-      format: yyyy-mm-dd
-      example: 2019-08-30
+      description: date format YYYY-MM-DD
+      example: "2019-08-30"
     transaction:
       type: object
       properties:
@@ -11904,7 +11911,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         split_details:
           type: array
           description: split details- only for target account is SPLIT
@@ -11935,7 +11942,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         split_details:
           type: array
           description: split details- only for target account is SPLIT
@@ -11964,7 +11971,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         split_details:
           type: array
           description: split details- only for target account is SPLIT
@@ -11993,7 +12000,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         type:
           type: string
           description: instruction type (CREDIT/DEBIT)
@@ -12086,7 +12093,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         details:
           type: array
           description: details - at least one details.
@@ -12122,7 +12129,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         details:
           type: array
           description: details - at least one details.
@@ -12157,7 +12164,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         details:
           type: array
           description: details - at least one details.
@@ -12262,7 +12269,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         details:
           type: array
           description: details - at least one details.
@@ -12346,7 +12353,7 @@ components:
         amount:
           type: string
           description: account amount - Cannot be empty.
-          example: 5
+          example: "5.00"
         details:
           type: array
           description: details - at least one details.
