@@ -37,11 +37,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AddApplication'
-            examples: 
-              MinimumPayload:
-                $ref: '#/components/schemas/AddApplication'
-              FullPayload:
-                $ref: '#/components/schemas/AddApplication'
               
   /boarding/update_merchant:
     post:
