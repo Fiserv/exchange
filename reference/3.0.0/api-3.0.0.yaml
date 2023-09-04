@@ -2292,14 +2292,14 @@ components:
           maxLength: 9
         routing_number:
           type: string
-          example: '123456789'
+          example: '333989898'
           maxLength: 17
         account_type:
           type: array
-          description: To designate what we settle to the bank CREDIT, DEBIT, CHARGEBACK"
+          description: To designate what we settle to the bank in this object. CREDIT, DEBIT, CHARGEBACK"
           items:
             type: string
-            example: 'CREDIT'
+            example: ["CREDIT", "DEBIT", "CHARGEBACK"]
       xml:
         name: customer
     NumberEmployees:
@@ -3845,7 +3845,7 @@ components:
                         type: array
                         items: 
                           type: string
-                          example: CREDIT
+                          example: ["CREDIT", "DEBIT", "CHARGEBACK"]
                       zip_code: 
                         type: string
                         example: '89431'
