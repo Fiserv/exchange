@@ -11714,12 +11714,12 @@ components:
       properties:
         reject_date:
           type: string
-          description: Date of rejected.
-          format: date
+          description: Date of rejected. Format YYYY-MM-DD
+          
         settlement_date:
           type: string
           description: Date of settlement
-          format: date
+          
           example: 2020-02-20
         merchant_id:
           type: string
@@ -12464,8 +12464,8 @@ components:
           example: USD
         date:
           type: string
-          description: Date of processing - Cannot be empty.
-          format: date
+          description: Date of processing - Cannot be empty.Format YYYY-MM-DD
+          
           example: 2020-02-20
     TradeAccountInfoDTO:
       type: object
@@ -12564,8 +12564,8 @@ components:
       properties:
         settlement_date:
           type: string
-          description: Date of settlement - Cannot be empty.
-          format: date
+          description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
+           
           example: 2020-02-20
         currency:
           type: string
@@ -12908,8 +12908,7 @@ components:
       properties:
         date:
           type: string
-          description: Date of processing - Cannot be empty.
-          format: date
+          description: Date of processing - Cannot be empty. YYYY-MM-DD
           example: 2020-02-06
         currency:
           type: string
