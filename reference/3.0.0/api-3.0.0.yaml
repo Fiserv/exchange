@@ -5,7 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-  - url: https://uat-fd-pfac-c-api.technologi.co.uk
+  - url: https://uat-api.carat-platforms.fiserv.com
 paths:
   /boarding/add_application:
     post:
@@ -4120,9 +4120,6 @@ components:
                         settlement_method: 
                           type: string
                           example: "1"
-                        tx_instruction_on: 
-                          type: string
-                          example: "0"
                     billing: 
                       type: object
                       properties: 
@@ -9423,14 +9420,14 @@ components:
     DiscoverRequired:
       type: string
       description: Discover Entitlement Required? - 1= yes 0= No
-      example: "Y"
+      example: "1"
       enum:
         - "1"
         - "0"
     AmexRequired:
       type: string
       description: Amex Entitlement Required? - 1= yes 0= No
-      example: "Y"
+      example: "1"
       enum:
         - "1"
         - "0"
