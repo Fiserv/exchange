@@ -2499,10 +2499,11 @@ components:
           example: '3339898988'
         owner_date_started:
           type: string
-          example: 1999-03-31
+          description: "YYYY-MM-DD"
+          example: "1999-03-31"
         owner_email:
           type: string
-          example: test@test.com
+          example: "test@test.com"
           maxLength: 40
         owner_tin_ssn_number:
           type: string
@@ -2901,6 +2902,50 @@ components:
         telephone_number:
           type: string
           example: '1234567888'
+      xml:
+        name: contact
+    OutletContact:
+      type: object
+      properties:
+        contact_type:
+          type: string
+          description: Contact type - Legal, Billing, Trading, Shipping, Technical
+          enum:
+            - L
+            - B
+            - OT
+            - S
+            - T
+        contact_title:
+          $ref: '#/components/schemas/Title'
+        contact_first_name:
+          $ref: '#/components/schemas/FirstName'
+        contact_second_name:
+          $ref: '#/components/schemas/SecondName'
+        contact_last_name:
+          $ref: '#/components/schemas/LastName'
+        email_address:
+          $ref: '#/components/schemas/Email'
+        ent_telephone_code:
+          $ref: '#/components/schemas/PhoneCode'
+        telephone_number:
+          $ref: '#/components/schemas/PhoneNumber'
+        country_code:
+          $ref: '#/components/schemas/Country'
+        city:
+          $ref: '#/components/schemas/City'
+        zip_code:
+          $ref: '#/components/schemas/ZipCode'
+        street_line_1:
+          $ref: '#/components/schemas/AddressLine1'
+        county_code:
+          $ref: '#/components/schemas/State'
+        province:
+          $ref: '#/components/schemas/Province'
+        suite_apart_number:
+          $ref: '#/components/schemas/Apartment'
+        floor:
+          $ref: '#/components/schemas/Floor'
       xml:
         name: contact
     RetrieveOffering:
@@ -4838,7 +4883,7 @@ components:
                     example: N
                   owner_date_started: 
                     type: string
-                    example: 2020-02-05
+                    example: "2020-02-05"
                   owner_phone_code: 
                     type: string
                     example: US|1
@@ -7985,7 +8030,7 @@ components:
         contacts:
           type: array
           items:
-            $ref: '#/components/schemas/Contacts'
+             $ref: '#/components/schemas/SubgroupContact'
         equipment_offer:
           $ref: '#/components/schemas/EquipmentOffering'
         online_offer:
@@ -9386,10 +9431,11 @@ components:
       example: "10"
     DeliveryDay:
       type: string
-      description: average delivery date
+      example: "1"
+      description: average delivery days, 1
     SalePerc:
       type: string
-      description: the % of sale via each channel - sales_keyed_perc+sales_ftf_perc = 100; sales_phone_perc+sales_mail_perc+sales_internet_perc = sales_keyed_perc
+      description: "the % of sale via each channel - sales_keyed_perc+sales_ftf_perc = 100; sales_phone_perc+sales_mail_perc+sales_internet_perc = sales_keyed_perc"
       example: "16"
     AdditionalInformation:
       type: string
@@ -9588,6 +9634,7 @@ components:
     BusinessZone:
       type: string
       description: 'Business Zone: Business District, Industrial, Residential'
+      example: "B"
       enum:
         - B
         - I
@@ -9595,6 +9642,7 @@ components:
     BusinessLocation:
       type: string
       description: Business Location - APT , Door to Door, Flea Market/Kiosk, Home, Isolated, Mall, Office, Other, Shopping Area
+      example: "O"
       enum:
         - A
         - D
