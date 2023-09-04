@@ -5,7 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-  - url: https://uat-fd-pfac-c-api.technologi.co.uk
+  - url: https://uat-api.carat-platforms.fiserv.com
 paths:
   /boarding/add_application:
     post:
@@ -2654,7 +2654,7 @@ components:
             - "1"
             - "2"
             - "3"
-          example: "1"
+          example: "3"
         settlement_method:
           description: 1 - Instruction, 2 - Instruction on Transaction, 3 - Auto
           type: string
@@ -2663,14 +2663,6 @@ components:
             - "1"
             - "2"
             - "3"
-        tx_instruction_on:
-          description: 0 - Not Applicable, 1 - On API, 2 - On AUth
-          type: string
-          example: "1"
-          enum:
-            - "0"
-            - "1"
-            - "2"
         funding_frequency:
           description: 1 - Daily, 2 - Weekly, 3 - Monthly
           type: string
@@ -2681,13 +2673,14 @@ components:
             - "3"
         delay_funding_flag:
           type: string
-          example: "1"
+          description: "Enabled a funding delay for the submerchant, so Funding_delay days can be passed."
+          example: "0"
         funding_delay_days:
           type: string
-          example: "2"
+          description: "Allows a funding delay to be specified in days. Must have delay_funding flag = 1 to be added. Example : 2 "
         funding_day:
           type: string
-          example: "1"
+          description: "Defines a day of the week, where 1 = Monday and 7= Sunday. Required if funding frequency = 2 (Weekly)"
           enum:
             - "1"
             - "2"
@@ -2698,7 +2691,7 @@ components:
             - "7"
         funding_month:
           type: string
-          example: "1"
+          description: "Allows funding to be settled at the stard of month or end of month, if delay_funding flag is enabled. 1 = Start of month, 2 = End of month"
           enum:
             - "1"
             - "2"
@@ -2713,6 +2706,7 @@ components:
         billing_level:
           description: Dependent on depth of hierarchy, used to indicate billing level of submerchnat
           type: string
+          example: "3"
           enum: 
             - "1"
             - "2"
@@ -2721,9 +2715,9 @@ components:
           type: string
           example: '1'
         tx_fees_billing_method:
-          description: 0 - Not Applicable, 1 - Net, 2 - Gross
+          description: "0 - Not Applicable, 1 - Net, 2 - Gross. Dependant on settlement method specified."
           type: string
-          example: "1"
+          example: "2"
           enum:
             - "0"
             - "1"
@@ -2752,7 +2746,7 @@ components:
           example: "1"
         billing_day:
           type: string
-          example: "1"
+          description: "Defines a day of the week, where 1 = Monday and 7= Sunday. Required if billing frequency = 2 (Weekly)"
           enum:
             - "1"
             - "2"
@@ -2763,8 +2757,7 @@ components:
             - "7"
         billing_month:
           type: string
-          description: "1 - Start of month , 2 - End of month"
-          example: "1"
+          description: "1 - Start of month , 2 - End of month. Reequired if billing frequency = 3 (Monthly)"
           enum:
             - "1"
             - "2"
@@ -2775,7 +2768,7 @@ components:
       properties:
         chargeback_settlement_method:
           type: string
-          description: 0 -N/A, 1 -Instruction, 2 Auto Debit, 3 From UI
+          description: "0 -N/A, 1 -Instruction, 2 Auto Debit, 3 From UI. Controls how chargeback will be recouped from the submerchant"
           example: "1"
           enum:
             - "0"
@@ -2784,7 +2777,7 @@ components:
             - "3"
         chargeback_debit_option:
           type: string
-          description: 0 -N/A, 1- Net, 2 Debit
+          description: " 0 -N/A, 1- Net, 2 Debit. Controls how chargeback debits will be handled from the submerchants funds " 
           example: "1"
           enum:
             - "0"
@@ -2803,13 +2796,6 @@ components:
             - "0"
             - "1"
             - "2"
-        reserve_entity_level:
-          type: string
-          description: 1- Outlet, 2 Funding Level
-          example: '1'
-          enum:
-            - "1"
-            - "2"
         reserve_setting:
           type: string
           description: 1- Percentage, 2 Base
@@ -2819,19 +2805,21 @@ components:
             - "2"
         reserve_delay_days:
           type: string
-          example: '1'
-          description: "Max 90 days"
-        reserve_daily_amount:
-          type: string
-          example: '100'
+          description: "Max 90 days, can be passed if reserve type = 2 (rolling). Example: '2' for 2 Days "
         reserve_trans_perc:
           type: string
+          description: Percentage of daily summary taken as reserve
           example: '100'
         set_reserve_target:
           type: string
+          description: Enable taking reserve target
+          enum: 
+            - "0"
+            - "1"
           example: '1'
         reserve_target_amount:
           type: string
+          description: Sets the target amount for reserve, will not exceed over collecting this amount if it is already in reserve
           example: '100'
       xml:
         name: chargeback
@@ -3783,10 +3771,10 @@ components:
                   example: 1
                 business_tin_ssn_number: 
                   type: string
-                  example: 999888555
+                  example: 666989898
                 business_tin_ssn_number_masked: 
                   type: string
-                  example: '*****8555'
+                  example: '*****9898'
                 int_tax_exempt_flag: 
                   type: string
                   example: 1
@@ -3823,7 +3811,7 @@ components:
                   example: "2020-01-01"
                 int_tax_id: 
                   type: string
-                  example: "999888555"
+                  example: "666989898"
                 banks: 
                   type: array
                   items: 
@@ -3937,7 +3925,7 @@ components:
                     example: '50'
                   owner_tin_ssn_number: 
                     type: string
-                    example: '999888555'
+                    example: '666989898'
                   personal_guarantee: 
                     type: string
                     example: N
@@ -4068,9 +4056,6 @@ components:
                         settlement_method: 
                           type: string
                           example: "1"
-                        tx_instruction_on: 
-                          type: string
-                          example: "0"
                     billing: 
                       type: object
                       properties: 
@@ -4110,9 +4095,6 @@ components:
                         reserve_delay_days: 
                           type: string
                           example: "0"
-                        reserve_daily_amount: 
-                          type: string
-                          example: "10.00"
                         set_reserve_target: 
                           type: string
                           example: "1"
@@ -4409,9 +4391,6 @@ components:
                       reserve_delay_days: 
                         type: string
                         example: 0
-                      reserve_daily_amount: 
-                        type: string
-                        example: 10.0000
                       set_reserve_target: 
                         type: string
                         example: 1
@@ -4969,9 +4948,6 @@ components:
                         reserve_setting: 
                           type: string
                           example: 2
-                        reserve_daily_amount: 
-                          type: string
-                          example: 10
                         set_reserve_target: 
                           type: string
                           example: 1
@@ -5262,9 +5238,6 @@ components:
                       reserve_setting: 
                         type: string
                         example: "2"
-                      reserve_daily_amount: 
-                        type: string
-                        example: "10"
                       set_reserve_target: 
                         type: string
                         example: "1"
@@ -8737,8 +8710,6 @@ components:
           $ref: '#/components/schemas/ReserveSetting'
         reserve_delay_days:
           $ref: '#/components/schemas/ReserveDelayDays'
-        reserve_daily_amount:
-          $ref: '#/components/schemas/ReserveDailyAmount'
         reserve_trans_perc:
           $ref: '#/components/schemas/ReserveTransPerc'
         set_reserve_target:
@@ -9289,7 +9260,7 @@ components:
       minLength: 1
       type: string
       description: Tax ID
-      example: "1111"
+      example: "666989898"
     MCC:
       maxLength: 4
       minLength: 4
@@ -9367,14 +9338,14 @@ components:
     DiscoverRequired:
       type: string
       description: Discover Entitlement Required? - 1= yes 0= No
-      example: "Y"
+      example: "1"
       enum:
         - "1"
         - "0"
     AmexRequired:
       type: string
       description: Amex Entitlement Required? - 1= yes 0= No
-      example: "Y"
+      example: "1"
       enum:
         - "1"
         - "0"
@@ -17477,7 +17448,7 @@ components:
       example: '40'
     LocationDBAName:
       type: string
-      example: RENTPAYMENT
+      example: PAYMENT
     StoreNumberOptional:
       type: string
       example: '60'
@@ -17498,7 +17469,7 @@ components:
       example: '2022-02-01'
     ReferenceNumberOptional:
       type: string
-      example: '7092046439706157'
+      example: '7088346439703217'
     ProcessedCurrencyCode:
       type: string
       example: '840'
@@ -17601,7 +17572,7 @@ components:
       example: 4AUBOLAD3IBQBZN
     SoftDescriptor:
       type: string
-      example: '{/]e.so9#c/)Yfmd@lJ0m;5t3@~wacL_'
+      example: 'ABC*'
     BankReferenceNumber:
       type: string
       example: '125489558'
@@ -17610,7 +17581,7 @@ components:
       example: '36454204'
     AuthSource:
       type: string
-      example: '189558'
+      example: '199563'
     Catlevel:
       type: string
       example: '01'
@@ -17622,7 +17593,7 @@ components:
       example: '0'
     ExternalID:
       type: string
-      example: '421970029581'
+      example: '5299100266698'
     MarketSpecificIndicator:
       type: string
       example: XX
@@ -17661,7 +17632,7 @@ components:
       example: 3003594
     AuthTracker:
       type: string
-      example: 396281238190543
+      example: 3962812387650543
     TransactionMonitoringSearchRequest:
       type: object
       properties:
