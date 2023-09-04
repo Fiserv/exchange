@@ -2858,19 +2858,19 @@ components:
             - Sir.
         contact_first_name:
           type: string
-          example: Test
+          example: "Jane"
         contact_second_name:
           type: string
-          example: Test
+          example: "Test"
         contact_last_name:
           type: string
-          example: Test
+          example: "Doe"
         bill_to:
           type: string
-          example: Test
+          example: "Jane"
         email_address:
           type: string
-          example: Test@test.com
+          example: "Test@test.com"
         zip_code:
           type: string
           example: '12345'
@@ -2886,10 +2886,10 @@ components:
           example: 'test'
         street_line_1:
           type: string
-          example: 'test'
+          example: 'Sample Street'
         city:
           type: string
-          example: 'test'
+          example: 'City'
         county_code:
           type: string
           example: 'CA'
@@ -2901,7 +2901,7 @@ components:
           example: 'US|1'
         telephone_number:
           type: string
-          example: '1234567888'
+          example: '3339823728'
       xml:
         name: contact
     OutletContact:
@@ -2910,6 +2910,7 @@ components:
         contact_type:
           type: string
           description: Contact type - Legal, Billing, Trading, Shipping, Technical
+          example: "OT"
           enum:
             - L
             - B
@@ -8030,7 +8031,7 @@ components:
         contacts:
           type: array
           items:
-             $ref: '#/components/schemas/SubgroupContact'
+             $ref: '#/components/schemas/OutletContact'
         equipment_offer:
           $ref: '#/components/schemas/EquipmentOffering'
         online_offer:
@@ -9502,28 +9503,31 @@ components:
       example: "50"
     Title:
       type: string
-      description: Name title
-      example: Mr.
+      description: Title of contact
+      example: "Ms."
       enum:
         - Mr.
         - Mrs.
-        - Miss
+        - Miss.
+        - Dr.
+        - Madam.
+        - Sir.
     FirstName:
       type: string
       description: First name
-      example: John
+      example: "Jane"
     SecondName:
       type: string
       description: Middle name
-      example: H
+      example: "H"
     LastName:
       type: string
       description: Last name
-      example: Doe
+      example: "Doe"
     Nationality:
       type: string
       description: ISO3 nationality code
-      example: USA
+      example: "USA"
     Position:
       description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
       example: CEO
@@ -9584,23 +9588,23 @@ components:
     HouseName:
       type: string
       description: House name
-      example: Vincent
+      example: "Vincent"
     AddressLine1:
       type: string
       description: Street line1 address
-      example: Sheila Lane
+      example: "Sheila Lane"
     City:
       type: string
       description: City
-      example: Sparks
+      example: "Sparks"
     Province:
       type: string
       description: Province
-      example: Nevada
+      example: "Nevada"
     State:
       type: string
       description: State in abbreviation name
-      example: NV
+      example: "NV"
     ZipCode:
       type: string
       description: Zipcode
@@ -9612,11 +9616,11 @@ components:
     PhoneCode:
       type: string
       description: Phone country code
-      example: GB|44
+      example: "US|1"
     PhoneNumber:
       type: string
       description: Phone number
-      example: "3377855436"
+      example: "3339823728"
     StoreNumber:
       maxLength: 6
       minLength: 6
