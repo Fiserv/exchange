@@ -290,7 +290,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ApplicationRetrieveRequest'
+              $ref: '#/components/schemas/MerchantRetrieveRequest'
         required: true
       responses:
         "200":
@@ -306,7 +306,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Application
+      x-proxy-name: Retrieve Merchant Hierarchy
   /boarding///application:
     post:
       tags:
@@ -7210,6 +7210,16 @@ components:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
         - $ref: '#/components/schemas/ApplicationFullDetail'
     ApplicationRetrieveRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+      allOf:
+        - $ref: '#/components/schemas/ApplicationRetrieveOperation'
+        - $ref: '#/components/schemas/applicationref'
+    MerchantRetrieveRequest:
       required:
         - request_source
       type: object
