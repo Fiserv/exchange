@@ -283,10 +283,10 @@ paths:
     post:
       tags:
         - Application Boarding
-      summary: Application Retrieve
-      description: Application Retrieve
+      summary: Merchant Retrieve
+      description: Merchant Retrieve
       requestBody:
-        description: Application Retrieve
+        description: Merchant Retrieve
         content:
           application/json:
             schema:
@@ -363,6 +363,34 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Application Submission
+  /boarding/////application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Application Retrieve
+      description: Application Retrieve
+      requestBody:
+        description: Application Retrieve
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRetrieveRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationRetrieveResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Merchant Application
   /offering/available:
     post:
       tags:
@@ -7190,7 +7218,7 @@ components:
           $ref: '#/components/schemas/RequestSource'
       allOf:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
-        - $ref: '#/components/schemas/applicationref'
+        - $ref: '#/components/schemas/merchantref'
     ApplicationSubmissionRequest:
       required:
         - request_source
@@ -7345,6 +7373,14 @@ components:
       properties:
         application:
           $ref: '#/components/schemas/applicationref_application'
+    merchantref:
+      required:
+        - operation_type
+        - version
+      type: object
+      properties:
+        merchant:
+          $ref: '#/components/schemas/merchantref_application'
     UpdateOutletRequest:
       required:
         - request_source
@@ -10446,7 +10482,13 @@ components:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
 
-
+    merchantref_application:
+      type: object
+      properties:
+        merchant_reference:
+          type: string
+          description: "Merchant reference number from Exchange to query"
+          example: "3001484"
     Accounts_inner:
       type: object
       properties:
