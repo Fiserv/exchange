@@ -2681,7 +2681,7 @@ components:
       properties:
         targer_merchant_id:
           type: string
-          description: "Non-processing merchant to link the split charge to. Uses the internal Mid of the Merchant level of the Non-processing merchant."
+          description: "Non-processing merchant to link the split charge to (If adding a split charge). Uses the internal Mid of the Merchant level of the Non-processing merchant."
           example: '709900000003221'
     Settings:
       type: object
