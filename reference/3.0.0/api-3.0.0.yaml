@@ -2630,7 +2630,7 @@ components:
           example: "0.25"
     ServiceChargeItems:
       type: array
-      description: "Optional, Used to add Service charges for Auto funding. Service charge must be included in the processing offering + package added to the application. Includes Split charges for auto funding and other servie charges"
+      description: "Optional, Used to add Service charges for Auto funding. Service charge must be included in the processing offering + package added to the application Retrieved by the offer API. Includes Split charges for auto funding and other servie charges"
       items: 
        $ref: '#/components/schemas/ServiceChargeItemArray'
     ServiceChargeItemArray:
