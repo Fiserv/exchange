@@ -283,14 +283,14 @@ paths:
     post:
       tags:
         - Application Boarding
-      summary: Application Retrieve
-      description: Application Retrieve
+      summary: Merchant Retrieve
+      description: Merchant Retrieve
       requestBody:
-        description: Application Retrieve
+        description: Merchant Retrieve
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ApplicationRetrieveRequest'
+              $ref: '#/components/schemas/MerchantRetrieveRequest'
         required: true
       responses:
         "200":
@@ -306,7 +306,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Application
+      x-proxy-name: Retrieve Merchant Hierarchy
   /boarding///application:
     post:
       tags:
@@ -363,6 +363,34 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Application Submission
+  /boarding/////application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Application Retrieve
+      description: Application Retrieve
+      requestBody:
+        description: Application Retrieve
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRetrieveRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationRetrieveResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Merchant Application
   /offering/available:
     post:
       tags:
@@ -2578,6 +2606,8 @@ components:
           example: OPK06-3A155-ABCDF-FD3FF-82F6F-TST23-CA98A
         charge_items:
           $ref: '#/components/schemas/ChargeItems'
+        service_items:
+          $ref: '#/components/schemas/ServiceChargeItems'
           
       xml:
         name: acquiring
@@ -2612,11 +2642,11 @@ components:
             - '1'
             - '2'
         category:
-          description: Retrieved from offer retrieval. Blended = 3 
+          description: Retrieved from offer retrieval. North = 2 / Exchange = 1
           type: string
-          example: "3"
+          example: "2"
           enum:
-            - "3"
+            - "1"
             - "2"
         base_charge:
           type: string
@@ -2626,6 +2656,61 @@ components:
           type: string
           description: Percent charge to be added, decimal precision depends on configuration of pricing. 
           example: "0.25"
+    ServiceChargeItems:
+      type: array
+      description: "Optional, Used to add Service charges for Auto funding. Service charge must be included in the processing offering + package added to the application Retrieved by the offer API. Includes Split charges for auto funding and other servie charges"
+      items: 
+       $ref: '#/components/schemas/ServiceChargeItemArray'
+    ServiceChargeItemArray:
+      type: object
+      properties:
+        split_details:
+          $ref: '#/components/schemas/ServiceChargeSplitDetails'
+        charge_item_external_id:
+          $ref: '#/components/schemas/ExtID'
+        charge_item_prices:
+          $ref:  '#/components/schemas/ServiceChargeItemPricesArray'
+    ServiceChargeItemPricesArray:
+      type: array
+      items:
+          $ref: '#/components/schemas/ServiceChargeItemPricesChargesArray'
+    ServiceChargeItemPricesChargesArray:
+      type: object
+      properties:
+        charge_item_price_charges:
+          $ref:  '#/components/schemas/ServiceChargeItemPricesCharges'
+    ServiceChargeItemPricesCharges:
+      type: object
+      properties:
+        fee_type:
+          type: string
+          description: Base or percentage. Retrieved from offer retrieval, where 1 = Percentage, 2 = Base
+          example: '1'
+          enum:
+            - '1'
+            - '2'
+        category:
+          description: Retrieved from offer retrieval. North = 2 / Exchange = 1
+          type: string
+          example: "2"
+          enum:
+            - "1"
+            - "2"
+        base_charge:
+          type: string
+          description: Base charge to be added, decimal precision depends on configuration of pricing. 
+          example: "0.25"
+        percent_charge:
+          type: string
+          description: Percent charge to be added, decimal precision depends on configuration of pricing. 
+          example: "0.25"
+    ServiceChargeSplitDetails:
+      type: object
+      properties:
+        targer_merchant_id:
+          type: string
+          description: "Non-processing merchant to link the split charge to (If adding a split charge). Uses the internal Mid of the Merchant level of the Non-processing merchant."
+          example: '709900000003221'
     Settings:
       type: object
       properties:
@@ -7134,6 +7219,16 @@ components:
       allOf:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
         - $ref: '#/components/schemas/applicationref'
+    MerchantRetrieveRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+      allOf:
+        - $ref: '#/components/schemas/ApplicationRetrieveOperation'
+        - $ref: '#/components/schemas/merchantref'
     ApplicationSubmissionRequest:
       required:
         - request_source
@@ -7288,6 +7383,14 @@ components:
       properties:
         application:
           $ref: '#/components/schemas/applicationref_application'
+    merchantref:
+      required:
+        - operation_type
+        - version
+      type: object
+      properties:
+        merchant:
+          $ref: '#/components/schemas/merchantref_application'
     UpdateOutletRequest:
       required:
         - request_source
@@ -10389,7 +10492,13 @@ components:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
 
-
+    merchantref_application:
+      type: object
+      properties:
+        merchant_reference:
+          type: string
+          description: "Merchant reference number from Exchange to query"
+          example: "3001484"
     Accounts_inner:
       type: object
       properties:
