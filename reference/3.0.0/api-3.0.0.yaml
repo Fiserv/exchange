@@ -5,7 +5,9 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-  - url: https://uat-api.carat-platforms.fiserv.com
+- {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
+- {url: 'https://fd-api.carat-platforms.fiserv.com', description: Production}
+
 paths:
   /boarding/add_application:
     post:
@@ -31,12 +33,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseApplication'     
+                $ref: '#/components/schemas/ResponseApplication'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AddApplication'
+            examples:
+              MinimalPayLoad:
+                summary: Minimum Payload required to board, using defaults in configuration for settings
+                $ref: '#/components/examples/RequestMinimalApplication'
               
   /boarding/update_merchant:
     post:
@@ -6401,7 +6407,7 @@ components:
         registration_address:
           $ref: '#/components/schemas/AddressBlock'
         owners:
-          $ref: '#/components/schemas/Owners'
+          $ref: '#/components/schemas/NonProcOwners'
     NonProcBusinessEntity:
       type: object
       properties:
@@ -6415,6 +6421,8 @@ components:
           $ref: '#/components/schemas/TinNumber'
         irs_status:
           $ref: '#/components/schemas/IrsStatus'
+        business_category:
+          $ref: '#/components/schemas/BusinessCategory'
         irs_filing_name:
           $ref: '#/components/schemas/IrsName'
         tin_type:
@@ -9378,7 +9386,7 @@ components:
     BusinessCategory:
       type: string
       description: Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant
-      example: MOTO
+      example: E
       enum:
         - R
         - MOTO
@@ -9460,7 +9468,7 @@ components:
     Date:
       type: string
       description: date yyyy-mm-dd
-      example: "1980-01-01"
+      example: "2020-01-01"
     ATV:
       type: string
       description: average ticket sales amount
@@ -9565,7 +9573,9 @@ components:
         owner_surname:
           $ref: '#/components/schemas/LastName'
         contact_dob:
-          $ref: '#/components/schemas/Date'
+          type: string
+          description: "YYYY-MM-DD"
+          example: "1980-01-01"
         owner_nationality:
           $ref: '#/components/schemas/Nationality'
         owner_position:
@@ -18158,6 +18168,35 @@ components:
       example: >-
         Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
+  examples:
+    RequestMinimalApplication:
+      value:
+        merchant: 
+          business_entity: {legal_name: "MMISTEST Business Name", ownership_entity_type: "L", foreign_entity: "0", irs_filing_name: "MMISTEST Business Name", irs_status: "N", tin_type: "2", int_tax_exempt_flag: "1", business_tin_ssn_number: "666989898", mcc_code: "5733", business_category: "E", foundation_date: "2020-01-01", date_incorporated: "2020-01-01", incorp_state: "CA"}
+          owners: 
+            owner_first_name: "Jane"
+            owner_surname: "Doe"
+            contact_dob: "1980-01-01"
+            owner_nationality: "826"
+            owner_position: "CEO"
+            owner_phone_code: "US|1"
+            owner_phone_no: "666989898"
+            owner_date_started: "1980-03-31"
+            owner_email: "email@domain.com"             
+            owner_tin_ssn_number: "666989898"
+            is_main_principal: "1"
+            ownership_perc: "100"
+            contacts: 
+            - {zip_code: "12345",  street_line_1: "Sample street 1", city: "Sample City", county_code: "CA", country_code: "840"}
+          registration_address: {zip_code: "12345",
+            street_line_1: "Sample street 1",
+            city: "Sample City",
+            county_code: "CA",
+            country_code: "840"}
+          offer_package: {package_external_id: "OPK01-AB8823-0F2E9-8823J-CC924-C7D40-BCB28"}
+          acquiring_offer: {package_external_id: "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"}
+          merchant_sub_group: {group_name: "Subgroup Name"}
+
   requestBodies:
     statusMode:
       content:
