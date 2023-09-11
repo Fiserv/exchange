@@ -4062,7 +4062,7 @@ components:
                     example: N
                   owner_date_started: 
                     type: string
-                    example: "2020-01-01"
+                    example: "1980-01-01"
                   owner_phone_code: 
                     type: string
                     example: GB|44
@@ -9460,7 +9460,7 @@ components:
     Date:
       type: string
       description: date yyyy-mm-dd
-      example: "2020-01-01"
+      example: "1980-01-01"
     ATV:
       type: string
       description: average ticket sales amount
