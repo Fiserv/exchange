@@ -2707,7 +2707,7 @@ components:
     ServiceChargeSplitDetails:
       type: object
       properties:
-        target_merchant_id:
+        targer_merchant_id:
           type: string
           description: "Non-processing merchant to link the split charge to (If adding a split charge). Uses the internal Mid of the Merchant level of the Non-processing merchant."
           example: '709900000003221'
@@ -9549,6 +9549,57 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/OwnerBlock'
+    NonProcOwners:
+      type: array
+      items:
+        $ref: '#/components/schemas/NonProcOwnerBlock'
+    NonProcOwnerBlock:
+      type: object
+      properties:
+        owner_title:
+          $ref: '#/components/schemas/Title'
+        owner_first_name:
+          $ref: '#/components/schemas/FirstName'
+        owner_second_name:
+          $ref: '#/components/schemas/SecondName'
+        owner_surname:
+          $ref: '#/components/schemas/LastName'
+        contact_dob:
+          $ref: '#/components/schemas/Date'
+        owner_nationality:
+          $ref: '#/components/schemas/Nationality'
+        owner_position:
+          $ref: '#/components/schemas/Position'
+        owner_date_started:
+          $ref: '#/components/schemas/Date'
+        personal_guarantee:
+          type: string
+          description: 'Is personal guarantee - N: No Y: Yes'
+          example: "N"
+          enum:
+            - "N"
+            - "Y"
+        owner_email:
+          $ref: '#/components/schemas/Email'
+        owner_tin_ssn_number:
+          $ref: '#/components/schemas/TinNumber'
+        is_main_principal:
+          type: string
+          description: 'Is main principal - 0: No 1: Yes'
+          example: "1"
+          enum:
+            - "0"
+            - "1"
+        ownership_perc:
+          $ref: '#/components/schemas/OwnershipPerc'
+        owner_phone_code:
+          $ref: '#/components/schemas/PhoneCode'
+        owner_phone_no:
+          $ref: '#/components/schemas/PhoneNumber'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrincipalAddressBlock'
     OwnerBlock:
       type: object
       properties:
