@@ -2793,6 +2793,10 @@ components:
             - "2"
         same_day_ach:
           type: string
+          description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+          enum: 
+            - "0"
+            - "1"
           example: "1"
       xml:
         name: funding
@@ -4152,10 +4156,13 @@ components:
               example: 0
             correspondence_language: 
               type: string
-              example: en_gb
-            same_day_ach: 
+            same_day_ach:
               type: string
-              example: "0"
+              description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+              enum: 
+                - "0"
+                - "1"
+              example: "1"
             application_status_external_id: 
               type: string
               example: APSE6-88106-8A5D6-E3F0E-1FBF8-6C93B-95DE4
@@ -5057,9 +5064,13 @@ components:
             correspondence_language: 
               type: string
               example: en_gb
-            same_day_ach: 
+            same_day_ach:
               type: string
-              example: "0"
+              description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+              enum: 
+                - "0"
+                - "1"
+              example: "1"
             application_status_external_id: 
               type: string
               example: APSE6-88106-8A5D6-E3F0E-1FBF8-6C93B-95DE4
