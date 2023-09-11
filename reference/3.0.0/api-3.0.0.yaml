@@ -2368,6 +2368,7 @@ components:
           description: registration number of business
           type: string
           maxLength: 21
+          minLength: 8
           example: '123456789'
         reg_charity_number:
           description: registration number of charity
@@ -9354,10 +9355,10 @@ components:
         - X
     RegNumber:
       maxLength: 21
-      minLength: 1
+      minLength: 8
       type: string
       description: Company registration number
-      example: "2333"
+      example: "23334444"
     ForeignEntity:
       type: string
       description: 'Is the Business a Foreign entity? - 1: Yes 0: No'
