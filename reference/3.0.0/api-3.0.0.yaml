@@ -6,7 +6,6 @@ info:
   version: 3.0.0
 servers:
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
-- {url: 'https://fd-api.carat-platforms.fiserv.com', description: Production}
 
 paths:
   /boarding/add_application:
