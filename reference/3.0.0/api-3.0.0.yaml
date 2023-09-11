@@ -198,7 +198,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AddOutletRequest'
+            examples:
+              MinimalPayLoad:
+                summary: Minimum Payload required to board, using defaults in configuration for settings
+                $ref: '#/components/examples/RequestMinimalOutlet'
         required: true
+
       responses:
         "200":
           description: OK
@@ -18195,7 +18200,68 @@ components:
           offer_package: {package_external_id: "OPK01-AB8823-0F2E9-8823J-CC924-C7D40-BCB28"}
           acquiring_offer: {package_external_id: "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"}
           merchant_sub_group: {group_name: "Subgroup Name"}
-
+    RequestMinimalOutlet:
+      value:
+        application:
+          application_reference: "333000050001"
+        outlet: 
+          parent_mid: "700100000050001"
+          trade_name: "MMISTest Bussines Name"
+          outlet_website: "https://fiserv.com"
+          currencies: "USD"
+          visitation_required: "1"
+          primary_email_address: "email@domain.com"
+          mcc_code: "5733"
+          mastercard_sales: "100000.00"
+          visa_sales: "100000.00"
+          visa_mastercard_sales: "100000.00"
+          discover_required: "1"
+          amex_required: "1"
+          amex_volume: "100000.00"
+          turnover_bus_to_bus_perc: "0"
+          turnover_bus_to_cons_perc: "100"
+          card_bus_to_bus_perc: "0"
+          card_bus_to_cons_perc: "100"
+          highest_ticket_sales_amt: "1000.00"
+          sales_ftf_perc: "0"
+          sales_keyed_perc: "100"
+          sales_phone_perc: "0"
+          sales_mail_perc: "0"
+          sales_internet_perc: "100"
+          sales_tradeshow_perc: "0"
+          chip_flag: "Y"
+          annual_turnover: "100000.00"
+          annual_card_turnover: "100000.00"
+          average_delivery_days: "1"
+          delivery_0_days_perc: "100"
+          delivery_1_to_7_days_perc: "0"
+          delivery_8_to_14_days_perc: "0"
+          delivery_15_to_30_days_perc: "0"
+          delivery_over_30_days_perc: "0"
+          prod_serv_sold: "Product and services sold by the submerchant"
+          sales_moto_perc: "10"
+          avg_ticket_sales_amt: "50.00"
+          banks: 
+          - {bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "123456789", account_type: [
+                    "CREDIT",
+                    "DEBIT",
+                    "CHARGEBACK"
+                ]
+            }
+          contacts: 
+          - {contact_type: "OT",
+                country_code: "840",
+                city: "Sparks",
+                contact_first_name: "Jane ",
+                contact_last_name: "Doe",
+                zip_code: "89431",
+                street_line_1: "Sheila Lane",
+                county_code: "NV",
+                ent_telephone_code: "US|1",
+                telephone_number: "3334567888",
+                email_address: "email@domain.com"}
+        online_offer: 
+          online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
   requestBodies:
     statusMode:
       content:
