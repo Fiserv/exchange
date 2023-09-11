@@ -18197,7 +18197,7 @@ components:
             owner_position: "CEO"
             owner_phone_code: "US|1"
             owner_phone_no: "666989898"
-            owner_date_started: "1980-03-31"
+            owner_date_started: "2020-03-31"
             owner_email: "email@domain.com"        
             owner_tin_ssn_number: "666989898"
             is_main_principal: "1"
