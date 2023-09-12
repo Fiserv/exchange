@@ -18222,7 +18222,7 @@ components:
           application_reference: "333000050001"
         outlet: 
           parent_mid: "700100000050001"
-          trade_name: "MMISTest Bussines Name"
+          trade_name: "MMISTest Business Name"
           outlet_website: "https://fiserv.com"
           currencies: "USD"
           visitation_required: "1"
