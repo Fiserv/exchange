@@ -6,16 +6,6 @@ info:
   version: 3.0.0
 servers:
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
-
-paths:
-openapi: 3.0.0
-info:
-  title: Exchange APIs Documentation
-  description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
-  version: 3.0.0
-servers:
-- {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
-
 paths:
   /boarding/add_application:
     post:
