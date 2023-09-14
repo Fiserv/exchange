@@ -39,7 +39,7 @@ paths:
             schema:
               $ref: '#/components/schemas/AddApplication'
             examples:
-              MinimalPayLoad:
+              RequiredPayLoad:
                 summary: Minimum Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalApplication'
               
@@ -199,7 +199,7 @@ paths:
             schema:
               $ref: '#/components/schemas/AddOutletRequest'
             examples:
-              MinimalPayLoad:
+              RequiredPayLoad:
                 summary: Minimum Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalOutlet'
         required: true
@@ -377,7 +377,7 @@ paths:
     post:
       tags:
         - Application Boarding
-      summary: Application Retrieve
+      summary: Application Retrieve, using RETRIEVE_MERCHANT_HIERARCHY operation
       description: Application Retrieve
       requestBody:
         description: Application Retrieve
@@ -2718,7 +2718,7 @@ components:
     ServiceChargeSplitDetails:
       type: object
       properties:
-        targer_merchant_id:
+        target_merchant_id:
           type: string
           description: "Non-processing merchant to link the split charge to (If adding a split charge). Uses the internal Mid of the Merchant level of the Non-processing merchant."
           example: '709900000003221'
