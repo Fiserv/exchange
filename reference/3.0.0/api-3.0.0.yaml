@@ -7,7 +7,7 @@ info:
 servers:
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
 
-paths:---
+paths:
 openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
