@@ -18196,7 +18196,7 @@ components:
             owner_nationality: "826"
             owner_position: "CEO"
             owner_phone_code: "US|1"
-            owner_phone_no: "666989898"
+            owner_phone_no: "3339898989"
             owner_date_started: "2020-03-31"
             owner_email: "email@domain.com"        
             owner_tin_ssn_number: "666989898"
@@ -18254,7 +18254,7 @@ components:
           delivery_8_to_14_days_perc: "0"
           delivery_15_to_30_days_perc: "0"
           delivery_over_30_days_perc: "0"
-          prod_serv_sold: "Product and services sold by the submerchant"
+          prod_serv_sold: "Product and services sold"
           sales_moto_perc: "10"
           avg_ticket_sales_amt: "50.00"
           banks: 
@@ -18274,7 +18274,7 @@ components:
                 street_line_1: "Sheila Lane",
                 county_code: "NV",
                 ent_telephone_code: "US|1",
-                telephone_number: "3334567888",
+                telephone_number: "3339898989",
                 email_address: "email@domain.com"}
         online_offer: 
           online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
