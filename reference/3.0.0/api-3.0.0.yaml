@@ -18219,8 +18219,8 @@ components:
             county_code: "CA",
             country_code: "840"}
           offer_package: {package_external_id: "OPK01-AB8823-0F2E9-8823J-CC924-C7D40-BCB28"}
-          acquiring_offer: {package_external_id: "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"}
-          merchant_sub_group: {group_name: "Subgroup Name"}
+          acquiring_offer: {transaction_pricing_external_id: "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"}
+          merchant_sub_group: {group_name: "Subgroup"}
     RequestMinimalOutlet:
       value:
         application:
