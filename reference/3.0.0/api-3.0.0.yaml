@@ -18268,7 +18268,7 @@ components:
           sales_moto_perc: "10"
           avg_ticket_sales_amt: "50.00"
           banks: 
-          - {bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "123456789", account_type: [
+          - {bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
                     "CREDIT",
                     "DEBIT",
                     "CHARGEBACK"
