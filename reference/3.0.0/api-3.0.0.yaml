@@ -2514,7 +2514,7 @@ components:
         owner_nationality:
           type: string
           description: ISO3 Country Code
-          example: '826'
+          example: '840'
         owner_position:
           type: string
           description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
@@ -4049,7 +4049,7 @@ components:
                     example: "2000-01-01"
                   owner_nationality: 
                     type: string
-                    example: 840
+                    example: "840"
                   owner_position: 
                     description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
                     example: CEO
@@ -4959,7 +4959,7 @@ components:
                     example: "2000-01-01"
                   owner_nationality: 
                     type: string
-                    example: 840
+                    example: "840"
                   owner_position: 
                     description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
                     example: OW
@@ -6479,6 +6479,7 @@ components:
         contact_type:
           type: string
           description: Contact type
+          example: OT
           enum:
             - L
             - B
@@ -9712,7 +9713,7 @@ components:
     Nationality:
       type: string
       description: ISO3 nationality code
-      example: "USA"
+      example: "840"
     Position:
       description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
       example: CEO
@@ -18202,7 +18203,7 @@ components:
           - owner_first_name: "Jane"
             owner_surname: "Doe"
             contact_dob: "1980-01-01"
-            owner_nationality: "826"
+            owner_nationality: "840"
             owner_position: "CEO"
             owner_phone_code: "US|1"
             owner_phone_no: "3339898989"
@@ -18321,7 +18322,7 @@ components:
           - owner_first_name: "Jane"
             owner_surname: "Doe"
             contact_dob: "1980-01-01"
-            owner_nationality: "826"
+            owner_nationality: "840"
             owner_position: "CEO"
             owner_phone_code: "US|1"
             owner_phone_no: "3339898989"
