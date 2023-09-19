@@ -18293,8 +18293,8 @@ components:
                   ent_telephone_code: "US|1",
                   telephone_number: "3339898989",
                   email_address: "email@domain.com"}
-        online_offer: 
-          online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
+          online_offer: 
+            online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
   requestBodies:
     statusMode:
       content:
