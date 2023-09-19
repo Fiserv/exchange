@@ -13,7 +13,7 @@ paths:
       tags:
         - Application Boarding
       summary: Add an Application
-      description: Adds a merchant and a subgroup
+      description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID
       operationId: ADD_APPLICATION
       x-group-name: Submerchant Boarding
       x-proxy-name: Add Application
@@ -184,7 +184,7 @@ paths:
       tags:
         - Application Boarding
       summary: Add Outlet
-      description: Add Outlet
+      description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned
       parameters:
       - name: X-API-VERSION
         in: header
