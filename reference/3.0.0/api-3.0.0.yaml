@@ -1434,6 +1434,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateMaintenanceRequest'
+            examples:
+              UPDATE_PROCESSING_PRICING:
+                summary: Example Payload for updating Processing Pricing
+                $ref: '#/components/examples/RequestProcessingMaintenance'
+              CHANGE_BANK:
+                summary: Example Payload for updating Bank Info 
+                $ref: '#/components/examples/RequestBankMaintenance'
 
         required: true
       responses:
@@ -18625,7 +18632,15 @@ components:
         merchant: 
           merchant_reference: "30083993"
         maintenance: 
-          internal_mid : "7001000000500001"
+          outlet:
+            internal_mid : "7001000000500001"
+            banks: 
+            - {bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
+                      "CREDIT",
+                      "DEBIT",
+                      "CHARGEBACK"
+                  ]
+              }
 
             
   requestBodies:
