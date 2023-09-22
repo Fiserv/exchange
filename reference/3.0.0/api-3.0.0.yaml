@@ -1385,7 +1385,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Create Maintenance Case
       summary: Creating Maintenance Case
-      description: Creating Maintenance Case for a merchant to update bank information, or pricing (Managed funding)
+      description: Creates a Maintenance Case for a merchant to update bank information, or pricing (Managed funding). Updated information is provided in the UPDATE_MAINTENANCE call
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1463,7 +1463,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Submit Maintenance Case
       summary: Submitting a Maintenance Case
-      description: Submitting a Maintenance Case for a Merchant
+      description: Submitting a Maintenance Case for a Merchant with the updated information
       parameters:
       - name: X-API-VERSION
         in: header
@@ -2161,7 +2161,7 @@ components:
       - amount
       - currency
       - processing_merchant_id
-      - split_details
+      - split_detailstail
       - transaction_date
       - transaction_type
       type: object
@@ -9309,6 +9309,47 @@ components:
           $ref: '#/components/schemas/DDA'
         routing_number:
           $ref: '#/components/schemas/ABA'
+    MaintenanceBankDetail:
+      type: object
+      description: Bank information to be updated with the maintenance case
+      properties:
+        _id:
+          type: string
+          example: "63j85332fdf9b2231ed3gh4l2"
+          description: "ID of the bank being updated, retrieved from application retrieve or merchant retrieve"
+        bank_name:
+          $ref: '#/components/schemas/BankName'
+        bank_city:
+          $ref: '#/components/schemas/City'
+        country_code:
+          $ref: '#/components/schemas/Country'
+        zip_code:
+          $ref: '#/components/schemas/ZipCode'
+        county_code:
+          $ref: '#/components/schemas/State'
+        street_line_1:
+          $ref: '#/components/schemas/AddressLine1'
+        suite_apart_number:
+          $ref: '#/components/schemas/Apartment'
+        province:
+          $ref: '#/components/schemas/Province'
+        floor:
+          $ref: '#/components/schemas/Floor'
+        account_holder_name:
+          $ref: '#/components/schemas/AccountHolder'
+        account_type:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankFor'
+          example: ["CREDIT" , 
+          "DEBIT", 
+          "CHARGEBACK" ]
+        bank_account_type:
+          $ref: '#/components/schemas/BankAccountType'
+        dda_number:
+          $ref: '#/components/schemas/DDA'
+        routing_number:
+          $ref: '#/components/schemas/ABA'
     BankName:
       type: string
       description: Merchant bank name
@@ -16364,7 +16405,7 @@ components:
           example: "MC3000000633"
         subgroup:
           $ref: '#/components/schemas/subgroupum'
-        outlet:
+        outlets:
           $ref: '#/components/schemas/outletum'
         merchant:
           $ref: '#/components/schemas/merchantum'
@@ -16388,7 +16429,7 @@ components:
         banks:
           type: array
           items:
-            $ref: '#/components/schemas/BankDetail'
+            $ref: '#/components/schemas/MaintenanceBankDetail'
     merchantum:
       type: object
       properties:
@@ -16533,7 +16574,7 @@ components:
         banks:
           type: object
           items:
-            $ref: '#/components/schemas/BankDetail'
+            $ref: '#/components/schemas/MaintenanceBankDetail'
     chargeItemPriceCharges:
       type: object
       properties:
@@ -18633,9 +18674,10 @@ components:
           merchant_reference: "30083993"
         maintenance: 
           outlet:
+            maintenance_reference: "MC3000000601"
             internal_mid : "7001000000500001"
             banks: 
-            - {bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
+            - {_id: "12b5534faf9baf2232bb23c", bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
                       "CREDIT",
                       "DEBIT",
                       "CHARGEBACK"
