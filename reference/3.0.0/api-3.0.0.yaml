@@ -18683,8 +18683,6 @@ components:
                       "CHARGEBACK"
                   ]
               }
-
-            
   requestBodies:
     statusMode:
       content:
