@@ -16403,7 +16403,7 @@ components:
           type: string
           description: the maintenance reference number of the maintenance case created
           example: "MC3000000633"
-        subgroup:
+        subgroups:
           $ref: '#/components/schemas/subgroupum'
         outlets:
           $ref: '#/components/schemas/outletum'
@@ -16417,8 +16417,10 @@ components:
           type: string
           description: internal mid of entity maintenance is being actioned on
           example: "700100000000001"
-        business_entity:
-          $ref: '#/components/schemas/businessentity'
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/MaintenanceBankDetail'
     outletum:
       type: object
       properties:
@@ -18673,7 +18675,7 @@ components:
         merchant: 
           merchant_reference: "30083993"
         maintenance: 
-          outlet:
+          outlets:
             maintenance_reference: "MC3000000601"
             internal_mid : "7001000000500001"
             banks: 
@@ -18683,6 +18685,8 @@ components:
                       "CHARGEBACK"
                   ]
               }
+
+            
   requestBodies:
     statusMode:
       content:
