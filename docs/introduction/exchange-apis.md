@@ -14,7 +14,7 @@ APIs avaliable can be viewed on the API Explorer, and cover:
 - Equipment and Pricing offerings
 - Transaction Monitoring
 
-These are explained briefly below, where additional API sections can be expanded on the right for more info and full API spec seen in the API explorer.
+These are explained briefly below, where additional API sections can be expanded on the lefthand side for more info and full API spec seen in the API explorer.
 
 ### Sub-merchant on-boarding 
 

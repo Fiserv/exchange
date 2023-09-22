@@ -1385,7 +1385,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Create Maintenance Case
       summary: Creating Maintenance Case
-      description: Creating Maintenance Case for a merchant to update bank information, or pricing (Managed funding)
+      description: Creates a Maintenance Case for a merchant to update bank information, or pricing (Managed funding). Updated information is provided in the UPDATE_MAINTENANCE call
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1420,7 +1420,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Update Maintenance Case
       summary: Updating a Maintenance Case
-      description: Updating a Maintenance Case for a boarded Merchant. Can be used to update bank information at the billing level, and pricing for managed funding.
+      description: Updates a Maintenance Case that has been created by the Create Maintenance API for a boarded Merchant. Can be used to update the information for the case, such as the bank information at the billing level, and pricing for managed funding.
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1434,6 +1434,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateMaintenanceRequest'
+            examples:
+              UPDATE_PROCESSING_PRICING:
+                summary: Example Payload for updating Processing Pricing
+                $ref: '#/components/examples/RequestProcessingMaintenance'
+              CHANGE_BANK:
+                summary: Example Payload for updating Bank Info 
+                $ref: '#/components/examples/RequestBankMaintenance'
+
         required: true
       responses:
         "200":
@@ -1455,7 +1463,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Submit Maintenance Case
       summary: Submitting a Maintenance Case
-      description: Submitting a Maintenance Case for a Merchant
+      description: Submitting a Maintenance Case for a Merchant with the updated information
       parameters:
       - name: X-API-VERSION
         in: header
@@ -2153,7 +2161,7 @@ components:
       - amount
       - currency
       - processing_merchant_id
-      - split_details
+      - split_detailstail
       - transaction_date
       - transaction_type
       type: object
@@ -9301,6 +9309,47 @@ components:
           $ref: '#/components/schemas/DDA'
         routing_number:
           $ref: '#/components/schemas/ABA'
+    MaintenanceBankDetail:
+      type: object
+      description: Bank information to be updated with the maintenance case
+      properties:
+        _id:
+          type: string
+          example: "63j85332fdf9b2231ed3gh4l2"
+          description: "ID of the bank being updated, retrieved from application retrieve or merchant retrieve"
+        bank_name:
+          $ref: '#/components/schemas/BankName'
+        bank_city:
+          $ref: '#/components/schemas/City'
+        country_code:
+          $ref: '#/components/schemas/Country'
+        zip_code:
+          $ref: '#/components/schemas/ZipCode'
+        county_code:
+          $ref: '#/components/schemas/State'
+        street_line_1:
+          $ref: '#/components/schemas/AddressLine1'
+        suite_apart_number:
+          $ref: '#/components/schemas/Apartment'
+        province:
+          $ref: '#/components/schemas/Province'
+        floor:
+          $ref: '#/components/schemas/Floor'
+        account_holder_name:
+          $ref: '#/components/schemas/AccountHolder'
+        account_type:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankFor'
+          example: ["CREDIT" , 
+          "DEBIT", 
+          "CHARGEBACK" ]
+        bank_account_type:
+          $ref: '#/components/schemas/BankAccountType'
+        dda_number:
+          $ref: '#/components/schemas/DDA'
+        routing_number:
+          $ref: '#/components/schemas/ABA'
     BankName:
       type: string
       description: Merchant bank name
@@ -16356,16 +16405,18 @@ components:
           example: "MC3000000633"
         subgroup:
           $ref: '#/components/schemas/subgroupum'
-        outlet:
+        outlets:
           $ref: '#/components/schemas/outletum'
+        merchant:
+          $ref: '#/components/schemas/merchantum'
         
     subgroupum:
       type: object
       properties:
         internal_mid:
           type: string
-          description: internal mid of funding level entity
-          example: "865785678567"
+          description: internal mid of entity maintenance is being actioned on
+          example: "700100000000001"
         business_entity:
           $ref: '#/components/schemas/businessentity'
     outletum:
@@ -16373,19 +16424,207 @@ components:
       properties:
         internal_mid:
           type: string
-          description: internal mid of funding level entity
-          example: "865785678567"
+          description: internal mid of entity maintenance is being actioned on
+          example: "700100000000001"
         banks:
           type: array
           items:
-            $ref: '#/components/schemas/BankDetail'
-    businessentity:
+            $ref: '#/components/schemas/MaintenanceBankDetail'
+    merchantum:
       type: object
       properties:
-        banks:
+        internal_mid:
+          type: string
+          description: internal mid of entity maintenance is being actioned on 
+          example: "700100000000001"
+        business_entity:
+          $ref: '#/components/schemas/businessentity'
+        charges:
+          $ref: '#/components/schemas/maintenanceOffering'
+    maintenanceOffering:
+      type: object
+      properties:
+        acquiring_offer:
+          $ref: '#/components/schemas/maintenanceCharges'
+    maintenanceCharges:
+      type: object
+      properties:
+        alliance_external_id:
+          type: string
+          description: Alliance external ID, can be retrieved from offer API or Merchant Retrieve.
+          example : "ALL59-32221-33421-AMN32-79F05-83AL3-940F5"
+        acquirer_external_id:
+          type: string
+          description: Acquirer external ID, can be retrieved from offer API or Merchant Retrieve.
+          example : "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
+        transaction_pricing_external_id:
+          type: string
+          description: Tranasction Pricing external ID, can be retrieved from offer API or Merchant Retrieve.
+          example : "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
+        processing_platform:
+          type: string
+          description: Processing Platform , can be retrieved from offer API or Merchant Retrieve.
+          example : "OTHER"
+        transaction_pricing_name:
+          type: string
+          description: Pricing Name , can be retrieved from offer API or Merchant Retrieve.
+          example : "Pricing Name"
+        fee_collection_type:
+          type: string
+          description: Fee collection type of the offer, can be retrieved from offer API or Merchant Retrieve.
+          example : "BLENDED"
+        currency:
+          type: string
+          description: Currency of the offer, can be retrieved from offer API or Merchant Retrieve.
+          example : "USD"
+        is_tier_price:
+          type: string
+          description: Tier price setting of the offer , can be retrieved from offer API or Merchant Retrieve.
+          example : "0"
+        charge_items:
           type: array
           items:
-            $ref: '#/components/schemas/BankDetail'
+            $ref: '#/components/schemas/MaintenancechargeItems'
+        service_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MaintenanceserviceItems'
+      
+    MaintenanceserviceItems:
+      type: object
+      properties:
+        service_charge_item__external_id:
+          type: string
+          description: Charge item group external ID, can be retrieved from offer API or Merchant Retrieve.
+          example : "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
+        service_frequency:
+          type: string
+          description: Frequency of the service charge, retrieved from offer API or merchant retrieve
+          example : "7"
+        is_mandatory:
+          type: string
+          description: Flags if the charge is mandatory, retrieved from offer API or merchant retrieve
+          example : "7"
+        is_activated:
+          type: string
+          description: Flags that the charge is active, should always be 1
+          example : "1"
+        is_boarding_activated:
+          type: string
+          description: Flags that the charge is active for boarding, should always be 1
+          example : "1"
+        service_item_name:
+          type: string
+          description: Name of the service charge rertrieved by API or merchant retrieve
+          example : "Beneficiary Split"
+        service_items_charges:
+          type: array 
+          items:
+            $ref: '#/components/schemas/chargeItemPrices'
+        split_details: 
+          $ref: '#/components/schemas/maintenanceSplitDetail'
+        
+    maintenanceSplitDetail:
+      type: object
+      description: The recipient of the split pricing that is being updated, retrieved from the merchant API
+      properties:
+        target_merchant_id: 
+          type: string
+          description: Internal MID of the beneficiary that is recieving split from this offer. Must match the existing information
+          example : "702200000000002"
+    MaintenancechargeItems:
+      type: object
+      properties:
+        charge_item_group_external_id:
+          type: string
+          description: Charge item group external ID, can be retrieved from offer API or Merchant Retrieve.
+          example : "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
+        charge_item_external_id:
+          type: string
+          description: Charge item external ID, can be retrieved from offer API or Merchant Retrieve.
+          example : "USD"
+        is_activated:
+          type: string
+          description: Flags that the charge is active, should always be 1
+          example : "1"
+        is_boarding_activated:
+          type: string
+          description: Flags that the charge is active for boarding, should always be 1
+          example : "1"
+        fee_collection_type:
+          type: string
+          description: Fee collection type of the charge, can be retrieved from offer API or Merchant Retrieve.
+          example : "BLENDED"
+        charge_item_prices:
+          type: array
+          items: 
+            $ref: '#/components/schemas/chargeItemPrices'
+    chargeItemPrices:
+      type: object
+      description: Contains the Base rate and Percentage rate for the charge in this array
+      properties:
+        charge_items_price_charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/chargeItemPriceCharges'
+    businessentity:
+      type: object
+      description: The rate being specified, information can be retrieved through the Retrieve offer API, retrieve merchant, or from retrieving the old_details from the maintenace case retrieve api
+      properties:
+        banks:
+          type: object
+          items:
+            $ref: '#/components/schemas/MaintenanceBankDetail'
+    chargeItemPriceCharges:
+      type: object
+      properties:
+        fee_type:
+          type: string
+          description: Fee type of the pricing, retrieved by offer API -  1 -percentage charge or 2- base charge
+          enum: 
+            - "1"
+            - "2"
+          example : "1"
+        category:
+          type: string
+          description: Category of the pricing, retrieved by offer API - the category of charge configured
+          enum: 
+            - "1"
+            - "2"
+          example : "1"
+        minimum_perc_charge:
+          type: string
+          description: Minimum rate of pricing, retrieved by offer API
+          example : "0.00"
+        maximum_perc_charge:
+          type: string
+          description: Maximum rate of pricing,, retrieved by offer API 
+          example : "1.50"
+        default_perc_charge:
+          type: string
+          description: Default percentage, retrieved by offer API 
+          example : "1.00"
+        perc_charge:
+          type: string
+          description: The actual Percentage charge being modified by the maintenance case. Must fall between min and max values for the offer
+          example : "1.00"
+        minimum_base_charge:
+          type: string
+          description: Minimum base charge, retrieved by offer API - denotes if it is percentage charge or base charge
+          example : "0.00"
+        maximum_base_charge:
+          type: string
+          description: Maximum base charge, retrieved by offer API - denotes if it is percentage charge or base charge
+          example : "20.00"
+        default_base_charge:
+          type: string
+          description: Default base charge, retrieved by offer API - denotes if it is percentage charge or base charge
+          example : "5.00"
+        base_charge:
+          type: string
+          description: The actual Base charge being modified by the maintenance case. Must fall between min and max values for the offer
+          example : "2.00"
+
     UpdateMaintenanceResponse:
       type: object
       properties:
@@ -16472,7 +16711,7 @@ components:
         internal_mid:
           type: string
           description: internal mid of the entity for which the information is being changed
-          example: "865785678567"
+          example: "700100000000001"
         banks:
           type: array
           items:
@@ -18364,7 +18603,86 @@ components:
                 ent_telephone_code: "US|1",
                 telephone_number: "3339898989",
                 email_address: "email@domain.com"}
-            
+    RequestProcessingMaintenance:
+      value:
+        operation:
+          operation_type: "UPDATE_MAINTENANCE"
+        merchant: 
+          merchant_reference: "30083993"
+        maintenance:
+          maintenance_reference: "MC3000000001"
+          merchant: 
+            internal_mid: "7001000000500001"
+            charges:
+              acquiring_offer: 
+                alliance_external_id: "ALL59-32221-33421-AMN32-79F05-83AL3-940F5"
+                acquirer_external_id: "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
+                transaction_pricing_external_id: "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
+                processing_platform: "OTHER"
+                transaction_pricing_name: "Offer Pricing Name"
+                fee_collection_type: "BLENDED"
+                currency: "USD"
+                is_tier_price: "0"
+                charge_items: 
+                - charge_item_group_external_id: "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
+                  charge_item_external_id: "CHI23-329D0-940F5-151F3-A8128-94155-329D0"
+                  is_activated: "1"
+                  is_mandatory: "1"
+                  is_boarding_activated: "1"
+                  fee_collection_type: "BLENDED"
+                  charge_items_prices:
+                  - charge_items_price_charges:
+                    - {"fee_type": "1",
+                                                "category": "2",
+                                                "minimum_perc_charge": "0.00",
+                                                "maximum_perc_charge": "15.00",
+                                                "default_perc_charge": "0.00",
+                                                "perc_charge": "0.35"}
+                    - {"fee_type": "2",
+                                                "category": "2",
+                                                "minimum_base_charge": "0.00",
+                                                "maximum_base_charge": "10.00",
+                                                "default_base_charge": "0.00",
+                                                "base_charge": "1.15"}
+                service_items: 
+                - service_charge_item_external_id: "SC322-A8128-6318D-329D0-48954-F7549-A8128"
+                  service_item_name: "Beneficiary Split"
+                  is_boarding_activated: "1"
+                  service_frequency: "7"
+                  is_activated: "1"
+                  is_mandatory: "0"
+                  service_items_charges:
+                  - {"fee_type": "1",
+                                                "category": "2",
+                                                "minimum_perc_charge": "0.00",
+                                                "maximum_perc_charge": "15.00",
+                                                "default_perc_charge": "0.00",
+                                                "perc_charge": "0.10"}
+                  - {"fee_type": "2",
+                                                "category": "2",
+                                                "minimum_base_charge": "0.00",
+                                                "maximum_base_charge": "10.00",
+                                                "default_base_charge": "0.00",
+                                                "base_charge": "0.05"}
+                  split_details: 
+                    target_merchant_id: "703200000000001"
+    RequestBankMaintenance:
+      value:
+        operation:
+          operation_type: "UPDATE_MAINTENANCE"
+        merchant: 
+          merchant_reference: "30083993"
+        maintenance: 
+          outlet:
+            maintenance_reference: "MC3000000601"
+            internal_mid : "7001000000500001"
+            banks: 
+            - {_id: "12b5534faf9baf2232bb23c", bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
+                      "CREDIT",
+                      "DEBIT",
+                      "CHARGEBACK"
+                  ]
+              }
   requestBodies:
     statusMode:
       content:

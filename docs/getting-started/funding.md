@@ -17,7 +17,7 @@ type: tab
 titles: Instructional funding, JSON Instructional funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the sub-merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken.
+The Instructional funding request will be constructed based on how the PayFac wants to fund the sub-merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken. The request is grouped by three types of money movement - Funding, Billing, and Chargeback. These all have their own respective accounts that can be sent as credits, debits, and split.
 
 ---
 
@@ -32,21 +32,33 @@ Supported accounts added to this request include:
 - SPLIT_ACCOUNT (for instructional split)
 
 ```json
+
 {
-  "merchant_id": "1121212",
-  "total_amount": "1000.00",
+  "merchant_id": "400000000005",
   "currency": "USD",
-  "accounts": [
+  "funding": [
     {
-      "account_type": "REVENUE_ACCOUNT",
-      "amount": "900.00"
-    },
+      "account_type": "REVENUE",
+      "amount": "100.00",
+      "type": "CREDIT"
+    }
+  ],
+  "billing": [
     {
-      "account_type": "FEE_ACCOUNT",
-      "amount": "100.00"
-    }  
+      "account_type": "SERVICE_FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ],
+  "chargeback": [
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "250.00",
+      "type": "DEBIT"
+    }
   ]
 }
+
 ```
 
 <!-- type: tab-end -->
@@ -60,7 +72,7 @@ Split funding allows the PayFac to direct funds from a processing sub-merchant t
 
 ### Instructional Split
 
-Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'SPLIT' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be recieved by the non-processing PayFac.
+Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be recieved by the non-processing PayFac.
 
 ### Constructing the split instruction request
 
@@ -84,41 +96,43 @@ Supported accounts added to this request include:
 - SPLIT_ACCOUNT (for instructional split)
 
 ```json
+
 {
-  "merchant_id": "1121212",
-  "total_amount": "1100.00",
+  "merchant_id": "400000000005",
   "currency": "USD",
-  "accounts": [
+  "funding": [
     {
-      "account_type": "REVENUE_ACCOUNT",
-      "amount": "950.00"
-    },
-    {
-      "account_type": "FEE_ACCOUNT",
-      "amount": "100.00"
-    },
-    {
-      "account_type": "SPLIT_ACCOUNT",
-      "amount": "0.00",
+      "account_type": "REVENUE",
+      "amount": "100.00",
       "split_details": [
         {
-          "total_amount": "50.00",
-          "merchant_id": "700100000006327",
-          "accounts": [
-            {
-              "account_type": "REVENUE_ACCOUNT",
-              "amount": "25.00"
-            },
-            {
-              "account_type": "FEE_ACCOUNT",
-              "amount": "25.00"
-            }
-          ]
+          "merchant_id": "400000000005",
+          "accounts": {
+            "account_type": "REVENUE",
+            "amount": "50.00",
+            "type": "CREDIT"
+          }
         }
-      ]
+      ],
+      "type": "CREDIT"
+    }
+  ],
+  "billing": [
+    {
+      "account_type": "SERVICE_FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ],
+  "chargeback": [
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "25.00",
+      "type": "DEBIT"
     }
   ]
 }
+
 ```
 
 <!-- type: tab-end -->

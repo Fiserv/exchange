@@ -37,6 +37,10 @@
           link: docs/introduction/exchange-intro.md
         - title: Exchange APIs
           link: docs/introduction/exchange-apis.md
+        - title: Boarding 
+          link: docs/getting-started/boarding.md
+        - title: Funding 
+          link: docs/getting-started/funding.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
