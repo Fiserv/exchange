@@ -17873,7 +17873,7 @@ components:
     TransactionMonitoringAllianceId:
       type: string
       description: The unique identification number of the alliance
-      example: 1125874
+      example: "3339898"
     TransactionMonitoringTierNumber:
       type: string
       example: '1'
@@ -17883,7 +17883,7 @@ components:
     PfacNodeID:
       type: string
       description: The unique identification number of the PFAC
-      example: 93
+      example: "01"
     TransactionId:
       maxLength: 20
       type: string
@@ -17916,15 +17916,15 @@ components:
     MerchantIDoptional:
       type: string
       description: The unique identification number of the Merchant
-      example: 30121
+      example: "30001"
     MerchantNodeID:
       type: string
       description: The unique identification number of the Merchant Node
-      example: 80728
+      example: "30001"
     outletID:
       type: string
       description: The unique identification number of the outlet
-      example: 34174
+      example: "30021"
     Recordtype:
       type: string
       example: CREDIT_DETAIL_FUNDED
@@ -17957,7 +17957,7 @@ components:
       example: '2022-02-01'
     ReferenceNumberOptional:
       type: string
-      example: '7088346439703217'
+      example: '788902643342217'
     ProcessedCurrencyCode:
       type: string
       example: '840'
@@ -18057,7 +18057,7 @@ components:
       example: XX
     SubmerchantIDoptional:
       type: string
-      example: 4AUBOLAD3IBQBZN
+      example: 4ABBCOABD3ILSIE
     SoftDescriptor:
       type: string
       example: 'ABC*'
@@ -18117,10 +18117,10 @@ components:
       example: XX
     MerchantReference:
       type: string
-      example: 3003594
+      example: "3003001"
     AuthTracker:
       type: string
-      example: 3962812387650543
+      example: "396266698980543"
     TransactionMonitoringSearchRequest:
       type: object
       properties:
