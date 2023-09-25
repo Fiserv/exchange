@@ -546,7 +546,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TransactionSearchRequest'
-        required: true
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
       responses:
         "404":
           description: Transactions not found
@@ -586,7 +592,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TransactionSearchRequest'
-        required: true
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
       responses:
         "404":
           description: Transactions not found
@@ -626,7 +638,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ChargebackSearchRequest'
-        required: true
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
       responses:
         "404":
           description: Transactions not found
@@ -666,7 +684,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ChargebackAdjustmentSearchRequest'
-        required: true
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
       responses:
         "404":
           description: Transactions not found
@@ -706,7 +730,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthorizationSearchRequest'
-        required: true
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
       responses:
         "404":
           description: Transactions not found
@@ -746,7 +776,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AdjustmentSearchRequest'
-        required: true
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
       responses:
         "404":
           description: Transactions not found
@@ -10664,8 +10700,7 @@ components:
           minLength: 0
           type: string
           description: Alliance id Value
-        int:
-          type: boolean
+
     AuthTrackerQuery:
       required:
       - operator
@@ -10690,8 +10725,7 @@ components:
           minLength: 0
           type: string
           description: Auth Tracker Value
-        int:
-          type: boolean
+
     CardTypeQuery:
       required:
       - operator
@@ -10716,8 +10750,6 @@ components:
           minLength: 0
           type: string
           description: Card Type Value
-        int:
-          type: boolean
     DateAddedQuery:
       required:
       - and_value
@@ -10749,8 +10781,7 @@ components:
             d|3[01])( (0\\d|1\\d|2[0-3]):([0-5]\\d):([0-5]\\d))?$"
           type: string
           description: Date Added Second Value
-        int:
-          type: boolean
+
     InvoiceIdQuery:
       required:
       - operator
@@ -10775,8 +10806,7 @@ components:
           minLength: 0
           type: string
           description: Invoice Number Value
-        int:
-          type: boolean
+
     LocationDbaNameQuery:
       required:
       - operator
@@ -10801,8 +10831,7 @@ components:
           minLength: 0
           type: string
           description: Location dba name Value
-        int:
-          type: boolean
+
     LocationIdQuery:
       required:
       - operator
@@ -10827,8 +10856,7 @@ components:
           minLength: 0
           type: string
           description: Location id Value
-        int:
-          type: boolean
+
     MerchantIdQuery:
       required:
       - operator
@@ -10853,8 +10881,7 @@ components:
           minLength: 0
           type: string
           description: Merchant id Value
-        int:
-          type: boolean
+
     MerchantNodeExternalIdQuery:
       required:
       - operator
@@ -10879,8 +10906,7 @@ components:
           minLength: 41
           type: string
           description: Merchant Reference id Value
-        int:
-          type: boolean
+ 
     MerchantNodeIdQuery:
       required:
       - operator
@@ -10905,8 +10931,7 @@ components:
           minLength: 0
           type: string
           description: Merchant Node id Value
-        int:
-          type: boolean
+
     MerchantReferenceQuery:
       required:
       - operator
@@ -10931,8 +10956,7 @@ components:
           minLength: 0
           type: string
           description: Merchant Reference id Value
-        int:
-          type: boolean
+
     OutletIdQuery:
       required:
       - operator
@@ -10957,8 +10981,7 @@ components:
           minLength: 0
           type: string
           description: Outlet id Value
-        int:
-          type: boolean
+
     PartnerIdQuery:
       required:
       - operator
@@ -10983,8 +11006,7 @@ components:
           minLength: 0
           type: string
           description: Partner id Value
-        int:
-          type: boolean
+
     PfacNodeIdQuery:
       required:
       - operator
@@ -11009,8 +11031,7 @@ components:
           minLength: 0
           type: string
           description: Pfac Entity Value
-        int:
-          type: boolean
+
     TransactionDateQuery:
       required:
       - operator
@@ -11040,8 +11061,7 @@ components:
             d|3[01])$"
           type: string
           description: Transaction Date Added Second Value
-        int:
-          type: boolean
+ 
     TransactionQueryDTO:
       type: object
       properties:
@@ -11166,8 +11186,7 @@ components:
             d|3[01])$"
           type: string
           description: Adjustment Date Added Second Value
-        int:
-          type: boolean
+
     ChargebackQueryDTO:
       type: object
       properties:
@@ -11245,8 +11264,7 @@ components:
           minLength: 0
           type: string
           description: Invoice Number Value
-        int:
-          type: boolean
+
     ChargebackAdjustmentQueryDTO:
       type: object
       properties:
@@ -11375,8 +11393,7 @@ components:
           minLength: 0
           type: string
           description: Invoice Number Value
-        int:
-          type: boolean
+
     AdjustmentQueryDTO:
       type: object
       properties:
@@ -18685,7 +18702,31 @@ components:
                   ]
               }
 
-            
+    RequestTransactionDateMID:
+      value:
+        limit: 5
+        page: 1 
+        query: 
+          location_id:
+            {operator: "EQ",
+            value : "52606609801"}
+          date_added:
+            { operator: "EQ",
+            value : "2022-01-01"}
+    RequestTransactionBetweenDateMID:
+      value:
+        limit: 5
+        page: 1 
+        query: 
+          location_id:
+            {operator: "EQ",
+            value : "52606609801"}
+          date_added:
+            { operator: "BW",
+            value : "2022-01-01",
+            and_value: "2022-01-03"
+            }
+                      
   requestBodies:
     statusMode:
       content:
