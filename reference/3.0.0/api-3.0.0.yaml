@@ -16574,7 +16574,7 @@ components:
       description: The rate being specified, information can be retrieved through the Retrieve offer API, retrieve merchant, or from retrieving the old_details from the maintenace case retrieve api
       properties:
         banks:
-          type: object
+          type: array
           items:
             $ref: '#/components/schemas/MaintenanceBankDetail'
     chargeItemPriceCharges:
