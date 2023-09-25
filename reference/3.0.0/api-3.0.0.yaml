@@ -9550,7 +9550,7 @@ components:
       example: "1000.00"
     ATO:
       type: string
-      description: Annual Turn Over
+      description: Annual Turn Over Including
       example: "100000.00"
     CardATO:
       type: string
@@ -9586,7 +9586,7 @@ components:
         - "1"
     SaleAmount:
       type: string
-      description: Sales amount
+      description: Estimated or actual Sales amount out of annual card volume
       example: "100000.00"
     PercentValue:
       maximum: 100
