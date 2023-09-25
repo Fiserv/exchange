@@ -11013,7 +11013,6 @@ components:
           type: boolean
     TransactionDateQuery:
       required:
-      - and_value
       - operator
       - value
       type: object
@@ -16756,7 +16755,7 @@ components:
         bank_city:
           type: string
           description: name of the city where the old bank was located
-          example: "Phoenix"
+          example: "City"
         country_code:
           type: string
           description: country code where the old bank is located
@@ -16778,7 +16777,7 @@ components:
         street_line_1:
           type: string
           description: first line of address of the old bank
-          example: "30 Saxon Gate"
+          example: "30 Street Line"
         bank_account_type:
           type: string
           description: type of bank account
