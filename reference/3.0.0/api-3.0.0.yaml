@@ -12000,7 +12000,7 @@ components:
           type: string
           description: Date of settlement
           
-          example: 2020-02-20
+          example: "2020-02-20"
         merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -12746,7 +12746,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           
-          example: 2020-02-20
+          example: "2020-02-20"
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -12846,7 +12846,7 @@ components:
           type: string
           description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
            
-          example: 2020-02-20
+          example: "2020-02-20"
         currency:
           type: string
           description: Currency - Cannot be empty.
