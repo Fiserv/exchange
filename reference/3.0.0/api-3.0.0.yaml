@@ -1398,7 +1398,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/refresh_token'
-        required: true
+            examples:
+              GenerateToken:
+                summary: Example Payload for generating a new token
+                $ref: '#/components/examples/RequestGenerateToken'
+              RefreshToken:
+                summary: Example Payload for refreshing a token
+                $ref: '#/components/examples/RequestRefreshToken'
       responses:
         "200":
           description: OK
@@ -1406,6 +1412,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth_Response'
+              examples:
+                GenerateToken:
+                  summary: Example Response for refreshing a new token
+                  $ref: '#/components/examples/ResponseGenerateToken'
+                RefreshToken:
+                  summary: Example Response for refreshing a new token
+                  $ref: '#/components/examples/ResponseRefreshToken'
         default:
           description: Unexpected Error
           content:
@@ -2941,7 +2954,7 @@ components:
         reserve_type:
           type: string
           description: 0 -N/A, 1 -Normal, 2 Rolling
-          example: '1'
+          example: "1"
           enum:
             - "0"
             - "1"
@@ -13334,6 +13347,18 @@ components:
           type: string
           description: the refresh token
           example: f17717317f4ea744b04fce476428b74529ada809
+        scope:
+          type: array
+          description: scope of the token
+          items: 
+            type: string
+          example: "mobileclient"
+        jti:
+          type: array
+          description: unique identifier for token
+          items: 
+            type: string
+          example: "68abc334-1133-8811-9988-903er82aad"
     OverwriteCreditRequest:
       type: object
       properties:
@@ -17120,6 +17145,7 @@ components:
           example: client_credentials
           enum:
             - client_credentials
+            - refresh_token
     refresh_token_object:
       type: object
       properties:
@@ -18726,7 +18752,34 @@ components:
             value : "2022-01-01",
             and_value: "2022-01-03"
             }
-                      
+    RequestGenerateToken:
+      value:
+        grant_type: "client_credentials"
+    RequestRefreshToken:
+      value:
+        grant_type: "refresh_token"
+        refresh_token: "RAu7XO69aV4jPhI6c1411b39Jz8sxEVfwv4p" 
+    ResponseGenerateToken:
+      value:
+        access_token: "abC0leXAiOiJKV1QiLCJhbGhOeanINQ_pfdt_j97mBqjekKJV4BL-HP6a011p_D7avcSaJ4SeG_tis9D_Gfh66MY7BN73IcAC9Sb_qxaFxSavxvW_d6Nk9hfg8y4OSb7HEB58sxEVfuJ87dsmURWsJz8sxEVfwlk0a2Zbt_BqjekK-Yk-DiJFwiaTtbBqjekKJV4jPhIsxEVfws_wz2MMxkuydcpGl5m-rIpIwT9xAE0avcSaJ4S_4hTU1llskE60vwzv27_URWsJz8sxEVfwlk0a2ZbtXB32u3ERSVyD7TaQjme64Va4ac.rQCcRAu7XObjap3szzy3URWsJzwlk0a2Zbt"
+        token_type: "bearer"
+        expires_in: "28800"
+        scope:
+          - "webclient"
+          - "mobileclient"
+        jti: "00de-lk8d-01cd-762d-xkuyd6aSaJ4"
+        refresh_token: "RAu7XO69aV4jPhI6c1411b39Jz8sxEVfwv4p"
+    ResponseRefreshToken:
+      value:
+        access_token: "abC0leXAiOiJKV1QiLCxEVfwlk0a2Zbt_BV4BL-HP6a011p_D7avcSaJ4SeIcAC9Sb_qxaFxSavxvW_d6Nlkj02aeB58sxEVfuJ87dsmURWsJz8sxEVfwlk0a2Zbt_BqjekK-Yk-DiJFwiaTtbBqjekKJV4jPhIsxEVfws_wz2MMxkuydcpGl5m-rIpIwT9xAE0avcSaJ4S_4hTU1lskE60vwvwzv27_URWsJz8sxEjme64Va4ac.rQCcRAu7XObxEVfwlk0a2Zbt_BURWsJzwlk0a2Zbt"
+        token_type: "bearer"
+        expires_in: "28800"
+        scope:
+          - "webclient"
+          - "mobileclient"
+        jti: "l0ae-762d-01cd-01cd-cdxLpaSa32"
+        refresh_token: "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
+
   requestBodies:
     statusMode:
       content:
