@@ -1107,10 +1107,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AccountSummaryRequest'
-              examples:
-                AccountSummarySample:
-                  summary: Example Payload for querying the account summary of a MID 
-                  $ref: '#/components/examples/RequestAccountSummary'
+        required: true
       responses:
         "200":
           description: Found the account summary
@@ -1118,10 +1115,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountSummaryResponse'
-              examples:
-                AccountSummarySample:
-                  summary: Example Payload for querying the account summary of a MID 
-                  $ref: '#/components/examples/ResponseAccountSummary'
         "404":
           description: Merchant/Account not found
           content:
@@ -2975,26 +2968,21 @@ components:
             - "2"
         reserve_delay_days:
           type: string
-          example: "5"
           description: "Max 90 days, can be passed if reserve type = 2 (rolling). Example: '2' for 2 Days "
-        reserve_daily_amount:
-          type: string
-          example: "15.00"
-          description : "Use for reserve setting = 2 (Base), specifies the daily amount taken into reserve for the submerchant. Will collect  to target amount (if specified in set_reserve_target)"
         reserve_trans_perc:
           type: string
-          description: "Used for reserve = 1 (Percentage), Specifies the percentage taken out of the transactions for the submerchant.  Will collect  to target amount (if specified in set_reserve_target)"
+          description: Percentage of daily summary taken as reserve
           example: '100'
         set_reserve_target:
           type: string
-          description: "Enables taking a target amount for the reserve"
+          description: Enable taking reserve target
           enum: 
             - "0"
             - "1"
           example: '1'
         reserve_target_amount:
           type: string
-          description: "Sets the target amount for reserve, will not exceed over collecting this amount if it is already in reserve"
+          description: Sets the target amount for reserve, will not exceed over collecting this amount if it is already in reserve
           example: '100'
       xml:
         name: chargeback
@@ -12771,7 +12759,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           
-          example: "2020-02-20"
+          example: 2020-02-20
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -18764,127 +18752,6 @@ components:
             value : "2022-01-01",
             and_value: "2022-01-03"
             }
-    RequestAccountSummary:
-      value:
-        merchant_id: '526266998801'
-        currency: USD
-        date: "2023-01-15"
-
-    ResponseAccountSummary:
-      value:
-        result: SUCCESS
-        trade_summary:
-          transaction_amount: '300.0000'
-          refund_amount: '50.0000'
-          net_transaction_amount: '250.0000'
-          rejected_amount: '0.0000'
-          deposit_adjustments: '0.0000'
-          chargeback: '-30.5000'
-          chargeback_reversal: '0.0000'
-          USD:
-            currency: USD
-            transaction_amount: '300.0000'
-            refund_amount: '0.0000'
-            net_transaction_amount: '250.0000'
-            rejected_amount: '50.0000'
-            deposit_adjustments: '0.0000'
-            chargeback: '-30.5000'
-            chargeback_reversal: '0.0000'
-        account_summary:
-          USD:
-            - account_type: CHARGEBACK_ACCOUNT
-              description: Chargeback
-              total_in: '30.5000'
-              total_out: '0.0000'
-              balance: '30.5000'
-              prev_balance: '0.0000'
-              info_balance: '0.0000'
-              info_prev_balance: '0.0000'
-              destinations: []
-            - account_type: SUSPEND_ACCOUNT
-              description: Suspend
-              total_in: '0.0000'
-              total_out: '0.0000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-            - account_type: REJECT_HOLD_ACCOUNT
-              description: Reject Hold
-              total_in: '0.0000'
-              total_out: '0.0000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-            - account_type: INSTRUCTIONAL_HOLD_ACCOUNT
-              description: Instructional Hold
-              total_in: '250.0000'
-              total_out: '250.0000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-              info_balance: '0.0000'
-              info_prev_balance: '0.0000'
-              destinations:
-                '5':
-                  amount: '243.5000'
-                  destination: REVENUE_ACCOUNT
-                  description: Net Processing
-                '6':
-                  amount: '6.5000'
-                  destination: MERCHANT_FEE_ACCOUNT
-                  description: Fee(Net)
-            - account_type: MERCHANT_FEE_ACCOUNT
-              description: Fee(Net)
-              total_in: '6.5000'
-              total_out: '6.5000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-              info_balance: '0.0000'
-              info_prev_balance: '0.0000'
-              destinations:
-                '7':
-                  amount: '6.5000'
-                  destination: FEE_ACCOUNT
-                  description: Fees(Total)
-            - account_type: HOLD_ACCOUNT
-              description: Hold
-              total_in: '0.0000'
-              total_out: '0.0000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-            - account_type: REVENUE_ACCOUNT
-              description: Net Processing
-              total_in: '243.5000'
-              total_out: '243.5000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-              info_balance: '0.0000'
-              info_prev_balance: '0.0000'
-              destinations:
-                '99':
-                  amount: '243.5000'
-                  destination: NACHA_OUTPUT_ACCOUNT
-                  description: Settlement Output
-            - account_type: FEE_ACCOUNT
-              description: Fees(Total)
-              total_in: '6.5000'
-              total_out: '6.5000'
-              balance: '0.0000'
-              prev_balance: '0.0000'
-              info_balance: '0.0000'
-              info_prev_balance: '0.0000'
-              destinations:
-                '7':
-                  amount: '6.5000'
-                  destination: FEE_ACCOUNT
-                  description: Fees(Total)Rolling-up
-        settlement_summary:
-          - settlement_type: CREDIT
-            settlement_amount: '243.5000'
-            settlement_status: PENDING
-            dda: '*******9988'
-            aba: '666989898'
-            effective_date: '2022-01-15'
-            settlement_ref: 'SETAB-B3221-B3LKX1-C8C33-LOE98-PLKAA-OP992'
-            mid: '526266998801'
-        
     RequestGenerateToken:
       value:
         grant_type: "client_credentials"
