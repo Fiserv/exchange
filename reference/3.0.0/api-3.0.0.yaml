@@ -2956,6 +2956,9 @@ components:
         reserve_delay_days:
           type: string
           description: "Max 90 days, can be passed if reserve type = 2 (rolling). Example: '2' for 2 Days "
+        reserve_daily_amount:
+          type: string
+          description: "Specifies base amount to be collected per day for the reserve if reserve_type = 1 "
         reserve_trans_perc:
           type: string
           description: Percentage of daily summary taken as reserve
@@ -12000,7 +12003,7 @@ components:
           type: string
           description: Date of settlement
           
-          example: 2020-02-20
+          example: "2020-02-20"
         merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -12746,7 +12749,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           
-          example: 2020-02-20
+          example: "2020-02-20"
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -12846,7 +12849,7 @@ components:
           type: string
           description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
            
-          example: 2020-02-20
+          example: "2020-02-20"
         currency:
           type: string
           description: Currency - Cannot be empty.
