@@ -1174,10 +1174,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AccountSummaryRequest'
-              examples:
-                AccountSummarySample:
-                  summary: Example Payload for querying the account summary of a MID 
-                  $ref: '#/components/examples/RequestAccountSummary'
+
       responses:
         "200":
           description: Found the account summary
