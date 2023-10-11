@@ -3316,6 +3316,10 @@ components:
           type: array
           items: 
             $ref : '#/components/schemas/ServiceItemExid' 
+        service: 
+          type: array
+          items: 
+            $ref : '#/components/schemas/ServiceResponse' 
     ServiceItemExid:
       type: object
       properties:
@@ -3323,6 +3327,16 @@ components:
           description : The service item of the VAR being added. Usually Owned/Purchased.
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+    ServiceResponse:
+      type: object
+      properties:
+        terminal_ids: 
+          description : Array containing terminal ids for the product being onboarded
+          type: array
+          items:
+            type: string
+            example: 
+              - "22992"
     ResponseRetrieveOffer:
       type: object
       properties:
@@ -13553,7 +13567,7 @@ components:
       properties:
         third_party_source:
           $ref: '#/components/schemas/ThirdPartySource'
-        entity_reference:
+        intelligence_ref:
           $ref: '#/components/schemas/EntityReference'
         overall_decision:
           $ref: '#/components/schemas/RiskOverallDecision'
@@ -19077,6 +19091,7 @@ components:
           - "mobileclient"
         jti: "l0ae-762d-01cd-01cd-cdxLpaSa32"
         refresh_token: "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
+
   requestBodies:
     statusMode:
       content:
