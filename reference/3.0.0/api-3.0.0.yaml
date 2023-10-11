@@ -19077,7 +19077,6 @@ components:
           - "mobileclient"
         jti: "l0ae-762d-01cd-01cd-cdxLpaSa32"
         refresh_token: "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
-
   requestBodies:
     statusMode:
       content:
