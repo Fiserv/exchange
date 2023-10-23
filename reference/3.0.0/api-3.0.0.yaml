@@ -2773,6 +2773,10 @@ components:
         charge_item_price_charges:
           $ref:  '#/components/schemas/ChargeItemPricesCharges'
     ChargeItemPricesCharges:
+      type: array
+      items:
+        $ref:  '#/components/schemas/ChargeItemPricesChargesItems'
+    ChargeItemPricesChargesItems:
       type: object
       properties:
         fee_type:
@@ -2821,6 +2825,10 @@ components:
         charge_item_price_charges:
           $ref:  '#/components/schemas/ServiceChargeItemPricesCharges'
     ServiceChargeItemPricesCharges:
+      type: array
+      items: 
+        $ref: '#/components/schemas/ServiceChargeItemPricesChargesItems'
+    ServiceChargeItemPricesChargesItems:
       type: object
       properties:
         fee_type:
