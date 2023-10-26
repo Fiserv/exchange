@@ -401,6 +401,34 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Retrieve Merchant Application
+  /boarding//////application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Unlock application 
+      description: Unlocks an application in a valid Credit risk or AML status, such as a submission error requiring the user to change the information
+      requestBody:
+        description: Unlocks an application in a valid Credit risk or AML status, such as a submission error requiring the user to change the information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationUnlockRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationUnlockResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Unlock Application
   /offering/available:
     post:
       tags:
@@ -883,6 +911,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountReserveReleaseResponse'
+  /account:
+    post:
+      tags:
+        - Account Operations
+      summary: "Holds, releases, or suspends a submerchant" 
+      x-group-name: Account Operations
+      x-proxy-name: Hold/Release/Suspend Submerchant
+      parameters:
+      - name: X-API-VERSION
+        in: header
+        required: false
+        schema:
+          type: string
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HoldRleaseSuspendAccountRequest'
+        required: true
+      responses:
+        "404":
+          description: Merchant/Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "200":
+          description: Response for the operation used
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HoldRleaseSuspendAccountResponse'
   /funding/instruction:
     post:
       tags:
@@ -1107,7 +1174,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AccountSummaryRequest'
-        required: true
+
       responses:
         "200":
           description: Found the account summary
@@ -1115,6 +1182,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountSummaryResponse'
+
         "404":
           description: Merchant/Account not found
           content:
@@ -1398,7 +1466,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/refresh_token'
-        required: true
+            examples:
+              GenerateToken:
+                summary: Example Payload for generating a new token
+                $ref: '#/components/examples/RequestGenerateToken'
+              RefreshToken:
+                summary: Example Payload for refreshing a token
+                $ref: '#/components/examples/RequestRefreshToken'
       responses:
         "200":
           description: OK
@@ -1406,6 +1480,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth_Response'
+              examples:
+                GenerateToken:
+                  summary: Example Response for refreshing a new token
+                  $ref: '#/components/examples/ResponseGenerateToken'
+                RefreshToken:
+                  summary: Example Response for refreshing a new token
+                  $ref: '#/components/examples/ResponseRefreshToken'
         default:
           description: Unexpected Error
           content:
@@ -2941,7 +3022,7 @@ components:
         reserve_type:
           type: string
           description: 0 -N/A, 1 -Normal, 2 Rolling
-          example: '1'
+          example: "1"
           enum:
             - "0"
             - "1"
@@ -2955,24 +3036,26 @@ components:
             - "2"
         reserve_delay_days:
           type: string
+          example: "5"
           description: "Max 90 days, can be passed if reserve type = 2 (rolling). Example: '2' for 2 Days "
         reserve_daily_amount:
           type: string
-          description: "Specifies base amount to be collected per day for the reserve if reserve_type = 1 "
+          example: "15.00"
+          description : "Use for reserve setting = 2 (Base), specifies the daily amount taken into reserve for the submerchant. Will collect  to target amount (if specified in set_reserve_target)"
         reserve_trans_perc:
           type: string
-          description: Percentage of daily summary taken as reserve
+          description: "Used for reserve = 1 (Percentage), Specifies the percentage taken out of the transactions for the submerchant.  Will collect  to target amount (if specified in set_reserve_target)"
           example: '100'
         set_reserve_target:
           type: string
-          description: Enable taking reserve target
+          description: "Enables taking a target amount for the reserve"
           enum: 
             - "0"
             - "1"
           example: '1'
         reserve_target_amount:
           type: string
-          description: Sets the target amount for reserve, will not exceed over collecting this amount if it is already in reserve
+          description: "Sets the target amount for reserve, will not exceed over collecting this amount if it is already in reserve"
           example: '100'
       xml:
         name: chargeback
@@ -3172,6 +3255,7 @@ components:
             $ref: '#/components/schemas/EquipmentOffering'
       xml:
         name: order
+
     EquipmentOffering:
       type: object
       properties:
@@ -3186,6 +3270,13 @@ components:
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
       xml:
         name: order
+    ResponseRetrieveOnlineOffering:
+      type: object
+      properties:
+        online_offering:
+            $ref: '#/components/schemas/ResponseOnlineOffering'
+      xml:
+        name: order
     RetrieveOnlineOffering:
       type: object
       properties:
@@ -3193,6 +3284,23 @@ components:
             $ref: '#/components/schemas/OnlineOffering'
       xml:
         name: order
+    ResponseOnlineOffering:
+      description: The online offering being added. This detail can be retrieved from /offering/retrieve_online_offering
+      type: object
+      properties:
+        partner_code:
+          description: Used for Alliances specifying offers for their Partners 
+          type: string
+          example: 'TEST'
+        online_offering_external_id:
+          description: The external ID of the offering being added. If the item is configured to be mandatory, only this offering ID needs to be parsed, and the remaining data will be automatically grabbed.
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        bundles:
+          description : The Bundle containing the VAR. Bundle is generated by the system or by user to group the online equipment.
+          type: array
+          items: 
+            $ref : '#/components/schemas/ResponseBundleItems'
     OnlineOffering:
       description: The online offering being added. This detail can be retrieved from /offering/retrieve_online_offering
       type: object
@@ -3221,7 +3329,19 @@ components:
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
-            $ref : '#/components/schemas/RequestServiceItems' 
+            $ref : '#/components/schemas/RequestServiceItems'
+    ResponseBundleItems:
+      type: object
+      properties:
+        online_bundle_external_id:
+          type: string
+          description : The EXID of the online bundle, from /offering/retrieve_online_offering
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        bundles_items: 
+          type: array
+          description : The bundle item, containing the service charges (pricing)
+          items: 
+            $ref : '#/components/schemas/ResponseServiceItems' 
     RequestServiceItems:
       type: object
       properties:
@@ -3233,6 +3353,22 @@ components:
           type: array
           items: 
             $ref : '#/components/schemas/ServiceItemExid' 
+            
+    ResponseServiceItems:
+      type: object
+      properties:
+        service_external_id:
+          description: The Service EXID, which contains a service item
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        service_charges: 
+          type: array
+          items: 
+            $ref : '#/components/schemas/ServiceItemExid' 
+        service: 
+          type: array
+          items: 
+            $ref : '#/components/schemas/ServiceResponse' 
     ServiceItemExid:
       type: object
       properties:
@@ -3240,6 +3376,16 @@ components:
           description : The service item of the VAR being added. Usually Owned/Purchased.
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+    ServiceResponse:
+      type: object
+      properties:
+        terminal_ids: 
+          description : Array containing terminal ids for the product being onboarded
+          type: array
+          items:
+            type: string
+            example: 
+              - "22992"
     ResponseRetrieveOffer:
       type: object
       properties:
@@ -6431,6 +6577,7 @@ components:
           - ADD_APPLICATION
           - APPLICATION_SUBMIT
           - RETRIEVE_MERCHANT_HIERARCHY
+          - APPLICATION_UNLOCK
         version:
           maxLength: 6
           type: string
@@ -7276,6 +7423,21 @@ components:
       allOf:
         - $ref: '#/components/schemas/ApplicationStatusCheckOperation'
         - $ref: '#/components/schemas/applicationref'
+    ApplicationUnlockResponse:
+      required:
+        - request_source
+      type: object
+      properties:
+        submit_success:
+          type: string
+          description: "Indicates that the request was successful actioned, with no errors"
+          example : "1"
+          enum: 
+          - "1"
+          - "0"
+      allOf:
+        - $ref: '#/components/schemas/UnlockApplicationOperation'
+        - $ref: '#/components/schemas/ApplicationFullDetail'
     ApplicationRetrieveResponse:
       required:
         - request_source
@@ -7296,6 +7458,25 @@ components:
       allOf:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
         - $ref: '#/components/schemas/applicationref'
+    ApplicationUnlockRequest:
+      required:
+        - request_source
+      type: object
+      properties: 
+        application:
+          $ref: '#/components/schemas/applicationUnlock'
+          
+      allOf:
+        - $ref: '#/components/schemas/UnlockApplicationOperation'
+    applicationUnlock:
+      required:
+        - request_source
+      type: object
+      properties:
+        application_external_id:
+          type: string
+          description: "External ID of the application, can be retrieved by application retrieve API or in responses when boarding the application"
+          example: "APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123"
     MerchantRetrieveRequest:
       required:
         - request_source
@@ -7408,6 +7589,18 @@ components:
           description: Operation
           example:
             operation_type: UPDATE_MERCHANT
+            version: 2.0.0
+          allOf:
+            - $ref: '#/components/schemas/GeneralOperation'
+    UnlockApplicationOperation:
+      required:
+        - operation
+      type: object
+      properties:
+        operation:
+          description: Operation
+          example:
+            operation_type: APPLICATION_UNLOCK
             version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
@@ -7594,7 +7787,7 @@ components:
     OutletArray:
       type: array
       items:
-        $ref: '#/components/schemas/OutletResponse'
+        $ref: '#/components/schemas/OutletRetrieveResponse'
     SubGroupArray:
       type: array
       items:
@@ -8082,6 +8275,144 @@ components:
           $ref: '#/components/schemas/FundingDefaults'
         accounts_setup_flag:
           type: string
+    OutletResponse:
+      required:
+        - currencies
+        - mcc_code
+        - parent_mid
+        - trade_name
+      type: object
+      properties:
+        parent_mid:
+          $ref: '#/components/schemas/MID'
+        trade_name:
+          $ref: '#/components/schemas/BusinessName'
+        outlet_website:
+          $ref: '#/components/schemas/WebSite'
+        store_number:
+          $ref: '#/components/schemas/StoreNumber'
+        business_zone:
+          $ref: '#/components/schemas/BusinessZone'
+        business_location:
+          $ref: '#/components/schemas/BusinessLocation'
+        ground_floor:
+          $ref: '#/components/schemas/GroundFloor'
+        square_foot_count:
+          $ref: '#/components/schemas/SqFtCount'
+        number_of_building_floors:
+          $ref: '#/components/schemas/NoBuildingFloors'
+        visitation_required:
+          $ref: '#/components/schemas/VisitationRequired'
+        statement_type:
+          $ref: '#/components/schemas/StatementType'
+        external_mid:
+          $ref: '#/components/schemas/MID'
+        number_of_employees:
+          $ref: '#/components/schemas/NumberEmployees'
+        primary_email_address:
+          $ref: '#/components/schemas/Email'
+        internal_mid:
+          $ref: '#/components/schemas/MID'
+        additional_information:
+          $ref: '#/components/schemas/AdditionalInformation'
+        mcc_code:
+          $ref: '#/components/schemas/MCC'
+        seasonal_business:
+          $ref: '#/components/schemas/Seasonal_business'
+        seasonal_start_month:
+          $ref: '#/components/schemas/Seasonal_Start_Month'
+        seasonal_end_month:
+          $ref: '#/components/schemas/Seasonal_End_Month'
+        currencies:
+          $ref: '#/components/schemas/Currency'
+        mastercard_sales:
+          $ref: '#/components/schemas/SaleAmount'
+        visa_sales:
+          $ref: '#/components/schemas/SaleAmount'
+        visa_mastercard_sales:
+          $ref: '#/components/schemas/SaleAmount'
+        discover_required:
+          $ref: '#/components/schemas/DiscoverRequired'
+        discover_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        amex_required:
+          $ref: '#/components/schemas/AmexRequired'
+        amex_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        telecheck_annual_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        voyager_annual_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        debit_se_number:
+          $ref: '#/components/schemas/DeditSE'
+        amex_type:
+          $ref: '#/components/schemas/AMEXType'
+        turnover_bus_to_bus_perc:
+          $ref: '#/components/schemas/PercentValue'
+        turnover_bus_to_cons_perc:
+          $ref: '#/components/schemas/PercentValue'
+        card_bus_to_bus_perc:
+          $ref: '#/components/schemas/PercentValue'
+        card_bus_to_cons_perc:
+          $ref: '#/components/schemas/PercentValue'
+        highest_ticket_sales_amt:
+          $ref: '#/components/schemas/HighestTV'
+        sales_ftf_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_keyed_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_phone_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_mail_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_internet_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_tradeshow_perc:
+          $ref: '#/components/schemas/SalePerc'
+        chip_flag:
+          $ref: '#/components/schemas/ChipFlag'
+        recurring_flag:
+          $ref: '#/components/schemas/RecurringFlag'
+        transaction_process_mode:
+          $ref: '#/components/schemas/TransProcessMode'
+        annual_turnover:
+          $ref: '#/components/schemas/ATO'
+        annual_card_turnover:
+          $ref: '#/components/schemas/CardATO'
+        average_delivery_days:
+          $ref: '#/components/schemas/DeliveryDay'
+        delivery_0_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_1_to_7_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_8_to_14_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_15_to_30_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_over_30_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        prod_serv_sold:
+          $ref: '#/components/schemas/AdditionalInformation'
+        sales_moto_perc:
+          $ref: '#/components/schemas/PercentValue'
+        avg_ticket_sales_amt:
+          $ref: '#/components/schemas/ATV'
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
+        contacts:
+          type: array
+          items:
+             $ref: '#/components/schemas/OutletContact'
+        equipment_offer:
+          $ref: '#/components/schemas/EquipmentOffering'
+        online_offer:
+          $ref: '#/components/schemas/ResponseOnlineOffering'
+        settings:
+          $ref: '#/components/schemas/SettingsSubgroupOutlet'
+        offer_package:
+          $ref: '#/components/schemas/OfferPackage'
     OutletRequest:
       required:
         - currencies
@@ -8365,61 +8696,144 @@ components:
       properties:
         outlet_external_id:
           $ref: '#/components/schemas/ExtID'
-    OutletResponse:
+    OutletRetrieveResponse:
+      required:
+        - currencies
+        - mcc_code
+        - parent_mid
+        - trade_name
       type: object
       properties:
-        merchant_hierarchy_template_external_id:
-          $ref: '#/components/schemas/ExtID'
-        outlet_external_id:
-          $ref: '#/components/schemas/ExtID'
-        pfac_node_external_id:
-          $ref: '#/components/schemas/ExtID'
-        merchant_node_external_id:
-          $ref: '#/components/schemas/ExtID'
-        merchant_node_id:
-          $ref: '#/components/schemas/NodeID'
-        root_merchant_node_id:
-          $ref: '#/components/schemas/NodeID'
-        pfac_node_id:
-          $ref: '#/components/schemas/NodeID'
-        billing_frequency:
-          $ref: '#/components/schemas/SettlementFrequency'
-        funding_frequency:
-          $ref: '#/components/schemas/SettlementFrequency'
-        delay_funding_flag:
-          $ref: '#/components/schemas/DelayFundingFlag'
-        funding_delay_days:
-          $ref: '#/components/schemas/DelayFundingDays'
-        reserve_type:
-          $ref: '#/components/schemas/ReserveType'
-        set_reserve_target:
-          $ref: '#/components/schemas/SetTargetReserve'
-        outlet_ref:
-          $ref: '#/components/schemas/SystemID'
-        internal_mid:
+        parent_mid:
           $ref: '#/components/schemas/MID'
+        trade_name:
+          $ref: '#/components/schemas/BusinessName'
+        outlet_website:
+          $ref: '#/components/schemas/WebSite'
+        store_number:
+          $ref: '#/components/schemas/StoreNumber'
+        business_zone:
+          $ref: '#/components/schemas/BusinessZone'
+        business_location:
+          $ref: '#/components/schemas/BusinessLocation'
+        ground_floor:
+          $ref: '#/components/schemas/GroundFloor'
+        square_foot_count:
+          $ref: '#/components/schemas/SqFtCount'
+        number_of_building_floors:
+          $ref: '#/components/schemas/NoBuildingFloors'
+        visitation_required:
+          $ref: '#/components/schemas/VisitationRequired'
+        statement_type:
+          $ref: '#/components/schemas/StatementType'
         external_mid:
           $ref: '#/components/schemas/MID'
-        funding_flag:
-          $ref: '#/components/schemas/FundingFlag'
-        billing_flag:
-          $ref: '#/components/schemas/BillingFlag'
-        reserve_flag:
-          $ref: '#/components/schemas/ReserveFlag'
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contacts'
+        number_of_employees:
+          $ref: '#/components/schemas/NumberEmployees'
+        primary_email_address:
+          $ref: '#/components/schemas/Email'
+        internal_mid:
+          $ref: '#/components/schemas/MID'
+        additional_information:
+          $ref: '#/components/schemas/AdditionalInformation'
+        mcc_code:
+          $ref: '#/components/schemas/MCC'
+        seasonal_business:
+          $ref: '#/components/schemas/Seasonal_business'
+        seasonal_start_month:
+          $ref: '#/components/schemas/Seasonal_Start_Month'
+        seasonal_end_month:
+          $ref: '#/components/schemas/Seasonal_End_Month'
+        currencies:
+          $ref: '#/components/schemas/Currency'
+        mastercard_sales:
+          $ref: '#/components/schemas/SaleAmount'
+        visa_sales:
+          $ref: '#/components/schemas/SaleAmount'
+        visa_mastercard_sales:
+          $ref: '#/components/schemas/SaleAmount'
+        discover_required:
+          $ref: '#/components/schemas/DiscoverRequired'
+        discover_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        amex_required:
+          $ref: '#/components/schemas/AmexRequired'
+        amex_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        telecheck_annual_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        voyager_annual_volume:
+          $ref: '#/components/schemas/SaleAmount'
+        debit_se_number:
+          $ref: '#/components/schemas/DeditSE'
+        amex_type:
+          $ref: '#/components/schemas/AMEXType'
+        turnover_bus_to_bus_perc:
+          $ref: '#/components/schemas/PercentValue'
+        turnover_bus_to_cons_perc:
+          $ref: '#/components/schemas/PercentValue'
+        card_bus_to_bus_perc:
+          $ref: '#/components/schemas/PercentValue'
+        card_bus_to_cons_perc:
+          $ref: '#/components/schemas/PercentValue'
+        highest_ticket_sales_amt:
+          $ref: '#/components/schemas/HighestTV'
+        sales_ftf_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_keyed_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_phone_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_mail_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_internet_perc:
+          $ref: '#/components/schemas/SalePerc'
+        sales_tradeshow_perc:
+          $ref: '#/components/schemas/SalePerc'
+        chip_flag:
+          $ref: '#/components/schemas/ChipFlag'
+        recurring_flag:
+          $ref: '#/components/schemas/RecurringFlag'
+        transaction_process_mode:
+          $ref: '#/components/schemas/TransProcessMode'
+        annual_turnover:
+          $ref: '#/components/schemas/ATO'
+        annual_card_turnover:
+          $ref: '#/components/schemas/CardATO'
+        average_delivery_days:
+          $ref: '#/components/schemas/DeliveryDay'
+        delivery_0_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_1_to_7_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_8_to_14_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_15_to_30_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        delivery_over_30_days_perc:
+          $ref: '#/components/schemas/DeliveryPerc'
+        prod_serv_sold:
+          $ref: '#/components/schemas/AdditionalInformation'
+        sales_moto_perc:
+          $ref: '#/components/schemas/PercentValue'
+        avg_ticket_sales_amt:
+          $ref: '#/components/schemas/ATV'
         banks:
           type: array
           items:
             $ref: '#/components/schemas/Bank'
+        contacts:
+          type: array
+          items:
+             $ref: '#/components/schemas/OutletContact'
+        equipment_offer:
+          $ref: '#/components/schemas/EquipmentOffering'
+        online_offer:
+          $ref: '#/components/schemas/ResponseOnlineOffering'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
-        funding_defaults:
-          $ref: '#/components/schemas/FundingDefaults'
-      allOf:
-        - $ref: '#/components/schemas/OutletRequest'
+        offer_package:
+          $ref: '#/components/schemas/OfferPackage'
     NonProcessingOutletResponse:
       type: object
       properties:
@@ -12003,7 +12417,7 @@ components:
           type: string
           description: Date of settlement
           
-          example: "2020-02-20"
+          example: 2020-02-20
         merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -12287,6 +12701,63 @@ components:
           - CREDIT
           - DEBIT
       description: accounts - at least one account.
+    HoldRleaseSuspendAccountRequest:
+      type: object
+      properties:
+        mid:
+          type: string
+          description: "Internal MID of the 'Merchant' level of the submerchant. Will action all child nodes under the MID"
+          example: "700100000000001"
+        hierarchy_type:
+          type: string
+          description: "The type of entity being held,released or suspended. 1 - Submerchants , 2 - PFAC"
+          example: "1"
+          enum:
+          - "1"
+          - "2"
+        operation:
+          type: string
+          description: "The operation being performed on the target MID. Can be HOLD, SUSPEND or RELEASE. SUSPEND is non-reversible. A Held merchant can be released by using RELEASE"
+          example: "HOLD"
+          enum:
+          - "HOLD"
+          - "RELEASE"
+          - "SUSPEND"
+    HoldRleaseSuspendAccountResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: "indicates success or failure"
+          example: "SUCCESS"
+        operation:
+          type: string
+          description: "The Operation being acitoned"
+          example: "HOLD"
+          enum:
+          - "HOLD"
+          - "SUSPEND"
+          - "RELEASE"
+        response:
+          $ref : '#/components/schemas/holdReleaseSuspendResponse'
+    holdReleaseSuspendResponse:
+      type: object
+      properties:
+        merchant_id:
+          type: string
+          description: "The target merchant id being actioned"
+          example: "700100000000001"
+        hierarchy_type:
+          type: string
+          description: "The Operation being acitoned"
+          example: "MERCHANT"
+          enum:
+          - "MERCHANT"
+          - "PFAC"
+        result:
+          type: string
+          description: "The returned result of the operation"
+          example: "SUCCESS"
     AccountReserveReleaseResponse:
       type: object
       properties:
@@ -12849,7 +13320,7 @@ components:
           type: string
           description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
            
-          example: "2020-02-20"
+          example: 2020-02-20
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -13337,6 +13808,18 @@ components:
           type: string
           description: the refresh token
           example: f17717317f4ea744b04fce476428b74529ada809
+        scope:
+          type: array
+          description: scope of the token
+          items: 
+            type: string
+          example: "mobileclient"
+        jti:
+          type: array
+          description: unique identifier for token
+          items: 
+            type: string
+          example: "68abc334-1133-8811-9988-903er82aad"
     OverwriteCreditRequest:
       type: object
       properties:
@@ -13354,7 +13837,7 @@ components:
       properties:
         third_party_source:
           $ref: '#/components/schemas/ThirdPartySource'
-        entity_reference:
+        intelligence_ref:
           $ref: '#/components/schemas/EntityReference'
         overall_decision:
           $ref: '#/components/schemas/RiskOverallDecision'
@@ -17123,6 +17606,7 @@ components:
           example: client_credentials
           enum:
             - client_credentials
+            - refresh_token
     refresh_token_object:
       type: object
       properties:
@@ -18729,7 +19213,155 @@ components:
             value : "2022-01-01",
             and_value: "2022-01-03"
             }
-                      
+    RequestAccountSummary:
+      value:
+        merchant_id: '526266998801'
+        currency: USD
+        date: "2023-01-15"
+
+    ResponseAccountSummary:
+      value:
+        result: SUCCESS
+        trade_summary:
+          transaction_amount: '300.0000'
+          refund_amount: '50.0000'
+          net_transaction_amount: '250.0000'
+          rejected_amount: '0.0000'
+          deposit_adjustments: '0.0000'
+          chargeback: '-30.5000'
+          chargeback_reversal: '0.0000'
+          USD:
+            currency: USD
+            transaction_amount: '300.0000'
+            refund_amount: '0.0000'
+            net_transaction_amount: '250.0000'
+            rejected_amount: '50.0000'
+            deposit_adjustments: '0.0000'
+            chargeback: '-30.5000'
+            chargeback_reversal: '0.0000'
+        account_summary:
+          USD:
+            - account_type: CHARGEBACK_ACCOUNT
+              description: Chargeback
+              total_in: '30.5000'
+              total_out: '0.0000'
+              balance: '30.5000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: SUSPEND_ACCOUNT
+              description: Suspend
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+            - account_type: REJECT_HOLD_ACCOUNT
+              description: Reject Hold
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+            - account_type: INSTRUCTIONAL_HOLD_ACCOUNT
+              description: Instructional Hold
+              total_in: '250.0000'
+              total_out: '250.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '5':
+                  amount: '243.5000'
+                  destination: REVENUE_ACCOUNT
+                  description: Net Processing
+                '6':
+                  amount: '6.5000'
+                  destination: MERCHANT_FEE_ACCOUNT
+                  description: Fee(Net)
+            - account_type: MERCHANT_FEE_ACCOUNT
+              description: Fee(Net)
+              total_in: '6.5000'
+              total_out: '6.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '7':
+                  amount: '6.5000'
+                  destination: FEE_ACCOUNT
+                  description: Fees(Total)
+            - account_type: HOLD_ACCOUNT
+              description: Hold
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+            - account_type: REVENUE_ACCOUNT
+              description: Net Processing
+              total_in: '243.5000'
+              total_out: '243.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '99':
+                  amount: '243.5000'
+                  destination: NACHA_OUTPUT_ACCOUNT
+                  description: Settlement Output
+            - account_type: FEE_ACCOUNT
+              description: Fees(Total)
+              total_in: '6.5000'
+              total_out: '6.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '7':
+                  amount: '6.5000'
+                  destination: FEE_ACCOUNT
+                  description: Fees(Total)Rolling-up
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '243.5000'
+            settlement_status: PENDING
+            dda: '*******9988'
+            aba: '666989898'
+            effective_date: '2022-01-15'
+            settlement_ref: 'SETAB-B3221-B3LKX1-C8C33-LOE98-PLKAA-OP992'
+            mid: '526266998801'
+        
+    RequestGenerateToken:
+      value:
+        grant_type: "client_credentials"
+    RequestRefreshToken:
+      value:
+        grant_type: "refresh_token"
+        refresh_token: "RAu7XO69aV4jPhI6c1411b39Jz8sxEVfwv4p" 
+    ResponseGenerateToken:
+      value:
+        access_token: "abC0leXAiOiJKV1QiLCJhbGhOeanINQ_pfdt_j97mBqjekKJV4BL-HP6a011p_D7avcSaJ4SeG_tis9D_Gfh66MY7BN73IcAC9Sb_qxaFxSavxvW_d6Nk9hfg8y4OSb7HEB58sxEVfuJ87dsmURWsJz8sxEVfwlk0a2Zbt_BqjekK-Yk-DiJFwiaTtbBqjekKJV4jPhIsxEVfws_wz2MMxkuydcpGl5m-rIpIwT9xAE0avcSaJ4S_4hTU1llskE60vwzv27_URWsJz8sxEVfwlk0a2ZbtXB32u3ERSVyD7TaQjme64Va4ac.rQCcRAu7XObjap3szzy3URWsJzwlk0a2Zbt"
+        token_type: "bearer"
+        expires_in: "28800"
+        scope:
+          - "webclient"
+          - "mobileclient"
+        jti: "00de-lk8d-01cd-762d-xkuyd6aSaJ4"
+        refresh_token: "RAu7XO69aV4jPhI6c1411b39Jz8sxEVfwv4p"
+    ResponseRefreshToken:
+      value:
+        access_token: "abC0leXAiOiJKV1QiLCxEVfwlk0a2Zbt_BV4BL-HP6a011p_D7avcSaJ4SeIcAC9Sb_qxaFxSavxvW_d6Nlkj02aeB58sxEVfuJ87dsmURWsJz8sxEVfwlk0a2Zbt_BqjekK-Yk-DiJFwiaTtbBqjekKJV4jPhIsxEVfws_wz2MMxkuydcpGl5m-rIpIwT9xAE0avcSaJ4S_4hTU1lskE60vwvwzv27_URWsJz8sxEjme64Va4ac.rQCcRAu7XObxEVfwlk0a2Zbt_BURWsJzwlk0a2Zbt"
+        token_type: "bearer"
+        expires_in: "28800"
+        scope:
+          - "webclient"
+          - "mobileclient"
+        jti: "l0ae-762d-01cd-01cd-cdxLpaSa32"
+        refresh_token: "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
+
   requestBodies:
     statusMode:
       content:
