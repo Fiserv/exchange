@@ -8,7 +8,7 @@ The aim of Exchange was to create an end-to-end digital solution for Payment Fac
 
 The PayFac is able to control configuration of the sub-merchant boarding journey through use of the configuration portal. This initial configuration is done through the user interface  and configurations that are setup are used (such as defaults) for API integration. This can allow for a more fluid on-boarding experience for users who have a similar demographic for the sub-merchants being onboarded that may share or default to certain settings and fields.
 
-Exchange allows applications that have been started and in `open` status to be modified at all merchants hierarchy levels, and these can be submitted by using the application submit request at endpoint `/boarding/application`when ready. Applications do not expire or stagnate, and can be left and submit whenever the PayFac desired.
+Exchange allows applications that have been started and in `open` status to be modified at all merchants hierarchy levels, and these can be submitted by using the application submit request at endpoint `/boarding/add_application`when ready. Applications do not expire or stagnate, and can be left and submit whenever the PayFac desired.
 
 ### OFAC checks and Credit risk checks
 

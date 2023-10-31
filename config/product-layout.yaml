@@ -28,43 +28,83 @@
 # the delivery of this work
 ################################################################################
 header:
-  productName: REPLACEME
-  productionDescription: REPLACEME
-  whoIsItFor: REPLACEME
-  image: 
-    link: "/assets/images/Fiserv_Logo.jpg"
-    altText: REPLACEME™
+  productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
+getStarted: /docs/introduction/exchange-intro.md
+benefits:
+  - title: Boarding
+    description: Fast end-to-end sub-merchant onboarding available through suite of APIs and UI.
+    icon: assets/images/business_icon_square.png
+  - title: Funding
+    description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
+    icon: assets/images/money_icon_square.png
+  - title: Settlement 
+    description: Settlement details and reporting avaliable through Exchange.
+    icon: assets/images/statement_icon_square.png
+guides:
+  - title: Boarding API guide
+    description: Boarding a standard location through our API
+    link: docs/getting-started/boarding.md
 featuredFeatures:
-  - title: REPLACE ME
-    description:  REPLACE ME
-    tags: ["REPLACEME", "REPLACEME", "REPLACEME"]
-    bullets: ["REPLACEME", "REPLACEME" ]  
+  - title: Payment Facilitators
+    featured: true
+    description:  Supporting payment faciliators services and requirments
     relatedDocs:
-      - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME1.md
-      - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME2.md
-      - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME3.md
-    relatedAPIs:
-      - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "patch"        
-        path: "/v1/REPLACEME1"
-      - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "post"        
-        path: "/v1/REPLACEME2"
-      - relatedAPI: 
-        title: REPLACEME
-        description: REPLACEME
-        type: "get"        
-        path: "/v1/REPLACEME3"
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+  - title: Marketplaces
+    featured: true
+    description:  Supporting Marketplace offerings with split payments
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+  - title: PayFac Lite
+    featured: true
+    description:  Supporting PayFac Lite 
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+  - title: Boarding
+    groupName: API Suite
+    description:  End-to-end boarding API 
+    relatedDocs:
+      - link: /docs/getting-started/boarding.md
+        title: Sub-merchant boarding
+      - link: docs/getting-started/funding.md
+        title: Funding
+      - link: docs/getting-started/reporting.md 
+        title: Reporting & Settlement
+    relatedAPIs: 
+      - type: post       
+        path: /boarding/add_application
+  - title: Funding
+    groupName: API Suite
+    description:  Funding instructions and split details that can be sent through API.
+    relatedDocs:
+      - link: docs/getting-started/funding.md
+        title: Instruct funding
+    relatedAPIs: 
+      - type: post
+        title: Funding Instruction       
+        path: /funding/instruction        
+  - title: Reporting & Settlement
+    groupName: API Suite
+    description:   Settlement details and reporting avaliable through Exchange.
+    relatedDocs: 
+        - link: /docs/getting-started/reporting.md  
+          title: Reporting
+    relatedAPIs: 
+      - type: post
+        title: Get Settlement Info    
+        path: /account/settlement-info   
