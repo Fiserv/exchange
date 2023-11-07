@@ -2284,10 +2284,9 @@ components:
       type: object
       properties:
         transaction_date:
-          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: 2021-09-02
+          example: "2021-09-02"
 
         transaction_type:
           type: string
@@ -2326,16 +2325,15 @@ components:
         amount:
           type: string
           description: total amount of transaction - Cannot be empty.
-          example: 100.0
+          example: "100.00"
         currency:
           type: string
           description: Currency - Cannot be empty.
           example: USD
         processing_date:
-          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of processing.
-          example: 2021-09-02
+          example: "2021-09-02"
         split_details:
           type: array
           description: details - at least one details.
@@ -2773,6 +2771,10 @@ components:
         charge_item_price_charges:
           $ref:  '#/components/schemas/ChargeItemPricesCharges'
     ChargeItemPricesCharges:
+      type: array
+      items:
+        $ref:  '#/components/schemas/ChargeItemPricesChargesItems'
+    ChargeItemPricesChargesItems:
       type: object
       properties:
         fee_type:
@@ -2821,6 +2823,10 @@ components:
         charge_item_price_charges:
           $ref:  '#/components/schemas/ServiceChargeItemPricesCharges'
     ServiceChargeItemPricesCharges:
+      type: array
+      items: 
+        $ref: '#/components/schemas/ServiceChargeItemPricesChargesItems'
+    ServiceChargeItemPricesChargesItems:
       type: object
       properties:
         fee_type:
@@ -3325,7 +3331,7 @@ components:
           type: string
           description : The EXID of the online bundle, from /offering/retrieve_online_offering
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-        bundles_items: 
+        bundles_item: 
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
@@ -3337,7 +3343,7 @@ components:
           type: string
           description : The EXID of the online bundle, from /offering/retrieve_online_offering
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-        bundles_items: 
+        bundles_item: 
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
@@ -3372,7 +3378,7 @@ components:
     ServiceItemExid:
       type: object
       properties:
-        service_item_external_id:
+        service_charge_item_external_id:
           description : The service item of the VAR being added. Usually Owned/Purchased.
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
@@ -11985,10 +11991,9 @@ components:
       type: object
       properties:
         transaction_date:
-          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: 2021-09-02
+          example: "2021-09-02"
         transaction_type:
           type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
@@ -12065,10 +12070,9 @@ components:
       type: object
       properties:
         transaction_date:
-          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: 2021-09-02
+          example: "2021-09-02"
         transaction_type:
           type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
@@ -12106,7 +12110,7 @@ components:
         amount:
           type: string
           description: total amount of transaction - Cannot be empty.
-          example: 100.0
+          example: "100.00"
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -12216,10 +12220,9 @@ components:
       type: object
       properties:
         transaction_date:
-          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: 2021-09-02
+          example: "2021-09-02"
         transaction_type:
           type: string
           description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
@@ -12257,7 +12260,7 @@ components:
         amount:
           type: string
           description: total amount of transaction - Cannot be empty.
-          example: 100.0
+          example: "100.00"
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -12412,12 +12415,13 @@ components:
         reject_date:
           type: string
           description: Date of rejected. Format YYYY-MM-DD
+          example: "2020-02-20"
           
         settlement_date:
           type: string
           description: Date of settlement
           
-          example: 2020-02-20
+          example: "2020-02-20"
         merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -12550,11 +12554,11 @@ components:
           type: string
           description: Hierarchy type
           format: int32
-          example: 1
+          example: "1"
         total_amount:
           type: string
           description: total amount - Cannot be empty.
-          example: 5.0
+          example: "5.0"
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -12575,6 +12579,9 @@ components:
           type: string
           description: account type - Cannot be empty.
           example: RESERVE_RELEASE
+          enum: 
+            - RESERVE_RELEASE
+            - RESERVE_DEDUCTION
         amount:
           type: string
           description: account amount - Cannot be empty.
@@ -13320,7 +13327,7 @@ components:
           type: string
           description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
            
-          example: 2020-02-20
+          example: "2020-02-20"
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -13663,11 +13670,11 @@ components:
         date:
           type: string
           description: Date of processing - Cannot be empty. YYYY-MM-DD
-          example: 2020-02-06
+          example: "2020-02-06"
         currency:
           type: string
           description: Currency - Cannot be empty.
-          example: USD
+          example: "USD"
         merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -18798,7 +18805,7 @@ components:
     DateAdded:
       type: string
       description: The date on which transaction is added
-      example: 2022-10-29
+      example: "2022-10-29"
     TransactionMonitoringSearchResponse:
       type: object
       properties:
