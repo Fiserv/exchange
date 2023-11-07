@@ -3331,7 +3331,7 @@ components:
           type: string
           description : The EXID of the online bundle, from /offering/retrieve_online_offering
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-        bundles_item: 
+        bundle_item: 
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
@@ -3343,7 +3343,7 @@ components:
           type: string
           description : The EXID of the online bundle, from /offering/retrieve_online_offering
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-        bundles_item: 
+        bundle_item: 
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
