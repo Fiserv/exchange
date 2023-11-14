@@ -429,6 +429,79 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Unlock Application
+
+  /boarding/notes/add:
+    post:
+      tags:
+        - Application Boarding
+      summary: Add note to an Application
+      description: Adds notes to an appliaction. Appliacation must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
+      operationId: SUBMIT_NOTE
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add Notes
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddNotes'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddNoteRequest'
+
+  /boarding/notes/retrieve:
+    post:
+      tags:
+        - Application Boarding
+      summary: Retrieve Notes for an application/merchant
+      description: Retrieve Notes for an application/merchant
+      operationId: RETRIEVE_NOTE
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Notes
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddNotes'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveNotesRequest'
+
+  /boarding/varsheet/retrieve:
+    post:
+      tags:
+        - Application Boarding
+      summary: Retrieve Var Sheet Information for boarded merchant
+      description: Retrieve Var Sheet information for an application/merchant
+      operationId: RETRIEVE_VAR_SHEET
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Var Sheet
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VarSheetResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveVarSheetRequest'
+
   /offering/available:
     post:
       tags:
@@ -8123,6 +8196,9 @@ components:
           $ref: '#/components/schemas/ExtID'
         charges:
           $ref: '#/components/schemas/Charges'
+        tin_validated:
+          type: string
+          description: 'TIN Validated? - 1: Yes 0: No'
 
     MerchantShort:
       type: object
@@ -18945,6 +19021,251 @@ components:
       example: >-
         Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
+
+    AddNoteRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        note:
+          $ref: '#/components/schemas/NoteRequest'
+
+    RetrieveNotesRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        note:
+          type: object
+          properties:
+            application_reference:
+              type: string
+              description: the application reference number
+              example: "333000004027"
+
+    RetrieveVarSheetRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        var_sheet:
+          type: object
+          properties:
+            merchant_reference:
+              type: string
+              description: the merchant reference
+              example: "3001921"
+
+    VarSheet:
+      required:
+        - result
+        - outlets
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        outlets:
+          type: array
+          items:
+            $ref: '#/components/schemas/VarSheetResponse'
+
+    NoteRequest:
+      type: object
+      properties:
+        application_reference:
+          type: string
+          description: the application reference number
+          example: "333000004027"
+        note:
+          $ref: '#/components/schemas/ReviewNote'
+
+    IsFromApplication:
+      type: string
+      example: 1
+
+    AddNotes:
+      required:
+        - result
+        - notes
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteResponse'
+
+    NoteResponse:
+      type: object
+      properties:
+        note:
+          $ref: '#/components/schemas/ReviewNote'
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        username:
+          $ref: '#/components/schemas/UserName'
+        date_added:
+          $ref: '#/components/schemas/DateAdded'
+        is_from_application:
+          $ref: '#/components/schemas/IsFromApplication'
+
+    VarSheetResponse:
+      type: object
+      properties:
+        external_mid:
+          type: string
+          description: the external mid
+          example: "526326668887"
+        contact_information:
+          $ref: '#/components/schemas/ContactInformationVar'
+        account_setup_information:
+          $ref: '#/components/schemas/AccountSetupInformationVar'
+        terminal_setup_information:
+          $ref: '#/components/schemas/TerminalSetupInformationVar'
+        entitlements:
+          $ref: '#/components/schemas/Entitlements'
+        dial_information:
+          $ref: '#/components/schemas/DialInformation'
+        datawire:
+          $ref: '#/components/schemas/Datawire'
+
+    ContactInformationVar:
+      type: object
+      properties:
+        date:
+          type: string
+          example: "2023-05-11"
+        dba_name:
+          type: string
+          example: "OUTLET 1"
+        contact_name:
+          type: string
+          example: "Jon Consumer"
+        contact_phone:
+          type: string
+          example: "789458332"
+        contact_email:
+          type: string
+          example: "test@test.com"
+
+    AccountSetupInformationVar:
+      type: object
+      properties:
+        merchant_number:
+          type: string
+          example: "52630000001"
+        nashvile_mid:
+          type: string
+          example: "52630002342"
+        business_type:
+          type: string
+          example: "RETAIL"
+        legal_entity:
+          type: string
+          example: "ORGANISATION"
+        business_address:
+          $ref: '#/components/schemas/BusinessAddressVar'
+        business_information:
+          $ref: '#/components/schemas/BusinessInformationVar'
+
+    BusinessAddressVar:
+      type: object
+      properties:
+        city:
+          type: string
+          example: "Atlanta"
+        state:
+          type: string
+          example: "GA"
+        country:
+          type: string
+          example: "USA"
+        postal_code:
+          type: string
+          example: "30326"
+
+    BusinessInformationVar:
+      type: object
+      properties:
+        terminal_lane_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TerminalId'
+
+    TerminalId:
+      type: string
+      example: "94326668"
+
+    TerminalSetupInformationVar:
+      type: array
+      items:
+        $ref: '#/components/schemas/TerminalSetupInformation'
+
+    TerminalSetupInformation:
+      type: object
+      properties:
+        terminal_id:
+          type: string
+          example: "94326668"
+        network:
+          type: string
+          example: "NASHVILLE"
+        rapid_connect_group_id:
+          type: string
+          example: "10001"
+        self_registering:
+          type: string
+          example: "N"
+        name:
+          type: string
+          example: "GTW SYSTEM"
+
+    Entitlements:
+      type: object
+      properties:
+        discover:
+          type: string
+          example: "94514564"
+        amex:
+          type: string
+          example: "000006669897321"
+        debit:
+          type: string
+          example: "000000099992321"
+
+    DialInformation:
+      type: object
+      properties:
+        auth_primary_phone:
+          type: string
+          example: "800-456-7899"
+        auth_alternate_phone:
+          type: string
+          example: "800-456-7899"
+        settle_primary_phone:
+          type: string
+          example: "800-456-7899"
+        settle_alternate_phone:
+          type: string
+          example: "800-456-7899"
+
+    Datawire:
+      type: object
+      properties:
+        primary_url:
+          type: string
+          example: "https://url.datawire.net/"
+        secondary_url:
+          type: string
+          example: "http://url.datawire.net/"
+
   examples:
     RequestMinimalApplication:
       value:
