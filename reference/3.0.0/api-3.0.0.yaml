@@ -765,6 +765,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Account_Transaction_Search_Response'
+              examples:
+                ChargebackResponse:
+                  summary: Example Payload for querying a single MID with the date transactions were added
+                  $ref: '#/components/examples/ChargebackResponse'
   /transaction/chargeback-adjustments:
     post:
       tags:
@@ -811,6 +815,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Account_Transaction_Search_Response'
+              examples:
+                ChargebackResponse:
+                  summary: Example Payload for querying a single MID with the date transactions were added
+                  $ref: '#/components/examples/ChargebackAdjustmentResponse'
   /transaction/authorizations:
     post:
       tags:
@@ -19267,6 +19275,122 @@ components:
           example: "http://url.datawire.net/"
 
   examples:
+    ChargebackResponse:
+      value:
+        result: "SUCCESS"
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: "FOUND"
+          chargebacks:
+            - _id: "djjaee4cce8de5jae"
+              alliance_id: "16000001"
+              pfac_node_id: "10"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "3000"
+              location_id: '526232132199'
+              date_added: '2021-11-01'
+              record_type: "CHARGEBACK_DETAIL"
+              hierarchy_id: '526232000099'
+              hierarchy_level_no: '10'
+              location_dba_name: "MMISTest DBA NAME"
+              store_number: ''
+              external_id: ''
+              dispute_type: "Pre-Arbitration"
+              request_type: "F"
+              status_date: '2021-11-01'
+              status_description: "REVERSED"
+              request_date: '2021-11-01'
+              chargeback_currency_code: '840'
+              dispute_amount_sign: "+"
+              dispute_amount: 10.30
+              reason_code: '1000'
+              reason_code_description: "Fraud"
+              ids_case_number: '669949966001'
+              acquirer_reference_number: '666989832100000111'
+              chargeback_cycle: I
+              first_chargeback_date: '2021-11-01'
+              card_type: '00001'
+              card_number: "XXXXXXX6699"
+              exp_date: ''
+              adjustment_date: '2021-11-01'
+              transaction_date: '2021-11-01'
+              batch_date: '2021-11-01'
+              batch_number: '6669999321'
+              processed_transaction_currency_code: '840'
+              processed_transaction_amount_sign: +
+              processed_transaction_amount: 10.30
+              authorization_code: "AB001D"
+              invoice_number: '66698989'
+              airline_ticket_number: ''
+              sic_code: '0001'
+              receive_date: '20211011'
+              adjustment_amount_sign: +
+              adjustment_amount: 10.30
+              submerchant_id: '000526333132199'
+              soft_descriptor: "ABC*MMISTest Business"
+              submitted_transaction_currency_code: '840'
+              submitted_transaction_amount_sign: "+"
+              submitted_transaction_amount: 10.30
+              transaction_service_code: '0'
+              transaction_pos_entry_mode: '01'
+              work_type: ''
+              loan_number: ''
+              work_order_number: ''
+              mobile_indicator: ''
+              special_reference_2: ''
+              user_data_2: ''
+    ChargebackAdjustmentResponse:
+      value:
+        result: "SUCCESS"
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: "FOUND"
+          chargeback_adjustments:
+            - _id: "ddss9eebae9565aeeb"
+              alliance_id: "16000200"
+              pfac_node_id: "10"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "3000"
+              location_id: '526232132199'
+              date_added: '2021-11-10'
+              record_type: "ADJUSTMENT_DETAIL"
+              hierarchy_id: '526232000099'
+              hierarchy_level_no: '10'
+              location_dba_name: "MMISTest DBA NAME"
+              store_number: ''
+              external_id: ''
+              funded_date: '2021-11-01'
+              processed_date: '2021-11-01'
+              currency_code: '840'
+              dda_number: "XXXXX321"
+              aba_number: "XXXXX6699"
+              adjustment_date: '2021-11-01'
+              card_type: '00001'
+              adjustment_code: "CB"
+              adjustment_description: "REVERSALS"
+              adjustment_amount_sign: "+"
+              adjustment_amount: '10.30'
+              adjustment_type: "C"
+              invoice_date: '2021-11-01'
+              adjustment_invoice_number: '3339866669001'
+              batch_number: '666933221'
+              card_number: "XXXXXXXXXXXX6699"
+              chargeback_code: '1000'
+              case_number: '666993321001'
+              bank_reference_number: ''
+              sds_reference_number: ''
+              new_adjustment_description: "REVERSALS"
+              transaction_count: '0'
+              rate: '0.000000'
+              unit_amount: '0.00'
+              submit_date: '2021-11-01'
+              special_reference_1: ''
+        
+        
     RequestMinimalApplication:
       value:
         merchant: 
