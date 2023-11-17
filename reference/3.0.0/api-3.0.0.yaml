@@ -19033,7 +19033,7 @@ components:
       properties:
         request_source:
           $ref: '#/components/schemas/RequestSource'
-        var_sheet:
+        application:
           type: object
           properties:
             merchant_reference:
