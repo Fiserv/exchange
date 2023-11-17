@@ -19033,13 +19033,17 @@ components:
       properties:
         request_source:
           $ref: '#/components/schemas/RequestSource'
-        var_sheet:
+        application:
           type: object
           properties:
             merchant_reference:
               type: string
               description: the merchant reference
               example: "3001921"
+            application_reference:
+              type: string
+              description: the application reference
+              example: "3003000008201"
 
     VarSheet:
       required:
