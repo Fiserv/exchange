@@ -19033,7 +19033,7 @@ components:
       properties:
         request_source:
           $ref: '#/components/schemas/RequestSource'
-        application:
+        var_sheet:
           type: object
           properties:
             merchant_reference:
@@ -19065,6 +19065,10 @@ components:
           type: string
           description: the application reference number
           example: "333000004027"
+        merchant_reference:
+          type: string
+          description: the application reference number
+          example: "300012"
         note:
           $ref: '#/components/schemas/ReviewNote'
 
@@ -19291,13 +19295,13 @@ components:
         limit:
           maximum: 5000
           minimum: 1
-          type: integer
+          type: string
           description: Size of the page - Cannot be empty.
           format: int32
           example: 6
         page:
           minimum: 1
-          type: integer
+          type: string
           description: The page where to get those reports from
           format: int32
           example: 1
@@ -19317,7 +19321,7 @@ components:
         reject_indicator:
           type: string
         transaction_amount:
-          type: number
+          type: string
         transaction_id:
           type: string
         airline_ticket_number:
@@ -19325,7 +19329,7 @@ components:
         auth_source:
           type: string
         authorization_amount:
-          type: number
+          type: string
         reference_number:
           type: string
         authorization_code:
@@ -19401,13 +19405,13 @@ components:
         store_number:
           type: string
         submitted_currency_amount:
-          type: number
+          type: string
         submitted_currency_code:
           type: string
         terminal_id:
           type: string
         total_auth_amount:
-          type: number
+          type: string
         transaction_date:
           type: string
         transaction_integrity_class:
@@ -19435,22 +19439,22 @@ components:
         location_id:
           type: string
         merchant_node_id:
-          type: integer
+          type: string
           format: int32
         pfac_node_id:
-          type: integer
+          type: string
           format: int32
         outlet_id:
-          type: integer
+          type: string
           format: int32
         alliance_id:
-          type: integer
+          type: string
           format: int32
         partner_id:
-          type: integer
+          type: string
           format: int32
         merchant_id:
-          type: integer
+          type: string
           format: int32
         plan_code:
           type: string
@@ -19464,11 +19468,10 @@ components:
           type: string
         date_added:
           type: string
-          format: date
         surcharge_indicator:
           type: string
         surcharge_amount:
-          type: number
+          type: string
         special_reference_1:
           type: string
         special_reference_2:
@@ -19535,7 +19538,7 @@ components:
         reject_indicator:
           type: string
         transaction_amount:
-          type: number
+          type: string
         transaction_id:
           type: string
         airline_ticket_number:
@@ -19543,7 +19546,7 @@ components:
         auth_source:
           type: string
         authorization_amount:
-          type: number
+          type: string
         reference_number:
           type: string
         authorization_code:
@@ -19615,13 +19618,13 @@ components:
         store_number:
           type: string
         submitted_currency_amount:
-          type: number
+          type: string
         submitted_currency_code:
           type: string
         terminal_id:
           type: string
         total_auth_amount:
-          type: number
+          type: string
         transaction_date:
           type: string
         transaction_integrity_class:
@@ -19649,22 +19652,22 @@ components:
         location_id:
           type: string
         merchant_node_id:
-          type: integer
+          type: string
           format: int32
         pfac_node_id:
-          type: integer
+          type: string
           format: int32
         outlet_id:
-          type: integer
+          type: string
           format: int32
         alliance_id:
-          type: integer
+          type: string
           format: int32
         partner_id:
-          type: integer
+          type: string
           format: int32
         merchant_id:
-          type: integer
+          type: string
           format: int32
         plan_code:
           type: string
@@ -19682,7 +19685,7 @@ components:
         surcharge_indicator:
           type: string
         surcharge_amount:
-          type: number
+          type: string
         special_reference_1:
           type: string
         special_reference_2:
@@ -19728,22 +19731,22 @@ components:
         _id:
           type: string
         alliance_id:
-          type: integer
+          type: string
           format: int32
         partner_id:
-          type: integer
+          type: string
           format: int32
         pfac_node_id:
-          type: integer
+          type: string
           format: int32
         merchant_id:
-          type: integer
+          type: string
           format: int32
         merchant_node_id:
-          type: integer
+          type: string
           format: int32
         outlet_id:
-          type: integer
+          type: string
           format: int32
         location_id:
           type: string
@@ -19783,7 +19786,7 @@ components:
         adjustment_amount_sign:
           type: string
         adjustment_amount:
-          type: number
+          type: string
         adjustment_type:
           type: string
         invoice_date:
@@ -19809,7 +19812,7 @@ components:
         rate:
           type: string
         unit_amount:
-          type: number
+          type: string
         submit_date:
           type: string
         special_reference_1:
@@ -19843,22 +19846,22 @@ components:
         _id:
           type: string
         alliance_id:
-          type: integer
+          type: string
           format: int32
         partner_id:
-          type: integer
+          type: string
           format: int32
         pfac_node_id:
-          type: integer
+          type: string
           format: int32
         merchant_id:
-          type: integer
+          type: string
           format: int32
         merchant_node_id:
-          type: integer
+          type: string
           format: int32
         outlet_id:
-          type: integer
+          type: string
           format: int32
         location_id:
           type: string
@@ -19898,7 +19901,7 @@ components:
         adjustment_amount_sign:
           type: string
         adjustment_amount:
-          type: number
+          type: string
         adjustment_type:
           type: string
         invoice_date:
@@ -19924,7 +19927,7 @@ components:
         rate:
           type: string
         unit_amount:
-          type: number
+          type: string
         submit_date:
           type: string
         special_reference_1:
@@ -19948,22 +19951,22 @@ components:
         _id:
           type: string
         alliance_id:
-          type: integer
+          type: string
           format: int32
         partner_id:
-          type: integer
+          type: string
           format: int32
         pfac_node_id:
-          type: integer
+          type: string
           format: int32
         merchant_id:
-          type: integer
+          type: string
           format: int32
         merchant_node_id:
-          type: integer
+          type: string
           format: int32
         outlet_id:
-          type: integer
+          type: string
           format: int32
         location_id:
           type: string
@@ -19997,7 +20000,7 @@ components:
         dispute_amount_sign:
           type: string
         dispute_amount:
-          type: number
+          type: string
         reason_code:
           type: string
         reason_code_description:
@@ -20033,7 +20036,7 @@ components:
         processed_transaction_amount_sign:
           type: string
         processed_transaction_amount:
-          type: number
+          type: string
         authorization_code:
           type: string
         invoice_number:
@@ -20047,7 +20050,7 @@ components:
         adjustment_amount_sign:
           type: string
         adjustment_amount:
-          type: number
+          type: string
         submerchant_id:
           type: string
         soft_descriptor:
@@ -20057,7 +20060,7 @@ components:
         submitted_transaction_amount_sign:
           type: string
         submitted_transaction_amount:
-          type: number
+          type: string
         transaction_service_code:
           type: string
         transaction_pos_entry_mode:
@@ -20105,22 +20108,22 @@ components:
         _id:
           type: string
         alliance_id:
-          type: integer
+          type: string
           format: int32
         partner_id:
-          type: integer
+          type: string
           format: int32
         pfac_node_id:
-          type: integer
+          type: string
           format: int32
         merchant_id:
-          type: integer
+          type: string
           format: int32
         merchant_node_id:
-          type: integer
+          type: string
           format: int32
         outlet_id:
-          type: integer
+          type: string
           format: int32
         location_id:
           type: string
@@ -20150,7 +20153,7 @@ components:
         auth_amount_sign:
           type: string
         auth_amount:
-          type: number
+          type: string
         auth_time:
           type: string
         auth_date:
@@ -20202,18 +20205,18 @@ components:
           page: '1'
           summary_status: FOUND
           transactions:
-            - _id: 6f2522147afbba675c
+            - _id: "6f2522147afbba675c"
               processed_currency_code: '840'
               submerchant_id: '00052606609801'
               card_type: '00001'
               reject_indicator: 'N'
-              transaction_amount: 10
+              transaction_amount: "10"
               transaction_id: '6669800004321'
               airline_ticket_number: ''
               auth_source: ''
-              authorization_amount: 10
+              authorization_amount: "10"
               reference_number: '66998669893214321000001'
-              authorization_code: 0000AB
+              authorization_code: "0000AB"
               authorization_date: '2021-11-01'
               authorization_response_code: '00'
               authorization_sic_code: '5000'
@@ -20221,7 +20224,7 @@ components:
               bank_reference_number: ''
               batch_date: '2021-11-01'
               batch_number: '666989800001'
-              card_number: XXXXXXXXXXXX4321
+              card_number: "XXXXXXXXXXXX4321"
               card_presence_indicator: '1'
               cardholder_id_method: ''
               cat_level: ''
@@ -20234,7 +20237,7 @@ components:
               funded_date: '2021-11-01'
               health_care_card: ''
               invoice_id: '54321669898'
-              location_dba_name: MMISTest DBA NAME
+              location_dba_name: "MMISTest DBA NAME"
               market_specific_indicator: ''
               mc_cardholder_authentication: ''
               mc_security_protocol: ''
@@ -20245,38 +20248,38 @@ components:
               pinless_debit: 'N'
               reject_reason: ''
               response_code: ''
-              soft_descriptor: ABC*MMISTest LEGAL
+              soft_descriptor: "ABC*MMISTest LEGAL"
               store_number: '01'
-              submitted_currency_amount: 10
+              submitted_currency_amount: "10"
               submitted_currency_code: '840'
               terminal_id: '54321'
-              total_auth_amount: 10
+              total_auth_amount: "10"
               transaction_date: '2021-11-01'
               transaction_integrity_class: ''
-              transaction_mode: A
-              transaction_source: A
-              transaction_status: A
+              transaction_mode: "A"
+              transaction_source: "A"
+              transaction_status: "A"
               transaction_time: '20:30:00'
               transaction_type: '3'
-              usage_indicator: A
+              usage_indicator: "A"
               visa_chip_condition_code: ''
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
               location_id: '52606609801'
-              merchant_node_id: 20000
-              pfac_node_id: 10
-              outlet_id: 10000
-              alliance_id: 16000000
-              merchant_id: 6000
-              plan_code: VABC
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              plan_code: "VABC"
               reclass_code: ''
-              record_type: CREDIT_DETAIL_FUNDED
+              record_type: "CREDIT_DETAIL_FUNDED"
               hierarchy_id: '52606609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
-              surcharge_amount: 0
+              surcharge_amount: "0"
               special_reference_1: ''
               special_reference_2: ''
               user_data_2: ''
@@ -20293,21 +20296,21 @@ components:
               submerchant_id: '00052606609801'
               card_type: '00001'
               reject_indicator: 'N'
-              transaction_amount: 10
+              transaction_amount: "10"
               transaction_id: '6669800004321'
               airline_ticket_number: ''
               auth_source: ''
-              authorization_amount: 10
+              authorization_amount: "10"
               reference_number: '66998669893214321000001'
-              authorization_code: 0000AB
+              authorization_code: "0000AB"
               authorization_date: '2021-11-01'
               authorization_response_code: '00'
               authorization_sic_code: '5000'
-              avs_flag: Z
+              avs_flag: "Z"
               bank_reference_number: ''
               batch_date: '2021-11-01'
               batch_number: '666989800001'
-              card_number: XXXXXXXXXXXX4321
+              card_number: "XXXXXXXXXXXX4321"
               card_presence_indicator: '1'
               cardholder_id_method: ''
               cat_level: ''
@@ -20320,7 +20323,7 @@ components:
               funded_date: '2021-11-01'
               health_care_card: ''
               invoice_id: '54321669898'
-              location_dba_name: MMISTest DBA NAME
+              location_dba_name: "MMISTest DBA NAME"
               market_specific_indicator: ''
               mc_cardholder_authentication: ''
               mc_security_protocol: ''
@@ -20331,48 +20334,48 @@ components:
               pinless_debit: 'N'
               reject_reason: ''
               response_code: ''
-              soft_descriptor: ABC*MMISTest LEGAL
+              soft_descriptor: "ABC*MMISTest LEGAL"
               split_details:
                 - processing_fee: '0.0100'
-                  hold_flag: STORE_SPLIT
+                  hold_flag: "STORE_SPLIT"
                   txm_unique_id: '-52606609801-52606609801'
                   amount: '10.00'
                   source_merchant_id: '52606609801'
                   target_merchant_id: '52606609801'
-                  source_node_id: 20000
-                  target_hierarchy_type: 1
-                  target_node_id: 20000
+                  source_node_id: "20000"
+                  target_hierarchy_type: "1"
+                  target_node_id: "20000"
               store_number: '01'
-              submitted_currency_amount: 10
+              submitted_currency_amount: "10"
               submitted_currency_code: '840'
               terminal_id: '54321'
-              total_auth_amount: 10
+              total_auth_amount: "10"
               transaction_date: '2021-11-01'
               transaction_integrity_class: ''
-              transaction_mode: A
-              transaction_source: A
-              transaction_status: A
+              transaction_mode: "A"
+              transaction_source: "A"
+              transaction_status: "A"
               transaction_time: '20:30:00'
               transaction_type: '3'
-              usage_indicator: A
+              usage_indicator: "A"
               visa_chip_condition_code: ''
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
               location_id: '52606609801'
-              merchant_node_id: 20000
-              pfac_node_id: 10
-              outlet_id: 10000
-              alliance_id: 16000000
-              merchant_id: 6000
-              plan_code: VABC
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              plan_code: "VABC"
               reclass_code: ''
-              record_type: CREDIT_DETAIL_FUNDED
+              record_type: "CREDIT_DETAIL_FUNDED"
               hierarchy_id: '52606609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
-              surcharge_amount: 0
+              surcharge_amount: "0"
               special_reference_1: ''
               special_reference_2: ''
               user_data_2: ''
@@ -20389,13 +20392,13 @@ components:
               submerchant_id: '00052606609801'
               card_type: '00001'
               reject_indicator: 'Y'
-              transaction_amount: 10
+              transaction_amount: "10"
               transaction_id: '6669800004321'
               airline_ticket_number: ''
               auth_source: ''
-              authorization_amount: 10
+              authorization_amount: "10"
               reference_number: '66998669893214321000001'
-              authorization_code: 0000AB
+              authorization_code: "0000AB"
               authorization_date: '2021-11-01'
               authorization_response_code: '00'
               authorization_sic_code: '5000'
@@ -20425,14 +20428,14 @@ components:
               partial_auth_indicator: ''
               pc_terminal_capability: ''
               pinless_debit: 'N'
-              reject_reason: 29 - INVALID TRANSACTION AMOUNT
+              reject_reason: "29 - INVALID TRANSACTION AMOUNT"
               response_code: ''
               soft_descriptor: ABC*MMISTest LEGAL
               store_number: '01'
-              submitted_currency_amount: 10
+              submitted_currency_amount: "10"
               submitted_currency_code: '840'
               terminal_id: '54321'
-              total_auth_amount: 10
+              total_auth_amount: "10"
               transaction_date: '2021-11-01'
               transaction_integrity_class: ''
               transaction_mode: A
@@ -20446,11 +20449,11 @@ components:
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
               location_id: '52606609801'
-              merchant_node_id: 20000
-              pfac_node_id: 10
-              outlet_id: 10000
-              alliance_id: 16000000
-              merchant_id: 6000
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
               plan_code: VABC
               reclass_code: ''
               record_type: CREDIT_DETAIL_FUNDED
@@ -20458,7 +20461,7 @@ components:
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
-              surcharge_amount: 0
+              surcharge_amount: "0"
               special_reference_1: ''
               special_reference_2: ''
               user_data_2: ''
@@ -20471,11 +20474,11 @@ components:
           summary_status: FOUND
           authorizations:
             - _id: 617ce27ea722d2997ce
-              alliance_id: 16000200
-              pfac_node_id: 1
-              merchant_id: 2000
-              merchant_node_id: 8000
-              outlet_id: 4000
+              alliance_id: "16000200"
+              pfac_node_id: "1"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "4000"
               location_id: '52606609801'
               date_added: '2021-11-01'
               record_type: AUTHORIZATION_DETAILS
@@ -20507,7 +20510,7 @@ components:
               authorization_fee: ''
               network_fee_sign: ''
               network_fee: ''
-              order_number: 43216698    0000669898
+              order_number: "43216698    0000669898"
               auth_tracker: '43266.0010200034567'
               settlement_status: NOT_SETTLED
               user_data_2: ''
@@ -20520,8 +20523,8 @@ components:
           summary_status: FOUND
           adjustments:
             - _id: 1cffga3bba5e4724528
-              alliance_id: 16000200
-              pfac_node_id: 10
+              alliance_id: "16000200"
+              pfac_node_id: "10"
               location_id: '54321669898'
               date_added: '2021-11-01'
               record_type: ADJUSTMENT_DETAIL
@@ -20604,19 +20607,19 @@ components:
               batch_number: '6669999321'
               processed_transaction_currency_code: '840'
               processed_transaction_amount_sign: +
-              processed_transaction_amount: 10.30
+              processed_transaction_amount: "10.30"
               authorization_code: "AB001D"
               invoice_number: '66698989'
               airline_ticket_number: ''
               sic_code: '0001'
               receive_date: '20211011'
               adjustment_amount_sign: +
-              adjustment_amount: 10.30
+              adjustment_amount: "10.30"
               submerchant_id: '000526333132199'
               soft_descriptor: "ABC*MMISTest Business"
               submitted_transaction_currency_code: '840'
               submitted_transaction_amount_sign: "+"
-              submitted_transaction_amount: 10.30
+              submitted_transaction_amount: "10.30"
               transaction_service_code: '0'
               transaction_pos_entry_mode: '01'
               work_type: ''
