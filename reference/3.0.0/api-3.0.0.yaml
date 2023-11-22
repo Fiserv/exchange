@@ -429,6 +429,79 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Submerchant Boarding
       x-proxy-name: Unlock Application
+
+  /boarding/notes/add:
+    post:
+      tags:
+        - Application Boarding
+      summary: Add note to an Application
+      description: Adds notes to an appliaction. Appliacation must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
+      operationId: SUBMIT_NOTE
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Add Notes
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddNotes'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddNoteRequest'
+
+  /boarding/notes/retrieve:
+    post:
+      tags:
+        - Application Boarding
+      summary: Retrieve Notes for an application/merchant
+      description: Retrieve Notes for an application/merchant
+      operationId: RETRIEVE_NOTE
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Notes
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddNotes'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveNotesRequest'
+
+  /boarding/varsheet/retrieve:
+    post:
+      tags:
+        - Application Boarding
+      summary: Retrieve Var Sheet Information for boarded merchant
+      description: Retrieve Var Sheet information for an application/merchant
+      operationId: RETRIEVE_VAR_SHEET
+      x-group-name: Submerchant Boarding
+      x-proxy-name: Retrieve Var Sheet
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VarSheetResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveVarSheetRequest'
+
   /offering/available:
     post:
       tags:
@@ -557,7 +630,7 @@ paths:
   /transaction:
     post:
       tags:
-        - Search Transactions
+      - Search Transactions
       summary: Get normal transactions.
       operationId: searchTransactions
       x-group-name: Transactions
@@ -581,7 +654,21 @@ paths:
               QueryLocationBetweenDateAdded:
                 summary: Example Payload for querying a single MID between a date selection where transactions were added
                 $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
       responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsSearchResponse'
+              examples:
+                TransactionResponse:
+                  summary: Example Payload for querying a single MID with the date transactions were added
+                  $ref: '#/components/examples/TransactionResponse'
+                TransactionSplitResponse:
+                  summary: Example Payload for querying a single MID with the date transactions were added, with split details for Auto/Managed funding and Split funding scenarios
+                  $ref: '#/components/examples/TransactionSplitResponse'
         "404":
           description: Transactions not found
           content:
@@ -594,16 +681,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the transactions
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchResponse'
   /transaction/rejects:
     post:
       tags:
-        - Search Transactions
+      - Search Transactions
       summary: Get reject transactions.
       operationId: searchRejectTransactions
       x-group-name: Transactions
@@ -627,7 +708,18 @@ paths:
               QueryLocationBetweenDateAdded:
                 summary: Example Payload for querying a single MID between a date selection where transactions were added
                 $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
       responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RejectsSearchResponse'
+              examples:
+                TransactionRejectResponse:
+                    summary: Example Payload for querying a single MID with the date transactions were added
+                    $ref: '#/components/examples/TransactionRejectResponse'
         "404":
           description: Transactions not found
           content:
@@ -640,16 +732,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the transactions
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/chargebacks:
     post:
       tags:
-        - Search Transactions
+      - Search Transactions
       summary: Get chargeback transactions.
       operationId: searchChargebackTransactions
       x-group-name: Transactions
@@ -673,7 +759,19 @@ paths:
               QueryLocationBetweenDateAdded:
                 summary: Example Payload for querying a single MID between a date selection where transactions were added
                 $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
       responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargebacksSearchResponse'
+              examples:
+                ChargebackResponseSample:
+                  summary: Example Payload for querying a single Chargeback
+                  $ref: '#/components/examples/ChargebackResponse'
+              
         "404":
           description: Transactions not found
           content:
@@ -686,16 +784,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the transactions
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/chargeback-adjustments:
     post:
       tags:
-        - Search Transactions
+      - Search Transactions
       summary: Get chargeback adjustment transactions.
       operationId: searchChargebackAdjustmentTransactions
       x-group-name: Transactions
@@ -719,15 +811,10 @@ paths:
               QueryLocationBetweenDateAdded:
                 summary: Example Payload for querying a single MID between a date selection where transactions were added
                 $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
       responses:
         "404":
           description: Transactions not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-        "400":
-          description: BadRequest
           content:
             application/json:
               schema:
@@ -737,11 +824,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Account_Transaction_Search_Response'
+                $ref: '#/components/schemas/ChargebackAdjustmentsSearchResponse'
+              examples:
+                ChargebackResponseSample:
+                  summary: Example Payload for querying a single Chargeback Adjustment
+                  $ref: '#/components/examples/ChargebackAdjustmentResponse'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   /transaction/authorizations:
     post:
       tags:
-        - Search Transactions
+      - Search Transactions
       summary: Get authorization transactions.
       operationId: searchAuthorizationTransactions
       x-group-name: Transactions
@@ -765,7 +862,18 @@ paths:
               QueryLocationBetweenDateAdded:
                 summary: Example Payload for querying a single MID between a date selection where transactions were added
                 $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
       responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationsSearchResponse'
+              examples:   
+                TransactionRejectResponse:
+                  summary: Example Payload for querying a single MID with the date transactions were added
+                  $ref: '#/components/examples/AuthorizationResponse'
         "404":
           description: Transactions not found
           content:
@@ -778,16 +886,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the transactions
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /transaction/adjustments:
     post:
       tags:
-        - Search Transactions
+      - Search Transactions
       summary: Get adjustment transactions.
       x-group-name: Transactions
       x-proxy-name: Adjustments
@@ -811,7 +913,18 @@ paths:
               QueryLocationBetweenDateAdded:
                 summary: Example Payload for querying a single MID between a date selection where transactions were added
                 $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
       responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdjustmentsSearchResponse'
+              examples:
+                AdjustmentResponse:
+                    summary: Example Payload for querying a single MID with the date transactions were added
+                    $ref: '#/components/examples/AdjustmentResponse'
         "404":
           description: Transactions not found
           content:
@@ -824,12 +937,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "200":
-          description: Found the transactions
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account_Transaction_Search_Response'
   /settlement/rejects:
     post:
       tags:
@@ -8123,6 +8230,9 @@ components:
           $ref: '#/components/schemas/ExtID'
         charges:
           $ref: '#/components/schemas/Charges'
+        tin_validated:
+          type: string
+          description: 'TIN Validated? - 1: Yes 0: No'
 
     MerchantShort:
       type: object
@@ -11485,61 +11595,6 @@ components:
           type: string
           description: Transaction Date Added Second Value
  
-    TransactionQueryDTO:
-      type: object
-      properties:
-        alliance_id:
-          $ref: '#/components/schemas/AllianceIdQuery'
-        partner_id:
-          $ref: '#/components/schemas/PartnerIdQuery'
-        pfac_node_id:
-          $ref: '#/components/schemas/PfacNodeIdQuery'
-        merchant_id:
-          $ref: '#/components/schemas/MerchantIdQuery'
-        merchant_node_id:
-          $ref: '#/components/schemas/MerchantNodeIdQuery'
-        merchant_reference:
-          $ref: '#/components/schemas/MerchantReferenceQuery'
-        merchant_node_external_id:
-          $ref: '#/components/schemas/MerchantNodeExternalIdQuery'
-        outlet_id:
-          $ref: '#/components/schemas/OutletIdQuery'
-        location_id:
-          $ref: '#/components/schemas/LocationIdQuery'
-        location_dba_name:
-          $ref: '#/components/schemas/LocationDbaNameQuery'
-        card_type_query:
-          $ref: '#/components/schemas/CardTypeQuery'
-        date_added:
-          $ref: '#/components/schemas/DateAddedQuery'
-        invoice_number:
-          $ref: '#/components/schemas/InvoiceIdQuery'
-        transaction_date:
-          $ref: '#/components/schemas/TransactionDateQuery'
-        auth_tracker:
-          $ref: '#/components/schemas/AuthTrackerQuery'
-      description: Query conditions - Cannot be empty.
-    TransactionSearchRequest:
-      required:
-      - limit
-      - query
-      type: object
-      properties:
-        limit:
-          maximum: 5000
-          minimum: 1
-          type: string
-          description: Size of the page - Cannot be empty.
-          format: int32
-          example: 6
-        page:
-          minimum: 1
-          type: string
-          description: The page where to get those reports from
-          format: int32
-          example: 1
-        query:
-          $ref: '#/components/schemas/TransactionQueryDTO'
     ApiError:
       type: object
       properties:
@@ -18945,7 +19000,1684 @@ components:
       example: >-
         Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
+
+    AddNoteRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        note:
+          $ref: '#/components/schemas/NoteRequest'
+
+    RetrieveNotesRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        note:
+          type: object
+          properties:
+            application_reference:
+              type: string
+              description: the application reference number
+              example: "333000004027"
+
+    RetrieveVarSheetRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        var_sheet:
+          type: object
+          properties:
+            merchant_reference:
+              type: string
+              description: the merchant reference
+              example: "3001921"
+            application_reference:
+              type: string
+              description: the application reference
+              example: "3003000008201"
+
+    VarSheet:
+      required:
+        - result
+        - outlets
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        outlets:
+          type: array
+          items:
+            $ref: '#/components/schemas/VarSheetResponse'
+
+    NoteRequest:
+      type: object
+      properties:
+        application_reference:
+          type: string
+          description: the application reference number
+          example: "333000004027"
+        merchant_reference:
+          type: string
+          description: the application reference number
+          example: "300012"
+        note:
+          $ref: '#/components/schemas/ReviewNote'
+
+    IsFromApplication:
+      type: string
+      example: 1
+
+    AddNotes:
+      required:
+        - result
+        - notes
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteResponse'
+
+    NoteResponse:
+      type: object
+      properties:
+        note:
+          $ref: '#/components/schemas/ReviewNote'
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        username:
+          $ref: '#/components/schemas/UserName'
+        date_added:
+          $ref: '#/components/schemas/DateAdded'
+        is_from_application:
+          $ref: '#/components/schemas/IsFromApplication'
+
+    VarSheetResponse:
+      type: object
+      properties:
+        external_mid:
+          type: string
+          description: the external mid
+          example: "526326668887"
+        contact_information:
+          $ref: '#/components/schemas/ContactInformationVar'
+        account_setup_information:
+          $ref: '#/components/schemas/AccountSetupInformationVar'
+        terminal_setup_information:
+          $ref: '#/components/schemas/TerminalSetupInformationVar'
+        entitlements:
+          $ref: '#/components/schemas/Entitlements'
+        dial_information:
+          $ref: '#/components/schemas/DialInformation'
+        datawire:
+          $ref: '#/components/schemas/Datawire'
+
+    ContactInformationVar:
+      type: object
+      properties:
+        date:
+          type: string
+          example: "2023-05-11"
+        dba_name:
+          type: string
+          example: "OUTLET 1"
+        contact_name:
+          type: string
+          example: "Jon Consumer"
+        contact_phone:
+          type: string
+          example: "789458332"
+        contact_email:
+          type: string
+          example: "test@test.com"
+
+    AccountSetupInformationVar:
+      type: object
+      properties:
+        merchant_number:
+          type: string
+          example: "52630000001"
+        nashvile_mid:
+          type: string
+          example: "52630002342"
+        business_type:
+          type: string
+          example: "RETAIL"
+        legal_entity:
+          type: string
+          example: "ORGANISATION"
+        business_address:
+          $ref: '#/components/schemas/BusinessAddressVar'
+        business_information:
+          $ref: '#/components/schemas/BusinessInformationVar'
+
+    BusinessAddressVar:
+      type: object
+      properties:
+        city:
+          type: string
+          example: "Atlanta"
+        state:
+          type: string
+          example: "GA"
+        country:
+          type: string
+          example: "USA"
+        postal_code:
+          type: string
+          example: "30326"
+
+    BusinessInformationVar:
+      type: object
+      properties:
+        terminal_lane_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TerminalId'
+
+    TerminalId:
+      type: string
+      example: "94326668"
+
+    TerminalSetupInformationVar:
+      type: array
+      items:
+        $ref: '#/components/schemas/TerminalSetupInformation'
+
+    TerminalSetupInformation:
+      type: object
+      properties:
+        terminal_id:
+          type: string
+          example: "94326668"
+        network:
+          type: string
+          example: "NASHVILLE"
+        rapid_connect_group_id:
+          type: string
+          example: "10001"
+        self_registering:
+          type: string
+          example: "N"
+        name:
+          type: string
+          example: "GTW SYSTEM"
+
+    Entitlements:
+      type: object
+      properties:
+        discover:
+          type: string
+          example: "94514564"
+        amex:
+          type: string
+          example: "000006669897321"
+        debit:
+          type: string
+          example: "000000099992321"
+
+    DialInformation:
+      type: object
+      properties:
+        auth_primary_phone:
+          type: string
+          example: "800-456-7899"
+        auth_alternate_phone:
+          type: string
+          example: "800-456-7899"
+        settle_primary_phone:
+          type: string
+          example: "800-456-7899"
+        settle_alternate_phone:
+          type: string
+          example: "800-456-7899"
+
+    Datawire:
+      type: object
+      properties:
+        primary_url:
+          type: string
+          example: "https://url.datawire.net/"
+        secondary_url:
+          type: string
+          example: "http://url.datawire.net/"
+    TransactionQueryDTO:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/AllianceIdQuery'
+        partner_id:
+          $ref: '#/components/schemas/PartnerIdQuery'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeIdQuery'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIdQuery'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeIdQuery'
+        merchant_reference:
+          $ref: '#/components/schemas/MerchantReferenceQuery'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/MerchantNodeExternalIdQuery'
+        outlet_id:
+          $ref: '#/components/schemas/OutletIdQuery'
+        location_id:
+          $ref: '#/components/schemas/LocationIdQuery'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDbaNameQuery'
+        card_type_query:
+          $ref: '#/components/schemas/CardTypeQuery'
+        date_added:
+          $ref: '#/components/schemas/DateAddedQuery'
+        invoice_number:
+          $ref: '#/components/schemas/InvoiceIdQuery'
+        transaction_date:
+          $ref: '#/components/schemas/TransactionDateQuery'
+        auth_tracker:
+          $ref: '#/components/schemas/AuthTrackerQuery'
+      description: Query conditions - Cannot be empty.
+    TransactionSearchRequest:
+      required:
+      - limit
+      - query
+      type: object
+      properties:
+        limit:
+          maximum: 5000
+          minimum: 1
+          type: string
+          description: Size of the page - Cannot be empty.
+          format: int32
+          example: 6
+        page:
+          minimum: 1
+          type: string
+          description: The page where to get those reports from
+          format: int32
+          example: 1
+        query:
+          $ref: '#/components/schemas/TransactionQueryDTO'
+    Transaction:
+      type: object
+      properties:
+        _id:
+          type: string
+        processed_currency_code:
+          type: string
+        submerchant_id:
+          type: string
+        card_type:
+          type: string
+        reject_indicator:
+          type: string
+        transaction_amount:
+          type: string
+        transaction_id:
+          type: string
+        airline_ticket_number:
+          type: string
+        auth_source:
+          type: string
+        authorization_amount:
+          type: string
+        reference_number:
+          type: string
+        authorization_code:
+          type: string
+        authorization_date:
+          type: string
+        authorization_response_code:
+          type: string
+        authorization_sic_code:
+          type: string
+        avs_flag:
+          type: string
+        bank_reference_number:
+          type: string
+        batch_date:
+          type: string
+        batch_number:
+          type: string
+        card_number:
+          type: string
+        card_presence_indicator:
+          type: string
+        cardholder_id_method:
+          type: string
+        cat_level:
+          type: string
+        currency_conversion_rate:
+          type: string
+        cvc2_result:
+          type: string
+        cvv2_result:
+          type: string
+        entry_mode:
+          type: string
+        expiration_date:
+          type: string
+        external_id:
+          type: string
+        funded_date:
+          type: string
+        health_care_card:
+          type: string
+        invoice_id:
+          type: string
+        location_dba_name:
+          type: string
+        market_specific_indicator:
+          type: string
+        mc_cardholder_authentication:
+          type: string
+        mc_security_protocol:
+          type: string
+        merchant_reference_number:
+          type: string
+        mobile_indicator:
+          type: string
+        partial_auth_indicator:
+          type: string
+        pc_terminal_capability:
+          type: string
+        pinless_debit:
+          type: string
+        reject_reason:
+          type: string
+        response_code:
+          type: string
+        soft_descriptor:
+          type: string
+        split_details:
+          type: array
+          items:
+            type: object
+        store_number:
+          type: string
+        submitted_currency_amount:
+          type: string
+        submitted_currency_code:
+          type: string
+        terminal_id:
+          type: string
+        total_auth_amount:
+          type: string
+        transaction_date:
+          type: string
+        transaction_integrity_class:
+          type: string
+        transaction_mode:
+          type: string
+        transaction_source:
+          type: string
+        transaction_status:
+          type: string
+        transaction_time:
+          type: string
+        transaction_type:
+          type: string
+        usage_indicator:
+          type: string
+        visa_chip_condition_code:
+          type: string
+        visa_purchase_identifier:
+          type: string
+        visa_purchase_identifier_format:
+          type: string
+        visa_service_develop:
+          type: string
+        location_id:
+          type: string
+        merchant_node_id:
+          type: string
+          format: int32
+        pfac_node_id:
+          type: string
+          format: int32
+        outlet_id:
+          type: string
+          format: int32
+        alliance_id:
+          type: string
+          format: int32
+        partner_id:
+          type: string
+          format: int32
+        merchant_id:
+          type: string
+          format: int32
+        plan_code:
+          type: string
+        reclass_code:
+          type: string
+        record_type:
+          type: string
+        hierarchy_id:
+          type: string
+        hierarchy_level_no:
+          type: string
+        date_added:
+          type: string
+        surcharge_indicator:
+          type: string
+        surcharge_amount:
+          type: string
+        special_reference_1:
+          type: string
+        special_reference_2:
+          type: string
+        user_data_2:
+          type: string
+    TransactionResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    TransactionsSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/TransactionResponseDTO'
+    RejectsResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        rejects:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionReject'
+    RejectsSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/RejectsResponseDTO'
+    TransactionReject:
+      type: object
+      properties:
+        _id:
+          type: string
+        processed_currency_code:
+          type: string
+        submerchant_id:
+          type: string
+        card_type:
+          type: string
+        reject_indicator:
+          type: string
+        transaction_amount:
+          type: string
+        transaction_id:
+          type: string
+        airline_ticket_number:
+          type: string
+        auth_source:
+          type: string
+        authorization_amount:
+          type: string
+        reference_number:
+          type: string
+        authorization_code:
+          type: string
+        authorization_date:
+          type: string
+        authorization_response_code:
+          type: string
+        authorization_sic_code:
+          type: string
+        avs_flag:
+          type: string
+        bank_reference_number:
+          type: string
+        batch_date:
+          type: string
+        batch_number:
+          type: string
+        card_number:
+          type: string
+        card_presence_indicator:
+          type: string
+        cardholder_id_method:
+          type: string
+        cat_level:
+          type: string
+        currency_conversion_rate:
+          type: string
+        cvc2_result:
+          type: string
+        cvv2_result:
+          type: string
+        entry_mode:
+          type: string
+        expiration_date:
+          type: string
+        external_id:
+          type: string
+        funded_date:
+          type: string
+        health_care_card:
+          type: string
+        invoice_id:
+          type: string
+        location_dba_name:
+          type: string
+        market_specific_indicator:
+          type: string
+        mc_cardholder_authentication:
+          type: string
+        mc_security_protocol:
+          type: string
+        merchant_reference_number:
+          type: string
+        mobile_indicator:
+          type: string
+        partial_auth_indicator:
+          type: string
+        pc_terminal_capability:
+          type: string
+        pinless_debit:
+          type: string
+        reject_reason:
+          type: string
+        response_code:
+          type: string
+        soft_descriptor:
+          type: string
+        store_number:
+          type: string
+        submitted_currency_amount:
+          type: string
+        submitted_currency_code:
+          type: string
+        terminal_id:
+          type: string
+        total_auth_amount:
+          type: string
+        transaction_date:
+          type: string
+        transaction_integrity_class:
+          type: string
+        transaction_mode:
+          type: string
+        transaction_source:
+          type: string
+        transaction_status:
+          type: string
+        transaction_time:
+          type: string
+        transaction_type:
+          type: string
+        usage_indicator:
+          type: string
+        visa_chip_condition_code:
+          type: string
+        visa_purchase_identifier:
+          type: string
+        visa_purchase_identifier_format:
+          type: string
+        visa_service_develop:
+          type: string
+        location_id:
+          type: string
+        merchant_node_id:
+          type: string
+          format: int32
+        pfac_node_id:
+          type: string
+          format: int32
+        outlet_id:
+          type: string
+          format: int32
+        alliance_id:
+          type: string
+          format: int32
+        partner_id:
+          type: string
+          format: int32
+        merchant_id:
+          type: string
+          format: int32
+        plan_code:
+          type: string
+        reclass_code:
+          type: string
+        record_type:
+          type: string
+        hierarchy_id:
+          type: string
+        hierarchy_level_no:
+          type: string
+        date_added:
+          type: string
+          format: date
+        surcharge_indicator:
+          type: string
+        surcharge_amount:
+          type: string
+        special_reference_1:
+          type: string
+        special_reference_2:
+          type: string
+        user_data_2:
+          type: string
+    ChargebacksSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/ChargebacksResponseDTO'
+    ChargebackAdjustmentsResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        chargeback_adjustments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionChargebackAdjustment'
+    ChargebackAdjustmentsSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/ChargebackAdjustmentsResponseDTO'
+    TransactionChargebackAdjustment:
+      type: object
+      properties:
+        _id:
+          type: string
+        alliance_id:
+          type: string
+          format: int32
+        partner_id:
+          type: string
+          format: int32
+        pfac_node_id:
+          type: string
+          format: int32
+        merchant_id:
+          type: string
+          format: int32
+        merchant_node_id:
+          type: string
+          format: int32
+        outlet_id:
+          type: string
+          format: int32
+        location_id:
+          type: string
+        date_added:
+          type: string
+          format: date
+        record_type:
+          type: string
+        hierarchy_id:
+          type: string
+        hierarchy_level_no:
+          type: string
+        location_dba_name:
+          type: string
+        store_number:
+          type: string
+        external_id:
+          type: string
+        funded_date:
+          type: string
+        processed_date:
+          type: string
+        currency_code:
+          type: string
+        dda_number:
+          type: string
+        aba_number:
+          type: string
+        adjustment_date:
+          type: string
+        card_type:
+          type: string
+        adjustment_code:
+          type: string
+        adjustment_description:
+          type: string
+        adjustment_amount_sign:
+          type: string
+        adjustment_amount:
+          type: string
+        adjustment_type:
+          type: string
+        invoice_date:
+          type: string
+        adjustment_invoice_number:
+          type: string
+        batch_number:
+          type: string
+        card_number:
+          type: string
+        chargeback_code:
+          type: string
+        case_number:
+          type: string
+        bank_reference_number:
+          type: string
+        sds_reference_number:
+          type: string
+        new_adjustment_description:
+          type: string
+        transaction_count:
+          type: string
+        rate:
+          type: string
+        unit_amount:
+          type: string
+        submit_date:
+          type: string
+        special_reference_1:
+          type: string
+    AdjustmentsResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        adjustments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionAdjustment'
+    AdjustmentsSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/AdjustmentsResponseDTO'
+    TransactionAdjustment:
+      type: object
+      properties:
+        _id:
+          type: string
+        alliance_id:
+          type: string
+          format: int32
+        partner_id:
+          type: string
+          format: int32
+        pfac_node_id:
+          type: string
+          format: int32
+        merchant_id:
+          type: string
+          format: int32
+        merchant_node_id:
+          type: string
+          format: int32
+        outlet_id:
+          type: string
+          format: int32
+        location_id:
+          type: string
+        date_added:
+          type: string
+          format: date
+        record_type:
+          type: string
+        hierarchy_id:
+          type: string
+        hierarchy_level_no:
+          type: string
+        location_dba_name:
+          type: string
+        store_number:
+          type: string
+        external_id:
+          type: string
+        funded_date:
+          type: string
+        processed_date:
+          type: string
+        currency_code:
+          type: string
+        dda_number:
+          type: string
+        aba_number:
+          type: string
+        adjustment_date:
+          type: string
+        card_type:
+          type: string
+        adjustment_code:
+          type: string
+        adjustment_description:
+          type: string
+        adjustment_amount_sign:
+          type: string
+        adjustment_amount:
+          type: string
+        adjustment_type:
+          type: string
+        invoice_date:
+          type: string
+        adjustment_invoice_number:
+          type: string
+        batch_number:
+          type: string
+        card_number:
+          type: string
+        chargeback_code:
+          type: string
+        case_number:
+          type: string
+        bank_reference_number:
+          type: string
+        sds_reference_number:
+          type: string
+        new_adjustment_description:
+          type: string
+        transaction_count:
+          type: string
+        rate:
+          type: string
+        unit_amount:
+          type: string
+        submit_date:
+          type: string
+        special_reference_1:
+          type: string
+    ChargebacksResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        chargebacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionChargeback'
+    TransactionChargeback:
+      type: object
+      properties:
+        _id:
+          type: string
+        alliance_id:
+          type: string
+          format: int32
+        partner_id:
+          type: string
+          format: int32
+        pfac_node_id:
+          type: string
+          format: int32
+        merchant_id:
+          type: string
+          format: int32
+        merchant_node_id:
+          type: string
+          format: int32
+        outlet_id:
+          type: string
+          format: int32
+        location_id:
+          type: string
+        date_added:
+          type: string
+          format: date
+        record_type:
+          type: string
+        hierarchy_id:
+          type: string
+        hierarchy_level_no:
+          type: string
+        location_dba_name:
+          type: string
+        store_number:
+          type: string
+        external_id:
+          type: string
+        dispute_type:
+          type: string
+        request_type:
+          type: string
+        status_date:
+          type: string
+        status_description:
+          type: string
+        request_date:
+          type: string
+        chargeback_currency_code:
+          type: string
+        dispute_amount_sign:
+          type: string
+        dispute_amount:
+          type: string
+        reason_code:
+          type: string
+        reason_code_description:
+          type: string
+        ids_case_number:
+          type: string
+        due_date:
+          type: string
+        acquirer_reference_number:
+          type: string
+        chargeback_cycle:
+          type: string
+        first_chargeback_date:
+          type: string
+        second_chargeback_date:
+          type: string
+        card_type:
+          type: string
+        card_number:
+          type: string
+        exp_date:
+          type: string
+        adjustment_date:
+          type: string
+        transaction_date:
+          type: string
+        batch_date:
+          type: string
+        batch_number:
+          type: string
+        processed_transaction_currency_code:
+          type: string
+        processed_transaction_amount_sign:
+          type: string
+        processed_transaction_amount:
+          type: string
+        authorization_code:
+          type: string
+        invoice_number:
+          type: string
+        airline_ticket_number:
+          type: string
+        sic_code:
+          type: string
+        receive_date:
+          type: string
+        adjustment_amount_sign:
+          type: string
+        adjustment_amount:
+          type: string
+        submerchant_id:
+          type: string
+        soft_descriptor:
+          type: string
+        submitted_transaction_currency_code:
+          type: string
+        submitted_transaction_amount_sign:
+          type: string
+        submitted_transaction_amount:
+          type: string
+        transaction_service_code:
+          type: string
+        transaction_pos_entry_mode:
+          type: string
+        work_type:
+          type: string
+        loan_number:
+          type: string
+        work_order_number:
+          type: string
+        mobile_indicator:
+          type: string
+        special_reference_2:
+          type: string
+        user_data_2:
+          type: string
+        special_reference_1:
+          type: string
+    AuthorizationsSearchResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/AuthorizationsResponseDTO'
+    AuthorizationsResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        authorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionAuthorizations'
+    TransactionAuthorizations:
+      type: object
+      properties:
+        _id:
+          type: string
+        alliance_id:
+          type: string
+          format: int32
+        partner_id:
+          type: string
+          format: int32
+        pfac_node_id:
+          type: string
+          format: int32
+        merchant_id:
+          type: string
+          format: int32
+        merchant_node_id:
+          type: string
+          format: int32
+        outlet_id:
+          type: string
+          format: int32
+        location_id:
+          type: string
+        date_added:
+          type: string
+          format: date
+        record_type:
+          type: string
+        hierarchy_id:
+          type: string
+        hierarchy_level_no:
+          type: string
+        location_dba_name:
+          type: string
+        store_number:
+          type: string
+        external_id:
+          type: string
+        currency_code:
+          type: string
+        card_type:
+          type: string
+        cardholder_number:
+          type: string
+        expiration_date:
+          type: string
+        auth_amount_sign:
+          type: string
+        auth_amount:
+          type: string
+        auth_time:
+          type: string
+        auth_date:
+          type: string
+        auth_code:
+          type: string
+        avs_flag:
+          type: string
+        response_code:
+          type: string
+        service_code:
+          type: string
+        auth_trans_code:
+          type: string
+        aci:
+          type: string
+        cavv_ucaf:
+          type: string
+        mc_promotion_code:
+          type: string
+        mc_pos_data_codes:
+          type: string
+        visa_valid_code:
+          type: string
+        visa_dynamic_currency_code:
+          type: string
+        authorization_fee_sign:
+          type: string
+        authorization_fee:
+          type: string
+        network_fee_sign:
+          type: string
+        network_fee:
+          type: string
+        order_number:
+          type: string
+        auth_tracker:
+          type: string
+        settlement_status:
+          type: string
+        user_data_2:
+          type: string
   examples:
+    TransactionResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: FOUND
+          transactions:
+            - _id: "6f2522147afbba675c"
+              processed_currency_code: '840'
+              submerchant_id: '00052606609801'
+              card_type: '00001'
+              reject_indicator: 'N'
+              transaction_amount: "10"
+              transaction_id: '6669800004321'
+              airline_ticket_number: ''
+              auth_source: ''
+              authorization_amount: "10"
+              reference_number: '66998669893214321000001'
+              authorization_code: "0000AB"
+              authorization_date: '2021-11-01'
+              authorization_response_code: '00'
+              authorization_sic_code: '5000'
+              avs_flag: Z
+              bank_reference_number: ''
+              batch_date: '2021-11-01'
+              batch_number: '666989800001'
+              card_number: "XXXXXXXXXXXX4321"
+              card_presence_indicator: '1'
+              cardholder_id_method: ''
+              cat_level: ''
+              currency_conversion_rate: '0.000000000'
+              cvc2_result: ''
+              cvv2_result: ''
+              entry_mode: '01'
+              expiration_date: '1022'
+              external_id: ''
+              funded_date: '2021-11-01'
+              health_care_card: ''
+              invoice_id: '54321669898'
+              location_dba_name: "MMISTest DBA NAME"
+              market_specific_indicator: ''
+              mc_cardholder_authentication: ''
+              mc_security_protocol: ''
+              merchant_reference_number: '32100000'
+              mobile_indicator: ''
+              partial_auth_indicator: ''
+              pc_terminal_capability: ''
+              pinless_debit: 'N'
+              reject_reason: ''
+              response_code: ''
+              soft_descriptor: "ABC*MMISTest LEGAL"
+              store_number: '01'
+              submitted_currency_amount: "10"
+              submitted_currency_code: '840'
+              terminal_id: '54321'
+              total_auth_amount: "10"
+              transaction_date: '2021-11-01'
+              transaction_integrity_class: ''
+              transaction_mode: "A"
+              transaction_source: "A"
+              transaction_status: "A"
+              transaction_time: '20:30:00'
+              transaction_type: '3'
+              usage_indicator: "A"
+              visa_chip_condition_code: ''
+              visa_purchase_identifier: ''
+              visa_purchase_identifier_format: '1'
+              visa_service_develop: '1'
+              location_id: '52606609801'
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              plan_code: "VABC"
+              reclass_code: ''
+              record_type: "CREDIT_DETAIL_FUNDED"
+              hierarchy_id: '52606609801'
+              hierarchy_level_no: '10'
+              date_added: '2021-11-01'
+              surcharge_indicator: ''
+              surcharge_amount: "0"
+              special_reference_1: ''
+              special_reference_2: ''
+              user_data_2: ''
+    TransactionSplitResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: FOUND
+          transactions:
+            - _id: 6f2522147afbba675c
+              processed_currency_code: '840'
+              submerchant_id: '00052606609801'
+              card_type: '00001'
+              reject_indicator: 'N'
+              transaction_amount: "10"
+              transaction_id: '6669800004321'
+              airline_ticket_number: ''
+              auth_source: ''
+              authorization_amount: "10"
+              reference_number: '66998669893214321000001'
+              authorization_code: "0000AB"
+              authorization_date: '2021-11-01'
+              authorization_response_code: '00'
+              authorization_sic_code: '5000'
+              avs_flag: "Z"
+              bank_reference_number: ''
+              batch_date: '2021-11-01'
+              batch_number: '666989800001'
+              card_number: "XXXXXXXXXXXX4321"
+              card_presence_indicator: '1'
+              cardholder_id_method: ''
+              cat_level: ''
+              currency_conversion_rate: '0.000000000'
+              cvc2_result: ''
+              cvv2_result: ''
+              entry_mode: '01'
+              expiration_date: '1022'
+              external_id: ''
+              funded_date: '2021-11-01'
+              health_care_card: ''
+              invoice_id: '54321669898'
+              location_dba_name: "MMISTest DBA NAME"
+              market_specific_indicator: ''
+              mc_cardholder_authentication: ''
+              mc_security_protocol: ''
+              merchant_reference_number: '32100000'
+              mobile_indicator: ''
+              partial_auth_indicator: ''
+              pc_terminal_capability: ''
+              pinless_debit: 'N'
+              reject_reason: ''
+              response_code: ''
+              soft_descriptor: "ABC*MMISTest LEGAL"
+              split_details:
+                - processing_fee: '0.0100'
+                  hold_flag: "STORE_SPLIT"
+                  txm_unique_id: '-52606609801-52606609801'
+                  amount: '10.00'
+                  source_merchant_id: '52606609801'
+                  target_merchant_id: '52606609801'
+                  source_node_id: "20000"
+                  target_hierarchy_type: "1"
+                  target_node_id: "20000"
+              store_number: '01'
+              submitted_currency_amount: "10"
+              submitted_currency_code: '840'
+              terminal_id: '54321'
+              total_auth_amount: "10"
+              transaction_date: '2021-11-01'
+              transaction_integrity_class: ''
+              transaction_mode: "A"
+              transaction_source: "A"
+              transaction_status: "A"
+              transaction_time: '20:30:00'
+              transaction_type: '3'
+              usage_indicator: "A"
+              visa_chip_condition_code: ''
+              visa_purchase_identifier: ''
+              visa_purchase_identifier_format: '1'
+              visa_service_develop: '1'
+              location_id: '52606609801'
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              plan_code: "VABC"
+              reclass_code: ''
+              record_type: "CREDIT_DETAIL_FUNDED"
+              hierarchy_id: '52606609801'
+              hierarchy_level_no: '10'
+              date_added: '2021-11-01'
+              surcharge_indicator: ''
+              surcharge_amount: "0"
+              special_reference_1: ''
+              special_reference_2: ''
+              user_data_2: ''
+    TransactionRejectResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: FOUND
+          transactions:
+            - _id: 6f2522147afbba675c
+              processed_currency_code: '840'
+              submerchant_id: '00052606609801'
+              card_type: '00001'
+              reject_indicator: 'Y'
+              transaction_amount: "10"
+              transaction_id: '6669800004321'
+              airline_ticket_number: ''
+              auth_source: ''
+              authorization_amount: "10"
+              reference_number: '66998669893214321000001'
+              authorization_code: "0000AB"
+              authorization_date: '2021-11-01'
+              authorization_response_code: '00'
+              authorization_sic_code: '5000'
+              avs_flag: Z
+              bank_reference_number: ''
+              batch_date: '2021-11-01'
+              batch_number: '666989800001'
+              card_number: XXXXXXXXXXXX4321
+              card_presence_indicator: '1'
+              cardholder_id_method: ''
+              cat_level: ''
+              currency_conversion_rate: '0.000000000'
+              cvc2_result: ''
+              cvv2_result: ''
+              entry_mode: '01'
+              expiration_date: '1022'
+              external_id: ''
+              funded_date: '2021-11-01'
+              health_care_card: ''
+              invoice_id: '54321669898'
+              location_dba_name: MMISTest DBA NAME
+              market_specific_indicator: ''
+              mc_cardholder_authentication: ''
+              mc_security_protocol: ''
+              merchant_reference_number: '32100000'
+              mobile_indicator: ''
+              partial_auth_indicator: ''
+              pc_terminal_capability: ''
+              pinless_debit: 'N'
+              reject_reason: "29 - INVALID TRANSACTION AMOUNT"
+              response_code: ''
+              soft_descriptor: ABC*MMISTest LEGAL
+              store_number: '01'
+              submitted_currency_amount: "10"
+              submitted_currency_code: '840'
+              terminal_id: '54321'
+              total_auth_amount: "10"
+              transaction_date: '2021-11-01'
+              transaction_integrity_class: ''
+              transaction_mode: A
+              transaction_source: A
+              transaction_status: A
+              transaction_time: '20:30:00'
+              transaction_type: '3'
+              usage_indicator: A
+              visa_chip_condition_code: ''
+              visa_purchase_identifier: ''
+              visa_purchase_identifier_format: '1'
+              visa_service_develop: '1'
+              location_id: '52606609801'
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              plan_code: VABC
+              reclass_code: ''
+              record_type: CREDIT_DETAIL_FUNDED
+              hierarchy_id: '52606609801'
+              hierarchy_level_no: '10'
+              date_added: '2021-11-01'
+              surcharge_indicator: ''
+              surcharge_amount: "0"
+              special_reference_1: ''
+              special_reference_2: ''
+              user_data_2: ''
+    AuthorizationResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '1'
+          page: '1'
+          summary_status: FOUND
+          authorizations:
+            - _id: 617ce27ea722d2997ce
+              alliance_id: "16000200"
+              pfac_node_id: "1"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "4000"
+              location_id: '52606609801'
+              date_added: '2021-11-01'
+              record_type: AUTHORIZATION_DETAILS
+              hierarchy_id: '52606609801'
+              hierarchy_level_no: '60'
+              location_dba_name: MMISTest DBA Name
+              store_number: ''
+              external_id: ''
+              currency_code: '840'
+              card_type: '00001'
+              cardholder_number: XXXXXXXXXXXX4321
+              expiration_date: '0122'
+              auth_amount_sign: +
+              auth_amount: '10.15'
+              auth_time: '09:30:15'
+              auth_date: '2021-11-01'
+              auth_code: ''
+              avs_flag: Z
+              response_code: '1'
+              service_code: ''
+              auth_trans_code: ''
+              aci: 'N'
+              cavv_ucaf: '0'
+              mc_promotion_code: ''
+              mc_pos_data_codes: ''
+              visa_valid_code: ''
+              visa_dynamic_currency_code: ''
+              authorization_fee_sign: ''
+              authorization_fee: ''
+              network_fee_sign: ''
+              network_fee: ''
+              order_number: "43216698    0000669898"
+              auth_tracker: '43266.0010200034567'
+              settlement_status: NOT_SETTLED
+              user_data_2: ''
+    AdjustmentResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '1'
+          page: '1'
+          summary_status: FOUND
+          adjustments:
+            - _id: 1cffga3bba5e4724528
+              alliance_id: "16000200"
+              pfac_node_id: "10"
+              location_id: '54321669898'
+              date_added: '2021-11-01'
+              record_type: ADJUSTMENT_DETAIL
+              hierarchy_id: '54321669898'
+              hierarchy_level_no: '60'
+              location_dba_name: MMISTest DBA Name
+              store_number: AGENT
+              external_id: ''
+              funded_date: '2021-11-01'
+              processed_date: '2021-11-01'
+              currency_code: '840'
+              dda_number: XXXXX4321
+              aba_number: XXXXX1234
+              adjustment_date: '2021-11-01'
+              card_type: '00002'
+              adjustment_code: '15'
+              adjustment_description: ASSESSMENT FEE $10.00
+              adjustment_amount_sign: '-'
+              adjustment_amount: '-0.06'
+              adjustment_type: C
+              invoice_date: '2021-11-01'
+              adjustment_invoice_number: '000000'
+              batch_number: '000'
+              card_number: ''
+              chargeback_code: ''
+              case_number: '00000'
+              bank_reference_number: ''
+              sds_reference_number: ''
+              new_adjustment_description: ASSESSMENT FEE
+              transaction_count: '1'
+              rate: '0.001200'
+              unit_amount: '10.00'
+              submit_date: '2021-11-01'
+              special_reference_1: ''
+        
+        
+        
+    ChargebackResponse:
+      value:
+        result: "SUCCESS"
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: "FOUND"
+          chargebacks:
+            - _id: "djjaee4cce8de5jae"
+              alliance_id: "16000001"
+              pfac_node_id: "10"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "3000"
+              location_id: '526232132199'
+              date_added: '2021-11-01'
+              record_type: "CHARGEBACK_DETAIL"
+              hierarchy_id: '526232000099'
+              hierarchy_level_no: '10'
+              location_dba_name: "MMISTest DBA NAME"
+              store_number: ''
+              external_id: ''
+              dispute_type: "Pre-Arbitration"
+              request_type: "F"
+              status_date: '2021-11-01'
+              status_description: "REVERSED"
+              request_date: '2021-11-01'
+              chargeback_currency_code: '840'
+              dispute_amount_sign: "+"
+              dispute_amount: 10.30
+              reason_code: '1000'
+              reason_code_description: "Fraud"
+              ids_case_number: '669949966001'
+              acquirer_reference_number: '666989832100000111'
+              chargeback_cycle: I
+              first_chargeback_date: '2021-11-01'
+              card_type: '00001'
+              card_number: "XXXXXXX6699"
+              exp_date: ''
+              adjustment_date: '2021-11-01'
+              transaction_date: '2021-11-01'
+              batch_date: '2021-11-01'
+              batch_number: '6669999321'
+              processed_transaction_currency_code: '840'
+              processed_transaction_amount_sign: +
+              processed_transaction_amount: "10.30"
+              authorization_code: "AB001D"
+              invoice_number: '66698989'
+              airline_ticket_number: ''
+              sic_code: '0001'
+              receive_date: '20211011'
+              adjustment_amount_sign: +
+              adjustment_amount: "10.30"
+              submerchant_id: '000526333132199'
+              soft_descriptor: "ABC*MMISTest Business"
+              submitted_transaction_currency_code: '840'
+              submitted_transaction_amount_sign: "+"
+              submitted_transaction_amount: "10.30"
+              transaction_service_code: '0'
+              transaction_pos_entry_mode: '01'
+              work_type: ''
+              loan_number: ''
+              work_order_number: ''
+              mobile_indicator: ''
+              special_reference_2: ''
+              user_data_2: ''
+    ChargebackAdjustmentResponse:
+      value:
+        result: "SUCCESS"
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: "FOUND"
+          chargeback_adjustments:
+            - _id: "ddss9eebae9565aeeb"
+              alliance_id: "16000200"
+              pfac_node_id: "10"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "3000"
+              location_id: '526232132199'
+              date_added: '2021-11-10'
+              record_type: "ADJUSTMENT_DETAIL"
+              hierarchy_id: '526232000099'
+              hierarchy_level_no: '10'
+              location_dba_name: "MMISTest DBA NAME"
+              store_number: ''
+              external_id: ''
+              funded_date: '2021-11-01'
+              processed_date: '2021-11-01'
+              currency_code: '840'
+              dda_number: "XXXXX321"
+              aba_number: "XXXXX6699"
+              adjustment_date: '2021-11-01'
+              card_type: '00001'
+              adjustment_code: "CB"
+              adjustment_description: "REVERSALS"
+              adjustment_amount_sign: "+"
+              adjustment_amount: '10.30'
+              adjustment_type: "C"
+              invoice_date: '2021-11-01'
+              adjustment_invoice_number: '3339866669001'
+              batch_number: '666933221'
+              card_number: "XXXXXXXXXXXX6699"
+              chargeback_code: '1000'
+              case_number: '666993321001'
+              bank_reference_number: ''
+              sds_reference_number: ''
+              new_adjustment_description: "REVERSALS"
+              transaction_count: '0'
+              rate: '0.000000'
+              unit_amount: '0.00'
+              submit_date: '2021-11-01'
+              special_reference_1: ''
+        
+        
     RequestMinimalApplication:
       value:
         merchant: 
