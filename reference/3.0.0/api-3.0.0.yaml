@@ -83,7 +83,7 @@ paths:
       summary: Add Subgroup
       description: Add Subgroup
       x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Add Subgroup
+      x-proxy-name: Additional Subgroup
       x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
@@ -452,7 +452,7 @@ paths:
       description: Adds notes to an application. Application must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
       operationId: SUBMIT_NOTE
       x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Add Application Notes
+      x-proxy-name: Add Notes
       x-child-product-name: Boarding Submerchants
       responses:
         '405':
@@ -1890,7 +1890,7 @@ paths:
       tags:
         - Application Boarding
       summary: Add Non-Processing Merchant
-      description: Add Non-Processing Merchant
+      description: Add a third-party onto the system, as a non-processing merchant. Typically used to support split funding payments where a split is required to be sent to a third party on the system. 
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1923,7 +1923,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Add non-processing Merchant Application
+      x-proxy-name: Add Third Party / Non-processing submerchant
       x-child-product-name: Boarding Submerchants
   /fdapplication/upload_additional_files:
     post:
