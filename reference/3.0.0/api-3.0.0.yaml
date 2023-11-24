@@ -15,8 +15,10 @@ paths:
       summary: Add an Application
       description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID
       operationId: ADD_APPLICATION
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add Application
+      x-child-product-name: Boarding Submerchants
+      
       parameters:
       - name: X-API-VERSION
         in: header
@@ -50,8 +52,9 @@ paths:
       summary: Update a Merchant
       description: Update Merchant data of an existing application
       operationId: UPDATE_MERCHANT
-      x-group-name: Submerchant Boarding
+      x-group-name: Update Application
       x-proxy-name: Update Merchant
+      x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
         in: header
@@ -79,8 +82,9 @@ paths:
         - Application Boarding
       summary: Add Subgroup
       description: Add Subgroup
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add Subgroup
+      x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
         in: header
@@ -114,8 +118,9 @@ paths:
         - Application Boarding
       summary: Update Subgroup
       description: Update Subgroup
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Subgroup
+      x-group-name: Update Application
+      x-proxy-name: Update Subgroup
+      x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
         in: header
@@ -177,8 +182,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Subgroup
+      x-group-name: Retrieve Application
+      x-proxy-name: Retrieve Subgroup
+      x-child-product-name: Boarding Submerchants
   /boarding/outlet/add:
     post:
       tags:
@@ -217,8 +223,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Merchant Outlet
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Add Outlet
+      x-child-product-name: Boarding Submerchants
   /boarding/outlet/update:
     post:
       tags:
@@ -252,8 +259,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Outlet
+      x-group-name: Update Application
+      x-proxy-name: Update Outlet
+      x-child-product-name: Boarding Submerchants
   /boarding/outlet/retrieve:
     post:
       tags:
@@ -287,8 +295,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Outlet
+      x-group-name: Retrieve Application
+      x-proxy-name: Retrieve Outlet
+      x-child-product-name: Boarding Submerchants
   /boarding/////merchant:
     post:
       tags:
@@ -315,8 +324,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Data Retrieval
       x-proxy-name: Retrieve Merchant Hierarchy
+      x-child-product-name: Boarding Submerchants
   /boarding///application:
     post:
       tags:
@@ -343,8 +353,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Data Retrieval
       x-proxy-name: Application Status Check
+      x-child-product-name: Boarding Submerchants
   /boarding//application:
     post:
       tags:
@@ -371,8 +382,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Application Submission
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Submit Application
+      x-child-product-name: Boarding Submerchants
   /boarding/////application:
     post:
       tags:
@@ -399,8 +411,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Application
+      x-group-name: Data Retrieval 
+      x-proxy-name: Retrieve Application
+      x-child-product-name: Boarding Submerchants
   /boarding//////application:
     post:
       tags:
@@ -427,18 +440,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Update Application
       x-proxy-name: Unlock Application
+      x-child-product-name: Boarding Submerchants
 
   /boarding/notes/add:
     post:
       tags:
         - Application Boarding
       summary: Add note to an Application
-      description: Adds notes to an appliaction. Appliacation must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
+      description: Adds notes to an application. Application must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
       operationId: SUBMIT_NOTE
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Notes
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Add Application Notes
+      x-child-product-name: Boarding Submerchants
       responses:
         '405':
           description: Invalid input
@@ -461,8 +476,9 @@ paths:
       summary: Retrieve Notes for an application/merchant
       description: Retrieve Notes for an application/merchant
       operationId: RETRIEVE_NOTE
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Notes
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve Application Notes
+      x-child-product-name: Boarding Submerchants
       responses:
         '405':
           description: Invalid input
@@ -485,8 +501,9 @@ paths:
       summary: Retrieve Var Sheet Information for boarded merchant
       description: Retrieve Var Sheet information for an application/merchant
       operationId: RETRIEVE_VAR_SHEET
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Var Sheet
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve VAR Sheet
+      x-child-product-name: Boarding Submerchants
       responses:
         '405':
           description: Invalid input
@@ -510,6 +527,7 @@ paths:
       description: Retrieve Available Offerings
       operationId: LIST_AVAILABLE_OFFERINGS
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Available Offerings
       parameters:
       - name: X-API-VERSION
@@ -541,6 +559,7 @@ paths:
       description: Retrieve Processing Offering
       operationId: RETRIEVE_PROCESSING_OFFERING
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Processing Offerings
       parameters:
       - name: X-API-VERSION
@@ -572,6 +591,7 @@ paths:
       description: Retrieve Equipment Offering
       operationId: RETRIEVE_EQUIPMENT_OFFERING
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Equipment Offerings
       parameters:
       - name: X-API-VERSION
@@ -604,6 +624,7 @@ paths:
       description: Retrieve Online Offering
       operationId: RETRIEVE_ONLINE_OFFERING
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Online Offerings
       parameters:
       - name: X-API-VERSION
@@ -944,7 +965,7 @@ paths:
       summary: "Get settlement rejected information by merchant id, settlement date\
         \ and/or reject date."
       operationId: getSettlementRejects
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Settlement Rejects
       parameters:
       - name: X-API-VERSION
@@ -984,7 +1005,7 @@ paths:
         - Reserve Release
       summary: "Move fund by merchant id, total amount, currency and accounts."
       operationId: reserveReleaseAccount
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Reserve Release
       parameters:
       - name: X-API-VERSION
@@ -1023,7 +1044,7 @@ paths:
       tags:
         - Account Operations
       summary: "Holds, releases, or suspends a submerchant" 
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Hold/Release/Suspend Submerchant
       parameters:
       - name: X-API-VERSION
@@ -1065,7 +1086,7 @@ paths:
         \ id, currency, total amount and accounts."
       x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       operationId: fundingInstruction
       parameters:
       - name: X-API-VERSION
@@ -1108,7 +1129,7 @@ paths:
       operationId: fundingDetailsInstruction
       x-group-name: Funding by Summary
       x-proxy-name: Funding Detailed-Instruction
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1147,7 +1168,7 @@ paths:
         - Account Operations
       summary: "Get trade information by merchant id, date and currency."
       operationId: tradeAccount
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Trade Info
       parameters:
       - name: X-API-VERSION
@@ -1187,7 +1208,7 @@ paths:
         - Account Operations
       summary: "Get settlement information by merchant id, settlement date and currency."
       operationId: getSettlementInfo
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Settlement Info
       parameters:
       - name: X-API-VERSION
@@ -1227,7 +1248,7 @@ paths:
       - Account Operations
       summary: "Get account balance by merchant id, account type and currency."
       operationId: getBalanceAccount
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Account Balance
       parameters:
       - name: X-API-VERSION
@@ -1267,7 +1288,7 @@ paths:
       - Account Operations
       summary: "Get account summary by merchant id, date and currency."
       operationId: getAccountSummary
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Account Summary
       parameters:
       - name: X-API-VERSION
@@ -1311,7 +1332,7 @@ paths:
       operationId: updateSplitInstruction
       x-group-name: Transaction Instruction
       x-proxy-name: Update Transaction Details
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1353,7 +1374,7 @@ paths:
       operationId: splitInstruction
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Details
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1395,7 +1416,7 @@ paths:
       operationId: splitInstructionStatus
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Status
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1437,7 +1458,7 @@ paths:
       operationId: splitReprocess
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Reprocess
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1478,7 +1499,7 @@ paths:
       operationId: getErroredTransactions
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Instruction Errors
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1520,7 +1541,7 @@ paths:
       operationId: discardTransaction
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Discard
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1894,13 +1915,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add non-processing Merchant Application
+      x-child-product-name: Onboarding Submerchants
   /fdapplication/upload_additional_files:
     post:
       tags:
         - Application Boarding
-      summary: Uploading Additional Documents to Exchange
+      summary: Uploading Additional Documents to Exchange (Shared Service Model)
       description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
       parameters:
       - name: X-API-VERSION
@@ -1924,8 +1946,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Upload Additional Documents
+      x-child-product-name: Onboarding Submerchants
   /boarding/document_categories:
     post:
       tags:
@@ -1959,13 +1982,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Configured Document Categories
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve Configured Documents
+      x-child-product-name: Boarding Submerchants
   /fdapplication/submit_additional_documents:
     post:
       tags:
         - Application Boarding
-      summary: Submitting additional documents to application
+      summary: Submitting additional documents to application (Shared service model)
       description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
       parameters:
       - name: X-API-VERSION
@@ -1994,8 +2018,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Submit additional documents for Application
+      x-child-product-name: Boarding Submerchants
   /intelligence/retrieve_intelligence:
     post:
       tags:
