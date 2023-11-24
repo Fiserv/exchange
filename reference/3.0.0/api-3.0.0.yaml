@@ -182,7 +182,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Retrieve Application
+      x-group-name: Data Retrieval
       x-proxy-name: Retrieve Subgroup
       x-child-product-name: Boarding Submerchants
   /boarding/outlet/add:
@@ -295,7 +295,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Retrieve Application
+      x-group-name: Data Retrieval
       x-proxy-name: Retrieve Outlet
       x-child-product-name: Boarding Submerchants
   /boarding/////merchant:
@@ -656,6 +656,7 @@ paths:
       operationId: searchTransactions
       x-group-name: Transactions
       x-proxy-name: Search Transactions
+      description : Retrieves the Transaction data provided from Clientline to Exchange. This typically represents transactions made at the point of sale. The date_added indicates the date the record was added to Exchange.
       parameters:
       - name: X-API-VERSION
         in: header
@@ -708,6 +709,7 @@ paths:
       - Search Transactions
       summary: Get reject transactions.
       operationId: searchRejectTransactions
+      description: Retrieves the Reject  data provided from Clientline to Exchange. This typically represents rejects at the POS and is pulled into exchange on a daily cadence before the instructional hold window opens. Rejects usually have a matching deposit adjustment record to balance this out.
       x-group-name: Transactions
       x-proxy-name: Search Rejects
       parameters:
@@ -759,6 +761,7 @@ paths:
       - Search Transactions
       summary: Get chargeback transactions.
       operationId: searchChargebackTransactions
+      description: Retrieves the Chargeback  data provided from Clientline to Exchange. This typically represents a chargebacks cases movement (where there are new records for status changes), and is pulled into exchange on a daily cadence before the instructional hold window opens.
       x-group-name: Transactions
       x-proxy-name: Chargebacks
       parameters:
@@ -810,6 +813,7 @@ paths:
       tags:
       - Search Transactions
       summary: Get chargeback adjustment transactions.
+      description: Retrieves the Chargeback Adjusment data provided from Clientline to Exchange. This typically represents actual financial impact + adjustment of the Chargeback and is pulled into exchange on a daily cadence before the instructional hold window opens.
       operationId: searchChargebackAdjustmentTransactions
       x-group-name: Transactions
       x-proxy-name: Chargeback Adjustments
@@ -861,6 +865,7 @@ paths:
       tags:
       - Search Transactions
       summary: Get authorization transactions.
+      description: Retrieves Authorization data provided from Clientline to Exchange, based on the query used. This is updated every 15 minutes 
       operationId: searchAuthorizationTransactions
       x-group-name: Transactions
       x-proxy-name: Authorizations
@@ -915,6 +920,7 @@ paths:
       x-group-name: Transactions
       x-proxy-name: Adjustments
       operationId: searchAdjustmentTransactions
+      description: Retrieves the Adjusment data provided from Clientline to Exchange. 
       parameters:
       - name: X-API-VERSION
         in: header
@@ -967,6 +973,7 @@ paths:
       operationId: getSettlementRejects
       x-group-name: Submerchant Account Operations
       x-proxy-name: Get Settlement Rejects
+      description: Pulls an ACH settlement reject that has occured from Exchanges funding to the submerchant or PFAC. Will return identifier to link to original settlement, and Reason code for the reject. Rejects may need to be reprocess through the User interface.
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1876,7 +1883,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-group-name: Information Retrieval
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Bank Details
   /boarding/nonprocessingapplication:
     post:
@@ -1917,7 +1924,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add non-processing Merchant Application
-      x-child-product-name: Onboarding Submerchants
+      x-child-product-name: Boarding Submerchants
   /fdapplication/upload_additional_files:
     post:
       tags:
@@ -1948,7 +1955,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Upload Additional Documents
-      x-child-product-name: Onboarding Submerchants
+      x-child-product-name: Boarding Submerchants
   /boarding/document_categories:
     post:
       tags:
