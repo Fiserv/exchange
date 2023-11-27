@@ -42,7 +42,7 @@ paths:
               $ref: '#/components/schemas/AddApplication'
             examples:
               RequiredPayLoad:
-                summary: Minimum Payload required to board, using defaults in configuration for settings
+                summary: Minimum standard Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalApplication'
               
   /boarding/update_merchant:
@@ -206,7 +206,7 @@ paths:
               $ref: '#/components/schemas/AddOutletRequest'
             examples:
               RequiredPayLoad:
-                summary: Minimum Payload required to board, using defaults in configuration for settings
+                summary: Minimum standard Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalOutlet'
         required: true
 
@@ -20753,9 +20753,6 @@ components:
           visitation_required: "1"
           primary_email_address: "email@domain.com"
           mcc_code: "5733"
-          mastercard_sales: "100000.00"
-          visa_sales: "100000.00"
-          visa_mastercard_sales: "100000.00"
           discover_required: "1"
           amex_required: "1"
           amex_volume: "100000.00"
