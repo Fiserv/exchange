@@ -709,7 +709,7 @@ paths:
       - Search Transactions
       summary: Get reject transactions.
       operationId: searchRejectTransactions
-      description: Retrieves the Reject  data provided from Clientline to Exchange. This typically represents rejects at the POS and is pulled into exchange on a daily cadence before the instructional hold window opens. Rejects usually have a matching deposit adjustment record to balance this out.
+      description: Retrieves the Reject  data provided from Clientline to Exchange. This typically represents rejects after a transaction authorization and is pulled into exchange on a daily cadence before the instructional hold window opens. Rejects usually have a matching deposit adjustment record to balance this out.
       x-group-name: Transactions
       x-proxy-name: Search Rejects
       parameters:
