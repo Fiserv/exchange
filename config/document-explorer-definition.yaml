@@ -33,13 +33,11 @@
       link: docs/introduction/exchange-intro.md
       open: true
       sections:
-        - title: Exchange 
+        - title: Introduction
           link: docs/introduction/exchange-intro.md
-        - title: Exchange APIs
-          link: docs/introduction/exchange-apis.md
-        - title: Boarding 
+        - title: Onboarding Submerchants 
           link: docs/getting-started/boarding.md
-        - title: Funding 
+        - title: Submerchant Funding 
           link: docs/getting-started/funding.md
 - sections:
   - title: Additional API Info
