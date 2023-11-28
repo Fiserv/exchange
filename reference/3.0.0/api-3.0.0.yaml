@@ -383,7 +383,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Submit Application
+      x-proxy-name: Application Submit
       x-child-product-name: Boarding Submerchants
   /boarding/////application:
     post:
