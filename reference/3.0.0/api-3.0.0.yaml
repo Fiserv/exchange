@@ -1107,6 +1107,22 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/FundingInstructionRequest'
+            example:
+              NetCBInstruction:
+                summary: Funding scenario where Chargeback is netted from submerchants processing revenue. 
+                $ref: '#/components/examples/RequestNetCBInstruction'
+              DebitCBInstruction:
+                summary: Funding scenario where Chargeback is billed gross from the submerchant. 
+                $ref: '#/components/examples/RequestDebitCBInstruction'
+              GrossInstruction:
+                summary: Funding scenario where billing for submerchant fee and chargeback is calculated gross.
+                $ref: '#/components/examples/RequestGrossInstruction'
+              ServiceFeeBilling:
+                summary: Funding scenario where service fee is used to bill submerchant on top of processing fees.
+                $ref: '#/components/examples/RequestServiceBillingInstruction'
+              DebitSub:
+                summary: Funding scenario where submerchant owes more than in instructional hold. In this scenario, the instructional hold is $100 and taken fully using the fee account, and the submerchant debited an additional 20.
+                $ref: '#/components/examples/RequestDebitSubInstruction'
         required: true
       responses:
         "200":
@@ -1135,7 +1151,7 @@ paths:
         the amounts to be instructed.
       operationId: fundingDetailsInstruction
       x-group-name: Funding by Summary
-      x-proxy-name: Funding Detailed-Instruction
+      x-proxy-name: Funding Instruction with Details
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
@@ -1249,6 +1265,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SettlementInfoResponse'
+              examples:
+                GeneralInstructionalSettlement:
+                  summary: Example for a settlement generated with Instructional Funding
+                  $ref: '#/components/examples/ResponseInstructionalSettlement'
+                GeneralAutoSettlement:
+                  summary: Example for a settlement generated with Auto Funding
+                  $ref: '#/components/examples/ResponseManageSettlement'
   /account/balance:
     post:
       tags:
@@ -1289,6 +1312,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountBalanceResponse'
+              examples:
+                InstructionalAccount:
+                    summary: Example Response for the instructional hold account.
+                    $ref: '#/components/examples/ResponseAccountInstructionalHold'
+
+                    
   /account/account-summary:
     post:
       tags:
@@ -1317,6 +1346,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountSummaryResponse'
+              examples:
+                GeneralSummary:
+                    summary: Example Response where a standard blended fee is taken from the submerchants transactions processed. Linked settlement is available for dates where settlement has generated at the time of requesting information.
+                    $ref: '#/components/examples/ResponseAccountSummaryGeneral'
+                
 
         "404":
           description: Merchant/Account not found
@@ -21129,7 +21163,292 @@ components:
           - "mobileclient"
         jti: "l0ae-762d-01cd-01cd-cdxLpaSa32"
         refresh_token: "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
-
+    ResponseAccountSummaryGeneral:
+      value:
+        result: SUCCESS
+        trade_summary:
+          transaction_amount: '130.5000'
+          refund_amount: '-20.5000'
+          net_transaction_amount: '110.5000'
+          rejected_amount: '10.0000'
+          deposit_adjustments: '-10.0000'
+          chargeback: '0.0000'
+          chargeback_reversal: '0.0000'
+          USD:
+            currency: USD
+            transaction_amount: '130.5000'
+            refund_amount: '-20.5000'
+            net_transaction_amount: '110.5000'
+            rejected_amount: '10.0000'
+            deposit_adjustments: '-10.0000'
+            chargeback: '0.0000'
+            chargeback_reversal: '0.0000'
+        account_summary:
+          USD:
+            - account_type: RESERVE_ACCOUNT
+              description: Reserve
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: MERCHANT_FEE_ACCOUNT
+              description: Fee(Net)
+              total_in: '25.5000'
+              total_out: '25.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '7':
+                  amount: '25.5000'
+                  destination: FEE_ACCOUNT
+                  description: Fees(Total)
+            - account_type: CHARGEBACK_ACCOUNT
+              description: Chargeback
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: SUSPEND_ACCOUNT
+              description: Suspend
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: FEE_COLLECT_ACCOUNT
+              description: Gross Fee Collection
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: GROSS_FEE_ACCOUNT
+              description: Fee(Gross)
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: REJECT_HOLD_ACCOUNT
+              description: Reject Hold
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: SERVICE_FEE_ACCOUNT
+              description: Service Fee
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: FEE_ACCOUNT
+              description: Fees(Total)
+              total_in: '25.5000'
+              total_out: '25.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '7':
+                  amount: '25.5000'
+                  destination: FEE_ACCOUNT
+                  description: Fees(Total)Rolling-up
+            - account_type: REVENUE_ACCOUNT
+              description: Net Processing
+              total_in: '85.0000'
+              total_out: '85.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '99':
+                  amount: '85.0000'
+                  destination: NACHA_OUTPUT_ACCOUNT
+                  description: Settlement Output
+            - account_type: HOLD_ACCOUNT
+              description: Hold
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '85.0000'
+            settlement_status: PENDING
+            dda: '******4321'
+            aba: '6669898321'
+            effective_date: '2021-11-01'
+            settlement_ref: SETR2-KC6A9-APLOE-29919-79LPA-EUI79-KC679
+            mid: '52600000321'
+        
+    ResponseAccountInstructionalHold:
+      value:
+        result: SUCCESS
+        account:
+          account_type: INSTRUCTIONAL_HOLD_ACCOUNT
+          currency: USD
+          balance: '854.0100'
+          previous_balance: '795.1400'
+          today_in: '0.0000'
+          today_out: '0.0000'
+          merchant_id: '52600000321'
+    ResponseManageSettlement:
+      value:
+        result: SUCCESS
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '20.5000'
+            settlement_status: PENDING
+            dda: '******4321'
+            aba: '6669898321'
+            effective_date: '2021-11-01'
+            settlement_ref: SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA
+        settlement_details:
+          - amount: '0.0000'
+            description: Reserve
+            account_type: RESERVE_ACCOUNT
+          - amount: '20.5000'
+            description: Net Processing
+            account_type: REVENUE_ACCOUNT
+          - amount: '0.0000'
+            description: Chargeback
+            account_type: CHARGEBACK_ACCOUNT
+          - amount: '10.5000'
+            description: Fees(Total)
+            account_type: FEE_ACCOUNT
+        instructions_received: []
+    ResponseInstructionalSettlement:
+      value:
+        result: SUCCESS
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '20.5000'
+            settlement_status: PENDING
+            dda: '******4321'
+            aba: '6669898321'
+            effective_date: '2021-11-01'
+            settlement_ref: SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA
+        settlement_details:
+          - amount: '0.0000'
+            description: Reserve
+            account_type: RESERVE_ACCOUNT
+          - amount: '98.5000'
+            description: Net Processing
+            account_type: REVENUE_ACCOUNT
+          - amount: '0.0000'
+            description: Chargeback
+            account_type: CHARGEBACK_ACCOUNT
+          - amount: '2.2500'
+            description: Fees(Total)
+            account_type: FEE_ACCOUNT
+        instructions_received:
+          - received_datetime: '2021-11-01 21:00:00'
+            received_instruction:
+              - account_type: REVENUE_ACCOUNT
+                amount: '98.50'
+              - account_type: FEE_ACCOUNT
+                amount: '2.20'
+        
+    RequestNetCBInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '85.00'
+            type: CREDIT
+        billing:
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+        chargeback:
+          - account_type: CHARGEBACK
+            amount: '10.50'
+            type: CREDIT
+    RequestDebitCBInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '95.00'
+            type: CREDIT
+        billing:
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+        chargeback:
+          - account_type: CHARGEBACK
+            amount: '10.50'
+            type: CREDIT
+    RequestGrossInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '100.00'
+            type: CREDIT
+        billing:
+          - account_type: SERVICE_FEE
+            amount: '5.00'
+            type: CREDIT
+        chargeback:
+          - account_type: CHARGEBACK
+            amount: '10.00'
+            type: CREDIT
+    RequestServiceBillingInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '85.00'
+            type: CREDIT
+          - account_type: FEE
+            amount: '10.00'
+            type: CREDIT
+        billing:
+          - account_type: SERVICE_FEE
+            amount: '30.00'
+            type: CREDIT
+    RequestDebitSubInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '20.00'
+            type: DEBIT
+        billing:
+          - account_type: FEE
+            amount: '100.00'
+            type: CREDIT
   requestBodies:
     statusMode:
       content:
