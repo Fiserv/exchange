@@ -2536,8 +2536,139 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Principal'
+        merchant_portal_accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              merchant_title:
+                type: string
+                example: "Merchant title"
+                maxLength: 30
+              merchant_first_name:
+                type: string
+                example: "Merchant first name"
+                minLength: 2
+                maxLength: 24
+              merchant_second_name:
+                type: string
+                example: "Merchant second name"
+                maxLength: 24
+              merchant_surname:
+                type: string
+                example: "Merchant surname"
+                minLength: 2
+                maxLength: 24
+              merchant_email:
+                type: string
+                example: "my@email.com"  
+                maxLength: 50
+              merchant_phone_no:
+                type: string
+                example: "3339898990"
+                maxLength: 15
+              merchant_phone_code:
+                type: string
+                example: US|1
+                maxLength: 30
         settings:
-            $ref: '#/components/schemas/Settings'
+          type: object
+          properties:
+            pricing_level:
+              type: string
+              example: BUSINESS
+              enum:
+                - BUSINESS
+                - OUTLET
+                - Business
+                - Outlet
+            take_reserves_flag:
+              $ref: '#/components/schemas/TakeReservesFlag'
+            funding:
+              type: object
+              properties:
+                funding_level:
+                  description: Dependent on depth of hierarchy, used to indicate funding level of submerchant
+                  type: string
+                  enum: 
+                    - "1"
+                    - "2"
+                    - "3"
+                  example: "3"
+                  minLength: 1
+                  maxLength: 1
+                settlement_method:
+                  description: 1 - Instruction, 2 - Instruction on Transaction, 3 - Auto
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                funding_frequency:
+                  description: 1 - Daily, 2 - Weekly, 3 - Monthly
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                delay_funding_flag:
+                  type: string
+                  description: "Enabled a funding delay for the submerchant, so Funding_delay days can be passed."
+                  example: "0"
+                  enum:
+                    - "0"
+                    - "1"
+                funding_delay_days:
+                  type: string
+                  description: "Allows a funding delay to be specified in days. Must have delay_funding flag = 1 to be added. Example : 2 "
+                funding_day:
+                  type: string
+                  description: "Defines a day of the week, where 1 = Monday and 7= Sunday. Required if funding frequency = 2 (Weekly)"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                    - "4"
+                    - "5"
+                    - "6"
+                    - "7"
+                funding_month:
+                  type: string
+                  description: "Allows funding to be settled at the stard of month or end of month, if delay_funding flag is enabled. 1 = Start of month, 2 = End of month"
+                  enum:
+                    - "1"
+                    - "2"
+                same_day_ach:
+                  type: string
+                  description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+                  enum: 
+                    - "0"
+                    - "1"
+                  example: "1"
+                tx_instruction_on:
+                  $ref: '#/components/schemas/TxInstructionOn'
+                tx_source_card:
+                  $ref: '#/components/schemas/TxSourceCard'
+                tx_source_ach:
+                  $ref: '#/components/schemas/TxSourceAch'
+                tx_source_ach_funding_option:
+                  $ref: '#/components/schemas/TxSourceAchFundingOption'
+                tx_source_ach_settlement_method:
+                  $ref: '#/components/schemas/TxSourceAchSettlementMethod'
+                tx_source_card_funding_option:
+                  $ref: '#/components/schemas/TxSourceCardFundingOption'
+                tx_source_card_settlement_method:
+                  $ref: '#/components/schemas/TxSourceCardSettlementMethod'
+              required:
+                - funding_level
+            billing:
+              $ref: '#/components/schemas/Billing'
+            reserve:
+              $ref: '#/components/schemas/Reserve'
+            chargeback:
+              $ref: '#/components/schemas/Chargeback'
         offer_package:
             $ref: '#/components/schemas/Offer'
         parent_entity:
@@ -2547,7 +2678,34 @@ components:
         registration_address:
             $ref: '#/components/schemas/Contact'
         merchant_sub_group:
-            $ref: '#/components/schemas/Subgroup'
+          type: object
+          properties:
+            group_name:
+              type: string
+              example: test
+            parent_mid: 
+              type: string
+              example: 700100000004360
+            banks:
+              type: array
+              items:
+                $ref: '#/components/schemas/Bank'
+            contacts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SubgroupContact'
+        merchant_account_required:
+          type: string
+          example: "1"
+          enum:
+            - "0"
+            - "1"
+        use_owners_for_merchant_users:
+          type: string
+          example: "1"
+          enum:
+            - "0"
+            - "1"
       xml:
         name: order
     Merchant:
@@ -2584,6 +2742,8 @@ components:
           type: string
           description: Mid of the node being boarded under. 
           example: '123456789'
+      required:
+        - parent_mid
       xml:
         name: customer
     Bank:
@@ -2592,33 +2752,41 @@ components:
         bank_name:
           type: string
           example: "Bank of Test"
+          maxLength: 255
         bank_city:
           type: string
           example: "City"
+          maxLength: 255
         country_code:
           type: string
           example: "840"
         zip_code:
           type: string
           example: "12345"
+          maxLength: 15
         county_code:
           type: string
           example: CA
+          maxLength: 50
         street_line_1:
           type: string
           example: "Sample Street"
+          maxLength: 50
         floor:
           type: string
           example: "1"
+          maxLength: 50
         suite_apart_number:
           type: string
           example: "1"
+          maxLength: 50
         province:
           type: string
           example: XXX
         account_holder_name:
           type: string
           example: test test
+          maxLength: 100
         bank_account_type:
           type: string
           example: CHECKING
@@ -2628,17 +2796,22 @@ components:
         dda_number:
           type: string
           example: '123456789'
-          maxLength: 9
+          minLength: 6
+          maxLength: 17
         routing_number:
           type: string
           example: '333989898'
-          maxLength: 17
+          minLength: 9
+          maxLength: 9
         account_type:
           type: array
           description: To designate what we settle to the bank in this object. CREDIT, DEBIT, CHARGEBACK"
           items:
             type: string
             example: ["CREDIT", "DEBIT", "CHARGEBACK"]
+      required: 
+        - account_type
+        - bank_account_type
       xml:
         name: customer
     NumberEmployees:
@@ -2651,7 +2824,8 @@ components:
         legal_name:
           type: string
           example: Test Business
-          maxLength: 100
+          minLength: 2
+          maxLength: 24
         ownership_entity_type:
           type: string
           description: type of merchant... L - Limited Liability co, G - Government, N - Partnership, S - Association/Estate/Trust, X - Tax Exempt Organisation, U - Public Corp, V - Private Corp, O - Proprietorship 
@@ -2668,7 +2842,7 @@ components:
         reg_number:
           description: registration number of business
           type: string
-          maxLength: 21
+          maxLength: 15
           minLength: 8
           example: '123456789'
         reg_charity_number:
@@ -2687,6 +2861,7 @@ components:
           type: string
           example: Test Business
           maxLength: 40
+          minLength: 2
         irs_status:
           type: string
           description: N - Not Excluded, A - Foreign Entity Verification Pending, B - Foreign Entity Identified before 1/1/11, F - Foreign Entity Verified, D - Non Profit Verification Pending, C - Non Profit Verified, G - Government Entity, J - Financial Institution
@@ -2739,9 +2914,12 @@ components:
           example: "1"
         int_tax_id:
           type: string
+          maxLength: 30
           example: "123456789"
         business_tin_ssn_number:
           type: string
+          minLength: 9
+          maxLength: 9
           example: "123456789"
         mcc_code:
           type: string
@@ -2784,7 +2962,7 @@ components:
         owner_title:
           type: string
           example: Mr.
-          maxLength: 25
+          maxLength: 30
           enum:
             - Mr.
             - Mrs.
@@ -2795,15 +2973,18 @@ components:
         owner_first_name:
           type: string
           example: John
-          maxLength: 25
+          minLength: 2
+          maxLength: 24
         owner_second_name:
           type: string
           example: A.
-          maxLength: 25
+          minLength: 2
+          maxLength: 24
         owner_surname:
           type: string
           example: Doe
-          maxLength: 25
+          minLength: 2
+          maxLength: 24
         contact_dob:
           type: string
           example: "2000-01-01"
@@ -2811,10 +2992,12 @@ components:
           type: string
           description: ISO3 Country Code
           example: '840'
+          maxLength: 30
         owner_position:
           type: string
           description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
           example: OW
+          maxLength: 30
           enum:
             - VICE PRESIDENT
             - PRESIDENT
@@ -2833,10 +3016,19 @@ components:
         owner_phone_code:
           type: string
           example: US|1
+          maxLength: 30
         owner_phone_no:
           type: string
           maxLength: 10
           example: '3339898988'
+        owner_alt_phone_code:
+          type: string
+          example: US|1
+          maxLength: 30
+        owner_alt_phone_no:
+          type: string
+          maxLength: 15
+          example: '3339898989'
         owner_date_started:
           type: string
           description: "YYYY-MM-DD"
@@ -2844,10 +3036,12 @@ components:
         owner_email:
           type: string
           example: "test@test.com"
-          maxLength: 40
+          minLength: 7
+          maxLength: 70
         owner_tin_ssn_number:
           type: string
           example: '123456789'
+          minLength: 9
           maxLength: 9
         is_main_principal:
           type: string
@@ -2855,10 +3049,18 @@ components:
           enum : 
             - "1"
             - "0"
+        create_merchant_portal_account:
+          type: string
+          example: "1"
         ownership_perc:
           description: Ownership of principal being added, principals above 25% ownership should be declared
           type: string
           example: "100"
+          maxLength: 30
+        address_date_from:
+          type: string
+          example: "23-03-2000"
+          description: date format DD-MM-YYYY
         personal_guarantee:
           type: string
           enum:
@@ -2869,13 +3071,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Contact'
+      required:
+        - owner_tin_ssn_number
     Contact:
       type: object
       properties:
         zip_code:
           type: string
           example: "12345"
-          maxLength: 10
+          maxLength: 30
         suite_apart_number:
           type: string
           example: "1"
@@ -2883,16 +3087,21 @@ components:
         floor:
           type: string
           example: "1"
+          maxLength: 50
         province:
           description: typically used for non US countries
           type: string
           example: 'Sample'
+          maxLength: 50
         street_line_1:
           type: string
           example: 'Sample street 1'
+          maxLength: 50
         city:
           type: string
           example: 'Sample City'
+          minLength: 2
+          maxLength: 30
         county_code:
           description: State code, ISO 3166-2:US US-XX
           type: string
@@ -2900,6 +3109,7 @@ components:
         country_code:
           type: string
           example: '840'
+          maxLength: 30
       xml:
         name: contact
     Offer:
@@ -2908,6 +3118,8 @@ components:
         package_external_id:
           type: string
           example: OPK06-TST23-68189-ABCDF-82F6F-68189-CA98A
+          minLength: 41
+          maxLength: 41
       xml:
         name: offer
     Acquiring:
@@ -3061,6 +3273,8 @@ components:
             - "2"
             - "3"
           example: "3"
+          minLength: 1
+          maxLength: 1
         settlement_method:
           description: 1 - Instruction, 2 - Instruction on Transaction, 3 - Auto
           type: string
@@ -3081,6 +3295,9 @@ components:
           type: string
           description: "Enabled a funding delay for the submerchant, so Funding_delay days can be passed."
           example: "0"
+          enum:
+            - "0"
+            - "1"
         funding_delay_days:
           type: string
           description: "Allows a funding delay to be specified in days. Must have delay_funding flag = 1 to be added. Example : 2 "
@@ -3108,6 +3325,8 @@ components:
             - "0"
             - "1"
           example: "1"
+      required:
+        - funding_level
       xml:
         name: funding
     Billing:
@@ -3121,9 +3340,14 @@ components:
             - "1"
             - "2"
             - "3"
+          minLength: 1
+          maxLength: 1
         has_transaction_billing:
           type: string
           example: '1'
+          enum: 
+            - "0"
+            - "1"
         tx_fees_billing_method:
           description: "0 - Not Applicable, 1 - Net, 2 - Gross. Dependant on settlement method specified."
           type: string
@@ -3151,9 +3375,15 @@ components:
         has_equipment_billing:
           type: string
           example: "1"
+          enum: 
+            - "0"
+            - "1"
         has_service_billing:
           type: string
           example: "1"
+          enum: 
+            - "0"
+            - "1"
         billing_day:
           type: string
           description: "Defines a day of the week, where 1 = Monday and 7= Sunday. Required if billing frequency = 2 (Weekly)"
@@ -3171,6 +3401,8 @@ components:
           enum:
             - "1"
             - "2"
+      required:
+        - billing_level
       xml:
         name: billing
     Chargeback:
@@ -5118,6 +5350,9 @@ components:
             alliance_external_id: 
               type: string
               example: ALL5C-BE7C3-88521-14024-3ATST-AB123-C882E
+            partner_external_id:
+              type: string
+              example: BZZ6E-BE7C3-88522-14025-3ATSZ-AB123-D282E
             application_external_id: 
               type: string
               example: APLF6-AF19E-AB123-B2834-3ATST-CF3AE-A9FE2
@@ -5131,6 +5366,12 @@ components:
               type: string
               example: ALLIANCE
             reserve_flag: 
+              type: string
+              example: "0"
+            reserve_type:
+              type: string
+              example: "1"
+            set_reserve_target:
               type: string
               example: "0"
             status_id: 
@@ -5178,7 +5419,7 @@ components:
             contact_postcode: 
               type: string
               example: 12345-1234
-            contact_country_code: 
+            contact_country_code:
               type: string
               example: "840"
             contact_email: 
@@ -5235,9 +5476,15 @@ components:
                 suite_apart_number: 
                   type: string
                   example: "63"
+                province:
+                  type: string
+                  example: "Sample"
             merchant_node_id: 
               type: string
               example: "21123"
+            chargeback_settlement_method:
+              type: string
+              example: "1"
             package_name: 
               type: string
               example: Offer Package
@@ -5266,7 +5513,13 @@ components:
                   example: ALLIANCE M
                 security_code: 
                   type: string
-                  example: 4000
+                  example: "4000"
+                project_name:
+                  type: string
+                  example: "Sample"
+                application_type:
+                  type: string
+                  example: "PETROLEUM"
                 tin_type: 
                   type: string
                   example: 2
@@ -5276,6 +5529,9 @@ components:
                 business_tin_ssn_number_masked: 
                   type: string
                   example: '*****7801'
+                int_tax_exempt_flag:
+                  type: string
+                  example: "1"
                 business_category: 
                   type: string
                   example: R
@@ -5291,6 +5547,9 @@ components:
                   type: string
                   format: int32
                   example: 0
+                reg_charity_number:
+                  type: string
+                  example: "111111111111"
                 incorp_state: 
                   type: string
                   example: AL
@@ -5309,6 +5568,9 @@ components:
                 date_incorporated: 
                   type: string
                   example: "2020-01-01"
+                has_processing_charges:
+                  type: string
+                  example: "0"
                 int_tax_id: 
                   type: string
                   example: 123047801
@@ -5323,6 +5585,9 @@ components:
                   owner_first_name: 
                     type: string
                     example: Jane
+                  owner_second_name: 
+                    type: string
+                    example: Doe
                   owner_surname: 
                     type: string
                     example: Doe
@@ -5353,6 +5618,9 @@ components:
                   is_main_principal: 
                     type: string
                     example: 1
+                  create_merchant_portal_account:
+                    type: string
+                    example: "0"
                   ownership_perc: 
                     type: string
                     example: 100
@@ -5371,6 +5639,9 @@ components:
                   owner_phone_no: 
                     type: string
                     example: '23989802037'
+                  owner_phone_ext:
+                    type: string
+                    example: "50"
                   owner_email: 
                     type: string
                     example: test@fiserv.com
@@ -5406,6 +5677,15 @@ components:
                         county_code: 
                           type: string
                           example: AL
+                        date_from:
+                          type: string
+                          example: "2000-03-23"
+                        date_to:
+                          type: string
+                          example: "2031-03-23"
+                        province:
+                          type: string
+                          example: "Sample"
             tx_fees_billing_method: 
               type: string
               example: '0'
@@ -5547,6 +5827,9 @@ components:
                 tx_fees_billing_method: 
                   type: string
                   example: 0
+                other_fees_billing_method:
+                  type: string
+                  example: "1"
                 has_service_billing: 
                   type: string
                   example: 0
@@ -5626,6 +5909,9 @@ components:
                       fee_collection_type: 
                         type: string
                         example: INTERCHANGE
+                      mp_pricing_type_code:
+                        type: string
+                        example: "10009"
                       charge_items: 
                         type: array
                         items: 
@@ -5705,7 +5991,65 @@ components:
                         format: int32
                         example: 1
                 service_items: 
-                  "example": []
+                  type: array
+                  items: 
+                    type: object
+                    properties:
+                      service_charge_item_external_id:
+                        type: string
+                        example: "SCIB6-AAF57-B18E0-ECBC8-63C33-33C64-8093B"
+                      service_item_name:
+                        type: string
+                        example: "Service Item name"
+                      charge_decimals:
+                        type: string
+                        example: "2"
+                      service_frequency:
+                        type: string
+                        example: "1"
+                      service_ownership:
+                        type: string
+                        example: "1"
+                      instalment_available:
+                        type: string
+                        example: "1"
+                      is_boarding_activated:
+                        type: string
+                        example: "1"
+                      is_activated:
+                        type: string
+                        example: "1"
+                      is_invisible:
+                        type: string
+                        example: "0"
+                      is_mandatory:
+                        type: string
+                        example: "1"
+                      service_item_type:
+                        type: string
+                        example: "1"
+                      split_details:
+                        type: object
+                        properties:
+                          target_merchant_id:
+                            type: string
+                            description: Internal MID of the beneficiary that is recieving split from this offer. Must match the existing information
+                            example : "702200000000002"
+                      service_item_charges:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fee_type:
+                              $ref: '#/components/schemas/FeeType'
+                            minimum_base_charge:
+                              $ref: '#/components/schemas/MinimumCharge'
+                            maximum_base_charge:
+                              $ref: '#/components/schemas/MaximumCharge'
+                            default_base_charge:
+                              $ref: '#/components/schemas/DefaultCharge'
+                            base_charge:
+                              $ref: '#/components/schemas/ApplyCharge'
         merchant_sub_groups: 
           type: array
           items: 
@@ -5735,6 +6079,9 @@ components:
               internal_mid: 
                 type: string
                 example: 700100000004361
+              same_as_outlet_mid:
+                type: string
+                example: "0"
               group_name: 
                 type: string
                 example: SUB GROUP
@@ -5758,7 +6105,16 @@ components:
                 example: 1
               settings: 
                 type: object
-                properties: 
+                properties:
+                  funding_flag:
+                    type: string
+                    example: "0"
+                  billing_flag:
+                    type: string
+                    example: "0"
+                  reserve_flag:
+                    type: string
+                    example: "0"
                   reserve: 
                     type: object
                     properties: 
@@ -5837,6 +6193,9 @@ components:
                   tx_fees_billing_method: 
                     type: string
                     example: 0
+                  other_fees_billing_method:
+                    type: string
+                    example: "1"
                   has_service_billing: 
                     type: string
                     example: 0
@@ -5870,6 +6229,74 @@ components:
               accounts_setup_flag: 
                 type: string
                 example: 0
+              bank:
+                type: object
+                properties:
+                  bank_name:
+                    type: string
+                    example: "Bank of Test"
+                  bank_city:
+                    type: string
+                    example: "City"
+                  bank_account_type:
+                    type: string
+                    example: CHECKING
+                    enum:
+                      - CHECKING
+                      - SAVINGS
+                  bank_sort_code:
+                    type: string
+                    example: "123"
+                  country_code:
+                    type: string
+                    example: "840"
+                  zip_code:
+                    type: string
+                    example: "12345"
+                  county_code:
+                    type: string
+                    example: CA
+                  street_line_1:
+                    type: string
+                    example: "Sample Street"
+                  floor:
+                    type: string
+                    example: "1"
+                  suite_apart_number:
+                    type: string
+                    example: "1"
+                  province:
+                    type: string
+                    example: XXX
+                  account_holder_name:
+                    type: string
+                    example: test test
+                  dda_number:
+                    type: string
+                    example: '123456789'
+                  routing_number:
+                    type: string
+                    example: '333989898'
+                  routing_number_masked:
+                    type: string
+                    example: '*****9898'
+                  account_type:
+                    type: array
+                    description: To designate what we settle to the bank in this object. CREDIT, DEBIT, CHARGEBACK
+                    items:
+                      type: string
+                      example: ["CREDIT", 
+                      "DEBIT", 
+                      "CHARGEBACK"]
+                  dda_validated:
+                    type: string
+                    example: "1"
+                  dda_error:
+                    type: string
+                    example: "Error text"
+                  dda_details_changed:
+                    type: string
+                    example: "1"
               contacts: 
                 type: array
                 items: 
@@ -5926,6 +6353,75 @@ components:
               external_mid: 
                 type: string
                 example: "123456789"
+        settings:
+          type: object
+          properties:
+            internal_mid:
+              type: object
+              description: This is the value of internal mid instead of internal_mid property name
+              properties:
+                billing:
+                  type: object
+                  properties:
+                    has_transaction_billing:
+                      $ref: '#/components/schemas/HasTransactionBilling'
+                    tx_fees_billing_method:
+                      $ref: '#/components/schemas/TxFeesBillingMethod'
+                    other_fees_billing_method:
+                      $ref: '#/components/schemas/OtherFeesBillingMethod'
+                    has_equipment_billing:
+                      $ref: '#/components/schemas/HasEquipmentBilling'
+                    has_service_billing:
+                      $ref: '#/components/schemas/HasServiceBilling'
+                    billing_frequency:
+                      $ref: '#/components/schemas/BillingFrequency'
+                    billing_day:
+                      $ref: '#/components/schemas/BillingDay'
+                    billing_month:
+                      $ref: '#/components/schemas/BillingMonth'
+                funding:
+                  type: object
+                  properties:
+                    funding_frequency:
+                      $ref: '#/components/schemas/FundingFrequency'
+                    funding_day:
+                      $ref: '#/components/schemas/FundingDay'
+                    delay_funding_flag:
+                      $ref: '#/components/schemas/DelayFundingFlag'
+                    funding_delay_days:
+                      $ref: '#/components/schemas/DelayFundingDays'
+                    settlement_method:
+                      $ref: '#/components/schemas/SettlementMethod'
+                    tx_instruction_on:
+                      $ref: '#/components/schemas/TxInstructionOn'
+                    tx_source_card:
+                      $ref: '#/components/schemas/TxSourceCard'
+                    tx_source_ach:
+                      $ref: '#/components/schemas/TxSourceAch'
+                    tx_source_ach_funding_option:
+                      $ref: '#/components/schemas/TxSourceAchFundingOption'
+                    tx_source_ach_settlement_method:
+                      $ref: '#/components/schemas/TxSourceAchSettlementMethod'
+                    tx_source_card_funding_option:
+                      $ref: '#/components/schemas/TxSourceCardFundingOption'
+                    tx_source_card_settlement_method:
+                      $ref: '#/components/schemas/TxSourceCardSettlementMethod'
+                reserve:
+                  type: object
+                  properties:
+                    reserve_type:
+                      $ref: '#/components/schemas/ReserveType'
+                    reserve_setting:
+                      $ref: '#/components/schemas/ReserveSetting'
+                    reserve_delay_days:
+                      $ref: '#/components/schemas/ReserveDelayDays'
+                    reserve_daily_amount:
+                      type: string
+                      example: "15.00"
+                    set_reserve_target:
+                      $ref: '#/components/schemas/SetReserveTarget'
+                    reserve_target_amount:
+                      $ref: '#/components/schemas/ReserveTargetAmount'
     settlement_ref:
       type: string
       description: Unique identifier of the settlement ref
@@ -6301,7 +6797,7 @@ components:
       multipleOf: 0.01
       type: string
       description: The amount in this balance
-      example: 140.5
+      example: "140.5"
     dda:
       type: string
       description: Demand Deposit Account (DDA) number
@@ -6314,7 +6810,7 @@ components:
       type: string
       description: Effective date
       format: yyyy-mm-dd
-      example: 2019-08-30T00:00:00.000+0000
+      example: "2019-08-30"
 
     reject_reason_code:
       type: string
@@ -7617,23 +8113,287 @@ components:
       allOf:
         - $ref: '#/components/schemas/UnlockApplicationOperation'
         - $ref: '#/components/schemas/ApplicationFullDetail'
+    MerchantRetrieveResponse:
+      required:
+        - request_source
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        request_source:
+          $ref: '#/components/schemas/RequestSource'
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportNote'
+        settings:
+          type: object
+          properties:
+            funding:
+              type: object
+              properties:
+                settlement_method:
+                  description: 1 - Instruction, 2 - Instruction on Transaction, 3 - Auto
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                funding_frequency:
+                  description: 1 - Daily, 2 - Weekly, 3 - Monthly
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                delay_funding_flag:
+                  type: string
+                  description: "Enabled a funding delay for the submerchant, so Funding_delay days can be passed."
+                  example: "0"
+                  enum:
+                    - "0"
+                    - "1"
+                tx_instruction_on:
+                  $ref: '#/components/schemas/TxInstructionOn'
+                tx_source_card:
+                  $ref: '#/components/schemas/TxSourceCard'
+                tx_source_ach:
+                  $ref: '#/components/schemas/TxSourceAch'
+                tx_source_ach_funding_option:
+                  $ref: '#/components/schemas/TxSourceAchFundingOption'
+                tx_source_ach_settlement_method:
+                  $ref: '#/components/schemas/TxSourceAchSettlementMethod'
+                tx_source_card_funding_option:
+                  $ref: '#/components/schemas/TxSourceCardFundingOption'
+                tx_source_card_settlement_method:
+                  $ref: '#/components/schemas/TxSourceCardSettlementMethod'
+        billing:
+          type: object
+          properties:
+            has_transaction_billing:
+              type: string
+              example: '1'
+              enum: 
+                - "0"
+                - "1"
+            tx_fees_billing_method:
+              description: "0 - Not Applicable, 1 - Net, 2 - Gross. Dependant on settlement method specified."
+              type: string
+              example: "2"
+              enum:
+                - "0"
+                - "1"
+                - "2"
+            other_fees_billing_method:
+              description: 1 - Not Applicable, 1 - Net, 2 - Gross
+              type: string
+              example: "1"
+              enum:
+                - "1"
+                - "2"
+                - "3"
+            billing_frequency:
+              description: 1 - Daily, 2 - Weekly, 3 - Monthly
+              type: string
+              example: "1"
+              enum:
+                - "1"
+                - "2"
+                - "3"
+            has_equipment_billing:
+              type: string
+              example: "1"
+              enum: 
+                - "0"
+                - "1"
+            has_service_billing:
+              type: string
+              example: "1"
+              enum: 
+                - "0"
+                - "1"
+        reserve:
+          type: object
+          properties:
+            reserve_type:
+              type: string
+              description: 0 -N/A, 1 -Normal, 2 Rolling
+              example: "1"
+              enum:
+                - "0"
+                - "1"
+                - "2"
+            set_reserve_target:
+              type: string
+              description: "Enables taking a target amount for the reserve"
+              enum: 
+                - "0"
+                - "1"
+              example: '1'
+      allOf:
+        - $ref: '#/components/schemas/ApplicationRetrieveOperation'
+        - $ref: '#/components/schemas/MerchantFullDetail'
     ApplicationRetrieveResponse:
       required:
         - request_source
       type: object
       properties:
+        result:
+          $ref: '#/components/schemas/Result'
         request_source:
           $ref: '#/components/schemas/RequestSource'
+        has_generated_documents:
+          type: string
+          example: "0"
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportNote'
+        application_default:
+          type: array
+          items:
+            type: object
+            properties:
+              app_default_field_id:
+                type: string
+                example: "1"
+              readonly:
+                $ref: '#/components/schemas/Status'
+              field_name:
+                type: string
+                example: "take_reserves_flag"
+              entity_block: 
+                type: string
+                example: "BUSINESS"
+              default_value:              
+                type: string
+                example: "2"
+        settings:
+          type: object
+          properties:
+            funding:
+              type: object
+              properties:
+                settlement_method:
+                  description: 1 - Instruction, 2 - Instruction on Transaction, 3 - Auto
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                funding_frequency:
+                  description: 1 - Daily, 2 - Weekly, 3 - Monthly
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                delay_funding_flag:
+                  type: string
+                  description: "Enabled a funding delay for the submerchant, so Funding_delay days can be passed."
+                  example: "0"
+                  enum:
+                    - "0"
+                    - "1"
+                tx_instruction_on:
+                  $ref: '#/components/schemas/TxInstructionOn'
+                tx_source_card:
+                  $ref: '#/components/schemas/TxSourceCard'
+                tx_source_ach:
+                  $ref: '#/components/schemas/TxSourceAch'
+                tx_source_ach_funding_option:
+                  $ref: '#/components/schemas/TxSourceAchFundingOption'
+                tx_source_ach_settlement_method:
+                  $ref: '#/components/schemas/TxSourceAchSettlementMethod'
+                tx_source_card_funding_option:
+                  $ref: '#/components/schemas/TxSourceCardFundingOption'
+                tx_source_card_settlement_method:
+                  $ref: '#/components/schemas/TxSourceCardSettlementMethod'
+            billing:
+              type: object
+              properties:
+                has_transaction_billing:
+                  type: string
+                  example: '1'
+                  enum: 
+                    - "0"
+                    - "1"
+                tx_fees_billing_method:
+                  description: "0 - Not Applicable, 1 - Net, 2 - Gross. Dependant on settlement method specified."
+                  type: string
+                  example: "2"
+                  enum:
+                    - "0"
+                    - "1"
+                    - "2"
+                other_fees_billing_method:
+                  description: 1 - Not Applicable, 1 - Net, 2 - Gross
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                billing_frequency:
+                  description: 1 - Daily, 2 - Weekly, 3 - Monthly
+                  type: string
+                  example: "1"
+                  enum:
+                    - "1"
+                    - "2"
+                    - "3"
+                has_equipment_billing:
+                  type: string
+                  example: "1"
+                  enum: 
+                    - "0"
+                    - "1"
+                has_service_billing:
+                  type: string
+                  example: "1"
+                  enum: 
+                    - "0"
+                    - "1"
+            reserve:
+              type: object
+              properties:
+                reserve_type:
+                  type: string
+                  description: 0 -N/A, 1 -Normal, 2 Rolling
+                  example: "1"
+                  enum:
+                    - "0"
+                    - "1"
+                    - "2"
+                set_reserve_target:
+                  type: string
+                  description: "Enables taking a target amount for the reserve"
+                  enum: 
+                    - "0"
+                    - "1"
+                  example: '1'
       allOf:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
         - $ref: '#/components/schemas/ApplicationFullDetail'
     ApplicationRetrieveRequest:
       required:
         - request_source
+        - application
       type: object
       properties:
         request_source:
           $ref: '#/components/schemas/RequestSource'
+        application:
+          type: object
+          properties:
+            application_reference:
+              $ref: '#/components/schemas/ApplicationRef'
+          required:
+            - application_reference
       allOf:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
         - $ref: '#/components/schemas/applicationref'
@@ -7644,7 +8404,6 @@ components:
       properties: 
         application:
           $ref: '#/components/schemas/applicationUnlock'
-          
       allOf:
         - $ref: '#/components/schemas/UnlockApplicationOperation'
     applicationUnlock:
@@ -7659,10 +8418,20 @@ components:
     MerchantRetrieveRequest:
       required:
         - request_source
+        - merchant
       type: object
       properties:
         request_source:
           $ref: '#/components/schemas/RequestSource'
+        merchant:
+          type: object
+          properties:
+            merchant_reference:
+              minLength: 12
+              maxLength: 12
+              example: "3001924"
+          required:
+            - merchant_reference
       allOf:
         - $ref: '#/components/schemas/ApplicationRetrieveOperation'
         - $ref: '#/components/schemas/merchantref'
@@ -7948,6 +8717,90 @@ components:
           $ref: '#/components/schemas/HierarchyTemplate'
         substatuses:
           $ref: '#/components/schemas/SubStatus'
+    MerchantFullDetail:
+      type: object
+      properties:
+        merchant_relation:
+          $ref: '#/components/schemas/MerchantRelation'
+        client:
+          type: object
+          properties:
+            client_external_id:
+              $ref: '#/components/schemas/ExtID'
+            client_name:
+              type: string
+              example: "Name"
+            client_code:
+              type: string
+              example: "firstClientCodeTest"
+            contact_firstname:
+              $ref: '#/components/schemas/FirstName'
+            contact_surname:
+              $ref: '#/components/schemas/LastName'
+            contact_postcode:
+              type: string
+              example: "postcode"
+            contact_floor:
+              $ref: '#/components/schemas/Floor'
+            contact_suite_apart_number:
+              $ref: '#/components/schemas/Apartment'
+            contact_address1:
+              $ref: '#/components/schemas/AddressLine1'
+            contact_address2:
+              $ref: '#/components/schemas/AddressLine1'
+            contact_town_city:
+              $ref: '#/components/schemas/City'
+            contact_county:
+              $ref: '#/components/schemas/State'
+            contact_country:
+              $ref: '#/components/schemas/Country'
+            contact_country_code_iso3:
+              type: string
+              example: '840'
+            contact_phone_code:
+              $ref: '#/components/schemas/PhoneCode'
+            contact_phone:
+              $ref: '#/components/schemas/PhoneNumber'
+            contact_email:
+              $ref: '#/components/schemas/Email'
+            portal_access_with_ip:
+              type: string
+              example: "1"
+            api_access_with_ip:
+              type: string
+              example: "1"
+            allowed_alt_languages:
+              type: string
+              example: "en_gb"
+            default_language:
+              type: string
+              example: "en_gb"
+            time_zone_id:
+              type: string
+              example: "238"
+            time_format:
+              type: string
+              example: "24"
+            date_format:
+              type: string
+              example: "mmddyyyy"
+            status:
+              type: string
+              example: "1"
+        alliance:
+          $ref: '#/components/schemas/AllianceDetail'
+        merchant:
+          $ref: '#/components/schemas/RetrieveMerchantHierarchyResponse'
+        outlets:
+          $ref: '#/components/schemas/OutletArray'
+        merchant_sub_groups:
+          $ref: '#/components/schemas/SubGroupArray'
+        merchant_hierarchy:
+          $ref: '#/components/schemas/HeirarchyArray'
+        tree_descendants:
+          $ref: '#/components/schemas/Tree'
+        merchant_hierarchy_configuration_templates:
+          $ref: '#/components/schemas/HierarchyTemplate'
     DecisionApplicationFullDetail:
       type: object
       properties:
@@ -8049,6 +8902,11 @@ components:
           $ref: '#/components/schemas/HierarchyDepth'
         entity_type:
           $ref: '#/components/schemas/HierarchyEntityType'
+        sub_group_type:
+          $ref: '#/components/schemas/SubGroupType'
+        outlet_number:
+          type: string
+          example: 10
     HierarchyDepth:
       type: string
       description: Level in the Hierarchy
@@ -8070,6 +8928,8 @@ components:
           $ref: '#/components/schemas/AllianceCode'
         alliance_name:
           $ref: '#/components/schemas/BusinessName'
+        client_external_id:
+          $ref: '#/components/schemas/ExtID'
         contact_company_name:
           $ref: '#/components/schemas/BusinessName'
         contact_title:
@@ -8100,10 +8960,51 @@ components:
           $ref: '#/components/schemas/PhoneNumber'
         contact_email:
           $ref: '#/components/schemas/Email'
+        contact_floor:
+          type: string
+          example: "1"
+        contact_suite_apart_number:
+          $ref: '#/components/schemas/Apartment'
+        contact_country_code_iso3:
+          type: string
+          example: '840'
         default_currency:
           $ref: '#/components/schemas/Currency'
         default_language:
           $ref: '#/components/schemas/Language'
+        division_id:
+          type: string
+          example: "1"
+        institution_number:
+          type: string
+          example: "009342149"
+        sales_force_id:
+          type: string
+          example: "102"
+        use_memorable_word:
+          $ref: '#/components/schemas/Status'
+        time_format:
+          type: string
+          example: "24"
+        date_format:
+          type: string
+          example: "mmddyyyy"
+        number_separator:
+          type: string
+          example: ","
+          enum:
+            - "."
+            - ","
+        decimal_separator:
+          type: string
+          example: "."
+          enum:
+            - "."
+            - ","
+        has_own_workflow:
+          $ref: '#/components/schemas/Status'
+        funding_flag:
+          $ref: '#/components/schemas/FundingFlag'
         allowed_alt_languages:
           $ref: '#/components/schemas/Language'
         status:
@@ -8112,13 +9013,305 @@ components:
           $ref: '#/components/schemas/Date'
         pfac_mode:
           $ref: '#/components/schemas/Status'
+        copied_offer_records_config:
+          $ref: '#/components/schemas/Status'
+        underwriting_type:
+          type: string
+          example: "1"
+          enum:
+            - "0"
+            - "1"
+            - "2"
+        split_funding_enabled:
+          $ref: '#/components/schemas/Status'
+        is_pfac:
+          $ref: '#/components/schemas/Status'
+        pfac_boarding_status:
+          type: string
+          example: "1"
+          enum:
+            - "0"
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+            - "5"
+            - "6"
+            - "7"
+            - "10"
+        has_validation_errors:
+          type: string
+          example: "0"
+        pfac_mid_type:
+          type: string
+          example: "1"
+          enum:
+            - "1"
+            - "2"
+        chargeback_settlement_method:
+          type: string
+          example: "1"
+          enum:
+            - "0"
+            - "1"
+            - "2"
+            - "3"
+        same_day_ach:
+          type: string
+          description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+          enum: 
+            - "0"
+            - "1"
+          example: "1"
+        tx_source_card:
+          $ref: '#/components/schemas/TxSourceCard'
+        tx_source_card_funding_option:
+          $ref: '#/components/schemas/TxSourceCardFundingOption'
+        tx_source_card_settlement_method:
+          $ref: '#/components/schemas/TxSourceCardSettlementMethod'
+        tx_source_ach:
+          $ref: '#/components/schemas/TxSourceAch'
+        tx_source_ach_funding_option:
+          $ref: '#/components/schemas/TxSourceAchFundingOption'
+        tx_source_ach_settlement_method:
+          $ref: '#/components/schemas/TxSourceAchSettlementMethod'
+        telecheck_enabled:
+          type: string
+          enum: 
+            - "0"
+            - "1"
+        bank_validation_required:
+          $ref: '#/components/schemas/Status'            
         hold_suspend_flag:
           $ref: '#/components/schemas/HoldSuspend'
+    MerchantRelation:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/SystemID'
+        merchant_id:
+          type: string
+          example: "1234"
+        funding_settings_id:
+          type: string
+          example: "1234"
+        account_settings_id:
+          type: string
+          example: "1234" 
+        aml_check_response:
+          type: object
+          properties:
+            check_purpose:
+              type: string
+              example: "BOARDING"
+              enum:
+                - BOARDING
+            decision:
+              type: string
+              example: "APPROVE"
+              enum:
+                - REFER
+                - PREAPPROVE
+                - APPROVE
+            original_decision:
+              type: string
+              example: "REFER"
+              enum:
+                - REFER
+                - PREAPPROVE
+                - APPROVE
+            risk_band_id:
+              type: string
+              example: "1"
+            original_risk_band_id:
+              type: string
+              example: "1"
+            entity_decisions:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityDecisionsBlock'
+            intelligence_references:
+              type: array
+              items:
+                $ref: '#/components/schemas/IntelligenceReferenceBlock'
+            aml_reviewer:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/Reviewer'
+                user_name:
+                  $ref: '#/components/schemas/UserName'
+                email:
+                  $ref: '#/components/schemas/Email'
+        credit_risk_decision:
+          type: string
+          example: "APPROVE"
+        credit_risk_classification:
+          type: string
+          example: "HI"
+        risk_classification:
+          type: string
+          example: "HI"
+        intelligence_data_ref:
+          type: string
+          example: "640881e556241fa8a40a49d2"
+        intelligence_ref:
+          type: string
+          example: "640881e556241fa8a40a49d3"
+        risk_ref:
+          type: string
+          example: "640881e556241fa8a40a49d4"
+        aml_ref:
+          type: string
+          example: "640881e556241fa8a40a49d5"
+        quote_id:
+          type: string
+          example: "1234"
+        merchant_reference:
+          type: string
+          description: "Merchant reference number from Exchange to query"
+          example: "3001484"
+        application_reference:
+          $ref: '#/components/schemas/Reference'
+        merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        main_owner:
+          $ref: '#/components/schemas/SystemID'
+        main_outlet:
+          $ref: '#/components/schemas/SystemID'
+        total_billings:
+          $ref: '#/components/schemas/TotalNode'
+        total_chains:
+          $ref: '#/components/schemas/TotalNode'
+        total_outlets:
+          $ref: '#/components/schemas/TotalNode'
+        owner:
+          $ref: '#/components/schemas/OwnerRefArray'
+        merchant_sub_group:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubGroupRefForMerchant'
+        date_added:
+          type: object
+          properties:
+            $date:
+              type: object
+              properties:
+                $numberLong:
+                  type: string
+                  description: "Timestamp"
+                  example: "1700750979252"
+        date_updated:
+          type: object
+          properties:
+            $date:
+              type: object
+              properties:
+                $numberLong:
+                  type: string
+                  description: "Timestamp"
+                  example: "1700750979253"
     ApplicationRelation:
       type: object
       properties:
         _id:
           $ref: '#/components/schemas/SystemID'
+        application_id:
+          type: string
+          example: "1234"
+        application_type:
+          type: string
+          example: "NA"
+          enum:
+            - "NA"
+            - "AO"
+        aml_check_response:
+          type: object
+          properties:
+            check_purpose:
+              type: string
+              example: "BOARDING"
+              enum:
+                - BOARDING
+            decision:
+              type: string
+              example: "APPROVE"
+              enum:
+                - REFER
+                - PREAPPROVE
+                - APPROVE
+            original_decision:
+              type: string
+              example: "REFER"
+              enum:
+                - REFER
+                - PREAPPROVE
+                - APPROVE
+            risk_band_id:
+              type: string
+              example: "1"
+            original_risk_band_id:
+              type: string
+              example: "1"
+            entity_decisions:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityDecisionsBlock'
+            intelligence_references:
+              type: array
+              items:
+                $ref: '#/components/schemas/IntelligenceReferenceBlock'
+            aml_reviewer:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/Reviewer'
+                user_name:
+                  $ref: '#/components/schemas/UserName'
+                email:
+                  $ref: '#/components/schemas/Email'
+        aml_decision:
+          type: string
+          example: "APPROVE"
+        aml_risk_classification:
+          type: string
+          example: "HI"  
+        credit_risk_decision:
+          type: string
+          example: "APPROVE"
+        credit_risk_classification:
+          type: string
+          example: "HI"
+        risk_classification:
+          type: string
+          example: "HI"
+        intelligence_data_ref:
+          type: string
+          example: "640881e556241fa8a40a49d2"
+        intelligence_ref:
+          type: string
+          example: "640881e556241fa8a40a49d3"
+        risk_ref:
+          type: string
+          example: "640881e556241fa8a40a49d4"
+        aml_ref:
+          type: string
+          example: "640881e556241fa8a40a49d5"
+        quote_id:
+          type: string
+          example: "1234"
+        price_model:
+          type: string
+        original_merchant_id:
+          type: string
+        ownership:
+          type: string
+        merchant_reference:
+          type: string
+          description: "Merchant reference number from Exchange to query"
+          example: "3001484"
+        sub_group_id:
+          $ref: '#/components/schemas/NodeID'
         application_reference:
           $ref: '#/components/schemas/Reference'
         business_id:
@@ -8129,18 +9322,40 @@ components:
           $ref: '#/components/schemas/SystemID'
         main_outlet:
           $ref: '#/components/schemas/SystemID'
+        total_billings:
+          $ref: '#/components/schemas/TotalNode'
+        total_chains:
+          $ref: '#/components/schemas/TotalNode'
         total_outlets:
           $ref: '#/components/schemas/TotalNode'
         total_subgroups:
+          $ref: '#/components/schemas/TotalNode'
+        total_submerchants:
           $ref: '#/components/schemas/TotalNode'
         owner:
           $ref: '#/components/schemas/OwnerRefArray'
         merchant_sub_group:
           $ref: '#/components/schemas/SubGroupRefArray'
         date_added:
-          $ref: '#/components/schemas/Date'
+          type: object
+          properties:
+            $date:
+              type: object
+              properties:
+                $numberLong:
+                  type: string
+                  description: "Timestamp"
+                  example: "1700750979252"
         date_updated:
-          $ref: '#/components/schemas/Date'
+          type: object
+          properties:
+            $date:
+              type: object
+              properties:
+                $numberLong:
+                  type: string
+                  description: "Timestamp"
+                  example: "1700750979253"
     DecisionApplicationRelation:
       type: object
       properties:
@@ -8194,16 +9409,499 @@ components:
           $ref: '#/components/schemas/SystemID'
         merchant_node_id:
           $ref: '#/components/schemas/NodeID'
+        parent_id:
+          type: string
+          example: '1234'
+        internal_mid:
+          $ref: '#/components/schemas/MID'
         parent_mid:
           $ref: '#/components/schemas/MID'
         date_added:
           $ref: '#/components/schemas/Date'
         date_updated:
           $ref: '#/components/schemas/Date'
+        sub_group_type:
+          $ref: '#/components/schemas/SubGroupType'
+    SubGroupRefForMerchant:
+      type: object
+      properties:
+        sub_group_id:
+          $ref: '#/components/schemas/NodeID'
+        sub_group_data_id:
+          $ref: '#/components/schemas/SystemID'
+        merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        parent_id:
+          type: string
+          example: '1234'
+        internal_mid:
+          $ref: '#/components/schemas/MID'
+        parent_mid:
+          $ref: '#/components/schemas/MID'
+        date_added:
+          $ref: '#/components/schemas/Date'
+        date_updated:
+          $ref: '#/components/schemas/Date'
+        sub_group_type:
+          $ref: '#/components/schemas/SubGroupType'
+        application_relation_reference:
+          $ref: '#/components/schemas/SystemID'
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        group_name:
+          $ref: '#/components/schemas/BusinessName'
+        external_mid:
+          $ref: '#/components/schemas/MID'
     TotalNode:
       type: string
       description: Total Node under the merchant hierarchy
       example: "1"
+    RetrieveMerchantHierarchyResponse:
+      type: object
+      properties:
+        merchant_hierarchy_config_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_hierarchy_template_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/ExtID'
+        pfac_node_external_id:
+          $ref: '#/components/schemas/ExtID'
+        sales_owner_user_external_id:
+          $ref: '#/components/schemas/ExtID'
+        aml_owner_user_external_id:
+          $ref: '#/components/schemas/ExtID'
+        risk_owner_user_external_id:
+          $ref: '#/components/schemas/ExtID'
+        creator_user_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_status_external_id:
+          $ref: '#/components/schemas/ExtID'
+        alliance_external_id:
+          $ref: '#/components/schemas/ExtID'
+        package_external_id:
+          $ref: '#/components/schemas/ExtID'
+        sales_owner_user_id:
+          type: string
+          example: "2505"
+        package_name:
+          type: string
+          example: "Package name"
+        reserve_flag:
+          $ref: '#/components/schemas/ReserveFlag'
+        reserve_type:
+          $ref: '#/components/schemas/ReserveType'
+        set_reserve_target:
+          $ref: '#/components/schemas/SetTargetReserve'
+        merchant_data_id:
+          $ref: '#/components/schemas/SystemID'
+        parent_type:
+          $ref: '#/components/schemas/ParentType'
+        status_id:
+          $ref: '#/components/schemas/Status'
+        internal_mid:
+          $ref: '#/components/schemas/MID'
+        external_mid:
+          $ref: '#/components/schemas/MID'
+        marketplace_order_id:
+          $ref: '#/components/schemas/OrderID'
+        legal_name:
+          $ref: '#/components/schemas/LegalName'
+        contact_title:
+          $ref: '#/components/schemas/Title'
+        contact_first_name:
+          $ref: '#/components/schemas/FirstName'
+        contact_last_name:
+          $ref: '#/components/schemas/LastName'
+        contact_address1:
+          $ref: '#/components/schemas/AddressLine1'
+        contact_town_city:
+          $ref: '#/components/schemas/City'
+        contact_county:
+          $ref: '#/components/schemas/State'
+        contact_postcode:
+          $ref: '#/components/schemas/ZipCode'
+        contact_country_code:
+          $ref: '#/components/schemas/Country'
+        language_code:
+          $ref: '#/components/schemas/Language'
+        date_added:
+          $ref: '#/components/schemas/Date'
+        date_updated:
+          $ref: '#/components/schemas/Date'
+        billing_level:
+          $ref: '#/components/schemas/BillingLevel'
+        funding_level:
+          $ref: '#/components/schemas/FundingLevel'
+        pricing_level:
+          $ref: '#/components/schemas/PricingLevel'
+        settlement_method:
+          $ref: '#/components/schemas/SettlementMethod'
+        chargeback_settlement_method:
+          $ref: '#/components/schemas/ChargebackSettlementMethod'
+        allow_split_flag:
+          $ref: '#/components/schemas/AllowSplitFlag'
+        split_level:
+          $ref: '#/components/schemas/SplitLevel'
+        take_reserves_flag:
+          $ref: '#/components/schemas/TakeReservesFlag'
+        reserve_entity_level:
+          $ref: '#/components/schemas/ReserveEntityLevel'
+        registration_number:
+          $ref: '#/components/schemas/RegNumber'
+        visitation_required:
+          $ref: '#/components/schemas/VisitationRequired'
+        merchant_relation:
+          $ref: '#/components/schemas/MerchantRelation'
+        client_external_id: 
+          $ref: '#/components/schemas/ExtID'
+        merchant_external_id:
+          $ref: '#/components/schemas/ExtID'
+        chargeback_debit_option:
+          type: string
+          example: 1
+        tx_monitoring_mode:
+          type: string
+          example: 0
+        tx_monitoring_enabled:
+          type: string
+          example: 1
+        tx_fees_billing_method:
+          type: string
+          example: 0
+        tx_monitoring_setup:
+          type: string
+          example: 0
+        ownership_entity_type:
+          type: string
+          description: type of merchant... L - Limited Liability co, G - Government, N - Partnership, S - Association/Estate/Trust, X - Tax Exempt Organisation, U - Public Corp, V - Private Corp, O - Proprietorship 
+          example: L
+          enum:
+            - L
+            - G
+            - N
+            - S
+            - X
+            - U
+            - V
+            - O 
+        business_entity:
+          type: object
+          properties:
+            legal_name:
+              type: string
+              example: "Legal name"
+            legal_short_name:
+              type: string
+              example: "Legal short name"
+            signature_date:
+              $ref: '#/components/schemas/DateTime'
+            ownership_entity_type:
+              type: string
+              description: type of merchant... L - Limited Liability co, G - Government, N - Partnership, S - Association/Estate/Trust, X - Tax Exempt Organisation, U - Public Corp, V - Private Corp, O - Proprietorship 
+              example: L
+              enum:
+                - L
+                - G
+                - N
+                - S
+                - X
+                - U
+                - V
+                - O
+            reg_number:
+              description: registration number of business
+              type: string
+              maxLength: 15
+              minLength: 8
+              example: '123456789'
+            reg_charity_number:
+              description: registration number of charity
+              type: string
+              example: '123456789'
+            foreign_entity:
+              description: Is foreign entity? 1 - Yes 0 - No
+              type: string
+              example: "0"
+              enum: 
+                - "1"
+                - "0"
+            irs_filing_name:
+              description: IRS Filing Name
+              type: string
+              example: Test Business
+              maxLength: 40
+              minLength: 2
+            irs_status:
+              type: string
+              description: N - Not Excluded, A - Foreign Entity Verification Pending, B - Foreign Entity Identified before 1/1/11, F - Foreign Entity Verified, D - Non Profit Verification Pending, C - Non Profit Verified, G - Government Entity, J - Financial Institution
+              example: N
+              enum:
+                - N
+                - A
+                - B
+                - F
+                - D
+                - C
+                - G
+                - J
+            tin_type:
+              type: string
+              description: 1 - SSN , 2 - EIN, 3 - OTHER TAX ID
+              example: "1"
+              enum:
+                - "1"
+                - "2"
+                - "3"
+            int_tax_id:
+              type: string
+              maxLength: 30
+              example: "123456789"
+            business_tin_ssn_number:
+              type: string
+              minLength: 9
+              maxLength: 9
+              example: "123456789"
+            business_tin_ssn_number_masked: 
+              type: string
+              example: '*****9898'
+            business_average_ticket_sales_amt:
+              type: string
+              example: 50.00
+            business_highest_ticket_sales_amt: 
+              type: string
+              example: 1000.00
+            contract_date:
+              $ref: '#/components/schemas/DateTime'          
+            mcc_code:
+              type: string
+              description: Merchant Category Code
+              example: "4083"
+              enum:
+                - "4083"
+            business_category:
+              type: string
+              description: E - eCommerce, MOTO, R - RETAIL, H - HOTEL, RT - Restaurant
+              example: E
+              enum:
+                - E
+                - MOTO
+                - R
+                - H
+                - RT
+            foundation_date:
+              type: string
+              description: "Date, format YYYY-MM-DD"
+              example: "2020-01-01"
+            date_incorporated:
+              type: string
+              description: "Date, format YYYY-MM-DD"
+              example: "2020-01-01"
+            incorp_state:
+              description: 2 Character following ISO 3166-2
+              type: string
+              maxLength: 2
+              example: CA
+            banks:
+              type: array
+              items:
+                $ref: '#/components/schemas/Bank'
+        registration_address:
+          type: object
+          properties:
+            contact_ref: 
+              type: string
+              example: 642e8d5043bb7a05360f2836
+            country_code:
+              $ref: '#/components/schemas/Country'
+            city:
+              $ref: '#/components/schemas/City'
+            zip_code:
+              $ref: '#/components/schemas/ZipCode'
+            street_line_1:
+              $ref: '#/components/schemas/AddressLine1'
+            county_code:
+              $ref: '#/components/schemas/State'
+            province:
+              $ref: '#/components/schemas/Province'
+            suite_apart_number:
+              $ref: '#/components/schemas/Apartment'
+            floor:
+              $ref: '#/components/schemas/Floor'
+        merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        owners:
+          $ref: '#/components/schemas/Owners'
+        application_external_id:
+          $ref: '#/components/schemas/ExtID'
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        multiple_outlet:
+          type: string
+          description: 'Is multiple outlet? - 1: Yes 0: No'
+        application_status_external_id:
+          $ref: '#/components/schemas/ExtID'
+        charges:
+          $ref: '#/components/schemas/Charges'
+        hold_suspend_flag:
+          $ref: '#/components/schemas/HoldSuspend'
+        has_processing_mid:
+          $ref: '#/components/schemas/HasProcessingMid'
+        accounts_setup_flag:
+          type: string
+          example: 0
+        has_validation_errors: 
+          type: string
+          example: "0"
+        merchant_account_required: 
+          type: string
+          example: "0"
+        use_owners_for_merchant_users: 
+          type: string
+          example: "1"
+        parent_pfac_node_external_id:
+          $ref: '#/components/schemas/ExtID'
+        application_type:
+          type: string
+          example: "NA"
+          enum:
+            - "NA"
+            - "AO"
+        bank_lock:
+          $ref: '#/components/schemas/Status'
+        application_resubmitted:
+          $ref: '#/components/schemas/Status'
+        hierarchy_linking_flag:
+          type: string
+          example: "0"
+        correspondence_language:
+          type: string
+          example: en_gb
+        same_day_ach:
+          type: string
+          description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+          enum: 
+            - "0"
+            - "1"
+        marketplace_application:
+          $ref: '#/components/schemas/Status'
+        tc_internet_check_mid_status:
+          type: string
+          example: "0"
+        tc_check_phone_mid_status:
+          type: string
+          example: "0"           
+        tc_ppd_mid_status:
+          type: string
+          example: "0" 
+        tc_connect_pay_mid_status:
+          type: string
+          example: "0" 
+        tc_boarding_status:
+          type: string
+          example: "0" 
+        documents:
+          example: "[]"           
+        signed_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignedDocument'
+        settings:
+          type: object
+          properties:
+            billing_flag:
+              $ref: '#/components/schemas/BillingFlag'
+            funding_flag:
+              $ref: '#/components/schemas/FundingFlag'
+            reserve_flag:
+              $ref: '#/components/schemas/ReserveFlag'
+        funding_defaults:
+          type: object
+          properties: 
+            has_processing_mid: 
+              type: string
+              example: 1
+            business_model: 
+              type: string
+              example: 1
+            core_package_selection: 
+              type: string
+              example: 7
+            tx_source_card: 
+              type: string
+              example: 1
+            tx_source_card_funding_option: 
+              type: string
+              example: 1
+            tx_source_card_settlement_method: 
+              type: string
+              example: 2
+            tx_source_ach: 
+              type: string
+              example: 0
+            tx_source_ach_funding_option: 
+              type: string
+              example: 0
+            tx_source_ach_settlement_method: 
+              type: string
+              example: 0
+            tx_settlement_billing_to: 
+              type: string
+              example: 1
+            tx_chargeback_billing_to: 
+              type: string
+              example: 1
+            has_tx_processing: 
+              type: string
+              example: 1
+            settlement_method: 
+              type: string
+              example: 1
+            tx_instruction_on: 
+              type: string
+              example: 0
+            funding_frequency: 
+              type: string
+              example: 2
+            has_transaction_billing: 
+              type: string
+              example: 0
+            tx_fees_billing_method: 
+              type: string
+              example: 0
+            other_fees_billing_method: 
+              type: string
+              example: 1
+            has_service_billing: 
+              type: string
+              example: 0
+            has_equipment_billing: 
+              type: string
+              example: 1
+            billing_frequency: 
+              type: string
+              example: 2
+            chargeback_settlement_method: 
+              type: string
+              example: 1
+            chargeback_debit_option: 
+              type: string
+              example: 1
+            split_processing_fee_flag: 
+              type: string
+              example: 0
+            split_chargeback: 
+              type: string
+              example: 0
+            has_billing: 
+              type: string
+              example: 1
+            allow_instruction_api: 
+              type: string
+              example: 1
+            responsible_party: 
+              type: string
+              example: 1
     MerchantResponse:
       type: object
       properties:
@@ -8217,12 +9915,25 @@ components:
           $ref: '#/components/schemas/ExtID'
         sales_owner_user_external_id:
           $ref: '#/components/schemas/ExtID'
+        aml_owner_user_external_id:
+          $ref: '#/components/schemas/ExtID'
+        risk_owner_user_external_id:
+          $ref: '#/components/schemas/ExtID'
         creator_user_external_id:
           $ref: '#/components/schemas/ExtID'
         merchant_status_external_id:
           $ref: '#/components/schemas/ExtID'
         alliance_external_id:
           $ref: '#/components/schemas/ExtID'
+        sales_owner_user_id:
+          type: string
+          example: "2505"
+        reserve_flag:
+          $ref: '#/components/schemas/ReserveFlag'
+        reserve_type:
+          $ref: '#/components/schemas/ReserveType'
+        set_reserve_target:
+          $ref: '#/components/schemas/SetTargetReserve'
         merchant_data_id:
           $ref: '#/components/schemas/SystemID'
         parent_type:
@@ -8278,9 +9989,174 @@ components:
         reserve_entity_level:
           $ref: '#/components/schemas/ReserveEntityLevel'
         business_entity:
-          $ref: '#/components/schemas/BusinessEntity'
+          type: object
+          properties:
+            legal_name:
+              type: string
+              example: Test Business
+              minLength: 2
+              maxLength: 24
+            ownership_entity_type:
+              type: string
+              description: type of merchant... L - Limited Liability co, G - Government, N - Partnership, S - Association/Estate/Trust, X - Tax Exempt Organisation, U - Public Corp, V - Private Corp, O - Proprietorship 
+              example: L
+              enum:
+                - L
+                - G
+                - N
+                - S
+                - X
+                - U
+                - V
+                - O
+            reg_number:
+              description: registration number of business
+              type: string
+              maxLength: 15
+              minLength: 8
+              example: '123456789'
+            reg_charity_number:
+              description: registration number of charity
+              type: string
+              example: '123456789'
+            foreign_entity:
+              description: Is foreign entity? 1 - Yes 0 - No
+              type: string
+              example: "0"
+              enum: 
+                - "1"
+                - "0"
+            irs_filing_name:
+              description: IRS Filing Name
+              type: string
+              example: Test Business
+              maxLength: 40
+              minLength: 2
+            irs_status:
+              type: string
+              description: N - Not Excluded, A - Foreign Entity Verification Pending, B - Foreign Entity Identified before 1/1/11, F - Foreign Entity Verified, D - Non Profit Verification Pending, C - Non Profit Verified, G - Government Entity, J - Financial Institution
+              example: N
+              enum:
+                - N
+                - A
+                - B
+                - F
+                - D
+                - C
+                - G
+                - J
+            security_code:
+              type: string
+              description: 4000 - Nashville , 5083 - Compass
+              example: "4000"
+              enum:
+                - "4000"
+                - "5083"
+            project_name:
+              type: string
+              example: Test Project
+              maxLength: 40
+            application_type:
+              type: string
+              example: RETAIL
+              enum:
+                - RETAIL
+                - RESTAURANT
+                - LODGING
+                - CAR_RENTAL
+                - SUPERMARKET
+                - QSR
+                - MOTO
+                - PETROLEUM
+            tin_type:
+              type: string
+              description: 1 - SSN , 2 - EIN, 3 - OTHER TAX ID
+              example: "1"
+              enum:
+                - "1"
+                - "2"
+                - "3"
+            int_tax_exempt_flag:
+              type: string
+              enum: 
+                - "1"
+                - "0"
+              example: "1"
+            int_tax_id:
+              type: string
+              maxLength: 30
+              example: "123456789"
+            business_tin_ssn_number:
+              type: string
+              minLength: 9
+              maxLength: 9
+              example: "123456789"
+            business_tin_ssn_number_masked: 
+              type: string
+              example: '*****9898'
+            business_average_ticket_sales_amt:
+              type: string
+              example: 50.00
+            business_highest_ticket_sales_amt: 
+              type: string
+              example: 1000.00
+            sic_code:
+              $ref: '#/components/schemas/SICCode'
+            mcc_code:
+              type: string
+              description: Merchant Category Code
+              example: "4083"
+              enum:
+                - "4083"
+            business_category:
+              type: string
+              description: E - eCommerce, MOTO, R - RETAIL, H - HOTEL, RT - Restaurant
+              example: E
+              enum:
+                - E
+                - MOTO
+                - R
+                - H
+                - RT
+            foundation_date:
+              type: string
+              description: "Date, format YYYY-MM-DD"
+              example: "2020-01-01"
+            date_incorporated:
+              type: string
+              description: "Date, format YYYY-MM-DD"
+              example: "2020-01-01"
+            incorp_state:
+              description: 2 Character following ISO 3166-2
+              type: string
+              maxLength: 2
+              example: CA
+            banks:
+              type: array
+              items:
+                $ref: '#/components/schemas/Bank'
         registration_address:
-          $ref: '#/components/schemas/AddressBlock'
+          type: object
+          properties:
+            contact_ref: 
+              type: string
+              example: 642e8d5043bb7a05360f2836
+            country_code:
+              $ref: '#/components/schemas/Country'
+            city:
+              $ref: '#/components/schemas/City'
+            zip_code:
+              $ref: '#/components/schemas/ZipCode'
+            street_line_1:
+              $ref: '#/components/schemas/AddressLine1'
+            county_code:
+              $ref: '#/components/schemas/State'
+            province:
+              $ref: '#/components/schemas/Province'
+            suite_apart_number:
+              $ref: '#/components/schemas/Apartment'
+            floor:
+              $ref: '#/components/schemas/Floor'
         merchant_node_id:
           $ref: '#/components/schemas/NodeID'
         owners:
@@ -8296,10 +10172,159 @@ components:
           $ref: '#/components/schemas/ExtID'
         charges:
           $ref: '#/components/schemas/Charges'
-        tin_validated:
+        hold_suspend_flag:
+          $ref: '#/components/schemas/HoldSuspend'
+        has_processing_mid:
+          $ref: '#/components/schemas/HasProcessingMid'
+        accounts_setup_flag:
           type: string
-          description: 'TIN Validated? - 1: Yes 0: No'
-
+          example: 0
+        has_validation_errors: 
+          type: string
+          example: "0"
+        merchant_account_required: 
+          type: string
+          example: "0"
+        use_owners_for_merchant_users: 
+          type: string
+          example: "1"
+        parent_pfac_node_external_id:
+          $ref: '#/components/schemas/ExtID'
+        application_type:
+          type: string
+          example: "NA"
+          enum:
+            - "NA"
+            - "AO"
+        bank_lock:
+          $ref: '#/components/schemas/Status'
+        application_resubmitted:
+          $ref: '#/components/schemas/Status'
+        hierarchy_linking_flag:
+          type: string
+          example: "0"
+        correspondence_language:
+          type: string
+          example: en_gb
+        same_day_ach:
+          type: string
+          description: "1- Enables the sub-merchant for the Same Day ACH window. 0 - Does not enable the submerchant, remains on standard T+2 window"
+          enum: 
+            - "0"
+            - "1"
+        marketplace_application:
+          $ref: '#/components/schemas/Status'
+        tc_internet_check_mid_status:
+          type: string
+          example: "0"
+        tc_check_phone_mid_status:
+          type: string
+          example: "0"           
+        tc_ppd_mid_status:
+          type: string
+          example: "0" 
+        tc_connect_pay_mid_status:
+          type: string
+          example: "0" 
+        tc_boarding_status:
+          type: string
+          example: "0" 
+        documents:
+          example: "[]"           
+        signed_documents:
+          example: "[]" 
+        settings:
+          type: object
+          properties:
+            chargeback:
+              $ref: '#/components/schemas/Chargeback'
+        funding_defaults:
+          type: object
+          properties: 
+            has_processing_mid: 
+              type: string
+              example: 1
+            business_model: 
+              type: string
+              example: 1
+            core_package_selection: 
+              type: string
+              example: 7
+            tx_source_card: 
+              type: string
+              example: 1
+            tx_source_card_funding_option: 
+              type: string
+              example: 1
+            tx_source_card_settlement_method: 
+              type: string
+              example: 2
+            tx_source_ach: 
+              type: string
+              example: 0
+            tx_source_ach_funding_option: 
+              type: string
+              example: 0
+            tx_source_ach_settlement_method: 
+              type: string
+              example: 0
+            tx_settlement_billing_to: 
+              type: string
+              example: 1
+            tx_chargeback_billing_to: 
+              type: string
+              example: 1
+            has_tx_processing: 
+              type: string
+              example: 1
+            settlement_method: 
+              type: string
+              example: 1
+            tx_instruction_on: 
+              type: string
+              example: 0
+            funding_frequency: 
+              type: string
+              example: 2
+            has_transaction_billing: 
+              type: string
+              example: 0
+            tx_fees_billing_method: 
+              type: string
+              example: 0
+            other_fees_billing_method: 
+              type: string
+              example: 1
+            has_service_billing: 
+              type: string
+              example: 0
+            has_equipment_billing: 
+              type: string
+              example: 1
+            billing_frequency: 
+              type: string
+              example: 2
+            chargeback_settlement_method: 
+              type: string
+              example: 1
+            chargeback_debit_option: 
+              type: string
+              example: 1
+            split_processing_fee_flag: 
+              type: string
+              example: 0
+            split_chargeback: 
+              type: string
+              example: 0
+            has_billing: 
+              type: string
+              example: 1
+            allow_instruction_api: 
+              type: string
+              example: 1
+            responsible_party: 
+              type: string
+              example: 1
     MerchantShort:
       type: object
       properties:
@@ -8427,10 +10452,14 @@ components:
           $ref: '#/components/schemas/MID'
         internal_mid:
           $ref: '#/components/schemas/MID'
+        external_mid:
+          $ref: '#/components/schemas/MID'
         group_name:
           $ref: '#/components/schemas/BusinessName'
         root_merchant_node_id:
           $ref: '#/components/schemas/NodeID'
+        hold_suspend_flag:
+          $ref: '#/components/schemas/HoldSuspend'
         language_code:
           $ref: '#/components/schemas/Language'
         date_added:
@@ -8449,8 +10478,64 @@ components:
             $ref: '#/components/schemas/Contacts'
         banks:
           type: array
-          items:
-            $ref: '#/components/schemas/Bank'
+          items: 
+            type: object
+            properties: 
+              bank_name: 
+                type: string
+                example: ABC Bank
+              bank_city: 
+                type: string
+                example: Sparks
+              country_code: 
+                type: string
+                example: "840"
+              bank_account_number: 
+                type: string
+                example: "123456789000"
+              bank_sort_code: 
+                type: string
+                example: 
+              iban: 
+                type: string
+                example: 
+              swift: 
+                type: string
+                example: 
+              account_holder_name: 
+                type: string
+                example: John
+              account_type: 
+                type: array
+                items: 
+                  type: string
+                  example: ["CREDIT", "DEBIT", "CHARGEBACK"]
+              zip_code: 
+                type: string
+                example: '89431'
+              county_code: 
+                type: string
+                example: NV
+              floor:
+                $ref: '#/components/schemas/Floor'
+              street_line_1:
+                $ref: '#/components/schemas/AddressLine1'
+              suite_apart_number:
+                $ref: '#/components/schemas/Apartment'
+              province:
+                $ref: '#/components/schemas/Province'
+              bank_account_type: 
+                type: string
+                example: CHECKING
+              dda_number: 
+                type: string
+                example: '123456789000'
+              routing_number: 
+                type: string
+                example: '123456789'
+              _id: 
+                type: string
+                example: 642ea28d43bb7a05360f2859
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         funding_defaults:
@@ -8886,14 +10971,95 @@ components:
         - trade_name
       type: object
       properties:
+        merchant_hierarchy_template_external_id:
+          $ref: '#/components/schemas/ExtID'
+        outlet_external_id:
+          $ref: '#/components/schemas/ExtID'
+        pfac_node_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/ExtID'
+        merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        root_merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        pfac_node_id:
+          $ref: '#/components/schemas/NodeID'
+        merchant_reference:
+          type: string
+          example: "3001484"
+        accounts_setup_flag:
+          type: string
+          example: 0
+        delay_funding_flag:
+          $ref: '#/components/schemas/DelayFundingFlag'
+        reserve_merchant_node_id:
+          $ref: '#/components/schemas/NodeID'
+        hold_suspend_flag:
+          $ref: '#/components/schemas/HoldSuspend'
+        date_added:
+          $ref: '#/components/schemas/Date'
+        date_updated:
+          $ref: '#/components/schemas/Date'
+        outlet_ref:
+          $ref: '#/components/schemas/SystemID'
         parent_mid:
           $ref: '#/components/schemas/MID'
         trade_name:
           $ref: '#/components/schemas/BusinessName'
+        redeposit_strategy:
+          $ref: '#/components/schemas/Status'
+        redeposit_strategy_option:
+          type: string
+          example: "0"
+          enum:
+            - "0"
+            - "1"
+            - "2"
+        redeposit_strategy_silking:
+          type: string
+          example: "Yes"
+          enum:
+            - "Yes"
+        redeposit_strategy_frequency:
+          type: string
+          example: "Weekly"
+          enum:
+            - "Weekly"
+        redeposit_strategy_delay:
+          type: string
+          example: "No Delay"
+          enum:
+            - "No Delay"
+        redeposit_strategy_day:
+          type: string
+          example: "Friday"
+          enum:
+            - "Friday"
+        redeposit_strategy_format:
+          type: string
+          example: "Report"
+          enum:
+            - "Report"
+        full_mcc_code:
+          type: string
+          example: 5999A
+        funding_flag: 
+          type: string
+          example: 0
+        billing_flag: 
+          type: string
+          example: 0
+        reserve_flag: 
+          type: string
+          example: 1
         outlet_website:
           $ref: '#/components/schemas/WebSite'
         store_number:
           $ref: '#/components/schemas/StoreNumber'
+        pricing_type:
+          type: string
+          example: "001"
         business_zone:
           $ref: '#/components/schemas/BusinessZone'
         business_location:
@@ -9009,13 +11175,125 @@ components:
           items:
              $ref: '#/components/schemas/OutletContact'
         equipment_offer:
-          $ref: '#/components/schemas/EquipmentOffering'
+          type: object
+          properties:
+            equipment_bundle_external_id:
+              $ref: "#/components/schemas/ExtID"
+            bundles:
+              $ref: '#/components/schemas/EquipmentOfferBundleArray'
         online_offer:
-          $ref: '#/components/schemas/ResponseOnlineOffering'
+          type: object
+          properties:
+            equipment_bundle_external_id:
+              $ref: "#/components/schemas/ExtID"
+            bundles:
+              $ref: '#/components/schemas/OnlineOfferBundleArray'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         offer_package:
           $ref: '#/components/schemas/OfferPackage'
+        funding_defaults:
+          type: object
+          properties: 
+            has_processing_mid: 
+              type: string
+              example: 1
+            business_model: 
+              type: string
+              example: 1
+            core_package_selection: 
+              type: string
+              example: 7
+            tx_source_card: 
+              type: string
+              example: 1
+            tx_source_card_funding_option: 
+              type: string
+              example: 1
+            tx_source_card_settlement_method: 
+              type: string
+              example: 2
+            tx_source_ach: 
+              type: string
+              example: 0
+            tx_source_ach_funding_option: 
+              type: string
+              example: 0
+            tx_source_ach_settlement_method: 
+              type: string
+              example: 0
+            tx_settlement_billing_to: 
+              type: string
+              example: 1
+            tx_chargeback_billing_to: 
+              type: string
+              example: 1
+            has_tx_processing: 
+              type: string
+              example: 1
+            settlement_method: 
+              type: string
+              example: 1
+            tx_instruction_on: 
+              type: string
+              example: 0
+            funding_frequency: 
+              type: string
+              example: 2
+            has_transaction_billing: 
+              type: string
+              example: 0
+            tx_fees_billing_method: 
+              type: string
+              example: 0
+            other_fees_billing_method: 
+              type: string
+              example: 1
+            has_service_billing: 
+              type: string
+              example: 0
+            has_equipment_billing: 
+              type: string
+              example: 1
+            billing_frequency: 
+              type: string
+              example: 2
+            chargeback_settlement_method: 
+              type: string
+              example: 1
+            chargeback_debit_option: 
+              type: string
+              example: 1
+            split_processing_fee_flag: 
+              type: string
+              example: 0
+            split_chargeback: 
+              type: string
+              example: 0
+            has_billing: 
+              type: string
+              example: 1
+            allow_instruction_api: 
+              type: string
+              example: 1
+            responsible_party: 
+              type: string
+              example: 1  
+        tc_internet_check_mid_status:
+          type: string
+          example: "0"
+        tc_check_phone_mid_status:
+          type: string
+          example: "0"           
+        tc_ppd_mid_status:
+          type: string
+          example: "0" 
+        tc_connect_pay_mid_status:
+          type: string
+          example: "0" 
+        tc_boarding_status:
+          type: string
+          example: "0" 
     NonProcessingOutletResponse:
       type: object
       properties:
@@ -9100,6 +11378,16 @@ components:
             $ref: '#/components/schemas/EquipmentService'
         service_charges:
           $ref: '#/components/schemas/ServiceChargesBlock'
+        service_features:
+          example: "[]"
+        equipment_features:
+          type: array
+          items:
+            $ref: '#/components/schemas/EquipmentFeaturesBlock'
+        billing_plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingPlanBlock'
     ServiceChargesBlock:
       type: object
       properties:
@@ -9146,6 +11434,9 @@ components:
           type: string
           description: Terminal quantity
           example: "1"
+        terminal_renewal_price:
+          type: string
+          example: "1.00"
         is_boarding_activated:
           $ref: '#/components/schemas/IsActivated'
         equipment:
@@ -9162,6 +11453,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EquipmentService'
+        service_charges:
+          $ref: '#/components/schemas/ServiceChargesBlock'
+        service_features:
+          example: "[]"
         date_added:
           $ref: '#/components/schemas/Date'
         date_updated:
@@ -9190,6 +11485,8 @@ components:
           $ref: '#/components/schemas/BillingType'
         billing_method_name:
           $ref: '#/components/schemas/ItemName'
+        billing_method_ref:
+          $ref: '#/components/schemas/Reference'
         billing_length:
           $ref: '#/components/schemas/AgreementLength'
         charge_decimals:
@@ -9479,6 +11776,12 @@ components:
     SettingsSubgroupOutlet:
       type: object
       properties:
+        funding_flag:
+          $ref: '#/components/schemas/FundingFlag'
+        billing_flag:
+          $ref: '#/components/schemas/BillingFlag'
+        reserve_flag:
+          $ref: '#/components/schemas/ReserveFlag'
         funding:
           $ref: '#/components/schemas/FundingSubgroupOutlet'
         billing:
@@ -9494,6 +11797,22 @@ components:
           $ref: '#/components/schemas/SettlementMethod'
         tx_instruction_on:
           $ref: '#/components/schemas/TxInstructionOn'
+        tx_source_card:
+          $ref: '#/components/schemas/TxSourceCard'
+        tx_source_card_funding_option:
+          $ref: '#/components/schemas/TxSourceCardFundingOption'
+        tx_source_card_settlement_method:
+          $ref: '#/components/schemas/TxSourceCardSettlementMethod'
+        tx_source_ach:
+          $ref: '#/components/schemas/TxSourceAch'
+        tx_source_ach_funding_option:
+          $ref: '#/components/schemas/TxSourceAchFundingOption'
+        tx_source_ach_settlement_method:
+          $ref: '#/components/schemas/TxSourceAchSettlementMethod'
+        tx_settlement_billing_to:
+          $ref: '#/components/schemas/TxSettlementBillingTo'
+        tx_chargeback_billing_to:
+          $ref: '#/components/schemas/TxChargebackBillingTo'
         funding_frequency:
           $ref: '#/components/schemas/FundingFrequency'
         delay_funding_flag:
@@ -9699,6 +12018,8 @@ components:
           $ref: '#/components/schemas/ChargeItemGroup'
         service_items:
           $ref: '#/components/schemas/ServiceItem'
+        tiers:
+          example: "[]"
     ChargeItemGroup:
       type: object
       properties:
@@ -9729,6 +12050,9 @@ components:
           $ref: '#/components/schemas/IsActivated'
         fee_collection_type:
           $ref: '#/components/schemas/FeeCollection'
+        mp_pricing_type_code:
+          type: string
+          example: "10009"
         charge_decimals:
           $ref: '#/components/schemas/Decimal'
         is_invisible:
@@ -9772,6 +12096,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ServiceChargeBlock'
+        service_ownership:
+          type: string
+          example: 1
+        instalment_available:
+          type: string
+          example: 1
+        split_details:
+          type: object
+          properties:
+            target_merchant_id:
+              type: string
+              example : "702200000000002"
+            target_hierarchy_type:
+              type: string
+              example: "1"
+            target_node_id:
+              $ref: "#/components/schemas/NodeID"
+            date_added:
+              $ref: "#/components/schemas/Date"
+            date_updated:
+              $ref: "#/components/schemas/Date"
     ItemPrice:
       type: object
       properties:
@@ -12593,7 +14938,7 @@ components:
           example: USD
         amount:
           type: string
-          example: 140.5
+          example: "140.5"
         settlement_type:
           type: string
           enum:
@@ -12611,7 +14956,7 @@ components:
           - DEBIT
         settlement_amount:
           type: string
-          example: 140.5
+          example: "140.5"
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -13755,27 +16100,28 @@ components:
         currency:
           type: string
           description: Currency - Cannot be empty.
-          example: USD
+          example: "USD"
         balance:
           type: string
-          example: 0.00
+          example: "0.0000"
         previous_balance:
           type: string
-          example: 0.00
+          example: "0.0000"
         today_in:
           type: string
-          example: 0.00
+          example: "0.0000"
         today_out:
           type: string
-          example: 0.00
+          example: "0.0000"
         merchant_id:
           type: string
-          example: 0.00
+          example: "0.0000"
     AccountBalanceResponse:
       type: object
       properties:
         result:
           type: string
+          example: "SUCCESS"
           enum:
           - SUCCESS
           - ERROR
@@ -16469,6 +18815,90 @@ components:
           $ref: '#/components/schemas/ThirdPartySource'
         intelligence_ref:
           $ref: '#/components/schemas/EntityReference'
+    SignedDocument:
+      type: object
+      properties:
+        file_name:
+          type: string
+          example: "MERCHANT_AGREEMENT_0000_10971122503.pdf"
+        document_sent_to_aml:
+          type: string
+          example: "0"
+        agreement_id:
+          type: string
+          example: "3AAABLblqZhAFR51CKEFi_wrUw5SNkhuBsH9kdqSNqwIi7nJmNnKyKpWdP7Rt4jNawC0O6LH_RHCUH5i-XE_D8Dbw2qcoNbtO"
+        document_password:
+          type: string
+          example: "mypassword"
+        document_signed:
+          type: string
+          example: "1"
+        document_sign_type:
+          type: string
+          example: "ELECTRONIC"
+          enum:
+            - "ELECTRONIC"
+            - "ELAVONSIGN_REDIRECT"
+            - "ELAVONSIGN_MAIL"
+            - "PAPER"
+            - "ONSCREEN"
+            - "REMOTE_PROTECTED"
+            - "REMOTE_API"
+            - "EXTERNAL"
+            - "CARD"
+            - "ACH"
+            - "NONE"
+        document_date_expire:
+          $ref: '#/components/schemas/DateTime'
+        document_url:
+          type: string
+          example: "https://myurl.com/document"
+        document_echosign_status:
+          type: string
+          example: "APPROVED"
+        date_added:
+          $ref: '#/components/schemas/DateTime'
+        document_type_external_id:
+          $ref: '#/components/schemas/ExtID'
+        application_external_id:
+          $ref: '#/components/schemas/ExtID'
+        document_external_id:
+          $ref: '#/components/schemas/ExtID'
+        document_type:
+          type: object
+          properties:
+            document_type_external_id:
+              $ref: '#/components/schemas/ExtID'
+            document_name:
+              type: string
+              example: "Company Sign Audit"
+            parent_type:
+              $ref: '#/components/schemas/ParentType'
+            document_key:
+              type: string
+              example: "COMPANY_AUDIT"
+            document_api_key:
+              type: string
+              example: "APIKEY"
+            document_description:
+              type: string
+              example: "Company Sign Audit"
+            document_group:
+              type: string
+              example: "APPLICATION"
+            document_type:
+              type: string
+              example: "UPLOAD"
+            allow_template_upload:
+              $ref: '#/components/schemas/Status'
+            alliance_external_id:
+              $ref: '#/components/schemas/ExtID'
+        is_generated:
+          type: boolean
+          example: true
+        friendly_file_name:
+          type: string
+          example: "audit_MERCHANT_AGREEMENT_0000.pdf"
     RetrieveIntelligenceRequest:
       type: object
       properties:
@@ -21044,7 +23474,7 @@ components:
         account_summary:
           USD:
             - account_type: CHARGEBACK_ACCOUNT
-              description: Chargeback
+              description: "Chargeback"
               total_in: '30.5000'
               total_out: '0.0000'
               balance: '30.5000'
@@ -21053,19 +23483,19 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: SUSPEND_ACCOUNT
-              description: Suspend
+              description: "Suspend"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
               prev_balance: '0.0000'
             - account_type: REJECT_HOLD_ACCOUNT
-              description: Reject Hold
+              description: "Reject Hold"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
               prev_balance: '0.0000'
             - account_type: INSTRUCTIONAL_HOLD_ACCOUNT
-              description: Instructional Hold
+              description: "Instructional Hold"
               total_in: '250.0000'
               total_out: '250.0000'
               balance: '0.0000'
@@ -21076,13 +23506,13 @@ components:
                 '5':
                   amount: '243.5000'
                   destination: REVENUE_ACCOUNT
-                  description: Net Processing
+                  description: "Net Processing"
                 '6':
                   amount: '6.5000'
                   destination: MERCHANT_FEE_ACCOUNT
-                  description: Fee(Net)
+                  description: "Fee(Net)"
             - account_type: MERCHANT_FEE_ACCOUNT
-              description: Fee(Net)
+              description: "Fee(Net)"
               total_in: '6.5000'
               total_out: '6.5000'
               balance: '0.0000'
@@ -21095,13 +23525,13 @@ components:
                   destination: FEE_ACCOUNT
                   description: Fees(Total)
             - account_type: HOLD_ACCOUNT
-              description: Hold
+              description: "Hold"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
               prev_balance: '0.0000'
             - account_type: REVENUE_ACCOUNT
-              description: Net Processing
+              description: "Net Processing"
               total_in: '243.5000'
               total_out: '243.5000'
               balance: '0.0000'
@@ -21112,9 +23542,9 @@ components:
                 '99':
                   amount: '243.5000'
                   destination: NACHA_OUTPUT_ACCOUNT
-                  description: Settlement Output
+                  description: "Settlement Output"
             - account_type: FEE_ACCOUNT
-              description: Fees(Total)
+              description: "Fees(Total)"
               total_in: '6.5000'
               total_out: '6.5000'
               balance: '0.0000'
@@ -21125,7 +23555,7 @@ components:
                 '7':
                   amount: '6.5000'
                   destination: FEE_ACCOUNT
-                  description: Fees(Total)Rolling-up
+                  description: "Fees(Total)Rolling-up"
         settlement_summary:
           - settlement_type: CREDIT
             settlement_amount: '243.5000'
@@ -21186,7 +23616,7 @@ components:
         account_summary:
           USD:
             - account_type: RESERVE_ACCOUNT
-              description: Reserve
+              description: "Reserve"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21195,7 +23625,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: MERCHANT_FEE_ACCOUNT
-              description: Fee(Net)
+              description: "Fee(Net)"
               total_in: '25.5000'
               total_out: '25.5000'
               balance: '0.0000'
@@ -21206,9 +23636,9 @@ components:
                 '7':
                   amount: '25.5000'
                   destination: FEE_ACCOUNT
-                  description: Fees(Total)
+                  description: "Fees(Total)"
             - account_type: CHARGEBACK_ACCOUNT
-              description: Chargeback
+              description: "Chargeback"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21217,7 +23647,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: SUSPEND_ACCOUNT
-              description: Suspend
+              description: "Suspend"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21226,7 +23656,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: FEE_COLLECT_ACCOUNT
-              description: Gross Fee Collection
+              description: "Gross Fee Collection"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21235,7 +23665,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: GROSS_FEE_ACCOUNT
-              description: Fee(Gross)
+              description: "Fee(Gross)"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21244,7 +23674,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: REJECT_HOLD_ACCOUNT
-              description: Reject Hold
+              description: "Reject Hold"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21253,7 +23683,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: SERVICE_FEE_ACCOUNT
-              description: Service Fee
+              description: "Service Fee"
               total_in: '0.0000'
               total_out: '0.0000'
               balance: '0.0000'
@@ -21262,7 +23692,7 @@ components:
               info_prev_balance: '0.0000'
               destinations: []
             - account_type: FEE_ACCOUNT
-              description: Fees(Total)
+              description: "Fees(Total)"
               total_in: '25.5000'
               total_out: '25.5000'
               balance: '0.0000'
@@ -21273,9 +23703,9 @@ components:
                 '7':
                   amount: '25.5000'
                   destination: FEE_ACCOUNT
-                  description: Fees(Total)Rolling-up
+                  description: "Fees(Total)Rolling-up"
             - account_type: REVENUE_ACCOUNT
-              description: Net Processing
+              description: "Net Processing"
               total_in: '85.0000'
               total_out: '85.0000'
               balance: '0.0000'
@@ -21286,7 +23716,7 @@ components:
                 '99':
                   amount: '85.0000'
                   destination: NACHA_OUTPUT_ACCOUNT
-                  description: Settlement Output
+                  description: "Settlement Output"
             - account_type: HOLD_ACCOUNT
               description: Hold
               total_in: '0.0000'
@@ -21330,16 +23760,16 @@ components:
             settlement_ref: SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA
         settlement_details:
           - amount: '0.0000'
-            description: Reserve
+            description: "Reserve"
             account_type: RESERVE_ACCOUNT
           - amount: '20.5000'
-            description: Net Processing
+            description: "Net Processing"
             account_type: REVENUE_ACCOUNT
           - amount: '0.0000'
-            description: Chargeback
+            description: "Chargeback"
             account_type: CHARGEBACK_ACCOUNT
           - amount: '10.5000'
-            description: Fees(Total)
+            description: "Fees(Total)"
             account_type: FEE_ACCOUNT
         instructions_received: []
     ResponseInstructionalSettlement:
@@ -21355,24 +23785,24 @@ components:
             settlement_ref: SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA
         settlement_details:
           - amount: '0.0000'
-            description: Reserve
+            description: "Reserve"
             account_type: RESERVE_ACCOUNT
-          - amount: '98.5000'
-            description: Net Processing
+          - amount: '20.5000'
+            description: "Net Processing"
             account_type: REVENUE_ACCOUNT
           - amount: '0.0000'
-            description: Chargeback
+            description: "Chargeback"
             account_type: CHARGEBACK_ACCOUNT
           - amount: '2.2500'
-            description: Fees(Total)
+            description: "Fees(Total)"
             account_type: FEE_ACCOUNT
         instructions_received:
           - received_datetime: '2021-11-01 21:00:00'
             received_instruction:
               - account_type: REVENUE_ACCOUNT
-                amount: '98.50'
+                amount: '20.50'
               - account_type: FEE_ACCOUNT
-                amount: '2.20'
+                amount: '2.25'
         
     RequestNetCBInstruction:
       value:
