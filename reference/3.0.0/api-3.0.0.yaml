@@ -15,8 +15,10 @@ paths:
       summary: Add an Application
       description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID
       operationId: ADD_APPLICATION
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add Application
+      x-child-product-name: Boarding Submerchants
+      
       parameters:
       - name: X-API-VERSION
         in: header
@@ -40,7 +42,7 @@ paths:
               $ref: '#/components/schemas/AddApplication'
             examples:
               RequiredPayLoad:
-                summary: Minimum Payload required to board, using defaults in configuration for settings
+                summary: Minimum standard Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalApplication'
               
   /boarding/update_merchant:
@@ -50,8 +52,9 @@ paths:
       summary: Update a Merchant
       description: Update Merchant data of an existing application
       operationId: UPDATE_MERCHANT
-      x-group-name: Submerchant Boarding
+      x-group-name: Update Application
       x-proxy-name: Update Merchant
+      x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
         in: header
@@ -79,8 +82,9 @@ paths:
         - Application Boarding
       summary: Add Subgroup
       description: Add Subgroup
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Subgroup
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Additional Subgroup
+      x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
         in: header
@@ -114,8 +118,9 @@ paths:
         - Application Boarding
       summary: Update Subgroup
       description: Update Subgroup
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Subgroup
+      x-group-name: Update Application
+      x-proxy-name: Update Subgroup
+      x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
         in: header
@@ -177,8 +182,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Subgroup
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve Subgroup
+      x-child-product-name: Boarding Submerchants
   /boarding/outlet/add:
     post:
       tags:
@@ -200,7 +206,7 @@ paths:
               $ref: '#/components/schemas/AddOutletRequest'
             examples:
               RequiredPayLoad:
-                summary: Minimum Payload required to board, using defaults in configuration for settings
+                summary: Minimum standard Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalOutlet'
         required: true
 
@@ -217,8 +223,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add Merchant Outlet
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Add Outlet
+      x-child-product-name: Boarding Submerchants
   /boarding/outlet/update:
     post:
       tags:
@@ -252,8 +259,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Update Merchant Outlet
+      x-group-name: Update Application
+      x-proxy-name: Update Outlet
+      x-child-product-name: Boarding Submerchants
   /boarding/outlet/retrieve:
     post:
       tags:
@@ -287,8 +295,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Outlet
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve Outlet
+      x-child-product-name: Boarding Submerchants
   /boarding/////merchant:
     post:
       tags:
@@ -315,8 +324,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Data Retrieval
       x-proxy-name: Retrieve Merchant Hierarchy
+      x-child-product-name: Boarding Submerchants
   /boarding///application:
     post:
       tags:
@@ -343,8 +353,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Data Retrieval
       x-proxy-name: Application Status Check
+      x-child-product-name: Boarding Submerchants
   /boarding//application:
     post:
       tags:
@@ -371,8 +382,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Application Submission
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Application Submit
+      x-child-product-name: Boarding Submerchants
   /boarding/////application:
     post:
       tags:
@@ -399,8 +411,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Merchant Application
+      x-group-name: Data Retrieval 
+      x-proxy-name: Retrieve Application
+      x-child-product-name: Boarding Submerchants
   /boarding//////application:
     post:
       tags:
@@ -427,18 +440,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Update Application
       x-proxy-name: Unlock Application
+      x-child-product-name: Boarding Submerchants
 
   /boarding/notes/add:
     post:
       tags:
         - Application Boarding
       summary: Add note to an Application
-      description: Adds notes to an appliaction. Appliacation must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
+      description: Adds notes to an application. Application must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
       operationId: SUBMIT_NOTE
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add Notes
+      x-child-product-name: Boarding Submerchants
       responses:
         '405':
           description: Invalid input
@@ -461,8 +476,9 @@ paths:
       summary: Retrieve Notes for an application/merchant
       description: Retrieve Notes for an application/merchant
       operationId: RETRIEVE_NOTE
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Notes
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve Application Notes
+      x-child-product-name: Boarding Submerchants
       responses:
         '405':
           description: Invalid input
@@ -485,8 +501,9 @@ paths:
       summary: Retrieve Var Sheet Information for boarded merchant
       description: Retrieve Var Sheet information for an application/merchant
       operationId: RETRIEVE_VAR_SHEET
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Retrieve Var Sheet
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve VAR Sheet
+      x-child-product-name: Boarding Submerchants
       responses:
         '405':
           description: Invalid input
@@ -510,6 +527,7 @@ paths:
       description: Retrieve Available Offerings
       operationId: LIST_AVAILABLE_OFFERINGS
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Available Offerings
       parameters:
       - name: X-API-VERSION
@@ -541,6 +559,7 @@ paths:
       description: Retrieve Processing Offering
       operationId: RETRIEVE_PROCESSING_OFFERING
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Processing Offerings
       parameters:
       - name: X-API-VERSION
@@ -572,6 +591,7 @@ paths:
       description: Retrieve Equipment Offering
       operationId: RETRIEVE_EQUIPMENT_OFFERING
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Equipment Offerings
       parameters:
       - name: X-API-VERSION
@@ -604,6 +624,7 @@ paths:
       description: Retrieve Online Offering
       operationId: RETRIEVE_ONLINE_OFFERING
       x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
       x-proxy-name: Retrieve Online Offerings
       parameters:
       - name: X-API-VERSION
@@ -635,6 +656,7 @@ paths:
       operationId: searchTransactions
       x-group-name: Transactions
       x-proxy-name: Search Transactions
+      description : Retrieves the Transaction data provided from Clientline to Exchange. This typically represents transactions made at the point of sale. The date_added indicates the date the record was added to Exchange.
       parameters:
       - name: X-API-VERSION
         in: header
@@ -687,6 +709,7 @@ paths:
       - Search Transactions
       summary: Get reject transactions.
       operationId: searchRejectTransactions
+      description: Retrieves the Reject  data provided from Clientline to Exchange. This typically represents rejects after a transaction authorization and is pulled into exchange on a daily cadence before the instructional hold window opens. Rejects usually have a matching deposit adjustment record to balance this out.
       x-group-name: Transactions
       x-proxy-name: Search Rejects
       parameters:
@@ -738,6 +761,7 @@ paths:
       - Search Transactions
       summary: Get chargeback transactions.
       operationId: searchChargebackTransactions
+      description: Retrieves the Chargeback  data provided from Clientline to Exchange. This typically represents a chargebacks cases movement (where there are new records for status changes), and is pulled into exchange on a daily cadence before the instructional hold window opens.
       x-group-name: Transactions
       x-proxy-name: Chargebacks
       parameters:
@@ -789,6 +813,7 @@ paths:
       tags:
       - Search Transactions
       summary: Get chargeback adjustment transactions.
+      description: Retrieves the Chargeback Adjusment data provided from Clientline to Exchange. This typically represents actual financial impact + adjustment of the Chargeback and is pulled into exchange on a daily cadence before the instructional hold window opens.
       operationId: searchChargebackAdjustmentTransactions
       x-group-name: Transactions
       x-proxy-name: Chargeback Adjustments
@@ -840,6 +865,7 @@ paths:
       tags:
       - Search Transactions
       summary: Get authorization transactions.
+      description: Retrieves Authorization data provided from Clientline to Exchange, based on the query used. This is updated every 15 minutes 
       operationId: searchAuthorizationTransactions
       x-group-name: Transactions
       x-proxy-name: Authorizations
@@ -894,6 +920,7 @@ paths:
       x-group-name: Transactions
       x-proxy-name: Adjustments
       operationId: searchAdjustmentTransactions
+      description: Retrieves the Adjusment data provided from Clientline to Exchange. 
       parameters:
       - name: X-API-VERSION
         in: header
@@ -944,8 +971,9 @@ paths:
       summary: "Get settlement rejected information by merchant id, settlement date\
         \ and/or reject date."
       operationId: getSettlementRejects
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Settlement Rejects
+      description: Pulls an ACH settlement reject that has occured from Exchanges funding to the submerchant or PFAC. Will return identifier to link to original settlement, and Reason code for the reject. Rejects may need to be reprocess through the User interface.
       parameters:
       - name: X-API-VERSION
         in: header
@@ -984,7 +1012,7 @@ paths:
         - Reserve Release
       summary: "Move fund by merchant id, total amount, currency and accounts."
       operationId: reserveReleaseAccount
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Reserve Release
       parameters:
       - name: X-API-VERSION
@@ -1023,7 +1051,7 @@ paths:
       tags:
         - Account Operations
       summary: "Holds, releases, or suspends a submerchant" 
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Hold/Release/Suspend Submerchant
       parameters:
       - name: X-API-VERSION
@@ -1065,7 +1093,7 @@ paths:
         \ id, currency, total amount and accounts."
       x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       operationId: fundingInstruction
       parameters:
       - name: X-API-VERSION
@@ -1079,6 +1107,22 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/FundingInstructionRequest'
+            examples:
+              NetCBInstruction:
+                summary: Funding scenario where Chargeback is netted from submerchants processing revenue. 
+                $ref: '#/components/examples/RequestNetCBInstruction'
+              DebitCBInstruction:
+                summary: Funding scenario where Chargeback is billed gross from the submerchant. 
+                $ref: '#/components/examples/RequestDebitCBInstruction'
+              GrossInstruction:
+                summary: Funding scenario where billing for submerchant fee and chargeback is calculated gross.
+                $ref: '#/components/examples/RequestGrossInstruction'
+              ServiceFeeBilling:
+                summary: Funding scenario where service fee is used to bill submerchant on top of processing fees.
+                $ref: '#/components/examples/RequestServiceBillingInstruction'
+              DebitSub:
+                summary: Funding scenario where submerchant owes more than in instructional hold. In this scenario, the instructional hold is $100 and taken fully using the fee account, and the submerchant debited an additional 20.
+                $ref: '#/components/examples/RequestDebitSubInstruction'
         required: true
       responses:
         "200":
@@ -1107,8 +1151,8 @@ paths:
         the amounts to be instructed.
       operationId: fundingDetailsInstruction
       x-group-name: Funding by Summary
-      x-proxy-name: Funding Detailed-Instruction
-      x-child-product-name: Funding
+      x-proxy-name: Funding Instruction with Details
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1147,7 +1191,7 @@ paths:
         - Account Operations
       summary: "Get trade information by merchant id, date and currency."
       operationId: tradeAccount
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Trade Info
       parameters:
       - name: X-API-VERSION
@@ -1187,7 +1231,7 @@ paths:
         - Account Operations
       summary: "Get settlement information by merchant id, settlement date and currency."
       operationId: getSettlementInfo
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Settlement Info
       parameters:
       - name: X-API-VERSION
@@ -1221,13 +1265,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SettlementInfoResponse'
+              examples:
+                GeneralInstructionalSettlement:
+                  summary: Example for a settlement generated with Instructional Funding
+                  $ref: '#/components/examples/ResponseInstructionalSettlement'
+                GeneralAutoSettlement:
+                  summary: Example for a settlement generated with Auto Funding
+                  $ref: '#/components/examples/ResponseManageSettlement'
   /account/balance:
     post:
       tags:
       - Account Operations
       summary: "Get account balance by merchant id, account type and currency."
       operationId: getBalanceAccount
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Account Balance
       parameters:
       - name: X-API-VERSION
@@ -1261,13 +1312,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountBalanceResponse'
+              examples:
+                InstructionalAccount:
+                    summary: Example Response for the instructional hold account.
+                    $ref: '#/components/examples/ResponseAccountInstructionalHold'
+
+                    
   /account/account-summary:
     post:
       tags:
       - Account Operations
       summary: "Get account summary by merchant id, date and currency."
       operationId: getAccountSummary
-      x-group-name: Account Operations
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Account Summary
       parameters:
       - name: X-API-VERSION
@@ -1289,6 +1346,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountSummaryResponse'
+              examples:
+                GeneralSummary:
+                    summary: Example Response where a standard blended fee is taken from the submerchants transactions processed. Linked settlement is available for dates where settlement has generated at the time of requesting information.
+                    $ref: '#/components/examples/ResponseAccountSummaryGeneral'
+                
 
         "404":
           description: Merchant/Account not found
@@ -1311,7 +1373,7 @@ paths:
       operationId: updateSplitInstruction
       x-group-name: Transaction Instruction
       x-proxy-name: Update Transaction Details
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1353,7 +1415,7 @@ paths:
       operationId: splitInstruction
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Details
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1395,7 +1457,7 @@ paths:
       operationId: splitInstructionStatus
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Status
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1437,7 +1499,7 @@ paths:
       operationId: splitReprocess
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Reprocess
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1478,7 +1540,7 @@ paths:
       operationId: getErroredTransactions
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Instruction Errors
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1520,7 +1582,7 @@ paths:
       operationId: discardTransaction
       x-group-name: Transaction Instruction
       x-proxy-name: Transaction Discard
-      x-child-product-name: Funding
+      x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1855,14 +1917,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-group-name: Information Retrieval
+      x-group-name: Submerchant Account Operations
       x-proxy-name: Get Bank Details
   /boarding/nonprocessingapplication:
     post:
       tags:
         - Application Boarding
       summary: Add Non-Processing Merchant
-      description: Add Non-Processing Merchant
+      description: Add a third-party onto the system, as a non-processing merchant. Typically used to support split funding payments where a split is required to be sent to a third party on the system. 
       parameters:
       - name: X-API-VERSION
         in: header
@@ -1894,13 +1956,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Add non-processing Merchant Application
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Add Third Party / Non-processing submerchant
+      x-child-product-name: Boarding Submerchants
   /fdapplication/upload_additional_files:
     post:
       tags:
         - Application Boarding
-      summary: Uploading Additional Documents to Exchange
+      summary: Uploading Additional Documents to Exchange (Shared Service Model)
       description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
       parameters:
       - name: X-API-VERSION
@@ -1924,8 +1987,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Upload Additional Documents
+      x-child-product-name: Boarding Submerchants
   /boarding/document_categories:
     post:
       tags:
@@ -1959,13 +2023,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
-      x-proxy-name: Configured Document Categories
+      x-group-name: Data Retrieval
+      x-proxy-name: Retrieve Configured Documents
+      x-child-product-name: Boarding Submerchants
   /fdapplication/submit_additional_documents:
     post:
       tags:
         - Application Boarding
-      summary: Submitting additional documents to application
+      summary: Submitting additional documents to application (Shared service model)
       description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
       parameters:
       - name: X-API-VERSION
@@ -1994,8 +2059,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Submerchant Boarding
+      x-group-name: Boarding Submerchant Applications
       x-proxy-name: Submit additional documents for Application
+      x-child-product-name: Boarding Submerchants
   /intelligence/retrieve_intelligence:
     post:
       tags:
@@ -20721,9 +20787,6 @@ components:
           visitation_required: "1"
           primary_email_address: "email@domain.com"
           mcc_code: "5733"
-          mastercard_sales: "100000.00"
-          visa_sales: "100000.00"
-          visa_mastercard_sales: "100000.00"
           discover_required: "1"
           amex_required: "1"
           amex_volume: "100000.00"
@@ -21100,7 +21163,292 @@ components:
           - "mobileclient"
         jti: "l0ae-762d-01cd-01cd-cdxLpaSa32"
         refresh_token: "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
-
+    ResponseAccountSummaryGeneral:
+      value:
+        result: SUCCESS
+        trade_summary:
+          transaction_amount: '130.5000'
+          refund_amount: '-20.5000'
+          net_transaction_amount: '110.5000'
+          rejected_amount: '10.0000'
+          deposit_adjustments: '-10.0000'
+          chargeback: '0.0000'
+          chargeback_reversal: '0.0000'
+          USD:
+            currency: USD
+            transaction_amount: '130.5000'
+            refund_amount: '-20.5000'
+            net_transaction_amount: '110.5000'
+            rejected_amount: '10.0000'
+            deposit_adjustments: '-10.0000'
+            chargeback: '0.0000'
+            chargeback_reversal: '0.0000'
+        account_summary:
+          USD:
+            - account_type: RESERVE_ACCOUNT
+              description: Reserve
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: MERCHANT_FEE_ACCOUNT
+              description: Fee(Net)
+              total_in: '25.5000'
+              total_out: '25.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '7':
+                  amount: '25.5000'
+                  destination: FEE_ACCOUNT
+                  description: Fees(Total)
+            - account_type: CHARGEBACK_ACCOUNT
+              description: Chargeback
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: SUSPEND_ACCOUNT
+              description: Suspend
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: FEE_COLLECT_ACCOUNT
+              description: Gross Fee Collection
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: GROSS_FEE_ACCOUNT
+              description: Fee(Gross)
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: REJECT_HOLD_ACCOUNT
+              description: Reject Hold
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: SERVICE_FEE_ACCOUNT
+              description: Service Fee
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+            - account_type: FEE_ACCOUNT
+              description: Fees(Total)
+              total_in: '25.5000'
+              total_out: '25.5000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '7':
+                  amount: '25.5000'
+                  destination: FEE_ACCOUNT
+                  description: Fees(Total)Rolling-up
+            - account_type: REVENUE_ACCOUNT
+              description: Net Processing
+              total_in: '85.0000'
+              total_out: '85.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations:
+                '99':
+                  amount: '85.0000'
+                  destination: NACHA_OUTPUT_ACCOUNT
+                  description: Settlement Output
+            - account_type: HOLD_ACCOUNT
+              description: Hold
+              total_in: '0.0000'
+              total_out: '0.0000'
+              balance: '0.0000'
+              prev_balance: '0.0000'
+              info_balance: '0.0000'
+              info_prev_balance: '0.0000'
+              destinations: []
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '85.0000'
+            settlement_status: PENDING
+            dda: '******4321'
+            aba: '6669898321'
+            effective_date: '2021-11-01'
+            settlement_ref: SETR2-KC6A9-APLOE-29919-79LPA-EUI79-KC679
+            mid: '52600000321'
+        
+    ResponseAccountInstructionalHold:
+      value:
+        result: SUCCESS
+        account:
+          account_type: INSTRUCTIONAL_HOLD_ACCOUNT
+          currency: USD
+          balance: '854.0100'
+          previous_balance: '795.1400'
+          today_in: '0.0000'
+          today_out: '0.0000'
+          merchant_id: '52600000321'
+    ResponseManageSettlement:
+      value:
+        result: SUCCESS
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '20.5000'
+            settlement_status: PENDING
+            dda: '******4321'
+            aba: '6669898321'
+            effective_date: '2021-11-01'
+            settlement_ref: SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA
+        settlement_details:
+          - amount: '0.0000'
+            description: Reserve
+            account_type: RESERVE_ACCOUNT
+          - amount: '20.5000'
+            description: Net Processing
+            account_type: REVENUE_ACCOUNT
+          - amount: '0.0000'
+            description: Chargeback
+            account_type: CHARGEBACK_ACCOUNT
+          - amount: '10.5000'
+            description: Fees(Total)
+            account_type: FEE_ACCOUNT
+        instructions_received: []
+    ResponseInstructionalSettlement:
+      value:
+        result: SUCCESS
+        settlement_summary:
+          - settlement_type: CREDIT
+            settlement_amount: '20.5000'
+            settlement_status: PENDING
+            dda: '******4321'
+            aba: '6669898321'
+            effective_date: '2021-11-01'
+            settlement_ref: SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA
+        settlement_details:
+          - amount: '0.0000'
+            description: Reserve
+            account_type: RESERVE_ACCOUNT
+          - amount: '98.5000'
+            description: Net Processing
+            account_type: REVENUE_ACCOUNT
+          - amount: '0.0000'
+            description: Chargeback
+            account_type: CHARGEBACK_ACCOUNT
+          - amount: '2.2500'
+            description: Fees(Total)
+            account_type: FEE_ACCOUNT
+        instructions_received:
+          - received_datetime: '2021-11-01 21:00:00'
+            received_instruction:
+              - account_type: REVENUE_ACCOUNT
+                amount: '98.50'
+              - account_type: FEE_ACCOUNT
+                amount: '2.20'
+        
+    RequestNetCBInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '85.00'
+            type: CREDIT
+        billing:
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+        chargeback:
+          - account_type: CHARGEBACK
+            amount: '10.50'
+            type: CREDIT
+    RequestDebitCBInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '95.00'
+            type: CREDIT
+        billing:
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+        chargeback:
+          - account_type: CHARGEBACK
+            amount: '10.50'
+            type: CREDIT
+    RequestGrossInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '100.00'
+            type: CREDIT
+        billing:
+          - account_type: SERVICE_FEE
+            amount: '5.00'
+            type: CREDIT
+        chargeback:
+          - account_type: CHARGEBACK
+            amount: '10.00'
+            type: CREDIT
+    RequestServiceBillingInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '85.00'
+            type: CREDIT
+          - account_type: FEE
+            amount: '10.00'
+            type: CREDIT
+        billing:
+          - account_type: SERVICE_FEE
+            amount: '30.00'
+            type: CREDIT
+    RequestDebitSubInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '20.00'
+            type: DEBIT
+        billing:
+          - account_type: FEE
+            amount: '100.00'
+            type: CREDIT
   requestBodies:
     statusMode:
       content:
