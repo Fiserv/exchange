@@ -1107,7 +1107,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/FundingInstructionRequest'
-            example:
+            examples:
               NetCBInstruction:
                 summary: Funding scenario where Chargeback is netted from submerchants processing revenue. 
                 $ref: '#/components/examples/RequestNetCBInstruction'
