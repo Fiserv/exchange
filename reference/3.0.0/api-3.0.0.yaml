@@ -5551,10 +5551,10 @@ components:
                   example: 2
                 business_tin_ssn_number: 
                   type: string
-                  example: 123047801
+                  example: 666989898
                 business_tin_ssn_number_masked: 
                   type: string
-                  example: '*****7801'
+                  example: '*****9898'
                 int_tax_exempt_flag:
                   type: string
                   example: "1"
@@ -5599,7 +5599,7 @@ components:
                   example: "0"
                 int_tax_id: 
                   type: string
-                  example: 123047801
+                  example: 666989898
             owners: 
               type: array
               items: 
