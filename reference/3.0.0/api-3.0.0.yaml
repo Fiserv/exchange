@@ -1719,6 +1719,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateMaintenanceResponse'
+              examples:
+                ProcessingPricingResponse:
+                  $ref: '#/components/examples/MaintenancePricingResponse'
         default:
           description: Unexpected Error
           content:
@@ -26832,6 +26835,189 @@ components:
           - error_code: 1501001
             message: 'Outlet 2: Trading Information is invalid - The field Annual Card Turnover is required'
             context: '{"outlet":2,"trading_information":2}'
+    
+    MaintenancePricingResponse:
+      value:
+        result: SUCCESS
+        operation:
+          operation_type: CREATE_MAINTENANCE
+        maintenance:
+          maintenance_reference: MC3000000687
+          merchant_reference: '3015001'
+          maintenance_status: Open
+          has_errors: '0'
+          maintenance_external_id: MTNE0-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          creator_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          status_external_id: MTS5F-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
+        maintenance_details:
+          maintenance_reference: MC3000000687
+          merchant_reference: '3015001'
+          maintenance_types:
+            - UPDATE_PROCESSING_PRICING
+          old_details:
+            outlets:
+              652663665ddfeeba1a0b4bb0:
+                acquiringOffer:
+                  transaction_pricing_external_id: TPI46-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                  transaction_pricing_id: '100'
+                  transaction_pricing_name: ' Standard Entitlements'
+                  transaction_pricing_ref: null
+                  currency: USD
+                  is_tier_price: '0'
+                  tier_price_type: '1'
+                  fee_collection_type: BLENDED
+                  alliance_external_id: ALL4A-4394E-718DF-4076F-9346E-F2905-0560B
+                  acquirer_external_id: MAC85-4394E-718DF-4076F-9346E-F2905-0560B
+                  processing_platform: OTHER
+                  charge_items:
+                    - charge_item_external_id: CHI79-4394E-718DF-4076F-9346E-F2905-0560B
+                      charge_item_id: '200'
+                      charge_item_name: VS MC Entitlement
+                      charge_item_ref: null
+                      charge_item_group_external_id: CIGDA-4394E-718DF-4076F-9346E-F2905-0560B
+                      charge_item_group_name: Entitlements
+                      is_boarding_activated: '1'
+                      is_activated: '1'
+                      fee_collection_type: BLENDED
+                      mp_pricing_type_code: '10011'
+                      charge_decimals: '2'
+                      is_invisible: '0'
+                      tx_source: null
+                      is_mandatory: '1'
+                      is_merged_charges: '0'
+                      charge_item_prices:
+                        - charge_item_price_charges:
+                            - tier_number: '0'
+                              fee_type: '1'
+                              category: '2'
+                              base_charge: null
+                              default_base_charge: null
+                              minimum_base_charge: null
+                              maximum_base_charge: null
+                              perc_charge: '0.00000'
+                              default_perc_charge: '0.00000'
+                              minimum_perc_charge: '0.00000'
+                              maximum_perc_charge: '0.00000'
+                              date_added: null
+                              date_updated: null
+                            - tier_number: '0'
+                              fee_type: '2'
+                              category: '2'
+                              base_charge: '0.00000'
+                              default_base_charge: '0.00000'
+                              minimum_base_charge: '0.00000'
+                              maximum_base_charge: '10.00000'
+                              perc_charge: null
+                              default_perc_charge: null
+                              minimum_perc_charge: null
+                              maximum_perc_charge: null
+                              date_added: null
+                              date_updated: null
+                          date_added: null
+                          date_updated: null
+                      date_added: null
+                      date_updated: null
+                    - charge_item_external_id: CHI2B-4394E-718DF-4076F-9346E-F2905-0560B
+                      charge_item_id: '200'
+                      charge_item_name: AmexOptBlue A
+                      charge_item_ref: 777-1000105251
+                      charge_item_group_external_id: CIGDA-4394E-718DF-4076F-9346E-F2905-0560B
+                      charge_item_group_name: Entitlements Group
+                      is_boarding_activated: '1'
+                      is_activated: '1'
+                      fee_collection_type: BLENDED
+                      mp_pricing_type_code: '10011'
+                      charge_decimals: '2'
+                      is_invisible: '0'
+                      tx_source: null
+                      is_mandatory: '0'
+                      is_merged_charges: '0'
+                      charge_item_prices:
+                        - charge_item_price_charges:
+                            - tier_number: '0'
+                              fee_type: '1'
+                              category: '1'
+                              base_charge: null
+                              default_base_charge: null
+                              minimum_base_charge: null
+                              maximum_base_charge: null
+                              perc_charge: '0.00'
+                              default_perc_charge: '0.00000'
+                              minimum_perc_charge: '0.00000'
+                              maximum_perc_charge: '0.00000'
+                              date_added: null
+                              date_updated: null
+                            - tier_number: '0'
+                              fee_type: '2'
+                              category: '1'
+                              base_charge: '0.00'
+                              default_base_charge: '0.00000'
+                              minimum_base_charge: '0.00000'
+                              maximum_base_charge: '10.00000'
+                              perc_charge: null
+                              default_perc_charge: null
+                              minimum_perc_charge: null
+                              maximum_perc_charge: null
+                              date_added: null
+                              date_updated: null
+                          date_added: null
+                          date_updated: null
+                      date_added: null
+                      date_updated: null
+                    - charge_item_external_id: CHIB4-4394E-718DF-4076F-9346E-F2905-0560B
+                      charge_item_id: '281'
+                      charge_item_name: Discover Entitlement
+                      charge_item_ref: null
+                      charge_item_group_external_id: CIGDA-4394E-718DF-4076F-9346E-F2905-0560B
+                      charge_item_group_name: Entitlements Group
+                      is_boarding_activated: '1'
+                      is_activated: '1'
+                      fee_collection_type: BLENDED
+                      mp_pricing_type_code: '10011'
+                      charge_decimals: '2'
+                      is_invisible: '0'
+                      tx_source: null
+                      is_mandatory: '0'
+                      is_merged_charges: '0'
+                      charge_item_prices:
+                        - charge_item_price_charges:
+                            - tier_number: '0'
+                              fee_type: '1'
+                              category: '2'
+                              base_charge: null
+                              default_base_charge: null
+                              minimum_base_charge: null
+                              maximum_base_charge: null
+                              perc_charge: '0.00'
+                              default_perc_charge: '0.00000'
+                              minimum_perc_charge: '0.00000'
+                              maximum_perc_charge: '0.00000'
+                              date_added: null
+                              date_updated: null
+                            - tier_number: '0'
+                              fee_type: '2'
+                              category: '2'
+                              base_charge: '0.00'
+                              default_base_charge: '0.00000'
+                              minimum_base_charge: '0.00000'
+                              maximum_base_charge: '10.00000'
+                              perc_charge: null
+                              default_perc_charge: null
+                              minimum_perc_charge: null
+                              maximum_perc_charge: null
+                              date_added: null
+                              date_updated: null
+                          date_added: null
+                          date_updated: null
+                      date_added: null
+                      date_updated: null
+                  tiers: []
+                  service_items: []
+                  additional_data: []
+                  date_added: null
+                  date_updated: null
+        
         
         
   requestBodies:
