@@ -5438,7 +5438,7 @@ components:
               example: N SAMPLE RD
             contact_town_city: 
               type: string
-              example: LORETTA
+              example: CITY
             contact_county: 
               type: string
               example: WI
@@ -5486,7 +5486,7 @@ components:
                   example: "840"
                 city: 
                   type: string
-                  example: LORETTA
+                  example: CITY
                 zip_code: 
                   type: string
                   example: 12345-1234
@@ -25434,8 +25434,8 @@ components:
           contact_title: Miss.
           contact_first_name: Jane
           contact_last_name: Doe
-          contact_address1: N BLAISDELL LAKE RD
-          contact_town_city: LORETTA
+          contact_address1: STREET NAME
+          contact_town_city: CITY
           contact_county: WI
           contact_postcode: 54321-4321
           contact_country_code: '840'
