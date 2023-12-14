@@ -66,6 +66,8 @@
       link: docs/getting-started/reporting.md
     - title: Back to Sales
       link: docs/getting-started/backtosales.md
+    - title: Restricted MCCs
+      link: docs/documentation/restricted_mccs.md
 - sections:
     - title: Additional Samples
       link: docs/introduction/exchange-boarding-guide.md
