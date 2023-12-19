@@ -59,4 +59,4 @@
 | 3650 |                            | X                       |                                       |
 | 3687 |                            | X                       |                                       |
 
-This list may chnage based on the compliance regulations by American Express and Fiserv
+This list may change based on the compliance regulations by American Express and Fiserv
