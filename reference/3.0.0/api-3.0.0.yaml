@@ -26,6 +26,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       responses:
         '405':
           description: Invalid input
@@ -62,6 +76,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       responses:
         '405':
           description: Invalid input
@@ -89,6 +117,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -128,6 +170,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Updating a Merchant Subgroup
         content:
@@ -159,6 +215,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -195,6 +265,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -239,6 +323,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Updating a Merchant Outlet
         content:
@@ -272,6 +370,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -536,6 +648,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       responses:
         '405':
           description: Invalid input
@@ -568,6 +694,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       responses:
         '405':
           description: Invalid input
@@ -597,6 +737,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -633,6 +787,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       responses:
         '405':
           description: Invalid input
@@ -661,6 +829,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -719,6 +901,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -768,6 +964,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -824,6 +1034,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -876,6 +1100,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -925,6 +1163,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -981,6 +1233,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1018,6 +1284,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1060,6 +1340,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1099,6 +1393,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1160,6 +1468,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1200,6 +1522,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1237,6 +1573,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1287,6 +1637,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1330,6 +1694,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1381,6 +1759,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1420,6 +1812,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1465,6 +1871,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1507,6 +1927,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1545,6 +1979,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1590,6 +2038,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         content:
           application/json:
@@ -1626,6 +2088,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1679,6 +2155,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Creating a Maintenance Case for a merchant
         content:
@@ -1711,6 +2201,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1757,6 +2261,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Submitting a Maintenance Case for a Merchant
         content:
@@ -1789,6 +2307,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1827,6 +2359,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Retrieving a Maintenance Case already Created
         content:
@@ -1859,6 +2405,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1897,6 +2457,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Get merchant bank information
         content:
@@ -1929,6 +2503,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -1972,6 +2560,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
       responses:
@@ -2000,6 +2602,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -2039,6 +2655,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Submitting additional documents for Application
         content:
@@ -2072,6 +2702,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -2111,6 +2755,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Retrieve Risk Full Report for Screening
         content:
@@ -2144,6 +2802,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -2183,6 +2855,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Overwriting CREDIT RISK Report for Screening (OFAC Report)
         content:
@@ -2216,6 +2902,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
@@ -2255,6 +2955,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Retrieve Risk Available Reports List for Monitoring
         content:
@@ -2291,6 +3005,20 @@ paths:
         schema:
           type: string
           format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
       requestBody:
         description: Retrieve Risk Full Reports for Monitoring
         content:
@@ -2324,6 +3052,20 @@ paths:
       - name: X-API-VERSION
         in: header
         required: false
+        schema:
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
         schema:
           type: string
           format: int32
