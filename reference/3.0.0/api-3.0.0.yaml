@@ -7905,7 +7905,7 @@ components:
           description: Operation
           example:
             operation_type: RETRIEVE_PROCESSING_OFFERING
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
     EquipmentOffersOperation:
@@ -7917,7 +7917,7 @@ components:
           description: Operation
           example:
             operation_type: RETRIEVE_EQUIPMENT_OFFERING
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
     AddNonProcessingApplicationOperation:
@@ -7929,7 +7929,7 @@ components:
           description: Operation
           example:
             operation_type: ADD_APPLICATION
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/OperationAddApplication'
     ApplicationStatusCheckOperation:
@@ -7941,7 +7941,7 @@ components:
           description: Operation
           example:
             operation_type: APPLICATION_STATUS_CHECK
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/OperationAddApplication'
     DecisionOperation:
@@ -7953,7 +7953,7 @@ components:
           description: Operation
           example:
             operation_type: UNDERWRITING_APPROVE
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
     AddApplicationOperation:
@@ -7965,7 +7965,7 @@ components:
           description: Operation
           example:
             operation_type: ADD_APPLICATION
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/OperationAddApplication'
     AddSubGroupOperation:
@@ -7977,7 +7977,7 @@ components:
           description: Operation
           example:
             operation_type: ADD_MERCHANT_SUB_GROUP
-            
+            version: 2.0.0
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
     AddOutletOperation:
@@ -25350,7 +25350,6 @@ components:
       value:
         operation:
           operation_type: "ADD_APPLICATION"
-          version: "2.0.0"
         merchant: 
           business_entity: {"legal_name": "MMISTest Legal Name",
             "ownership_entity_type": "L",
