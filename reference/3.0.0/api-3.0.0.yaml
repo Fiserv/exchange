@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-# Added by API Auto Mocking Plugin
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
 
 paths:
@@ -221,59 +220,59 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       
-  /boarding/subgroup/retrieve:
-    post:
-      tags:
-        - Application Boarding
-      summary: Retrieve Subgroup
-      description: Retrieve Subgroup
-      parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      requestBody:
-        description: Retrieving a Merchant Subgroup
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveSubGroupRequest'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddSubGroupResponseBlock'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
-      x-proxy-name: Retrieve Subgroup
-      x-child-product-name: Boarding Submerchants
+  # /boarding/subgroup/retrieve:
+  #   post:
+  #     tags:
+  #       - Application Boarding
+  #     summary: Retrieve Subgroup
+  #     description: Retrieve Subgroup
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
+  #       in: header
+  #       required: false
+  #       schema:
+  #         enum: [2, 3]
+  #         default: 3
+  #         type: string
+  #         format: int32
+  #     - name: Content-Type
+  #       description: "Content type. application/json"
+  #       in: header
+  #       required: true
+  #       schema:
+  #         type: string
+  #         format: int32
+  #     - name: Authorization
+  #       description: "Authorization header, OAuth 2.0 standard"
+  #       in: header
+  #       required: true
+  #       schema:
+  #         type: string
+  #         format: int32
+  #     requestBody:
+  #       description: Retrieving a Merchant Subgroup
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveSubGroupRequest'
+  #       required: true
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/AddSubGroupResponseBlock'
+  #       default:
+  #         description: Unexpected error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/error_response'
+  #     x-group-name: Data Retrieval
+  #     x-proxy-name: Retrieve Subgroup
+  #     x-child-product-name: Boarding Submerchants
   /boarding/outlet/add:
     post:
       tags:
@@ -388,59 +387,59 @@ paths:
       x-group-name: Update Application
       x-proxy-name: Update Outlet
       x-child-product-name: Boarding Submerchants
-  /boarding/outlet/retrieve:
-    post:
-      tags:
-        - Application Boarding
-      summary: Retrieve Outlet
-      description: Retrieve Outlet
-      parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      requestBody:
-        description: Retrieving a Merchant Outlet
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveOutletRequest'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddSubGroupResponseBlock'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
-      x-proxy-name: Retrieve Outlet
-      x-child-product-name: Boarding Submerchants
+  # /boarding/outlet/retrieve:
+  #   post:
+  #     tags:
+  #       - Application Boarding
+  #     summary: Retrieve Outlet
+  #     description: Retrieve Outlet
+  #     parameters:
+  #     - name: X-API-VERSION
+  #       description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
+  #       in: header
+  #       required: false
+  #       schema:
+  #         enum: [2, 3]
+  #         default: 3
+  #         type: string
+  #         format: int32
+  #     - name: Content-Type
+  #       description: "Content type. application/json"
+  #       in: header
+  #       required: true
+  #       schema:
+  #         type: string
+  #         format: int32
+  #     - name: Authorization
+  #       description: "Authorization header, OAuth 2.0 standard"
+  #       in: header
+  #       required: true
+  #       schema:
+  #         type: string
+  #         format: int32
+  #     requestBody:
+  #       description: Retrieving a Merchant Outlet
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveOutletRequest'
+  #       required: true
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/AddSubGroupResponseBlock'
+  #       default:
+  #         description: Unexpected error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/error_response'
+  #     x-group-name: Data Retrieval
+  #     x-proxy-name: Retrieve Outlet
+  #     x-child-product-name: Boarding Submerchants
   /boarding/////merchant:
     post:
       tags:
