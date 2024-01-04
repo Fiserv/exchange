@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
+# Added by API Auto Mocking Plugin
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
 
 paths:
@@ -21,9 +22,12 @@ paths:
       
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -74,9 +78,12 @@ paths:
       x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -118,9 +125,12 @@ paths:
       x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -168,9 +178,12 @@ paths:
       x-child-product-name: Boarding Submerchants
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -216,9 +229,12 @@ paths:
       description: Retrieve Subgroup
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -266,9 +282,12 @@ paths:
       description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -324,9 +343,12 @@ paths:
       description: Update Outlet
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -374,9 +396,12 @@ paths:
       description: Retrieve Outlet
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -669,9 +694,12 @@ paths:
       x-proxy-name: Retrieve Available Offerings
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -715,9 +743,12 @@ paths:
       x-proxy-name: Retrieve Processing Offerings
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -761,9 +792,12 @@ paths:
       x-proxy-name: Retrieve Equipment Offerings
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -808,9 +842,12 @@ paths:
       x-proxy-name: Retrieve Online Offerings
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -853,9 +890,12 @@ paths:
       description : Retrieves the Transaction data provided from Clientline to Exchange. This typically represents transactions made at the point of sale. The date_added indicates the date the record was added to Exchange.
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -922,9 +962,12 @@ paths:
       x-proxy-name: Search Rejects
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -988,9 +1031,12 @@ paths:
       x-proxy-name: Chargebacks
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1055,9 +1101,12 @@ paths:
       x-proxy-name: Chargeback Adjustments
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1121,9 +1170,12 @@ paths:
       x-proxy-name: Authorizations
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1187,9 +1239,12 @@ paths:
       description: Retrieves the Adjusment data provided from Clientline to Exchange. 
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1254,9 +1309,12 @@ paths:
       description: Pulls an ACH settlement reject that has occured from Exchanges funding to the submerchant or PFAC. Will return identifier to link to original settlement, and Reason code for the reject. Rejects may need to be reprocess through the User interface.
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1308,9 +1366,12 @@ paths:
       x-proxy-name: Reserve Release
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1361,9 +1422,12 @@ paths:
       x-proxy-name: Hold/Release/Suspend Submerchant
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1417,9 +1481,12 @@ paths:
       operationId: fundingInstruction
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1489,9 +1556,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1543,9 +1613,12 @@ paths:
       x-proxy-name: Get Trade Info
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1597,9 +1670,12 @@ paths:
       x-proxy-name: Get Settlement Info
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1658,9 +1734,12 @@ paths:
       x-proxy-name: Get Account Balance
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1718,9 +1797,12 @@ paths:
       x-proxy-name: Get Account Summary
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1780,9 +1862,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1836,9 +1921,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1892,9 +1980,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -1948,9 +2039,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2003,9 +2097,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2059,9 +2156,12 @@ paths:
       x-child-product-name: Submerchant Funding
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2112,9 +2212,12 @@ paths:
       operationId: GET_OAUTH_TOKEN
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2176,9 +2279,12 @@ paths:
       description: Creates a Maintenance Case for a merchant to update bank information, or pricing (Managed funding). Updated information is provided in the UPDATE_MAINTENANCE call
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2228,9 +2334,12 @@ paths:
       description: Updates a Maintenance Case that has been created by the Create Maintenance API for a boarded Merchant. Can be used to update the information for the case, such as the bank information at the billing level, and pricing for managed funding.
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2285,9 +2394,12 @@ paths:
       description: Submitting a Maintenance Case for a Merchant with the updated information
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2334,9 +2446,12 @@ paths:
       description: Searching for a Maintenance Case already created
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2383,9 +2498,12 @@ paths:
       description: Retrieving a Maintenance Case already Created
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2432,9 +2550,12 @@ paths:
       description: Cancelling a Maintenance Case
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2481,9 +2602,12 @@ paths:
       operationId: get_bank_detail
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2530,9 +2654,12 @@ paths:
       description: Add a third-party onto the system, as a non-processing merchant. Typically used to support split funding payments where a split is required to be sent to a third party on the system. 
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2584,9 +2711,12 @@ paths:
       description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2629,9 +2759,12 @@ paths:
       description: Will list all documents configured that can be sent through Upload Additional Files endpoint.
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2679,9 +2812,12 @@ paths:
       description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2729,9 +2865,12 @@ paths:
       description: Retrieve Risk Available Reports List for Screening
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2779,9 +2918,12 @@ paths:
       description: Retrieve Risk Full Report for Screening
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2829,9 +2971,12 @@ paths:
       description: Overwriting AML Report for Screening (OFAC Report)
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2879,9 +3024,12 @@ paths:
       description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2929,9 +3077,12 @@ paths:
       description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -2979,9 +3130,12 @@ paths:
       description: Retrieve Risk Available Reports List for Monitoring
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -3029,9 +3183,12 @@ paths:
       description: Retrieve Risk Full Reports for Monitoring
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -3079,9 +3236,12 @@ paths:
       description: Overwriting AML Report for Monitoring (OFAC Report)
       parameters:
       - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
         in: header
         required: false
         schema:
+          enum: [2, 3]
+          default: 3
           type: string
           format: int32
       - name: Content-Type
@@ -17821,6 +17981,13 @@ components:
           - BILLING_INSTRUCTION
         description:
           type: string
+        transaction_source:
+          type: string
+          example: 'CARD'
+          description: "Provides source of the transaction for clients using multiple sources"
+          enum:
+          - CARD
+          - ACH
     AccountBalanceRequest:
       required:
       - account_type
@@ -25734,6 +25901,7 @@ components:
                   amount: '25.5000'
                   destination: FEE_ACCOUNT
                   description: "Fees(Total)"
+                  transaction_source:  "CARD"
             - account_type: CHARGEBACK_ACCOUNT
               description: "Chargeback"
               total_in: '0.0000'
@@ -25801,6 +25969,7 @@ components:
                   amount: '25.5000'
                   destination: FEE_ACCOUNT
                   description: "Fees(Total)Rolling-up"
+                  transaction_source:  "CARD"
             - account_type: REVENUE_ACCOUNT
               description: "Net Processing"
               total_in: '85.0000'
@@ -25814,6 +25983,7 @@ components:
                   amount: '85.0000'
                   destination: NACHA_OUTPUT_ACCOUNT
                   description: "Settlement Output"
+                  transaction_source:  "CARD"
             - account_type: HOLD_ACCOUNT
               description: Hold
               total_in: '0.0000'
@@ -25907,17 +26077,30 @@ components:
         currency: USD
         funding:
           - account_type: REVENUE
-            amount: '85.00'
+            amount: '84.50'
             type: CREDIT
-        billing:
-          - account_type: FEE
-            amount: '5.00'
-            type: CREDIT
-        chargeback:
           - account_type: CHARGEBACK
             amount: '10.50'
             type: CREDIT
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+    RequestNetFundingLargerCBInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '10.50'
+            type: DEBIT
+          - account_type: CHARGEBACK
+            amount: '10.50'
+            type: CREDIT
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
     RequestDebitCBInstruction:
+##chargeback is not netted out, debited out directly from merchant
       value:
         merchant_id: '520000000321'
         currency: USD
@@ -25925,7 +26108,6 @@ components:
           - account_type: REVENUE
             amount: '95.00'
             type: CREDIT
-        billing:
           - account_type: FEE
             amount: '5.00'
             type: CREDIT
@@ -25942,7 +26124,7 @@ components:
             amount: '100.00'
             type: CREDIT
         billing:
-          - account_type: SERVICE_FEE
+          - account_type: GROSS_FEE
             amount: '5.00'
             type: CREDIT
         chargeback:
@@ -25955,26 +26137,44 @@ components:
         currency: USD
         funding:
           - account_type: REVENUE
-            amount: '85.00'
+            amount: '95.00'
             type: CREDIT
           - account_type: FEE
-            amount: '10.00'
+            amount: '5.00'
             type: CREDIT
         billing:
           - account_type: SERVICE_FEE
             amount: '30.00'
             type: CREDIT
+##dependant other fees billing method
     RequestDebitSubInstruction:
       value:
         merchant_id: '520000000321'
         currency: USD
         funding:
           - account_type: REVENUE
-            amount: '20.00'
-            type: DEBIT
-        billing:
+            amount: '95.00'
+            type: CREDIT
           - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+        billing:
+          - account_type: GROSS_FEE
             amount: '100.00'
+            type: CREDIT
+    RequestNetCBReversalInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '105.50'
+            type: CREDIT
+          - account_type: CHARGEBACK
+            amount: '10.50'
+            type: DEBIT
+          - account_type: FEE
+            amount: '5.00'
             type: CREDIT
     submitApplicationRequest:
       value:
