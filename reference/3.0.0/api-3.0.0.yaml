@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
+
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage}
 
 paths:
@@ -10762,7 +10763,7 @@ components:
           example: "PRTNRA"
         partner_name:
           type: string
-          example: "Jupico"
+          example: "Partner"
         division_id:
           type: string
           example: "1"
@@ -15437,7 +15438,49 @@ components:
           type: string
           description: Chargeback Reversal
           example: "30"
+        USD:
+          $ref: '#/components/schemas/USDTradeSummaryResponse'
       description: Trade Summary
+
+    USDTradeSummaryResponse:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: currency of transactions in block
+          example: "USD"
+        transaction_amount:
+          multipleOf: 0.01
+          type: string
+          description: Transaction amount
+          example: "140.5"
+        refund_amount:
+          multipleOf: 0.01
+          type: string
+          description: Refund amount
+          example: "30.5"
+        net_transaction_amount:
+          multipleOf: 0.01
+          type: string
+          description: Net Transaction amount
+          example: "50"
+        rejected_amount:
+          multipleOf: 0.01
+          type: string
+          description: Rejected amount
+          example: "80"
+        chargeback:
+          multipleOf: 0.01
+          type: string
+          description: Chargeback
+          example: "90"
+        chargeback_reversal:
+          multipleOf: 0.01
+          type: string
+          description: Chargeback Reversal
+          example: "30"
+      description: Trade Summary of USD
+
     Get_Settlement_Reject_Response_details:
       type: object
       properties:
@@ -18223,6 +18266,98 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccountSummaryDTO'
+          example:
+            "USD": [
+                {
+                    "account_type": "CHARGEBACK_ACCOUNT",
+                    "description": "Chargeback",
+                    "total_in": "79.9800",
+                    "total_out": "0.0000",
+                    "balance": "0.0000",
+                    "prev_balance": "0.0000",
+                    "info_balance": "0.0000",
+                    "info_prev_balance": "0.0000",
+                    "destinations": {}
+                },
+                {
+                  "account_type": "INSTRUCTIONAL_HOLD_ACCOUNT",
+                  "description": "Instructional Hold",
+                  "total_in": "4454.3000",
+                  "total_out": "3282.5200",
+                  "balance": "0.0000",
+                  "prev_balance": "0.0000",
+                  "info_balance": "0.0000",
+                  "info_prev_balance": "0.0000",
+                  "destinations": {
+                      "5": {
+                          "amount": "3280.3000",
+                          "destination": "REVENUE_ACCOUNT",
+                          "description": "Net Processing",
+                          "transaction_source": "CARD"
+                      },
+                      "6": {
+                          "amount": "2.2200",
+                          "destination": "MERCHANT_FEE_ACCOUNT",
+                          "description": "Fee(Net)",
+                          "transaction_source": "CARD"
+                      }
+                  }
+              },
+              {
+                  "account_type": "REVENUE_ACCOUNT",
+                  "description": "Net Processing",
+                  "total_in": "3280.3000",
+                  "total_out": "3280.3000",
+                  "balance": "0.0000",
+                  "prev_balance": "0.0000",
+                    "info_balance": "0.0000",
+                  "info_prev_balance": "0.0000",
+                  "destinations": {
+                      "99": {
+                          "amount": "3280.3000",
+                          "destination": "NACHA_OUTPUT_ACCOUNT",
+                          "description": "Settlement Output",
+                          "transaction_source": "CARD"
+                      }
+                  }
+              },
+              {
+                  "account_type": "MERCHANT_FEE_ACCOUNT",
+                  "description": "Fee(Net)",
+                  "total_in": "2.2200",
+                  "total_out": "2.2200",
+                  "balance": "0.0000",
+                  "prev_balance": "0.0000",
+                  "info_balance": "0.0000",
+                  "info_prev_balance": "0.0000",
+                  "destinations": {
+                      "7": {
+                          "amount": "2.2200",
+                          "destination": "FEE_ACCOUNT",
+                          "description": "Fees(Total)",
+                          "transaction_source": "CARD"
+                      }
+                  }
+              },
+              {
+                  "account_type": "FEE_ACCOUNT",
+                  "description": "Fees(Total)",
+                  "total_in": "2.2200",
+                  "total_out": "2.2200",
+                  "balance": "0.0000",
+                  "prev_balance": "0.0000",
+                  "info_balance": "0.0000",
+                  "info_prev_balance": "0.0000",
+                  "destinations": {
+                      "7": {
+                          "amount": "2.2200",
+                          "destination": "FEE_ACCOUNT",
+                          "description": "Fees(Total)Rolling-up",
+                          "transaction_source": "CARD"
+                      }
+                  }
+              }
+            ]
         settlement_summary:
           type: array
           items:
@@ -21125,6 +21260,7 @@ components:
           items:
             $ref: '#/components/schemas/Get_Account_Summary_Response_account_summary'
       description: Response of get settlement rejects
+
     DestinationsBlock:
       type: object
       properties:
@@ -26558,7 +26694,7 @@ components:
           accounts:
             USD:
               - - account_type: 12
-                  description: Reject Hold
+                  description: "Reject Hold"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26569,7 +26705,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 5
-                  description: Net Processing
+                  description: "Net Processing"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26580,7 +26716,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 8
-                  description: Service Fee
+                  description: "Service Fee"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26591,7 +26727,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 9
-                  description: Gross Fee Collection
+                  description: "Gross Fee Collection"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26602,7 +26738,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 17
-                  description: Suspend
+                  description: "Suspend"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26613,7 +26749,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 2
-                  description: Chargeback
+                  description: "Chargeback"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26624,7 +26760,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 4
-                  description: Instructional Hold
+                  description: "Instructional Hold"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26635,7 +26771,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 18
-                  description: Hold
+                  description: "Hold"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26646,7 +26782,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 23
-                  description: Fee(Gross)
+                  description: "Fee(Gross)"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26657,7 +26793,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 6
-                  description: Fee(Net)
+                  description: "Fee(Net)"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26668,7 +26804,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 7
-                  description: Fees(Total)
+                  description: "Fees(Total)"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26679,7 +26815,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
               - - account_type: 12
-                  description: Reject Hold
+                  description: "Reject Hold"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26690,7 +26826,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 5
-                  description: Net Processing
+                  description: "Net Processing"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26701,7 +26837,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 8
-                  description: Service Fee
+                  description: "Service Fee"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26712,7 +26848,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 9
-                  description: Gross Fee Collection
+                  description: "Gross Fee Collection"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26723,7 +26859,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 17
-                  description: Suspend
+                  description: "Suspend"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26734,7 +26870,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 2
-                  description: Chargeback
+                  description: "Chargeback"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26745,7 +26881,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 4
-                  description: Instructional Hold
+                  description: "Instructional Hold"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26756,7 +26892,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 18
-                  description: Hold
+                  description: "Hold"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26767,7 +26903,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 23
-                  description: Fee(Gross)
+                  description: "Fee(Gross)"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26778,7 +26914,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 6
-                  description: Fee(Net)
+                  description: "Fee(Net)"
                   total_in: 0
                   total_out: 0
                   destinations:
@@ -26789,7 +26925,7 @@ components:
                   info_balance: '0'
                   info_prev_balance: '0'
                 - account_type: 7
-                  description: Fees(Total)
+                  description: "Fees(Total)"
                   total_in: 0
                   total_out: 0
                   destinations:
