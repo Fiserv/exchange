@@ -1,9 +1,9 @@
 # Offerings
 
 ## Pricing and Equipment
-Exchange supports pricing and equipment added to Applications through the use of offerings and offer packages. Offerings are split into three types: Processsing, Equipment and Online. These offerings are created by the PayFac and added to an Offer Package, which can then be retrieved from the `/offering/avaliable` endpoint. Upon retrieving an Offer Package, the offerings avaliable in the package will be listed. Online and Equipment offerings can be retrieved by using the `/offering/equipment` endpoint for their full details. A selected Offering (by external ID) can have detals grabbed in order to retrieve the pricing information and equipment information.
+Exchange supports pricing and equipment added to Applications through the use of offerings and offer packages. Offerings are split into three types: Processsing, Equipment and Online. These offerings are created by the PayFac and added to an Offer Package, which can then be retrieved from the `/offering/avaliable` endpoint. Upon retrieving an Offer Package, the offerings avaliable in the package will be listed. Online and Equipment offerings can be retrieved by using their respective `/offering/retrieve_equipment_offering` and `/offering/retrieve_online_offering` endpoints for their full details. A selected Offering (by external ID) can have details grabbed in order to retrieve the pricing information and equipment information.
 
-Processing offerings (that contain transaction pricing and acquiring charges) may be retrieved by using the `/offering/processing` endpoint and providing the desired external ID. 
+Processing offerings (that contain transaction pricing and acquiring charges) may be retrieved by using the `/offering/retrieve_processing_offering` endpoint and providing the desired external ID. 
 Processing offerings will be added to the sub-merchants **pricing level**, and equipment/online offerings at the outlet.
 
 ## Adding a standard offer package and offerings
@@ -102,7 +102,7 @@ Used to return package and offering `external_id` that may be used for boarding 
 ---
 ### Retrieving the processing offering
 
-Using the information from the offer package response, we can now use the `/offering/processing` endpoint to retrieve information about the specified processing offering using its `external_id`. For the example below, we want to gather the information configured for the processing offering retrieved in the above payload using its  `"transaction_pricing_external_id"` 
+Using the information from the offer package response, we can now use the `/offering/retrieve_processing_offering` endpoint to retrieve information about the specified processing offering using its `external_id`. For the example below, we want to gather the information configured for the processing offering retrieved in the above payload using its  `"transaction_pricing_external_id"` 
 
 <!--
 type: tab
@@ -258,7 +258,7 @@ We are able to view each of the charge items that have been configured to be ava
 
 ### Retrieving online and equipment offerings
 
-To retrieve online and equipment offerings, we will repeat the process above using the `/offering/equipment` endpoint, where we specify the `external_id` for each in the `equipment_offering_external_id`.
+To retrieve online and equipment offerings, we will repeat the process above using the `/offering/retrieve_equipment_offering` endpoint, where we specify the `external_id` for each in the `equipment_offering_external_id`.
 ```json
 {
     "equipment_offering":{
@@ -274,8 +274,7 @@ Now we have retrieved all the information required, we can start adding these du
 ### Adding Offer Package and Processing offering to Application
 
 In order to add this to the application, we must add the `"acquiring_offer"` and `"package_external_id"`. This is added within the `"merchant"` block.
-The acquiring offer will be structured as seen below, where we will define the transaction pricing used (Processing offering), and the charge items from the processing offering we want to use. we will then define the actual charge we want to use for the offer, `perc_charge` and `base_charge`  in the `charge_item_price_charges`. The min, max and default are retrieved from the retrieval calls above. We also have to define identifiers for the object, using the information from the retrieval calls for the pricing. The items `"is_activated": "1",`, `"is_boarding_activated": "1",` should be used to indicate the charge is selected.
-
+The acquiring offer will be structured as seen below, where we will define the transaction pricing used (Processing offering), and the charge items from the processing offering we want to use. we will then define the actual charge we want to use for the offer, `perc_charge` and `base_charge`  in the `charge_item_price_charges`. The min, max and default are retrieved from the retrieval calls above. 
 Please see below sample of an acquiring offer, and a sample of how this can be used in the add_application payload
 
 
