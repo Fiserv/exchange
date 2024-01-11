@@ -9943,6 +9943,7 @@ components:
                 application/reassignaml:
                   type: string
                   example: "1"
+
     ApplicationRetrieveResponse:
       required:
         - request_source
@@ -9959,6 +9960,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportNote'
+        application_relation:
+          type: object
+          properties:
+            date_added:
+              type: object
+              properties:
+                $date: 
+                  type: object
+                  properties:
+                    $numberLong:
+                      type: string
+                      description: "Timestamp"
+                      example: "1700750979252"
+            date_updated:
+              type: object
+              properties:
+                $date:
+                  type: object
+                  properties:
+                    $numberLong:
+                      type: string
+                      description: "Timestamp"
+                      example: "1700750979253"
+            
         application_default:
           type: array
           items:
@@ -22481,7 +22506,13 @@ components:
       type: object
       properties:
         result:
-          example: "success"
+          type: string
+          example: "SUCCESS"
+        message:
+          type: string
+          description: "Returns the file name has been uploaded successfully"
+          example: "Test_PDF.pdf has been uploaded successfully."
+          
     applicationUF:
       required:
         - application_reference
