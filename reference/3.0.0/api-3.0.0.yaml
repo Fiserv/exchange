@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
+
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
 
 paths:
@@ -2722,7 +2723,7 @@ paths:
     post:
       tags:
         - Application Boarding
-      summary: Uploading Additional Documents to Exchange (Shared Service Model)
+      summary: Uploading Additional Documents to Exchange
       description: Used to upload documents for an application. For users in a Shared Service model, may be required when requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
       parameters:
       - name: X-API-VERSION
@@ -2766,6 +2767,53 @@ paths:
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Upload Additional Documents
       x-child-product-name: Boarding Submerchants
+  /merchant/upload_additional_files:
+    post:
+      tags:
+        - Merchant Maintenance
+      summary: Uploading documents to existing Submerchant on
+      description: Used to upload documents for an existing Submerchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
+      parameters:
+      - name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
+        in: header
+        required: false
+        schema:
+          enum: [2, 3]
+          default: 3
+          type: string
+          format: int32
+      - name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema:
+          type: string
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/statusModeMerchant'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/applicationuploadfileResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Merchant Maintenance
+      x-proxy-name: Upload Documents to Existing Merchant
   /boarding/document_categories:
     post:
       tags:
@@ -9895,6 +9943,7 @@ components:
                 application/reassignaml:
                   type: string
                   example: "1"
+
     ApplicationRetrieveResponse:
       required:
         - request_source
@@ -9911,6 +9960,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportNote'
+        application_relation:
+          type: object
+          properties:
+            date_added:
+              type: object
+              properties:
+                $date: 
+                  type: object
+                  properties:
+                    $numberLong:
+                      type: string
+                      description: "Timestamp"
+                      example: "1700750979252"
+            date_updated:
+              type: object
+              properties:
+                $date:
+                  type: object
+                  properties:
+                    $numberLong:
+                      type: string
+                      description: "Timestamp"
+                      example: "1700750979253"
+            
         application_default:
           type: array
           items:
@@ -22433,7 +22506,13 @@ components:
       type: object
       properties:
         result:
-          example: "success"
+          type: string
+          example: "SUCCESS"
+        message:
+          type: string
+          description: "Returns the file name has been uploaded successfully"
+          example: "Test_PDF.pdf has been uploaded successfully."
+          
     applicationUF:
       required:
         - application_reference
@@ -22444,6 +22523,32 @@ components:
           type: string
           description: application reference number
           example: "333000010344"
+        tenant_udc_external_id:
+          type: string
+          description: Retrieved from the configured document Endpoint. Documents must have a configured base from the config portal.
+          example: "TDCAB-DDAB5-5F9C4-7D2F4-5F47C-D407F-EC1BD"
+        entity_type:
+          type: string
+          example: "PRINCIPAL"
+          enum:
+            - PRINCIPAL
+            - BUSINESS
+            - OUTLET_CONTACT
+            - BUSINESS_CONTACT
+        document_for:
+          type: string
+          description: 'ID for the specified Entity, retrievable through retrieve_merchant_hierarchy request. Principal - Uses "owner_ref" | Business - Uses "merchant_ref"| Outlet Contact - Uses "owner_ref" |Business Contact - Uses Registration address "contact_ref"  '
+          example: "62ab1f857c5de6318f74e2a9"
+    merchantUF:
+      required:
+        - merchant_reference
+        - tenant_udc_external_id
+      type: object
+      properties:
+        merchant_reference:
+          type: string
+          description: Merchant reference number
+          example: "3010001"
         tenant_udc_external_id:
           type: string
           description: Retrieved from the configured document Endpoint. Documents must have a configured base from the config portal.
@@ -29734,6 +29839,27 @@ components:
                 properties:
                   application:
                     $ref: '#/components/schemas/applicationUF'
+                  document_data:
+                    $ref: '#/components/schemas/documentdata1'
+              file:
+                type: string
+                description: "The file to be uploaded. Filesize limit is 10MB and Allowed types are : pdf, jpg, jpeg, png, tiff,tif "
+                format: binary
+      required: true
+    statusModeMerchant:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            required:
+              - application
+            properties:
+              request:
+                description: "Request for the merchant data being submit. Sent through object 'request' in the form-data."
+                type: object
+                properties:
+                  merchant:
+                    $ref: '#/components/schemas/merchantUF'
                   document_data:
                     $ref: '#/components/schemas/documentdata1'
               file:
