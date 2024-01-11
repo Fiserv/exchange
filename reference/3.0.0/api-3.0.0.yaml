@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
 
 paths:
@@ -2724,7 +2723,7 @@ paths:
       tags:
         - Application Boarding
       summary: Uploading Additional Documents to Exchange (Shared Service Model)
-      description: For users in a Shared Service model, where additional documents have been requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured.
+      description: Used to upload documents for an application. For users in a Shared Service model, may be required when requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
       parameters:
       - name: X-API-VERSION
         description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
@@ -17982,9 +17981,9 @@ components:
         settlement_ref:
           type: string
           example: "XYZ"
-        mid:
-          type: string
-          example: "321000234423"
+#        mid:
+#         type: string
+#          example: "321000234423"
     SplitDetailResponse:
       type: object
       properties:
@@ -18402,6 +18401,35 @@ components:
         chargeback_reversal:
           type: string
           example: '140.5'
+        USD:
+          $ref: '#/components/schemas/SettlementTradeSummaryCurrencyBlock'
+    SettlementTradeSummaryCurrencyBlock:
+        type: object
+        properties:
+          currency:
+            type: string
+            example: 'USD'
+          transaction_amount:
+            type: string
+            example: '140.5'
+          refund_amount:
+            type: string
+            example: '140.5'
+          net_transaction_amount:
+            type: string
+            example: '140.5'
+          rejected_amount:
+            type: string
+            example: '140.5'
+          deposit_adjustments:
+            type: string
+            example: '140.5'
+          chargeback:
+            type: string
+            example: '140.5'
+          chargeback_reversal:
+            type: string
+            example: '140.5'
     refresh_token:
       required:
         - grant_type
@@ -22418,6 +22446,7 @@ components:
           example: "333000010344"
         tenant_udc_external_id:
           type: string
+          description: Retrieved from the configured document Endpoint. Documents must have a configured base from the config portal.
           example: "TDCAB-DDAB5-5F9C4-7D2F4-5F47C-D407F-EC1BD"
         entity_type:
           type: string
@@ -22464,7 +22493,7 @@ components:
         issuing_country:
           type: string
           example: "840"
-      description: Used if configured document has entity links
+      description: Required to store data if configured document has entity links. Not required for generic document uploads
     applicationuploadadditionaldocumentsRequest:
       required:
         - application
@@ -29678,7 +29707,12 @@ components:
             date_updated: null
             error_code: 1501001
             message: 'Outlet 1: Outlet data is invalid - The field ABA Number is required'
-        
+    UploadDocumenRequesttSample:
+      value:
+        application:
+          application_reference: '3330000500012'
+          tenant_udc_external_id: TDCA!-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
+
 
 
         
@@ -29691,15 +29725,19 @@ components:
         multipart/form-data:
           schema:
             type: object
+            required:
+              - application
             properties:
               request:
+                description: "Request for the application data being submit. Sent through object 'request' in the form-data."
                 type: object
                 properties:
-                  applications:
+                  application:
                     $ref: '#/components/schemas/applicationUF'
                   document_data:
                     $ref: '#/components/schemas/documentdata1'
               file:
                 type: string
+                description: "The file to be uploaded. Filesize limit is 10MB and Allowed types are : pdf, jpg, jpeg, png, tiff,tif "
                 format: binary
       required: true
