@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
 
 paths:
@@ -17982,9 +17981,9 @@ components:
         settlement_ref:
           type: string
           example: "XYZ"
-        mid:
-          type: string
-          example: "321000234423"
+#        mid:
+#         type: string
+#          example: "321000234423"
     SplitDetailResponse:
       type: object
       properties:
@@ -18402,6 +18401,35 @@ components:
         chargeback_reversal:
           type: string
           example: '140.5'
+        USD:
+          $ref: '#/components/schemas/SettlementTradeSummaryCurrencyBlock'
+    SettlementTradeSummaryCurrencyBlock:
+        type: object
+        properties:
+          currency:
+            type: string
+            example: 'USD'
+          transaction_amount:
+            type: string
+            example: '140.5'
+          refund_amount:
+            type: string
+            example: '140.5'
+          net_transaction_amount:
+            type: string
+            example: '140.5'
+          rejected_amount:
+            type: string
+            example: '140.5'
+          deposit_adjustments:
+            type: string
+            example: '140.5'
+          chargeback:
+            type: string
+            example: '140.5'
+          chargeback_reversal:
+            type: string
+            example: '140.5'
     refresh_token:
       required:
         - grant_type
