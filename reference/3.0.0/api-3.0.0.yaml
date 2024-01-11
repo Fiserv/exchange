@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
 
 paths:
@@ -2751,9 +2750,6 @@ paths:
           format: int32
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
-        examples:
-          MultiFormRequest:
-            $ref: '#/components/examples/UploadDocumenRequesttSample'
       responses:
         "200":
           description: OK
@@ -29730,13 +29726,13 @@ components:
           schema:
             type: object
             required:
-              - applications
+              - application
             properties:
               request:
-                description: Request for the application data being submit. Sent through object 'request' in the form-data .
+                description: "Request for the application data being submit. Sent through object 'request' in the form-data."
                 type: object
                 properties:
-                  applications:
+                  application:
                     $ref: '#/components/schemas/applicationUF'
                   document_data:
                     $ref: '#/components/schemas/documentdata1'
