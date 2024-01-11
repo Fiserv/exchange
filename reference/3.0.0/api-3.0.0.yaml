@@ -22481,7 +22481,13 @@ components:
       type: object
       properties:
         result:
-          example: "success"
+          type: string
+          example: "SUCCESS"
+        message:
+          type: string
+          description: "Returns the file name has been uploaded successfully"
+          example: "Test_PDF.pdf has been uploaded successfully."
+          
     applicationUF:
       required:
         - application_reference
