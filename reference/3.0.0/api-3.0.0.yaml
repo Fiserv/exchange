@@ -5,9 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
-
 paths:
   /boarding/add_application:
     post:
@@ -4214,14 +4212,14 @@ components:
       properties:
         split_details:
           $ref: '#/components/schemas/ServiceChargeSplitDetails'
-        charge_item_external_id:
+        service_charge_item_external_id:
           $ref: '#/components/schemas/ExtID'
-        charge_item_prices:
-          $ref:  '#/components/schemas/ServiceChargeItemPricesArray'
-    ServiceChargeItemPricesArray:
-      type: array
-      items:
-          $ref: '#/components/schemas/ServiceChargeItemPricesChargesArray'
+        service_item_charges:
+          $ref:  '#/components/schemas/ServiceChargeItemPricesCharges'
+    # ServiceChargeItemPricesArray:
+    #   type: array
+    #   items:
+    #       $ref: '#/components/schemas/ServiceChargeItemPricesChargesArray'
     ServiceChargeItemPricesChargesArray:
       type: object
       properties:
@@ -4764,7 +4762,7 @@ components:
           type: string
           description : The EXID of the online bundle, from /offering/retrieve_online_offering
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-        bundle_item: 
+        bundle_items: 
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
@@ -4776,7 +4774,7 @@ components:
           type: string
           description : The EXID of the online bundle, from /offering/retrieve_online_offering
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
-        bundle_item: 
+        bundle_items: 
           type: array
           description : The bundle item, containing the service charges (pricing)
           items: 
@@ -4808,6 +4806,10 @@ components:
           type: array
           items: 
             $ref : '#/components/schemas/ServiceResponse' 
+        service_features: 
+          type: array
+          items: 
+            $ref : '#/components/schemas/ServiceFeaturesItemExid' 
     ServiceItemExid:
       type: object
       properties:
@@ -4815,6 +4817,17 @@ components:
           description : The service item of the VAR being added. Usually Owned/Purchased.
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+    ServiceFeaturesItemExid:
+      type: object
+      properties:
+        feature_external_id:
+          description : The service item of the VAR being added. Usually Owned/Purchased.
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        value:
+          description: 'Value of the service feature being added'
+          type: string
+          example: '04'
     ServiceResponse:
       type: object
       properties:
