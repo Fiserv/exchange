@@ -4198,7 +4198,7 @@ components:
           type: string
           description: Base charge to be added, decimal precision depends on configuration of pricing. 
           example: "0.25"
-        percent_charge:
+        perc_charge:
           type: string
           description: Percent charge to be added, decimal precision depends on configuration of pricing. 
           example: "0.25"
@@ -4250,7 +4250,7 @@ components:
           type: string
           description: Base charge to be added, decimal precision depends on configuration of pricing. 
           example: "0.25"
-        percent_charge:
+        perc_charge:
           type: string
           description: Percent charge to be added, decimal precision depends on configuration of pricing. 
           example: "0.25"
