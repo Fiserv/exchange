@@ -3803,18 +3803,6 @@ components:
           items:
             type: string
             example: ["CREDIT", "DEBIT", "CHARGEBACK"]
-        bank_account_number:
-          type: string
-          example: '33398989898'
-        bank_sort_code:
-          type: string
-          example: '123'
-        iban:
-          type: string
-          example: 'GB00LOYD00000000000000'
-        swift:
-          type: string
-          example: 'swift'
         bank_account_number_masked:
           type: string
           example: '********9000'
@@ -5624,18 +5612,6 @@ components:
                       country_code: 
                         type: string
                         example: "840"
-                      bank_account_number: 
-                        type: string
-                        example: "123456789000"
-                      bank_sort_code: 
-                        type: string
-                        example: "123"
-                      iban: 
-                        type: string
-                        example: 'GB00LOYD00000000000000'
-                      swift: 
-                        type: string
-                        example: 
                       account_holder_name: 
                         type: string
                         example: "John"
@@ -12491,18 +12467,6 @@ components:
               country_code: 
                 type: string
                 example: "840"
-              bank_account_number: 
-                type: string
-                example: "123456789000"
-              bank_sort_code: 
-                type: string
-                example: "123"
-              iban: 
-                type: string
-                example: 'GB00LOYD00000000000000'
-              swift: 
-                type: string
-                example: 
               account_holder_name: 
                 type: string
                 example: "John"
