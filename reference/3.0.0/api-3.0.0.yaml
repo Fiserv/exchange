@@ -12606,7 +12606,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
@@ -12744,7 +12744,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
@@ -12884,7 +12884,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
