@@ -5,7 +5,9 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
+
 - {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
+
 paths:
   /boarding/add_application:
     post:
@@ -3801,18 +3803,6 @@ components:
           items:
             type: string
             example: ["CREDIT", "DEBIT", "CHARGEBACK"]
-        bank_account_number:
-          type: string
-          example: '33398989898'
-        bank_sort_code:
-          type: string
-          example: '123'
-        iban:
-          type: string
-          example: 'GB00LOYD00000000000000'
-        swift:
-          type: string
-          example: 'swift'
         bank_account_number_masked:
           type: string
           example: '********9000'
@@ -5622,18 +5612,6 @@ components:
                       country_code: 
                         type: string
                         example: "840"
-                      bank_account_number: 
-                        type: string
-                        example: "123456789000"
-                      bank_sort_code: 
-                        type: string
-                        example: "123"
-                      iban: 
-                        type: string
-                        example: 'GB00LOYD00000000000000'
-                      swift: 
-                        type: string
-                        example: 
                       account_holder_name: 
                         type: string
                         example: "John"
@@ -12489,18 +12467,6 @@ components:
               country_code: 
                 type: string
                 example: "840"
-              bank_account_number: 
-                type: string
-                example: "123456789000"
-              bank_sort_code: 
-                type: string
-                example: "123"
-              iban: 
-                type: string
-                example: 'GB00LOYD00000000000000'
-              swift: 
-                type: string
-                example: 
               account_holder_name: 
                 type: string
                 example: "John"
@@ -12604,7 +12570,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
@@ -12742,7 +12708,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
@@ -12882,7 +12848,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
@@ -13108,7 +13074,7 @@ components:
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
-          $ref: '#/components/schemas/SaleAmount'
+          $ref: '#/components/schemas/AmexSaleAmount'
         telecheck_annual_volume:
           $ref: '#/components/schemas/SaleAmount'
         voyager_annual_volume:
@@ -14654,6 +14620,10 @@ components:
     SaleAmount:
       type: string
       description: Estimated or actual Sales amount out of annual card volume
+      example: "100000.00"
+    AmexSaleAmount:
+      type: string
+      description: Required if account turnover is more than $1 million and passing AmexOptBlue entitlement. Estimated or actual Sales amount out of annual card volume
       example: "100000.00"
     PercentValue:
       maximum: 100
