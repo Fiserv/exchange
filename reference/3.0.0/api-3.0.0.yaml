@@ -5,9 +5,8 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
-- {url: 'https://uat-api.carat-platforms.fiserv.com', description: Stage URL for Exchange API}
-
+- {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
+- {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
 paths:
   /boarding/add_application:
     post:
@@ -24131,8 +24130,7 @@ components:
           $ref: '#/components/schemas/DateAdded'
         is_from_application:
           $ref: '#/components/schemas/IsFromApplication'
-
-    VarSheetResponse:
+    VarSheetResponseArray:
       type: object
       properties:
         external_mid:
@@ -24151,6 +24149,19 @@ components:
           $ref: '#/components/schemas/DialInformation'
         datawire:
           $ref: '#/components/schemas/Datawire'
+
+    VarSheetResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: Response status of the API request
+          example: "SUCCESS"
+        outlets:
+          type: array
+          description: Array for each outlet var sheet is provided for
+          items:
+            $ref: '#/components/schemas/VarSheetResponseArray'
 
     ContactInformationVar:
       type: object
