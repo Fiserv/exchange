@@ -3946,11 +3946,11 @@ components:
             - RT
         foundation_date:
           type: string
-          description: "Date, format YYYY-MM-DD"
+          description: "Date the business started trading, format YYYY-MM-D"
           example: "2020-01-01"
         date_incorporated:
           type: string
-          description: "Date, format YYYY-MM-DD"
+          description: "Date the business was first registered/incorporated, format YYYY-MM-DD"
           example: "2020-01-01"
         incorp_state:
           description: 2 Character following ISO 3166-2
