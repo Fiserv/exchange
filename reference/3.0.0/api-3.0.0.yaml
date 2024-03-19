@@ -9009,11 +9009,54 @@ components:
     error_response:
       allOf:
         - $ref: '#/components/schemas/error'
+    amlprocessstateStatus:
+      type: string
+      description: "List of possible sub-statuses or 'process states' an application can be in"
+      example: "AML_CHECK_ERROR"
+      enum:
+        - "AML_CHECK_IN_PROGRESS"
+        - "AML_CHECK_COMPLETE"
+        - "AML_CHECK_ERROR"
+        - "AML_CHECK_AWAITING_REVIEW"
+        - "AML_CHECK_MORE_INFO_REQUIRED"
+        - "AML_CHECK_DECLINED"
+    amlerrorStatus:
+      type: string
+      description: "Returns validation errors upon submission to AML service" 
+      example: "Bank Address Postcode is required"
+    creditprocessstateStatus:
+      type: string
+      description: "List of possible sub-statuses or 'process states' an application can be in"
+      example: "CREDIT_RISK_CHECK_ERROR"
+      enum:
+        - "CREDIT_RISK_CHECK_AWAITING_REVIEW"
+        - "CREDIT_RISK_CHECK_COMPLETE"
+        - "CREDIT_RISK_CHECK_ERROR"
+        - "CREDIT_RISK_CHECK_MORE_INFO_REQUIRED"
+        - "CREDIT_RISK_CHECK_DOCUMENTS_REQUIRED"
+        - "CREDIT_RISK_CHECK_DOCUMENTS_UPLOADED"
+        - "CREDIT_RISK_CHECK_DECLINED_CONCURRENCE"
+        - "CREDIT_RISK_UPLOADING_ADDITIONAL_DOCUMENTS"
+    crediterrorStatus:
+      type: string
+      description: "Returns validation errors upon submission to the credit risk service"
+      example: "USA Postcode 333321 is not valid format"
     ApplicationStatusCheckResponseBlock:
       type: object
       properties:
+        marketplace_errors:
+          $ref: '#/components/schemas/marketplaceerrorsarray'
         result:
           $ref: '#/components/schemas/Result'
+        aml_process_state:
+          $ref: '#/components/schemas/amlprocessstateStatus'
+        aml_error:
+          $ref: '#/components/schemas/amlerrorStatus'
+        credit_risk_process_state:
+          $ref: '#/components/schemas/creditprocessstateStatus'
+        credit_risk_error:
+          $ref: '#/components/schemas/crediterrorStatus'
+
       allOf:
         - $ref: '#/components/schemas/ApplicationStatusCheckOperation'
         - $ref: '#/components/schemas/ApplicationStatusResponseBlock'
@@ -9075,6 +9118,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApplicationError'
+    marketplaceerrorsarray:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/marketplaceApplicationError'
+    marketplaceApplicationError:
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/marketplaceAppErrorCode'
+        errorMessage:
+          $ref: '#/components/schemas/marketplaceAppErrorMessage'
     ApplicationError:
       type: object
       properties:
@@ -9086,6 +9143,14 @@ components:
           $ref: '#/components/schemas/Date'
         date_updated:
           $ref: '#/components/schemas/Date'
+    marketplaceAppErrorCode:
+      type: string
+      description: Error code associated with the application from the downstream boarding service
+      example: "1"
+    marketplaceAppErrorMessage:
+      type: string
+      description: Error associated with the application, passed from the downstream boarding service
+      example: "Invalid SSN on owner 1. ssn should be 9 digits numeric"
     AppErrorCode:
       type: string
       description: Error code associated with the application
