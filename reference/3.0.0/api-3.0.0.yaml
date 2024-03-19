@@ -9045,7 +9045,10 @@ components:
       type: object
       properties:
         marketplace_errors:
-          $ref: '#/components/schemas/marketplaceerrorsarray'
+          type: array
+          items:
+          
+            $ref: '#/components/schemas/marketplaceerrorsarray'
         result:
           $ref: '#/components/schemas/Result'
         aml_process_state:
@@ -9131,14 +9134,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApplicationError'
+
     marketplaceerrorsarray:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/marketplaceApplicationError'
-    marketplaceApplicationError:
       type: object
       properties:
         errorCode:
