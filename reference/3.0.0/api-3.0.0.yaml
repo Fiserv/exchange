@@ -12672,6 +12672,8 @@ components:
           $ref: '#/components/schemas/NoBuildingFloors'
         visitation_required:
           $ref: '#/components/schemas/VisitationRequired'
+        business_category:
+          $ref: '#/components/schemas/OutletBusinessCategory'
         statement_type:
           $ref: '#/components/schemas/StatementType'
         external_mid:
@@ -13032,6 +13034,8 @@ components:
           $ref: '#/components/schemas/BusinessLocation'
         ground_floor:
           $ref: '#/components/schemas/GroundFloor'
+        business_category:
+          $ref: '#/components/schemas/OutletBusinessCategory'
         square_foot_count:
           $ref: '#/components/schemas/SqFtCount'
         number_of_building_floors:
@@ -14487,6 +14491,16 @@ components:
         - "4000"
         - "5083"
     BusinessCategory:
+      type: string
+      description: Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant
+      example: "E"
+      enum:
+        - R
+        - MOTO
+        - E
+        - H
+        - RT
+    OutletBusinessCategory:
       type: string
       description: Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant
       example: "E"
@@ -25758,12 +25772,13 @@ components:
           trade_name: "MMISTest Business Name"
           outlet_website: "https://fiserv.com"
           currencies: "USD"
+          business_category: "E"
           visitation_required: "1"
           primary_email_address: "email@domain.com"
           mcc_code: "5733"
           discover_required: "1"
           amex_required: "1"
-          amex_volume: "100000.00"
+          amex_volume: "2000.00"
           turnover_bus_to_bus_perc: "0"
           turnover_bus_to_cons_perc: "100"
           card_bus_to_bus_perc: "0"
@@ -25775,9 +25790,8 @@ components:
           sales_mail_perc: "0"
           sales_internet_perc: "100"
           sales_tradeshow_perc: "0"
-          chip_flag: "Y"
           annual_turnover: "100000.00"
-          annual_card_turnover: "100000.00"
+          annual_card_turnover: "90000.00"
           average_delivery_days: "1"
           delivery_0_days_perc: "100"
           delivery_1_to_7_days_perc: "0"
