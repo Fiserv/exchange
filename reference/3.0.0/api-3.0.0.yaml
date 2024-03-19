@@ -9111,6 +9111,19 @@ components:
       type: string
       description: Key for Application Status
       example: "OPEN"
+      enum:
+        - "OPEN"
+        - "APP_STATUS_AWAITING_CHECKS"
+        - "AWAITING_SIGNATURE"
+        - "AWAITING_REMOTE_SIGNATURE"
+        - "AWAITING_PAPER_SIGNATURE"
+        - "AWAITING_ON_SCREEN_SIGNATURE"
+        - "BOARDING_COMPLETE"
+        - "CANCELLED"
+        - "APP_STATUS_READY_FOR_MARKETPLACE_SUBMISSION"
+        - "APP_STATUS_AWAITING_MARKETPLACE_RESPONSE"
+        - "APP_STATUS_MARKETPLACE_SUBMISSION_ERROR"
+        - "APP_STATUS_MARKETPLACE_REJECTED"
     errorsarray:
       type: object
       properties:
