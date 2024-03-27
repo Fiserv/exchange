@@ -20,29 +20,9 @@ paths:
       x-child-product-name: Boarding Submerchants
       
       parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       responses:
         '405':
           description: Invalid input
@@ -76,29 +56,9 @@ paths:
       x-proxy-name: Update Merchant
       x-child-product-name: Boarding Submerchants
       parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       responses:
         '405':
           description: Invalid input
@@ -123,29 +83,9 @@ paths:
       x-proxy-name: Additional Subgroup
       x-child-product-name: Boarding Submerchants
       parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
         description: Adding a new Merchant Subgroup
         content:
@@ -176,36 +116,9 @@ paths:
       x-proxy-name: Update Subgroup
       x-child-product-name: Boarding Submerchants
       parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      requestBody:
-        description: Updating a Merchant Subgroup
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateSubGroupRequest'
-        required: true
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       responses:
         "200":
           description: OK
@@ -280,40 +193,9 @@ paths:
       summary: Add Outlet
       description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned
       parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      requestBody:
-        description: Adding a new Merchant Outlet
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddOutletRequest'
-            examples:
-              RequiredPayLoad:
-                summary: Minimum standard Payload required to board, using defaults in configuration for settings
-                $ref: '#/components/examples/RequestMinimalOutlet'
-        required: true
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
 
       responses:
         "200":
@@ -341,36 +223,9 @@ paths:
       summary: Update Outlet
       description: Update Outlet
       parameters:
-      - name: X-API-VERSION
-        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
-        in: header
-        required: false
-        schema:
-          enum: [2, 3]
-          default: 3
-          type: string
-          format: int32
-      - name: Content-Type
-        description: "Content type. application/json"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      - name: Authorization
-        description: "Authorization header, OAuth 2.0 standard"
-        in: header
-        required: true
-        schema:
-          type: string
-          format: int32
-      requestBody:
-        description: Updating a Merchant Outlet
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateOutletRequest'
-        required: true
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       responses:
         "200":
           description: OK
@@ -446,6 +301,10 @@ paths:
         - Application Boarding
       summary: Merchant Retrieve
       description: Merchant Retrieve
+      parameters:
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
         description: Merchant Retrieve
         content:
@@ -478,6 +337,10 @@ paths:
         - Application Boarding
       summary: Application Status Check
       description: Check the status of an application
+      parameters:
+      - {$ref: '#/components/parameters/ApiVersionHeader'}
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
         description: Check the status of an application
         content:
@@ -3433,6 +3296,33 @@ paths:
       x-child-product-name: Risk
       
 components:
+  parameters:
+    ApiVersionHeader:
+        name: X-API-VERSION
+        description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
+        in: header
+        required: false
+        schema: {
+          enum: ["2", "3"],
+          default: "3",
+          type: string,}
+    ContentTypeHeader:
+        name: Content-Type
+        description: "Content type. application/json"
+        in: header
+        required: true
+        schema: {
+          type: string,
+          default: "application/json"}
+    AuthorizationHeader:
+        name: Authorization
+        description: "Authorization header, OAuth 2.0 standard"
+        in: header
+        required: true
+        schema: {
+          type: string,
+          default: "Authorization"
+        }
   schemas:
     settlement_date:
       type: string
