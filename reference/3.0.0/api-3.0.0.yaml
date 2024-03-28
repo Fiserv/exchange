@@ -208,6 +208,17 @@ paths:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Adding a new Merchant Outlet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOutletRequest'
+            examples:
+              RequiredPayLoad:
+                summary: Minimum standard Payload required to board, using defaults in configuration for settings
+                $ref: '#/components/examples/RequestMinimalOutlet'
+        required: true
 
       responses:
         "200":
