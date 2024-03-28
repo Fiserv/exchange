@@ -118,6 +118,7 @@ paths:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+
       responses:
         "200":
           description: OK
@@ -244,11 +245,18 @@ paths:
       tags:
         - Application Boarding
       summary: Update Outlet
-      description: Update Outlet
+      description: Update Outlets
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Updating a Merchant Outlet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOutletRequest'
+        required: true
       responses:
         "200":
           description: OK
