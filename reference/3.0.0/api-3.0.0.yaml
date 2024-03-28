@@ -165,39 +165,39 @@ paths:
       x-group-name: Data Retrieval
       x-proxy-name: Retrieve Subgroup
       x-child-product-name: Boarding Submerchants
-  /boarding/subgroup/delete:
-    post:
-      tags:
-        - Application Boarding
-      summary: Delete Subgroup
-      description: Retrieve Subgroup
-      parameters:
-        - {$ref: '#/components/parameters/ApiVersionHeader'}
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-        - {$ref: '#/components/parameters/AuthorizationHeader'}
-      requestBody:
-        description: Retrieving a Merchant Subgroup
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveSubGroupRequest'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddSubGroupResponseBlock'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
-      x-proxy-name: Delete Subgroup
-      x-child-product-name: Boarding Submerchants
+  # /boarding/subgroup/delete:
+  #   post:
+  #     tags:
+  #       - Application Boarding
+  #     summary: Delete Subgroup
+  #     description: Retrieve Subgroup
+  #     parameters:
+  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
+  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
+  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
+  #     requestBody:
+  #       description: Retrieving a Merchant Subgroup
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveSubGroupRequest'
+  #       required: true
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/AddSubGroupResponseBlock'
+  #       default:
+  #         description: Unexpected error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/error_response'
+  #     x-group-name: Data Retrieval
+  #     x-proxy-name: Delete Subgroup
+  #     x-child-product-name: Boarding Submerchants
   /boarding/outlet/add:
     post:
       tags:
@@ -259,7 +259,7 @@ paths:
       tags:
         - Application Boarding
       summary: Delete Outlet
-      description: Retrieving an additional outlet. Main outlet cannot be deleted, only updated. External ID retrieved in add_application response or through retrieving the application.
+      description: Deletes an additional outlet. Main outlet cannot be deleted, only updated. External ID retrieved in add_application response or through retrieving the application.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
