@@ -118,6 +118,7 @@ paths:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+
       responses:
         "200":
           description: OK
@@ -244,11 +245,18 @@ paths:
       tags:
         - Application Boarding
       summary: Update Outlet
-      description: Update Outlet
+      description: Updates a specified outlet underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Updating a Merchant Outlet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOutletRequest'
+        required: true
       responses:
         "200":
           description: OK
