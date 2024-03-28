@@ -195,7 +195,7 @@ paths:
   #           application/json:
   #             schema:
   #               $ref: '#/components/schemas/error_response'
-  #     x-group-name: Data Retrieval
+  #     x-group-name: Update Application
   #     x-proxy-name: Delete Subgroup
   #     x-child-product-name: Boarding Submerchants
   /boarding/outlet/add:
@@ -284,7 +284,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
+      x-group-name: Update Application
       x-proxy-name: Delete Outlet
       x-child-product-name: Boarding Submerchants
   /boarding/outlet/retrieve:
@@ -1934,7 +1934,7 @@ paths:
       description: Used to upload documents for an application. For users in a Shared Service model, may be required when requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeaderDocument'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
         $ref: '#/components/requestBodies/statusMode'
@@ -2428,6 +2428,14 @@ components:
         type: string,
         default: "Authorization"
       }
+    ContentTypeHeaderDocument:
+      name: Content-Type
+      description: "Content type. multipart/form-data"
+      in: header
+      required: true
+      schema: {
+        type: string,
+        default: "multipart/form-data"}
   schemas:
     settlement_date:
       type: string
