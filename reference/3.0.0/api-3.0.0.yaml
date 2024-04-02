@@ -5,15 +5,15 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-  - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
+  - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
   /boarding/add_application:
     post:
       tags:
         - Application Boarding
       summary: Add an Application
-      description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID
+      description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
       operationId: ADD_APPLICATION
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add Application
@@ -118,6 +118,13 @@ paths:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Updating a Merchant Subgroup
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSubGroupRequest'
+        required: true
       responses:
         "200":
           description: OK
@@ -203,11 +210,22 @@ paths:
       tags:
         - Application Boarding
       summary: Add Outlet
-      description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned
+      description: "Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)"
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Adding a new Merchant Outlet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOutletRequest'
+            examples:
+              RequiredPayLoad:
+                summary: Minimum standard Payload required to board, using defaults in configuration for settings
+                $ref: '#/components/examples/RequestMinimalOutlet'
+        required: true
 
       responses:
         "200":
@@ -233,11 +251,18 @@ paths:
       tags:
         - Application Boarding
       summary: Update Outlet
-      description: Update Outlet
+      description: Updates a specified outlet underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Updating a Merchant Outlet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOutletRequest'
+        required: true
       responses:
         "200":
           description: OK
