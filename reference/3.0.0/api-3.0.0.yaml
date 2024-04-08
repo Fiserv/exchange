@@ -1668,7 +1668,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Create Maintenance Case
       summary: Creating Maintenance Case
-      description: Creates a Maintenance Case for a merchant to update bank information, or pricing (Managed funding). Updated information is provided in the UPDATE_MAINTENANCE call
+      description: "Creates a Maintenance Case for a merchant to update bank information, or pricing (Managed funding). Updated information is provided in the UPDATE_MAINTENANCE call. When using maintenance type 'ADD_OUTLETS', returns the application reference for the additional outlet that can then be updated using UPDATE_OUTLET  endpoint and submitted using application_submit per standard application. Once submit, will be added to the merchant"
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -1690,6 +1690,8 @@ paths:
               examples:
                 ProcessingPricingResponse:
                   $ref: '#/components/examples/MaintenancePricingResponse'
+                AddOutletsResponse:
+                  $ref: '#/components/examples/AddOutletsResponse'
         default:
           description: Unexpected Error
           content:
@@ -20547,11 +20549,13 @@ components:
       items:
         type: string
         example: "CHANGE_BANK"
+        description: "Creates the maintenance case to be updated. If adding outlet, this will create a new application for you to update outlet and submit."
         enum:
           - UPDATE_PROCESSING_PRICING
           - UPDATE_EQUIPMENT_PRICING
           - UPDATE_ONLINE_PRICING
           - CHANGE_BANK
+          - ADD_OUTLETS
     maintenancetypesPricing:
       type: array
       items:
@@ -21507,6 +21511,10 @@ components:
           type: string
           description: the merchant reference number for the maintenance case created
           example: "3001484"
+        application_reference:
+          type: string
+          description: "Returned when using maintenance type 'ADD_OUTLETS', returns the application reference for the additional outlet that can then be updated using UPDATE_OUTLET  endpoint and submitted using application_submit per standard application. Once submit, will be added to the merchant"
+          example: "333000051001"
         maintenance_types:
           $ref: '#/components/schemas/maintenancetypes'
         old_details:
@@ -28873,7 +28881,27 @@ components:
           - error_code: 1501001
             message: 'Outlet 2: Trading Information is invalid - The field Annual Card Turnover is required'
             context: '{"outlet":2,"trading_information":2}'
-
+    AddOutletsResponse:
+      value:
+        result: SUCCESS
+        operation:
+          operation_type: CREATE_MAINTENANCE
+        maintenance:
+          maintenance_reference: MC3000000005
+          merchant_reference: '3014321'
+          maintenance_status: Open
+          has_errors: '0'
+          maintenance_external_id:  MTNE0-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          creator_user_external_id: USRAB-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          status_external_id: MTNE0-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          owner_user_external_id: USRAB-C475E-82BE7-B1AA4-9A026-89381-4EA08
+        maintenance_details:
+          maintenance_reference: MC3000000005
+          merchant_reference: '3014321'
+          application_reference: '333000051002'
+          maintenance_types:
+            - ADD_OUTLETS
+      
     MaintenancePricingResponse:
       value:
         result: SUCCESS
