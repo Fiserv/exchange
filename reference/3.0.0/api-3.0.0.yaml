@@ -13,7 +13,7 @@ paths:
       tags:
         - Application Boarding
       summary: Add an Application
-      description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
+      description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID
       operationId: ADD_APPLICATION
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Add Application
@@ -118,13 +118,6 @@ paths:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
-      requestBody:
-        description: Updating a Merchant Subgroup
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateSubGroupRequest'
-        required: true
       responses:
         "200":
           description: OK
@@ -210,22 +203,11 @@ paths:
       tags:
         - Application Boarding
       summary: Add Outlet
-      description: "Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)"
+      description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
-      requestBody:
-        description: Adding a new Merchant Outlet
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddOutletRequest'
-            examples:
-              RequiredPayLoad:
-                summary: Minimum standard Payload required to board, using defaults in configuration for settings
-                $ref: '#/components/examples/RequestMinimalOutlet'
-        required: true
 
       responses:
         "200":
@@ -251,18 +233,11 @@ paths:
       tags:
         - Application Boarding
       summary: Update Outlet
-      description: Updates a specified outlet underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
+      description: Update Outlet
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
-      requestBody:
-        description: Updating a Merchant Outlet
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateOutletRequest'
-        required: true
       responses:
         "200":
           description: OK
@@ -764,6 +739,9 @@ paths:
                 TransactionSplitResponse:
                   summary: Example Payload for querying a single MID with the date transactions were added, with split details for Auto/Managed funding and Split funding scenarios
                   $ref: '#/components/examples/TransactionSplitResponse'
+                TransactionFeeDetailResponse:
+                  summary: Example payload for querying a single MID with the date tranasctions were added, with fee details for auto/managed funding added and Split added
+                  $ref: '#/components/examples/TransactionSplitFeeDetailsResponse'
         "404":
           description: Transactions not found
           content:
@@ -813,6 +791,9 @@ paths:
                 TransactionRejectResponse:
                   summary: Example Payload for querying a single MID with the date transactions were added
                   $ref: '#/components/examples/TransactionRejectResponse'
+                TransactionRejectFeeResonse:
+                  summary: Example payload for querying a single MID with the date tranasactions were added, where a fee has been added through managed/auto funding.
+                  $ref: '#/components/examples/TransactionRejectFeeDetailsResponse'
         "404":
           description: Transactions not found
           content:
@@ -918,6 +899,9 @@ paths:
                 ChargebackResponseSample:
                   summary: Example Payload for querying a single Chargeback Adjustment
                   $ref: '#/components/examples/ChargebackAdjustmentResponse'
+                ChargebackFeeDetailResponse:
+                  summary: Example Payload for querying a single Chargeback Adjustment with a fee from auto/managed funding
+                  $ref: '#/components/examples/ChargebackAdjustmentFeeDetailResponse'
         "400":
           description: BadRequest
           content:
@@ -23553,7 +23537,11 @@ components:
         split_details:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/split_details_block'
+        fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/tx_fee_details_block'
         store_number:
           type: string
         submitted_currency_amount:
@@ -23630,6 +23618,106 @@ components:
           type: string
         user_data_2:
           type: string
+  
+    tx_fee_details_block:
+      type: object
+      properties:
+        fee_amount:
+          type: string
+          description: "Amount taken from the transaction for the configured fee."
+          example: "0.3200"
+        charge_item_external_id:
+          type: string
+          description: "External ID of the charge item being applied to this transaction. This will be from the configured pricing for has been added to the submerchant."
+          example: "CHIC23-A1AC5-A1AC5-30LC5-30LC5-3657B-3657B"
+        charge_item_type:
+          type: string
+          description: "Type of Charge item"
+          example: "CHARGE"
+          enum:
+            - "CHARGE"
+            - "service_charge"
+        charge_item_name:
+          type: string
+          description: "Name of the applied charge. Configured in the config portal for the pricing."
+          example: "Sample Blended Card Rate"
+        charge_item_ref:
+          type: string
+          description: "Reference for the Charge item. Free field for a reference to be added. Configured in the config portal for the pricing applied."
+          example: "BL001"
+        fee_collection_type: 
+          type: string
+          description: "Type of the configured charge. Typically will be Blended, interchange not currently supported."
+          enum:
+            - "BLENDED"
+            - "INTERCHANGE"
+        item_charge_breakdown:
+          type: array
+          items:
+            $ref: '#/components/schemas/itemChargeBreakdownArray'
+    split_details_block:
+      type: object
+      properties:
+        processing_fee:
+          type: string
+          description: "Amount taken from the transaction for the configured split."
+          example: "0.4000"
+        hold_flag:
+          type: string
+          description: "Split type"
+          example: "STORE_SPLIT"
+        txm_unique_id: 
+          type: string
+          description: "Identifier for the tranasction"
+          example: "-52606609801-52606609801"
+        amount:
+          type: string
+          description: "Amount of the original transaction"
+          example: "1.00"
+        source_merchant_id:
+          type: string
+          description: "Source of the transaction being split"
+          example: "52606609801"
+        target_merchant_id:
+          type: string
+          description: "Target of the split amount, typically will show the amount being split to a third party on the system"
+          example: "52606609802"
+        source_node_id:
+          type: string
+          description: "Merchant node ID of the source merchant"
+          example: "2000"
+        target_node_id:
+          type: string
+          description: "Merchant node ID of the target merchant"
+          example: "2000"
+        target_hierarchy_type:
+          type: string
+          description: "Hierarchy type of the target being split to. 1 - Merchant 2 - PFAC"
+          example : "2000"
+          enum:
+            - "1"
+            - "2"
+
+    itemChargeBreakdownArray:
+      type: object
+      description: "Array containing the charge items and the applied pricings for a transaction."
+      properties:
+        fee_type:
+          type: string
+          description: "Type of Fee, either percent (1) or base (2)"
+          example: "1"
+          enum: 
+            - "1"
+            - "2"
+        fee_amount:
+          type: string
+          description: "The fee amount calculated for this transaction for this item"
+          example: "0.2300"
+        unit_charge: 
+          type: string
+          description: "The percentage or base being used to calculate the fee amount. Taken from configuration"
+          example: "0.23"
+            
     TransactionResponseDTO:
       type: object
       properties:
@@ -23834,6 +23922,10 @@ components:
         date_added:
           type: string
           format: date
+        fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/tx_fee_details_block'
         surcharge_indicator:
           type: string
         surcharge_amount:
@@ -23965,6 +24057,10 @@ components:
           type: string
         unit_amount:
           type: string
+        fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/tx_fee_details_block'
         submit_date:
           type: string
         special_reference_1:
@@ -24531,6 +24627,116 @@ components:
               special_reference_1: ''
               special_reference_2: ''
               user_data_2: ''
+    TransactionSplitFeeDetailsResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: FOUND
+          transactions:
+            - _id: 6f2522147afbba675c
+              processed_currency_code: '840'
+              submerchant_id: '00052606609801'
+              card_type: '00001'
+              reject_indicator: 'N'
+              transaction_amount: "10"
+              transaction_id: '6669800004321'
+              airline_ticket_number: ''
+              auth_source: ''
+              authorization_amount: "10"
+              reference_number: '66998669893214321000001'
+              authorization_code: "0000AB"
+              authorization_date: '2021-11-01'
+              authorization_response_code: '00'
+              authorization_sic_code: '5000'
+              avs_flag: "Z"
+              bank_reference_number: ''
+              batch_date: '2021-11-01'
+              batch_number: '666989800001'
+              card_number: "XXXXXXXXXXXX4321"
+              card_presence_indicator: '1'
+              cardholder_id_method: ''
+              cat_level: ''
+              currency_conversion_rate: '0.000000000'
+              cvc2_result: ''
+              cvv2_result: ''
+              entry_mode: '01'
+              expiration_date: '1022'
+              external_id: ''
+              funded_date: '2021-11-01'
+              health_care_card: ''
+              invoice_id: '54321669898'
+              location_dba_name: "MMISTest DBA NAME"
+              market_specific_indicator: ''
+              mc_cardholder_authentication: ''
+              mc_security_protocol: ''
+              merchant_reference_number: '32100000'
+              mobile_indicator: ''
+              partial_auth_indicator: ''
+              pc_terminal_capability: ''
+              pinless_debit: 'N'
+              reject_reason: ''
+              response_code: ''
+              soft_descriptor: "ABC*MMISTest LEGAL"
+              split_details:
+                - processing_fee: '0.0100'
+                  hold_flag: "STORE_SPLIT"
+                  txm_unique_id: '-52606609801-52606609801'
+                  amount: '10.00'
+                  source_merchant_id: '52606609801'
+                  target_merchant_id: '52606609801'
+                  source_node_id: "20000"
+                  target_hierarchy_type: "1"
+                  target_node_id: "20000"
+              fee_details:
+                -  fee_amount: '0.4500'
+                   charge_item_external_id: "CHIC23-A1AC5-A1AC5-30LC5-30LC5-3657B-3657B"
+                   charge_item_type: CHARGE
+                   charge_item_name: "Sample Blended Card Rate"
+                   charge_item_ref: "BL001"
+                   fee_collection_type: "BLENDED"
+                   item_charge_breakdown:
+                     - fee_type: '1'
+                       fee_amount: '0.1300'
+                       unit_charge: '1.30'
+                     - fee_type: '2'
+                       fee_amount: '0.32000'
+                       unit_charge: '0.32'
+              store_number: '01'
+              submitted_currency_amount: "10"
+              submitted_currency_code: '840'
+              terminal_id: '54321'
+              total_auth_amount: "10"
+              transaction_date: '2021-11-01'
+              transaction_integrity_class: ''
+              transaction_mode: "A"
+              transaction_source: "A"
+              transaction_status: "A"
+              transaction_time: '20:30:00'
+              transaction_type: '3'
+              usage_indicator: "A"
+              visa_chip_condition_code: ''
+              visa_purchase_identifier: ''
+              visa_purchase_identifier_format: '1'
+              visa_service_develop: '1'
+              location_id: '52606609801'
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              plan_code: "VABC"
+              reclass_code: ''
+              record_type: "CREDIT_DETAIL_FUNDED"
+              hierarchy_id: '52606609801'
+              hierarchy_level_no: '10'
+              date_added: '2021-11-01'
+              surcharge_indicator: ''
+              surcharge_amount: "0"
+              special_reference_1: ''
+              special_reference_2: ''
+              user_data_2: ''
     TransactionRejectResponse:
       value:
         result: SUCCESS
@@ -24606,6 +24812,103 @@ components:
               outlet_id: "10000"
               alliance_id: "16000000"
               merchant_id: "6000"
+              plan_code: VABC
+              reclass_code: ''
+              record_type: CREDIT_DETAIL_FUNDED
+              hierarchy_id: '52606609801'
+              hierarchy_level_no: '10'
+              date_added: '2021-11-01'
+              surcharge_indicator: ''
+              surcharge_amount: "0"
+              special_reference_1: ''
+              special_reference_2: ''
+              user_data_2: ''
+    TransactionRejectFeeDetailsResponse:
+      value:
+        result: SUCCESS
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: FOUND
+          transactions:
+            - _id: 6f2522147afbba675c
+              processed_currency_code: '840'
+              submerchant_id: '00052606609801'
+              card_type: '00001'
+              reject_indicator: 'Y'
+              transaction_amount: "10"
+              transaction_id: '6669800004321'
+              airline_ticket_number: ''
+              auth_source: ''
+              authorization_amount: "10"
+              reference_number: '66998669893214321000001'
+              authorization_code: "0000AB"
+              authorization_date: '2021-11-01'
+              authorization_response_code: '00'
+              authorization_sic_code: '5000'
+              avs_flag: Z
+              bank_reference_number: ''
+              batch_date: '2021-11-01'
+              batch_number: '666989800001'
+              card_number: XXXXXXXXXXXX4321
+              card_presence_indicator: '1'
+              cardholder_id_method: ''
+              cat_level: ''
+              currency_conversion_rate: '0.000000000'
+              cvc2_result: ''
+              cvv2_result: ''
+              entry_mode: '01'
+              expiration_date: '1022'
+              external_id: ''
+              funded_date: '2021-11-01'
+              health_care_card: ''
+              invoice_id: '54321669898'
+              location_dba_name: MMISTest DBA NAME
+              market_specific_indicator: ''
+              mc_cardholder_authentication: ''
+              mc_security_protocol: ''
+              merchant_reference_number: '32100000'
+              mobile_indicator: ''
+              partial_auth_indicator: ''
+              pc_terminal_capability: ''
+              pinless_debit: 'N'
+              reject_reason: "29 - INVALID TRANSACTION AMOUNT"
+              response_code: ''
+              soft_descriptor: ABC*MMISTest LEGAL
+              store_number: '01'
+              submitted_currency_amount: "10"
+              submitted_currency_code: '840'
+              terminal_id: '54321'
+              total_auth_amount: "10"
+              transaction_date: '2021-11-01'
+              transaction_integrity_class: ''
+              transaction_mode: A
+              transaction_source: A
+              transaction_status: A
+              transaction_time: '20:30:00'
+              transaction_type: '3'
+              usage_indicator: A
+              visa_chip_condition_code: ''
+              visa_purchase_identifier: ''
+              visa_purchase_identifier_format: '1'
+              visa_service_develop: '1'
+              location_id: '52606609801'
+              merchant_node_id: "20000"
+              pfac_node_id: "10"
+              outlet_id: "10000"
+              alliance_id: "16000000"
+              merchant_id: "6000"
+              fee_details: 
+                -  fee_amount: '0.4500'
+                   charge_item_external_id: "CHIC23-A1AC5-A1AC5-30LC5-30LC5-3657B-3657B"
+                   charge_item_type: "CHARGE"
+                   charge_item_name: "Refund Charge"
+                   charge_item_ref: "RF001"
+                   fee_collection_type: "BLENDED"
+                   item_charge_breakdown:
+                     - fee_type: '2'
+                       fee_amount: '0.10000'
+                       unit_charge: '0.10'
               plan_code: VABC
               reclass_code: ''
               record_type: CREDIT_DETAIL_FUNDED
@@ -24808,6 +25111,66 @@ components:
               dda_number: "XXXXX321"
               aba_number: "XXXXX6699"
               adjustment_date: '2021-11-01'
+              card_type: '00001'
+              adjustment_code: "CB"
+              adjustment_description: "REVERSALS"
+              adjustment_amount_sign: "+"
+              adjustment_amount: '10.30'
+              adjustment_type: "C"
+              invoice_date: '2021-11-01'
+              adjustment_invoice_number: '3339866669001'
+              batch_number: '666933221'
+              card_number: "XXXXXXXXXXXX6699"
+              chargeback_code: '1000'
+              case_number: '666993321001'
+              bank_reference_number: ''
+              sds_reference_number: ''
+              new_adjustment_description: "REVERSALS"
+              transaction_count: '0'
+              rate: '0.000000'
+              unit_amount: '0.00'
+              submit_date: '2021-11-01'
+              special_reference_1: ''
+
+    ChargebackAdjustmentFeeDetailResponse:
+      value:
+        result: "SUCCESS"
+        response:
+          limit: '5'
+          page: '1'
+          summary_status: "FOUND"
+          chargeback_adjustments:
+            - _id: "ddss9eebae9565aeeb"
+              alliance_id: "16000200"
+              pfac_node_id: "10"
+              merchant_id: "2000"
+              merchant_node_id: "8000"
+              outlet_id: "3000"
+              location_id: '526232132199'
+              date_added: '2021-11-10'
+              record_type: "ADJUSTMENT_DETAIL"
+              hierarchy_id: '526232000099'
+              hierarchy_level_no: '10'
+              location_dba_name: "MMISTest DBA NAME"
+              store_number: ''
+              external_id: ''
+              funded_date: '2021-11-01'
+              processed_date: '2021-11-01'
+              currency_code: '840'
+              dda_number: "XXXXX321"
+              aba_number: "XXXXX6699"
+              adjustment_date: '2021-11-01'
+              fee_details:
+                -  fee_amount: '0.4500'
+                   charge_item_external_id: "CHIC23-A1AC5-A1AC5-30LC5-30LC5-3657B-3657B"
+                   charge_item_type: "CHARGE"
+                   charge_item_name: "Chargeback Fee"
+                   charge_item_ref: "CB001"
+                   fee_collection_type: "BLENDED"
+                   item_charge_breakdown:
+                     - fee_type: '2'
+                       fee_amount: '15.00000'
+                       unit_charge: '15.00'
               card_type: '00001'
               adjustment_code: "CB"
               adjustment_description: "REVERSALS"
