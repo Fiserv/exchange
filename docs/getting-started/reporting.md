@@ -70,7 +70,7 @@ With Auto funding, Exchange is perforing calculations on the system based on con
 
 Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/account/trade-details&branch=main&version=3.0.0}
 
-### service fee calculations
+### Service fee calculations
 
 Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpointm this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/account/billing/fee-details&branch=main&version=3.0.0} 
 
