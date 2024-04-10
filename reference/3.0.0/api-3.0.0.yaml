@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -1265,6 +1266,42 @@ paths:
               examples:
                 SampleTradeInfo:
                   $ref : '#/components/examples/TradeInfoExampleResponse'
+        "404":
+          description: Merchant/Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /account/trade-details:
+    post:
+      tags:
+        - Account Operations
+      summary: "Retrieves the trade information, along with the detail of fees that have been applied and calculated by the system when using Auto funding through Exchange. Breakdown is provided on the merchant level, where it is pulled in by merchant id, date and currency."
+      x-group-name: Submerchant Account Operations
+      x-proxy-name: Get Trade Info
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TradeDetailInfoRequest'
+        required: true
+      responses:
+        "200":
+          description: Found the trade info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradeDetailsInfoResponse'
         "404":
           description: Merchant/Account not found
           content:
@@ -16922,6 +16959,153 @@ components:
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
 
           example: "2020-02-20"
+    TradeDetailInfoRequest:
+      required:
+        - currency
+        - date
+        - merchant_id
+      type: object
+      properties:
+        merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000001"
+        currency:
+          type: string
+          description: Currency - Cannot be empty.
+          example: "USD"
+        date:
+          type: string
+          description: Date of processing - Cannot be empty.Format YYYY-MM-DD
+          example: "2020-02-20"
+          
+    TradeDetailsInfoDTO:
+      type: object
+      properties:
+        account_type:
+          type: string
+          enum:
+            - CHARGEBACK
+            - INSTRUCTIONAL_HOLD
+            - REVENUE
+            - MERCHANT_FEE
+            - FEE
+            - SERVICE_FEE
+            - FEE_COLLECT
+            - SETTLEMENT_REJECT
+            - REJECT_HOLD
+            - RESERVE
+            - ADJUSTMENT
+            - REJECT_REPROCESS
+            - SUSPEND
+            - HOLD
+            - PFAC_REVENUE
+            - ROLLING_RESERVE
+            - DELAY_FUNDING
+            - RESERVE_DEDUCTION
+            - GROSS_FEE
+        currency:
+          type: string
+          description: Currency - Cannot be empty.
+          example: "USD"
+        transaction_source:
+          type: string
+          enum:
+            - CARD
+            - ACH
+        transaction_amount:
+          type: string
+          example: '140.5'
+        refund_amount:
+          type: string
+          example: '140.5'
+        net_transaction_amount:
+          type: string
+          example: '140.5'
+        rejected_amount:
+          type: string
+          example: '140.5'
+        chargeback:
+          type: string
+          example: '140.5'
+        chargeback_reversal:
+          type: string
+          example: '140.5'
+        deposit_adjustments:
+          type: string
+          example: '140.5'
+        number_of_transactions:
+          type: string
+          format: int32
+          example: '10'
+        hold_amount:
+          type: string
+          example: '140.5'
+        reprocessed_amount:
+          type: string
+          example: '140.5'
+        transaction_hold_amount:
+          type: string
+          example: '140.5'
+        check_adjustment_amount:
+          type: string
+          example: '140.5'
+        return_amount:
+          type: string
+          example: '140.5'
+        fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeDetailsArray'
+    FeeDetailsArray:
+      type: object
+      description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
+      properties:
+        fee_amount:
+          type: string
+          example: "10.38"
+          description: "Total amount of fees caluclated from the charges applied for today, at the submerchant level."
+        charge_item_external_id:
+          type: string
+          example: "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4"
+        charge_item_name:
+          type: string
+          example: "Sample Blended Rate"
+        item_charge_breakdown:
+          type: array
+          description: "Array of breakdown for each charge item that is applying fees for the submerchant"
+          items:
+            $ref: '#/components/schemas/ChargeItemBreakdown'
+    ChargeItemBreakdown:
+      description: "Array of breakdown for each charge item that is applying fees for the submerchant"
+      type: object
+      properties:
+        fee_group:
+          description: "Identifies the group of the charge. Currently only supports value 1"
+          enum:
+            - "1"
+          type: string
+          example: "1"
+        fee_type:
+          type: string
+          description: "Base or percentage charge, 1 - Percentage 2 - Base"
+          example: "1"
+        unit_charge:
+          description: "Charge that was set on boarding"
+          type: string
+          example: "2.4500"
+        unit_amount:
+          type: string
+          example: "125.0000"
+          description: "The total for tranasctions calculated against."
+        unit_count:
+          type: string
+          description: "The amount of tranasctions calculated against"
+          example: "3"
+        fee_amount:
+          description: "The final amount of fee calculated for this charge items object. (ie, the final amount of how much base fee or percentage fee was calculated for this charge item.)"
+          type: string
+          example: "3.0625"
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -17010,6 +17194,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TradeAccountInfoDTO'
+            
+    TradeDetailsInfoResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+            - SUCCESS
+            - ERROR
+        account:
+          $ref: '#/components/schemas/TradeAccountInfoDTO'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/TradeDetailsInfoDTO'
     SettlementInfoRequest:
       required:
         - currency
