@@ -226,6 +226,7 @@ paths:
                 summary: Minimum standard Payload required to board, using defaults in configuration for settings
                 $ref: '#/components/examples/RequestMinimalOutlet'
         required: true
+
       responses:
         "200":
           description: OK
@@ -255,7 +256,7 @@ paths:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
-     requestBody:
+      requestBody:
         description: Updating a Merchant Outlet
         content:
           application/json:
