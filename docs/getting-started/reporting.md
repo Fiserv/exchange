@@ -61,3 +61,19 @@ The `/account/balance` endpoint can be used to retrieve the balance of any virtu
 - SERVICE_FEE_ACCOUNT
 - RESERVE_ACCOUNT
 - CHARGEBACK_ACCOUNT
+
+## Auto Funding Calculations
+
+With Auto funding, Exchange is perforing calculations on the system based on configured charges that are setup. The API can be used in order to retrieve what charges were applied, and how these were broken down on a submerchant + tranasction level.
+
+### Submerchant level calculations
+
+Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/account/trade-details&branch=main&version=3.0.0}
+
+### service fee calculations
+
+Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpointm this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/account/billing/fee-details&branch=main&version=3.0.0} 
+
+### Transaction level calculations
+
+To retrieve calculations performed by Auto fundings processing charges at a tranasction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/transaction&branch=main&version=3.0.0}
