@@ -44,20 +44,22 @@
     link: docs/getting-started/api-info.md
     open: true
     sections:
+    - title: Authentication
+      link: docs/getting-started/oauth.md
     - title: Virtual account operations
       link: docs/getting-started/account-operations.md
     - title: Submerchant onboarding
       link: docs/getting-started/boarding.md
+    - title: OFAC and Credit risk checks
+      link: docs/getting-started/risk.md
     - title: Funding
       link: docs/getting-started/funding.md
     - title: Information retrieval
       link: docs/getting-started/information-retrieval.md
-    - title: Authentication
-      link: docs/getting-started/oauth.md
+    - title: Submerchant maintenance
+      link: docs/getting-started/maintenance.md
     - title: Pricing + Equipment offerings
       link: docs/getting-started/offerings.md
-    - title: OFAC and Credit risk checks
-      link: docs/getting-started/risk.md
     - title: Split funding by transaction 
       link: docs/getting-started/split-details.md
     - title: Transaction operations 
@@ -68,23 +70,6 @@
       link: docs/getting-started/backtosales.md
     - title: Restricted MCCs
       link: docs/documentation/restricted_mccs.md
-- sections:
-    - title: Additional Samples
-      link: docs/introduction/exchange-boarding-guide.md
-      open: true
-      sections:
-        - title: Add application sample
-          link: docs/introduction/samples/add_application.md
-        - title: Add outlet sample
-          link: docs/introduction/samples/add_outlet.md
-        - title: Application status check sample
-          link: docs/introduction/samples/application_status_check.md
-        - title: Application submit sample
-          link: docs/introduction/samples/application_submit.md
-        - title: Merchant boarding sample
-          link: docs/introduction/samples/boarding_merchant.md
-        - title: Retrieve application sample
-          link: docs/introduction/samples/retrieve_application.md
           
 - sections:
     - title: Release Notes
