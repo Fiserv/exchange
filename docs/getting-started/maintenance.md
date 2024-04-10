@@ -13,7 +13,7 @@ This is primarily be facilitated through the `/maintenance` endpoint.
 
 In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the submerchant. 
 The `old_details` will provide the data being updated, which can be used in the next endpoint to update.
-`merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/boarding/////merchant&branch=main&version=3.0.0}
+`merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](https://developer.fiserv.com/product/Exchange/api/?type=post&path=/boarding/////merchant&branch=main&version=3.0.0)
 
 Example request body:
 ```
@@ -32,7 +32,7 @@ Example request body:
 ### Updating Maintenance Case
 
 Next, the maintenance case must be updated with the new information. Using the `old_details` from the Create maintenance case response, we can use this as a base to populate the new details to be updated.
-Depending on the maintenance case, you will need to include the new details in their respective block in the request. ie, banks for Bank changes. Please see [examples]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=//maintenance&branch=main&version=3.0.0} on the request page for more info
+Depending on the maintenance case, you will need to include the new details in their respective block in the request. ie, banks for Bank changes. Please see [examples](https://developer.fiserv.com/product/Exchange/api/?type=post&path=//maintenance&branch=main&version=3.0.0) on the request page for more info
 
 Example for bank change below:
 ```
@@ -97,6 +97,6 @@ The additional outlet can then be updated using the `/boarding/outlet/update` en
 
 ### Submitting the new outlet
 
-As this is an application for the outlet, the outlet must be submit using the `/boarding/application` [endpoint]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/boarding//application&branch=main&version=3.0.0} for submitting an application.
+As this is an application for the outlet, the outlet must be submit using the `/boarding/application` [endpoint](https://developer.fiserv.com/product/Exchange/api/?type=post&path=/boarding//application&branch=main&version=3.0.0) for submitting an application.
 
 Just like a normal application, if `submit_success` in the response is `1`, the application succesfully submit to the new step in workflow. Checking the status of the application will allow you to verify if this was succesfully boarded. Once boarded, will be added to the existing merchant.
