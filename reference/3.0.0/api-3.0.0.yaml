@@ -5,10 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/jay.dawson/devreviewspecs/3.0.0
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -17298,6 +17294,12 @@ components:
           description: "Defines what type of charge is applied"
           enum: 
             - "ACQUIRING_CHARGE"
+            - "EQUIPMENT"
+            - "EQUIPMENT_SERVICE"
+            - "ONLINE"
+            - "ONLINE_SERVICES"
+            - "SERVICE_FEE_BILLING"
+            - "GROSS_FEE_BILLING"
           example: "ACQUIRING_CHARGE"
         charge_item_external_id:
           type: string
