@@ -6,6 +6,9 @@ info:
   version: 3.0.0
 servers:
 
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/jay.dawson/devreviewspecs/3.0.0
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -1284,7 +1287,7 @@ paths:
         - Account Operations
       summary: "Retrieves the trade information, along with the detail of fees that have been applied and calculated by the system when using Auto funding through Exchange. Breakdown is provided on the merchant level, where it is pulled in by merchant id, date and currency."
       x-group-name: Submerchant Account Operations
-      x-proxy-name: Get Trade Info
+      x-proxy-name: Get Trade Details
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -1302,6 +1305,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TradeDetailsInfoResponse'
+        "404":
+          description: Merchant/Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /billing/fee-details:
+    post:
+      tags:
+        - Account Operations
+      summary: "Retrieves the  service fees billed for a submerchant for a MID, such as Daily or monthly fees through Auto funding. Expected to be called daily, will return result for any billing done for "
+      x-group-name: Submerchant Account Operations
+      x-proxy-name: Get Service Fee Details
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingFeeDetailsRequest'
+        required: true
+      responses:
+        "200":
+          description: Retrieves the billing info for the date provided, and merchant ID provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingFeeDetailsResponse'
         "404":
           description: Merchant/Account not found
           content:
@@ -17106,6 +17145,21 @@ components:
           description: "The final amount of fee calculated for this charge items object. (ie, the final amount of how much base fee or percentage fee was calculated for this charge item.)"
           type: string
           example: "3.0625"
+    BillingFeeDetailsRequest:
+      required:
+        - date
+        - merchant_id
+      type: object
+      properties:
+        merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000001"
+        date:
+          type: string
+          description: Date of processing - Cannot be empty.Format YYYY-MM-DD
+          example: "2020-02-20"
+          
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -17209,6 +17263,66 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TradeDetailsInfoDTO'
+    BillingFeeDetailsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+            - SUCCESS
+            - ERROR
+        billing_merchant_id:
+          type: string
+          example: "520000004321"
+          description: "The billing level MID in exchange"
+        total_amount: 
+          type: string
+          description: "The total amount calculated from the charges applied"
+          example: "0.0500"
+        fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingFeeDetailBreakdown'
+            
+            
+    BillingFeeDetailBreakdown:
+      type: object
+      description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
+      properties:
+        merchant_id:
+          type: string
+          example: "520000004321"
+          description: "The submerchant MID that charge has been applied to."
+        billing_type:
+          type: string
+          description: "Defines what type of charge is applied"
+          enum: 
+            - "ACQUIRING_CHARGE"
+          example: "ACQUIRING_CHARGE"
+        charge_item_external_id:
+          type: string
+          example : "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4"
+          description: "External ID of the charge being applied"
+        charge_title:
+          type: string
+          example: "Sample Blended Rate"
+          description: "Configured title of the charge applied"
+        date: 
+          type: string
+          description: "Date the charge was applied"
+          example: "2022-01-01"
+        unit_charge:
+          type: string
+          description: "Amount configured to bill from the charge added at the submerchant"
+          example: "0.5000"
+        quantity:
+          type: string
+          description: "Quantity of billing applied from charge"
+          example: "1"
+        amount:
+          type: string
+          description: "Billing calculated"
+          example: "0.5000"
     SettlementInfoRequest:
       required:
         - currency
