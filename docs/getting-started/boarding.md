@@ -94,7 +94,7 @@ JSON format for `ADD_APPLICATION`:
 
 ---
 The offer package and acquiring offer can be set to default using the config portal, and can be removed from the payload if this is being used. If wanting to specify specific items in the offer pacakge or pricing, this will need to be sent seperately. Sending just the external ids will pull all mandatory information.
-If specifying the Offer Package and acquiring offers, please use the `/offering/available` and  `/offering/retrieve_processing_offering` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page]{https://qdeveloper.fiserv.com/product/Exchange/docs/?path=docs/getting-started/offerings.md&branch=main#tab-available_offer_packages_request}
+If specifying the Offer Package and acquiring offers, please use the `/offering/available` and  `/offering/retrieve_processing_offering` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings.md)
 
 ### Adding the Outlet
 
