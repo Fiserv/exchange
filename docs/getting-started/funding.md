@@ -69,7 +69,7 @@ Supported accounts added to this request include:
 
 A standard daily instructional funding cycle requires the user to check through virtual account balances, check transactions, send instructions during the instructional hold window, and then reconcile using settlement endpoints and any other additional reonciliation required. A standard cycle  will look similar to the below process diagram:
 <!-- !align: center -->
-![funding_sequance](/assets/images/funding_sequence_diagram.jpg)
+![funding_sequence](/assets/images/funding_sequence_diagram.jpg)
 
 ## Instructional Split Funding
 
