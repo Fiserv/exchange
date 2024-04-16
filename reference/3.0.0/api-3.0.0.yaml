@@ -3897,6 +3897,10 @@ components:
           type: array
           items:
             $ref : '#/components/schemas/ServiceItemExid'
+        service_features:
+          type: array
+          items:
+            $ref : '#/components/schemas/ServiceFeatureItemExid'
 
     ResponseServiceItems:
       type: object
@@ -3924,6 +3928,17 @@ components:
           description : The service item of the VAR being added. Usually Owned/Purchased.
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+    ServiceFeatureItemExid:
+      type: object
+      properties:
+        feature_external_id:
+          description : The external ID of feature being added. Retrieved from online offer retrieval endpoint
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        value:
+          description: "Value of the feature being sent. If no value is sent, default_value is used. default value is taken from config. Allowed values will depend on configuration of the feature."
+          type: string
+          example: "22:00"
     ServiceFeaturesItemExid:
       type: object
       properties:
