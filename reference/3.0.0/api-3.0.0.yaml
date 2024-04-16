@@ -1147,8 +1147,7 @@ paths:
     post:
       tags:
         - Funding Instruction
-      summary: "Funding instruction can distribute the funds according to merchant\
-        \ id, currency, total amount and accounts."
+      summary: "Funding instruction can distribute the funds according to merchant ID, currency, total amount and accounts. Virtual account balances should be verified using account/summary API before sending funding instructions. Funding Instructions must be sent during the daily instruction window. "
       x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction
       x-child-product-name: Submerchant Funding
@@ -1164,20 +1163,29 @@ paths:
               $ref: '#/components/schemas/FundingInstructionRequest'
             examples:
               NetCBInstruction:
+                description: "Funding scenario where Chargeback is netted from submerchants processing revenue."
                 summary: Funding scenario where Chargeback is netted from submerchants processing revenue.
                 $ref: '#/components/examples/RequestNetCBInstruction'
               DebitCBInstruction:
                 summary: Funding scenario where Chargeback is billed gross from the submerchant.
+                description: "Funding scenario where Chargeback is billed gross from the submerchant."
                 $ref: '#/components/examples/RequestDebitCBInstruction'
               GrossInstruction:
                 summary: Funding scenario where billing for submerchant fee and chargeback is calculated gross.
+                description: Funding scenario where billing for submerchant fee and chargeback is calculated gross.
                 $ref: '#/components/examples/RequestGrossInstruction'
               ServiceFeeBilling:
                 summary: Funding scenario where service fee is used to bill submerchant on top of processing fees.
+                description: Funding scenario where service fee is used to bill submerchant on top of processing fees.
                 $ref: '#/components/examples/RequestServiceBillingInstruction'
               DebitSub:
                 summary: Funding scenario where submerchant owes more than in instructional hold. In this scenario, the instructional hold is $100 and taken fully using the fee account, and the submerchant debited an additional 20.
+                description:  Funding scenario where submerchant owes more than in instructional hold. In this scenario, the instructional hold is $100 and taken fully using the fee account, and the submerchant debited an additional 20.
                 $ref: '#/components/examples/RequestDebitSubInstruction'
+              AdjustmentInstruction:
+                summary: Funding scenario where submerchant requires amounts to be adjusted from the FEE account to REVENUE.
+                description: Funding scenario where submerchant requires amounts to be adjusted from the FEE account to REVENUE.
+                $ref: '#/components/examples/RequestAdjustmentInstruction'
         required: true
       responses:
         "200":
@@ -1202,8 +1210,7 @@ paths:
     post:
       tags:
         - Funding Instruction
-      summary: Details instruction allows to provide more breakdown details about
-        the amounts to be instructed.
+      summary: "Funding instruction can distribute the funds according to merchant ID, currency, total amount and accounts. Virtual account balances should be verified using account/summary API before sending funding instructions. Funding Instructions must be sent during the daily instruction window. Details instruction allows to provide more breakdown details about the amounts to be instructed. " 
       operationId: fundingDetailsInstruction
       x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction with Details
@@ -16552,27 +16559,32 @@ components:
       properties:
         merchant_id:
           type: string
-          description: Id of merchant - Cannot be empty.
+          description: "Funding level merchant ID - Cannot be empty."
           example: "400000000005"
         currency:
           type: string
-          description: Currency - Cannot be empty.
+          description: "Currency - Cannot be empty."
           example: "USD"
         funding:
           type: array
-          description: accounts - at least one account.
+          description: "Accounts block for funding, primarily used to support NET funding - at least one account."
           items:
             $ref: '#/components/schemas/AccountDTO'
         billing:
           type: array
-          description: accounts - at least one account.
+          description: "Accounts block for billing, primarily used when supporting GROSS billing. "
           items:
             $ref: '#/components/schemas/AccountDTOBilling'
         chargeback:
           type: array
-          description: accounts - at least one account.
+          description: "Accounts block for chargeback, primarily used when supporting GROSS billing"
           items:
             $ref: '#/components/schemas/AccountDTOChargeback'
+        adjustment:
+          type: array
+          description: "Accounts block for adjustments, primarily used for adjusting amounts in the system. Can be used in Auto funding scenarios."
+          items:
+            $ref: '#/components/schemas/AccountDTOAdjustment'
     TransactionInstructionFundingDetails:
       required:
         - merchant_id
@@ -16705,6 +16717,71 @@ components:
             - CREDIT
             - DEBIT
       description: chargeback accounts - at least one account.
+    AccountDTOAdjustment:
+      required:
+        - account_type
+        - amount
+      type: object
+      properties:
+        account_type:
+          type: string
+          description: account type - Cannot be empty.
+          example: "REVENUE"
+          enum:
+            - "FEE"
+            - "REVENUE"
+            - "HOLD"
+        amount:
+          type: string
+          description: "Amount to be adjusted. Amount be adjusted must be the same "
+          example: "10.00"
+        type:
+          type: string
+          description: "instruction type (CREDIT/DEBIT). Adjusted amounts must have opposite types, eg. One CREDIT one DEBIT."
+          example: "CREDIT"
+          enum:
+            - CREDIT
+            - DEBIT
+        description:
+          type: string
+          description: "Description for the adjustment"
+          example: "Monthly Fee Adjustment"
+      description: "Adjustment accounts. Must be empty, or provided in pairs to adjust an amount to and from accounts. Account to be adjusted to must be type CREDIT, account being adjusted from must be DEBIT"
+    AccountDetailsDTOAdjustment:
+      required:
+        - account_type
+        - amount
+      type: object
+      properties:
+        account_type:
+          type: string
+          description: account type - Cannot be empty.
+          example: "REVENUE"
+          enum:
+            - "FEE"
+            - "REVENUE"
+            - "HOLD"
+        amount:
+          type: string
+          description: "Amount to be adjusted. Amount be adjusted must be the same "
+          example: "10.00"
+        details:
+          type: array
+          description: details - at least one details.
+          items:
+            $ref: "#/components/schemas/DetailsDTO"
+        type:
+          type: string
+          description: "instruction type (CREDIT/DEBIT). Adjusted amounts must have opposite types, eg. One CREDIT one DEBIT."
+          example: "CREDIT"
+          enum:
+            - CREDIT
+            - DEBIT
+        description:
+          type: string
+          description: "Description for the adjustment"
+          example: "Monthly Fee Adjustment"
+      description: "Adjustment accounts. Must be empty, or provided in pairs to adjust an amount to and from accounts. Account to be adjusted to must be type CREDIT, account being adjusted from must be DEBIT"
     DetailsDTO:
       required:
         - item_amount
@@ -16919,6 +16996,11 @@ components:
           description: chargeback accounts - at least one account.
           items:
             $ref: '#/components/schemas/AccountDetailsDTOChargeback'
+        adjustment:
+          type: array
+          description: "Accounts block for adjustments, primarily used for adjusting amounts in the system. Can be used in Auto funding scenarios."
+          items:
+            $ref: '#/components/schemas/AccountDetailsDTOAdjustment'
     TransactionInstructionDetailedIns:
       required:
         - accounts
@@ -26264,6 +26346,19 @@ components:
           - account_type: GROSS_FEE
             amount: '100.00'
             type: CREDIT
+    RequestAdjustmentInstruction:
+      value:
+        merchant_id: '520000000321'
+        currency: USD
+        adjustment:
+          - account_type: REVENUE
+            amount: '15.00'
+            type: CREDIT
+            description: "Monthly Fee Adjustment"
+          - account_type: FEE
+            amount: '15.00'
+            type: DEBIT
+            description: "Monthly Fee Adjustment"
     RequestNetCBReversalInstruction:
       value:
         merchant_id: '520000000321'

@@ -68,12 +68,12 @@ With Auto funding, Exchange is perforing calculations on the system based on con
 
 ### Submerchant level calculations
 
-Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/account/trade-details&branch=main&version=3.0.0}
+Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here](../api/?type=post&path=/account/trade-detail)
 
 ### Service fee calculations
 
-Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpointm this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/account/billing/fee-details&branch=main&version=3.0.0} 
+Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here](../api?type=post&path=/account/billing/fee-details) 
 
 ### Transaction level calculations
 
-To retrieve calculations performed by Auto fundings processing charges at a tranasction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [Here]{https://developer.fiserv.com/product/Exchange/api/?type=post&path=/transaction&branch=main&version=3.0.0}
+To retrieve calculations performed by Auto fundings processing charges at a tranasction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [Here](../api/?type=post&path=/transaction)
