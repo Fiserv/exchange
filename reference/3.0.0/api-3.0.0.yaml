@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
-
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -670,8 +669,8 @@ paths:
     post:
       tags:
         - Offerings
-      summary: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
-      description: Retrieve Equipment Offering
+      description: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
+      summary: Retrieve Equipment Offering
       operationId: RETRIEVE_EQUIPMENT_OFFERING
       x-group-name: Offerings
       x-child-product-name: Boarding Submerchants
@@ -9408,6 +9407,7 @@ components:
         ignore_bank_validation: 
           type: string
           description: "Allows the user to skip the DDA verification service, in cases where the service cannot find a match but the user wants to proceed with submitting the application"
+          example: "0"
           enum:
             - "0" 
             - "1"
@@ -12947,8 +12947,8 @@ components:
       example: "333000000794"
     Status:
       type: string
-      description: 1 = Active 0 = Inactive
-      example: "Active"
+      description: "1 =  Verified 0 = Unverified"
+      example: "1"
       enum:
         - "0"
         - "1"
