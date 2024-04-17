@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: 3.0.0
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -611,8 +612,8 @@ paths:
     post:
       tags:
         - Offerings
-      summary: Retrieve Available Offerings
-      description: Retrieve Available Offerings
+      summary: "Retrieve Available Offering"
+      description: "Retrieve Available configured Offerings. Request can be left Empty in order to retrieve all offerings, or criteria provided (if offer is configured with criteria). Retrieved External IDs can be put into the other offering retrieve endpoints to gather full details."
       operationId: LIST_AVAILABLE_OFFERINGS
       x-group-name: Offerings
       x-child-product-name: Boarding Submerchants
@@ -641,7 +642,7 @@ paths:
       tags:
         - Offerings
       summary: Retrieve Processing Offering
-      description: Retrieve Processing Offering
+      description: "Retrieves the Processing Offering specified. Will return pricing configured for Auto funding scenarios, and retrieve other pricing items such as entitlements that have been configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
       operationId: RETRIEVE_PROCESSING_OFFERING
       x-group-name: Offerings
       x-child-product-name: Boarding Submerchants
@@ -669,7 +670,7 @@ paths:
     post:
       tags:
         - Offerings
-      summary: Retrieve Equipment Offering
+      summary: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
       description: Retrieve Equipment Offering
       operationId: RETRIEVE_EQUIPMENT_OFFERING
       x-group-name: Offerings
@@ -700,7 +701,7 @@ paths:
       tags:
         - Offerings
       summary: Retrieve Online Offering
-      description: Retrieve Online Offering
+      description: "Retrieves the Online Offering specified. Will return Gateways + VARs configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
       operationId: RETRIEVE_ONLINE_OFFERING
       x-group-name: Offerings
       x-child-product-name: Boarding Submerchants
@@ -3825,7 +3826,7 @@ components:
       type: object
       properties:
         online_offering:
-          $ref: '#/components/schemas/OnlineOffering'
+          $ref: '#/components/schemas/RetrieveOnlineOfferingRequest'
       xml:
         name: order
     ResponseOnlineOffering:
@@ -3833,7 +3834,7 @@ components:
       type: object
       properties:
         partner_code:
-          description: Used for Alliances specifying offers for their Partners
+          description: Optional, Used for Alliances specifying offers for their Partners
           type: string
           example: 'TEST'
         online_offering_external_id:
@@ -3862,6 +3863,18 @@ components:
           type: array
           items:
             $ref : '#/components/schemas/RequestBundleItems'
+    RetrieveOnlineOfferingRequest:
+      description: The online offering being added. This detail can be retrieved from /offering/retrieve_online_offering
+      type: object
+      properties:
+        partner_code:
+          description: Used for Alliances specifying offers for their Partners
+          type: string
+          example: 'TEST'
+        online_offering_external_id:
+          description: The external ID of the offering being added. If the item is configured to be mandatory, only this offering ID needs to be parsed, and the remaining data will be automatically grabbed.
+          type: string
+          example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
     RequestBundleItems:
       type: object
       properties:
@@ -7313,11 +7326,24 @@ components:
       properties:
         operation:
           description: Operation
-          example:
-            operation_type: APPLICATION_STATUS_CHECK
+          $ref: '#/components/schemas/OperationStatusApplication'
+          
+    OperationStatusApplication:
+      required:
+        - operation_type
+        - version
+      type: object
+      properties:
+        operation_type:
+          maxLength: 30
+          example: "APPLICATION_STATUS_CHECK"
+          type: string
+          description: The type of the operation. This will change the operation of the endpoint /boarding/application
+          enum:
+            - "APPLICATION_STATUS_CHECK"
+          
 
-          allOf:
-            - $ref: '#/components/schemas/OperationAddApplication'
+
     DecisionOperation:
       required:
         - operation
@@ -7371,11 +7397,25 @@ components:
       type: object
       properties:
         operation:
-          description: Operation
-          example:
-            operation_type: RETRIEVE_MERCHANT_HIERARCHY
-          allOf:
-            - $ref: '#/components/schemas/OperationAddApplication'
+          description: Operation 
+          example: "RETRIEVE_MERCHANT_HIERARCHY"
+          $ref: '#/components/schemas/OperationRetrieveApplication'
+          
+    OperationRetrieveApplication:
+      required:
+        - operation_type
+        - version
+      type: object
+      properties:
+        operation_type:
+          maxLength: 30
+          example: "RETRIEVE_MERCHANT_HIERARCHY"
+          type: string
+          description: The type of the operation. This will change the operation of the endpoint 
+          enum:
+            - "RETRIEVE_MERCHANT_HIERARCHY"
+          
+
     ApplicationSubmissionOperation:
       required:
         - operation
@@ -8306,9 +8346,6 @@ components:
       required:
         - request_source
       type: object
-      properties:
-        request_source:
-          $ref: '#/components/schemas/RequestSource'
       allOf:
         - $ref: '#/components/schemas/ApplicationStatusCheckOperation'
         - $ref: '#/components/schemas/applicationref'
@@ -9348,12 +9385,9 @@ components:
           example: "APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123"
     MerchantRetrieveRequest:
       required:
-        - request_source
         - merchant
       type: object
       properties:
-        request_source:
-          $ref: '#/components/schemas/RequestSource'
         merchant:
           type: object
           properties:
@@ -9371,8 +9405,12 @@ components:
         - request_source
       type: object
       properties:
-        request_source:
-          $ref: '#/components/schemas/RequestSource'
+        ignore_bank_validation: 
+          type: string
+          description: "Allows the user to skip the DDA verification service, in cases where the service cannot find a match but the user wants to proceed with submitting the application"
+          enum:
+            - "0" 
+            - "1"
       allOf:
         - $ref: '#/components/schemas/ApplicationSubmissionOperation'
         - $ref: '#/components/schemas/applicationref'
@@ -9424,9 +9462,6 @@ components:
       required:
         - request_source
       type: object
-      properties:
-        request_source:
-          $ref: '#/components/schemas/RequestSource'
       allOf:
         - $ref: '#/components/schemas/applicationref'
         - $ref: '#/components/schemas/AddOutletRequestBlock'
@@ -11985,6 +12020,8 @@ components:
           $ref: '#/components/schemas/OnlineOffering'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
+        acquiring_offer:
+          $ref: '#/components/schemas/Acquiring'
         offer_package:
           $ref: '#/components/schemas/OfferPackage'
     UpdateOutlet:
@@ -23575,8 +23612,6 @@ components:
         - request_source
       type: object
       properties:
-        request_source:
-          $ref: '#/components/schemas/RequestSource'
         note:
           $ref: '#/components/schemas/NoteRequest'
 
