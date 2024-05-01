@@ -54,7 +54,7 @@ featuredFeatures:
     relatedAPIs: 
       - type: post       
         path: /boarding/add_application
-    - title: Underwriting
+ - title: Underwriting
       groupName: API Suite
       description:  Supporting Underwriting + Monitoring through our API
       relatedDocs:
@@ -93,7 +93,7 @@ featuredFeatures:
       - type: post
         title: Search Transactions       
         path: /transaction
-- title: Maintenance
+  - title: Maintenance
     groupName: API Suite
     description:  Perform submerchant maintenance for pricing through API
     relatedDocs:
