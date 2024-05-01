@@ -9403,17 +9403,9 @@ components:
       required:
         - request_source
       type: object
-      properties:
-        ignore_bank_validation: 
-          type: string
-          description: "Allows the user to skip the DDA verification service, in cases where the service cannot find a match but the user wants to proceed with submitting the application"
-          example: "0"
-          enum:
-            - "0" 
-            - "1"
       allOf:
         - $ref: '#/components/schemas/ApplicationSubmissionOperation'
-        - $ref: '#/components/schemas/applicationref'
+        - $ref: '#/components/schemas/applicationrefSubmit'
     AddApplicationRequest:
       required:
         - request_source
@@ -9562,6 +9554,14 @@ components:
       properties:
         application:
           $ref: '#/components/schemas/applicationref_application'
+    applicationrefSubmit:
+      required:
+        - operation_type
+        - version
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/applicationref_applicationSubmit'
     merchantref:
       required:
         - operation_type
@@ -14962,7 +14962,18 @@ components:
       properties:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
-
+    applicationref_applicationSubmit:
+      type: object
+      properties:
+        application_reference:
+          $ref: '#/components/schemas/ApplicationRef'
+        ignore_bank_validation: 
+          type: string
+          description: "Allows the user to skip the DDA verification service, in cases where the service cannot find a match but the user wants to proceed with submitting the application"
+          example: "0"
+          enum:
+            - "0" 
+            - "1"
     merchantref_application:
       type: object
       properties:
