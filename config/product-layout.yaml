@@ -54,15 +54,15 @@ featuredFeatures:
     relatedAPIs: 
       - type: post       
         path: /boarding/add_application
- - title: Underwriting
-      groupName: API Suite
-      description:  Supporting Underwriting + Monitoring through our API
-      relatedDocs:
-        - link: docs/getting-started/risk.md
-          title: Sub-merchant boarding
-      relatedAPIs: 
-        - type: post       
-          path: /intelligence/decision
+  - title: Underwriting
+    groupName: API Suite
+    description:  Supporting Underwriting + Monitoring through our API
+    relatedDocs:
+      - link: docs/getting-started/risk.md
+        title: Sub-merchant boarding
+    relatedAPIs: 
+      - type: post       
+        path: /intelligence/decision
   - title: Settlements
     groupName: API Suite
     description:   View Settlements to submerchants through Exchange
@@ -103,4 +103,3 @@ featuredFeatures:
       - type: post
         title: Update Maintenance Case       
         path: //maintenance  
-
