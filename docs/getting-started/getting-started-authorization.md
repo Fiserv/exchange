@@ -1,3 +1,6 @@
+---
+tags: [Getting Started, API Keys, Authentication]
+---
 # Authentication
 
 Exchange uses the Oauth 2.0 Framework for authorizations. To generate token for authorization, the `/oauth/token` endpoint may be used, and credentials must be sent as a Basic Auth Header with the request.
