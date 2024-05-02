@@ -12,7 +12,7 @@ In order to generate a token, the grant_type `client_credentials` must be used.
 
 <!--
 type: tab
-titles: API Headers, Specs
+titles: Generate Token Request , Generate Token Response
 -->
 ### Generate Token Sample: 
 
@@ -24,13 +24,15 @@ titles: API Headers, Specs
 }
 ```
 
+
 | field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `grant_type` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
 | `refresh_token` | *string* | 40 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
 
 
-<!-- type: tab-end -->
+<!-- type: tab -->
+
 ### Generate Token Response: :
 
 ```json
@@ -58,9 +60,14 @@ titles: API Headers, Specs
 
 ---
 
-<!-- type: tab -->
+<!-- type: tab-end -->
 
 ### Refresh Token
+
+<!--
+type: tab
+titles: Refresh Token Request , Refresh Token Response
+-->
 
 ```json
 {
@@ -76,8 +83,10 @@ titles: API Headers, Specs
 | `refresh_token` | *string* | 40 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
 
 
-<!-- type: tab-end -->
+<!-- type: tab -->
+
 ### Generate Token Response: :
+
 
 ```json
 {
@@ -104,7 +113,7 @@ titles: API Headers, Specs
 
 ---
 
-<!-- type: tab -->
+<!-- type: tab-end -->
 
 # Postman
 
