@@ -35,6 +35,8 @@
       sections:
         - title: Using our APIs
           link: docs/getting-started/getting-started-apis.md
+        - title: Authentication
+          link: docs/getting-started/getting-started-authorization.md
         - title: (OLD) Onboarding Submerchants 
           link: docs/getting-started/boarding.md
         - title: (OLD) Submerchant Funding 
