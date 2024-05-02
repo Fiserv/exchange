@@ -58,7 +58,7 @@ Depending on the request, the body of the payload will change. Please see below 
 
 ### Application Request Example
 
-```javascript
+```json
 const settings = {
 	"async": true,
 	"crossDomain": true,
