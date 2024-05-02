@@ -33,12 +33,14 @@
       link: docs/getting-started/getting-started-overview.md
       open: true
       sections:
-        - title: Introduction
-          link: docs/introduction/exchange-intro.md
-        - title: Onboarding Submerchants 
+        - title: Using our APIs
+          link: docs/getting-started/getting-started-apis.md
+        - title: (OLD) Onboarding Submerchants 
           link: docs/getting-started/boarding.md
-        - title: Submerchant Funding 
+        - title: (OLD) Submerchant Funding 
           link: docs/getting-started/funding.md
+        - title: (OLD) Introduction 
+          link: docs/introduction/exchange-intro.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
