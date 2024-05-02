@@ -24,6 +24,8 @@ Pre production environment for testing onboarding, funding, settlement and other
 Live environment for onboarding and processing for live locations.
 ## Exchange Headers
 
+Exchange uses standard Auth + Content type headers, as well as a header to define the version of the API being used. Please see below table for constructing header:
+
 <!--
 type: tab
 titles: API Headers, Example
