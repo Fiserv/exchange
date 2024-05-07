@@ -2648,6 +2648,7 @@ components:
           items:
             $ref: '#/components/schemas/Principal'
         merchant_portal_accounts:
+          description: "Accounts for merchant portal access (if being used)."
           type: array
           items:
             type: object
@@ -2683,6 +2684,7 @@ components:
                 example: "US|1"
                 maxLength: 30
         settings:
+          description: "Settings for Billing, Funding, Reserves and Chargebacks. Used to overwrite defaults."
           type: object
           properties:
             pricing_level:
@@ -2945,6 +2947,7 @@ components:
       type: string
       example: '3'
     BusinessEntity:
+      description: "Business information for the application. "
       type: object
       properties:
         legal_name:
@@ -3085,6 +3088,7 @@ components:
         name: bank
     Principal:
       type: object
+      description: "Owner information for the application"
       properties:
         owner_title:
           type: string
@@ -3252,6 +3256,7 @@ components:
       xml:
         name: contact
     Offer:
+      description: "Offer package for the application. Used to select packages that contain pricing and equipment."
       type: object
       properties:
         package_external_id:
@@ -3263,6 +3268,7 @@ components:
         name: offer
     Acquiring:
       type: object
+      description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
       properties:
         transaction_pricing_external_id:
           type: string
