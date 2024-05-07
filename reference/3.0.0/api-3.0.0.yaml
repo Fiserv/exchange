@@ -2259,7 +2259,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
-      x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
+      x-proxy-name: Overwrite AML Report for Screening
       x-child-product-name: Risk
   /intelligence/overwrite_risk_reports:
     post:
@@ -2424,7 +2424,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Monitoring
-      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
+      x-proxy-name: Overwrite AML report for Monitoring
       x-child-product-name: Risk
   /transaction_monitoring/search:
 
@@ -2648,6 +2648,7 @@ components:
           items:
             $ref: '#/components/schemas/Principal'
         merchant_portal_accounts:
+          description: "Accounts for merchant portal access (if being used)."
           type: array
           items:
             type: object
@@ -2683,6 +2684,7 @@ components:
                 example: "US|1"
                 maxLength: 30
         settings:
+          description: "Settings for Billing, Funding, Reserves and Chargebacks. Used to overwrite defaults."
           type: object
           properties:
             pricing_level:
@@ -2882,6 +2884,7 @@ components:
         street_line_1:
           type: string
           example: "Sample Street"
+          description: "No Special characters other than apostrophe('), commas(,) and hash symbols(#) can be used. Address cannot include text PO BOX / Post Box"
           maxLength: 50
         floor:
           type: string
@@ -2944,11 +2947,13 @@ components:
       type: string
       example: '3'
     BusinessEntity:
+      description: "Business information for the application. "
       type: object
       properties:
         legal_name:
           type: string
-          example: "Test Business"
+          example: "MMISTest Business"
+          description: "Legal Name for the business. Special characters other than [, ], ~, | are allowed."
           minLength: 2
           maxLength: 24
         ownership_entity_type:
@@ -2982,9 +2987,9 @@ components:
             - "1"
             - "0"
         irs_filing_name:
-          description: IRS Filing Name
+          description: "IRS tax Filing Name"
           type: string
-          example: "Test Business"
+          example: "MMISTest Business"
           maxLength: 40
           minLength: 2
         irs_status:
@@ -3025,7 +3030,7 @@ components:
             - PETROLEUM
         tin_type:
           type: string
-          description: 1 - SSN , 2 - EIN, 3 - OTHER TAX ID
+          description: "1 - SSN , 2 - EIN, 3 - OTHER TAX ID . SSN used for sole proprietorships. EIN used for other businesses."
           example: "1"
           enum:
             - "1"
@@ -3083,6 +3088,7 @@ components:
         name: bank
     Principal:
       type: object
+      description: "Owner information for the application"
       properties:
         owner_title:
           type: string
@@ -3100,19 +3106,23 @@ components:
           example: "John"
           minLength: 2
           maxLength: 24
+          description: "Only alphabetical characters allowed, special characters will be removed downstream"
         owner_second_name:
           type: string
           example: "A."
           minLength: 2
           maxLength: 24
+          description: "Only alphabetical characters allowed, special characters will be removed downstream"
         owner_surname:
           type: string
           example: "Doe"
           minLength: 2
           maxLength: 24
+          description: "Only alphabetical characters allowed, special characters will be removed downstream"
         contact_dob:
           type: string
           example: "2000-01-01"
+          description: "YYYY-MM-DD Format. DoB must be in range between 18 - 100 years old"
         owner_nationality:
           type: string
           description: ISO3 Country Code
@@ -3141,11 +3151,13 @@ components:
         owner_phone_code:
           type: string
           example: "US|1"
+          description: "Phone Extension with country code. Must use Pipe"
           maxLength: 30
         owner_phone_no:
           type: string
           maxLength: 10
           example: '3339898988'
+          description: "Must follow valid phone no. structure."
         owner_alt_phone_code:
           type: string
           example: "US|1"
@@ -3154,18 +3166,20 @@ components:
           type: string
           maxLength: 15
           example: '3339898989'
+          description: "Phone Extension with country code. Must use Pipe"
         owner_date_started:
           type: string
-          description: "YYYY-MM-DD"
+          description: "YYYY-MM-DD. If sent, logic will check that user must have been 18 when they joined the business. "
           example: "1999-03-31"
         owner_email:
           type: string
           example: "test@test.com"
+          description: "Must follow email address format XXX@abc.com"
           minLength: 7
           maxLength: 70
         owner_tin_ssn_number:
           type: string
-          example: '123456789'
+          example: '666989898'
           minLength: 9
           maxLength: 9
         is_main_principal:
@@ -3205,6 +3219,7 @@ components:
           type: string
           example: "12345"
           maxLength: 30
+          description: "Numeric, cannot be all zeroes"
         suite_apart_number:
           type: string
           example: "1"
@@ -3213,6 +3228,7 @@ components:
           type: string
           example: "1"
           maxLength: 50
+          description: "No Special characters other than apostrophe('), commas(,) and hash symbols(#) can be used. Address cannot include text PO BOX / Post Box"
         province:
           description: typically used for non US countries
           type: string
@@ -3222,13 +3238,15 @@ components:
           type: string
           example: 'Sample street 1'
           maxLength: 50
+          description: "No Special characters other than apostrophe('), commas(,) and hash symbols(#) can be used. Address cannot include text PO BOX / Post Box"
         city:
           type: string
           example: 'Sample City'
           minLength: 2
           maxLength: 30
+          description: "No Special characters other than hyphen can be used."
         county_code:
-          description: State code, ISO 3166-2:US US-XX
+          description: "State code, ISO 3166-2:US US-XX"
           type: string
           example: 'CA'
         country_code:
@@ -3238,6 +3256,7 @@ components:
       xml:
         name: contact
     Offer:
+      description: "Offer package for the application. Used to select packages that contain pricing and equipment."
       type: object
       properties:
         package_external_id:
@@ -3249,6 +3268,7 @@ components:
         name: offer
     Acquiring:
       type: object
+      description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
       properties:
         transaction_pricing_external_id:
           type: string
@@ -13668,8 +13688,8 @@ components:
       example: "Business Legal Name"
     BusinessName:
       type: string
-      description: Business name
-      example: "Business name"
+      description: "DBA Name for the Outlet. Special characters other than [, ], ~, | are allowed."
+      example: "MMISTEST DBA name"
     BusinessLegalEntity:
       type: string
       description: S = ASSOCIATION/ESTATE/TRUST, G = GOVERNMENT, I = INTERNATIONAL/ORG, L = LIMITED LIABILITY CO, N = PARTNERSHIP, O = PROPRIETORSHIP, V = PRIVATE CORP, U = PUBLIC CORP, X = TAX EXEMPT ORGANIZATION
@@ -13701,12 +13721,14 @@ components:
       maxLength: 9
       minLength: 9
       type: string
-      description: TIN/ EIN/ SSN number
+      description: "EIN/ SSN / TIN number"
       example: "999888555"
     WebSite:
       type: string
-      description: Website
-      example: "https://technologi.co.uk"
+      description: "Website for theoutlet. Required when busines category is Ecommerce for any outlet or Internet sales percentage is more than zero. Required when MCCis 5969 and category is MOTO. Required when boarding an additiional outlet under a merchant that does not have a URL." 
+      minLength: 7
+      maxLength: 70
+      example: "https://fiserv.com"
     IrsStatus:
       type: string
       description: IRS Status - Not Excluded, Foreign Entity Verfication Pending, Foreign Entity Identified before '1/1/11' , Foreign Identity Verified, Non Profit Verification Pending, Non Profit Verified, Goverment Entity, Financial Institution
@@ -13742,7 +13764,7 @@ components:
         - RT
     OutletBusinessCategory:
       type: string
-      description: Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant
+      description: "Merchant Business Category - Retail, MOTO, Internet, Hotel, Restaurant. Will overwrite business category snet at the merchant level"
       example: "E"
       enum:
         - R
@@ -13752,7 +13774,7 @@ components:
         - RT
     IrsName:
       type: string
-      description: IRS filing name
+      description: "IRS filing name"
       example: "Example IRS name"
     TinType:
       type: string
@@ -13779,7 +13801,7 @@ components:
       maxLength: 4
       minLength: 4
       type: string
-      description: MCC Code
+      description: "MCC Code. Please review restricted MCC list for Amex and Amex opt blue entitlements. Amex Entitlements must be removed for Restricted MCCs "
       example: "5544"
     Seasonal_business:
       maxLength: 4
@@ -14029,7 +14051,7 @@ components:
             $ref: '#/components/schemas/PrincipalAddressBlock'
     OwnershipPerc:
       type: string
-      description: Ownership %
+      description: "Ownership %. Principal with ownership above 25% must be declared."
       example: "50"
     Title:
       type: string
@@ -14044,16 +14066,18 @@ components:
         - Sir.
     FirstName:
       type: string
-      description: First name
+      description: "First name. Only alphabetical characters allowed, special characters will be removed downstream"
       example: "Jane"
+      
     SecondName:
       type: string
-      description: Middle name
+      description: "Middle name. Only alphabetical characters allowed, special characters will be removed downstream"
       example: "H"
     LastName:
       type: string
-      description: Last name
+      description: "Last name. Only alphabetical characters allowed, special characters will be removed downstream"
       example: "Doe"
+
     Nationality:
       type: string
       description: ISO3 nationality code
@@ -14078,8 +14102,8 @@ components:
         - SP
     Email:
       type: string
-      description: Email addess
-      example: "john.doe123@technologi.co.uk"
+      description: "Email Address. Must follow valid email format , eg. XXX@abc.com"
+      example: "john.doe123@abc.com"
     PrincipalAddressBlock:
       type: object
       allOf:
@@ -14123,11 +14147,11 @@ components:
       example: "Vincent"
     AddressLine1:
       type: string
-      description: Street line1 address
+      description: "No Special characters other than apostrophe('), commas(,) and hash symbols(#) can be used. Address cannot include text PO BOX / Post Box"
       example: "Sheila Lane"
     City:
       type: string
-      description: City
+      description: "No Special characters other than hyphen can be used."
       example: "Sparks"
     Province:
       type: string
@@ -14135,15 +14159,15 @@ components:
       example: "Nevada"
     State:
       type: string
-      description: State in abbreviation name
+      description: "State code, ISO 3166-2:US US-XX"
       example: "NV"
     ZipCode:
       type: string
-      description: Zipcode
+      description: "Zipcode. Numeric, cannot be all zeroes"
       example: "89431"
     Country:
       type: string
-      description: ISO3 country code
+      description: "ISO 3166-1 numeric code."
       example: "840"
     PhoneCode:
       type: string
@@ -14151,14 +14175,14 @@ components:
       example: "US|1"
     PhoneNumber:
       type: string
-      description: Phone number
+      description: "Must follow valid phone no. structure."
       example: "3339823728"
     StoreNumber:
       maxLength: 6
       minLength: 6
       type: string
-      description: Store number
-      example : "3"
+      description: "Store number"
+      example : "1"
     SettlementBank:
       maxLength: 3
       minLength: 3

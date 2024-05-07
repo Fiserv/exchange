@@ -1,6 +1,9 @@
-# Authorization
+---
+tags: [Getting Started, API Keys, Authentication]
+---
+# Authentication
 
-Exchange uses the Oauth 2.0 Framework for authorizations. To generate token for authoriaation, the `/oauth/token` endpoint may be used, and credentials must be sent as a Basic Auth Header with the request.
+Exchange uses the Oauth 2.0 Framework for authorizations. To generate token for authorization, the `/oauth/token` endpoint may be used, and credentials must be sent as a Basic Auth Header with the request.
 
 ## OAuth Token Request
 
@@ -14,18 +17,16 @@ In order to generate a token, the grant_type `client_credentials` must be used.
 type: tab
 titles: Generate Token Request , Generate Token Response
 -->
-### Generate Token Sample: 
+### Generation Request : 
 
 ```json
 {
-  "Content-Type": "application/json",
-  "X-API-VERSION": "3",
-  "Authorization": "AUTHORIZATION"
+  "grant_type": "client_credentials"
 }
 ```
 
 
-| field | Type | Length | Description |
+| Field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `grant_type` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
 | `refresh_token` | *string* | 40 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
@@ -33,7 +34,7 @@ titles: Generate Token Request , Generate Token Response
 
 <!-- type: tab -->
 
-### Generate Token Response: :
+### Generation Response : 
 
 ```json
 {
@@ -49,7 +50,7 @@ titles: Generate Token Request , Generate Token Response
 }
 
 ```
-| field | Type | Length | Description |
+| Field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `access_token` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
 | `token_type` | *string* | 5 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
@@ -64,6 +65,7 @@ titles: Generate Token Request , Generate Token Response
 
 ### Refresh Token
 
+### Refresh Request: 
 <!--
 type: tab
 titles: Refresh Token Request , Refresh Token Response
@@ -85,7 +87,7 @@ titles: Refresh Token Request , Refresh Token Response
 
 <!-- type: tab -->
 
-### Generate Token Response: :
+### Refresh Response: :
 
 
 ```json
