@@ -2259,7 +2259,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Screening
-      x-proxy-name: Overwrite AML Report for Screening (OFAC Report)
+      x-proxy-name: Overwrite AML Report for Screening
       x-child-product-name: Risk
   /intelligence/overwrite_risk_reports:
     post:
@@ -2424,7 +2424,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Risk Monitoring
-      x-proxy-name: Overwrite AML report for Monitoring (OFAC Report)
+      x-proxy-name: Overwrite AML report for Monitoring
       x-child-product-name: Risk
   /transaction_monitoring/search:
 
