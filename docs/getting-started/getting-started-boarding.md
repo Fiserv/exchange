@@ -2,27 +2,15 @@
 tags: [Getting Started, Boarding]
 ---
 
-# Using our APIs
+# Boarding APIs
 
-Exchange uses RESTful APIs to allow requests to be sent to our services, allowing onboarding, reporting, funding and more. These are constructed using a Header and request Body.
+Exchange allows the creation of applications on the system by using a set of boarding APIs. This is comprised of adding the Registered Legal Business Entity, a Chain (or Subgroup), and DBA locations (Outlets)
+Once an application is added, it can be submit to move into downstream systems, and once complete will return with the status 'Boarding complete'. The flow of an application may differ depending on what services on the system are being utlilized.
 
 ---
-## Environments
 
-Exchange provides two environments for you to access. UAT / Stage , for testing, and the Production / Live environment.
+## Adding an application
 
-### UAT
-<!-- theme: info -->
-> https://uat-api.carat-platforms.fiserv.com/{endpoint}
-
-Pre production environment for testing onboarding, funding, settlement and other APIs being consumed before production.
-
-### Production
-<!-- theme: info -->
-> https://api.carat-platforms.fiserv.com/{endpoint}
-
-Live environment for onboarding and processing for live locations.
-## Exchange Headers
-
-
+<!-- !align: center -->
+![boarding_flow](/assets/images/boarding_flow.png)
 
