@@ -7,11 +7,11 @@ Exchange uses the Oauth 2.0 Framework for authorizations. To generate token for 
 
 ## OAuth Token Request
 
-The OAuth endpoint can be used to generate or refresh tokens. Once a token is generated, it can be refreshed before expiration in order to provide a new refreshed token with a new expiry time.
+The OAuth endpoint can be used to generate or refresh tokens. Once a token is generated, the refresh token can be used to allow additional access tokens after the expiration of the access token.
 
 ### Generate Token
 
-In order to generate a token, the grant_type `client_credentials` must be used.
+In order to generate an access token, the grant_type `client_credentials` must be used.
 
 <!--
 type: tab
@@ -53,17 +53,19 @@ titles: Generate Token Request , Generate Token Response
 | Field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `access_token` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
-| `token_type` | *string* | 5 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `expires_in` | *string* | 5 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `scope` | *string* | enum | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `jti` | *string* | N/A | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `refresh_token` | *string* | 40 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
+| `token_type` | *string* | 5 | Type of token. 'Bearer' is used.  |
+| `expires_in` | *string* | 5 | Amount of seconds before the access token Expires.  |
+| `scope` | *string* | enum | Scope of access for the the token  |
+| `jti` | *string* | N/A | Unique token identifier  |
+| `refresh_token` | *string* | 40 | Used to exchange for an additional access token  |
 
 ---
 
 <!-- type: tab-end -->
 
 ### Refresh Token
+
+A Refresh token can be used to grand additional access tokens, past the expiration date of the original access token. This can be repeated until the refresh token expires or is revoked.
 
 ### Refresh Request: 
 <!--
@@ -82,7 +84,7 @@ titles: Refresh Token Request , Refresh Token Response
 | field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `grant_type` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
-| `refresh_token` | *string* | 40 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
+| `refresh_token` | *string* | 40 | Used to exchange for an additional access token .  |
 
 
 <!-- type: tab -->
@@ -104,14 +106,14 @@ titles: Refresh Token Request , Refresh Token Response
 }
 
 ```
-| field | Type | Length | Description |
+| Field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `access_token` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
-| `token_type` | *string* | 5 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `expires_in` | *string* | 5 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `scope` | *string* | enum | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `jti` | *string* | N/A | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
-| `refresh_token` | *string* | 40 | Used in the request when refreshing the token. Provided in the reponse of the token generation request.  |
+| `token_type` | *string* | 5 | Type of token. 'Bearer' is used.  |
+| `expires_in` | *string* | 5 | Amount of seconds before the access token Expires.  |
+| `scope` | *string* | enum | Scope of access for the the token  |
+| `jti` | *string* | N/A | Unique token identifier  |
+| `refresh_token` | *string* | 40 | Used to exchange for an additional access token  |
 
 ---
 
