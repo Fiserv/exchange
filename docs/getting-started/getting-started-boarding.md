@@ -224,11 +224,15 @@ JSON format for `APPLICATION_SUBMIT`:
 
 <!-- type: tab-end -->
 
-### Updating an Application
 
-While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant.
+## Updating an application
+
+While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant. 
 An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and a complete application can be submit by using the `APPLICATION_SUBMIT` request (pending validation). 
 Applications that are invalid will respond with the errors and their locations so that the entity may be updated, and resubmit. 
+
+### Application Update Requests
+
 
 <!--
 type: tab
@@ -261,6 +265,25 @@ JSON format for `UPDATE_MERCHANT`:
 ```
 
 <!-- type: tab-end -->
+
+### Uploading Documents to an Application
+
+Files can be uploaded to the application for record keeping purposes.  To upload to an application, the `/fdapplication/upload_additional_files` endpoint should be used and will require the payload to be sent as form-data. 
+The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
+
+The request must contain the application reference, and the external id of what entity the document is for.
+Documents must be configured on the system in order to retrieve the external IDs, and once configured can be retrieved using the `/boarding/document_categories` endpoint.
+
+Example request body:
+```
+{
+    "application": {
+        "application_reference": "333020220715",
+        "tenant_udc_external_id": "TDC08-23KS2-823JR-72240-34KDF-CAE91-EFB47"
+    }
+}
+```
+Please see full specs [Here](../api?type=post&path=/fdapplication/upload_additional_files) for additional details.
 
 ### Unlocking an Application
 
