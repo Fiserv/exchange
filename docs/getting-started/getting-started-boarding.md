@@ -1,5 +1,5 @@
 ---
-tags: [Getting Started, Boarding]
+tags: [Getting Started, Boarding, Application]
 ---
 
 # Boarding APIs
@@ -25,7 +25,6 @@ titles: Add Application, JSON Add Application Example
 
 The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
 
----
 
 <!-- type: tab -->
 
@@ -98,7 +97,6 @@ JSON format for `ADD_APPLICATION`:
 
 <!-- type: tab-end -->
 
----
 The offer package and acquiring offer can be set to default using the config portal, and can be removed from the payload if this is being used. If wanting to specify specific items in the offer pacakge or pricing, this will need to be sent seperately. Sending just the external ids will pull all mandatory information.
 If specifying the Offer Package and acquiring offers, please use the `/offering/available` and  `/offering/retrieve_processing_offering` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings.md)
 
@@ -111,9 +109,6 @@ titles: Add Outlet, JSON Add Outlet Example
 
 The `/boarding/outlet/add` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy). 
 
-
-
----
 
 <!-- type: tab -->
 
@@ -204,7 +199,6 @@ JSON format for `ADD_OUTLET`:
 
 <!-- type: tab-end -->
 
----
 
 ### Submitting an Application
 
@@ -215,7 +209,6 @@ titles: Application Submit, JSON Application Submit Example
 
 The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
 
----
 
 <!-- type: tab -->
 
@@ -231,12 +224,15 @@ JSON format for `APPLICATION_SUBMIT`:
 
 <!-- type: tab-end -->
 
----
-### Updating an Application
 
-While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant.
+## Updating an application
+
+While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant. 
 An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and a complete application can be submit by using the `APPLICATION_SUBMIT` request (pending validation). 
 Applications that are invalid will respond with the errors and their locations so that the entity may be updated, and resubmit. 
+
+### Application Update Requests
+
 
 <!--
 type: tab
@@ -251,7 +247,6 @@ The application reference must be added to the request, and operation type based
 - UPDATE_MERCHANT_SUB_GROUP at `/boarding/subgroup/update` for subgroup level.
 - UPDATE_OUTLET at `/boarding/outlet/update` for outlet level.
 
----
 
 <!-- type: tab -->
 
@@ -271,17 +266,22 @@ JSON format for `UPDATE_MERCHANT`:
 
 <!-- type: tab-end -->
 
-### Unlocking an Application
+### Uploading Documents to an Application
 
-After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
+Files can be uploaded to the application for record keeping purposes.  To upload to an application, the `/fdapplication/upload_additional_files` endpoint should be used and will require the payload to be sent as form-data. 
+The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
 
-```json
+The request must contain the application reference, and the external id of what entity the document is for.
+Documents must be configured on the system in order to retrieve the external IDs, and once configured can be retrieved using the `/boarding/document_categories` endpoint.
+
+Example request body:
+```
 {
-  "operation": {
-    "operation_type": "APPLICATION_UNLOCK"
-  },
-  "application": {
-    "application_external_id": "APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123"
-  }
+    "application": {
+        "application_reference": "333020220715",
+        "tenant_udc_external_id": "TDC08-23KS2-823JR-72240-34KDF-CAE91-EFB47"
+    }
 }
 ```
+Please see full specs [Here](../api?type=post&path=/fdapplication/upload_additional_files) for additional details.
+

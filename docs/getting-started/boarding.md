@@ -92,7 +92,6 @@ JSON format for `ADD_APPLICATION`:
 
 <!-- type: tab-end -->
 
----
 The offer package and acquiring offer can be set to default using the config portal, and can be removed from the payload if this is being used. If wanting to specify specific items in the offer pacakge or pricing, this will need to be sent seperately. Sending just the external ids will pull all mandatory information.
 If specifying the Offer Package and acquiring offers, please use the `/offering/available` and  `/offering/retrieve_processing_offering` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings.md)
 
@@ -104,10 +103,6 @@ titles: Add Outlet, JSON Add Outlet Example
 -->
 
 The `/boarding/outlet/add` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy). 
-
-
-
----
 
 <!-- type: tab -->
 
@@ -209,8 +204,6 @@ titles: Application Submit, JSON Application Submit Example
 
 The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
 
----
-
 <!-- type: tab -->
 
 JSON format for `APPLICATION_SUBMIT`:
@@ -232,8 +225,6 @@ JSON format for `APPLICATION_SUBMIT`:
 ```
 
 <!-- type: tab-end -->
-
----
 
 ### Updating an Application
 
@@ -284,5 +275,3 @@ JSON format for `UPDATE_MERCHANT`:
 ```
 
 <!-- type: tab-end -->
-
----

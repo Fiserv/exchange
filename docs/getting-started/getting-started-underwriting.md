@@ -1,5 +1,5 @@
 ---
-tags: [Getting Started, Unwderwriting, Risk]
+tags: [Getting Started, Underwriting, Risk, Application]
 ---
 
 # Using our APIs
@@ -7,22 +7,20 @@ tags: [Getting Started, Unwderwriting, Risk]
 Exchange uses RESTful APIs to allow requests to be sent to our services, allowing onboarding, reporting, funding and more. These are constructed using a Header and request Body.
 
 ---
-## Environments
 
-Exchange provides two environments for you to access. UAT / Stage , for testing, and the Production / Live environment.
+### Unlocking an Application
 
-### UAT
-<!-- theme: info -->
-> https://uat-api.carat-platforms.fiserv.com/{endpoint}
+After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
-Pre production environment for testing onboarding, funding, settlement and other APIs being consumed before production.
-
-### Production
-<!-- theme: info -->
-> https://api.carat-platforms.fiserv.com/{endpoint}
-
-Live environment for onboarding and processing for live locations.
-## Exchange Headers
-
+```json
+{
+  "operation": {
+    "operation_type": "APPLICATION_UNLOCK"
+  },
+  "application": {
+    "application_external_id": "APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123"
+  }
+}
+```
 
 
