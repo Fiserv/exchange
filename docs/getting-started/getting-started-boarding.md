@@ -1,5 +1,5 @@
 ---
-tags: [Getting Started, Boarding]
+tags: [Getting Started, Boarding, Application]
 ---
 
 # Boarding APIs
@@ -112,9 +112,6 @@ titles: Add Outlet, JSON Add Outlet Example
 The `/boarding/outlet/add` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy). 
 
 
-
----
-
 <!-- type: tab -->
 
 JSON format for `ADD_OUTLET`:
@@ -204,7 +201,6 @@ JSON format for `ADD_OUTLET`:
 
 <!-- type: tab-end -->
 
----
 
 ### Submitting an Application
 
@@ -215,7 +211,6 @@ titles: Application Submit, JSON Application Submit Example
 
 The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
 
----
 
 <!-- type: tab -->
 
@@ -231,7 +226,6 @@ JSON format for `APPLICATION_SUBMIT`:
 
 <!-- type: tab-end -->
 
----
 ### Updating an Application
 
 While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant.
@@ -251,7 +245,6 @@ The application reference must be added to the request, and operation type based
 - UPDATE_MERCHANT_SUB_GROUP at `/boarding/subgroup/update` for subgroup level.
 - UPDATE_OUTLET at `/boarding/outlet/update` for outlet level.
 
----
 
 <!-- type: tab -->
 
