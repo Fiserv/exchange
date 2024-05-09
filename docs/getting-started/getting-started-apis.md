@@ -5,7 +5,7 @@ tags: [Getting Started, API Keys, Environments]
 # Using our APIs
 
 Exchange uses RESTful APIs to allow requests to be sent to our services, allowing onboarding, reporting, funding and more. These are constructed using a Header and request Body. All APIs on Exchange utilise method POST.
----
+
 ## Environments
 
 Exchange provides two environments for you to access. UAT / Stage , for testing, and the Production / Live environment.
