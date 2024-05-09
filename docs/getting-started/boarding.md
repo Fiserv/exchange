@@ -19,7 +19,6 @@ titles: Add Application, JSON Add Application Example
 
 The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
 
----
 
 <!-- type: tab -->
 
@@ -193,7 +192,7 @@ JSON format for `ADD_OUTLET`:
 
 <!-- type: tab-end -->
 
----
+
 
 ### Submitting an Application
 
@@ -245,7 +244,7 @@ The application reference must be added to the request, and operation type based
 - UPDATE_MERCHANT_SUB_GROUP at `/boarding/subgroup/update` for subgroup level.
 - UPDATE_OUTLET at `/boarding/outlet/update` for outlet level.
 
----
+
 
 <!-- type: tab -->
 
