@@ -57,7 +57,7 @@ Depending on the request, the body of the payload will change. Please see below 
 
 ### Application Request Example
 
-```json
+```python
 import requests
 
 url = "https://uat-api.carat-platforms.fiserv.com/boarding/add_application"
@@ -67,62 +67,17 @@ headers = {
     "Authorization": "Authorization"
 }
 payload = {
-    "merchant": {
-        "business_entity": {
-            "legal_name": "MMISTEST Legal Name",
-            "ownership_entity_type": "L",
-            "foreign_entity": "0",
-            "irs_filing_name": "MMISTEST IRS Name",
-            "irs_status": "N",
-            "tin_type": "2",
-            "int_tax_exempt_flag": "1",
-            "business_tin_ssn_number": "666989898",
-            "mcc_code": "5733",
-            "business_category": "E",
-            "foundation_date": "2020-01-01",
-            "date_incorporated": "2020-01-01",
-            "incorp_state": "CA"
+{
+    "limit": 5,
+    "page": 1,
+    "query": {
+        "location_id": {
+            "operator": "EQ",
+            "value": "52606609801"
         },
-        "owners": [
-            {
-                "owner_first_name": "Jane",
-                "owner_surname": "Doe",
-                "contact_dob": "1980-01-01",
-                "owner_nationality": "840",
-                "owner_position": "CEO",
-                "owner_phone_code": "US|1",
-                "owner_phone_no": "3339898989",
-                "owner_date_started": "2020-03-31",
-                "owner_email": "email@domain.com",
-                "owner_tin_ssn_number": "666989898",
-                "is_main_principal": "1",
-                "ownership_perc": "100",
-                "contacts": [
-                    {
-                        "zip_code": "12345",
-                        "street_line_1": "Sample street 1",
-                        "city": "Sample City",
-                        "county_code": "CA",
-                        "country_code": "840"
-                    }
-                ]
-            }
-        ],
-        "registration_address": {
-            "zip_code": "12345",
-            "street_line_1": "Sample street 1",
-            "city": "Sample City",
-            "county_code": "CA",
-            "country_code": "840"
-        },
-        "offer_package": {
-            "package_external_id": "OPK01-AB8823-0F2E9-8823J-CC924-C7D40-BCB28"
-        },
-        "acquiring_offer": {
-            "transaction_pricing_external_id": "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"
-        },
-        "merchant_sub_group": {
-            "group_name": "Subgroup"
+        "date_added": {
+            "operator": "EQ",
+            "value": "2022-01-01"
         }
     }
 }
