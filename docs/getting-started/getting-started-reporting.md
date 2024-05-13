@@ -2,27 +2,77 @@
 tags: [Getting Started, Reporting]
 ---
 
-# Using our APIs
+# Reporting in Exchange
 
-Exchange uses RESTful APIs to allow requests to be sent to our services, allowing onboarding, reporting, funding and more. These are constructed using a Header and request Body.
+Exchange uses a set of virtual accounts and automatic settlement generation for reporting purposes. 
 
----
-## Environments
+# Transaction level reporting
 
-Exchange provides two environments for you to access. UAT / Stage , for testing, and the Production / Live environment.
+Exchange is able to retrieve the details of transactions that are recieved for MIDs on the system
+This is facilitated by `/transaction/...` endpoints that can be viewed in the API Explorer. 
 
-### UAT
-<!-- theme: info -->
-> https://uat-api.carat-platforms.fiserv.com/{endpoint}
+## Transaction level calculations
 
-Pre production environment for testing onboarding, funding, settlement and other APIs being consumed before production.
-
-### Production
-<!-- theme: info -->
-> https://api.carat-platforms.fiserv.com/{endpoint}
-
-Live environment for onboarding and processing for live locations.
-## Exchange Headers
+To retrieve calculations performed by Auto fundings processing charges at a tranasction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [Here](../api/?type=post&path=/transaction)
 
 
+A 'query' can be created by adjusting the database operator and values being searched for:
+```
+        "location_id": {
+            "operator": "EQ",
+            "value": "202205290001"
+            },
+        "date_added": {
+            "operator": "EQ",
+            "value": "2022-05-16"
+        }
+```
+
+# Summary level reporting accounts
+
+At a summary level, we also report money movement through the system MID-by-MID
+
+## Virtual Accounts
+
+Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any phyisical bank accounts for the sub-merchants or PayFacs
+
+### Trade accounts
+
+The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the merchant MID on a specific date. This is segregated by trade accounts, which return the following categorised 'accounts' : 
+
+| Category      | Key |
+| :---:        |    :----:   |
+| Gross Transaction Amount      | transaction_amount       |
+| Refund Amount   | refund_amount        |
+| Deposit Adjustment Amount      | deposit_adjustment_amount       |
+| Net Transaction Amount   | net_transaction_amount        |
+| Chargeback Amount      | chargeback_amount       |
+| Chargeback Reversal Amount   | chargeback_reversal_amount        |
+
+### Instructional hold account
+
+After the end of the transaction processing done by Exchange, the instructional hold account will be populated by the net_transaction_amount.
+The PayFac will then be able to send instructions against the balance of this account during the instructional funding window. If no instruction is recieved for the day, the balance will accumulate until a new funding instruction is recieved. 
+The balance in the instructional hold account is the maximum amount of avaliable funding that the `/funding/instruction` endpoint can instruct to distribute.
+
+### Account balances
+
+The `/account/balance` endpoint can be used to retrieve the balance of any virtual account: 
+- REVENUE_ACCOUNT
+- FEE_ACCOUNT
+- SERVICE_FEE_ACCOUNT
+- RESERVE_ACCOUNT
+- CHARGEBACK_ACCOUNT
+
+## Auto Funding Calculations
+
+With Auto funding, Exchange is perforing calculations on the system based on configured charges that are setup. The API can be used in order to retrieve what charges were applied, and how these were broken down on a submerchant + tranasction level.
+
+### Submerchant level transaction calculations
+
+Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here](../api/?type=post&path=/account/trade-detail)
+
+### Service fee calculations
+
+Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here](../api?type=post&path=/account/billing/fee-details) 
 

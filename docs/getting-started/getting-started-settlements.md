@@ -2,27 +2,20 @@
 tags: [Getting Started, Funding, Settlement]
 ---
 
-# Using our APIs
+# Settlements in Exchange
 
-Exchange uses RESTful APIs to allow requests to be sent to our services, allowing onboarding, reporting, funding and more. These are constructed using a Header and request Body.
+Settlements can be retrieved by UI or API and will show the type of settlement (Credit or Debit), effective date, settlement details, status and reference. 
 
----
-## Environments
+## Submerchant Settlements
 
-Exchange provides two environments for you to access. UAT / Stage , for testing, and the Production / Live environment.
+This is handled using the `/account/settlement-info` endpoint on a MID basis. 
+The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the merchants bank account.
 
-### UAT
-<!-- theme: info -->
-> https://uat-api.carat-platforms.fiserv.com/{endpoint}
+## PayFac Settlements
 
-Pre production environment for testing onboarding, funding, settlement and other APIs being consumed before production.
+PayFac Settlements are rolled into one ACH settlement each day. 
 
-### Production
-<!-- theme: info -->
-> https://api.carat-platforms.fiserv.com/{endpoint}
-
-Live environment for onboarding and processing for live locations.
-## Exchange Headers
-
-
-
+## Settlement Rejects (ACH rejects)
+In the scenario that an ACH reject occurs, the `/settlement/rejects` will report a rejected settlement for the MID.
+The settlement reference can be used to trade a rejected settlement to its inital settlement response from `/account/settlement-info` in order to see the instructions that were sent.
+The reject endpoint will pull details for the rejected settlement, including a reason code, and the deposit that was rejected for the sub-merchant. 
