@@ -61,29 +61,29 @@
     open: true
     sections:
    # - title: Authentication
-      link: docs/getting-started/oauth.md
+     # link: docs/getting-started/oauth.md
     - title: Virtual account operations
       link: docs/getting-started/account-operations.md
-    - title: Submerchant onboarding
-      link: docs/getting-started/boarding.md
-    - title: OFAC and Credit risk checks
-      link: docs/getting-started/risk.md
+  #  - title: Submerchant onboarding
+   #   link: docs/getting-started/boarding.md
+    #- title: OFAC and Credit risk checks
+     # link: docs/getting-started/risk.md
     - title: Funding
       link: docs/getting-started/funding.md
     - title: Information retrieval
       link: docs/getting-started/information-retrieval.md
-    - title: Submerchant maintenance
-      link: docs/getting-started/maintenance.md
+    #- title: Submerchant maintenance
+     # link: docs/getting-started/maintenance.md
     - title: Pricing + Equipment offerings
       link: docs/getting-started/offerings.md
     - title: Split funding by transaction 
       link: docs/getting-started/split-details.md
-    - title: Transaction operations 
-      link: docs/getting-started/transactions.md
-    - title: Reporting & Settlement 
-      link: docs/getting-started/reporting.md
-    - title: Back to Sales
-      link: docs/getting-started/backtosales.md
+    #- title: Transaction operations 
+     # link: docs/getting-started/transactions.md
+    #- title: Reporting & Settlement 
+     # link: docs/getting-started/reporting.md
+    #- title: Back to Sales
+     # link: docs/getting-started/backtosales.md
     - title: Restricted MCCs
       link: docs/documentation/restricted_mccs.md
           
