@@ -49,18 +49,18 @@
           link: docs/getting-started/getting-started-transactions.md
         - title: Maintenance
           link: docs/getting-started/getting-started-maintenance.md
-        - title: (OLD) Onboarding Submerchants 
-          link: docs/getting-started/boarding.md
-        - title: (OLD) Submerchant Funding 
-          link: docs/getting-started/funding.md
-        - title: (OLD) Introduction 
-          link: docs/introduction/exchange-intro.md
+        #- title: (OLD) Onboarding Submerchants 
+          #link: docs/getting-started/boarding.md
+        #- title: (OLD) Submerchant Funding 
+         # link: docs/getting-started/funding.md
+        #- title: (OLD) Introduction 
+         # link: docs/introduction/exchange-intro.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
     open: true
     sections:
-    - title: Authentication
+   # - title: Authentication
       link: docs/getting-started/oauth.md
     - title: Virtual account operations
       link: docs/getting-started/account-operations.md
