@@ -49,41 +49,41 @@
           link: docs/getting-started/getting-started-transactions.md
         - title: Maintenance
           link: docs/getting-started/getting-started-maintenance.md
-        - title: (OLD) Onboarding Submerchants 
-          link: docs/getting-started/boarding.md
-        - title: (OLD) Submerchant Funding 
-          link: docs/getting-started/funding.md
-        - title: (OLD) Introduction 
-          link: docs/introduction/exchange-intro.md
+        #- title: (OLD) Onboarding Submerchants 
+          #link: docs/getting-started/boarding.md
+        #- title: (OLD) Submerchant Funding 
+         # link: docs/getting-started/funding.md
+        #- title: (OLD) Introduction 
+         # link: docs/introduction/exchange-intro.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
     open: true
     sections:
-    - title: Authentication
-      link: docs/getting-started/oauth.md
+   # - title: Authentication
+     # link: docs/getting-started/oauth.md
     - title: Virtual account operations
       link: docs/getting-started/account-operations.md
-    - title: Submerchant onboarding
-      link: docs/getting-started/boarding.md
-    - title: OFAC and Credit risk checks
-      link: docs/getting-started/risk.md
+  #  - title: Submerchant onboarding
+   #   link: docs/getting-started/boarding.md
+    #- title: OFAC and Credit risk checks
+     # link: docs/getting-started/risk.md
     - title: Funding
       link: docs/getting-started/funding.md
     - title: Information retrieval
       link: docs/getting-started/information-retrieval.md
-    - title: Submerchant maintenance
-      link: docs/getting-started/maintenance.md
+    #- title: Submerchant maintenance
+     # link: docs/getting-started/maintenance.md
     - title: Pricing + Equipment offerings
       link: docs/getting-started/offerings.md
     - title: Split funding by transaction 
       link: docs/getting-started/split-details.md
-    - title: Transaction operations 
-      link: docs/getting-started/transactions.md
-    - title: Reporting & Settlement 
-      link: docs/getting-started/reporting.md
-    - title: Back to Sales
-      link: docs/getting-started/backtosales.md
+    #- title: Transaction operations 
+     # link: docs/getting-started/transactions.md
+    #- title: Reporting & Settlement 
+     # link: docs/getting-started/reporting.md
+    #- title: Back to Sales
+     # link: docs/getting-started/backtosales.md
     - title: Restricted MCCs
       link: docs/documentation/restricted_mccs.md
           
