@@ -53,9 +53,9 @@ titles: API Headers, Example
 
 ## API Requests
 
-Depending on the request, the body of the payload will change. Please see below sample of an add_application request.
+Depending on the request, the body of the payload will change. Please see below sample of an authentication request.
 
-### Application Request Example
+### Authentication Request Example
 
 ```python
 import requests
