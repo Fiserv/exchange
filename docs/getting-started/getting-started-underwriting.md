@@ -66,6 +66,8 @@ This will require the `report_reference` to define the report, and the `intellig
 
 ## Standard Process timeline steps
 
+<!-- !align: center -->
+![boarding_flow](/assets/images/risk_workflow.png)
 
 <!--
 type: tab
