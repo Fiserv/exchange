@@ -60,27 +60,17 @@ Depending on the request, the body of the payload will change. Please see below 
 ```python
 import requests
 
-url = "https://uat-api.carat-platforms.fiserv.com/boarding/add_application"
+url = "https://uat-api.carat-platforms.fiserv.com/oauth/token"
 headers = {
     "X-API-VERSION": "3",
     "Content-Type": "application/json",
     "Authorization": "Authorization"
 }
-payload = {
-{
-    "limit": 5,
-    "page": 1,
-    "query": {
-        "location_id": {
-            "operator": "EQ",
-            "value": "52606609801"
-        },
-        "date_added": {
-            "operator": "EQ",
-            "value": "2022-01-01"
-        }
-    }
-}
+payload = "{\"grant_type\":\"client_credentials\"}"
+
+response = requests.request("POST", url, data=payload, headers=headers)
+print(response.json())
+
 ```
 <!-- type: tab-end -->
 
