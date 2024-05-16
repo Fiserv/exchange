@@ -30,14 +30,14 @@ title: Boarding
 description: Boarding Text
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
-
+<!-- type: row-end -->
+<!-- type: row -->
 <!-- type: card
 title: Underwriting
 description: Submits an application to its next step in the workflow.
 link: ../api/?type=post&path=/boarding//application
 -->
-<!-- type: row-end -->
-<!-- type: row -->
+
 <!-- type: card
 title: Funding
 description: Funding Text
@@ -49,7 +49,8 @@ title: Reporting
 description: Reporting text
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
-
+<!-- type: row-end -->
+<!-- type: row -->
 <!-- type: card
 title: Transactions
 description: Submits an application to its next step in the workflow.
