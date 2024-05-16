@@ -36,6 +36,8 @@ title: Underwriting
 description: Submits an application to its next step in the workflow.
 link: ../api/?type=post&path=/boarding//application
 -->
+<!-- type: row-end -->
+<!-- type: row -->
 <!-- type: card
 title: Funding
 description: Funding Text
