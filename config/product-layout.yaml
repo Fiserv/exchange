@@ -63,12 +63,12 @@ featuredFeatures:
     relatedAPIs: 
       - type: post       
         path: /intelligence/decision
-  - title: Settlements
+  - title: Funding
     groupName: API Suite
     description:   View Settlements to submerchants through Exchange
     relatedDocs: 
-        - link: /docs/getting-started/getting-started-settlements.md  
-          title: Reporting
+        - link: /docs/getting-started/funding.md
+          title: Funding
     relatedAPIs: 
       - type: post
         title: Get Settlement Info    
