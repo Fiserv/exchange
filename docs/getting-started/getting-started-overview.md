@@ -62,6 +62,12 @@ title: Maintenance
 description: Submits an application to its next step in the workflow.
 link: ../api/?type=post&path=/boarding//application
 -->
+
+<!-- type: card
+title: Release Notes
+description: Release Notes text
+link: ../docs/release-notes/2024.md
+-->
 <!-- type: row-end -->
 
 ---
