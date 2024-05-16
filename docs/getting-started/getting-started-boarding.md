@@ -11,9 +11,6 @@ Once an application is added, it can be submit to move into downstream systems, 
 
 ## Adding an application
 
-<!-- theme: info -->
->**POST** `/boarding/add_application`
-
 The standard submerchant hierarchy is built from a Merchant, Chain and an outlet. These are sent using the `boarding/add_application` and `outlet/add` endpoints. 
 
 <center>
@@ -22,6 +19,9 @@ The standard submerchant hierarchy is built from a Merchant, Chain and an outlet
 
 
 ### Adding the Merchant and Chain
+
+<!-- theme: info -->
+>**POST** `/boarding/add_application`
 
 <!--
 type: tab
@@ -106,6 +106,9 @@ The offer package and acquiring offer can be set to default using the config por
 If specifying the Offer Package and acquiring offers, please use the `/offering/available` and  `/offering/retrieve_processing_offering` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings.md)
 
 ### Adding Outlets
+
+<!-- theme: info -->
+>**POST** `/boarding/outlet/add`
 
 <!--
 type: tab
@@ -207,6 +210,9 @@ JSON format for `ADD_OUTLET`:
 
 ### Submitting an Application
 
+<!-- theme: info -->
+>**POST** `/boarding/application`
+
 <!--
 type: tab
 titles: Application Submit, JSON Application Submit Example
@@ -238,6 +244,8 @@ Applications that are invalid will respond with the errors and their locations s
 
 ### Application Update Requests
 
+<!-- theme: info -->
+>**POST** `/boarding/application`
 
 <!--
 type: tab
@@ -272,6 +280,9 @@ JSON format for `UPDATE_MERCHANT`:
 <!-- type: tab-end -->
 
 ### Uploading Documents to an Application
+
+<!-- theme: info -->
+>**POST** `/fdapplication/upload_additional_files`
 
 Files can be uploaded to the application for record keeping purposes.  To upload to an application, the `/fdapplication/upload_additional_files` endpoint should be used and will require the payload to be sent as form-data. 
 The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
