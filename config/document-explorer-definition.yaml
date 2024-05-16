@@ -41,8 +41,8 @@
           link: docs/getting-started/getting-started-boarding.md
         - title: Underwriting
           link: docs/getting-started/getting-started-underwriting.md
-        - title: Settlements
-          link: docs/getting-started/getting-started-settlements.md
+        - title: Funding
+          link: docs/getting-started/funding.md
         - title: Reporting
           link: docs/getting-started/getting-started-reporting.md
         - title: Transactions
@@ -62,16 +62,16 @@
     sections:
    # - title: Authentication
      # link: docs/getting-started/oauth.md
-    - title: Virtual account operations
-      link: docs/getting-started/account-operations.md
+    # - title: Virtual account operations
+    #   link: docs/getting-started/account-operations.md
   #  - title: Submerchant onboarding
    #   link: docs/getting-started/boarding.md
     #- title: OFAC and Credit risk checks
      # link: docs/getting-started/risk.md
-    - title: Funding
-      link: docs/getting-started/funding.md
-    - title: Information retrieval
-      link: docs/getting-started/information-retrieval.md
+    # - title: Funding
+    #   link: docs/getting-started/funding.md
+    # - title: Information retrieval
+    #   link: docs/getting-started/information-retrieval.md
     #- title: Submerchant maintenance
      # link: docs/getting-started/maintenance.md
     - title: Pricing + Equipment offerings
