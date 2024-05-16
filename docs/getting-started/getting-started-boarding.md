@@ -14,7 +14,7 @@ Once an application is added, it can be submit to move into downstream systems, 
 The standard submerchant hierarchy is built from a Merchant, Chain and an outlet. These are sent using the `boarding/add_application` and `outlet/add` endpoints. 
 
 <!-- !align: center -->
-![boarding_flow](/assets/images/boarding_flow.png)
+![boarding_flow](/assets/images/boarding_flow.png){ width= 500 height="300" }
 
 ### Adding the Merchant and Chain
 
