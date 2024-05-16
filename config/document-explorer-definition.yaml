@@ -44,9 +44,9 @@
           link: docs/getting-started/getting-started-underwriting.md
           sections: 
           - title: Full Service
-            link: docs/getting-started/getting-started-underwriting.md
+            link: docs/getting-started/getting-started-underwriting-fullservice.md
           - title: Shared Service
-            link: docs/getting-started/getting-started-underwriting.md
+            link: docs/getting-started/getting-started-underwriting-sharedservice.md
         - title: Funding
           link: docs/getting-started/funding.md
         - title: Reporting
