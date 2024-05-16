@@ -22,7 +22,7 @@ If confirming the report, the PayFac is confirming that the potential match is v
 <!-- theme: danger -->
 > **For AML, the application will be cancelled if any potential match is confirmed.** 
 
-### Available screening API
+### Screening APIs
 
 #### Retrieve intelligence reports available
 
@@ -49,7 +49,7 @@ After the reports for AML and credit risk have been reviewed for an application,
 Monitoring must be enabled before the applications are submitted, and the user will not be able to retroactively enable monitoring for an application after it was been boarded. If enabled, the system will monitor sub-merchants every day. The user will be able to make an API call in  order to check if any alert has been raised or material for their sub-merchants has changed. If an alert has been raised, the user can retrieve the reports for this and manually review (like during the screening process).
 If an OFAC alert has been raised, the system will automatically *hold* the sub-merchant, meaning that no funding will be able to happen for the sub-merchant. The reviewer will then need to discount all potential matches from the alert. Once discounted, this will automatically unhold the sub-merchant to re-enable funding.
 
-### Available monitoring API
+### Monitoring APIs
 
 #### Retrieve monitoring hits
 
@@ -65,6 +65,8 @@ Once a report has been reviewed, the user will be able to overwrite the decision
 This will require the `report_reference` to define the report, and the `intelligence_report` for the entities report that is being overwritten. The status will be sent in the request in order for the review to be made. The `status` can be sent as `"NM"` for No Matches, and `"EM"` for an Exact Match.
 
 ## Standard Process timeline steps
+
+The boarding process will depend on if you are utilising decisioning for AML and/or Risk, and if you have an auto-approve criteria set. If the application fits your auto approve criteria, you may not need to review any reports below to allow boarding (but still can for your own purposes).
 
 <!-- !align: center -->
 ![boarding_flow](/assets/images/risk_workflow.png)
@@ -97,8 +99,8 @@ titles: Screening steps, Monitoring Steps
 
 ---
 
-
-## Submission Errors
+## Unhappy Paths
+### Submission Errors
 
 After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
@@ -113,17 +115,17 @@ After an application is submit, it will move to underwriting. If there are every
 }
 ```
 
-## Shared Services Back to Sales Flow
+### Shared Services Back to Sales Flow
 
 When using shared services, the user may be asked to provide additional documentation during the credit risk screening process. 
 This will occur when an application is being manually reviewed, and may require supporting documents such as Bank statements or proof of address. 
 
-### In Manual Review / Back to Sales
+#### In Manual Review / Back to Sales
 
 This response will be sent to Exchange from credit as a 'back to sales' response, with a comment to let the user know why this has occured and what is required.
 This will be checked by retrieving the merchant applications information through `/boarding/application` operation `'RETRIEVE_MERCHANT_HIERARCHY'` , where the `"credit_risk_check_response"` block will contain the current credit risk check info for the application. A `"decision": "MORE_INFO_REQUIRED"` indicates that the back to sales message has been recieved and is ready to be processed, where the risk reviewers comment `"credit_risk_comments":` can be viewed in order to know what is required to upload.
 
-### Response process
+#### Response process
 
 The user will be able to respond to the credit team with the additional documents requested by uploading them and submitting a comment back, 
 which will be facilitated through the `/fdapplication/upload_additional_files` , `/fdapplication/submit_additional_documents` and `/boarding/document_categories` endpoints.
