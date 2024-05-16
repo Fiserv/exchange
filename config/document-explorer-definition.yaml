@@ -40,7 +40,7 @@
         - title: Boarding
           link: docs/getting-started/getting-started-boarding.md
         - title: Underwriting
-          open: false
+          open: true
           link: docs/getting-started/getting-started-underwriting.md
           sections: 
           - title: Full Service
@@ -54,6 +54,7 @@
         - title: Transactions
           link: docs/getting-started/getting-started-transactions.md
         - title: Maintenance
+          open: true
           link: docs/getting-started/getting-started-maintenance.md
           sections: 
           - title: Bank Changes
