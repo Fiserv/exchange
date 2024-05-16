@@ -21,13 +21,13 @@ link: ../api/?type=post&path=/boarding//application
 -->
 <!-- type: card
 title: Authentication
-description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
+description: Auth text
 link: ../api/?type=post&path=/boarding/add_application
 -->
 
 <!-- type: card
 title: Boarding
-description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)
+description: Boarding Text
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 
@@ -38,13 +38,13 @@ link: ../api/?type=post&path=/boarding//application
 -->
 <!-- type: card
 title: Funding
-description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
+description: Funding Text
 link: ../api/?type=post&path=/boarding/add_application
 -->
 
 <!-- type: card
 title: Reporting
-description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)
+description: Reporting text
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 
