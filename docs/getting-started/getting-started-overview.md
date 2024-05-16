@@ -44,7 +44,7 @@ link: ../api/?type=post&path=/boarding/add_application
 
 <!-- type: card
 title: Reporting
-description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)
+description: Reporting text
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 
