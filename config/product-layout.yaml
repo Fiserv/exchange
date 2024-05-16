@@ -40,10 +40,6 @@ benefits:
   - title: PayFac Lite 
     description: Supporting PayFac Lite 
     icon: assets/images/statement_icon_square.png
-guides:
-  - title: Boarding API guide
-    description: Boarding a standard location through our API
-    link: docs/getting-started/boarding.md
 featuredFeatures:
   - title: Boarding
     groupName: API Suite
@@ -63,16 +59,16 @@ featuredFeatures:
     relatedAPIs: 
       - type: post       
         path: /intelligence/decision
-  - title: Settlements
+  - title: Funding
     groupName: API Suite
-    description:   View Settlements to submerchants through Exchange
+    description:   Fund submerchants through exchange
     relatedDocs: 
-        - link: /docs/getting-started/getting-started-settlements.md  
-          title: Reporting
+        - link: /docs/getting-started/funding.md
+          title: Funding
     relatedAPIs: 
       - type: post
-        title: Get Settlement Info    
-        path: /account/settlement-info
+        title: Funding Instruction
+        path: /funding/instruction
   - title: Reporting
     groupName: API Suite
     description:   View Reporting for submerchants funding + fees through Exchange

@@ -15,23 +15,50 @@ Building your Exchange integration
 <!-- type: row -->
 
 <!-- type: card
-title: Add Application
+title: Using our APIs
+description: Submits an application to its next step in the workflow.
+link: ../api/?type=post&path=/boarding//application
+-->
+<!-- type: card
+title: Authentication
 description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
 link: ../api/?type=post&path=/boarding/add_application
 -->
 
 <!-- type: card
-title: Add Outlet 
+title: Boarding
 description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 
 <!-- type: card
-title: Submit Application
+title: Underwriting
+description: Submits an application to its next step in the workflow.
+link: ../api/?type=post&path=/boarding//application
+-->
+<!-- type: card
+title: Funding
+description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
+link: ../api/?type=post&path=/boarding/add_application
+-->
+
+<!-- type: card
+title: Reporting
+description: Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)
+link: ../api/?type=post&path=/boarding/outlet/add
+-->
+
+<!-- type: card
+title: Transactions
 description: Submits an application to its next step in the workflow.
 link: ../api/?type=post&path=/boarding//application
 -->
 
+<!-- type: card
+title: Maintenance
+description: Submits an application to its next step in the workflow.
+link: ../api/?type=post&path=/boarding//application
+-->
 <!-- type: row-end -->
 
 ---
