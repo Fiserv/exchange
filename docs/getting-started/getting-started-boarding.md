@@ -16,6 +16,12 @@ The standard submerchant hierarchy is built from a Merchant, Chain and an outlet
 <!-- !align: center -->
 ![boarding_flow](/assets/images/boarding_flow.png)
 
+<center>
+  <img src="./images/boarding_flow.png" alt="boarding_flow" style="max-width: 50%;" width="500">
+
+</center>
+
+
 ### Adding the Merchant and Chain
 
 <!--
