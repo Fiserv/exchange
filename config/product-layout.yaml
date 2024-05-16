@@ -61,14 +61,14 @@ featuredFeatures:
         path: /intelligence/decision
   - title: Funding
     groupName: API Suite
-    description:   View Settlements to submerchants through Exchange
+    description:   Fund submerchants through exchange
     relatedDocs: 
         - link: /docs/getting-started/funding.md
           title: Funding
     relatedAPIs: 
       - type: post
-        title: Get Settlement Info    
-        path: /account/settlement-info
+        title: Funding Instruction
+        path: /funding/instruction
   - title: Reporting
     groupName: API Suite
     description:   View Reporting for submerchants funding + fees through Exchange
