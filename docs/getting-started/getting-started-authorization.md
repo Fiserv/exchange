@@ -17,7 +17,7 @@ In order to generate an access token, the grant_type `client_credentials` must b
 type: tab
 titles: Generate Token Request , Generate Token Response
 -->
-### Generation Request : 
+### Generation Request 
 
 ```json
 {
@@ -34,7 +34,7 @@ titles: Generate Token Request , Generate Token Response
 
 <!-- type: tab -->
 
-### Generation Response : 
+### Generation Response 
 
 ```json
 {
@@ -67,7 +67,7 @@ titles: Generate Token Request , Generate Token Response
 
 A Refresh token can be used to grand additional access tokens, past the expiration date of the original access token. This can be repeated until the refresh token expires or is revoked.
 
-### Refresh Request: 
+### Refresh Request
 <!--
 type: tab
 titles: Refresh Token Request , Refresh Token Response
@@ -89,7 +89,7 @@ titles: Refresh Token Request , Refresh Token Response
 
 <!-- type: tab -->
 
-### Refresh Response: :
+### Refresh Response
 
 
 ```json
