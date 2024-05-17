@@ -19,6 +19,11 @@ titles: Generate Token Request , Generate Token Response
 -->
 ### Generation Request 
 
+## Transactions
+
+<!-- theme: info -->
+>**POST** `/oauth/token`
+
 ```json
 {
   "grant_type": "client_credentials"
