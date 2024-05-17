@@ -26,21 +26,36 @@ If confirming the report, the PayFac is confirming that the potential match is v
 
 #### Retrieve intelligence reports available
 
+<!-- theme: info -->
+>**POST** `/intelligence/retrieve_intelligence`
+
 The `/intelligence/retrieve_intelligence` endpoint can be used to retrieve all avaliable screening reports for a sub-merchant application. This will include the business level, and the principal level. Each entry in the response will return an `entity_reference` to use in the `/intelligence/retrieve_report`.
 
 #### Retrieve intelligence reports
+
+<!-- theme: info -->
+>**POST** `/intelligence/retrieve_report`
 
 After retrieving the `entity_reference` from  the `/intelligence/retrieve_intelligence` endpoint, the PayFac can then view each report through the `/intelligence/retrieve_report` endpoint.
 
 #### Overwrite intelligence reports
 
+<!-- theme: info -->
+>**POST** `/intelligence/overwrite_aml_reports`
+
 This `/intelligence/overwrite_aml_reports` is used to overwrite OFAC reports for potential matches. The potential matches will need to be confirmed or discounted for the application where these are found. If any applications match it confirmed, the application will have to be cancelled. The user must add a review note for each entity as required. The request will need to contain the `intelligence_ref` and the `match_reference` for each entity overwritten. The decision will be added to the `status` as `"EM"` or `"NM"` , where EM represents Exact Match and NM represent No Match. Multiple reports can be reviewed in one request.
 
 #### Overwrite credit risk check reports
 
+<!-- theme: info -->
+>**POST** `/intelligence/overwrite_risk_reports`
+
 The `/intelligence/overwrite_risk_reports` will be used to overwrite a credit risk check decision. This will only be applicable for PayFacs who are operating as a 'full-service' to retrieve reports from a third party. The `overall_decision` field will contain the final decision that the user is overwriting the generated decision for report for.
 
 #### Application decision
+
+<!-- theme: info -->
+>**POST** `/intelligence/decision`
 
 After the reports for AML and credit risk have been reviewed for an application, the user can use the `/intelligence/decision` endpoint in order to make a decision for the AML and Credit Risk Process. The `decision` will be used to approve or decline the application, where `APPROVE` and `DECLINE` can be sent.
 
@@ -53,13 +68,22 @@ If an OFAC alert has been raised, the system will automatically *hold* the sub-m
 
 #### Retrieve monitoring hits
 
+<!-- theme: info -->
+>**POST** `/intelligence/retrieve_hits`
+
 The user will be able to retrieve the hits recieved for a sub-merchant that is being monitored through the `/monitoring/retrieve_hits` endpoint. This can be called to summarise if there are any reports that need to be reviewed, and requires the `merchant_id` to be sent to identify which sub-merchant is being checked. This will respond with the type of entity the hit was found on, which factor (ie. Director Change) and which third party the information was sourced from.
 
 #### Retrieve monitoring reports
 
+<!-- theme: info -->
+>**POST** `/intelligence/retrieve_report`
+
 After retrieving the available reports for a sub-merchant, the user can then view the reports through the `/monitoring/retrieve_report` endpoint. This will require the entity type to be sent along with the references for the report. This will respond witht he information gathered from the third party for the report and will be required to be reviewed.
 
 #### Overwrite intelligence reports
+
+<!-- theme: info -->
+>**POST** `/intelligence/overwrite_intelligence_report`
 
 Once a report has been reviewed, the user will be able to overwrite the decision for the reports using the `/monitoring/overwrite_intelligence_report` endpoint.
 This will require the `report_reference` to define the report, and the `intelligence_report` for the entities report that is being overwritten. The status will be sent in the request in order for the review to be made. The `status` can be sent as `"NM"` for No Matches, and `"EM"` for an Exact Match.
@@ -101,6 +125,9 @@ titles: Screening steps, Monitoring Steps
 
 ## Unhappy Paths
 ### Submission Errors
+
+<!-- theme: info -->
+>**POST** `/boarding/application`
 
 After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
