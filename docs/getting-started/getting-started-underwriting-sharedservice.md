@@ -18,6 +18,9 @@ which will be facilitated through the `/fdapplication/upload_additional_files` ,
 
 #### Retrieving document categories
 
+<!-- theme: info -->
+>**POST** `/boarding/document_categories`
+
 In order to upload a file, it must be assigned a category to be uploaded to. This will need to have been configured on the configuration portal prior to retrieving. 
 The available categories are: 
 
@@ -29,6 +32,9 @@ The available categories are:
 These will have documents grouped within this category during the configuration done. The `tenant_udc_external_id` will be returned for the categories displayed.
 
 #### Uploading the files
+
+<!-- theme: info -->
+>**POST** `/fdapplication/upload_additional_files`
 
 The files to upload will be sent through the `/fdapplication/upload_additional_files` for the application application reference stated, and will require the payload to be sent as form-data. 
 The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
@@ -69,6 +75,9 @@ However, this request body will be dependant on the configuration of the documen
 ```
 #### Submitting the documents
 
+<!-- theme: info -->
+>**POST** `/fdapplication/submit_additional_documents`
+
 After all the files have been uploaded that have been requested, the user may now submit the documents to Exchange along with a note for the risk reviewer to see when viewing the documents. This can be used to talk to the credit risk reviewer.
 ```
 {
@@ -83,6 +92,9 @@ After all the files have been uploaded that have been requested, the user may no
 }
 ```
 ### Submission Errors
+
+<!-- theme: info -->
+>**POST** `/boarding/application`
 
 After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
