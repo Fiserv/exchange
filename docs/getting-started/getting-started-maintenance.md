@@ -86,20 +86,3 @@ Once this has been updated, we can now submit the case using the Maintenance ref
 }
 
 ```
-## Additional Outlet process
-
-### Creating a new outlet
-
-The process for adding an additional outlet is similar to a maintenance case. The user must start by creating an additional outlet to add to an existing merchant by creating a maintenance type with type "ADD_OUTLETS"
-
-This returns `application_reference` which can be updated.
-
-### Updating the new outlet
-
-The additional outlet can then be updated using the `/boarding/outlet/update` endpoint in order to update the application
-
-### Submitting the new outlet
-
-As this is an application for the outlet, the outlet must be submit using the `/boarding/application` [endpoint](../api/?type=post&path=/boarding//application) for submitting an application.
-
-Just like a normal application, if `submit_success` in the response is `1`, the application succesfully submit to the new step in workflow. Checking the status of the application will allow you to verify if this was succesfully boarded. Once boarded, will be added to the existing merchant.
