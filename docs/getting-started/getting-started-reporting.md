@@ -6,28 +6,6 @@ tags: [Getting Started, Reporting]
 
 Exchange uses a set of virtual accounts and automatic settlement generation for reporting purposes. 
 
-# Transaction level reporting
-
-Exchange is able to retrieve the details of transactions that are recieved for MIDs on the system
-This is facilitated by `/transaction/...` endpoints that can be viewed in the API Explorer. 
-
-## Transaction level calculations
-
-To retrieve calculations performed by Auto fundings processing charges at a tranasction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [Here](../api/?type=post&path=/transaction)
-
-
-A 'query' can be created by adjusting the database operator and values being searched for:
-```
-        "location_id": {
-            "operator": "EQ",
-            "value": "202205290001"
-            },
-        "date_added": {
-            "operator": "EQ",
-            "value": "2022-05-16"
-        }
-```
-
 # Summary level reporting accounts
 
 At a summary level, we also report money movement through the system MID-by-MID
