@@ -8,7 +8,7 @@ The developer studio allows users to view and use documentation for Exchange. Th
 
 ---
 
-## Boarding APIs
+## API Overview
 
 Building your Exchange integration
 
