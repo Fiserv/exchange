@@ -21,45 +21,45 @@ link: ../api/?type=post&path=/boarding//application
 -->
 <!-- type: card
 title: Authentication
-description: Auth text
+description: How to Authenticate to exchange
 link: ../api/?type=post&path=/boarding/add_application
 -->
 
 <!-- type: card
 title: Boarding
-description: Boarding Text
+description: Start onboarding a submerchant by API
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 <!-- type: row-end -->
 <!-- type: row -->
 <!-- type: card
 title: Underwriting
-description: Submits an application to its next step in the workflow.
+description: Submits an application to underwriting
 link: ../api/?type=post&path=/boarding//application
 -->
 
 <!-- type: card
 title: Funding
-description: Funding Text
+description: Fund submerchants through exchange
 link: ../api/?type=post&path=/boarding/add_application
 -->
 
 <!-- type: card
 title: Reporting
-description: Reporting text
+description: Consume reporting for funding that has happened through exchange
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 <!-- type: row-end -->
 <!-- type: row -->
 <!-- type: card
 title: Transactions
-description: Submits an application to its next step in the workflow.
+description: Consume transactions that have been processed by your submerchants
 link: ../api/?type=post&path=/boarding//application
 -->
 
 <!-- type: card
 title: Maintenance
-description: Submits an application to its next step in the workflow.
+description: Submit a maintenance case for a submerchant post-boarding
 link: ../api/?type=post&path=/boarding//application
 -->
 
