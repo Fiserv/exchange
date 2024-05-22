@@ -11,6 +11,9 @@ The OAuth endpoint can be used to generate or refresh tokens. Once a token is ge
 
 ### Generate Token
 
+<!-- theme: info -->
+>**POST** `/oauth/token`
+
 In order to generate an access token, the grant_type `client_credentials` must be used.
 
 <!--
@@ -19,10 +22,6 @@ titles: Generate Token Request , Generate Token Response
 -->
 ### Generation Request 
 
-## Transactions
-
-<!-- theme: info -->
->**POST** `/oauth/token`
 
 ```json
 {
@@ -69,6 +68,9 @@ titles: Generate Token Request , Generate Token Response
 <!-- type: tab-end -->
 
 ### Refresh Token
+
+<!-- theme: info -->
+>**POST** `/oauth/token`
 
 A Refresh token can be used to grand additional access tokens, past the expiration date of the original access token. This can be repeated until the refresh token expires or is revoked.
 
