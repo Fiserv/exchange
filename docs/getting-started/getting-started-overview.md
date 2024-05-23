@@ -8,7 +8,7 @@ The developer studio allows users to view and use documentation for Exchange. Th
 
 ---
 
-## Boarding APIs
+## API Overview
 
 Building your Exchange integration
 
@@ -65,7 +65,7 @@ link: ../api/?type=post&path=/boarding//application
 
 <!-- type: card
 title: Release Notes
-description: Release Notes text
+description: See the latest release notes for the dev studio
 link: ../docs/release-notes/2024.md
 -->
 <!-- type: row-end -->

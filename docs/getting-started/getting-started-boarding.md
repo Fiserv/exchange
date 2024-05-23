@@ -22,7 +22,7 @@ The standard submerchant hierarchy is built from a Merchant, Chain and an outlet
 
 <!--
 type: tab
-titles: Add Application, JSON Add Application Example
+titles: Add Application, Sample JSON
 -->
 
 The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
@@ -109,7 +109,7 @@ If specifying the Offer Package and acquiring offers, please use the `/offering/
 
 <!--
 type: tab
-titles: Add Outlet, JSON Add Outlet Example
+titles: Add Outlet, Sample JSON
 -->
 
 The `/boarding/outlet/add` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy). 
@@ -212,7 +212,7 @@ JSON format for `ADD_OUTLET`:
 
 <!--
 type: tab
-titles: Application Submit, JSON Application Submit Example
+titles: Application Submit, Sample JSON
 -->
 
 The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
@@ -246,7 +246,7 @@ Applications that are invalid will respond with the errors and their locations s
 
 <!--
 type: tab
-titles: Update Merchant, JSON Update Merchant Example 
+titles: Update Merchant, Sample JSON
 -->
 
 The `/boarding/merchant` endpoint supports updating for the merchant level and subgroup level, while the `/boarding/outlet` allows the outlet to be updated.
