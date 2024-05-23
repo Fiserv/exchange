@@ -65,7 +65,7 @@ link: ../api/?type=post&path=/boarding//application
 
 <!-- type: card
 title: Release Notes
-description: Release Notes text
+description: See the latest release notes for the dev studio
 link: ../docs/release-notes/2024.md
 -->
 <!-- type: row-end -->
