@@ -16,6 +16,9 @@ Virtual accounts hold calculated funding information for sub-merchants in order 
 
 ### Trade accounts
 
+<!-- theme: info -->
+>**POST** `/account/trade-info`
+
 The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the merchant MID on a specific date. This is segregated by trade accounts, which return the following categorised 'accounts' : 
 
 | Category      | Key |
@@ -35,6 +38,9 @@ The balance in the instructional hold account is the maximum amount of avaliable
 
 ### Account balances
 
+<!-- theme: info -->
+>**POST** `/account/balance`
+
 The `/account/balance` endpoint can be used to retrieve the balance of any virtual account: 
 - REVENUE_ACCOUNT
 - FEE_ACCOUNT
@@ -48,9 +54,15 @@ With Auto funding, Exchange is perforing calculations on the system based on con
 
 ### Submerchant level transaction calculations
 
+<!-- theme: info -->
+>**POST** `/trade/details`
+
 Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here](../api/?type=post&path=/account/trade-detail)
 
 ### Service fee calculations
+
+<!-- theme: info -->
+>**POST** `/billing/fee-details`
 
 Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here](../api?type=post&path=/account/billing/fee-details) 
 
