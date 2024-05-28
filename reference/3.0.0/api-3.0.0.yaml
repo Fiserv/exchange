@@ -25811,13 +25811,13 @@ components:
         merchant:
           business_entity: {"legal_name": "MMISTest Legal Name",
                             "ownership_entity_type": "L",
-                            "reg_number": "2333",
-                            "business_tin_ssn_number": "999888555",
+                            "business_tin_ssn_number": "666989898",
                             "irs_status": "N",
+                            "business_category" : "E",
                             "irs_filing_name": "MMISTest IRS Name",
                             "tin_type": "2",
                             "int_tax_id": "1111",
-                            "mcc_code": "5544",
+                            "mcc_code": "5999",
                             "date_incorporated": "2020-01-01",
                             "incorp_state": "NV",
                             "foundation_date": "2020-01-01"}
