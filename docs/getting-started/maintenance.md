@@ -89,7 +89,11 @@ Once this has been updated, we can now submit the case using the Maintenance ref
 
 The process for adding an additional outlet is similar to a maintenance case. The user must start by creating an additional outlet to add to an existing merchant by creating a maintenance type with type "ADD_OUTLETS"
 
-This returns `application_reference` which can be updated.
+This creates an application to add the additional outlet, and returns an `application_reference` which can be updated.
+
+### Adding the new outlet
+
+Adding the outlet to this application is the same as adding the original outlet to an application, and uses the `/boarding/outlet/add` endpoint. The application reference required to be used is returned when creating the maintenance case, and the user should specify the `parent_mid` of the outlet like the standard boarding process. Typically, this will use the internal MID subgroup of the application that can be retrieved.
 
 ### Updating the new outlet
 

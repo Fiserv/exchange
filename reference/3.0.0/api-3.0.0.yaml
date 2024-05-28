@@ -269,7 +269,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddSubGroupResponseBlock'
+                $ref: '#/components/schemas/AddOutletResponseBlock'
+              examples:
+                UpdateOutletSample:
+                  $ref: '#/components/examples/OutletUpdateSample'
         default:
           description: Unexpected error
           content:
@@ -25811,13 +25814,13 @@ components:
         merchant:
           business_entity: {"legal_name": "MMISTest Legal Name",
                             "ownership_entity_type": "L",
-                            "reg_number": "2333",
-                            "business_tin_ssn_number": "999888555",
+                            "business_tin_ssn_number": "666989898",
                             "irs_status": "N",
+                            "business_category" : "E",
                             "irs_filing_name": "MMISTest IRS Name",
                             "tin_type": "2",
                             "int_tax_id": "1111",
-                            "mcc_code": "5544",
+                            "mcc_code": "5999",
                             "date_incorporated": "2020-01-01",
                             "incorp_state": "NV",
                             "foundation_date": "2020-01-01"}
@@ -25867,6 +25870,140 @@ components:
                ent_telephone_code: "US|1",
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
+    OutletUpdateSample: 
+      value:
+          result: SUCCESS
+          merchant:
+            merchant_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            sales_owner_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            aml_owner_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            risk_owner_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            creator_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            alliance_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            internal_mid: '700100000064321'
+            legal_name: MMISTest Legal Name
+            contact_title: Mrs.
+            contact_first_name: Sample
+            contact_last_name: Last
+            contact_address1: Street
+            contact_town_city: City
+            contact_county: AZ
+            contact_postcode: '12122'
+            contact_country_code: '840'
+            contact_email: sample0321@domain.com
+            hold_suspend_flag: '0'
+            settlement_method: '1'
+            parent_type: ALLIANCE
+            reserve_flag: '0'
+            street_line_1: Street
+            city: City
+            county_code: AZ
+            zip_code: '12122'
+            country_code: '840'
+            language_code: en_gb
+            date_added: '2023-11-12 17:31:37'
+            date_updated: '2023-11-12 09:50:46'
+            pfac_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+          outlet:
+            merchant_hierarchy_template_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            outlet_external_id: OTL59-32221-33421-AMN32-79F05-83AL3-940F5
+            pfac_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            merchant_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            internal_mid: '709900000100015'
+            merchant_node_id: '316321'
+            root_merchant_node_id: '316321'
+            pfac_node_id: '001'
+            trade_name: MMISTEST DBA name
+            accounts_setup_flag: '0'
+            delay_funding_flag: '0'
+            reserve_merchant_node_id: '316321'
+            hold_suspend_flag: '0'
+            date_added: '2023-11-12 17:31:37'
+            date_updated: '2023-11-12 09:50:46'
+            outlet_ref: 6650cd3e5b223229da321e9
+            visitation_required: '1'
+            store_number: '1'
+            business_zone: B
+            business_location: O
+            ground_floor: G
+            number_of_building_floors: '1'
+            square_foot_count: '1'
+            number_of_employees: '3'
+            primary_email_address: john.doe123@abc.com
+            outlet_website: https://fiserv.com
+            statement_type: F
+            banks:
+              6650cd3e5b223229da321e9:
+                bank_name: Bank
+                bank_city: City
+                country_code: '840'
+                bank_account_number: '00004321'
+                bank_sort_code: ''
+                iban: ''
+                swift: ''
+                account_holder_name: Account
+                account_type:
+                - CREDIT
+                - DEBIT
+                zip_code: '12121'
+                county_code: AK
+                street_line_1: Street
+                floor: '1'
+                suite_apart_number: '1'
+                bank_account_number_masked: "*****4321"
+                bank_account_type: CHECKING
+                dda_number: '000004321'
+                dda_number_masked: "*****4321"
+                routing_number: '000004321'
+                routing_number_masked: "*****4321"
+                _id: 6650cd3e5b223229da321e9
+            contacts:
+              6650cd3e5b223229da321e9:
+                contact_type: L
+              contact_metadata: []
+            settings:
+              funding_flag: '0'
+              billing_flag: '0'
+              reserve_flag: '0'
+            funding_defaults:
+              has_processing_mid: '0'
+              business_model: '1'
+              core_package_selection: '7'
+              tx_source_card: '1'
+              tx_source_card_funding_option: '1'
+              tx_source_card_settlement_method: '2'
+              source_merge_flag: '0'
+              tx_source_ach: '0'
+              tx_source_ach_funding_option: '0'
+              tx_source_ach_settlement_method: '0'
+              tx_settlement_billing_to: '1'
+              tx_chargeback_billing_to: '1'
+              has_tx_processing: '1'
+              settlement_method: '3'
+              tx_instruction_on: '0'
+              funding_frequency: '1'
+              has_transaction_billing: '1'
+              tx_fees_billing_method: '1'
+              other_fees_billing_method: '1'
+              has_service_billing: '0'
+              has_equipment_billing: '0'
+              billing_frequency: '1'
+              chargeback_settlement_method: '2'
+              chargeback_debit_option: '1'
+              split_processing_fee_flag: '0'
+              split_chargeback: '0'
+              has_billing: '1'
+              allow_instruction_api: '1'
+              responsible_party: '0'
+              payout_ach: '1'
+              payout_card: '0'
+              payout_default: '0'
+            tc_internet_check_mid_status: '0'
+            tc_check_phone_mid_status: '0'
+            tc_ppd_mid_status: '0'
+            tc_connect_pay_mid_status: '0'
+            tc_boarding_status: '0'
+
     RequestProcessingMaintenance:
       value:
         operation:
