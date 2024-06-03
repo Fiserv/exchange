@@ -10,6 +10,21 @@ This section regards models for funding that require API instructions to be sent
 Instructional funding, allows the use of the `/funding/instruction` endpoint in order to direct funds in the instructional hold for a given merchant ID, where the merchant revenue amount and PayFac fee amount is directed by the request. 
 Instructional funding also supports instructions sent through the `/funding/detailed-instruction` endpoint, where additional information can be added within an instruction through a 'details' block for reporting purposes. (details do not affect the funding, just act as information)
 
+### Blocks supported in the API
+
+The instructional API supports different scenarios for funding by using the different blocks in the request. Below is the behaviour of each block, with some examples on how this can be used.
+
+#### Funding
+
+The funding block is 
+
+#### Billing
+
+#### Chargeback
+
+#### Adjustment
+
+
 ### Constructing the request
 
 <!--
