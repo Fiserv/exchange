@@ -45,18 +45,21 @@ The balance in the instructional hold account is the maximum amount of avaliable
 The `/account/balance` endpoint can be used to retrieve the balance of any virtual account: 
 
 | Category | Key | Description |
-| :---: | :---: | :---: |
+|---|---|---|
 | TRADE_ACCOUNT | TRADE ACCOUNT | Transaction Summary |
 | CHARGEBACK_ACCOUNT | CHARGEBACK ACCOUNT | Charge Back |
 | INSTRUCTIONAL_HOLD_ACCOUNT | INSTRUCTIONAL HOLD ACCOUNT | Instructional Hold |
 | SPLIT_ACCOUNT | SPLIT ACCOUNT | Split (for non-processing node only) |
 | REVENUE_ACCOUNT | REVENUE ACCOUNT | Net Revenue |
-| FEE_ACCOUNT | FEE ACCOUNT | Fees (Total) |
+| FEE_ACCOUNT | FEE_ACCOUNT | Fees (Total) |
 | REJECT_HOLD_ACCOUNT | REJECT HOLD ACCOUNT | Reject Hold |
 | RESERVE_ACCOUNT | RESERVE ACCOUNT | Reserve |
-| ADJUSTMENT_ACCOUNT | ADJUSTMENT ACCOUNT | Adjustment |
+| ADJUSTMENT_ACCOUNT | ADJUSTMENT_ACCOUNT | Adjustment |
 | HOLD_ACCOUNT | HOLD ACCOUNT | Hold |
 | PFAC_REVENUE_ACCOUNT | PFAC REVENUE ACCOUNT | PFAC Revenue |
+| RESERVE_DEDUCTION_ACCOUNT | RESERVE DEDUCTION ACCOUNT | Reserve Deduction |
+| RESERVE_RELEASE_ACCOUNT | RESERVE RELEASE ACCOUNT | Reserve Release |
+| REJECT_ADJUSTMENT_ACCOUNT | REJECT ADJUSTMENT ACCOUNT | Reject Adjustment |
 
 ## Auto Funding Calculations
 
