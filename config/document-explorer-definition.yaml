@@ -52,9 +52,9 @@
           open : true
           sections:
           - title: Net Instructional Funding
-            link: docs/getting-started-instfunding-net.md
+            link: docs/getting-started/getting-started-instfunding-net.md
           - title: Gross Instructional Funding
-            link: docs/getting-started-instfunding-gross.md
+            link: docs/gettings-started/getting-started-instfunding-gross.md
         - title: Reporting
           link: docs/getting-started/getting-started-reporting.md
         - title: Transactions
