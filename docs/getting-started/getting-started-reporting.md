@@ -21,14 +21,14 @@ Virtual accounts hold calculated funding information for sub-merchants in order 
 
 The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the merchant MID on a specific date. This is segregated by trade accounts, which return the following categorised 'accounts' : 
 
-| Category      | Key |
-| :---:        |    :----:   |
-| Gross Transaction Amount      | transaction_amount       |
-| Refund Amount   | refund_amount        |
-| Deposit Adjustment Amount      | deposit_adjustment_amount       |
-| Net Transaction Amount   | net_transaction_amount        |
-| Chargeback Amount      | chargeback_amount       |
-| Chargeback Reversal Amount   | chargeback_reversal_amount        |
+| Category      | Key | Description |
+| :---:        |    :----:   |:-------: |
+| Gross Transaction Amount      | transaction_amount       | The gross amount of transactions recieved today |
+| Refund Amount   | refund_amount        | The transactional amount of refunds that have been loaded in today. |
+| Deposit Adjustment Amount      | deposit_adjustment_amount       | The transactional amount of Deposit Adjustments that have been loaded in today. Typically, these match a Rejected tranasction |
+| Net Transaction Amount   | net_transaction_amount        | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for intsructional funding clients) |
+| Chargeback Amount      | chargeback_amount       | Reported chargeback amounts that we have loaded in today. Typically matches a Chargeback Adjustment. |
+| Chargeback Reversal Amount   | chargeback_reversal_amount        | Reported chargeback Adjustment amounts that we have loaded in today. This amount reflects actual financial movement that has occured. Does not affect net tranasction amount or instructional hold balance. |
 
 ### Instructional hold account
 
@@ -42,11 +42,21 @@ The balance in the instructional hold account is the maximum amount of avaliable
 >**POST** `/account/balance`
 
 The `/account/balance` endpoint can be used to retrieve the balance of any virtual account: 
+
 - REVENUE_ACCOUNT
 - FEE_ACCOUNT
 - SERVICE_FEE_ACCOUNT
 - RESERVE_ACCOUNT
 - CHARGEBACK_ACCOUNT
+
+| Category      | Key | Description|
+| :---:        |    :----:   |:---: |
+| REVENUE_ACCOUNT      | transaction_amount       | The gross amount of transactions recieved today |
+| FEE_ACCOUNT   | refund_amount        | The transactional amount of refunds that have been loaded in today. |
+| SERVICE_FEE_ACCOUNT      | deposit_adjustment_amount       | The transactional amount of Deposit Adjustments that have been loaded in today. Typically, these match a Rejected tranasction |
+| RESERVE_ACCOUNT   | net_transaction_amount        | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for intsructional funding clients) |
+| CHARGEBACK_ACCOUNT     | chargeback_amount       | Reported chargeback amounts that we have loaded in today. Typically matches a Chargeback Adjustment. |
+| Chargeback Reversal Amount   | chargeback_reversal_amount        | Reported chargeback Adjustment amounts that we have loaded in today. This amount reflects actual financial movement that has occured. Does not affect net tranasction amount or instructional hold balance. |
 
 ## Auto Funding Calculations
 
