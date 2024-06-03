@@ -49,6 +49,12 @@
             link: docs/getting-started/getting-started-underwriting-sharedservice.md
         - title: Funding
           link: docs/getting-started/getting-started-funding.md
+          open : true
+          sections:
+          - title: Net Instructional Funding
+            link: docs/getting-started/getting-started-instfunding-net.md
+          - title: Gross Instructional Funding
+            link: docs/getting-started/getting-started-instfunding-gross.md
         - title: Reporting
           link: docs/getting-started/getting-started-reporting.md
         - title: Transactions
