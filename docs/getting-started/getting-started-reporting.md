@@ -46,20 +46,31 @@ The `/account/balance` endpoint can be used to retrieve the balance of any virtu
 
 | Category | Key | Description |
 |---|---|---|
-| TRADE_ACCOUNT | TRADE ACCOUNT | Transaction Summary |
-| CHARGEBACK_ACCOUNT | CHARGEBACK ACCOUNT | Charge Back |
-| INSTRUCTIONAL_HOLD_ACCOUNT | INSTRUCTIONAL HOLD ACCOUNT | Instructional Hold |
-| SPLIT_ACCOUNT | SPLIT ACCOUNT | Split (for non-processing node only) |
-| REVENUE_ACCOUNT | REVENUE ACCOUNT | Net Revenue |
-| FEE_ACCOUNT | FEE_ACCOUNT | Fees (Total) |
-| REJECT_HOLD_ACCOUNT | REJECT HOLD ACCOUNT | Reject Hold |
-| RESERVE_ACCOUNT | RESERVE ACCOUNT | Reserve |
-| ADJUSTMENT_ACCOUNT | ADJUSTMENT_ACCOUNT | Adjustment |
-| HOLD_ACCOUNT | HOLD ACCOUNT | Hold |
-| PFAC_REVENUE_ACCOUNT | PFAC REVENUE ACCOUNT | PFAC Revenue |
-| RESERVE_DEDUCTION_ACCOUNT | RESERVE DEDUCTION ACCOUNT | Reserve Deduction |
-| RESERVE_RELEASE_ACCOUNT | RESERVE RELEASE ACCOUNT | Reserve Release |
-| REJECT_ADJUSTMENT_ACCOUNT | REJECT ADJUSTMENT ACCOUNT | Reject Adjustment |
+| TRADE_ACCOUNT | TRADE ACCOUNT | Account used for trade settlements and transactions. |
+| CHARGEBACK_ACCOUNT | CHARGEBACK ACCOUNT | Account for tracking chargebacks received from customers. |
+| FEE_ACCOUNT | FEE ACCOUNT | Account designated for the accumulation of fees charged. |
+| REVENUE_ACCOUNT | REVENUE ACCOUNT | Account where net revenue is recorded and tracked. |
+| RESERVE_ACCOUNT | RESERVE ACCOUNT | Account holding funds in reserve for contingencies. |
+| CHARGEBACK_RECOVERY_ACCOUNT | CHARGEBACK RECOVERY ACCOUNT | Account for funds recovered from chargebacks. |
+| INSTRUCTIONAL_HOLD_ACCOUNT | INSTRUCTIONAL HOLD ACCOUNT | Account holding funds temporarily as per specific instructions. |
+| ROLLING_RESERVE_ACCOUNT | ROLLING RESERVE ACCOUNT | Account that holds a rolling reserve for risk management. |
+| RESERVE_DEDUCTION_ACCOUNT | RESERVE DEDUCTION ACCOUNT | Account for deductions made from the reserve. |
+| RESERVE_RELEASE_ACCOUNT | RESERVE RELEASE ACCOUNT | Account for releasing funds previously held in reserve. |
+| MERCHANT_FEE_ACCOUNT | MERCHANT FEE ACCOUNT | Account where merchant-related fees are collected. |
+| SERVICE_FEE_ACCOUNT | SERVICE FEE ACCOUNT | Account for service-related fees charged. |
+| FEE_COLLECT_ACCOUNT | FEE COLLECT ACCOUNT | Account used to collect various types of fees. |
+| REJECT_HOLD_ACCOUNT | REJECT HOLD ACCOUNT | Account used to hold funds related to rejected transactions. |
+| ADJUSTMENT_ACCOUNT | ADJUSTMENT ACCOUNT | Account for recording financial adjustments. |
+| REJECT_REPROCESS_ACCOUNT | REJECT REPROCESS ACCOUNT | Account dedicated to reprocessing rejected transactions. |
+| SUSPEND_ACCOUNT | SUSPEND ACCOUNT | Account that holds suspended funds until a decision is made. |
+| HOLD_ACCOUNT | HOLD ACCOUNT | General account used for holding funds temporarily. |
+| PFAC_REVENUE_ACCOUNT | PFAC REVENUE ACCOUNT | Account for Payment Facilitator's net revenue tracking. |
+| PFAC_RESERVE_ACCOUNT | PFAC RESERVE ACCOUNT | Reserve account specifically for a Payment Facilitator. |
+| DELAY_FUNDING_ACCOUNT | DELAY FUNDING ACCOUNT | Account used to delay funding for transactions, often for review. |
+| GROSS_FEE_ACCOUNT | GROSS FEE ACCOUNT | Account for the total gross fees before any deductions or adjustments. |
+| REJECT_ADJUSTMENT_ACCOUNT | REJECT ADJUSTMENT ACCOUNT | Account used for adjustments relating to rejected transactions. |
+| PFAC_ADJUSTMENT_ACCOUNT | PFAC ADJUSTMENT ACCOUNT | Account for financial adjustments specific to a Payment Facilitator. |
+| SPLIT_ACCOUNT | SPLIT ACCOUNT | Account utilized when splitting funds between different parties. |
 
 ## Auto Funding Calculations
 
