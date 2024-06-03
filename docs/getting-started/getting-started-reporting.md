@@ -25,8 +25,9 @@ The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction s
 | :---:        |    :----:   |:-------: |
 | Gross Transaction Amount      | transaction_amount       | The gross amount of transactions recieved today |
 | Refund Amount   | refund_amount        | The transactional amount of refunds that have been loaded in today. |
+| Rejected Amount   | rejected_amount        | The amount of rejected transactions that have been loaded in today. |
 | Deposit Adjustment Amount      | deposit_adjustment_amount       | The transactional amount of Deposit Adjustments that have been loaded in today. Typically, these match a Rejected tranasction |
-| Net Transaction Amount   | net_transaction_amount        | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for intsructional funding clients) |
+| Net Transaction Amount   | net_transaction_amount        | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for intsructional funding clients). net_transaction_amount =  transaction_amount - refund_amount + rejected_amount - deposit_adjustments_amount. |
 | Chargeback Amount      | chargeback_amount       | Reported chargeback amounts that we have loaded in today. Typically matches a Chargeback Adjustment. |
 | Chargeback Reversal Amount   | chargeback_reversal_amount        | Reported chargeback Adjustment amounts that we have loaded in today. This amount reflects actual financial movement that has occured. Does not affect net tranasction amount or instructional hold balance. |
 
@@ -43,20 +44,19 @@ The balance in the instructional hold account is the maximum amount of avaliable
 
 The `/account/balance` endpoint can be used to retrieve the balance of any virtual account: 
 
-- REVENUE_ACCOUNT
-- FEE_ACCOUNT
-- SERVICE_FEE_ACCOUNT
-- RESERVE_ACCOUNT
-- CHARGEBACK_ACCOUNT
-
-| Category      | Key | Description|
-| :---:        |    :----:   |:---: |
-| REVENUE_ACCOUNT      | transaction_amount       | The gross amount of transactions recieved today |
-| FEE_ACCOUNT   | refund_amount        | The transactional amount of refunds that have been loaded in today. |
-| SERVICE_FEE_ACCOUNT      | deposit_adjustment_amount       | The transactional amount of Deposit Adjustments that have been loaded in today. Typically, these match a Rejected tranasction |
-| RESERVE_ACCOUNT   | net_transaction_amount        | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for intsructional funding clients) |
-| CHARGEBACK_ACCOUNT     | chargeback_amount       | Reported chargeback amounts that we have loaded in today. Typically matches a Chargeback Adjustment. |
-| Chargeback Reversal Amount   | chargeback_reversal_amount        | Reported chargeback Adjustment amounts that we have loaded in today. This amount reflects actual financial movement that has occured. Does not affect net tranasction amount or instructional hold balance. |
+| Category | Key | Description |
+| :---: | :---: | :---: |
+| TRADE_ACCOUNT | TRADE ACCOUNT | Transaction Summary |
+| CHARGEBACK_ACCOUNT | CHARGEBACK ACCOUNT | Charge Back |
+| INSTRUCTIONAL_HOLD_ACCOUNT | INSTRUCTIONAL HOLD ACCOUNT | Instructional Hold |
+| SPLIT_ACCOUNT | SPLIT ACCOUNT | Split (for non-processing node only) |
+| REVENUE_ACCOUNT | REVENUE ACCOUNT | Net Revenue |
+| FEE_ACCOUNT | FEE ACCOUNT | Fees (Total) |
+| REJECT_HOLD_ACCOUNT | REJECT HOLD ACCOUNT | Reject Hold |
+| RESERVE_ACCOUNT | RESERVE ACCOUNT | Reserve |
+| ADJUSTMENT_ACCOUNT | ADJUSTMENT ACCOUNT | Adjustment |
+| HOLD_ACCOUNT | HOLD ACCOUNT | Hold |
+| PFAC_REVENUE_ACCOUNT | PFAC REVENUE ACCOUNT | PFAC Revenue |
 
 ## Auto Funding Calculations
 
