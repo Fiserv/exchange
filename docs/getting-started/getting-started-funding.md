@@ -90,7 +90,8 @@ The response of the instructional hold API will report the movement from the ins
 
 
 ## Process flow 
-![<img src="instruction_sequence.png" width="400"/>](/assets/images/instructional_timeline.png)
+<!-- !align: center -->
+![<img src="instructional_timeline.png" width="400"/>](/assets/images/instructional_timeline.png)
 A standard daily instructional funding cycle requires the user to check through virtual account balances, check transactions, send instructions during the instructional hold window, and then reconcile using settlement endpoints and any other additional reconciliation required. A standard cycle  will look similar to the below process diagram:
 <!-- !align: center -->
 ![<img src="instruction_sequence.png" width="400"/>](/assets/images/instruction_sequence.png)
