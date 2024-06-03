@@ -21,15 +21,15 @@ Virtual accounts hold calculated funding information for sub-merchants in order 
 
 The `/account/trade-info` endpoint allows the PayFac to retrieve a transaction summary of the merchant MID on a specific date. This is segregated by trade accounts, which return the following categorised 'accounts' : 
 
-| Category      | Key | Description |
-| :---:        |    :----:   |:-------: |
-| Gross Transaction Amount      | transaction_amount       | The gross amount of transactions recieved today |
-| Refund Amount   | refund_amount        | The transactional amount of refunds that have been loaded in today. |
-| Rejected Amount   | rejected_amount        | The amount of rejected transactions that have been loaded in today. |
-| Deposit Adjustment Amount      | deposit_adjustment_amount       | The transactional amount of Deposit Adjustments that have been loaded in today. Typically, these match a Rejected tranasction |
-| Net Transaction Amount   | net_transaction_amount        | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for intsructional funding clients). net_transaction_amount =  transaction_amount - refund_amount + rejected_amount - deposit_adjustments_amount. |
-| Chargeback Amount      | chargeback_amount       | Reported chargeback amounts that we have loaded in today. Typically matches a Chargeback Adjustment. |
-| Chargeback Reversal Amount   | chargeback_reversal_amount        | Reported chargeback Adjustment amounts that we have loaded in today. This amount reflects actual financial movement that has occured. Does not affect net tranasction amount or instructional hold balance. |
+| Category                   | Key                         | Description                                                                                                              |
+|----------------------------|-----------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Gross Transaction Amount   | transaction_amount          | The gross amount of transactions received today.                                                                         |
+| Refund Amount              | refund_amount               | The transactional amount of refunds that have been loaded in today.                                                      |
+| Rejected Amount            | rejected_amount             | The amount of rejected transactions that have been loaded in today.                                                      |
+| Deposit Adjustment Amount  | deposit_adjustment_amount   | The transactional amount of Deposit Adjustments that have been loaded in today. Typically, these match a Rejected transaction |
+| Net Transaction Amount     | net_transaction_amount      | The Net amount of transactions for the submerchant today. This amount will be moved into the instructional hold (for instructional funding clients). net_transaction_amount = transaction_amount - refund_amount + rejected_amount - deposit_adjustment_amount. |
+| Chargeback Amount          | chargeback_amount           | Reported chargeback amounts that we have loaded in today. Typically matches a Chargeback Adjustment.                      |
+| Chargeback Reversal Amount | chargeback_reversal_amount  | Reported chargeback Adjustment amounts that we have loaded in today. This amount reflects actual financial movement that has occurred. Does not affect net transaction amount or instructional hold balance. |
 
 ### Instructional hold account
 
