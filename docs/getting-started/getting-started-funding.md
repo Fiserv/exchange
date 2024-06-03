@@ -7,6 +7,9 @@ This section regards models for funding that require API instructions to be sent
 
 ### What is Instructional funding?
 
+<!-- !align: center -->
+![<img src="instructional_timeline.png" width="600"/>](/assets/images/instructional_timeline.png)
+
 Instructional funding, allows the use of the `/funding/instruction` endpoint in order to direct funds in the instructional hold for a given merchant ID, where the merchant revenue amount and PayFac fee amount is directed by the request. 
 Instructional funding also supports instructions sent through the `/funding/detailed-instruction` endpoint, where additional information can be added within an instruction through a 'details' block for reporting purposes. (details do not affect the funding, just act as information)
 
@@ -90,8 +93,7 @@ The response of the instructional hold API will report the movement from the ins
 
 
 ## Process flow 
-<!-- !align: center -->
-![<img src="instructional_timeline.png" width="400"/>](/assets/images/instructional_timeline.png)
+
 A standard daily instructional funding cycle requires the user to check through virtual account balances, check transactions, send instructions during the instructional hold window, and then reconcile using settlement endpoints and any other additional reconciliation required. A standard cycle  will look similar to the below process diagram:
 <!-- !align: center -->
 ![<img src="instruction_sequence.png" width="400"/>](/assets/images/instruction_sequence.png)
