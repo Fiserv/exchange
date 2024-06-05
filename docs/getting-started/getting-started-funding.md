@@ -19,14 +19,65 @@ The instructional API supports different scenarios for funding by using the diff
 
 #### Funding
 
-The funding block is 
+The funding block is used to instruct amounts with the source being the instructional hold, primarily used for NET funding. 
+In the below example for Net funding, we include the Revenue, Chargeback, and Fee in the funding block to achieve a NET scenario.
+Chargeback Validation will check that the chargeback account can support this amount being taken.
+
+ "type": "DEBIT" -> Credits the instructional hold from the specified account, cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.
+ "type:: "CREDIT" -> Credits the specified account from the instructional hold
+
+
+<!-- theme: info -->
+>**IH Balance: 100** ``
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "84.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "10.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
+The settlement that will generate from this instruction will be a Net settlement of 84.50 to the submerchant
 
 #### Billing
 
+The billing block is used to call out specific fee amounts to be collected, and can support billing gross fees + Service fees (depending on configuration of the submerchant). This is primarily used as part of a gross instruction.
+
+ "type": "DEBIT" -> Not supported for the Billing block
+ "type:: "CREDIT" -> Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+
 #### Chargeback
+
+The Chargeback block is used to support recouping a chargeback amount, and debit the submerchant as part of a gross instruction.
+Validation will check that the chargeback account can support this amount being taken.
+
+ "type": "DEBIT" -> Reimbursing a chargeback reversal to the submerchant
+ "type:: "CREDIT" -> Recoups a chargeback amount to the Aggregator
 
 #### Adjustment
 
+Accounts block for adjustments, primarily used for adjusting amounts in the system. This block may also be used in Auto funding scenarios. Description is required to be provided
+
+Must have two accounts specified, where one is a type CREDIT and one a type DEBIT of the same amounts.
+
+ "type": "DEBIT" -> Adjusts the amount from this account.
+ "type": "CREDIT" -> Adjusts the amount to this account.
 
 ### Constructing the request
 
