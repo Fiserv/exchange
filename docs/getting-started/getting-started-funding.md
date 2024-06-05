@@ -19,16 +19,19 @@ The instructional API supports different scenarios for funding by using the diff
 
 #### Funding
 
-The funding block is used to instruct amounts with the source being the instructional hold, primarily used for NET funding. 
+The funding block is used to instruct amounts where the source of the instruction is the instructional hold, primarily used for NET funding. 
 In the below example for Net funding, we include the Revenue, Chargeback, and Fee in the funding block to achieve a NET scenario.
 Chargeback Validation will check that the chargeback account can support this amount being taken.
 
- "type": "DEBIT" -> Credits the instructional hold from the specified account, cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.
- "type:: "CREDIT" -> Credits the specified account from the instructional hold
+The account types affect what action is taken on the account.
+For the funding block:
+`type: CREDIT` Credits the specified account from the available instructional hold balance.
+`type: DEBIT` Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.
+
 
 
 <!-- theme: info -->
->**IH Balance: 100** ``
+>**IH Balance: 100** 
 
 ```json
 {
@@ -53,7 +56,7 @@ Chargeback Validation will check that the chargeback account can support this am
   ]
 }
 ```
-The settlement that will generate from this instruction will be a Net settlement of 84.50 to the submerchant
+The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
 
 #### Billing
 
@@ -61,6 +64,30 @@ The billing block is used to call out specific fee amounts to be collected, and 
 
  "type": "DEBIT" -> Not supported for the Billing block
  "type:: "CREDIT" -> Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "84.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "10.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
 
 #### Chargeback
 
