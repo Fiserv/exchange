@@ -24,8 +24,13 @@ Chargeback Validation will check that the chargeback account can support this am
 
 The account types affect what action is taken on the account.
 For the funding block:
-`type: CREDIT` Credits the specified account from the available instructional hold balance.
-`type: DEBIT` Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.
+<ul>
+  <li>`type: CREDIT` Credits the specified account from the available instructional hold balance./li>
+  <li>`type: DEBIT` Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
+</ul>
+
+
+
 
 
 
