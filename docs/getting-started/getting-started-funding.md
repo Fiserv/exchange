@@ -171,7 +171,6 @@ Supported accounts added to this request include:
 
 <!-- type: tab-end -->
 
----
 
 ## Response
 
@@ -260,4 +259,3 @@ Supported accounts added to this request include:
 
 <!-- type: tab-end -->
 
----
