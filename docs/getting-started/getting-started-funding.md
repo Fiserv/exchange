@@ -1,7 +1,6 @@
 # Funding
 
-#### On this section
-This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the sub-merchants for the system to process the funding automatically.
+This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the sub-merchants for the system to process the funding automatically. However, adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
 
 ## Instructional Funding
 
@@ -62,8 +61,10 @@ The settlement that will generate from this instruction will be a settlement of 
 
 The billing block is used to call out specific fee amounts to be collected, and can support billing gross fees + Service fees (depending on configuration of the submerchant). This is primarily used as part of a gross instruction.
 
- "type": "DEBIT" -> Not supported for the Billing block
- "type:: "CREDIT" -> Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+For the billing block:
+`type: CREDIT` Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+`type: DEBIT` Not supported for the Billing block
+
 
 ```json
 {
@@ -94,8 +95,9 @@ The billing block is used to call out specific fee amounts to be collected, and 
 The Chargeback block is used to support recouping a chargeback amount, and debit the submerchant as part of a gross instruction.
 Validation will check that the chargeback account can support this amount being taken.
 
- "type": "DEBIT" -> Reimbursing a chargeback reversal to the submerchant
- "type:: "CREDIT" -> Recoups a chargeback amount to the Aggregator
+For the Chargeback block:
+`type: CREDIT` Recoups a chargeback amount to the Aggregator
+`type: DEBIT`  Reimbursing a chargeback reversal to the submerchant
 
 #### Adjustment
 
@@ -103,8 +105,9 @@ Accounts block for adjustments, primarily used for adjusting amounts in the syst
 
 Must have two accounts specified, where one is a type CREDIT and one a type DEBIT of the same amounts.
 
- "type": "DEBIT" -> Adjusts the amount from this account.
- "type": "CREDIT" -> Adjusts the amount to this account.
+For the Adjustment block:
+`type: CREDIT` Adjusts the amount to this account.
+`type: DEBIT`  Adjusts the amount from this account.
 
 ### Constructing the request
 
@@ -125,11 +128,11 @@ Supported accounts added to this request include:
 
 | Category    | Key                 | Description                                         |
 |-------------|---------------------|-----------------------------------------------------|
-| FEE         | FEE_ACCOUNT         | Account used for tracking fees collected.            |
-| REVENUE     | REVENUE_ACCOUNT     | Account where net revenue is recorded and tracked.  |
-| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account for recording revenue related to chargebacks. |
-| SPLIT       | SPLIT_ACCOUNT       | Account utilized when splitting funds for instructional purposes. |
-| RESERVE     | RESERVE_ACCOUNT     | Account holding funds in reserve for contingencies. |
+| FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the submerchants Revenue account. Funds moved here will be credited to the submerchant.  |
+| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
+| SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
+| RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 
 ```json
 
@@ -204,11 +207,11 @@ Supported accounts added to this request include:
 
 | Category    | Key                 | Description                                         |
 |-------------|---------------------|-----------------------------------------------------|
-| FEE         | FEE_ACCOUNT         | Account used for tracking fees collected.            |
-| REVENUE     | REVENUE_ACCOUNT     | Account where net revenue is recorded and tracked.  |
-| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account for recording revenue related to chargebacks. |
-| SPLIT       | SPLIT_ACCOUNT       | Account utilized when splitting funds for instructional purposes. |
-| RESERVE     | RESERVE_ACCOUNT     | Account holding funds in reserve for contingencies. |
+| FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the submerchants Revenue account. Funds moved here will be credited to the submerchant.  |
+| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
+| SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
+| RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 
 ```json
 
