@@ -1,6 +1,6 @@
 # Funding
 
-This section regards models for funding that require API instructions to be sent. This does not cover the managed funding solution, as this does not require api to be sent in order for the funding process to occur and is added as a 'pricing' when boarding the sub-merchants for the system to process the funding automatically. However, adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
+This section explores instructions that can be sent by API for funding. THis primarily focuses on instructional funding, however adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
 
 ## Instructional Funding
 
@@ -179,7 +179,7 @@ A standard daily instructional funding cycle requires the user to check through 
 <!-- !align: center -->
 ![<img src="instruction_sequence.png" width="400"/>](/assets/images/instruction_sequence.png)
 
-## Instructional Split Funding
+## Split Funding
 
 ### What is split funding?
 Split funding allows the PayFac to direct funds from a processing sub-merchant to third parties on the system. Three of the split funding solutions we offer require or allow instructions to be sent by API to facilitate funding. This page contains info for one method, Instructional split. 
