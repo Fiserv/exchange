@@ -30,7 +30,9 @@ For the funding block:
 </ul>
 
 <!-- theme: info -->
->**IH Balance: 100** 
+>**IH Balance: 100**
+
+##### Request:
 
 ```json
 {
@@ -110,7 +112,7 @@ Example on how a submerchant could be billed an additional amount, outside of wh
 <!-- theme: info -->
 >**IH Balance: 0**
 
-##### Request
+##### Request:
 
 ```json
 {
@@ -151,7 +153,7 @@ Please see two examples by switching the tab, on how the chargeback block can be
 <!-- theme: danger -->
 >**CB Account Balance: 10.50** 
 
-##### Request
+##### Request:
 
 ```json
 {
@@ -190,7 +192,7 @@ Example on how a chargeback reversal can be credited back to the submerchant in 
 <!-- theme: danger -->
 >**CB Account Balance: -10** 
 
-##### Request
+##### Request:
 
 ```json
 {
@@ -240,7 +242,7 @@ For the Adjustment block:
 <!-- theme: danger -->
 >**Fee Account Balance: 2** 
 
-##### Request
+##### Request:
 
 ```json
 {
@@ -294,7 +296,7 @@ Supported accounts added to this request include:
 | SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
 | RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 
-##### Request
+##### Request:
 
 ```json
 
