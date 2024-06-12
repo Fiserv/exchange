@@ -79,6 +79,8 @@ Please see two examples by switching the tab,  on how the billing block can be u
 <!-- theme: info -->
 >**IH Balance: 100** 
 
+##### Request:
+
 ```json
 {
     "merchant_id": "520000000321",
@@ -106,7 +108,9 @@ Please see two examples by switching the tab,  on how the billing block can be u
 Example on how a submerchant could be billed an additional amount, outside of what is in the instructional hold.
 
 <!-- theme: info -->
->**IH Balance: 0** 
+>**IH Balance: 0**
+
+##### Request
 
 ```json
 {
@@ -147,6 +151,8 @@ Please see two examples by switching the tab, on how the chargeback block can be
 <!-- theme: danger -->
 >**CB Account Balance: 10.50** 
 
+##### Request
+
 ```json
 {
   "merchant_id": "520000000321",
@@ -183,6 +189,8 @@ Example on how a chargeback reversal can be credited back to the submerchant in 
 >**IH Balance: 100**
 <!-- theme: danger -->
 >**CB Account Balance: -10** 
+
+##### Request
 
 ```json
 {
@@ -232,6 +240,8 @@ For the Adjustment block:
 <!-- theme: danger -->
 >**Fee Account Balance: 2** 
 
+##### Request
+
 ```json
 {
   "merchant_id": "520000000321",
@@ -262,7 +272,13 @@ titles: Instructional funding, JSON Instructional funding example
 
 The Instructional funding request will be constructed based on how the PayFac wants to fund the sub-merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken. The request is grouped by three types of money movement - Funding, Billing, and Chargeback. These all have their own respective accounts that can be sent as credits, debits, and split.
 
----
+| Category    | Key                 | Description                                         |
+|-------------|---------------------|-----------------------------------------------------|
+| FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the submerchants Revenue account. Funds moved here will be credited to the submerchant.  |
+| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
+| SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
+| RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 
 <!-- type: tab -->
 
@@ -277,6 +293,8 @@ Supported accounts added to this request include:
 | CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
 | SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
 | RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
+
+##### Request
 
 ```json
 
@@ -318,7 +336,7 @@ The response of the instructional hold API will report the movement from the ins
 
 ## Process flow 
 
-A standard daily instructional funding cycle requires the user to check through virtual account balances, check transactions, send instructions during the instructional hold window, and then reconcile using settlement endpoints and any other additional reconciliation required. A standard cycle  will look similar to the below process diagram:
+A standard daily instructional funding cycle requires the user to check through virtual account balances, check transactions, send instructions during the instructional hold window, and then reconcile using settlement endpoints and any other additional reconciliation required. A standard cycle will look similar to the below process diagram, where the instructions are actioned on item 4 below.
 <!-- !align: center -->
 ![<img src="instruction_sequence.png" width="400"/>](/assets/images/instruction_sequence.png)
 
