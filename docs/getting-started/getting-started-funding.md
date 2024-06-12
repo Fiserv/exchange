@@ -1,6 +1,6 @@
 # Funding
 
-This section explores instructions that can be sent by API for funding. THis primarily focuses on instructional funding, however adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
+This section explores instructions that can be sent by API for funding. This primarily focuses on instructional funding, however adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
 
 ## Instructional Funding
 
@@ -25,8 +25,8 @@ Chargeback Validation will check that the chargeback account can support this am
 The account types affect what action is taken on the account.
 For the funding block:
 <ul>
-  <li>`type: CREDIT` Credits the specified account from the available instructional hold balance./li>
-  <li>`type: DEBIT` Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
+  <li> type: CREDIT - Credits the specified account from the available instructional hold balance./li>
+  <li> type: DEBIT - Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
 </ul>
 
 
@@ -67,8 +67,11 @@ The settlement that will generate from this instruction will be a settlement of 
 The billing block is used to call out specific fee amounts to be collected, and can support billing gross fees + Service fees (depending on configuration of the submerchant). This is primarily used as part of a gross instruction.
 
 For the billing block:
-`type: CREDIT` Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
-`type: DEBIT` Not supported for the Billing block
+<ul>
+  <li> type: CREDIT - Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+  <li> type: DEBIT - Not supported for the Billing block
+</ul>
+
 
 
 ```json
@@ -101,8 +104,10 @@ The Chargeback block is used to support recouping a chargeback amount, and debit
 Validation will check that the chargeback account can support this amount being taken.
 
 For the Chargeback block:
-`type: CREDIT` Recoups a chargeback amount to the Aggregator
-`type: DEBIT`  Reimbursing a chargeback reversal to the submerchant
+<ul>
+  <li> type: CREDIT - Recoups a chargeback amount to the Aggregator
+  <li> type: DEBIT -  Reimbursing a chargeback reversal to the submerchant
+</ul>
 
 #### Adjustment
 
@@ -111,8 +116,10 @@ Accounts block for adjustments, primarily used for adjusting amounts in the syst
 Must have two accounts specified, where one is a type CREDIT and one a type DEBIT of the same amounts.
 
 For the Adjustment block:
-`type: CREDIT` Adjusts the amount to this account.
-`type: DEBIT`  Adjusts the amount from this account.
+<ul>
+  <li> type: CREDIT - Adjusts the amount to this account.
+  <li> type: DEBIT -  Adjusts the amount from this account.
+</ul>
 
 ### Constructing the request
 
