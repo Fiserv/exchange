@@ -1,6 +1,6 @@
 # Funding
 
-This section explores instructions that can be sent by API for funding. THis primarily focuses on instructional funding, however adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
+This section explores instructions that can be sent by API for funding. This primarily focuses on instructional funding, however adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.
 
 ## Instructional Funding
 
@@ -25,14 +25,9 @@ Chargeback Validation will check that the chargeback account can support this am
 The account types affect what action is taken on the account.
 For the funding block:
 <ul>
-  <li>`type: CREDIT` Credits the specified account from the available instructional hold balance./li>
-  <li>`type: DEBIT` Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
+  <li> type: CREDIT - Credits the specified account from the available instructional hold balance./li>
+  <li> type: DEBIT - Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
 </ul>
-
-
-
-
-
 
 <!-- theme: info -->
 >**IH Balance: 100** 
@@ -67,9 +62,90 @@ The settlement that will generate from this instruction will be a settlement of 
 The billing block is used to call out specific fee amounts to be collected, and can support billing gross fees + Service fees (depending on configuration of the submerchant). This is primarily used as part of a gross instruction.
 
 For the billing block:
-`type: CREDIT` Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
-`type: DEBIT` Not supported for the Billing block
+<ul>
+  <li> type: CREDIT - Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+  <li> type: DEBIT - Not supported for the Billing block
+</ul>
 
+
+
+<!--
+type: tab
+titles: Gross Billing Example, Billing Example
+-->
+
+Please see two examples by switching the tab,  on how the billing block can be used. This sample shows how the billing block can be used to bill for a gross instruction. 
+
+<!-- theme: info -->
+>**IH Balance: 100** 
+
+```json
+{
+    "merchant_id": "520000000321",
+    "currency": "USD",
+    "funding": [
+        {
+            "account_type": "REVENUE",
+            "amount": "78.30",
+            "type": "CREDIT"
+        }
+    ],
+    "billing": [
+        {
+            "account_type": "GROSS_FEE",
+            "amount": "5.10",
+            "type": "CREDIT"
+        }
+    ]
+}   
+
+```
+
+<!-- type: tab -->
+
+Example on how a submerchant could be billed an additional amount, outside of what is in the instructional hold.
+
+<!-- theme: info -->
+>**IH Balance: 0** 
+
+```json
+{
+    "merchant_id": "520000000321",
+    "currency": "USD",
+    "billing": [
+        {
+            "account_type": "GROSS_FEE",
+            "amount": "15.00",
+            "type": "CREDIT"
+        }
+    ]
+}
+```
+
+<!-- type: tab-end -->
+
+#### Chargeback
+
+The Chargeback block is used to support recouping a chargeback amount, and debit the submerchant as part of a gross instruction.
+Validation will check that the chargeback account can support this amount being taken.
+
+For the Chargeback block:
+<ul>
+  <li> type: CREDIT - Recoups a chargeback amount to the Aggregator
+  <li> type: DEBIT -  Reimbursing a chargeback reversal to the submerchant
+</ul>
+
+<!--
+type: tab
+titles: Debit Chargeback Example, Gross Reversal Example
+-->
+
+Please see two examples by switching the tab, on how the chargeback block can be used. This sample shows how the chargeback block can be used to debit the chargeback amount on top of a standard Net instruction
+
+<!-- theme: info -->
+>**IH Balance: 100**
+<!-- theme: danger -->
+>**CB Account Balance: 10.50** 
 
 ```json
 {
@@ -78,12 +154,7 @@ For the billing block:
   "funding": [
     {
       "account_type": "REVENUE",
-      "amount": "84.50",
-      "type": "CREDIT"
-    },
-    {
-      "account_type": "CHARGEBACK",
-      "amount": "10.50",
+      "amount": "95.00",
       "type": "CREDIT"
     },
     {
@@ -91,29 +162,97 @@ For the billing block:
       "amount": "5.00",
       "type": "CREDIT"
     }
+  ],
+  "chargeback": [
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "10.50",
+      "type": "CREDIT"
+    }
   ]
 }
+
+
 ```
 
-#### Chargeback
+<!-- type: tab -->
 
-The Chargeback block is used to support recouping a chargeback amount, and debit the submerchant as part of a gross instruction.
-Validation will check that the chargeback account can support this amount being taken.
+Example on how a chargeback reversal can be credited back to the submerchant in a gross instruction.
 
-For the Chargeback block:
-`type: CREDIT` Recoups a chargeback amount to the Aggregator
-`type: DEBIT`  Reimbursing a chargeback reversal to the submerchant
+<!-- theme: info -->
+>**IH Balance: 100**
+<!-- theme: danger -->
+>**CB Account Balance: -10** 
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "100.00",
+      "type": "CREDIT"
+    }
+  ],
+  "billing": [
+    {
+      "account_type": "GROSS_FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ],
+  "chargeback": [
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "10.00",
+      "type": "DEBIT"
+    }
+  ]
+}
+
+```
+
+<!-- type: tab-end -->
 
 #### Adjustment
 
-Accounts block for adjustments, primarily used for adjusting amounts in the system. This block may also be used in Auto funding scenarios. Description is required to be provided
+Accounts block for adjustments, primarily used for adjusting amounts in the system, after the instruction or movement has been made to move the amount into Revenue, Fee or Hold. This block may also be used in Auto funding scenarios. Description is required to be provided.
 
 Must have two accounts specified, where one is a type CREDIT and one a type DEBIT of the same amounts.
 
 For the Adjustment block:
-`type: CREDIT` Adjusts the amount to this account.
-`type: DEBIT`  Adjusts the amount from this account.
+<ul>
+  <li> type: CREDIT - Adjusts the amount to this account.
+  <li> type: DEBIT -  Adjusts the amount from this account.
+</ul>
 
+<!-- theme: info -->
+>**Revenue Account Balance: 20**
+<!-- theme: danger -->
+>**Fee Account Balance: 2** 
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "adjustment": [
+    {
+      "account_type": "REVENUE",
+      "amount": "15.00",
+      "type": "CREDIT",
+      "description": "Monthly Fee Adjustment"
+    },
+    {
+      "account_type": "FEE",
+      "amount": "15.00",
+      "type": "DEBIT",
+      "description": "Monthly Fee Adjustment"
+    }
+  ]
+}
+
+```
 ### Constructing the request
 
 <!--
