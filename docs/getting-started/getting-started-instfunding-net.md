@@ -114,4 +114,8 @@ If managing the Chargeback balances outside the system, additional amounts to re
 }
 ```
 
+## Reimbursing the Submerchant
+
+There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
+
 
