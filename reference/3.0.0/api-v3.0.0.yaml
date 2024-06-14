@@ -16210,7 +16210,9 @@ components:
       properties:
         account_type:
           type: string
-          description: account type - Cannot be empty.
+          minLength: 3
+          maxLength: 27
+          description: "Account type - Cannot be empty."
           example: "REVENUE"
           enum:
             - CHARGEBACK_ACCOUNT
@@ -16261,7 +16263,9 @@ components:
             - SPLIT
         balance:
           type: string
-          description: account balance - Cannot be empty.
+          minLength: 4
+          maxLength: 4
+          description: "Balance of the specified account. 2 d.p. Cannot be empty"
           example: "12.13"
     SummaryAccounts:
       type: object
