@@ -10,11 +10,6 @@ Instructional Split funding extends the functionality of the `/funding/instructi
 
 ## Constructing a NET instruction 
 
-<!--
-type: tab
-titles: Net funding, JSON instructional funding example
--->
-
 The funding block is used to instruct amounts where the source of the instruction is the instructional hold.
 In the below example for Net funding, we include the Revenue, Chargeback, and Fee in the funding block to achieve a NET scenario.
 Chargeback Validation will check that the chargeback account can support this amount being taken.
@@ -26,7 +21,7 @@ For the funding block:
   <li> type: DEBIT - Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
 </ul>
 
-<!-- theme: sucess -->
+<!-- theme: success -->
 >**IH Balance: 100**
 
 ##### Request:
@@ -55,5 +50,68 @@ For the funding block:
 }
 ```
 The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
+
+## Managing Chargeback through NET instructions
+
+Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
+
+The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occured, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"` 
+
+### Using the Chargeback account
+
+In order to use the chargeback account in the instruction, the `"account_type": "CHARGEBACK"` must be specified. This will make the instruction validate against the current Chargeback Virtual Account Balance.
+<!-- theme: success -->
+>**IH Balance: 25**
+
+<!-- theme: warning -->
+>**cB Virtual Account Balance: 5.00**
+##### Request:
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "20.00",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
+
+### Rolling this up into the Fee amount
+
+If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a seperate Gross Fee. Adding to your NET funding would look like the below :
+
+<!-- theme: success -->
+>**IH Balance: 25**
+
+<!-- theme: warning -->
+>**Standard Fee of 0.32 taken**
+##### Request:
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "20.00",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "FEE",
+      "amount": "5.32",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
 
 
