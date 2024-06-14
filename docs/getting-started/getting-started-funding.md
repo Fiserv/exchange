@@ -337,8 +337,53 @@ Supported accounts added to this request include:
 <!-- type: tab-end -->
 
 
-## Response
+## Responses
 
-The response of the instructional hold API will report the movement from the instruction. 
+The response of the instructional funding API will report the movement from the instructions that were sent. This will include the current values of the accounts after the instruction. So if the instruction impacts the `Instructional Hold Account` for example, the response will provide the new balance after the instruction.
 
+#### Example Request: 
+<!-- theme: sucess -->
+>**IH Balance: 200**
+>
+```json
+{
+  "merchant_id": "322543210001",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "FEE",
+      "amount": "3.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "REVENUE",
+      "amount": "130.00",
+      "type": "CREDIT"
+    } 
+  ]
+}
+```
+#### Response:
 
+```json
+{
+    "result": "SUCCESS",
+    "summary": {
+        "accounts": [
+            {
+                "account_type": "INSTRUCTIONAL_HOLD_ACCOUNT",
+                "balance": "66.50"
+            },
+            {
+                "account_type": "FEE",
+                "balance": "3.50"
+            },
+            {
+                "account_type": "REVENUE",
+                "balance": "130.00"
+            }
+        ],
+        "instruction_tracker": ""
+    }
+}
+```
