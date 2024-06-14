@@ -1,1 +1,123 @@
+# Gross Instructional Funding
+
+This section will focus on creating Funding instructions for Gross scenarios. Please refer to the main [Funding](?path=docs/getting-started/getting-started-funding.md) page first for details on the Accounts and Process flow.
+
+## What is Gross Instructional funding?
+
+For Gross instructions, we will create one settlement for Credits, **and** one for debits (Where as Net funding is one overall settlement). This is primarily done by utilising the `FUNDING`, `BILLING` and `CHARGEBACK` block on the `/funding/instruction` endpoint.
+
+## Constructing a Gross instruction 
+
+The blocks in the funding instruction will specify each amount seperately, rather than rolled into the funding block like Net funding. 
+This means that for an instructional hold balance of 100, you would need to send the funding and billing amounts gross using their respective blocks. 
+Please see below example:
+<!-- theme: success -->
+>**IH Balance: 100**
+
+##### Request:
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "100.00",
+      "type": "CREDIT"
+    }
+  ],
+  "billing": [
+    {
+      "account_type": "GROSS_FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ],
+  "chargeback": [
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "10.00",
+      "type": "CREDIT"
+    }
+  ]
+}
+
+```
+This instruction would generate settlements of $100.00 Credit to the submerchant, a settlement of $15.00 Debit to the submerchant and a Credit settlement of $15.50 to the Aggregator.
+
+## Managing Chargeback through NET instructions
+
+Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
+
+The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occured, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Net instructions, seen below.
+
+### Using the Chargeback account
+
+In order to use the chargeback account in the instruction, the `"account_type": "CHARGEBACK"` must be specified. This will make the instruction validate against the current Chargeback Virtual Account Balance.
+<!-- theme: success -->
+>**IH Balance: 25**
+
+<!-- theme: warning -->
+>**CB Virtual Account Balance: 5.00**
+##### Request:
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "20.00",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
+
+### Using the Fee Account
+
+If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a seperate Gross Fee. Adding to your NET funding would look like the below :
+
+<!-- theme: success -->
+>**IH Balance: 25**
+
+<!-- theme: warning -->
+>**Standard Fee of 0.32 taken**
+##### Request:
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "20.00",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "FEE",
+      "amount": "5.32",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
+
+## Reimbursing the Submerchant
+
+There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
+
+## Reimbursing the Aggregator
+
+Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made to balance the instruction. 
+
+## Splitting to third parties through Net Funding
+
+For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 

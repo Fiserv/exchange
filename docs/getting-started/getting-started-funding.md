@@ -79,7 +79,7 @@ For the billing block:
 
 <!--
 type: tab
-titles: Gross Billing Example, Billing Example
+titles: Gross Billing Example, Ahdoc Billing Example
 -->
 
 Please see two examples by switching the tab,  on how the billing block can be used. This sample shows how the billing block can be used to bill for a gross instruction. 
@@ -271,6 +271,11 @@ For the Adjustment block:
 }
 
 ```
+### Negative Instructional Hold Balances
+
+A negative instructional hold balance that is left in the instructional hold account when the window closes will be debited from the responsible party. 
+The responsible party by default is the Aggregator. If an instruction is made to make the account whole before the window closes, the responsible party will not be debited.
+
 ### Constructing the request
 
 <!--
