@@ -56,17 +56,4 @@ For the funding block:
 ```
 The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
 
----
-
-<!-- type: tab -->
-
-JSON format for `/funding/instruction` , where `REVENUE_ACCOUNT` defines the merchant revenue received from Instructional hold and `FEE_ACCOUNT` defines the PayFac fee taken and `SPLIT_ACCOUNT` is used to define the split amounts sent to third parties. The `"split_details"` block can direct funds to multiple third parties on the system, where the mid used `merchant_id` will be the `internal_mid` of the third party on the system. 
-
-Supported accounts added to this request include:
-
-```json
-
-```
-
-<!-- type: tab-end -->
 
