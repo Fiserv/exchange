@@ -55,7 +55,7 @@ The settlement that will generate from this instruction will be a settlement of 
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
-The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occured, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"` 
+The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occured, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Net instructions, seen below.
 
 ### Using the Chargeback account
 
@@ -85,7 +85,7 @@ In order to use the chargeback account in the instruction, the `"account_type": 
 }
 ```
 
-### Rolling this up into the Fee amount
+### Using the Fee Account
 
 If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a seperate Gross Fee. Adding to your NET funding would look like the below :
 
@@ -118,4 +118,11 @@ If managing the Chargeback balances outside the system, additional amounts to re
 
 There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
 
+## Reimbursing the Aggregator
+
+Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made to balance the instruction. 
+
+## Splitting to third parties through Net Funding
+
+For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 
