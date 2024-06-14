@@ -79,7 +79,7 @@ For the billing block:
 
 <!--
 type: tab
-titles: Gross Billing Example, Billing Example
+titles: Gross Billing Example, Ahdoc Billing Example
 -->
 
 Please see two examples by switching the tab,  on how the billing block can be used. This sample shows how the billing block can be used to bill for a gross instruction. 
