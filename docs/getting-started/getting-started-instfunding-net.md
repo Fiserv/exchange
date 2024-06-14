@@ -1,4 +1,4 @@
-# Net Instructional Funding Funding
+# Net Instructional Funding 
 
 This section will focus on creating Funding instructions for NET scenarios. Please refer to the main [Funding](?path=docs/getting-started/getting-started-funding.md) page first for details on the Accounts and Process flow.
 
