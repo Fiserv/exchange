@@ -64,7 +64,7 @@ In order to use the chargeback account in the instruction, the `"account_type": 
 >**IH Balance: 25**
 
 <!-- theme: warning -->
->**cB Virtual Account Balance: 5.00**
+>**CB Virtual Account Balance: 5.00**
 ##### Request:
 ```json
 {
