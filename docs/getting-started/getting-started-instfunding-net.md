@@ -4,18 +4,57 @@ This section will focus on creating Funding instructions for NET scenarios. Plea
 
 ## What is Net Instructional funding?
 
-For NET instructions, we always try to net out any billing before generating settlement. This is primarily done by utilising the `FUNDING` block on the `/funding/instruction` endpoint.
+For NET instructions, we always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the submerchant. This is primarily done by utilising the `FUNDING` block on the `/funding/instruction` endpoint.
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
-## Constructing the split instruction request
+## Constructing a NET instruction 
 
 <!--
 type: tab
-titles: Split instructional funding, JSON instructional funding example
+titles: Net funding, JSON instructional funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the proessing merchants instructional hold, and define split amounts sent to non-processing merchants. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md) and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken and to define the split.
+The funding block is used to instruct amounts where the source of the instruction is the instructional hold.
+In the below example for Net funding, we include the Revenue, Chargeback, and Fee in the funding block to achieve a NET scenario.
+Chargeback Validation will check that the chargeback account can support this amount being taken.
+
+The account types affect what action is taken on the account.
+For the funding block:
+<ul>
+  <li> type: CREDIT - Credits the specified account from the available instructional hold balance./li>
+  <li> type: DEBIT - Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
+</ul>
+
+<!-- theme: sucess -->
+>**IH Balance: 100**
+
+##### Request:
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "84.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "CHARGEBACK",
+      "amount": "10.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "FEE",
+      "amount": "5.00",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
+The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
 
 ---
 

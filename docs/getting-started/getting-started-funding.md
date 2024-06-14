@@ -35,7 +35,7 @@ For the funding block:
   <li> type: DEBIT - Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
 </ul>
 
-<!-- theme: info -->
+<!-- theme: sucess -->
 >**IH Balance: 100**
 
 ##### Request:
@@ -84,7 +84,7 @@ titles: Gross Billing Example, Billing Example
 
 Please see two examples by switching the tab,  on how the billing block can be used. This sample shows how the billing block can be used to bill for a gross instruction. 
 
-<!-- theme: info -->
+<!-- theme: sucess -->
 >**IH Balance: 100** 
 
 ##### Request:
@@ -115,7 +115,7 @@ Please see two examples by switching the tab,  on how the billing block can be u
 
 Example on how a submerchant could be billed an additional amount, outside of what is in the instructional hold.
 
-<!-- theme: info -->
+<!-- theme: sucess -->
 >**IH Balance: 0**
 
 ##### Request:
@@ -154,7 +154,7 @@ titles: Debit Chargeback Example, Gross Reversal Example
 
 Please see two examples by switching the tab, on how the chargeback block can be used. This sample shows how the chargeback block can be used to debit the chargeback amount on top of a standard Net instruction
 
-<!-- theme: info -->
+<!-- theme: sucess -->
 >**IH Balance: 100**
 <!-- theme: danger -->
 >**CB Account Balance: 10.50** 
@@ -193,7 +193,7 @@ Please see two examples by switching the tab, on how the chargeback block can be
 
 Example on how a chargeback reversal can be credited back to the submerchant in a gross instruction.
 
-<!-- theme: info -->
+<!-- theme: sucess -->
 >**IH Balance: 100**
 <!-- theme: danger -->
 >**CB Account Balance: -10** 
@@ -243,7 +243,7 @@ For the Adjustment block:
   <li> type: DEBIT -  Adjusts the amount from this account.
 </ul>
 
-<!-- theme: info -->
+<!-- theme: sucess -->
 >**Revenue Account Balance: 20**
 <!-- theme: danger -->
 >**Fee Account Balance: 2** 
@@ -337,8 +337,53 @@ Supported accounts added to this request include:
 <!-- type: tab-end -->
 
 
-## Response
+## Responses
 
-The response of the instructional hold API will report the movement from the instruction. 
+The response of the instructional funding API will report the movement from the instructions that were sent. This will include the current values of the accounts after the instruction. So if the instruction impacts the `Instructional Hold Account` for example, the response will provide the new balance after the instruction.
 
+#### Example Request: 
+<!-- theme: sucess -->
+>**IH Balance: 200**
+>
+```json
+{
+  "merchant_id": "322543210001",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "FEE",
+      "amount": "3.50",
+      "type": "CREDIT"
+    },
+    {
+      "account_type": "REVENUE",
+      "amount": "130.00",
+      "type": "CREDIT"
+    } 
+  ]
+}
+```
+#### Response:
 
+```json
+{
+    "result": "SUCCESS",
+    "summary": {
+        "accounts": [
+            {
+                "account_type": "INSTRUCTIONAL_HOLD_ACCOUNT",
+                "balance": "66.50"
+            },
+            {
+                "account_type": "FEE",
+                "balance": "3.50"
+            },
+            {
+                "account_type": "REVENUE",
+                "balance": "130.00"
+            }
+        ],
+        "instruction_tracker": ""
+    }
+}
+```

@@ -1197,6 +1197,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FundingInstructionResponse'
+              examples:
+                NetInstructionResponse:
+                  description: "Example response for a Net funding scenario, where original IH balance was 200"
+                  summary: 'Example response for a Net funding scenario, where original IH balance was 200'
+                  $ref: '#/components/examples/ResponseNetCBInstruction'
         "404":
           description: Merchant/Account not found
           content:
@@ -16197,6 +16202,67 @@ components:
           type: string
           description: account balance - Cannot be empty.
           example: "5.0"
+    FunResponseDTO:
+      required:
+        - account_type
+        - balance
+      type: object
+      properties:
+        account_type:
+          type: string
+          description: account type - Cannot be empty.
+          example: "REVENUE"
+          enum:
+            - CHARGEBACK_ACCOUNT
+            - FEE_ACCOUNT
+            - REVENUE_ACCOUNT
+            - RESERVE_ACCOUNT
+            - CHARGEBACK_RECOVERY_ACCOUNT
+            - INSTRUCTIONAL_HOLD_ACCOUNT
+            - ROLLING_RESERVE_ACCOUNT
+            - MERCHANT_FEE_ACCOUNT
+            - SERVICE_FEE_ACCOUNT
+            - FEE_COLLECT_ACCOUNT
+            - REJECT_HOLD_ACCOUNT
+            - ADJUSTMENT_ACCOUNT
+            - REJECT_REPROCESS_ACCOUNT
+            - SUSPEND_ACCOUNT
+            - HOLD_ACCOUNT
+            - PFAC_REVENUE_ACCOUNT
+            - PFAC_RESERVE_ACCOUNT
+            - DELAY_FUNDING_ACCOUNT
+            - GROSS_FEE_ACCOUNT
+            - PFAC_ADJUSTMENT_ACCOUNT
+            - SPLIT_ACCOUNT
+            - TRADE
+            - CHARGEBACK
+            - FEE
+            - REVENUE
+            - RESERVE
+            - CHARGEBACK_RECOVERY
+            - INSTRUCTIONAL_HOLD
+            - ROLLING_RESERVE
+            - RESERVE_DEDUCTION
+            - RESERVE_RELEASE
+            - MERCHANT_FEE
+            - SERVICE_FEE
+            - FEE_COLLECT
+            - REJECT_HOLD
+            - ADJUSTMENT
+            - REJECT_REPROCESS
+            - SUSPEND
+            - HOLD
+            - PFAC_REVENUE
+            - PFAC_RESERVE
+            - DELAY_FUNDING
+            - GROSS_FEE
+            - REJECT_ADJUSTMENT
+            - PFAC_ADJUSTMENT
+            - SPLIT
+        balance:
+          type: string
+          description: account balance - Cannot be empty.
+          example: "12.13"
     SummaryAccounts:
       type: object
       properties:
@@ -16204,6 +16270,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccountResponseDTO'
+    FunResponseSummaryAccounts:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunResponseDTO'
+        instruction_tracker:
+          type: string
+          example: ""
+          description: "Reserved for future use"
     TransactionInstructionDiscardResponse:
       type: object
       properties:
@@ -16692,11 +16769,12 @@ components:
       properties:
         result:
           type: string
+          example: "SUCCESS"
           enum:
             - SUCCESS
             - ERROR
         summary:
-          $ref: '#/components/schemas/SummaryAccounts'
+          $ref: '#/components/schemas/FunResponseSummaryAccounts'
     AccountDetailsDTOFunding:
       required:
         - account_type
@@ -26477,6 +26555,20 @@ components:
                 amount: '20.50'
               - account_type: FEE_ACCOUNT
                 amount: '2.25'
+    ResponseNetCBInstruction:
+      value:
+        result: SUCCESS
+        summary:
+          accounts:
+            - account_type: INSTRUCTIONAL_HOLD_ACCOUNT
+              balance: '66.50'
+            - account_type: FEE
+              balance: '5.00'
+            - account_type: REVENUE
+              balance: '84.50'
+            - account_type: CHARGEBACK
+              balance: '10.50'
+          instruction_tracker: ''
 
     RequestNetCBInstruction:
       value:
