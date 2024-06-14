@@ -21,10 +21,10 @@ For the funding block:
   <li> type: DEBIT - Credits the instructional hold balance from the specified account. This cannot be used to bring the instructional hold to a balance greater than it was before unless it is negative.</li>
 </ul>
 
+##### Request:
+
 <!-- theme: success -->
 >**IH Balance: 100**
-
-##### Request:
 
 ```json
 {
@@ -60,12 +60,15 @@ The Chargeback virtual account keeps balances from Chargeback Adjustments that h
 ### Using the Chargeback account
 
 In order to use the chargeback account in the instruction, the `"account_type": "CHARGEBACK"` must be specified. This will make the instruction validate against the current Chargeback Virtual Account Balance.
+
+##### Request:
+
 <!-- theme: success -->
 >**IH Balance: 25**
 
 <!-- theme: warning -->
 >**CB Virtual Account Balance: 5.00**
-##### Request:
+
 ```json
 {
   "merchant_id": "520000000321",
@@ -89,12 +92,14 @@ In order to use the chargeback account in the instruction, the `"account_type": 
 
 If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a seperate Gross Fee. Adding to your NET funding would look like the below :
 
+##### Request:
+
 <!-- theme: success -->
 >**IH Balance: 25**
 
 <!-- theme: warning -->
 >**Standard Fee of 0.32 taken**
-##### Request:
+
 ```json
 {
   "merchant_id": "520000000321",
