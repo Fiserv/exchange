@@ -271,6 +271,11 @@ For the Adjustment block:
 }
 
 ```
+### Negative Instructional Hold Balances
+
+A negative instructional hold balance that is left in the instructional hold account when the window closes will be debited from the responsible party. 
+The responsible party by default is the Aggregator. If an instruction is made to make the account whole before the window closes, the responsible party will not be debited.
+
 ### Constructing the request
 
 <!--
