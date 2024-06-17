@@ -159,3 +159,22 @@ Similar to the above, there may be cases where the submerchant owes money, but t
 
 For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 
+<!-- type: row -->
+
+<!-- type: card
+title: See Net Funding
+description: Funding instructions are sent as net, for a single overall settlement to the submerchant.
+link: ../docs/getting-started/getting-started-instfunding-net.md
+-->
+<!-- type: card
+title: See Gross Funding
+description: Funding instructions that are sent as gross, for a single Credit and Single debit to the submerchant
+link: ../docs/getting-started/getting-started-instfunding-gross.md
+-->
+
+<!-- type: card
+title: See Transaction Instructions
+description: Submit instructions per transaction on settlement or auth
+link: ../docs/getting-started/getting-started-instfunding-split.md
+-->
+<!-- type: row-end -->
