@@ -140,7 +140,7 @@ Reserve amounts can be released back to the submerchant, or deducted to the Aggr
 Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the submerchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
 The `release_reason` must be specified when adjusting amounts in the reserve account. 
 Amounts can be partially released, but cannot be greater than the current balance in the reserve account.
-Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will omve to the `RESERVE_DEDUCTION_ACCOUNT`
+Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will move to the `RESERVE_DEDUCTION_ACCOUNT`.
 Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
 
 ## Additional Scenarios
