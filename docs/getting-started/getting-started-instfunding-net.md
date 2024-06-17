@@ -122,6 +122,26 @@ If managing the Chargeback balances outside the system, additional amounts to re
 }
 ```
 
+##  Reserve Management
+
+If a submerchant is enabled for reserves through config on Exchange, instructions can be used collect and release API used to release. 
+
+### Collecting Reserves
+
+Reserve amounts can be sent in the `/funding/instruction` API by using the `account_type:` `RESERVE`. The amount specified will be moved to the Reserve virtual account. The `/account/balance` API can be called to check the current balance of the Reserve account for the submerchant
+
+### Releasing and Deducting Reserves
+
+<!-- theme: info -->
+>**POST** `/reserve/release`
+
+Reserve amounts can be released back to the submerchant, or deducted to the Aggregator. First, the `/account/balance` API should be called to check the current balance of the Reserve account.
+Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the submerchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
+The `release_reason` must be specified when adjusting amounts in the reserve account. 
+Amounts can be partially released, but cannot be greater than the current balance in the reserve account.
+Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will omve to the `RESERVE_DEDUCTION_ACCOUNT`
+Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
+
 ## Reimbursing the Submerchant
 
 There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
