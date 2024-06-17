@@ -237,7 +237,7 @@ Example on how a chargeback reversal can be credited back to the submerchant in 
 
 #### Adjustment
 
-Accounts block for adjustments, primarily used for adjusting amounts in the system, after the instruction or movement has been made to move the amount into Revenue, Fee or Hold. This block may also be used in Auto funding scenarios. Description is required to be provided.
+Accounts block for adjustments, primarily used for adjusting amounts in the system, after the instruction or movement has been made to move the amount into Revenue, Fee or Hold. This block may also be used in Auto-funding scenarios. Description is required to be provided.
 
 Must have two accounts specified, where one is a type CREDIT and one a type DEBIT of the same amounts.
 
