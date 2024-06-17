@@ -4,6 +4,7 @@ This section will focus on creating Funding instructions for Gross scenarios. Pl
 
 ## What is Gross Instructional funding?
 
+Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the submerchant.
 For Gross instructions, we will create one settlement for Credits, **and** one for debits (Where as Net funding is one overall settlement). This is primarily done by utilising the `FUNDING`, `BILLING` and `CHARGEBACK` block on the `/funding/instruction` endpoint.
 
 ## Constructing a Gross instruction 
