@@ -47,7 +47,7 @@ Below is a list of virtual accounts that can be called:
 
 | Category                    | Key                       | Description |
 |-----------------------------|---------------------------|-------------|
-| Instructional Hold Account  | INSTRUCTIONAL_HOLD_ACCOUNT | Account that represents funds available for the submerchant to be instructed. Negative amounts left after the instructional hold window will debit the responsible party (depends on config). Should be called before creating instructions. |
+| Instructional Hold Account  | INSTRUCTIONAL_HOLD_ACCOUNT | Account that represents funds available for the submerchant to be instructed. Negative amounts left after the instructional hold window closes will debit the responsible party (depends on config). Should be called before creating instructions. |
 | Chargeback Account          | CHARGEBACK_ACCOUNT        | Account for tracking chargebacks loaded into the system. Will accrue when chargebacks are received, or deduct when a reversal is received. Used to validate Chargeback Instructions. |
 | Chargeback Recovery Account | CHARGEBACK_RECOVERY_ACCOUNT | Reports funds moving through the system for Chargeback Recoupal or reimbursement. Will show when instructions sent using the Chargeback account. A positive amount gives to the Aggregator (to cover a chargeback), and a negative amount is returning to the submerchant (chargeback reversal). |
 | Merchant Fee Account        | MERCHANT_FEE_ACCOUNT      | Reports fees collected via pricing transaction billing or instructional funding will be reported here and roll up to the Fee account. Typically used in multiple outlet scenarios, where the funding level is above the outlets (Subgroup or Merchant). |
