@@ -143,15 +143,19 @@ Amounts can be partially released, but cannot be greater than the current balanc
 Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will omve to the `RESERVE_DEDUCTION_ACCOUNT`
 Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
 
-## Reimbursing the Submerchant
+## Additional Scenarios
+
+Some scenarios may required additional debits or credits to keep the instruction balanced. Please see some additional scenarios below
+
+### Reimbursing the Submerchant
 
 There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
 
-## Reimbursing the Aggregator
+### Reimbursing the Aggregator
 
 Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made to balance the instruction. 
 
-## Splitting to third parties through Net Funding
+### Splitting to third parties through Net Funding
 
 For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 
