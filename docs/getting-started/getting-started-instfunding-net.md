@@ -8,7 +8,7 @@ For NET instructions, we always try to net out any billing before generating set
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
-## Constructing a NET instruction 
+## Constructing an instruction for Net funding 
 
 <!-- theme: info -->
 >**POST** `/funding/instruction`
@@ -54,7 +54,7 @@ For the funding block:
 ```
 The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
 
-## Managing Chargeback through NET instructions
+## Chargeback Management for Net funding
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
