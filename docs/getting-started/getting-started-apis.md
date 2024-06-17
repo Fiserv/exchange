@@ -69,7 +69,6 @@ headers = {
 payload = "{\"grant_type\":\"client_credentials\"}"
 
 response = requests.request("POST", url, data=payload, headers=headers)
-print(response.json())
 
 ```
 <!-- type: tab-end -->
