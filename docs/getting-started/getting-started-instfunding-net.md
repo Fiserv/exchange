@@ -11,7 +11,7 @@ Instructional Split funding extends the functionality of the `/funding/instructi
 ## Constructing a NET instruction 
 
 <!-- theme: info -->
->**POST** `/oauth/token`
+>**POST** `/funding/instruction`
 
 The funding block is used to instruct amounts where the source of the instruction is the instructional hold.
 In the below example for Net funding, we include the Revenue, Chargeback, and Fee in the funding block to achieve a NET scenario.
