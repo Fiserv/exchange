@@ -10,6 +10,9 @@ Instructional Split funding extends the functionality of the `/funding/instructi
 
 ## Constructing a NET instruction 
 
+<!-- theme: info -->
+>**POST** `/oauth/token`
+
 The funding block is used to instruct amounts where the source of the instruction is the instructional hold.
 In the below example for Net funding, we include the Revenue, Chargeback, and Fee in the funding block to achieve a NET scenario.
 Chargeback Validation will check that the chargeback account can support this amount being taken.
@@ -98,7 +101,7 @@ If managing the Chargeback balances outside the system, additional amounts to re
 >**IH Balance: 25**
 
 <!-- theme: warning -->
->**Standard Fee of 0.32 taken**
+>**Assuming a Fee of 0.32 taken**
 
 ```json
 {
