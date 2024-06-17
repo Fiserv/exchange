@@ -77,12 +77,77 @@ With Auto funding, Exchange is perforing calculations on the system based on con
 <!-- theme: info -->
 >**POST** `/trade/details`
 
-Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. For full spec, please find API [Here](../api/?type=post&path=/account/trade-detail)
+Using the `/trade/details` endpoint, Exchange will retrieve the summary of all processing charges applied through Auto Funding for a submerchant on the specified day. This includes a breakdown of the each charge, how much was configured for the submerchant, and how much was applied to give total insight into how this value was calculated as a whole. This is provided in an array that will display all transaction related charges.
+
+#### Response snippet: 
+
+```json
+      "fee_details": [
+        {
+          "fee_amount": "10.38",
+          "charge_item_external_id": "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4",
+          "charge_item_name": "Sample Blended Rate",
+          "item_charge_breakdown": [
+            {
+              "fee_group": "1",
+              "fee_type": "1",
+              "unit_charge": "2.4500",
+              "unit_amount": "125.0000",
+              "unit_count": "3",
+              "fee_amount": "3.0625"
+            }
+          ]
+        }
+      ]
+```
+
+| Field Name   | Type   | Example  | Description                                                                                                        |
+|--------------|--------|----------|--------------------------------------------------------------------------------------------------------------------|
+| fee_group    | string | 1        | Identifies the group of the charge. Currently only supports value 1                                                |
+| fee_type     | string | 1        | Base or percentage charge, 1 - Percentage, 2 - Base                                                                |
+| unit_charge  | string | 2.4500   | Charge that was set on boarding                                                                                    |
+| unit_amount  | string | 125.0000 | The total for transactions calculated against.                                                                     |
+| unit_count   | string | 3        | The amount of transactions calculated against                                                                      |
+| fee_amount   | string | 3.0625   | The final amount of fee calculated for this charge items object (i.e., base fee or percentage fee calculated for). |
+        
+For full spec, please find API [Here](../api/?type=post&path=/account/trade-detail)
 
 ### Service fee calculations
 
 <!-- theme: info -->
 >**POST** `/billing/fee-details`
 
-Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [Here](../api?type=post&path=/account/billing/fee-details) 
+Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. 
+
+```json
+{
+  "result": "SUCCESS",
+  "billing_merchant_id": "520000004321",
+  "total_amount": "5.1500",
+  "fee_details": [
+    {
+      "merchant_id": "520000004321",
+      "billing_type": "ACQUIRING_CHARGE",
+      "charge_item_external_id": "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4",
+      "charge_title": "Monthly Fee",
+      "date": "2022-01-31",
+      "unit_charge": "5.1500",
+      "quantity": "1",
+      "amount": "5.1500"
+    }
+  ]
+}
+```
+| Field Name               | Type   | Example                                | Description                                          |
+|--------------------------|--------|----------------------------------------|------------------------------------------------------|
+| merchant_id              | string | 520000004321                           | The submerchant MID that charge has been applied to. |
+| billing_type             | string | ACQUIRING_CHARGE                       | Defines what type of charge is applied. Enum: ACQUIRING_CHARGE, EQUIPMENT, EQUIPMENT_SERVICE. |
+| charge_item_external_id  | string | CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4 | External ID of the charge being applied.            |
+| charge_title             | string | Sample Blended Rate                   | Configured title of the charge applied.              |
+| date                     | string | 2022-01-01                            | Date the charge was applied.                         |
+| unit_charge              | string | 0.5000                                | Amount configured to bill from the charge added at the submerchant. |
+| quantity                 | string | 1                                     | Quantity of billing applied from charge.             |
+| amount                   | string | 0.5000                                | Billing calculated.                                  |
+
+For full spec, please find API [Here](../api?type=post&path=/account/billing/fee-details) 
 
