@@ -8,6 +8,9 @@ For Gross instructions, we will create one settlement for Credits, **and** one f
 
 ## Constructing a Gross instruction 
 
+<!-- theme: info -->
+>**POST** `/funding/instruction`
+
 The blocks in the funding instruction will specify each amount seperately, rather than rolled into the funding block like Net funding. 
 This means that for an instructional hold balance of 100, you would need to send the funding and billing amounts gross using their respective blocks. 
 Please see below example:
@@ -60,6 +63,7 @@ In order to use the chargeback account in the instruction, the `"account_type": 
 
 <!-- theme: warning -->
 >**CB Virtual Account Balance: 5.00**
+
 ##### Request:
 ```json
 {
@@ -88,7 +92,8 @@ If managing the Chargeback balances outside the system, additional amounts to re
 >**IH Balance: 25**
 
 <!-- theme: warning -->
->**Standard Fee of 0.32 taken**
+>**Assuming a Fee of 0.32 taken**
+
 ##### Request:
 ```json
 {
