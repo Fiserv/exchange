@@ -4,11 +4,12 @@ This section will focus on creating Funding instructions for NET scenarios. Plea
 
 ## What is Net Instructional funding?
 
-For NET instructions, we always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the submerchant. This is primarily done by utilising the `FUNDING` block on the `/funding/instruction` endpoint.
+Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the submerchant.
+For NET instructions, we will always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the submerchant. This is primarily done by utilising the `FUNDING` block on the `/funding/instruction` endpoint.
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
-## Constructing a NET instruction 
+## Constructing an instruction for Net funding 
 
 <!-- theme: info -->
 >**POST** `/funding/instruction`
@@ -54,7 +55,7 @@ For the funding block:
 ```
 The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
 
-## Managing Chargeback through NET instructions
+## Chargeback Management for Net funding
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
@@ -142,15 +143,38 @@ Amounts can be partially released, but cannot be greater than the current balanc
 Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will omve to the `RESERVE_DEDUCTION_ACCOUNT`
 Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
 
-## Reimbursing the Submerchant
+## Additional Scenarios
+
+Some scenarios may required additional debits or credits to keep the instruction balanced. Please see some additional scenarios below
+
+### Reimbursing the Submerchant
 
 There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
 
-## Reimbursing the Aggregator
+### Reimbursing the Aggregator
 
 Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made to balance the instruction. 
 
-## Splitting to third parties through Net Funding
+### Splitting to third parties through Net Funding
 
 For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 
+<!-- type: row -->
+
+<!-- type: card
+title: See Net Funding
+description: Funding instructions are sent as net, for a single overall settlement to the submerchant.
+link: ../docs/getting-started/getting-started-instfunding-net.md
+-->
+<!-- type: card
+title: See Gross Funding
+description: Funding instructions that are sent as gross, for a single Credit and Single debit to the submerchant
+link: ../docs/getting-started/getting-started-instfunding-gross.md
+-->
+
+<!-- type: card
+title: See Transaction Instructions
+description: Submit instructions per transaction on settlement or auth
+link: ../docs/getting-started/getting-started-instfunding-split.md
+-->
+<!-- type: row-end -->
