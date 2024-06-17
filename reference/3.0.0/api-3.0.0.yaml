@@ -269,7 +269,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddSubGroupResponseBlock'
+                $ref: '#/components/schemas/AddOutletResponseBlock'
+              examples:
+                UpdateOutletSample:
+                  $ref: '#/components/examples/OutletUpdateSample'
         default:
           description: Unexpected error
           content:
@@ -1194,6 +1197,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FundingInstructionResponse'
+              examples:
+                NetInstructionResponse:
+                  description: "Example response for a Net funding scenario, where original IH balance was 200"
+                  summary: 'Example response for a Net funding scenario, where original IH balance was 200'
+                  $ref: '#/components/examples/ResponseNetCBInstruction'
         "404":
           description: Merchant/Account not found
           content:
@@ -1210,7 +1218,7 @@ paths:
     post:
       tags:
         - Funding Instruction
-      summary: "Funding instruction can distribute the funds according to merchant ID, currency, total amount and accounts. Virtual account balances should be verified using account/summary API before sending funding instructions. Funding Instructions must be sent during the daily instruction window. Details instruction allows to provide more breakdown details about the amounts to be instructed. " 
+      summary: "Funding instruction can distribute the funds according to merchant ID, currency, total amount and accounts. Virtual account balances should be verified using account/summary API before sending funding instructions. Funding Instructions must be sent during the daily instruction window. Details instruction allows to provide more breakdown details about the amounts to be instructed. "
       operationId: fundingDetailsInstruction
       x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction with Details
@@ -2648,6 +2656,7 @@ components:
           items:
             $ref: '#/components/schemas/Principal'
         merchant_portal_accounts:
+          description: "Accounts for merchant portal access (if being used)."
           type: array
           items:
             type: object
@@ -2683,6 +2692,7 @@ components:
                 example: "US|1"
                 maxLength: 30
         settings:
+          description: "Settings for Billing, Funding, Reserves and Chargebacks. Used to overwrite defaults."
           type: object
           properties:
             pricing_level:
@@ -2945,6 +2955,7 @@ components:
       type: string
       example: '3'
     BusinessEntity:
+      description: "Business information for the application. "
       type: object
       properties:
         legal_name:
@@ -3085,6 +3096,7 @@ components:
         name: bank
     Principal:
       type: object
+      description: "Owner information for the application"
       properties:
         owner_title:
           type: string
@@ -3252,6 +3264,7 @@ components:
       xml:
         name: contact
     Offer:
+      description: "Offer package for the application. Used to select packages that contain pricing and equipment."
       type: object
       properties:
         package_external_id:
@@ -3263,6 +3276,7 @@ components:
         name: offer
     Acquiring:
       type: object
+      description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
       properties:
         transaction_pricing_external_id:
           type: string
@@ -7340,7 +7354,7 @@ components:
         operation:
           description: Operation
           $ref: '#/components/schemas/OperationStatusApplication'
-          
+
     OperationStatusApplication:
       required:
         - operation_type
@@ -7354,7 +7368,7 @@ components:
           description: The type of the operation. This will change the operation of the endpoint /boarding/application
           enum:
             - "APPLICATION_STATUS_CHECK"
-          
+
 
 
     DecisionOperation:
@@ -7410,10 +7424,10 @@ components:
       type: object
       properties:
         operation:
-          description: Operation 
+          description: Operation
           example: "RETRIEVE_MERCHANT_HIERARCHY"
           $ref: '#/components/schemas/OperationRetrieveApplication'
-          
+
     OperationRetrieveApplication:
       required:
         - operation_type
@@ -7424,10 +7438,10 @@ components:
           maxLength: 30
           example: "RETRIEVE_MERCHANT_HIERARCHY"
           type: string
-          description: The type of the operation. This will change the operation of the endpoint 
+          description: The type of the operation. This will change the operation of the endpoint
           enum:
             - "RETRIEVE_MERCHANT_HIERARCHY"
-          
+
 
     ApplicationSubmissionOperation:
       required:
@@ -13719,7 +13733,7 @@ components:
       example: "999888555"
     WebSite:
       type: string
-      description: "Website for theoutlet. Required when busines category is Ecommerce for any outlet or Internet sales percentage is more than zero. Required when MCCis 5969 and category is MOTO. Required when boarding an additiional outlet under a merchant that does not have a URL." 
+      description: "Website for the outlet. Required when business category is Ecommerce for any outlet or Internet sales percentage is more than zero. Required when MCCis 5969 and category is MOTO. Required when boarding an additiional outlet under a merchant that does not have a URL."
       minLength: 7
       maxLength: 70
       example: "https://fiserv.com"
@@ -14062,7 +14076,7 @@ components:
       type: string
       description: "First name. Only alphabetical characters allowed, special characters will be removed downstream"
       example: "Jane"
-      
+
     SecondName:
       type: string
       description: "Middle name. Only alphabetical characters allowed, special characters will be removed downstream"
@@ -14985,12 +14999,12 @@ components:
       properties:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
-        ignore_bank_validation: 
+        ignore_bank_validation:
           type: string
           description: "Allows the user to skip the DDA verification service, in cases where the service cannot find a match but the user wants to proceed with submitting the application"
           example: "0"
           enum:
-            - "0" 
+            - "0"
             - "1"
     merchantref_application:
       type: object
@@ -16188,6 +16202,71 @@ components:
           type: string
           description: account balance - Cannot be empty.
           example: "5.0"
+    FunResponseDTO:
+      required:
+        - account_type
+        - balance
+      type: object
+      properties:
+        account_type:
+          type: string
+          minLength: 3
+          maxLength: 27
+          description: "Account type - Cannot be empty."
+          example: "REVENUE"
+          enum:
+            - CHARGEBACK_ACCOUNT
+            - FEE_ACCOUNT
+            - REVENUE_ACCOUNT
+            - RESERVE_ACCOUNT
+            - CHARGEBACK_RECOVERY_ACCOUNT
+            - INSTRUCTIONAL_HOLD_ACCOUNT
+            - ROLLING_RESERVE_ACCOUNT
+            - MERCHANT_FEE_ACCOUNT
+            - SERVICE_FEE_ACCOUNT
+            - FEE_COLLECT_ACCOUNT
+            - REJECT_HOLD_ACCOUNT
+            - ADJUSTMENT_ACCOUNT
+            - REJECT_REPROCESS_ACCOUNT
+            - SUSPEND_ACCOUNT
+            - HOLD_ACCOUNT
+            - PFAC_REVENUE_ACCOUNT
+            - PFAC_RESERVE_ACCOUNT
+            - DELAY_FUNDING_ACCOUNT
+            - GROSS_FEE_ACCOUNT
+            - PFAC_ADJUSTMENT_ACCOUNT
+            - SPLIT_ACCOUNT
+            - TRADE
+            - CHARGEBACK
+            - FEE
+            - REVENUE
+            - RESERVE
+            - CHARGEBACK_RECOVERY
+            - INSTRUCTIONAL_HOLD
+            - ROLLING_RESERVE
+            - RESERVE_DEDUCTION
+            - RESERVE_RELEASE
+            - MERCHANT_FEE
+            - SERVICE_FEE
+            - FEE_COLLECT
+            - REJECT_HOLD
+            - ADJUSTMENT
+            - REJECT_REPROCESS
+            - SUSPEND
+            - HOLD
+            - PFAC_REVENUE
+            - PFAC_RESERVE
+            - DELAY_FUNDING
+            - GROSS_FEE
+            - REJECT_ADJUSTMENT
+            - PFAC_ADJUSTMENT
+            - SPLIT
+        balance:
+          type: string
+          minLength: 4
+          maxLength: 4
+          description: "Balance of the specified account. 2 d.p. Cannot be empty"
+          example: "12.13"
     SummaryAccounts:
       type: object
       properties:
@@ -16195,6 +16274,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccountResponseDTO'
+    FunResponseSummaryAccounts:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunResponseDTO'
+        instruction_tracker:
+          type: string
+          example: ""
+          description: "Reserved for future use"
     TransactionInstructionDiscardResponse:
       type: object
       properties:
@@ -16683,11 +16773,12 @@ components:
       properties:
         result:
           type: string
+          example: "SUCCESS"
           enum:
             - SUCCESS
             - ERROR
         summary:
-          $ref: '#/components/schemas/SummaryAccounts'
+          $ref: '#/components/schemas/FunResponseSummaryAccounts'
     AccountDetailsDTOFunding:
       required:
         - account_type
@@ -17176,7 +17267,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           example: "2020-02-20"
-          
+
     TradeDetailsInfoDTO:
       type: object
       properties:
@@ -17318,7 +17409,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           example: "2020-02-20"
-          
+
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -17407,7 +17498,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TradeAccountInfoDTO'
-            
+
     TradeDetailsInfoResponse:
       type: object
       properties:
@@ -17434,7 +17525,7 @@ components:
           type: string
           example: "520000004321"
           description: "The billing level MID in exchange"
-        total_amount: 
+        total_amount:
           type: string
           description: "The total amount calculated from the charges applied"
           example: "0.0500"
@@ -17442,8 +17533,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BillingFeeDetailBreakdown'
-            
-            
+
+
     BillingFeeDetailBreakdown:
       type: object
       description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
@@ -17455,7 +17546,7 @@ components:
         billing_type:
           type: string
           description: "Defines what type of charge is applied"
-          enum: 
+          enum:
             - "ACQUIRING_CHARGE"
             - "EQUIPMENT"
             - "EQUIPMENT_SERVICE"
@@ -17472,7 +17563,7 @@ components:
           type: string
           example: "Sample Blended Rate"
           description: "Configured title of the charge applied"
-        date: 
+        date:
           type: string
           description: "Date the charge was applied"
           example: "2022-01-01"
@@ -24127,7 +24218,7 @@ components:
           type: string
         user_data_2:
           type: string
-  
+
     tx_fee_details_block:
       type: object
       properties:
@@ -24154,7 +24245,7 @@ components:
           type: string
           description: "Reference for the Charge item. Free field for a reference to be added. Configured in the config portal for the pricing applied."
           example: "BL001"
-        fee_collection_type: 
+        fee_collection_type:
           type: string
           description: "Type of the configured charge. Typically will be Blended, interchange not currently supported."
           enum:
@@ -24175,7 +24266,7 @@ components:
           type: string
           description: "Split type"
           example: "STORE_SPLIT"
-        txm_unique_id: 
+        txm_unique_id:
           type: string
           description: "Identifier for the tranasction"
           example: "-52606609801-52606609801"
@@ -24215,18 +24306,18 @@ components:
           type: string
           description: "Type of Fee, either percent (1) or base (2)"
           example: "1"
-          enum: 
+          enum:
             - "1"
             - "2"
         fee_amount:
           type: string
           description: "The fee amount calculated for this transaction for this item"
           example: "0.2300"
-        unit_charge: 
+        unit_charge:
           type: string
           description: "The percentage or base being used to calculate the fee amount. Taken from configuration"
           example: "0.23"
-            
+
     TransactionResponseDTO:
       type: object
       properties:
@@ -25407,7 +25498,7 @@ components:
               outlet_id: "10000"
               alliance_id: "16000000"
               merchant_id: "6000"
-              fee_details: 
+              fee_details:
                 -  fee_amount: '0.4500'
                    charge_item_external_id: "CHIC23-A1AC5-A1AC5-30LC5-30LC5-3657B-3657B"
                    charge_item_type: "CHARGE"
@@ -25812,12 +25903,13 @@ components:
           business_entity: {"legal_name": "MMISTest Legal Name",
                             "ownership_entity_type": "L",
                             "reg_number": "2333",
-                            "business_tin_ssn_number": "999888555",
+                            "business_category" : "E",
+                            "business_tin_ssn_number": "666989898",
                             "irs_status": "N",
                             "irs_filing_name": "MMISTest IRS Name",
                             "tin_type": "2",
                             "int_tax_id": "1111",
-                            "mcc_code": "5544",
+                            "mcc_code": "5999",
                             "date_incorporated": "2020-01-01",
                             "incorp_state": "NV",
                             "foundation_date": "2020-01-01"}
@@ -25867,6 +25959,140 @@ components:
                ent_telephone_code: "US|1",
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
+    OutletUpdateSample: 
+      value:
+          result: SUCCESS
+          merchant:
+            merchant_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            sales_owner_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            aml_owner_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            risk_owner_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            creator_user_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            alliance_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            internal_mid: '700100000064321'
+            legal_name: MMISTest Legal Name
+            contact_title: Mrs.
+            contact_first_name: Sample
+            contact_last_name: Last
+            contact_address1: Street
+            contact_town_city: City
+            contact_county: AZ
+            contact_postcode: '12122'
+            contact_country_code: '840'
+            contact_email: sample0321@domain.com
+            hold_suspend_flag: '0'
+            settlement_method: '1'
+            parent_type: ALLIANCE
+            reserve_flag: '0'
+            street_line_1: Street
+            city: City
+            county_code: AZ
+            zip_code: '12122'
+            country_code: '840'
+            language_code: en_gb
+            date_added: '2023-11-12 17:31:37'
+            date_updated: '2023-11-12 09:50:46'
+            pfac_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+          outlet:
+            merchant_hierarchy_template_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            outlet_external_id: OTL59-32221-33421-AMN32-79F05-83AL3-940F5
+            pfac_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            merchant_node_external_id: ALL59-32221-33421-AMN32-79F05-83AL3-940F5
+            internal_mid: '709900000100015'
+            merchant_node_id: '316321'
+            root_merchant_node_id: '316321'
+            pfac_node_id: '001'
+            trade_name: MMISTEST DBA name
+            accounts_setup_flag: '0'
+            delay_funding_flag: '0'
+            reserve_merchant_node_id: '316321'
+            hold_suspend_flag: '0'
+            date_added: '2023-11-12 17:31:37'
+            date_updated: '2023-11-12 09:50:46'
+            outlet_ref: 6650cd3e5b223229da321e9
+            visitation_required: '1'
+            store_number: '1'
+            business_zone: B
+            business_location: O
+            ground_floor: G
+            number_of_building_floors: '1'
+            square_foot_count: '1'
+            number_of_employees: '3'
+            primary_email_address: john.doe123@abc.com
+            outlet_website: https://fiserv.com
+            statement_type: F
+            banks:
+              6650cd3e5b223229da321e9:
+                bank_name: Bank
+                bank_city: City
+                country_code: '840'
+                bank_account_number: '00004321'
+                bank_sort_code: ''
+                iban: ''
+                swift: ''
+                account_holder_name: Account
+                account_type:
+                - CREDIT
+                - DEBIT
+                zip_code: '12121'
+                county_code: AK
+                street_line_1: Street
+                floor: '1'
+                suite_apart_number: '1'
+                bank_account_number_masked: "*****4321"
+                bank_account_type: CHECKING
+                dda_number: '000004321'
+                dda_number_masked: "*****4321"
+                routing_number: '000004321'
+                routing_number_masked: "*****4321"
+                _id: 6650cd3e5b223229da321e9
+            contacts:
+              6650cd3e5b223229da321e9:
+                contact_type: L
+              contact_metadata: []
+            settings:
+              funding_flag: '0'
+              billing_flag: '0'
+              reserve_flag: '0'
+            funding_defaults:
+              has_processing_mid: '0'
+              business_model: '1'
+              core_package_selection: '7'
+              tx_source_card: '1'
+              tx_source_card_funding_option: '1'
+              tx_source_card_settlement_method: '2'
+              source_merge_flag: '0'
+              tx_source_ach: '0'
+              tx_source_ach_funding_option: '0'
+              tx_source_ach_settlement_method: '0'
+              tx_settlement_billing_to: '1'
+              tx_chargeback_billing_to: '1'
+              has_tx_processing: '1'
+              settlement_method: '3'
+              tx_instruction_on: '0'
+              funding_frequency: '1'
+              has_transaction_billing: '1'
+              tx_fees_billing_method: '1'
+              other_fees_billing_method: '1'
+              has_service_billing: '0'
+              has_equipment_billing: '0'
+              billing_frequency: '1'
+              chargeback_settlement_method: '2'
+              chargeback_debit_option: '1'
+              split_processing_fee_flag: '0'
+              split_chargeback: '0'
+              has_billing: '1'
+              allow_instruction_api: '1'
+              responsible_party: '0'
+              payout_ach: '1'
+              payout_card: '0'
+              payout_default: '0'
+            tc_internet_check_mid_status: '0'
+            tc_check_phone_mid_status: '0'
+            tc_ppd_mid_status: '0'
+            tc_connect_pay_mid_status: '0'
+            tc_boarding_status: '0'
+
     RequestProcessingMaintenance:
       value:
         operation:
@@ -26333,6 +26559,20 @@ components:
                 amount: '20.50'
               - account_type: FEE_ACCOUNT
                 amount: '2.25'
+    ResponseNetCBInstruction:
+      value:
+        result: SUCCESS
+        summary:
+          accounts:
+            - account_type: INSTRUCTIONAL_HOLD_ACCOUNT
+              balance: '66.50'
+            - account_type: FEE
+              balance: '5.00'
+            - account_type: REVENUE
+              balance: '84.50'
+            - account_type: CHARGEBACK
+              balance: '10.50'
+          instruction_tracker: ''
 
     RequestNetCBInstruction:
       value:
@@ -29415,7 +29655,7 @@ components:
           application_reference: '333000051002'
           maintenance_types:
             - ADD_OUTLETS
-      
+
     MaintenancePricingResponse:
       value:
         result: SUCCESS
