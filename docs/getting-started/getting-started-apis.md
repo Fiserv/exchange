@@ -53,7 +53,7 @@ titles: API Headers, Example
 
 ## API Requests
 
-Depending on the request, the body of the payload will change. Please see below sample of an authentication request.
+Depending on the request, the body of the payload and endpoint will change. Please see below sample of an authentication request.
 
 ### Authentication Request Example
 
