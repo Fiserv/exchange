@@ -4,15 +4,11 @@ tags: [Getting Started, Reporting]
 
 # Reporting in Exchange
 
-Exchange uses a set of virtual accounts and automatic settlement generation for reporting purposes. 
-
-# Summary level reporting accounts
-
-At a summary level, we also report money movement through the system MID-by-MID
+Exchange uses a set of virtual accounts and automatic settlement generation for reporting purposes. The virtual accounts provide reporting at a Summary level for money movement through the system MID-by-MID. This is represented through a set of Trade accounts, and Virtual accounts.
 
 ## Virtual Accounts
 
-Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any phyisical bank accounts for the sub-merchants or PayFacs
+Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any physical bank accounts for the sub-merchants or PayFacs
 
 ### Trade accounts
 
