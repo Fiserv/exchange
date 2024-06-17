@@ -1,14 +1,15 @@
 
-## Split Funding
+# Split Funding
 
-### What is split funding?
-Split funding allows the PayFac to direct funds from a processing sub-merchant to third parties on the system. Three of the split funding solutions we offer require or allow instructions to be sent by API to facilitate funding. This page contains info for one method, Instructional split. 
+## What is split funding?
 
-### Instructional Split
+Split funding allows the Aggregator to split funds from a processing sub-merchant to third parties on the system. Split funding solutions can be done by instructions by API at a summary, transaction or per auth level. Please see the relevant section for each method. 
+
+## Instructional Split
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
-### Constructing the split instruction request
+## Constructing the split instruction request
 
 <!--
 type: tab
@@ -74,4 +75,16 @@ Supported accounts added to this request include:
 ```
 
 <!-- type: tab-end -->
+
+## Split by Transaction
+
+Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
+
+## Constructing the split instruction request
+
+## Split on Auth
+
+Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
+
+## Constructing the split instruction request
 
