@@ -2636,6 +2636,7 @@ components:
       type: object
       properties:
         merchant:
+          description: Main body for the request. Used to store legal information
           $ref: '#/components/schemas/Application'
       xml:
         name: order
@@ -2648,10 +2649,12 @@ components:
         name: order
     Application:
       type: object
+      description: Contains legal information, and application settings for the location. 
       properties:
         business_entity:
           $ref: '#/components/schemas/BusinessEntity'
         owners:
+          description: Principals for the location. Any principals above 25 percent ownership should be disclosed here. 
           type: array
           items:
             $ref: '#/components/schemas/Principal'
@@ -2797,21 +2800,22 @@ components:
         acquiring_offer:
           $ref: '#/components/schemas/Acquiring'
         registration_address:
+          description: "Address the business is registered to."
           $ref: '#/components/schemas/Contact'
         merchant_sub_group:
           type: object
+          description: "Used for structuring outlets underneath in the applicaton"
           properties:
             group_name:
               type: string
-              example: "test"
-            parent_mid:
-              type: string
-              example: "700100000004360"
+              example: "Subgroup name"
             banks:
+              description: "Used when billing + funding level is set to subgroup"
               type: array
               items:
                 $ref: '#/components/schemas/Bank'
             contacts:
+              description: "Used when billing + funding level is set to subgroup"
               type: array
               items:
                 $ref: '#/components/schemas/SubgroupContact'
