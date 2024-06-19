@@ -14,7 +14,7 @@ When using exchange, you may want to update pricing after it has been boarded. I
 
 <!--
 type: tab
-titles: Create Maintenance Request , Create Maintenance Response 
+titles: Request , Response 
 -->
 ### Create Maintenance Request 
 
