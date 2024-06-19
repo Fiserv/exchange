@@ -143,6 +143,43 @@ Amounts can be partially released, but cannot be greater than the current balanc
 Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will move to the `RESERVE_DEDUCTION_ACCOUNT`.
 Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
 
+##  Split Account
+
+The Funding API can also handle a `split_details` object, which can be used to send amounts to third parties that are boarded on the system.
+For example, if we wanted to include a split of 4.50 to a third party on the system from the submerchants normal revenue, we would include the split details object with a type `CREDIT`
+
+<!-- theme: success -->
+>**IH Balance: 100**
+
+```json
+{
+  "merchant_id": "520000000321",
+  "currency": "USD",
+  "funding": [
+    {
+      "account_type": "REVENUE",
+      "amount": "94.50",
+      "type": "CREDIT",
+      "split_details": [
+        {
+          "merchant_id": "400000000005",
+          "accounts": {
+            "account_type": "REVENUE",
+            "amount": "4.50",
+            "type": "CREDIT"
+          }
+        }
+      ]
+    }
+    {
+      "account_type": "FEE",
+      "amount": "5.50",
+      "type": "CREDIT"
+    }
+  ]
+}
+```
+
 ## Additional Scenarios
 
 Some scenarios may required additional debits or credits to keep the instruction balanced. Please see some additional scenarios below
