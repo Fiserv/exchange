@@ -85,7 +85,7 @@ The response will provide the current details for the submerchant having the mai
                             "charge_item_id": "002",
                             "charge_item_name": "Blended Processing Rate",
                             "charge_item_ref": null,
-                            "charge_item_group_external_id": "CIG93-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"",
+                            "charge_item_group_external_id": "CIG93-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                             "charge_item_group_name": "Blended Rate",
                             "is_boarding_activated": "1",
                             "is_activated": "1",
