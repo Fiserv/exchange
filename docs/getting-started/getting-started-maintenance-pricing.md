@@ -210,7 +210,7 @@ The response will provide the current details for the submerchant having the mai
 Next, the maintenance case must be updated with the new information. Using the `old_details` from the Create maintenance case response, we can use this as a base to populate the new details to be updated.
 Depending on the maintenance case, you will need to include the new details in their respective block in the request. ie, banks for Bank changes. Please see [examples](../api/?type=post&path=//maintenance) on the request page for more info
 
-Example for updating the Blended rate, and split to third party pricing below:
+Example for updating the Blended rate, and split to third part. Data is taken from the old details in the response of the Maintenace creation, and the `perc_charge`, and `base_charge` are updated in the pricing below:
 ```
 {
     "operation": {
@@ -281,7 +281,7 @@ Example for updating the Blended rate, and split to third party pricing below:
                     "service_items": [
                         {
                             "service_charge_item_external_id": "SCI21-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                            "service_item_name": "Split to Third Party"",
+                            "service_item_name": "Split to Third Party",
                             "service_ownership": "2",
                             "charge_ref": null,
                             "is_boarding_activated": "1",
