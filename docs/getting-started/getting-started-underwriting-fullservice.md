@@ -109,7 +109,6 @@ titles: Screening steps, Monitoring Steps
 5. User will overwrite details for the credit risk using `intelligence/overwrite_risk_reports` for the `application_reference` with the details needed for overwriting.
 6. Final decision to be made for AML and Credit risk, using the `intelligence/decision` for the `application_reference` with the AML and Risk decision.
 
----
 
 <!-- type: tab -->
 
@@ -121,7 +120,6 @@ titles: Screening steps, Monitoring Steps
 
 <!-- type: tab-end -->
 
----
 
 ## Unhappy Paths
 ### Submission Errors

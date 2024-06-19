@@ -237,7 +237,7 @@ Example on how a chargeback reversal can be credited back to the submerchant in 
 
 #### Adjustment
 
-Accounts block for adjustments, primarily used for adjusting amounts in the system, after the instruction or movement has been made to move the amount into Revenue, Fee or Hold. This block may also be used in Auto funding scenarios. Description is required to be provided.
+Accounts block for adjustments, primarily used for adjusting amounts in the system, after the instruction or movement has been made to move the amount into Revenue, Fee or Hold. This block may also be used in Auto-funding scenarios. Description is required to be provided.
 
 Must have two accounts specified, where one is a type CREDIT and one a type DEBIT of the same amounts.
 
@@ -374,7 +374,7 @@ The response of the instructional funding API will report the movement from the 
   ]
 }
 ```
-#### Response:
+#### Example Response:
 
 ```json
 {
@@ -398,3 +398,23 @@ The response of the instructional funding API will report the movement from the 
     }
 }
 ```
+
+<!-- type: row -->
+
+<!-- type: card
+title: See Net Funding
+description: Funding instructions are sent as net, for a single overall settlement to the submerchant.
+link: ../docs/getting-started/getting-started-instfunding-net.md
+-->
+<!-- type: card
+title: See Gross Funding
+description: Funding instructions that are sent as gross, for a single Credit and Single debit to the submerchant
+link: ../docs/getting-started/getting-started-instfunding-gross.md
+-->
+
+<!-- type: card
+title: See Transaction Instructions
+description: Submit instructions per transaction on settlement or auth
+link: ../docs/getting-started/getting-started-instfunding-split.md
+-->
+<!-- type: row-end -->

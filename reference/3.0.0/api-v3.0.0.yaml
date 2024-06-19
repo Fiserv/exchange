@@ -11972,6 +11972,10 @@ components:
           $ref: '#/components/schemas/DiscoverRequired'
         discover_volume:
           $ref: '#/components/schemas/SaleAmount'
+        discover_service_type:
+          $ref: '#/components/schemas/discoverServiceType'
+        existing_discover_se:
+          $ref: '#/components/schemas/existingDiscoverSe'
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
@@ -13886,6 +13890,22 @@ components:
       enum:
         - "1"
         - "0"
+    discoverServiceType:
+      type: string
+      minLength: 1
+      maxLength: 2
+      description: "Discover Service Type. Does not drive configurations downstream. NA - Not applicable. F- Full Service. D- Pass  Thru"
+      example: "1"
+      enum:
+        - "NA"
+        - "F"
+        - "D"
+    existingDiscoverSe:
+      type: string
+      minLength: 1
+      maxLength: 15
+      description: "Discover SE number. Does not currently drive configurations downstream."
+      example: "100008000003421"
     AmexRequired:
       type: string
       description: Amex Entitlement Required? - 1= yes 0= No

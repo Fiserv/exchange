@@ -140,7 +140,7 @@ Reserve amounts can be released back to the submerchant, or deducted to the Aggr
 Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the submerchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
 The `release_reason` must be specified when adjusting amounts in the reserve account. 
 Amounts can be partially released, but cannot be greater than the current balance in the reserve account.
-Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will omve to the `RESERVE_DEDUCTION_ACCOUNT`
+Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will move to the `RESERVE_DEDUCTION_ACCOUNT`.
 Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
 
 ## Additional Scenarios
@@ -159,22 +159,4 @@ Similar to the above, there may be cases where the submerchant owes money, but t
 
 For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 
-<!-- type: row -->
 
-<!-- type: card
-title: See Net Funding
-description: Funding instructions are sent as net, for a single overall settlement to the submerchant.
-link: ../docs/getting-started/getting-started-instfunding-net.md
--->
-<!-- type: card
-title: See Gross Funding
-description: Funding instructions that are sent as gross, for a single Credit and Single debit to the submerchant
-link: ../docs/getting-started/getting-started-instfunding-gross.md
--->
-
-<!-- type: card
-title: See Transaction Instructions
-description: Submit instructions per transaction on settlement or auth
-link: ../docs/getting-started/getting-started-instfunding-split.md
--->
-<!-- type: row-end -->
