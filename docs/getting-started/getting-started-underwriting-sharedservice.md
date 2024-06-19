@@ -1,6 +1,12 @@
 # Shared Service 
 
-## Shared Services Back to Sales Flow
+The shared service model utilises a decision coming back from Risk. The flow of the application may change depending on the decision sent. 
+Below is a process flow for an applicaiton going through the Risk service in a shared service model.
+
+<!-- !align: center -->
+![<img src="instructional_timeline.png" width="600"/>](/assets/images/risk_workflows.png)
+
+## More info required flow
 
 When using shared services, the user may be asked to provide additional documentation during the credit risk screening process. 
 This will occur when an application is being manually reviewed, and may require supporting documents such as Bank statements or proof of address. 
