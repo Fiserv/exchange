@@ -6,7 +6,7 @@ Below is a process flow for an applicaiton going through the Risk service in a s
 <!-- !align: center -->
 ![<img src="instructional_timeline.png" width="600"/>](/assets/images/risk_workflows.png)
 
-## Shared Services Back to Sales Flow
+## More info required flow
 
 When using shared services, the user may be asked to provide additional documentation during the credit risk screening process. 
 This will occur when an application is being manually reviewed, and may require supporting documents such as Bank statements or proof of address. 
