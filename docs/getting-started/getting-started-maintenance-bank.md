@@ -10,6 +10,9 @@ This is primarily be facilitated through the `/maintenance` endpoint.
 
 ### Creating Maintenance Case
 
+<!-- theme: info -->
+>**POST** `/maintenance`
+
 In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the submerchant. 
 The `old_details` will provide the data being updated, which can be used in the next endpoint to update.
 `merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant)
@@ -29,6 +32,9 @@ Example request body:
 }
 ```
 ### Updating Maintenance Case
+
+<!-- theme: info -->
+>**POST** `/maintenance`
 
 Next, the maintenance case must be updated with the new information. Using the `old_details` from the Create maintenance case response, we can use this as a base to populate the new details to be updated.
 Depending on the maintenance case, you will need to include the new details in their respective block in the request. ie, banks for Bank changes. Please see [examples](../api/?type=post&path=//maintenance) on the request page for more info
@@ -69,6 +75,9 @@ Example for bank change below:
 }
 ```
 ### Submitting the Maintenance Case
+
+<!-- theme: info -->
+>**POST** `/maintenance`
 
 Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If succesful, merchant has now been updated with the new details.
 ```
