@@ -639,6 +639,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RetrieveOffering'
+              examples:
+                $ref: '#/components/examples/RetrieveOfferSampleCriteria'
   /offering/retrieve_processing_offering:
     post:
       tags:
@@ -3768,25 +3770,28 @@ components:
       xml:
         name: order
     Criteria:
+      description: "Searches for the specified criteria, and retrieves offerings that match this. Not required, and sending an empty payload will retrieve all offerings."
       type: object
       properties:
-        alliance_code:
+        mcc:
           type: string
-          example: 'TEST'
-        partner_code:
-          type: string
-          example: 'PARTNERTEST'
-        mcc_code:
-          type: string
-          example: '5000'
+          description: "Merchant Category Code, will check if the offers configured criteria applies to this MCC"
+          example: '5999'
         atv:
           type: string
+          description: "Average Transaction Volume. Will check if the offers configured criteria applies for the specified ATV"
           example: '2000'
         ato:
           type: string
           example: '1000'
+          description: "Annual Turnover. Will check if the offers configured criteria applies for the specified ATO"
         business_address:
+          description: "Will check if the offers configured criteria allows the specified address."
           $ref: '#/components/schemas/BusinessAddress'
+        alliance_code:
+          type: string
+          example: 'TEST'
+          description: "System assigned alliance code. Appliacble only for setups where multiple alliances are under your client level."
       xml:
         name: order
     BusinessAddress:
@@ -30092,6 +30097,11 @@ components:
         application:
           application_reference: '3330000500012'
           tenant_udc_external_id: TDCA!-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
+    RetrieveOfferSampleCriteria:
+      value:
+        criteria:
+          mcc: '5999'
+
 
 
 
