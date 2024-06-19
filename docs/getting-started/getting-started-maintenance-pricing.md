@@ -5,12 +5,7 @@ tags: [Getting Started, Maintenance]
 
 ## What is Merchant Maintenance?
 
-When using exchange, you may want to update submerchant data or pricing after it has been boarded. In order to do this, a maintenance case must be created.
-
-## General Maintenance process
-
-The user will be able to create a merchant maintenance case with the type of maintenance they would like to do, have this updated, and then submit the case.
-This is primarily be facilitated through the `/maintenance` endpoint.
+When using exchange, you may want to update pricing after it has been boarded. In order to do this, a maintenance case must be created.
 
 ### Creating Maintenance Case
 
@@ -23,9 +18,9 @@ titles: Create Maintenance Request , Create Maintenance Response
 -->
 ### Create Maintenance Request 
 
-In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the submerchant. 
-The `old_details` will provide the data being updated, which can be used in the next endpoint to update.
-`merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant)
+In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance type `UPDATE_PROCESSING_PRICING`, and the `merchant_reference` for the submerchant. 
+`merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant) , and the`internal_mid` of the level the pricing is on (usually merchant) should be retrieved for the next endpoint.  
+In the response of the case creation, the  `old_details` will be provided,which can be used in the next endpoint to update. Please see the other tab for an example response for maintenance creation.
 
 ```json
 
@@ -42,8 +37,6 @@ The `old_details` will provide the data being updated, which can be used in the 
 }
 
 ```
-
-
 <!-- type: tab -->
 
 ###  Response 
@@ -206,12 +199,13 @@ The response will provide the current details for the submerchant having the mai
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-
 Next, the maintenance case must be updated with the new information. Using the `old_details` from the Create maintenance case response, we can use this as a base to populate the new details to be updated.
-Depending on the maintenance case, you will need to include the new details in their respective block in the request. ie, banks for Bank changes. Please see [examples](../api/?type=post&path=//maintenance) on the request page for more info
+For pricing, this will need to be added in the charges and acquring offer block. The `internal_mid` , `maintenance_reference` and `merchant reference` will need to be provided.
+The actual rates will be updated by providing the new `perc_charge` and `base_charge` for the respective pricing being updated.
 
-Example for updating the Blended rate, and split to third part. Data is taken from the old details in the response of the Maintenace creation, and the `perc_charge`, and `base_charge` are updated in the pricing below:
-```
+Example for updating the Blended rate, and split to third party. Data is taken from the old details in the response of the Maintenace creation, and the `perc_charge`, and `base_charge` are updated in the pricing below:
+
+```json
 {
     "operation": {
         "operation_type": "UPDATE_MAINTENANCE"
