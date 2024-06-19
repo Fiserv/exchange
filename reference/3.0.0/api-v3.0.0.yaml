@@ -13904,7 +13904,7 @@ components:
       minLength: 1
       maxLength: 2
       description: "Discover Service Type. Does not drive configurations downstream. NA - Not applicable. F- Full Service. D- Pass  Thru"
-      example: "1"
+      example: "NA"
       enum:
         - "NA"
         - "F"
