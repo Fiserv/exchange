@@ -639,8 +639,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RetrieveOffering'
-              examples:
+            examples:
+              SearchCriteria:
                 $ref: '#/components/examples/RetrieveOfferSampleCriteria'
+
   /offering/retrieve_processing_offering:
     post:
       tags:
