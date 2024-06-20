@@ -97,7 +97,7 @@ Once this has been updated, we can now submit the case using the Maintenance ref
 }
 
 ```
-### Cancelling a Maintenance Case
+## Cancelling a Maintenance Case
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -137,7 +137,7 @@ titles: Request , Response
 ```
 <!-- type: tab-end -->
 
-### Searching for Maintenance Cases
+## Searching for Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -220,7 +220,7 @@ titles: Request , Response
 ```
 <!-- type: tab-end -->
 
-### Retrieve Maintenance Cases
+## Retrieve Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
