@@ -4,37 +4,38 @@ tags: [Getting Started, Reporting, Transactions, Chargebacks, Auto funding]
 
 # Transactions in Exchange
 
-Exchange consumes transactions into the system daily, making these available in our reporting APIs where these flow into the [virtual accounts](../docs/getting-started/getting-started-reporting.md) if funding is being done through Exchange. 
-These can be called on the set of `/transaction/...` endpoints that can be viewied on the [API Explorer](../api/?type=post&path-/transaction). The Field `date_added` indicates the date this was added into our system.
+Exchange processes transactions daily, making them available in our reporting APIs. These transactions flow into the [virtual accounts](../docs/getting-started/getting-started-reporting.md) if funding is conducted through Exchange. You can access them via the `/transaction/...` endpoints visible on the [API Explorer](../api/?type=post&path-/transaction). The field `date_added` indicates the date the transaction was added to our system.
 
 ## Requests
 
 A 'query' can be created by adjusting the database operator and values being searched for:
 ```
-        "location_id": {
-            "operator": "EQ",
-            "value": "202205290001"
-            },
-        "date_added": {
-            "operator": "EQ",
-            "value": "2022-05-16"
-        }
+{
+    "location_id": {
+        "operator": "EQ",
+        "value": "202205290001"
+    },
+    "date_added": {
+        "operator": "EQ",
+        "value": "2022-05-16"
+    }
+}
 ```
-This can be used with other operators and values that can be seen on the [API Explorer](../api/?type=post&path-/transaction)
+This can be extended with other operators and values viewable on the [API Explorer](../api/?type=post&path-/transaction).
 
 ## Transactions
 
 <!-- theme: info -->
 >**POST** `/transaction`
 
-Transactions include sales and refunds that are captured. 
+Transactions include sales and refunds that are captured.
 
 ## Rejects
 
 <!-- theme: info -->
 >**POST** `/transaction/rejects`
 
-Rejected tranasctions are seperated into the rejects endpoint
+Rejected transactions are separated into the rejects endpoint.
 
 
 ## Chargeback Adjustments
@@ -42,7 +43,7 @@ Rejected tranasctions are seperated into the rejects endpoint
 <!-- theme: info -->
 >**POST** `/transaction/chargeback-adjustments`
 
-Chargeback Adjustments report actual financial adjustments that have been made relating to a chargeback. Can be used in a fund-the-pfac setup to know when a chargeback needs to be recouped or reimbursed from a submerchant.  
+Chargeback Adjustments report actual financial adjustments related to a chargeback. This can be used in a fund-the-PFAC setup to know when a chargeback needs to be recouped or reimbursed from a sub-merchant.  
 
 ## Chargebacks
 
@@ -56,18 +57,16 @@ Reports the movement on the chargeback case itself.
 <!-- theme: info -->
 >**POST** `/transaction/authorizations`
 
-Reports authorizations being loaded into the system, which typically refresh every 15 minutes.
+Reports authorizations being loaded into the system, typically every 15 minutes.
 
 ## Adjustments
 
 <!-- theme: info -->
 >**POST** `/transaction/adjustments`
 
-
-
 ## Auto-funding calculations
 
-Auto funding on exchange performs calculations automatically based on configurations set for that submerchant. As this is being done by the system, we will add the calculations being performed onto the transactions this is added to.
+Auto funding on Exchange performs calculations automatically based on configurations set for that sub-merchant. As this is done by the system, the calculations performed will be added to the corresponding transactions.
 
 ### Processing fee caluclations
 
