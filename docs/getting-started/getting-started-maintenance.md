@@ -45,7 +45,8 @@ Next, the maintenance case must be updated with the new information. Using the `
 Depending on the maintenance case, you will need to include the new details in their respective block in the request. ie, banks for Bank changes. Please see [examples](../api/?type=post&path=//maintenance) on the request page for more info
 
 Example for bank change below:
-```
+
+```json
 {
   "operation": {
     "operation_type": "UPDATE_MAINTENANCE"
@@ -191,9 +192,9 @@ titles: Request , Response
                 "date_added": "2022-02-12 14:48:41",
                 "maintenance_external_id": "MTN4B-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                 "creator_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                "status_external_id": "MTS08-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"",
+                "status_external_id": "MTS08-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                 "maintenance_status": "Completed",
-                "owner_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX""
+                "owner_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
             },
             {
                 "maintenance_reference": "MC3000000600",
@@ -206,11 +207,11 @@ titles: Request , Response
                 "contact_first_name": "Jane",
                 "contact_last_name": "Doe",
                 "date_added": "2022-02-12 13:22:23",
-                "maintenance_external_id": "MTNBE-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"",
-                "creator_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"",
-                "status_external_id": "MTSF8-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"",
+                "maintenance_external_id": "MTNBE-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                "creator_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                "status_external_id": "MTSF8-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                 "maintenance_status": "Cancelled",
-                "owner_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX""
+                "owner_user_external_id": "USR4A-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
             }
         ]
     }
