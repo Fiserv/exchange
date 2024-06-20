@@ -123,7 +123,7 @@ titles: Request , Response
 ```
 <!-- type: tab -->
 
-###  Response:
+#### Response:
 
 ```json
 {
@@ -166,7 +166,7 @@ titles: Request , Response
 ```
 <!-- type: tab -->
 
-###  Response:
+#### Response:
 
 ```json
 {
@@ -249,7 +249,7 @@ titles: Request , Response
 ```
 <!-- type: tab -->
 
-###  Response:
+#### Response:
 
 ```json
 {
