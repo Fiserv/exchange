@@ -59,8 +59,8 @@
             link: docs/getting-started/getting-started-instfunding-split.md
         - title: Reporting
           link: docs/getting-started/getting-started-reporting.md
-		  open : true
-		  sections:
+	  open : true
+	  sections:
           - title: Transaction
             link: docs/getting-started/getting-started-reporting-transactions.md
           - title: Virtual Accounts
