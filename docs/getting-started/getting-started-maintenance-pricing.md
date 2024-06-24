@@ -7,7 +7,7 @@ tags: [Getting Started, Maintenance]
 
 When using exchange, you may want to update pricing after it has been boarded. In order to do this, a maintenance case must be created.
 
-### Creating Maintenance Case
+### Creating Maintenance Request
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -16,7 +16,6 @@ When using exchange, you may want to update pricing after it has been boarded. I
 type: tab
 titles: Request , Response 
 -->
-### Create Maintenance Request 
 
 In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance type `UPDATE_PROCESSING_PRICING`, and the `merchant_reference` for the submerchant. 
 `merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant) , and the`internal_mid` of the level the pricing is on (usually merchant) should be retrieved for the next endpoint.  

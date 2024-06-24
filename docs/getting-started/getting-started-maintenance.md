@@ -108,7 +108,7 @@ Only one maintenance case can be open at a time. If you need to cancel a case, t
 type: tab
 titles: Request , Response 
 -->
-### Request: 
+#### Request: 
 
 ```json
 {
@@ -148,7 +148,7 @@ Maintenance cases for a merchant can be searched using the `MAINTENANCE_SEARCH` 
 type: tab
 titles: Request , Response 
 -->
-### Request: 
+#### Request: 
 
 ```json
 
@@ -231,7 +231,7 @@ Specific Maintenance cases for a merchant can be pulled using the `RETRIEVE_MAIN
 type: tab
 titles: Request , Response 
 -->
-### Request: 
+#### Request: 
 
 ```json
 
