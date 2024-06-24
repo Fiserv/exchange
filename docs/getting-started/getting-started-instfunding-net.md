@@ -111,7 +111,7 @@ If managing the Chargeback balances outside the system, additional amounts to re
   "funding": [
     {
       "account_type": "REVENUE",
-      "amount": "20.00",
+      "amount": "19.68",
       "type": "CREDIT"
     },
     {
