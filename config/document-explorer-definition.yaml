@@ -91,6 +91,12 @@
     link: docs/getting-started/api-info.md
     open: true
     sections:
+    - title: Pricing + Equipment offerings
+      link: docs/getting-started/offerings.md
+    - title: Split funding by transaction 
+      link: docs/getting-started/split-details.md
+    - title: Restricted MCCs
+      link: docs/documentation/restricted_mccs.md
    # - title: Authentication
      # link: docs/getting-started/oauth.md
     # - title: Virtual account operations
@@ -105,19 +111,12 @@
     #   link: docs/getting-started/information-retrieval.md
     #- title: Submerchant maintenance
      # link: docs/getting-started/maintenance.md
-    - title: Pricing + Equipment offerings
-      link: docs/getting-started/offerings.md
-    - title: Split funding by transaction 
-      link: docs/getting-started/split-details.md
     #- title: Transaction operations 
      # link: docs/getting-started/transactions.md
     #- title: Reporting & Settlement 
      # link: docs/getting-started/reporting.md
     #- title: Back to Sales
      # link: docs/getting-started/backtosales.md
-    - title: Restricted MCCs
-      link: docs/documentation/restricted_mccs.md
-          
 - sections:
     - title: Release Notes
       open : false
