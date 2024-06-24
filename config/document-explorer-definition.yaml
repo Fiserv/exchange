@@ -61,14 +61,14 @@
           link: docs/getting-started/getting-started-reporting.md
           open : true
           sections:
-          - title: Transaction
+          - title: Transactions
             link: docs/getting-started/getting-started-reporting-transactions.md
           - title: Virtual Accounts
             link: docs/getting-started/getting-started-reporting-accounts.md
           - title: Settlements
             link: docs/getting-started/getting-started-reporting-settlements.md
-        - title: Transactions
-          link: docs/getting-started/getting-started-transactions.md
+        # - title: Transactions
+        #   link: docs/getting-started/getting-started-transactions.md
         - title: Maintenance
           open: true
           link: docs/getting-started/getting-started-maintenance.md
