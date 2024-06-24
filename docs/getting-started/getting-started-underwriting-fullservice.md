@@ -121,7 +121,7 @@ titles: Screening steps, Monitoring Steps
 <!-- type: tab-end -->
 
 
-## Unhappy Paths
+## Error Handling
 ### Submission Errors
 
 <!-- theme: info -->
