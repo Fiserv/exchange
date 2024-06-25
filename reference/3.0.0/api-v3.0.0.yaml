@@ -25827,7 +25827,7 @@ components:
     RequestMinimalApplication:
       value:
         merchant:
-          business_entity: {legal_name: "MMISTEST Legal Name", ownership_entity_type: "L", foreign_entity: "0", irs_filing_name: "MMISTEST IRS Name", irs_status: "N", tin_type: "2", int_tax_exempt_flag: "1", business_tin_ssn_number: "666989898", mcc_code: "5733", business_category: "E", foundation_date: "2020-01-01", date_incorporated: "2020-01-01", incorp_state: "CA"}
+          business_entity: {legal_name: "MMISTEST Legal Name", ownership_entity_type: "L", foreign_entity: "0", irs_filing_name: "MMISTEST IRS Name", irs_status: "N", tin_type: "2", business_tin_ssn_number: "666989898", mcc_code: "5733", business_category: "E", foundation_date: "2020-01-01", date_incorporated: "2020-01-01", incorp_state: "CA"}
           owners:
             - owner_first_name: "Jane"
               owner_surname: "Doe"
@@ -25836,7 +25836,6 @@ components:
               owner_position: "CEO"
               owner_phone_code: "US|1"
               owner_phone_no: "3339898989"
-              owner_date_started: "2020-03-31"
               owner_email: "email@domain.com"
               owner_tin_ssn_number: "666989898"
               is_main_principal: "1"
