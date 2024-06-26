@@ -11213,6 +11213,8 @@ components:
           $ref: '#/components/schemas/MID'
         external_mid:
           $ref: '#/components/schemas/MID'
+        tin_validated:
+          $ref: '#/components/schemas/tinValidated'
         marketplace_order_id:
           $ref: '#/components/schemas/OrderID'
         legal_name:
@@ -22538,6 +22540,13 @@ components:
       type: string
       description: 'OrderID returned from Marketplace submission'
       example: "oABC1"
+    tinValidated:
+      type: string
+      description: 'Returned if using Tin validation in the system, will return 1 for confirmed. 0 Indicates could not be verified. If not verified, submission returns information on potential errors.'
+      enum: 
+        - "1"
+        - "0"
+      example: "1"
     TransactionMonitoringRetrieveRequest:
       type: object
       properties:
@@ -26873,6 +26882,7 @@ components:
           risk_classification: null
           intelligence_data_ref: 652664be3188ceadc30466e4
           intelligence_ref: null
+          tin_validated: "1"
           risk_ref: 652664c495a6acf90e0f2f65
           aml_ref: null
           owner:
