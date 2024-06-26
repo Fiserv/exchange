@@ -220,7 +220,7 @@ The `/boarding/application` endpoint supports submitting the application for the
 
 #### DDA  Verification
 
-If DDA verification is enabled, this will be done upon submission of the application. If successful, the application will submit as normal, with updated `"dda_validated":``"1"` for the bank details.  
+If DDA verification is enabled, this will be done upon submission of the application. If successful, the application will submit as normal, with updated `"dda_validated":` `"1"` for the bank details.  
 If unsuccessful, the service will provide a response on why. 
 
 | Status                          | Description                                              |
@@ -236,7 +236,7 @@ If you want to ignore the DDA service, as you have verified details another way,
 #### TIN Verification
 
 If TIN verification is enabled, this will be done upon submission of the application.
-Flag `tin_validated:``1` indicates it was successful. Unsuccessful validation will result in errors  being thrown upon submission, giving any detail on possible matches if found.  
+Flag `tin_validated:` `1` will be updated on the application + merchants details, and indicates it was successful. Unsuccessful validation will result in errors being thrown upon submission, giving any detail on possible matches if available.  
 Responses include:
 
 | Result                               | Check Type and Data Points                           | Action                                    |
@@ -264,7 +264,8 @@ JSON format for `APPLICATION_SUBMIT`:
 
 ### Submission Error Handling 
 
-Validation for services is done upon using the submission endpoint. This can mean that there are validation checks that may fail. These are reported in the `"errors"`  block.  Submission errors will return with a message, on a description of the error, and context on where this field is found. 
+A set of Validation is done upon using the submission endpoint. This can mean that there are validation checks that may fail. These are reported in the `"errors"`  block.  Submission errors will return with a message, on a description of the error, and context on where this field is found. This typically flags when invalid data entered, or a field not provided.
+
 ```json
     {
       "error_code": 1501001,
@@ -276,7 +277,8 @@ Validation for services is done upon using the submission endpoint. This can mea
 ### Checking application status
 
 The application status check can be used to check current status of application. This will give information on the flow of the application. An application is considered complete once it has reached status 'Boarding Complete'. 
-This will also give you information on what credit risk state the application is at
+This will also give you information on what credit risk state the application using the `"aml_process_state"`, `"aml_error"`, `"credit_risk_process_state"`, `"CREDIT_RISK_CHECK_ERROR"`. These report the current state, and any potential errors from the risk services.
+For example payloads, please see [API explorer](../api?type=post&path=/boarding///application)
 
 #### Error handling 
 
