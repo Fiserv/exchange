@@ -1,3 +1,4 @@
+
 # Net Instructional Funding 
 
 This section will focus on creating Funding instructions for NET scenarios. Please refer to the main [Funding](?path=docs/getting-started/getting-started-funding.md) page first for details on the Accounts and Process flow.
@@ -5,7 +6,7 @@ This section will focus on creating Funding instructions for NET scenarios. Plea
 ## What is Net Instructional funding?
 
 Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the submerchant.
-For NET instructions, we will always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the submerchant. This is primarily done by utilising the `FUNDING` block on the `/funding/instruction` endpoint.
+For NET instructions, we will always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the submerchant. This is primarily done by utilizing the `FUNDING` block on the `/funding/instruction` endpoint.
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
@@ -59,7 +60,7 @@ The settlement that will generate from this instruction will be a settlement of 
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
-The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occured, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Net instructions, seen below.
+The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occurred, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Net instructions, seen below.
 
 ### Using the Chargeback account
 
@@ -94,7 +95,7 @@ In order to use the chargeback account in the instruction, the `"account_type": 
 
 ### Using the Fee Account
 
-If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a seperate Gross Fee. Adding to your NET funding would look like the below :
+If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a separate Gross Fee. Adding to your NET funding would look like the below :
 
 ##### Request:
 

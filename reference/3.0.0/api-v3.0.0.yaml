@@ -539,7 +539,7 @@ paths:
       tags:
         - Application Boarding
       summary: Generate signature link for an application
-      description: Starts remote signature process, and generates a link to sign documents. Signature will be checked every 10 minutes to see if completed by the system automatically.
+      description: "Starts remote signature process, and generates a link to sign documents. Signature will be checked every 10 minutes to see if completed by the system automatically. Can be manually checked using /boarding/complete_signature API. This flow is only required if requiring signed documents for onboarding, and doing this through remote signature."
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Remote Signature
       x-child-product-name: Boarding Submerchants
@@ -561,8 +561,8 @@ paths:
     post:
       tags:
         - Application Boarding
-      summary: Generate signature link for an application
-      description: Manually pulls the system to check if signature has been completed.
+      summary: Verify signature link for an application
+      description: "Manually pulls the system to check if signature has been completed. System pulls every 10 minutes regardless of this API being used. Must be called after signautre flow has started."
       x-group-name: Boarding Submerchant Applications
       x-proxy-name: Complete Signature
       x-child-product-name: Boarding Submerchants
@@ -11213,6 +11213,8 @@ components:
           $ref: '#/components/schemas/MID'
         external_mid:
           $ref: '#/components/schemas/MID'
+        tin_validated:
+          $ref: '#/components/schemas/tinValidated'
         marketplace_order_id:
           $ref: '#/components/schemas/OrderID'
         legal_name:
@@ -13031,7 +13033,7 @@ components:
       maxLength: 12
       minLength: 12
       type: string
-      description: Application Identification
+      description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
       example: "333000000794"
     Status:
       type: string
@@ -22538,6 +22540,13 @@ components:
       type: string
       description: 'OrderID returned from Marketplace submission'
       example: "oABC1"
+    tinValidated:
+      type: string
+      description: 'Returned if using Tin validation in the system, will return 1 for confirmed. 0 Indicates could not be verified. If not verified, submission returns information on potential errors.'
+      enum: 
+        - "1"
+        - "0"
+      example: "1"
     TransactionMonitoringRetrieveRequest:
       type: object
       properties:
@@ -23809,7 +23818,7 @@ components:
           type: object
           properties:
             application_reference:
-              description: 'Unique System generated Application identifier. Can be retrieved from the application, or in stored from response when initially onboarding the application'
+              description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
               example: "333000000794"
     RemoteAPISignatureResponse:
@@ -23824,7 +23833,7 @@ components:
           type: object
           properties:
             application_reference:
-              description: 'Unique System generated Application identifier. Can be retrieved from the application, or in stored from response when initially onboarding the application'
+              description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
               example: "333000000794"
     CompleteAPISignatureResponse:
@@ -26873,6 +26882,7 @@ components:
           risk_classification: null
           intelligence_data_ref: 652664be3188ceadc30466e4
           intelligence_ref: null
+          tin_validated: "1"
           risk_ref: 652664c495a6acf90e0f2f65
           aml_ref: null
           owner:

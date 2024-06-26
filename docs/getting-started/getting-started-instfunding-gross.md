@@ -1,3 +1,4 @@
+
 # Gross Instructional Funding
 
 This section will focus on creating Funding instructions for Gross scenarios. Please refer to the main [Funding](?path=docs/getting-started/getting-started-funding.md) page first for details on the Accounts and Process flow.
@@ -12,7 +13,7 @@ For Gross instructions, we will create one settlement for Credits, **and** one f
 <!-- theme: info -->
 >**POST** `/funding/instruction`
 
-The blocks in the funding instruction will specify each amount seperately, rather than rolled into the funding block like Net funding. 
+The blocks in the funding instruction will specify each amount separately, rather than rolled into the funding block like Net funding. 
 This means that for an instructional hold balance of 100, you would need to send the funding and billing amounts gross using their respective blocks. 
 Please see below example:
 <!-- theme: success -->
@@ -48,13 +49,13 @@ Please see below example:
 }
 
 ```
-This instruction would generate settlements of $100.00 Credit to the submerchant, a settlement of $15.00 Debit to the submerchant and a Credit settlement of $15.50 to the Aggregator.
+This instruction would generate settlements of $100.00 Credit to the submerchant, $15.00 Debit to the submerchant and a Credit settlement of $15.50 to the Aggregator.
 
-## Managing Chargeback through NET instructions
+## Managing Chargeback through GROSS instructions
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
-The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occured, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Net instructions, seen below.
+The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occurred, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Gross instructions, seen below.
 
 ### Using the Chargeback account
 
@@ -63,7 +64,7 @@ In order to use the chargeback account in the instruction, the `"account_type": 
 >**IH Balance: 25**
 
 <!-- theme: warning -->
->**CB Virtual Account Balance: 5.00**
+>**CB Virtual Account Balance: 15.00**
 
 ##### Request:
 ```json
@@ -73,27 +74,30 @@ In order to use the chargeback account in the instruction, the `"account_type": 
   "funding": [
     {
       "account_type": "REVENUE",
-      "amount": "20.00",
+      "amount": "25.00",
       "type": "CREDIT"
-    },
+    }
+  ],
+  "chargeback": [
     {
       "account_type": "CHARGEBACK",
-      "amount": "5.00",
+      "amount": "15.00",
       "type": "CREDIT"
     }
   ]
 }
+
 ```
 
 ### Using the Fee Account
 
-If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fee amount. This can be added as a NET fee, or debited directly as a seperate Gross Fee. Adding to your NET funding would look like the below :
+If managing the Chargeback balances outside the system, additional amounts to recoup the chargeback can be added to the Fees being taken. Adding to your Gross billing would look like the below :
 
 <!-- theme: success -->
 >**IH Balance: 25**
 
 <!-- theme: warning -->
->**Assuming a Fee of 0.32 taken**
+>**Assuming a Fee of 0.32 taken, 15 Chargeback recouped**
 
 ##### Request:
 ```json
@@ -103,16 +107,19 @@ If managing the Chargeback balances outside the system, additional amounts to re
   "funding": [
     {
       "account_type": "REVENUE",
-      "amount": "20.00",
+      "amount": "25.00",
       "type": "CREDIT"
-    },
+    }
+  ],
+  "billing": [
     {
-      "account_type": "FEE",
-      "amount": "5.32",
+      "account_type": "GROSS_FEE",
+      "amount": "15.32",
       "type": "CREDIT"
     }
   ]
 }
+
 ```
 ##  Reserve Management
 

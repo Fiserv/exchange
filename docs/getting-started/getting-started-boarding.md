@@ -1,3 +1,4 @@
+
 ---
 tags: [Getting Started, Boarding, Application]
 ---
@@ -217,6 +218,35 @@ titles: Application Submit, Sample JSON
 
 The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
 
+#### DDA  Verification
+
+If DDA verification is enabled, this will be done upon submission of the application. If successful, the application will submit as normal, with updated `"dda_validated":``"1"` for the bank details.  
+If unsuccessful, the service will provide a response on why. 
+
+| Status                          | Description                                              |
+|---------------------------------|----------------------------------------------------------|
+| VERIFIED                        | ABA/DDA found and matches PII sent                       |
+| PARTIAL                         | ABA/DDA found and partially matches PII sent             |
+| NON PARTICIPANT                 | ABA not found in National Shared Database                |
+| PARTICIPANT ACCOUNT NOT LOCATED | ABA participates, but DDA cannot be found                |
+| NOT VERIFIED                    | ABA/DDA found but does not match PII sent                |
+
+If you want to ignore the DDA service, as you have verified details another way, the  `ignore_bank_validation":` `"1"` flag can be added to the application submission payload.
+
+#### TIN Verification
+
+If TIN verification is enabled, this will be done upon submission of the application.
+Flag `tin_validated:``1` indicates it was successful. Unsuccessful validation will result in errors  being thrown upon submission, giving any detail on possible matches if found.  
+Responses include:
+
+| Result                               | Check Type and Data Points                           | Action                                    |
+|--------------------------------------|------------------------------------------------------|-------------------------------------------|
+| Possible match found                 | Business TIN, Outlet Trading Name and Outlet Address | Update the business data and retry        |
+| Possible match found                 | Business TIN, Business Legal Name and Business Address | Update the business data and retry      |
+| Possible match found - Sole Prop     | Principal SSN, Principal Name and Principal Address  | Update the business data and retry        |
+| Possible match found - Sole Prop     | Business SSN, Outlet Trading Name and Outlet Address | Update the business data and retry        |
+| Possible match found - Sole Prop     | Business EIN, Outlet Trading Name and Outlet Address | Update the business data and retry        |
+| No match found                       | N/A                                                  | Update the business data and retry        |
 
 <!-- type: tab -->
 
@@ -232,6 +262,25 @@ JSON format for `APPLICATION_SUBMIT`:
 
 <!-- type: tab-end -->
 
+### Submission Error Handling 
+
+Validation for services is done upon using the submission endpoint. This can mean that there are validation checks that may fail. These are reported in the `"errors"`  block.  Submission errors will return with a message, on a description of the error, and context on where this field is found. 
+```json
+    {
+      "error_code": 1501001,
+      "message": "Outlet 1: Trading Information is invalid - The field Annual Card Turnover is required",
+      "context": "{\"outlet\":1,\"trading_information\":1}"
+    }
+```
+
+### Checking application status
+
+The application status check can be used to check current status of application. This will give information on the flow of the application. An application is considered complete once it has reached status 'Boarding Complete'. 
+This will also give you information on what credit risk state the application is at
+
+#### Error handling 
+
+Upon submission to services in the system, it is possible to receive errors downstream if the data submit is invalid, or for other system errors.  These are reported in a set of fields in the status API 
 
 ## Updating an application
 
