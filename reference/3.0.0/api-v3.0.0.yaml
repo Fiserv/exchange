@@ -534,7 +534,52 @@ paths:
       x-group-name: Update Application
       x-proxy-name: Unlock Application
       x-child-product-name: Boarding Submerchants
-
+  /boarding/remote_api_signature:
+    post:
+      tags:
+        - Application Boarding
+      summary: Generate signature link for an application
+      description: Starts remote signature process, and generates a link to sign documents. Signature will be checked every 10 minutes to see if completed by the system automatically.
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Remote Signature
+      x-child-product-name: Boarding Submerchants
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteAPISignatureResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteAPISignatureRequest'
+  /boarding/complete_signature:
+    post:
+      tags:
+        - Application Boarding
+      summary: Generate signature link for an application
+      description: Manually pulls the system to check if signature has been completed.
+      x-group-name: Boarding Submerchant Applications
+      x-proxy-name: Complete Signature
+      x-child-product-name: Boarding Submerchants
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteAPISignatureRequest'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteAPISignatureResponse'
   /boarding/notes/add:
     post:
       tags:
@@ -23757,7 +23802,36 @@ components:
       example: ">-"
       description: Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
-
+    RemoteAPISignatureRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              description: 'Unique System generated Application identifier. Can be retrieved from the application, or in stored from response when initially onboarding the application'
+              type: string
+              example: "333000000794"
+    RemoteAPISignatureResponse:
+      type: object
+      properties:
+        note:
+          $ref: '#/components/schemas/NoteRequest'
+    CompleteAPISignatureRequest:
+      type: object
+      properties:
+        application:
+          type: object
+          properties:
+            application_reference:
+              description: 'Unique System generated Application identifier. Can be retrieved from the application, or in stored from response when initially onboarding the application'
+              type: string
+              example: "333000000794"
+    CompleteAPISignatureResponse:
+      type: object
+      properties:
+        note:
+          $ref: '#/components/schemas/NoteRequest'
     AddNoteRequest:
       required:
         - request_source
