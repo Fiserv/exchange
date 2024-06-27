@@ -3400,7 +3400,16 @@ components:
             properties:
               entitlement_key: 
                 type: string
+                example: "VISA"
                 description: "Key retrieved from the offer retrieval API. Will enabled entitlement for the submerchant."
+                enum:
+                  - "VISA"
+                  - "MASTERCARD"
+                  - "AMEX"
+                  - "DISCOVER"
+                  - "DEBIT"
+                  - "APPLE_TTP"
+
         product_items:
           type: array
           description: "Array for the products to be added. Products must exist in an offer. Products can be gateways, equipment, or pricing items. Pricing items include pricing being done through exchange, and Fee sequence codes depending on the funding model being used."
@@ -4144,9 +4153,19 @@ components:
                     example: "Visa"
                   entitlement_key:
                     type: string
+                    description: "Key used in order to send entitlements during boarding."
+                    enum:
+                      - "VISA"
+                      - "MASTERCARD"
+                      - "AMEX"
+                      - "DISCOVER"
+                      - "DEBIT"
+                      - "APPLE_TTP"
                     example: "VISA"
                   entitlement_type:
                     type: string
+                    enum: 
+                      - "Entitlement"
                     example: "Entitlement"
 
     RetrieveOnlineOffering:
@@ -26182,12 +26201,14 @@ components:
               product_offer_reference: "DEMO01"
               product_items:
                 - product_code: "FEE_01"
-                  quantity: "1"
                   percentage_amount: "0.30000"
-                  fixed_amount: "0.16000"
+                  fixed_amount: "0.00000"
                 - product_code: "FEE_02"
-                  quantity: "1"
                   fixed_amount: "0.10000"
+                  percentage_amount: "0.00000"
+              entitlements:
+                - entitlement_key: "VISA"
+                - entitlement_key: "MASTERCARD"
           merchant_sub_group: {group_name: "Subgroup"}
     RequestMinimalOutlet:
       value:
