@@ -659,7 +659,7 @@ paths:
       tags:
         - Product Offer
       summary: List product offers
-      description: List all product offers
+      description: Lists all product offers. Returns the offer code to be used in the /retrieve endpoint 
       requestBody:
         description: Retrieve the list of product offers
         content:
@@ -687,7 +687,7 @@ paths:
     post:
       tags:
         - Product Offer
-      summary: Retrieve product offer
+      summary: Retrieves the full offer in order for products and pricing to be added to the boarding payload. Offer code returned in /product_offer/list API.
       description: Retrieve product offer
       requestBody:
         description: Retrieve a single product offer
@@ -713,126 +713,126 @@ paths:
       x-proxy-name: List
       x-child-product-name: List
 
-  /offering/available:
-    post:
-      tags:
-        - Offerings
-      summary: "Retrieve Available Offering"
-      description: "Retrieve Available configured Offerings. Request can be left Empty in order to retrieve all offerings, or criteria provided (if offer is configured with criteria). Retrieved External IDs can be put into the other offering retrieve endpoints to gather full details."
-      operationId: LIST_AVAILABLE_OFFERINGS
-      x-group-name: Offerings
-      x-child-product-name: Boarding Submerchants
-      x-proxy-name: Retrieve Available Offerings
-      parameters:
-        - {$ref: '#/components/parameters/ApiVersionHeader'}
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-        - {$ref: '#/components/parameters/AuthorizationHeader'}
-      responses:
-        '405':
-          description: Invalid input
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseRetrieveOffer'
+  # /offering/available:
+  #   post:
+  #     tags:
+  #       - Offerings
+  #     summary: "Retrieve Available Offering"
+  #     description: "Retrieve Available configured Offerings. Request can be left Empty in order to retrieve all offerings, or criteria provided (if offer is configured with criteria). Retrieved External IDs can be put into the other offering retrieve endpoints to gather full details."
+  #     operationId: LIST_AVAILABLE_OFFERINGS
+  #     x-group-name: Offerings
+  #     x-child-product-name: Boarding Submerchants
+  #     x-proxy-name: Retrieve Available Offerings
+  #     parameters:
+  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
+  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
+  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
+  #     responses:
+  #       '405':
+  #         description: Invalid input
+  #       '200':
+  #         description: Successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ResponseRetrieveOffer'
 
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveOffering'
-            examples:
-              SearchCriteria:
-                $ref: '#/components/examples/RetrieveOfferSampleCriteria'
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveOffering'
+  #           examples:
+  #             SearchCriteria:
+  #               $ref: '#/components/examples/RetrieveOfferSampleCriteria'
 
-  /offering/retrieve_processing_offering:
-    post:
-      tags:
-        - Offerings
-      summary: Retrieve Processing Offering
-      description: "Retrieves the Processing Offering specified. Will return pricing configured for Auto funding scenarios, and retrieve other pricing items such as entitlements that have been configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
-      operationId: RETRIEVE_PROCESSING_OFFERING
-      x-group-name: Offerings
-      x-child-product-name: Boarding Submerchants
-      x-proxy-name: Retrieve Processing Offerings
-      parameters:
-        - {$ref: '#/components/parameters/ApiVersionHeader'}
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-        - {$ref: '#/components/parameters/AuthorizationHeader'}
-      responses:
-        '405':
-          description: Invalid input
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseProcessingOffer'
+  # /offering/retrieve_processing_offering:
+  #   post:
+  #     tags:
+  #       - Offerings
+  #     summary: Retrieve Processing Offering
+  #     description: "Retrieves the Processing Offering specified. Will return pricing configured for Auto funding scenarios, and retrieve other pricing items such as entitlements that have been configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
+  #     operationId: RETRIEVE_PROCESSING_OFFERING
+  #     x-group-name: Offerings
+  #     x-child-product-name: Boarding Submerchants
+  #     x-proxy-name: Retrieve Processing Offerings
+  #     parameters:
+  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
+  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
+  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
+  #     responses:
+  #       '405':
+  #         description: Invalid input
+  #       '200':
+  #         description: Successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ResponseProcessingOffer'
 
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveProcessingOffering'
-  /offering/retrieve_equipment_offering:
-    post:
-      tags:
-        - Offerings
-      description: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
-      summary: Retrieve Equipment Offering
-      operationId: RETRIEVE_EQUIPMENT_OFFERING
-      x-group-name: Offerings
-      x-child-product-name: Boarding Submerchants
-      x-proxy-name: Retrieve Equipment Offerings
-      parameters:
-        - {$ref: '#/components/parameters/ApiVersionHeader'}
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-        - {$ref: '#/components/parameters/AuthorizationHeader'}
-      responses:
-        '405':
-          description: Invalid input
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseEquipmentOffer'
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveProcessingOffering'
+  # /offering/retrieve_equipment_offering:
+  #   post:
+  #     tags:
+  #       - Offerings
+  #     description: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
+  #     summary: Retrieve Equipment Offering
+  #     operationId: RETRIEVE_EQUIPMENT_OFFERING
+  #     x-group-name: Offerings
+  #     x-child-product-name: Boarding Submerchants
+  #     x-proxy-name: Retrieve Equipment Offerings
+  #     parameters:
+  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
+  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
+  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
+  #     responses:
+  #       '405':
+  #         description: Invalid input
+  #       '200':
+  #         description: Successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ResponseEquipmentOffer'
 
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveEquipmentOffering'
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveEquipmentOffering'
 
-  /offering/retrieve_online_offering:
-    post:
-      tags:
-        - Offerings
-      summary: Retrieve Online Offering
-      description: "Retrieves the Online Offering specified. Will return Gateways + VARs configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
-      operationId: RETRIEVE_ONLINE_OFFERING
-      x-group-name: Offerings
-      x-child-product-name: Boarding Submerchants
-      x-proxy-name: Retrieve Online Offerings
-      parameters:
-        - {$ref: '#/components/parameters/ApiVersionHeader'}
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-        - {$ref: '#/components/parameters/AuthorizationHeader'}
-      responses:
-        '405':
-          description: Invalid input
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseOnlineOffer'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RetrieveOnlineOffering'
+  # /offering/retrieve_online_offering:
+  #   post:
+  #     tags:
+  #       - Offerings
+  #     summary: Retrieve Online Offering
+  #     description: "Retrieves the Online Offering specified. Will return Gateways + VARs configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
+  #     operationId: RETRIEVE_ONLINE_OFFERING
+  #     x-group-name: Offerings
+  #     x-child-product-name: Boarding Submerchants
+  #     x-proxy-name: Retrieve Online Offerings
+  #     parameters:
+  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
+  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
+  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
+  #     responses:
+  #       '405':
+  #         description: Invalid input
+  #       '200':
+  #         description: Successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ResponseOnlineOffer'
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RetrieveOnlineOffering'
 
   /transaction:
     post:
@@ -3388,13 +3388,22 @@ components:
       description: "Offer for the application. Sent on the pricing level of the application. Used to select products to be sent in the payload. Items for the Offer should be retrieved using the Offer retrieval API with Version 4."
       type: object
       properties:
-        product_offer_reference:
+        offer_code:
           type: string
-          description: "Reference that is added to the offer during configuration. Retrieved from product retrieval."
+          description: "Offer code that identifies the offer configured. Retrieved from product retrieval."
           example: "DEMO01"
+        entitlements:
+          type: array
+          description: "Entitlements that will be added for the submerchant. Retrieved from the offer retrieval API. Used for fund the PFAC setups to send entitlements."
+          items:
+            type: object
+            properties:
+              entitlement_key: 
+                type: string
+                description: "Key retrieved from the offer retrieval API. Will enabled entitlement for the submerchant."
         product_items:
           type: array
-          description: "Array for the products to be added. Products must exist in an offer"
+          description: "Array for the products to be added. Products must exist in an offer. Products can be gateways, equipment, or pricing items. Pricing items include pricing being done through exchange, and Fee sequence codes depending on the funding model being used."
           items:
             type: object
             properties:
@@ -3405,7 +3414,7 @@ components:
               quantity:
                 type: string
                 example: "1"
-                description: "The quantity of fee/product being added. Typically will be 1."
+                description: "The quantity of product being added. Typically will be 1. Quantity is required for gateways."
               percentage_amount:
                 type: string
                 description: "The rate to be applied to the selected pricing. Should not be sent if the charge does not accept percentage rates. Min and Max retrieved from offer retrieval"
@@ -4103,6 +4112,7 @@ components:
                     example: "DEMO"
                   relate_to:
                     type: string
+                    description: "Returns the type of product. "
                     example: "PRICING"
                   tx_source:
                     type: integer
@@ -12338,16 +12348,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OutletContact'
-        equipment_offer:
-          $ref: '#/components/schemas/EquipmentOffering'
-        online_offer:
-          $ref: '#/components/schemas/OnlineOffering'
+        # equipment_offer:
+        #   $ref: '#/components/schemas/EquipmentOffering'
+        # online_offer:
+        #   $ref: '#/components/schemas/OnlineOffering'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         offer:
           $ref: '#/components/schemas/V4Offer'
-        offer_package:
-          $ref: '#/components/schemas/OfferPackage'
+        # offer_package:
+        #   $ref: '#/components/schemas/OfferPackage'
     UpdateOutlet:
       required:
         - currencies
