@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -680,9 +681,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Product Offer
-      x-proxy-name: List
-      x-child-product-name: List
+      x-proxy-name: Add Application
+      x-group-name: Offers
+      x-child-product-name: List all offers
+
   /product_offer/retrieve:
     post:
       tags:
@@ -709,9 +711,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Product Offer
-      x-proxy-name: List
-      x-child-product-name: List
+      x-proxy-name: Add Application
+      x-group-name: Offers
+      x-child-product-name: Retrieve Offer
 
   # /offering/available:
   #   post:
