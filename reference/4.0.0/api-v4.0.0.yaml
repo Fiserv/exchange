@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
-
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -26294,8 +26293,11 @@ components:
                ent_telephone_code: "US|1",
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
-          online_offer:
-            online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
+          offer:
+            offer_code: "DEMO01"
+            product_items:
+              - product_code: "GATEWAY01"
+
     RequestMinimalNonProcessingApplication:
       value:
         operation:
