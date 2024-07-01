@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -580,6 +581,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CompleteAPISignatureResponse'
+            examples:
+              SubmissionResponse:
+                $ref: '#/components/examples/CompleteSignatureAPIResponse'
   /boarding/notes/add:
     post:
       tags:
@@ -680,9 +684,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Product Offer
-      x-proxy-name: List
-      x-child-product-name: List
+      x-proxy-name: Add Application
+      x-group-name: Offers
+      x-child-product-name: List all offers
+
   /product_offer/retrieve:
     post:
       tags:
@@ -709,9 +714,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Product Offer
-      x-proxy-name: List
-      x-child-product-name: List
+      x-proxy-name: Add Application
+      x-group-name: Offers
+      x-child-product-name: Retrieve Offer
 
   # /offering/available:
   #   post:
@@ -2656,8 +2661,7 @@ components:
       required: true
       schema: {
         type: string,
-        default: "Authorization"
-      }
+        default: "Authorization"}
     ContentTypeHeaderDocument:
       name: Content-Type
       description: "Content type. multipart/form-data"
@@ -3400,7 +3404,16 @@ components:
             properties:
               entitlement_key: 
                 type: string
+                example: "VISA"
                 description: "Key retrieved from the offer retrieval API. Will enabled entitlement for the submerchant."
+                enum:
+                  - "VISA"
+                  - "MASTERCARD"
+                  - "AMEX"
+                  - "DISCOVER"
+                  - "DEBIT"
+                  - "APPLE_TTP"
+
         product_items:
           type: array
           description: "Array for the products to be added. Products must exist in an offer. Products can be gateways, equipment, or pricing items. Pricing items include pricing being done through exchange, and Fee sequence codes depending on the funding model being used."
@@ -4144,9 +4157,19 @@ components:
                     example: "Visa"
                   entitlement_key:
                     type: string
+                    description: "Key used in order to send entitlements during boarding."
+                    enum:
+                      - "VISA"
+                      - "MASTERCARD"
+                      - "AMEX"
+                      - "DISCOVER"
+                      - "DEBIT"
+                      - "APPLE_TTP"
                     example: "VISA"
                   entitlement_type:
                     type: string
+                    enum: 
+                      - "Entitlement"
                     example: "Entitlement"
 
     RetrieveOnlineOffering:
@@ -24068,8 +24091,12 @@ components:
     RemoteAPISignatureResponse:
       type: object
       properties:
-        note:
-          $ref: '#/components/schemas/NoteRequest'
+        result:
+          type: string
+          example: "SUCCESS"
+        url:
+          type: string
+          example: "https://secure.eu1.adobesign.com/public/apiesign?XXXXXXXXXX3-XXXXXXXXXXXXXXX-XXXXXXXXXXXd=XXXXXXXXXXXXXX"
     CompleteAPISignatureRequest:
       type: object
       properties:
@@ -24083,8 +24110,15 @@ components:
     CompleteAPISignatureResponse:
       type: object
       properties:
-        note:
-          $ref: '#/components/schemas/NoteRequest'
+        result:
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operation'
+        application:
+          $ref: '#/components/schemas/application'
+        application_relation:
+          $ref: '#/components/schemas/ApplicationRelation'
     AddNoteRequest:
       required:
         - request_source
@@ -26182,12 +26216,14 @@ components:
               product_offer_reference: "DEMO01"
               product_items:
                 - product_code: "FEE_01"
-                  quantity: "1"
                   percentage_amount: "0.30000"
-                  fixed_amount: "0.16000"
+                  fixed_amount: "0.00000"
                 - product_code: "FEE_02"
-                  quantity: "1"
                   fixed_amount: "0.10000"
+                  percentage_amount: "0.00000"
+              entitlements:
+                - entitlement_key: "VISA"
+                - entitlement_key: "MASTERCARD"
           merchant_sub_group: {group_name: "Subgroup"}
     RequestMinimalOutlet:
       value:
@@ -29910,6 +29946,140 @@ components:
           - error_code: 1501001
             message: 'Outlet 2: Trading Information is invalid - The field Annual Card Turnover is required'
             context: '{"outlet":2,"trading_information":2}'
+    CompleteSignatureAPIResponse:
+      value:
+        result: SUCCESS
+        operation:
+          operation_type: APPLICATION_UPDATE_SIGNATURE_STATUS
+        application_signature:
+          all_signed: true
+        application:
+          application_external_id: APL91-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          sales_owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          aml_owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          risk_owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          creator_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          alliance_external_id: ALL4A-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          partner_external_id: PARF1-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          multiple_outlet: '0'
+          application_reference: '333000000003'
+          application_type: NA
+          bank_lock: '0'
+          has_processing_mid: '1'
+          legal_name: MMISTEST Legal Name
+          contact_first_name: Jane
+          contact_last_name: Doe
+          parent_type: PARTNER
+          contact_email: email@domain.com
+          internal_mid: '700100000000001'
+          application_resubmitted: '0'
+          hierarchy_linking_flag: '0'
+          correspondence_language: en_gb
+          same_day_ach: '0'
+          take_reserves_flag: '0'
+          date_added: '2021-11-01 15:28:55'
+          application_status_external_id: APSE6-C475E-82BE7-B1AA4-9A026-89381-4EA08
+          application_status_key: OPEN
+          data_review_required: '0'
+        application_relation:
+          date_added: '2021-11-01 15:28:58'
+          date_updated: '2021-11-01 15:50:39'
+          _id: 6571e4bafb0234279603ff15
+          application_id: '80344'
+          application_reference: '333000000003'
+          application_type: null
+          quote_id: null
+          price_model: null
+          business_id: 6571e4bafb0234279603ff14
+          original_merchant_id: null
+          ownership: null
+          merchant_node_id: '299827'
+          merchant_reference: null
+          sub_group_id: null
+          main_owner: 6571e4bafb0234279603ff12
+          main_outlet: 6571e7cf1ab0c8a1370bf5ac
+          total_outlets: 2
+          total_billings: null
+          total_chains: 0
+          total_subgroups: 0
+          aml_check_response: null
+          credit_risk_decision: null
+          credit_risk_classification: null
+          risk_classification: null
+          intelligence_data_ref: null
+          intelligence_ref: null
+          risk_ref: null
+          aml_ref: null
+          owner:
+            - date_added: null
+              date_updated: null
+              owner_id: 6571e4bafb0234279603ff12
+          submerchants: null
+          merchant_sub_group:
+            6571e4bafb0234279603ff16:
+              date_added: null
+              date_updated: null
+              sub_group_id: '81496'
+              sub_group_data_id: 6571e4bafb0234279603ff16
+              merchant_node_id: '299830'
+              parent_id: null
+              parent_mid: '700100000000001'
+              internal_mid: '700100000054562'
+              sub_group_type: CHAIN
+          chain: null
+          outlet:
+            6571e7cf1ab0c8a1370bf5ac:
+              date_added: null
+              date_updated: null
+              outlet_number: 1
+              crud_outlet_id: null
+              outlet_auto_id: '135013'
+              merchant_node_id: '299842'
+              outlet_id: 6571e7cf1ab0c8a1370bf5ac
+              sub_group_id: null
+              outlet_arrangement_id: null
+            6571e9cf75577eb35401ac98:
+              date_added: null
+              date_updated: null
+              outlet_number: 2
+              crud_outlet_id: null
+              outlet_auto_id: '135016'
+              merchant_node_id: '299845'
+              outlet_id: 6571e9cf75577eb35401ac98
+              sub_group_id: null
+              outlet_arrangement_id: null
+          application: null
+          aml_decision: null
+          aml_risk_classification: null
+          total_submerchants: 0
+        business_data:
+          billing_level: '3'
+          pricing_level: BUSINESS
+          business_entity:
+            contacts: []
+            banks: []
+          existing_banks: []
+          owners:
+            - is_main_principal: '1'
+              owner_first_name: Jane
+              owner_surname: Doe
+              contact_dob: '1980-01-01'
+              owner_position: CEO
+              owner_email: email@domain.com
+              owner_nationality: '840'
+              ownership_perc: '100'
+              owner_tin_ssn_number: '666989898'
+              owner_date_started: '2020-03-31'
+              _id: 6571e4bafb0234279603ff12
+              contacts:
+                - contact_type: OWM
+                  _id: 6571e4bafb0234279603ff13
+                  zip_code: '12345'
+                  street_line_1: Sample street 1
+                  city: Sample City
+                  county_code: CA
+                  country_code: '840'
     AddOutletsResponse:
       value:
         result: SUCCESS
