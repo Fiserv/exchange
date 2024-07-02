@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -4045,50 +4046,57 @@ components:
               description: "Code of the partner you are searching for. Only required if specifying for partners under your setup."
               example: "DemoPartner"
     ProductOfferListResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          client_code:
-            type: string
-            description: "Client code. System provided"
-            example: "FISERV"
-          alliance_code:
-            description: "Alliance Code. System Provided."
-            type: string
-            example: "DEMO"
-          partner_code:
-            type: string
-            description: "Partner Code. System Provided. Will show codes for partners under your setup (if applicable)"
-            example: "PartnerDemo"
-          division_id:
-            type: string
-            description: "Division ID. System provided."
-            example: "USA"
-          offer_name:
-            type: string
-            description: "Name of the offer that is configured. Setup when configuring the offer"
-            example: "New product offer"
-          offer_reference:
-            type: string
-            description: "Reference configured on the offer."
-            example: "OREF"
-          offer_code:
-            type: string
-            description: "Code for the offer to be used during boarding process"
-            example: "345345345"
-          currency:
-            type: string
-            example: "USD"
-            description: "Currency the offer applies for. System provided"
-          status:
-            type: integer
-            example: "1"
-            description: "Status of the offer. 1 - Active 0 -Inactive"
-          date_added:
-            type: string
-            example: "2024-05-30 11:53:54"
-            description: "Date the offer was added, YYYY-MM-DD HH-MM-SS"
+      type: object
+      properties:
+        result:
+          type: string
+          description: "Result of the API request"
+          example: "SUCCESS"
+        product_offers:
+          type: array
+          items:
+            type: object
+            properties:
+              client_code:
+                type: string
+                description: "Client code. System provided"
+                example: "FISERV"
+              alliance_code:
+                description: "Alliance Code. System Provided."
+                type: string
+                example: "DEMO"
+              partner_code:
+                type: string
+                description: "Partner Code. System Provided. Will show codes for partners under your setup (if applicable)"
+                example: "PartnerDemo"
+              division_id:
+                type: string
+                description: "Division ID. System provided."
+                example: "USA"
+              offer_name:
+                type: string
+                description: "Name of the offer that is configured. Setup when configuring the offer"
+                example: "New product offer"
+              offer_reference:
+                type: string
+                description: "Reference configured on the offer."
+                example: "OREF"
+              offer_code:
+                type: string
+                description: "Code for the offer to be used during boarding process"
+                example: "345345345"
+              currency:
+                type: string
+                example: "USD"
+                description: "Currency the offer applies for. System provided"
+              status:
+                type: integer
+                example: "1"
+                description: "Status of the offer. 1 - Active 0 -Inactive"
+              date_added:
+                type: string
+                example: "2024-05-30 11:53:54"
+                description: "Date the offer was added, YYYY-MM-DD HH-MM-SS"
     ProductOfferRetrieveRequest:
       type: object
       properties:
