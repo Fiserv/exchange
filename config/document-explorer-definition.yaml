@@ -92,7 +92,12 @@
     open: true
     sections:
     - title: Pricing + Equipment offerings
-      link: docs/getting-started/offerings.md
+      open: false
+      sections:
+      - title: Offers
+        link: docs/getting-started/v4-offerings.md
+      - title: (Legacy v3) Pricing + Equipment offerings
+        link: docs/getting-started/offerings.md
     - title: Split funding by transaction 
       link: docs/getting-started/split-details.md
     - title: Restricted MCCs
