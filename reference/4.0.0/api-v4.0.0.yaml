@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
-
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -575,15 +574,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompleteAPISignatureRequest'
+                $ref: '#/components/schemas/CompleteAPISignatureResponse'
+              examples:
+                SubmissionResponse:
+                  $ref: '#/components/examples/CompleteSignatureAPIResponse'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CompleteAPISignatureResponse'
-            examples:
-              SubmissionResponse:
-                $ref: '#/components/examples/CompleteSignatureAPIResponse'
+              $ref: '#/components/schemas/CompleteAPISignatureRequest'
   /boarding/notes/add:
     post:
       tags:
@@ -662,7 +661,7 @@ paths:
     post:
       tags:
         - Product Offer
-      summary: List product offers
+      summary: List all available product offers
       description: Lists all product offers. Returns the offer code to be used in the /retrieve endpoint 
       requestBody:
         description: Retrieve the list of product offers
@@ -684,9 +683,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-proxy-name: Add Application
+      x-proxy-name: List all offers
       x-group-name: Offers
-      x-child-product-name: List all offers
+      x-child-product-name: Boarding Submerchants
 
   /product_offer/retrieve:
     post:
@@ -714,9 +713,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-proxy-name: Add Application
+      x-proxy-name: Retrieve Offers
       x-group-name: Offers
-      x-child-product-name: Retrieve Offer
+      x-child-product-name: Boarding Submerchants
 
   # /offering/available:
   #   post:
@@ -2639,12 +2638,12 @@ components:
   parameters:
     ApiVersionHeader:
       name: X-API-VERSION
-      description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
+      description: "Defines API version to be used. 4 Should be used as default, and 3 or 2 for Legacy APIs."
       in: header
       required: false
       schema: {
-        enum: ["2", "3"],
-        default: "3",
+        enum: ["2", "3", "4"],
+        default: "4",
         type: string,}
     ContentTypeHeader:
       name: Content-Type
@@ -4035,12 +4034,15 @@ components:
       properties:
         criteria:
           type: object
+          description: "Empty payload can be used to retrieve all offers."
           properties:
             alliance_code:
               type: string
               example: "DemoAlliance"
+              description: "Code of the alliance you are searching for. Not required if searching at an alliance level."
             partner_code:
               type: string
+              description: "Code of the partner you are searching for. Only required if specifying for partners under your setup."
               example: "DemoPartner"
     ProductOfferListResponse:
       type: array
@@ -4049,43 +4051,54 @@ components:
         properties:
           client_code:
             type: string
+            description: "Client code. System provided"
             example: "FISERV"
           alliance_code:
+            description: "Alliance Code. System Provided."
             type: string
             example: "DEMO"
           partner_code:
             type: string
-            example: "Calintestdemopartner"
+            description: "Partner Code. System Provided. Will show codes for partners under your setup (if applicable)"
+            example: "PartnerDemo"
           division_id:
             type: string
+            description: "Division ID. System provided."
             example: "USA"
           offer_name:
             type: string
+            description: "Name of the offer that is configured. Setup when configuring the offer"
             example: "New product offer"
           offer_reference:
             type: string
-            example: "345345345"
+            description: "Reference configured on the offer."
+            example: "OREF"
           offer_code:
             type: string
+            description: "Code for the offer to be used during boarding process"
             example: "345345345"
-          currency":
+          currency:
             type: string
             example: "USD"
-          status":
+            description: "Currency the offer applies for. System provided"
+          status:
             type: integer
             example: "1"
+            description: "Status of the offer. 1 - Active 0 -Inactive"
           date_added:
             type: string
             example: "2024-05-30 11:53:54"
+            description: "Date the offer was added, YYYY-MM-DD HH-MM-SS"
     ProductOfferRetrieveRequest:
       type: object
       properties:
-        offer_reference:
-          type: string
-          example: "123456"
+        # offer_reference:
+        #   type: string
+        #   example: "123456"
         offer_code:
           type: string
-          example: "DemoOffer"
+          example: "OFFER01"
+          description: "Offer code of the offer being retrieved."
     ProductOfferRetrieveResponse:
       type: object
       properties:
@@ -4097,21 +4110,27 @@ components:
             offer_name:
               type: string
               example: "ISV Standard"
+              description: "Name of the offer being retrieved. Pulled from values configured in the config portal."
             offer_reference:
               type: string
+              description: "Reference of the offer being retrieved. Pulled from values configured in the config portal"
               example: "XXXXX"
             offer_code:
               type: string
+              description: "Offer Code of the offer being retrieved. Pulled from values configured in the config portal"
               example: "XXXXX"
             currency:
               type: string
               example: "USD"
+              description: "Currency of the offer being retrieved. Pulled from values system generated in the config portal"
             status:
               type: integer
               example: "1"
+              description: "Current status of the offer being retrieved. Pulled from values configured in the config portal"
             date_added:
               type: string
               example: "2023-01-04 19:12:18"
+              description: "Date added of the offer being retrieved"
             product_items:
               type: array
               items:
@@ -4120,22 +4139,36 @@ components:
                   product_name:
                     type: string
                     example: "DEMO"
+                    description: "Name of the configured product being retrieved."
                   product_code:
                     type: string
                     example: "DEMO"
+                    description: "Code of the configured product being retrieved"
                   relate_to:
                     type: string
-                    description: "Returns the type of product. "
-                    example: "PRICING"
+                    description: "Returns the type of product being retrieved. Will define how the product behaves. Transaction, CB, Auth + Billing charges typically used for pricing + billing through exchange where as NORTH items typically used for fund the sub + bill the sub models to send Fee Sequence Codes. NORTH_GATEWAY_EQUIPMENT used for Gateways + Equipment that are being retrieved."
+                    example: "TRANSACTION"
+                    enum:
+                      - "TRANSACTION"
+                      - "CHARGEBACK"
+                      - "AUTH"
+                      - "BILLING"
+                      - "NORTH_TRANSACTION"
+                      - "NORTH_GATEWAY_EQUIPMENT"
+                      - "NORTH_MISC"
+                      - "NORTH_SERVICE"
                   tx_source:
                     type: integer
                     example: "1"
+                    description: "Transaction source being retrieved for the product. 1 - Card 2 - ACH."
                   percentage_amount:
                     type: number
                     example: "1.0"
+                    description: "Value for Percentage being retrieved. "
                   fixed_amount:
                     type: number
                     example: "1.0"
+                    description: "Value for fixed amounts being retrieved"
                   attributes:
                     type: array
                     items:
@@ -4144,8 +4177,10 @@ components:
                         key:
                           type: string
                           example: TOKEN_PROVIDER
+                          description: "Key used for value in the attribute being added. Typically used for TransArmor and Auto close times."
                         value:
                           type: string
+                          description: "Value used for attribute being added. Typically used for TransArmor and Auto close times."
                           example: "TransArmor"
             entitlements:
               type: array
@@ -29932,7 +29967,7 @@ components:
               owner_date_started: '2020-03-31'
               _id: 6571e4bafb0234279603ff12
               contacts:
-                - contact_type: OWM
+                - contact_type: OW
                   _id: 6571e4bafb0234279603ff13
                   zip_code: '12345'
                   street_line_1: Sample street 1
@@ -30073,7 +30108,7 @@ components:
               owner_date_started: '2020-03-31'
               _id: 6571e4bafb0234279603ff12
               contacts:
-                - contact_type: OWM
+                - contact_type: OW
                   _id: 6571e4bafb0234279603ff13
                   zip_code: '12345'
                   street_line_1: Sample street 1
