@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
-  version: '4.00'
+  version: 3.0.0
 servers:
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
@@ -534,55 +534,7 @@ paths:
       x-group-name: Update Application
       x-proxy-name: Unlock Application
       x-child-product-name: Boarding Submerchants
-  /boarding/remote_api_signature:
-    post:
-      tags:
-        - Application Boarding
-      summary: Generate signature link for an application
-      description: "Starts remote signature process, and generates a link to sign documents. Signature will be checked every 10 minutes to see if completed by the system automatically. Can be manually checked using /boarding/complete_signature API. This flow is only required if requiring signed documents for onboarding, and doing this through remote signature."
-      x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Remote Signature
-      x-child-product-name: Boarding Submerchants
-      responses:
-        '405':
-          description: Invalid input
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RemoteAPISignatureResponse'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RemoteAPISignatureRequest'
-  /boarding/complete_signature:
-    post:
-      tags:
-        - Application Boarding
-      summary: Verify signature link for an application
-      description: "Manually pulls the system to check if signature has been completed. System pulls every 10 minutes regardless of this API being used. Must be called after signautre flow has started."
-      x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Complete Signature
-      x-child-product-name: Boarding Submerchants
-      responses:
-        '405':
-          description: Invalid input
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CompleteAPISignatureResponse'
-              examples:
-                SubmissionResponse:
-                  $ref: '#/components/examples/CompleteSignatureAPIResponse'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CompleteAPISignatureRequest'
+
   /boarding/notes/add:
     post:
       tags:
@@ -657,186 +609,123 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RetrieveVarSheetRequest'
-  /product_offer/list:
+
+  /offering/available:
     post:
       tags:
-        - Product Offer
-      summary: List all available product offers
-      description: Lists all product offers. Returns the offer code to be used in the /retrieve endpoint 
+        - Offerings
+      summary: "Retrieve Available Offering"
+      description: "Retrieve Available configured Offerings. Request can be left Empty in order to retrieve all offerings, or criteria provided (if offer is configured with criteria). Retrieved External IDs can be put into the other offering retrieve endpoints to gather full details."
+      operationId: LIST_AVAILABLE_OFFERINGS
+      x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
+      x-proxy-name: Retrieve Available Offerings
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseRetrieveOffer'
+
       requestBody:
-        description: Retrieve the list of product offers
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProductOfferListRequest'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductOfferListResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error_response'
-      x-proxy-name: List all offers
-      x-group-name: Offers
-      x-child-product-name: Boarding Submerchants
-
-  /product_offer/retrieve:
+              $ref: '#/components/schemas/RetrieveOffering'
+  /offering/retrieve_processing_offering:
     post:
       tags:
-        - Product Offer
-      summary: Retrieves the full offer in order for products and pricing to be added to the boarding payload. Offer code returned in /product_offer/list API.
-      description: Retrieve product offer
+        - Offerings
+      summary: Retrieve Processing Offering
+      description: "Retrieves the Processing Offering specified. Will return pricing configured for Auto funding scenarios, and retrieve other pricing items such as entitlements that have been configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
+      operationId: RETRIEVE_PROCESSING_OFFERING
+      x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
+      x-proxy-name: Retrieve Processing Offerings
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseProcessingOffer'
+
       requestBody:
-        description: Retrieve a single product offer
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProductOfferRetrieveRequest'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductOfferRetrieveResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error_response'
-      x-proxy-name: Retrieve Offers
-      x-group-name: Offers
+              $ref: '#/components/schemas/RetrieveProcessingOffering'
+  /offering/retrieve_equipment_offering:
+    post:
+      tags:
+        - Offerings
+      description: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
+      summary: Retrieve Equipment Offering
+      operationId: RETRIEVE_EQUIPMENT_OFFERING
+      x-group-name: Offerings
       x-child-product-name: Boarding Submerchants
+      x-proxy-name: Retrieve Equipment Offerings
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseEquipmentOffer'
 
-  # /offering/available:
-  #   post:
-  #     tags:
-  #       - Offerings
-  #     summary: "Retrieve Available Offering"
-  #     description: "Retrieve Available configured Offerings. Request can be left Empty in order to retrieve all offerings, or criteria provided (if offer is configured with criteria). Retrieved External IDs can be put into the other offering retrieve endpoints to gather full details."
-  #     operationId: LIST_AVAILABLE_OFFERINGS
-  #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
-  #     x-proxy-name: Retrieve Available Offerings
-  #     parameters:
-  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
-  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
-  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
-  #     responses:
-  #       '405':
-  #         description: Invalid input
-  #       '200':
-  #         description: Successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ResponseRetrieveOffer'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveEquipmentOffering'
 
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/RetrieveOffering'
-  #           examples:
-  #             SearchCriteria:
-  #               $ref: '#/components/examples/RetrieveOfferSampleCriteria'
-
-  # /offering/retrieve_processing_offering:
-  #   post:
-  #     tags:
-  #       - Offerings
-  #     summary: Retrieve Processing Offering
-  #     description: "Retrieves the Processing Offering specified. Will return pricing configured for Auto funding scenarios, and retrieve other pricing items such as entitlements that have been configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
-  #     operationId: RETRIEVE_PROCESSING_OFFERING
-  #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
-  #     x-proxy-name: Retrieve Processing Offerings
-  #     parameters:
-  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
-  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
-  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
-  #     responses:
-  #       '405':
-  #         description: Invalid input
-  #       '200':
-  #         description: Successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ResponseProcessingOffer'
-
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/RetrieveProcessingOffering'
-  # /offering/retrieve_equipment_offering:
-  #   post:
-  #     tags:
-  #       - Offerings
-  #     description: "Retrieves the Equipment Offering specified. Will return Equipments configured, such as a Card present terminal. These external IDs will be used in the boarding requests to specify what is sent with the application"
-  #     summary: Retrieve Equipment Offering
-  #     operationId: RETRIEVE_EQUIPMENT_OFFERING
-  #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
-  #     x-proxy-name: Retrieve Equipment Offerings
-  #     parameters:
-  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
-  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
-  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
-  #     responses:
-  #       '405':
-  #         description: Invalid input
-  #       '200':
-  #         description: Successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ResponseEquipmentOffer'
-
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/RetrieveEquipmentOffering'
-
-  # /offering/retrieve_online_offering:
-  #   post:
-  #     tags:
-  #       - Offerings
-  #     summary: Retrieve Online Offering
-  #     description: "Retrieves the Online Offering specified. Will return Gateways + VARs configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
-  #     operationId: RETRIEVE_ONLINE_OFFERING
-  #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
-  #     x-proxy-name: Retrieve Online Offerings
-  #     parameters:
-  #       - {$ref: '#/components/parameters/ApiVersionHeader'}
-  #       - {$ref: '#/components/parameters/ContentTypeHeader'}
-  #       - {$ref: '#/components/parameters/AuthorizationHeader'}
-  #     responses:
-  #       '405':
-  #         description: Invalid input
-  #       '200':
-  #         description: Successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ResponseOnlineOffer'
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/RetrieveOnlineOffering'
+  /offering/retrieve_online_offering:
+    post:
+      tags:
+        - Offerings
+      summary: Retrieve Online Offering
+      description: "Retrieves the Online Offering specified. Will return Gateways + VARs configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
+      operationId: RETRIEVE_ONLINE_OFFERING
+      x-group-name: Offerings
+      x-child-product-name: Boarding Submerchants
+      x-proxy-name: Retrieve Online Offerings
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOnlineOffer'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveOnlineOffering'
 
   /transaction:
     post:
@@ -1300,14 +1189,6 @@ paths:
                 summary: Funding scenario where submerchant requires amounts to be adjusted from the FEE account to REVENUE.
                 description: Funding scenario where submerchant requires amounts to be adjusted from the FEE account to REVENUE.
                 $ref: '#/components/examples/RequestAdjustmentInstruction'
-              SplitNet:
-                summary: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Net billing.
-                description: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Net billing.
-                $ref: '#/components/examples/RequestSplitNet'
-              SplitGross:
-                summary: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Gross billing.
-                description: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Gross billing.
-                $ref: '#/components/examples/RequestSplitGross'
         required: true
       responses:
         "200":
@@ -1316,11 +1197,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FundingInstructionResponse'
-              examples:
-                NetInstructionResponse:
-                  description: "Example response for a Net funding scenario, where original IH balance was 200"
-                  summary: 'Example response for a Net funding scenario, where original IH balance was 200'
-                  $ref: '#/components/examples/ResponseNetCBInstruction'
         "404":
           description: Merchant/Account not found
           content:
@@ -1337,7 +1213,7 @@ paths:
     post:
       tags:
         - Funding Instruction
-      summary: "Funding instruction can distribute the funds according to merchant ID, currency, total amount and accounts. Virtual account balances should be verified using account/summary API before sending funding instructions. Funding Instructions must be sent during the daily instruction window. Details instruction allows to provide more breakdown details about the amounts to be instructed. "
+      summary: "Funding instruction can distribute the funds according to merchant ID, currency, total amount and accounts. Virtual account balances should be verified using account/summary API before sending funding instructions. Funding Instructions must be sent during the daily instruction window. Details instruction allows to provide more breakdown details about the amounts to be instructed. " 
       operationId: fundingDetailsInstruction
       x-group-name: Funding by Summary
       x-proxy-name: Funding Instruction with Details
@@ -2646,12 +2522,12 @@ components:
   parameters:
     ApiVersionHeader:
       name: X-API-VERSION
-      description: "Defines API version to be used. 4 Should be used as default, and 3 or 2 for Legacy APIs."
+      description: "Defines API version to be used. 3 Should be used as default, and 2 for Legacy API."
       in: header
       required: false
       schema: {
-        enum: ["2", "3", "4"],
-        default: "4",
+        enum: ["2", "3"],
+        default: "3",
         type: string,}
     ContentTypeHeader:
       name: Content-Type
@@ -2668,7 +2544,8 @@ components:
       required: true
       schema: {
         type: string,
-        default: "Authorization"}
+        default: "Authorization"
+      }
     ContentTypeHeaderDocument:
       name: Content-Type
       description: "Content type. multipart/form-data"
@@ -2754,7 +2631,6 @@ components:
       type: object
       properties:
         merchant:
-          description: Main body for the request. Used to store legal information
           $ref: '#/components/schemas/Application'
       xml:
         name: order
@@ -2767,17 +2643,14 @@ components:
         name: order
     Application:
       type: object
-      description: Contains legal information, and application settings for the location. 
       properties:
         business_entity:
           $ref: '#/components/schemas/BusinessEntity'
         owners:
-          description: Principals for the location. Any principals above 25 percent ownership should be disclosed here. 
           type: array
           items:
             $ref: '#/components/schemas/Principal'
         merchant_portal_accounts:
-          description: "Accounts for merchant portal access (if being used)."
           type: array
           items:
             type: object
@@ -2813,7 +2686,6 @@ components:
                 example: "US|1"
                 maxLength: 30
         settings:
-          description: "Settings for Billing, Funding, Reserves and Chargebacks. Used to overwrite defaults."
           type: object
           properties:
             pricing_level:
@@ -2911,31 +2783,31 @@ components:
               $ref: '#/components/schemas/Reserve'
             chargeback:
               $ref: '#/components/schemas/Chargeback'
-        offer:
-          $ref: '#/components/schemas/V4Offer'
+        offer_package:
+          $ref: '#/components/schemas/Offer'
+        parent_entity:
+          $ref: '#/components/schemas/Parent'
+        acquiring_offer:
+          $ref: '#/components/schemas/Acquiring'
         registration_address:
-          description: "Address the business is registered to."
           $ref: '#/components/schemas/Contact'
         merchant_sub_group:
           type: object
-          description: "Used for structuring outlets underneath in the applicaton"
           properties:
             group_name:
               type: string
-              example: "Subgroup name"
+              example: "test"
+            parent_mid:
+              type: string
+              example: "700100000004360"
             banks:
-              description: "Used when billing + funding level is set to subgroup"
               type: array
               items:
                 $ref: '#/components/schemas/Bank'
             contacts:
-              description: "Used when billing + funding level is set to subgroup"
               type: array
               items:
                 $ref: '#/components/schemas/SubgroupContact'
-            offer:
-              $ref: '#/components/schemas/V4Offer'
-            
         merchant_account_required:
           type: string
           example: "1"
@@ -3076,7 +2948,6 @@ components:
       type: string
       example: '3'
     BusinessEntity:
-      description: "Business information for the application. "
       type: object
       properties:
         legal_name:
@@ -3217,7 +3088,6 @@ components:
         name: bank
     Principal:
       type: object
-      description: "Owner information for the application"
       properties:
         owner_title:
           type: string
@@ -3385,7 +3255,6 @@ components:
       xml:
         name: contact
     Offer:
-      description: "Offer package for the application. Used to select packages that contain pricing and equipment."
       type: object
       properties:
         package_external_id:
@@ -3395,71 +3264,8 @@ components:
           maxLength: 41
       xml:
         name: offer
-    V4Offer:
-      description: "Offer for the application. Sent on the pricing level of the application. Used to select products to be sent in the payload. Items for the Offer should be retrieved using the Offer retrieval API with Version 4."
-      type: object
-      properties:
-        offer_code:
-          type: string
-          description: "Offer code that identifies the offer configured. Retrieved from product retrieval."
-          example: "DEMO01"
-        entitlements:
-          type: array
-          description: "Entitlements that will be added for the submerchant. Retrieved from the offer retrieval API. Used for fund the PFAC setups to send entitlements."
-          items:
-            type: object
-            properties:
-              entitlement_key: 
-                type: string
-                example: "VISA"
-                description: "Key retrieved from the offer retrieval API. Will enabled entitlement for the submerchant."
-                enum:
-                  - "VISA"
-                  - "MASTERCARD"
-                  - "AMEX"
-                  - "DISCOVER"
-                  - "DEBIT"
-                  - "APPLE_TTP"
-
-        product_items:
-          type: array
-          description: "Array for the products to be added. Products must exist in an offer. Products can be gateways, equipment, or pricing items. Pricing items include pricing being done through exchange, and Fee sequence codes depending on the funding model being used."
-          items:
-            type: object
-            properties:
-              product_code:
-                type: string
-                example: "VISA_PURCHASE"
-                description: "The Product code for the item being added. Retrieved from the retrieval API.  "
-              quantity:
-                type: string
-                example: "1"
-                description: "The quantity of product being added. Typically will be 1. Quantity is required for gateways."
-              percentage_amount:
-                type: string
-                description: "The rate to be applied to the selected pricing. Should not be sent if the charge does not accept percentage rates. Min and Max retrieved from offer retrieval"
-                example: "1.2"
-              fixed_amount:
-                type: string
-                description: "The fixed fee to be applied for the selected pricing. Should not be send if the charge does not accept base rates. Min and Max retrieved from offer retrieval"
-                example: "0.13"
-              attributes:
-                type: array
-                description: "Not required unless sending additional attributes. Typically used to send values for Transarmor or auto close time"
-                items: 
-                  type: object
-                  properties:
-                    key:
-                      type: string
-                      example: "TOKEN_PROVIDER"
-                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time"
-                    value:
-                      type: string
-                      example: "TransArmor"
-                      description: "Used to send the value of the attribute. Will depend on what service is used. Typically used to send values for transarmor or auto close time"
     Acquiring:
       type: object
-      description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
       properties:
         transaction_pricing_external_id:
           type: string
@@ -3816,8 +3622,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SubgroupContact'
-        offer:
-          $ref: '#/components/schemas/V4Offer'
       xml:
         name: subgroup
     SubgroupContact:
@@ -3949,28 +3753,25 @@ components:
       xml:
         name: order
     Criteria:
-      description: "Searches for the specified criteria, and retrieves offerings that match this. Not required, and sending an empty payload will retrieve all offerings."
       type: object
       properties:
-        mcc:
+        alliance_code:
           type: string
-          description: "Merchant Category Code, will check if the offers configured criteria applies to this MCC"
-          example: '5999'
+          example: 'TEST'
+        partner_code:
+          type: string
+          example: 'PARTNERTEST'
+        mcc_code:
+          type: string
+          example: '5000'
         atv:
           type: string
-          description: "Average Transaction Volume. Will check if the offers configured criteria applies for the specified ATV"
           example: '2000'
         ato:
           type: string
           example: '1000'
-          description: "Annual Turnover. Will check if the offers configured criteria applies for the specified ATO"
         business_address:
-          description: "Will check if the offers configured criteria allows the specified address."
           $ref: '#/components/schemas/BusinessAddress'
-        alliance_code:
-          type: string
-          example: 'TEST'
-          description: "System assigned alliance code. Appliacble only for setups where multiple alliances are under your client level."
       xml:
         name: order
     BusinessAddress:
@@ -4037,191 +3838,6 @@ components:
           $ref: '#/components/schemas/ResponseOnlineOffering'
       xml:
         name: order
-    ProductOfferListRequest:
-      type: object
-      properties:
-        criteria:
-          type: object
-          description: "Empty payload can be used to retrieve all offers."
-          properties:
-            alliance_code:
-              type: string
-              example: "DemoAlliance"
-              description: "Code of the alliance you are searching for. Not required if searching at an alliance level."
-            partner_code:
-              type: string
-              description: "Code of the partner you are searching for. Only required if specifying for partners under your setup."
-              example: "DemoPartner"
-    ProductOfferListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: "Result of the API request"
-          example: "SUCCESS"
-        product_offers:
-          type: array
-          items:
-            type: object
-            properties:
-              client_code:
-                type: string
-                description: "Client code. System provided"
-                example: "FISERV"
-              alliance_code:
-                description: "Alliance Code. System Provided."
-                type: string
-                example: "DEMO"
-              partner_code:
-                type: string
-                description: "Partner Code. System Provided. Will show codes for partners under your setup (if applicable)"
-                example: "PartnerDemo"
-              division_id:
-                type: string
-                description: "Division ID. System provided."
-                example: "USA"
-              offer_name:
-                type: string
-                description: "Name of the offer that is configured. Setup when configuring the offer"
-                example: "New product offer"
-              offer_reference:
-                type: string
-                description: "Reference configured on the offer."
-                example: "OREF"
-              offer_code:
-                type: string
-                description: "Code for the offer to be used during boarding process"
-                example: "345345345"
-              currency:
-                type: string
-                example: "USD"
-                description: "Currency the offer applies for. System provided"
-              status:
-                type: integer
-                example: "1"
-                description: "Status of the offer. 1 - Active 0 -Inactive"
-              date_added:
-                type: string
-                example: "2024-05-30 11:53:54"
-                description: "Date the offer was added, YYYY-MM-DD HH-MM-SS"
-    ProductOfferRetrieveRequest:
-      type: object
-      properties:
-        # offer_reference:
-        #   type: string
-        #   example: "123456"
-        offer_code:
-          type: string
-          example: "OFFER01"
-          description: "Offer code of the offer being retrieved."
-    ProductOfferRetrieveResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Result'
-        product_offer:
-          type: object
-          properties:
-            offer_name:
-              type: string
-              example: "Standard offer" 
-              description: "Name of the offer being retrieved. Pulled from values configured in the config portal."
-            offer_reference:
-              type: string
-              description: "Reference of the offer being retrieved. Pulled from values configured in the config portal"
-              example: "XXXXX"
-            offer_code:
-              type: string
-              description: "Offer Code of the offer being retrieved. Pulled from values configured in the config portal"
-              example: "XXXXX"
-            currency:
-              type: string
-              example: "USD"
-              description: "Currency of the offer being retrieved. Pulled from values system generated in the config portal"
-            status:
-              type: integer
-              example: "1"
-              description: "Current status of the offer being retrieved. Pulled from values configured in the config portal"
-            date_added:
-              type: string
-              example: "2023-01-04 19:12:18"
-              description: "Date added of the offer being retrieved"
-            product_items:
-              type: array
-              items:
-                type: object
-                properties:
-                  product_name:
-                    type: string
-                    example: "DEMO"
-                    description: "Name of the configured product being retrieved."
-                  product_code:
-                    type: string
-                    example: "DEMO"
-                    description: "Code of the configured product being retrieved"
-                  relate_to:
-                    type: string
-                    description: "Returns the type of product being retrieved. Will define how the product behaves. Transaction, CB, Auth + Billing charges typically used for pricing + billing through exchange where as NORTH items typically used for fund the sub + bill the sub models to send Fee Sequence Codes. NORTH_GATEWAY_EQUIPMENT used for Gateways + Equipment that are being retrieved."
-                    example: "TRANSACTION"
-                    enum:
-                      - "TRANSACTION"
-                      - "CHARGEBACK"
-                      - "AUTH"
-                      - "BILLING"
-                      - "NORTH_TRANSACTION"
-                      - "NORTH_GATEWAY_EQUIPMENT"
-                      - "NORTH_MISC"
-                      - "NORTH_SERVICE"
-                  tx_source:
-                    type: integer
-                    example: "1"
-                    description: "Transaction source being retrieved for the product. 1 - Card 2 - ACH."
-                  percentage_amount:
-                    type: number
-                    example: "1.0"
-                    description: "Value for Percentage being retrieved. "
-                  fixed_amount:
-                    type: number
-                    example: "1.0"
-                    description: "Value for fixed amounts being retrieved"
-                  attributes:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        key:
-                          type: string
-                          example: TOKEN_PROVIDER
-                          description: "Key used for value in the attribute being added. Typically used for TransArmor and Auto close times."
-                        value:
-                          type: string
-                          description: "Value used for attribute being added. Typically used for TransArmor and Auto close times."
-                          example: "TransArmor"
-            entitlements:
-              type: array
-              items:
-                type: object
-                properties:
-                  entitlement_name:
-                    type: string
-                    example: "Visa"
-                  entitlement_key:
-                    type: string
-                    description: "Key used in order to send entitlements during boarding."
-                    enum:
-                      - "VISA"
-                      - "MASTERCARD"
-                      - "AMEX"
-                      - "DISCOVER"
-                      - "DEBIT"
-                      - "APPLE_TTP"
-                    example: "VISA"
-                  entitlement_type:
-                    type: string
-                    enum: 
-                      - "Entitlement"
-                    example: "Entitlement"
-
     RetrieveOnlineOffering:
       type: object
       properties:
@@ -7727,7 +7343,7 @@ components:
         operation:
           description: Operation
           $ref: '#/components/schemas/OperationStatusApplication'
-
+          
     OperationStatusApplication:
       required:
         - operation_type
@@ -7741,7 +7357,7 @@ components:
           description: The type of the operation. This will change the operation of the endpoint /boarding/application
           enum:
             - "APPLICATION_STATUS_CHECK"
-
+          
 
 
     DecisionOperation:
@@ -7797,10 +7413,10 @@ components:
       type: object
       properties:
         operation:
-          description: Operation
+          description: Operation 
           example: "RETRIEVE_MERCHANT_HIERARCHY"
           $ref: '#/components/schemas/OperationRetrieveApplication'
-
+          
     OperationRetrieveApplication:
       required:
         - operation_type
@@ -7811,10 +7427,10 @@ components:
           maxLength: 30
           example: "RETRIEVE_MERCHANT_HIERARCHY"
           type: string
-          description: The type of the operation. This will change the operation of the endpoint
+          description: The type of the operation. This will change the operation of the endpoint 
           enum:
             - "RETRIEVE_MERCHANT_HIERARCHY"
-
+          
 
     ApplicationSubmissionOperation:
       required:
@@ -11530,8 +11146,6 @@ components:
           $ref: '#/components/schemas/MID'
         external_mid:
           $ref: '#/components/schemas/MID'
-        tin_validated:
-          $ref: '#/components/schemas/tinValidated'
         marketplace_order_id:
           $ref: '#/components/schemas/OrderID'
         legal_name:
@@ -12347,10 +11961,6 @@ components:
           $ref: '#/components/schemas/DiscoverRequired'
         discover_volume:
           $ref: '#/components/schemas/SaleAmount'
-        discover_service_type:
-          $ref: '#/components/schemas/discoverServiceType'
-        existing_discover_se:
-          $ref: '#/components/schemas/existingDiscoverSe'
         amex_required:
           $ref: '#/components/schemas/AmexRequired'
         amex_volume:
@@ -12421,16 +12031,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OutletContact'
-        # equipment_offer:
-        #   $ref: '#/components/schemas/EquipmentOffering'
-        # online_offer:
-        #   $ref: '#/components/schemas/OnlineOffering'
+        equipment_offer:
+          $ref: '#/components/schemas/EquipmentOffering'
+        online_offer:
+          $ref: '#/components/schemas/OnlineOffering'
         settings:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
-        offer:
-          $ref: '#/components/schemas/V4Offer'
-        # offer_package:
-        #   $ref: '#/components/schemas/OfferPackage'
+        acquiring_offer:
+          $ref: '#/components/schemas/Acquiring'
+        offer_package:
+          $ref: '#/components/schemas/OfferPackage'
     UpdateOutlet:
       required:
         - currencies
@@ -13350,7 +12960,7 @@ components:
       maxLength: 12
       minLength: 12
       type: string
-      description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
+      description: Application Identification
       example: "333000000794"
     Status:
       type: string
@@ -14112,7 +13722,7 @@ components:
       example: "999888555"
     WebSite:
       type: string
-      description: "Website for the outlet. Required when business category is Ecommerce for any outlet or Internet sales percentage is more than zero. Required when MCCis 5969 and category is MOTO. Required when boarding an additiional outlet under a merchant that does not have a URL."
+      description: "Website for theoutlet. Required when busines category is Ecommerce for any outlet or Internet sales percentage is more than zero. Required when MCCis 5969 and category is MOTO. Required when boarding an additiional outlet under a merchant that does not have a URL." 
       minLength: 7
       maxLength: 70
       example: "https://fiserv.com"
@@ -14265,22 +13875,6 @@ components:
       enum:
         - "1"
         - "0"
-    discoverServiceType:
-      type: string
-      minLength: 1
-      maxLength: 2
-      description: "Discover Service Type. Does not drive configurations downstream. NA - Not applicable. F- Full Service. D- Pass  Thru"
-      example: "NA"
-      enum:
-        - "NA"
-        - "F"
-        - "D"
-    existingDiscoverSe:
-      type: string
-      minLength: 1
-      maxLength: 15
-      description: "Discover SE number. Does not currently drive configurations downstream."
-      example: "100008000003421"
     AmexRequired:
       type: string
       description: Amex Entitlement Required? - 1= yes 0= No
@@ -14471,7 +14065,7 @@ components:
       type: string
       description: "First name. Only alphabetical characters allowed, special characters will be removed downstream"
       example: "Jane"
-
+      
     SecondName:
       type: string
       description: "Middle name. Only alphabetical characters allowed, special characters will be removed downstream"
@@ -15394,12 +14988,12 @@ components:
       properties:
         application_reference:
           $ref: '#/components/schemas/ApplicationRef'
-        ignore_bank_validation:
+        ignore_bank_validation: 
           type: string
           description: "Allows the user to skip the DDA verification service, in cases where the service cannot find a match but the user wants to proceed with submitting the application"
           example: "0"
           enum:
-            - "0"
+            - "0" 
             - "1"
     merchantref_application:
       type: object
@@ -16597,71 +16191,6 @@ components:
           type: string
           description: account balance - Cannot be empty.
           example: "5.0"
-    FunResponseDTO:
-      required:
-        - account_type
-        - balance
-      type: object
-      properties:
-        account_type:
-          type: string
-          minLength: 3
-          maxLength: 27
-          description: "Account type - Cannot be empty."
-          example: "REVENUE"
-          enum:
-            - CHARGEBACK_ACCOUNT
-            - FEE_ACCOUNT
-            - REVENUE_ACCOUNT
-            - RESERVE_ACCOUNT
-            - CHARGEBACK_RECOVERY_ACCOUNT
-            - INSTRUCTIONAL_HOLD_ACCOUNT
-            - ROLLING_RESERVE_ACCOUNT
-            - MERCHANT_FEE_ACCOUNT
-            - SERVICE_FEE_ACCOUNT
-            - FEE_COLLECT_ACCOUNT
-            - REJECT_HOLD_ACCOUNT
-            - ADJUSTMENT_ACCOUNT
-            - REJECT_REPROCESS_ACCOUNT
-            - SUSPEND_ACCOUNT
-            - HOLD_ACCOUNT
-            - PFAC_REVENUE_ACCOUNT
-            - PFAC_RESERVE_ACCOUNT
-            - DELAY_FUNDING_ACCOUNT
-            - GROSS_FEE_ACCOUNT
-            - PFAC_ADJUSTMENT_ACCOUNT
-            - SPLIT_ACCOUNT
-            - TRADE
-            - CHARGEBACK
-            - FEE
-            - REVENUE
-            - RESERVE
-            - CHARGEBACK_RECOVERY
-            - INSTRUCTIONAL_HOLD
-            - ROLLING_RESERVE
-            - RESERVE_DEDUCTION
-            - RESERVE_RELEASE
-            - MERCHANT_FEE
-            - SERVICE_FEE
-            - FEE_COLLECT
-            - REJECT_HOLD
-            - ADJUSTMENT
-            - REJECT_REPROCESS
-            - SUSPEND
-            - HOLD
-            - PFAC_REVENUE
-            - PFAC_RESERVE
-            - DELAY_FUNDING
-            - GROSS_FEE
-            - REJECT_ADJUSTMENT
-            - PFAC_ADJUSTMENT
-            - SPLIT
-        balance:
-          type: string
-          minLength: 4
-          maxLength: 4
-          description: "Balance of the specified account. 2 d.p. Cannot be empty"
-          example: "12.13"
     SummaryAccounts:
       type: object
       properties:
@@ -16669,17 +16198,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccountResponseDTO'
-    FunResponseSummaryAccounts:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/FunResponseDTO'
-        instruction_tracker:
-          type: string
-          example: ""
-          description: "Reserved for future use"
     TransactionInstructionDiscardResponse:
       type: object
       properties:
@@ -16952,7 +16470,7 @@ components:
           example: "5.00"
         split_details:
           type: array
-          description: "Split details, used to split amounts to third parties boarded onto the system. Must be used when target account is SPLIT."
+          description: split details- only for target account is SPLIT
           items:
             $ref: '#/components/schemas/TransactionInstructionFundingDetails'
         type:
@@ -16981,6 +16499,11 @@ components:
           type: string
           description: account amount - Cannot be empty.
           example: "5.00"
+        split_details:
+          type: array
+          description: split details- only for target account is SPLIT
+          items:
+            $ref: '#/components/schemas/TransactionInstructionFundingDetails'
         type:
           type: string
           description: instruction type (CREDIT/DEBIT)
@@ -17005,6 +16528,11 @@ components:
           type: string
           description: account amount - Cannot be empty.
           example: "5.00"
+        split_details:
+          type: array
+          description: split details- only for target account is SPLIT
+          items:
+            $ref: '#/components/schemas/TransactionInstructionFundingDetails'
         type:
           type: string
           description: instruction type (CREDIT/DEBIT)
@@ -17021,25 +16549,22 @@ components:
       properties:
         account_type:
           type: string
-          description: "account type to recieve the split amount- Cannot be empty."
+          description: account type - Cannot be empty.
           example: "REVENUE"
           enum:
-            - "RESERVE"
-            - "FEE"
-            - "CHARGEBACK"
-            - "HOLD"
+            - CHARGEBACK
         amount:
           type: string
-          description: "account amount for the specified account_type - Cannot be empty."
+          description: account amount - Cannot be empty.
           example: "5.00"
         type:
           type: string
-          description: "instruction type (CREDIT/DEBIT)"
+          description: instruction type (CREDIT/DEBIT)
           example: "CREDIT"
           enum:
-            - "CREDIT"
-            - "DEBIT"
-      description: "accounts - at least one account. Sum of all accounts must equal the total amount being split."
+            - CREDIT
+            - DEBIT
+      description: accounts - at least one account.
     HoldRleaseSuspendAccountRequest:
       type: object
       properties:
@@ -17151,22 +16676,21 @@ components:
       properties:
         merchant_id:
           type: string
-          description: "Id of merchant - Cannot be empty. Typically the internal mid of a third party (non-processing merchant) that has been boarded. Cannot be MID of another processing submerchant."
+          description: Id of merchant - Cannot be empty.
           example: "400000000005"
         accounts:
           $ref: '#/components/schemas/AccountDTOSplit'
-      description: "split details- only for target account is SPLIT"
+      description: split details- only for target account is SPLIT
     FundingInstructionResponse:
       type: object
       properties:
         result:
           type: string
-          example: "SUCCESS"
           enum:
             - SUCCESS
             - ERROR
         summary:
-          $ref: '#/components/schemas/FunResponseSummaryAccounts'
+          $ref: '#/components/schemas/SummaryAccounts'
     AccountDetailsDTOFunding:
       required:
         - account_type
@@ -17655,7 +17179,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           example: "2020-02-20"
-
+          
     TradeDetailsInfoDTO:
       type: object
       properties:
@@ -17797,7 +17321,7 @@ components:
           type: string
           description: Date of processing - Cannot be empty.Format YYYY-MM-DD
           example: "2020-02-20"
-
+          
     TradeAccountInfoDTO:
       type: object
       properties:
@@ -17886,7 +17410,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TradeAccountInfoDTO'
-
+            
     TradeDetailsInfoResponse:
       type: object
       properties:
@@ -17913,7 +17437,7 @@ components:
           type: string
           example: "520000004321"
           description: "The billing level MID in exchange"
-        total_amount:
+        total_amount: 
           type: string
           description: "The total amount calculated from the charges applied"
           example: "0.0500"
@@ -17921,8 +17445,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BillingFeeDetailBreakdown'
-
-
+            
+            
     BillingFeeDetailBreakdown:
       type: object
       description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
@@ -17934,7 +17458,7 @@ components:
         billing_type:
           type: string
           description: "Defines what type of charge is applied"
-          enum:
+          enum: 
             - "ACQUIRING_CHARGE"
             - "EQUIPMENT"
             - "EQUIPMENT_SERVICE"
@@ -17951,7 +17475,7 @@ components:
           type: string
           example: "Sample Blended Rate"
           description: "Configured title of the charge applied"
-        date:
+        date: 
           type: string
           description: "Date the charge was applied"
           example: "2022-01-01"
@@ -18094,36 +17618,28 @@ components:
       properties:
         settlement_type:
           type: string
-          example: "Type of settlement, Credit or debit."
           enum:
             - CREDIT
             - DEBIT
         settlement_amount:
           type: string
           example: "17.00"
-          description: "Amount that is being settled to the submerchant."
         settlement_status:
           type: string
-          example: "PENDING"
-          enum:
-            - PENDING
-            - REJECTED
-            - PROCESSED
+          example: "DEBIT"
         dda:
           type: string
-          example: '******123'
-          description: "Masked DDA number"
+          example: '123456789'
         aba:
           type: string
-          example: '6669898321'
+          example: '******123'
         effective_date:
           type: string
           format: date
           example: "2019-08-30T00:00:00.000+0000"
         settlement_ref:
           type: string
-          description: "Unique settlement reference"
-          example: "SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA"
+          example: "XYZ"
     #        mid:
     #         type: string
     #          example: "321000234423"
@@ -21334,7 +20850,7 @@ components:
       example: "6234795714d105062c143e92"
     Name:
       type: string
-      example: "Miss Jane Doe"
+      example: "Miss Megan Sharp"
     Reviewer:
       type: string
       example: "John Doe"
@@ -22858,13 +22374,6 @@ components:
       type: string
       description: 'OrderID returned from Marketplace submission'
       example: "oABC1"
-    tinValidated:
-      type: string
-      description: 'Returned if using Tin validation in the system, will return 1 for confirmed. 0 Indicates could not be verified. If not verified, submission returns information on potential errors.'
-      enum: 
-        - "1"
-        - "0"
-      example: "1"
     TransactionMonitoringRetrieveRequest:
       type: object
       properties:
@@ -24129,47 +23638,7 @@ components:
       example: ">-"
       description: Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
-    RemoteAPISignatureRequest:
-      type: object
-      properties:
-        application:
-          type: object
-          properties:
-            application_reference:
-              description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
-              type: string
-              example: "333000000794"
-    RemoteAPISignatureResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          example: "SUCCESS"
-        url:
-          type: string
-          example: "https://secure.eu1.adobesign.com/public/apiesign?XXXXXXXXXX3-XXXXXXXXXXXXXXX-XXXXXXXXXXXd=XXXXXXXXXXXXXX"
-    CompleteAPISignatureRequest:
-      type: object
-      properties:
-        application:
-          type: object
-          properties:
-            application_reference:
-              description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
-              type: string
-              example: "333000000794"
-    CompleteAPISignatureResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          example: "SUCCESS"
-        operation:
-          $ref: '#/components/schemas/operation'
-        application:
-          $ref: '#/components/schemas/application'
-        application_relation:
-          $ref: '#/components/schemas/ApplicationRelation'
+
     AddNoteRequest:
       required:
         - request_source
@@ -24661,7 +24130,7 @@ components:
           type: string
         user_data_2:
           type: string
-
+  
     tx_fee_details_block:
       type: object
       properties:
@@ -24688,7 +24157,7 @@ components:
           type: string
           description: "Reference for the Charge item. Free field for a reference to be added. Configured in the config portal for the pricing applied."
           example: "BL001"
-        fee_collection_type:
+        fee_collection_type: 
           type: string
           description: "Type of the configured charge. Typically will be Blended, interchange not currently supported."
           enum:
@@ -24709,7 +24178,7 @@ components:
           type: string
           description: "Split type"
           example: "STORE_SPLIT"
-        txm_unique_id:
+        txm_unique_id: 
           type: string
           description: "Identifier for the tranasction"
           example: "-52606609801-52606609801"
@@ -24749,18 +24218,18 @@ components:
           type: string
           description: "Type of Fee, either percent (1) or base (2)"
           example: "1"
-          enum:
+          enum: 
             - "1"
             - "2"
         fee_amount:
           type: string
           description: "The fee amount calculated for this transaction for this item"
           example: "0.2300"
-        unit_charge:
+        unit_charge: 
           type: string
           description: "The percentage or base being used to calculate the fee amount. Taken from configuration"
           example: "0.23"
-
+            
     TransactionResponseDTO:
       type: object
       properties:
@@ -25941,7 +25410,7 @@ components:
               outlet_id: "10000"
               alliance_id: "16000000"
               merchant_id: "6000"
-              fee_details:
+              fee_details: 
                 -  fee_amount: '0.4500'
                    charge_item_external_id: "CHIC23-A1AC5-A1AC5-30LC5-30LC5-3657B-3657B"
                    charge_item_type: "CHARGE"
@@ -26239,7 +25708,7 @@ components:
     RequestMinimalApplication:
       value:
         merchant:
-          business_entity: {legal_name: "MMISTEST Legal Name", ownership_entity_type: "L", foreign_entity: "0", irs_filing_name: "MMISTEST IRS Name", irs_status: "N", tin_type: "2", business_tin_ssn_number: "666989898", mcc_code: "5733", business_category: "E", foundation_date: "2020-01-01", date_incorporated: "2020-01-01", incorp_state: "CA"}
+          business_entity: {legal_name: "MMISTEST Legal Name", ownership_entity_type: "L", foreign_entity: "0", irs_filing_name: "MMISTEST IRS Name", irs_status: "N", tin_type: "2", int_tax_exempt_flag: "1", business_tin_ssn_number: "666989898", mcc_code: "5733", business_category: "E", foundation_date: "2020-01-01", date_incorporated: "2020-01-01", incorp_state: "CA"}
           owners:
             - owner_first_name: "Jane"
               owner_surname: "Doe"
@@ -26248,6 +25717,7 @@ components:
               owner_position: "CEO"
               owner_phone_code: "US|1"
               owner_phone_no: "3339898989"
+              owner_date_started: "2020-03-31"
               owner_email: "email@domain.com"
               owner_tin_ssn_number: "666989898"
               is_main_principal: "1"
@@ -26263,18 +25733,8 @@ components:
                                  city: "Sample City",
                                  county_code: "CA",
                                  country_code: "840"}
-          offer:
-              product_offer_reference: "DEMO01"
-              product_items:
-                - product_code: "FEE_01"
-                  percentage_amount: "0.30000"
-                  fixed_amount: "0.00000"
-                - product_code: "FEE_02"
-                  fixed_amount: "0.10000"
-                  percentage_amount: "0.00000"
-              entitlements:
-                - entitlement_key: "VISA"
-                - entitlement_key: "MASTERCARD"
+          offer_package: {package_external_id: "OPK01-AB8823-0F2E9-8823J-CC924-C7D40-BCB28"}
+          acquiring_offer: {transaction_pricing_external_id: "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"}
           merchant_sub_group: {group_name: "Subgroup"}
     RequestMinimalOutlet:
       value:
@@ -26345,11 +25805,8 @@ components:
                ent_telephone_code: "US|1",
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
-          offer:
-            product_offer_reference: "DEMO01"
-            product_items:
-              - product_code: "GTWY01"
-                quantity: "1"
+          online_offer:
+            online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
     RequestMinimalNonProcessingApplication:
       value:
         operation:
@@ -26357,10 +25814,9 @@ components:
         merchant:
           business_entity: {"legal_name": "MMISTest Legal Name",
                             "ownership_entity_type": "L",
-                            "reg_number": "2333",
-                            "business_category" : "E",
                             "business_tin_ssn_number": "666989898",
                             "irs_status": "N",
+                            "business_category" : "E",
                             "irs_filing_name": "MMISTest IRS Name",
                             "tin_type": "2",
                             "int_tax_id": "1111",
@@ -27014,20 +26470,6 @@ components:
                 amount: '20.50'
               - account_type: FEE_ACCOUNT
                 amount: '2.25'
-    ResponseNetCBInstruction:
-      value:
-        result: SUCCESS
-        summary:
-          accounts:
-            - account_type: INSTRUCTIONAL_HOLD_ACCOUNT
-              balance: '66.50'
-            - account_type: FEE
-              balance: '5.00'
-            - account_type: REVENUE
-              balance: '84.50'
-            - account_type: CHARGEBACK
-              balance: '10.50'
-          instruction_tracker: ''
 
     RequestNetCBInstruction:
       value:
@@ -27133,60 +26575,6 @@ components:
             amount: '15.00'
             type: DEBIT
             description: "Monthly Fee Adjustment"
-    RequestSplitNet:
-      value:
-        merchant_id: '400000000001'
-        currency: USD
-        funding:
-          - account_type: REVENUE
-            amount: '90.00'
-            type: CREDIT
-          - account_type: SPLIT
-            amount: '5.00'
-            split_details:
-              - merchant_id: '400000000005'
-                accounts:
-                  account_type: REVENUE
-                  amount: '4.00'
-                  type: CREDIT
-              - merchant_id: '400000000006'
-                accounts:
-                  account_type: REVENUE
-                  amount: '1.00'
-                  type: CREDIT
-            type: CREDIT
-          - account_type: FEE
-            amount: '5.00'
-            type: CREDIT
-
-    RequestSplitGross:
-      value:
-        merchant_id: '400000000001'
-        currency: USD
-        funding:
-          - account_type: REVENUE
-            amount: '95.00'
-            type: CREDIT
-          - account_type: SPLIT
-            amount: '5.00'
-            split_details:
-              - merchant_id: '400000000005'
-                accounts:
-                  account_type: REVENUE
-                  amount: '4.00'
-                  type: CREDIT
-              - merchant_id: '400000000006'
-                accounts:
-                  account_type: REVENUE
-                  amount: '1.00'
-                  type: CREDIT
-            type: CREDIT
-        billing:
-          - account_type: GROSS_FEE
-            amount: '5.00'
-            type: CREDIT
-        
-
     RequestNetCBReversalInstruction:
       value:
         merchant_id: '520000000321'
@@ -27278,7 +26666,6 @@ components:
           risk_classification: null
           intelligence_data_ref: 652664be3188ceadc30466e4
           intelligence_ref: null
-          tin_validated: "1"
           risk_ref: 652664c495a6acf90e0f2f65
           aml_ref: null
           owner:
@@ -29582,16 +28969,107 @@ components:
             allow_instruction_api: '1'
             responsible_party: '0'
           _id: 6571e4bafb0234279603ff15
-          offer:
-            product_offer_reference: "DEMO2024"
-            product_items: 
-              - product_code: "MASTER_PURCHASE"
-                percentage_amount: "0.5"
-                fixed_amount: "0.5"
-                quantity: "1"
-                attributes:
-                  - key: "TOKEN_PROVIDER"
-                    value: "TransArmor"
+          charges:
+            transaction_pricing_external_id: TPI46-C475E-82BE7-B1AA4-9A026-89381-4EA08
+            transaction_pricing_name: Standard Entitlements
+            alliance_external_id: ALL4A-C475E-82BE7-B1AA4-9A026-89381-4EA08
+            acquirer_external_id: MAC85-C475E-82BE7-B1AA4-9A026-89381-4EA08
+            processing_platform: OTHER
+            currency: USD
+            fee_collection_type: BLENDED
+            is_tier_price: '0'
+            tier_price_type: '1'
+            charge_items: []
+            charge_item_groups:
+              - charge_item_group_external_id: CIGDA-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                charge_item_group_name: Entitlements
+                fee_collection_type: BLENDED
+                charge_items:
+                  - charge_item_external_id: CHI2B-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                    charge_item_group_external_id: CIGDA-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                    charge_item_name: AmexOptBlue
+                    charge_item_ref: 777-1000105251
+                    fee_collection_type: BLENDED
+                    mp_pricing_type_code: '10011'
+                    charge_decimals: '2'
+                    is_invisible: '0'
+                    is_activated: '1'
+                    is_boarding_activated: '1'
+                    is_mandatory: '0'
+                    is_merged_charges: '0'
+                    charge_item_prices:
+                      - charge_item_price_charges:
+                          - tier_number: '0'
+                            fee_type: '1'
+                            category: '1'
+                            perc_charge: '0.00000'
+                            default_perc_charge: '0.00000'
+                            minimum_perc_charge: '0.00000'
+                            maximum_perc_charge: '0.00000'
+                          - tier_number: '0'
+                            fee_type: '2'
+                            category: '1'
+                            base_charge: '0.00000'
+                            default_base_charge: '0.00000'
+                            minimum_base_charge: '0.00000'
+                            maximum_base_charge: '0.00000'
+                  - charge_item_external_id: CHI79-7F1ED-83686-B1082-7023A-B8508-8D017
+                    charge_item_group_external_id: CIGDA-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                    charge_item_name: Visa MC Entitlement
+                    fee_collection_type: BLENDED
+                    mp_pricing_type_code: '10011'
+                    charge_decimals: '2'
+                    is_invisible: '0'
+                    is_activated: '1'
+                    is_boarding_activated: '1'
+                    is_mandatory: '1'
+                    is_merged_charges: '0'
+                    charge_item_prices:
+                      - charge_item_price_charges:
+                          - tier_number: '0'
+                            fee_type: '1'
+                            category: '1'
+                            perc_charge: '0.00000'
+                            default_perc_charge: '0.00000'
+                            minimum_perc_charge: '0.00000'
+                            maximum_perc_charge: '0.00000'
+                          - tier_number: '0'
+                            fee_type: '2'
+                            category: '1'
+                            base_charge: '0.00000'
+                            default_base_charge: '0.00000'
+                            minimum_base_charge: '0.00000'
+                            maximum_base_charge: '0.00000'
+                  - charge_item_external_id: CHIB4-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                    charge_item_group_external_id: CIGDA-C475E-82BE7-B1AA4-9A026-89381-4EA08
+                    charge_item_name: Discover Entitlement
+                    fee_collection_type: BLENDED
+                    mp_pricing_type_code: '10011'
+                    charge_decimals: '2'
+                    is_invisible: '0'
+                    is_activated: '1'
+                    is_boarding_activated: '1'
+                    is_mandatory: '0'
+                    is_merged_charges: '0'
+                    charge_item_prices:
+                      - charge_item_price_charges:
+                          - tier_number: '0'
+                            fee_type: '1'
+                            category: '1'
+                            perc_charge: '0.00000'
+                            default_perc_charge: '0.00000'
+                            minimum_perc_charge: '0.00000'
+                            maximum_perc_charge: '0.00000'
+                          - tier_number: '0'
+                            fee_type: '2'
+                            category: '1'
+                            base_charge: '0.00000'
+                            default_base_charge: '0.00000'
+                            minimum_base_charge: '0.00000'
+                            maximum_base_charge: '0.00000'
+            tiers:
+              - from: 1
+            service_items: []
         merchant_sub_groups:
           - sub_group_external_id: MSG7C-C475E-82BE7-B1AA4-9A026-89381-4EA08
             pfac_node_external_id: PEIA9-C475E-82BE7-B1AA4-9A026-89381-4EA08
@@ -30040,7 +29518,7 @@ components:
               owner_date_started: '2020-03-31'
               _id: 6571e4bafb0234279603ff12
               contacts:
-                - contact_type: OW
+                - contact_type: OWM
                   _id: 6571e4bafb0234279603ff13
                   zip_code: '12345'
                   street_line_1: Sample street 1
@@ -30054,140 +29532,6 @@ components:
           - error_code: 1501001
             message: 'Outlet 2: Trading Information is invalid - The field Annual Card Turnover is required'
             context: '{"outlet":2,"trading_information":2}'
-    CompleteSignatureAPIResponse:
-      value:
-        result: SUCCESS
-        operation:
-          operation_type: APPLICATION_UPDATE_SIGNATURE_STATUS
-        application_signature:
-          all_signed: true
-        application:
-          application_external_id: APL91-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          sales_owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          aml_owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          risk_owner_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          creator_user_external_id: USRE9-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          alliance_external_id: ALL4A-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          partner_external_id: PARF1-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          multiple_outlet: '0'
-          application_reference: '333000000003'
-          application_type: NA
-          bank_lock: '0'
-          has_processing_mid: '1'
-          legal_name: MMISTEST Legal Name
-          contact_first_name: Jane
-          contact_last_name: Doe
-          parent_type: PARTNER
-          contact_email: email@domain.com
-          internal_mid: '700100000000001'
-          application_resubmitted: '0'
-          hierarchy_linking_flag: '0'
-          correspondence_language: en_gb
-          same_day_ach: '0'
-          take_reserves_flag: '0'
-          date_added: '2021-11-01 15:28:55'
-          application_status_external_id: APSE6-C475E-82BE7-B1AA4-9A026-89381-4EA08
-          application_status_key: OPEN
-          data_review_required: '0'
-        application_relation:
-          date_added: '2021-11-01 15:28:58'
-          date_updated: '2021-11-01 15:50:39'
-          _id: 6571e4bafb0234279603ff15
-          application_id: '80344'
-          application_reference: '333000000003'
-          application_type: null
-          quote_id: null
-          price_model: null
-          business_id: 6571e4bafb0234279603ff14
-          original_merchant_id: null
-          ownership: null
-          merchant_node_id: '299827'
-          merchant_reference: null
-          sub_group_id: null
-          main_owner: 6571e4bafb0234279603ff12
-          main_outlet: 6571e7cf1ab0c8a1370bf5ac
-          total_outlets: 2
-          total_billings: null
-          total_chains: 0
-          total_subgroups: 0
-          aml_check_response: null
-          credit_risk_decision: null
-          credit_risk_classification: null
-          risk_classification: null
-          intelligence_data_ref: null
-          intelligence_ref: null
-          risk_ref: null
-          aml_ref: null
-          owner:
-            - date_added: null
-              date_updated: null
-              owner_id: 6571e4bafb0234279603ff12
-          submerchants: null
-          merchant_sub_group:
-            6571e4bafb0234279603ff16:
-              date_added: null
-              date_updated: null
-              sub_group_id: '81496'
-              sub_group_data_id: 6571e4bafb0234279603ff16
-              merchant_node_id: '299830'
-              parent_id: null
-              parent_mid: '700100000000001'
-              internal_mid: '700100000054562'
-              sub_group_type: CHAIN
-          chain: null
-          outlet:
-            6571e7cf1ab0c8a1370bf5ac:
-              date_added: null
-              date_updated: null
-              outlet_number: 1
-              crud_outlet_id: null
-              outlet_auto_id: '135013'
-              merchant_node_id: '299842'
-              outlet_id: 6571e7cf1ab0c8a1370bf5ac
-              sub_group_id: null
-              outlet_arrangement_id: null
-            6571e9cf75577eb35401ac98:
-              date_added: null
-              date_updated: null
-              outlet_number: 2
-              crud_outlet_id: null
-              outlet_auto_id: '135016'
-              merchant_node_id: '299845'
-              outlet_id: 6571e9cf75577eb35401ac98
-              sub_group_id: null
-              outlet_arrangement_id: null
-          application: null
-          aml_decision: null
-          aml_risk_classification: null
-          total_submerchants: 0
-        business_data:
-          billing_level: '3'
-          pricing_level: BUSINESS
-          business_entity:
-            contacts: []
-            banks: []
-          existing_banks: []
-          owners:
-            - is_main_principal: '1'
-              owner_first_name: Jane
-              owner_surname: Doe
-              contact_dob: '1980-01-01'
-              owner_position: CEO
-              owner_email: email@domain.com
-              owner_nationality: '840'
-              ownership_perc: '100'
-              owner_tin_ssn_number: '666989898'
-              owner_date_started: '2020-03-31'
-              _id: 6571e4bafb0234279603ff12
-              contacts:
-                - contact_type: OW
-                  _id: 6571e4bafb0234279603ff13
-                  zip_code: '12345'
-                  street_line_1: Sample street 1
-                  city: Sample City
-                  county_code: CA
-                  country_code: '840'
     AddOutletsResponse:
       value:
         result: SUCCESS
@@ -30208,7 +29552,7 @@ components:
           application_reference: '333000051002'
           maintenance_types:
             - ADD_OUTLETS
-
+      
     MaintenancePricingResponse:
       value:
         result: SUCCESS
@@ -30426,7 +29770,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: City
+          contact_town_city: San Diego
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30436,7 +29780,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: City
+          city: San Diego
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30464,7 +29808,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: City
+          contact_town_city: San Diego
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30474,7 +29818,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: City
+          city: San Diego
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30504,7 +29848,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: City
+          contact_town_city: San Diego
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30514,7 +29858,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: City
+          city: San Diego
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30546,7 +29890,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: City
+          contact_town_city: San Diego
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30556,7 +29900,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: City
+          city: San Diego
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30591,7 +29935,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: City
+          contact_town_city: San Diego
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30601,7 +29945,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: City
+          city: San Diego
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30621,11 +29965,6 @@ components:
         application:
           application_reference: '3330000500012'
           tenant_udc_external_id: TDCA!-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
-    RetrieveOfferSampleCriteria:
-      value:
-        criteria:
-          mcc: '5999'
-
 
 
 
