@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
-
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -1301,6 +1300,14 @@ paths:
                 summary: Funding scenario where submerchant requires amounts to be adjusted from the FEE account to REVENUE.
                 description: Funding scenario where submerchant requires amounts to be adjusted from the FEE account to REVENUE.
                 $ref: '#/components/examples/RequestAdjustmentInstruction'
+              SplitNet:
+                summary: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Net billing.
+                description: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Net billing.
+                $ref: '#/components/examples/RequestSplitNet'
+              SplitGross:
+                summary: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Gross billing.
+                description: Funding scenario where submerchant requires amounts to be split from their REVENUE to a third party on the system, with Gross billing.
+                $ref: '#/components/examples/RequestSplitGross'
         required: true
       responses:
         "200":
@@ -4117,7 +4124,7 @@ components:
           properties:
             offer_name:
               type: string
-              example: "ISV Standard"
+              example: "Standard offer" 
               description: "Name of the offer being retrieved. Pulled from values configured in the config portal."
             offer_reference:
               type: string
@@ -16945,7 +16952,7 @@ components:
           example: "5.00"
         split_details:
           type: array
-          description: split details- only for target account is SPLIT
+          description: "Split details, used to split amounts to third parties boarded onto the system. Must be used when target account is SPLIT."
           items:
             $ref: '#/components/schemas/TransactionInstructionFundingDetails'
         type:
@@ -16974,11 +16981,6 @@ components:
           type: string
           description: account amount - Cannot be empty.
           example: "5.00"
-        split_details:
-          type: array
-          description: split details- only for target account is SPLIT
-          items:
-            $ref: '#/components/schemas/TransactionInstructionFundingDetails'
         type:
           type: string
           description: instruction type (CREDIT/DEBIT)
@@ -17003,11 +17005,6 @@ components:
           type: string
           description: account amount - Cannot be empty.
           example: "5.00"
-        split_details:
-          type: array
-          description: split details- only for target account is SPLIT
-          items:
-            $ref: '#/components/schemas/TransactionInstructionFundingDetails'
         type:
           type: string
           description: instruction type (CREDIT/DEBIT)
@@ -17024,22 +17021,25 @@ components:
       properties:
         account_type:
           type: string
-          description: account type - Cannot be empty.
+          description: "account type to recieve the split amount- Cannot be empty."
           example: "REVENUE"
           enum:
-            - CHARGEBACK
+            - "RESERVE"
+            - "FEE"
+            - "CHARGEBACK"
+            - "HOLD"
         amount:
           type: string
-          description: account amount - Cannot be empty.
+          description: "account amount for the specified account_type - Cannot be empty."
           example: "5.00"
         type:
           type: string
-          description: instruction type (CREDIT/DEBIT)
+          description: "instruction type (CREDIT/DEBIT)"
           example: "CREDIT"
           enum:
-            - CREDIT
-            - DEBIT
-      description: accounts - at least one account.
+            - "CREDIT"
+            - "DEBIT"
+      description: "accounts - at least one account. Sum of all accounts must equal the total amount being split."
     HoldRleaseSuspendAccountRequest:
       type: object
       properties:
@@ -17151,11 +17151,11 @@ components:
       properties:
         merchant_id:
           type: string
-          description: Id of merchant - Cannot be empty.
+          description: "Id of merchant - Cannot be empty. Typically the internal mid of a third party (non-processing merchant) that has been boarded. Cannot be MID of another processing submerchant."
           example: "400000000005"
         accounts:
           $ref: '#/components/schemas/AccountDTOSplit'
-      description: split details- only for target account is SPLIT
+      description: "split details- only for target account is SPLIT"
     FundingInstructionResponse:
       type: object
       properties:
@@ -18094,28 +18094,36 @@ components:
       properties:
         settlement_type:
           type: string
+          example: "Type of settlement, Credit or debit."
           enum:
             - CREDIT
             - DEBIT
         settlement_amount:
           type: string
           example: "17.00"
+          description: "Amount that is being settled to the submerchant."
         settlement_status:
           type: string
-          example: "DEBIT"
+          example: "PENDING"
+          enum:
+            - PENDING
+            - REJECTED
+            - PROCESSED
         dda:
           type: string
-          example: '123456789'
+          example: '******123'
+          description: "Masked DDA number"
         aba:
           type: string
-          example: '******123'
+          example: '6669898321'
         effective_date:
           type: string
           format: date
           example: "2019-08-30T00:00:00.000+0000"
         settlement_ref:
           type: string
-          example: "XYZ"
+          description: "Unique settlement reference"
+          example: "SETL1-A46WA-PO6AE-67BB8-6LOPK-WALP4-996WA"
     #        mid:
     #         type: string
     #          example: "321000234423"
@@ -21326,7 +21334,7 @@ components:
       example: "6234795714d105062c143e92"
     Name:
       type: string
-      example: "Miss Megan Sharp"
+      example: "Miss Jane Doe"
     Reviewer:
       type: string
       example: "John Doe"
@@ -26337,8 +26345,11 @@ components:
                ent_telephone_code: "US|1",
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
-          online_offer:
-            online_offering_external_id: "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
+          offer:
+            product_offer_reference: "DEMO01"
+            product_items:
+              - product_code: "GTWY01"
+                quantity: "1"
     RequestMinimalNonProcessingApplication:
       value:
         operation:
@@ -27122,6 +27133,60 @@ components:
             amount: '15.00'
             type: DEBIT
             description: "Monthly Fee Adjustment"
+    RequestSplitNet:
+      value:
+        merchant_id: '400000000001'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '90.00'
+            type: CREDIT
+          - account_type: SPLIT
+            amount: '5.00'
+            split_details:
+              - merchant_id: '400000000005'
+                accounts:
+                  account_type: REVENUE
+                  amount: '4.00'
+                  type: CREDIT
+              - merchant_id: '400000000006'
+                accounts:
+                  account_type: REVENUE
+                  amount: '1.00'
+                  type: CREDIT
+            type: CREDIT
+          - account_type: FEE
+            amount: '5.00'
+            type: CREDIT
+
+    RequestSplitGross:
+      value:
+        merchant_id: '400000000001'
+        currency: USD
+        funding:
+          - account_type: REVENUE
+            amount: '95.00'
+            type: CREDIT
+          - account_type: SPLIT
+            amount: '5.00'
+            split_details:
+              - merchant_id: '400000000005'
+                accounts:
+                  account_type: REVENUE
+                  amount: '4.00'
+                  type: CREDIT
+              - merchant_id: '400000000006'
+                accounts:
+                  account_type: REVENUE
+                  amount: '1.00'
+                  type: CREDIT
+            type: CREDIT
+        billing:
+          - account_type: GROSS_FEE
+            amount: '5.00'
+            type: CREDIT
+        
+
     RequestNetCBReversalInstruction:
       value:
         merchant_id: '520000000321'
@@ -30361,7 +30426,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: San Diego
+          contact_town_city: City
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30371,7 +30436,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: San Diego
+          city: City
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30399,7 +30464,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: San Diego
+          contact_town_city: City
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30409,7 +30474,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: San Diego
+          city: City
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30439,7 +30504,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: San Diego
+          contact_town_city: City
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30449,7 +30514,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: San Diego
+          city: City
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30481,7 +30546,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: San Diego
+          contact_town_city: City
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30491,7 +30556,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: San Diego
+          city: City
           county_code: CA
           zip_code: '54321'
           country_code: '840'
@@ -30526,7 +30591,7 @@ components:
           contact_first_name: JON
           contact_last_name: CONSUMER
           contact_address1: Street Name
-          contact_town_city: San Diego
+          contact_town_city: City
           contact_county: CA
           contact_postcode: '54321'
           contact_country_code: '840'
@@ -30536,7 +30601,7 @@ components:
           parent_type: ALLIANCE
           reserve_flag: '0'
           street_line_1: Address Name
-          city: San Diego
+          city: City
           county_code: CA
           zip_code: '54321'
           country_code: '840'
