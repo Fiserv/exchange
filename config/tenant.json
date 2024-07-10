@@ -52,7 +52,7 @@
     "feature":[
       {
         "name": "sandBox",
-        "value": true
+        "value": false
       },
       {
         "name": "plugins",
@@ -64,6 +64,10 @@
       },
       {
         "name": "editParameterAPIExplorer",
+        "value": false
+      },
+      {
+        "name": "downloadPostman",
         "value": false
       }
   ]
