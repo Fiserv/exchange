@@ -4123,7 +4123,7 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/Result'
-        product_offer:
+        offer:
           type: object
           properties:
             offer_name:
@@ -4180,14 +4180,14 @@ components:
                     type: integer
                     example: "1"
                     description: "Transaction source being retrieved for the product. 1 - Card 2 - ACH."
-                  percentage_amount:
+                  max_percentage_amount:
                     type: number
                     example: "1.0"
-                    description: "Value for Percentage being retrieved. "
-                  fixed_amount:
+                    description: "Max Value for Percentage being retrieved. "
+                  max_fixed_amount:
                     type: number
                     example: "1.0"
-                    description: "Value for fixed amounts being retrieved"
+                    description: "Max Value for fixed amounts being retrieved"
                   attributes:
                     type: array
                     items:
