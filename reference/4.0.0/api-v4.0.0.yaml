@@ -3401,8 +3401,8 @@ components:
       properties:
         product_offer_code:
           type: string
-          description: "Offer code that identifies the offer configured. Retrieved from product retrieval."
-          example: "DEMO01"
+          description: "System Generated Offer code that identifies the offer configured. Retrieved from product retrieval."
+          example: "PRO00000000001"
         product_offer_reference: 
           type: string
           description: "Offer reference, obtained from retrieval. can be used in place of offer code."
@@ -4095,7 +4095,7 @@ components:
               offer_code:
                 type: string
                 description: "Code for the offer to be used during boarding process for field product_offer_code."
-                example: "345345345"
+                example: "PRO00000000001"
               currency:
                 type: string
                 example: "USD"
@@ -4123,7 +4123,7 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/Result'
-        product_offer:
+        offer:
           type: object
           properties:
             offer_name:
@@ -4180,14 +4180,14 @@ components:
                     type: integer
                     example: "1"
                     description: "Transaction source being retrieved for the product. 1 - Card 2 - ACH."
-                  percentage_amount:
+                  max_percentage_amount:
                     type: number
                     example: "1.0"
-                    description: "Value for Percentage being retrieved. "
-                  fixed_amount:
+                    description: "Max Value for Percentage being retrieved. "
+                  max_fixed_amount:
                     type: number
                     example: "1.0"
-                    description: "Value for fixed amounts being retrieved"
+                    description: "Max Value for fixed amounts being retrieved"
                   attributes:
                     type: array
                     items:
@@ -26268,7 +26268,7 @@ components:
                                  county_code: "CA",
                                  country_code: "840"}
           offer:
-              product_offer_code: "DEMO01"
+              product_offer_code: "PRO00000000001"
               product_items:
                 - product_code: "FEE_01"
                   percentage_amount: "0.30000"
@@ -26350,7 +26350,7 @@ components:
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
           offer:
-            product_offer_reference: "DEMO01"
+            product_offer_code: "DEMO01"
             product_items:
               - product_code: "GTWY01"
                 quantity: "1"
@@ -29587,7 +29587,7 @@ components:
             responsible_party: '0'
           _id: 6571e4bafb0234279603ff15
           offer:
-            product_offer_reference: "DEMO2024"
+            product_offer_code: "DEMO2024"
             product_items: 
               - product_code: "MASTER_PURCHASE"
                 percentage_amount: "0.5"

@@ -5482,7 +5482,7 @@ components:
           example: AB
         user_data_2:
           type: string
-          example: 33322112 00 32212 ABC*SAMPLE
+          example: 33322112                                        00          32212              ABC*SAMPL                                 
         posting_charge_description_1:
           type: string
           example: +000000000000.00                             21Y    +000000000000
