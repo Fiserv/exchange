@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -26267,18 +26268,6 @@ components:
                                  city: "Sample City",
                                  county_code: "CA",
                                  country_code: "840"}
-          offer:
-              product_offer_code: "PRO00000000001"
-              product_items:
-                - product_code: "FEE_01"
-                  percentage_amount: "0.30000"
-                  fixed_amount: "0.00000"
-                - product_code: "FEE_02"
-                  fixed_amount: "0.10000"
-                  percentage_amount: "0.00000"
-              entitlements:
-                - entitlement_key: "VISA"
-                - entitlement_key: "MASTERCARD"
           merchant_sub_group: {group_name: "Subgroup"}
     RequestMinimalOutlet:
       value:
@@ -26349,11 +26338,21 @@ components:
                ent_telephone_code: "US|1",
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
+
           offer:
-            product_offer_code: "DEMO01"
+            product_offer_code: "PRO00000000001"
             product_items:
-              - product_code: "GTWY01"
-                quantity: "1"
+                - product_code: "GTWY01"
+                  quantity: "1"
+                - product_code: "FEE_01"
+                  percentage_amount: "0.30000"
+                  fixed_amount: "0.00000"
+                - product_code: "FEE_02"
+                  fixed_amount: "0.10000"
+                  percentage_amount: "0.00000"
+            entitlements:
+              - entitlement_key: "VISA"
+              - entitlement_key: "MASTERCARD"
     RequestMinimalNonProcessingApplication:
       value:
         operation:
