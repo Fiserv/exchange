@@ -3399,10 +3399,14 @@ components:
       description: "Offer for the application. Sent on the pricing level of the application. Used to select products to be sent in the payload. Items for the Offer should be retrieved using the Offer retrieval API with Version 4."
       type: object
       properties:
-        offer_code:
+        product_offer_code:
           type: string
           description: "Offer code that identifies the offer configured. Retrieved from product retrieval."
           example: "DEMO01"
+        product_offer_reference: 
+          type: string
+          description: "Offer reference, obtained from retrieval. can be used in place of offer code."
+          example: "OFFREF"
         entitlements:
           type: array
           description: "Entitlements that will be added for the submerchant. Retrieved from the offer retrieval API. Used for fund the PFAC setups to send entitlements."
@@ -4090,7 +4094,7 @@ components:
                 example: "OREF"
               offer_code:
                 type: string
-                description: "Code for the offer to be used during boarding process"
+                description: "Code for the offer to be used during boarding process for field product_offer_code."
                 example: "345345345"
               currency:
                 type: string
@@ -26264,7 +26268,7 @@ components:
                                  county_code: "CA",
                                  country_code: "840"}
           offer:
-              product_offer_reference: "DEMO01"
+              product_offer_code: "DEMO01"
               product_items:
                 - product_code: "FEE_01"
                   percentage_amount: "0.30000"

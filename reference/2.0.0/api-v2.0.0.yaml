@@ -5302,13 +5302,13 @@ components:
           example: 2019-07-08T00:00:00.000+0000
         authorization_code:
           type: string
-          example: 00881P
+          example: AB4431
         invoice_id:
           type: string
-          example: RP64199521
+          example: AB223212
         reference_number:
           type: string
-          example: "33444531343334224012993"
+          example: "334445316654224012993"
         transaction_id:
           type: string
           example: CDEF012HF
@@ -5479,10 +5479,10 @@ components:
           example: ""
         mobile_indicator:
           type: string
-          example: RP
+          example: AB
         user_data_2:
           type: string
-          example: 33322112                                        00          32212              ABC*SAMPLE HILLS SELF S                               56732403332
+          example: 33322112                                        00          32212              ABC*SAMPL                                 
         posting_charge_description_1:
           type: string
           example: +000000000000.00                             21Y    +000000000000
