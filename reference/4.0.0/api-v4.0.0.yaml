@@ -3401,8 +3401,8 @@ components:
       properties:
         product_offer_code:
           type: string
-          description: "Offer code that identifies the offer configured. Retrieved from product retrieval."
-          example: "DEMO01"
+          description: "System Generated Offer code that identifies the offer configured. Retrieved from product retrieval."
+          example: "PRO00000000001"
         product_offer_reference: 
           type: string
           description: "Offer reference, obtained from retrieval. can be used in place of offer code."
@@ -4095,7 +4095,7 @@ components:
               offer_code:
                 type: string
                 description: "Code for the offer to be used during boarding process for field product_offer_code."
-                example: "345345345"
+                example: "PRO00000000001"
               currency:
                 type: string
                 example: "USD"
@@ -26268,7 +26268,7 @@ components:
                                  county_code: "CA",
                                  country_code: "840"}
           offer:
-              product_offer_code: "DEMO01"
+              product_offer_code: "PRO00000000001"
               product_items:
                 - product_code: "FEE_01"
                   percentage_amount: "0.30000"
