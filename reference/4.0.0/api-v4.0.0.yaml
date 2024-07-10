@@ -26350,7 +26350,7 @@ components:
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
           offer:
-            product_offer_reference: "DEMO01"
+            product_offer_code: "DEMO01"
             product_items:
               - product_code: "GTWY01"
                 quantity: "1"
@@ -29587,7 +29587,7 @@ components:
             responsible_party: '0'
           _id: 6571e4bafb0234279603ff15
           offer:
-            product_offer_reference: "DEMO2024"
+            product_offer_code: "DEMO2024"
             product_items: 
               - product_code: "MASTER_PURCHASE"
                 percentage_amount: "0.5"
