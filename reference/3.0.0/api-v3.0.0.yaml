@@ -3989,6 +3989,10 @@ components:
           description: The Service EXID, which contains a service item
           type: string
           example: 'TPI6C-4A3B1-6E687-EB9A0-95597-EF093-AF11B'
+        terminal_quantity:
+          type: string
+          example: "1"
+          description: "Amount of the service item being added. If not submit, 1 is assumed."
         service_charges:
           type: array
           items:
@@ -30181,7 +30185,7 @@ components:
       value:
         application:
           application_reference: '3330000500012'
-          tenant_udc_external_id: TDCA!-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
+          tenant_udc_external_id: TDCA1-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
     RetrieveOfferSampleCriteria:
       value:
         criteria:
