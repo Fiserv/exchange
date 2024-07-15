@@ -4144,7 +4144,7 @@ components:
               example: "USD"
               description: "Currency of the offer being retrieved. Pulled from values system generated in the config portal"
             status:
-              type: integer
+              type: string
               example: "1"
               description: "Current status of the offer being retrieved. Pulled from values configured in the config portal"
             date_added:
@@ -4178,15 +4178,15 @@ components:
                       - "NORTH_MISC"
                       - "NORTH_SERVICE"
                   tx_source:
-                    type: integer
+                    type: string
                     example: "1"
                     description: "Transaction source being retrieved for the product. 1 - Card 2 - ACH."
                   max_percentage_amount:
-                    type: number
+                    type: string
                     example: "1.0"
                     description: "Max Value for Percentage being retrieved. "
                   max_fixed_amount:
-                    type: number
+                    type: string
                     example: "1.0"
                     description: "Max Value for fixed amounts being retrieved"
                   attributes:
