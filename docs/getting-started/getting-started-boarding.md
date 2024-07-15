@@ -5,14 +5,14 @@ tags: [Getting Started, Boarding, Application]
 
 # Boarding APIs
 
-Exchange allows the creation of applications on the system by using a set of boarding APIs. This is comprised of adding the Registered Legal Business Entity, a Chain (or Subgroup), and DBA locations (Outlets)
+Exchange allows the creation of applications on the system by using a set of boarding APIs. This is comprised of adding the Registered Legal Business Entity, and DBA locations (Outlets)
 Once an application is added, it can be submit to move into downstream systems, and once complete will return with the status 'Boarding complete'. The flow of an application may differ depending on what services on the system are being utlilized.
 
 ---
 
 ## Adding an application
 
-The standard submerchant hierarchy is built from a Merchant, Chain and an outlet. These are sent using the `boarding/add_application` and `outlet/add` endpoints. 
+The standard submerchant hierarchy is built from a Merchant, a Chain and an outlet. These are sent using the `boarding/add_application` and `outlet/add` endpoints. The chain is added inside the add_application as a subgroup, and is used for structure. Outlets are added to a subgroup.
 
 ![boarding_flow](/assets/images/boarding_flow.png)
 
@@ -34,17 +34,15 @@ The `/boarding/add_application` endpoint supports adding the merchant and chain 
 JSON format for `ADD_APPLICATION`:
 
 ```json
-    
 {
   "merchant": {
     "business_entity": {
-      "legal_name": "MMISTEST Business Name",
+      "legal_name": "MMISTEST Legal Name",
       "ownership_entity_type": "L",
       "foreign_entity": "0",
-      "irs_filing_name": "MMISTEST Business Name",
+      "irs_filing_name": "MMISTEST IRS Name",
       "irs_status": "N",
       "tin_type": "2",
-      "int_tax_exempt_flag": "1",
       "business_tin_ssn_number": "666989898",
       "mcc_code": "5733",
       "business_category": "E",
@@ -57,11 +55,10 @@ JSON format for `ADD_APPLICATION`:
         "owner_first_name": "Jane",
         "owner_surname": "Doe",
         "contact_dob": "1980-01-01",
-        "owner_nationality": "826",
+        "owner_nationality": "840",
         "owner_position": "CEO",
         "owner_phone_code": "US|1",
-        "owner_phone_no": "666989898",
-        "owner_date_started": "2020-03-31",
+        "owner_phone_no": "3339898989",
         "owner_email": "email@domain.com",
         "owner_tin_ssn_number": "666989898",
         "is_main_principal": "1",
@@ -84,24 +81,16 @@ JSON format for `ADD_APPLICATION`:
       "county_code": "CA",
       "country_code": "840"
     },
-    "offer_package": {
-      "package_external_id": "OPK01-AB8823-0F2E9-8823J-CC924-C7D40-BCB28"
-    },
-    "acquiring_offer": {
-      "package_external_id": "TP123-8823J-A5ABB-AB8823-65923-34A33-BCB28"
-    },
     "merchant_sub_group": {
-      "group_name": "Subgroup Name"
+      "group_name": "Subgroup"
     }
   }
 }
 
+
 ```
 
 <!-- type: tab-end -->
-
-The offer package and acquiring offer can be set to default using the config portal, and can be removed from the payload if this is being used. If wanting to specify specific items in the offer pacakge or pricing, this will need to be sent seperately. Sending just the external ids will pull all mandatory information.
-If specifying the Offer Package and acquiring offers, please use the `/offering/available` and  `/offering/retrieve_processing_offering` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings.md)
 
 ### Adding Outlets
 
@@ -114,32 +103,29 @@ titles: Add Outlet, Sample JSON
 -->
 
 The `/boarding/outlet/add` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy). 
-
+The outlet will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the submerchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings-v4.md)
 
 <!-- type: tab -->
 
 JSON format for `ADD_OUTLET`:
 
 ```json
-
 {
   "application": {
     "application_reference": "333000050001"
   },
   "outlet": {
     "parent_mid": "700100000050001",
-    "trade_name": "MMISTest Bussines Name",
+    "trade_name": "MMISTest Business Name",
     "outlet_website": "https://fiserv.com",
     "currencies": "USD",
+    "business_category": "E",
     "visitation_required": "1",
     "primary_email_address": "email@domain.com",
     "mcc_code": "5733",
-    "mastercard_sales": "100000.00",
-    "visa_sales": "100000.00",
-    "visa_mastercard_sales": "100000.00",
     "discover_required": "1",
     "amex_required": "1",
-    "amex_volume": "100000.00",
+    "amex_volume": "2000.00",
     "turnover_bus_to_bus_perc": "0",
     "turnover_bus_to_cons_perc": "100",
     "card_bus_to_bus_perc": "0",
@@ -151,16 +137,15 @@ JSON format for `ADD_OUTLET`:
     "sales_mail_perc": "0",
     "sales_internet_perc": "100",
     "sales_tradeshow_perc": "0",
-    "chip_flag": "Y",
     "annual_turnover": "100000.00",
-    "annual_card_turnover": "100000.00",
+    "annual_card_turnover": "90000.00",
     "average_delivery_days": "1",
     "delivery_0_days_perc": "100",
     "delivery_1_to_7_days_perc": "0",
     "delivery_8_to_14_days_perc": "0",
     "delivery_15_to_30_days_perc": "0",
     "delivery_over_30_days_perc": "0",
-    "prod_serv_sold": "Product and services sold by the submerchant",
+    "prod_serv_sold": "Product and services sold",
     "sales_moto_perc": "10",
     "avg_ticket_sales_amt": "50.00",
     "banks": [
@@ -172,7 +157,7 @@ JSON format for `ADD_OUTLET`:
         "account_holder_name": "Jane Doe",
         "bank_account_type": "CHECKING",
         "dda_number": "123456789",
-        "routing_number": "123456789",
+        "routing_number": "333456789",
         "account_type": [
           "CREDIT",
           "DEBIT",
@@ -191,13 +176,41 @@ JSON format for `ADD_OUTLET`:
         "street_line_1": "Sheila Lane",
         "county_code": "NV",
         "ent_telephone_code": "US|1",
-        "telephone_number": "3334567888",
+        "telephone_number": "3339898989",
+        "email_address": "email@domain.com"
+      },
+      {
+        "contact_type": "B",
+        "country_code": "840",
+        "city": "Sparks",
+        "bill_to": "Jane",
+        "contact_first_name": "Jane ",
+        "contact_last_name": "Doe",
+        "zip_code": "89431",
+        "street_line_1": "Sheila Lane",
+        "county_code": "NV",
+        "ent_telephone_code": "US|1",
+        "telephone_number": "3339898989",
         "email_address": "email@domain.com"
       }
-    ]
-  },
-  "online_offer": {
-    "online_offering_external_id": "EQO01-B4628-962EC-9360F-333CD-5D9D3-072AB"
+    ],
+    "offer": {
+      "product_offer_code": "PRO00000000001",
+      "product_items": [
+        {
+          "product_code": "GTWY01",
+          "quantity": "1"
+        }
+      ],
+      "entitlements": [
+        {
+          "entitlement_key": "VISA"
+        },
+        {
+          "entitlement_key": "MASTERCARD"
+        }
+      ]
+    }
   }
 }
 
