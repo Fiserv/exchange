@@ -413,7 +413,7 @@ titles: Request , Response
 <!-- theme: info -->
 >**POST** `/transaction/chargebacks`
 
-Reports the movement on the chargeback case itself.
+Reports the details on the chargeback case. Can be linked to the chargeback adjustments using the invoice number.
 
 <!--
 type: tab
@@ -614,6 +614,8 @@ titles: Request , Response
 <!-- type: tab-end -->
 
 ## Adjustments
+
+Reports PayFac adjustments in the system
 
 <!-- theme: info -->
 >**POST** `/transaction/adjustments`
