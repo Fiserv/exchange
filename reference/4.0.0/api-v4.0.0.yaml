@@ -24496,75 +24496,478 @@ components:
       properties:
         _id:
           type: string
+          description: "Internal identifier"
+          example: "6f2522147afbba675c"
         processed_currency_code:
           type: string
+          minLength: 3
+          maxLength: 3
+          description: "Currency code in ISO 3 Digit"
         submerchant_id:
           type: string
+          description: "Submerchant MID"
+          example: "00032106609801"
         card_type:
           type: string
+          minLength: 1
+          maxLength: 5
+          description: |
+            * `UNKNOWN` - "0"
+            * `MASTERCARD` - "00001"
+            * `VISA` - "00002"
+            * `DISCOVER` - "00003"
+            * `PRIVATE_LABEL` - "00005"
+            * `AMEX` - "00006"
+            * `JAPANESE_CR_BUR` - "00007"
+            * `AMEX_ACQ` - "00008"
+            * `SIZES_UNLIMITED` - "8"
+            * `VOYAGER` - "00010"
+            * `DEBIT_CARD` - "00018"
+            * `JBS` - "11"
+            * `TELECHECK` - "12"
+            * `CHECK_WARRENTY` - "00033"
+            * `SWITCH_DEBIT` - "14"
+            * `PURCHASING_CARD` - "15"
+            * `ELECTRONIC_BENEFITS_TRANSFER` - "00027"
+            * `GATEWAY_DEBIT_CARD` - "00028"
+            * `STORED_VALUE_FUNDED` - "00029"
+            * `STORED_VALUE` - "00030"
+            * `PRIVATE_LBL_GEN` - "00031"
+            * `WRIGHT_EXPRESS` - "00035"
+            * `FLEETCOR` - "00036"
+            * `FLEET_ONE` - "00037"
+            * `PETROLEUM_5` - "24"
+            * `BILL_ME_LATER` - "00049"
+            * `APM` - "00050"
+            * `PAYPAL` - "00051"
+            * `MAESTRO` - "28"
+            * `VPAY` - "29"
+            * `INTERNATIONAL_MAESTRO` - "30"
+            * `VISA_ELECTRON_SIG` - "31"
+            * `VISA_DEBIT` - "32"
+            * `VISA_PURCHASING` - "33"
+            * `VISA_DEBIT_CHIP` - "34"
+            * `VISA_CHIP` - "35"
+            * `MASTERCARD_CONSUMER` - "36"
+            * `MASTERCARD_CHIP` - "37"
+            * `MASTERCARD_PURCHASING` - "38"
+            * `MASTERCARD_DEBIT` - "39"
+            * `DINERS` - "40"
+            * `MASTERCARD_DEBIT_CHIP` - "41"
+            * `TELECREDIT` - "42"
+            * `EUROPAY` - "43"
+            * `DINERS_CLUB` - "44"
+            * `JCB` - "45"
+            * `MDS` - "46"
+            * `STAR` - "00056"
+            * `AUS_DOM_DEBIT` - "48"
+            * `CHINA_UNION_PAY` - "49"
+            * `ELV` - "50"
+            * `GOOGLE` - "51"
+            * `AUSTRIA_DD` - "52"
+            * `FRANCE_DD` - "53"
+            * `ITALY_DD` - "54"
+            * `BELGIUM_DD` - "55"
+            * `RTBT_GERMANY` - "56"
+            * `RTBT_NETHERLANDS` - "57"
+            * `BANKSERV_MC` - "58"
+            * `BANKSERV_VISA` - "59"
+            * `BANKSERV_DINERS` - "60"
+            * `ONUS` - "61"
+            * `MISCELLANEOUS` - "00000"
+            * `BLACKHAWK` - "63"
+            * `EWIC` - "64"
+            * `OTHERS` - "65"
+            * `SVS_GIFT_CARDS` - "66"
+            * `VALUELINK` - "67"
+            * `FUELMAN_GASCARD` - "68"
+            * `SUPERVALU_HOUSE_CHAR` - "69"
+            * `ULTRA_DIAMOND_SHAMRO` - "70"
+            * `LOCAL_DOMESTIC_VISA` - "71"
+            * `LOCAL_DOMESTIC_MASTERCARD` - "72"
+            * `CASH_ADVANCE_VISA` - "73"
+            * `CASH_ADVANCE_MASTERCARD` - "74"
+            * `CASH_ADVANCE_DISCOVER` - "75"
+            * `CASH_ADVANCE_LOCAL_PAPER_VISA` - "76"
+            * `CASH_ADVANCE_LOCAL_PAPER_MASTERCARD` - "77"
+            * `VISA_DCC` - "78"
+            * `MASTERCARD_DCC` - "79"
+            * `VISA_PASS_THRU` - "80"
+            * `VISA_LOCAL_TRANS` - "81"
+            * `MASTERCARD_LOCAL_TRANS` - "82"
+            * `VISA_INTL_DEBIT` - "83"
+            * `VISA_LOCAL_PAPER_DEBIT` - "84"
+            * `MASTERCARD_INTL_DEBIT` - "85"
+            * `MASTERCARD_LOCAL_PAPER_DEBIT` - "86"
+            * `PRI_VAL` - "87"
+          enum:
+            - "0"
+            - "00001"
+            - "00002"
+            - "00003"
+            - "00005"
+            - "00006"
+            - "00007"
+            - "00008"
+            - "8"
+            - "00010"
+            - "00018"
+            - "11"
+            - "12"
+            - "00033"
+            - "14"
+            - "15"
+            - "00027"
+            - "00028"
+            - "00029"
+            - "00030"
+            - "00031"
+            - "00035"
+            - "00036"
+            - "00037"
+            - "24"
+            - "00049"
+            - "00050"
+            - "00051"
+            - "28"
+            - "29"
+            - "30"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
+            - "35"
+            - "36"
+            - "37"
+            - "38"
+            - "39"
+            - "40"
+            - "41"
+            - "42"
+            - "43"
+            - "44"
+            - "45"
+            - "46"
+            - "00056"
+            - "48"
+            - "49"
+            - "50"
+            - "51"
+            - "52"
+            - "53"
+            - "54"
+            - "55"
+            - "56"
+            - "57"
+            - "58"
+            - "59"
+            - "60"
+            - "61"
+            - "00000"
+            - "63"
+            - "64"
+            - "65"
+            - "66"
+            - "67"
+            - "68"
+            - "69"
+            - "70"
+            - "71"
+            - "72"
+            - "73"
+            - "74"
+            - "75"
+            - "76"
+            - "77"
+            - "78"
+            - "79"
+            - "80"
+            - "81"
+            - "82"
+            - "83"
+            - "84"
+            - "85"
+            - "86"
+            - "87"
         reject_indicator:
           type: string
+          minLength: 1
+          maxLength: 1
+          description: | 
+            Indicates if tranasction is rejected or not.
+            * `Rejected` - "Y"
+            * `Not Rejected` - "N"
+          example: "N"
+          enum:
+            - "N"
+            - "Y"
         transaction_amount:
-          type: string
+          type: integer
+          minLength: 1
+          maxLength: 4
+          description: "Amount captured transaction is for"
+          example: 15
         transaction_id:
           type: string
+          description: "Id of the transaction"
+          example: "6669800004321"
         airline_ticket_number:
           type: string
         auth_source:
           type: string
         authorization_amount:
-          type: string
+          type: integer
+          description: "Amount authorized for the transaction"
+          minLength: 1
+          maxLength: 4
+          example: 15
         reference_number:
           type: string
+          description: "Acquirer Reference Number"
+          example: "32199669966996699966456"
         authorization_code:
           type: string
+          description: "Authorization code. Generally, 6/7 alphanumeric code"
+          example: "ABC321"
         authorization_date:
           type: string
+          description: "Authorization date. YYYY-MM-DD Format"
+          example: "2021-11-01"
         authorization_response_code:
           type: string
+          description: "Response code from the authorizer."
+          example: "9Z"
         authorization_sic_code:
           type: string
         avs_flag:
           type: string
+          example: "A"
+          minLength: 1
+          maxLength: 2
+          description: |
+            Provides code for AVS response
+            * `NOT_PROVIDED` - "E"
+            * `ADDR_ONLY_DISCOVER_ADDR_ZIP_MATCH` - "A"
+            * `ADDRESS_MATCHES_ZIP_DOES_NOT_INTNL` - "B"
+            * `ADDRESS_AND_ZIP_DOES_NOT_MATCH_INTNL` - "C"
+            * `ADDRESS_DOES_NOT_MATCH` - "4"
+            * `ADDRESS_AND_ZIP_MATCH_INTNL_ISSUERS` - "D"
+            * `ISSUER_DOES_NOT_SUPPORT_AVS` - "1"
+            * `GLOBAL_NON_AVS_PARTICIPANT` - "G"
+            * `ADDRESS_AND_ZIP_MATCH_UK` - "F"
+            * `ADDRESS_DOES_NOT_MATCH_INTNL_ISSUERS` - "I"
+            * `ADDRESS_AND_ZIP_DOES_NOT_MATCH` - "N"
+            * `INTNL_ADDRESS_AND_ZIP_MATCH` - "M"
+            * `NO_RESPONSE_SENT` - "12"
+            * `ZIP_MATCHES_ADDRESS_DOES_NOT` - "Z"
+            * `ZIP_MATCHES_ADDRESS_DOES_NOT_INTNL` - "P"
+            * `ZIP_DOES_NOT_MATCH_INTNL` - "15"
+            * `RETRY` - "R"
+            * `CARD_TYPE_NOT_SUPPORTED` - "S"
+            * `INFORMATION_SYSTEM_NOT_AVAILABLE` - "0"
+            * `NINE_DIGIT_ZIP_MATCHES_ADDRESS_DOES_NOT` - "T"
+            * `ADDRESS_AND_ZIP_MATCH` - "Y"
+            * `ACCOUNT_HOLDER_NAME_MATCHES` - "21"
+            * `ACCOUNT_HOLDER_NAME_AND_ADDRESS_MATCH` - "22"
+            * `ACCOUNT_HOLDER_NAME_AND_ZIP_MATCH` - "23"
+            * `ACCOUNT_HOLDER_NAME_ADDRESS_AND_ZIP_MATCH` - "24"
+            * `ACCOUNT_HOLDER_NAME_DOES_NOT_MATCHES` - "25"
+            * `ACCOUNT_HOLDER_NAME_ADDRESS_AND_ZIP_DOES_NOT_MATCH` - "26"
+            * `AMEX_ACCOUNT_HOLDER_NAME_MATCHES` - "27"
+            * `AMEX_ACCOUNT_HOLDER_NAME_AND_ADDRESS_MATCH` - "28"
+            * `V` - "29"
+            * `ZERO` - "30"
+            * `ZIP_DOES_NOT_MATCH` - "31"
+            * `ADDRESS_AND_ZIP_DOES_NOT_MATCH_UK` - "32"
+            * `ADDR_AND_ZIP_DISCOVER_ADDR_ONLY_MATCH` - "33"
+            * `ERROR_RESPONSE_FOR_MERCHANT_CATEGORY_CODE` - "34"
+          enum:
+            - "E"
+            - "A"
+            - "B"
+            - "C"
+            - "4"
+            - "D"
+            - "1"
+            - "G"
+            - "F"
+            - "I"
+            - "N"
+            - "M"
+            - "12"
+            - "Z"
+            - "P"
+            - "15"
+            - "R"
+            - "S"
+            - "0"
+            - "T"
+            - "Y"
+            - "21"
+            - "22"
+            - "23"
+            - "24"
+            - "25"
+            - "26"
+            - "27"
+            - "28"
+            - "29"
+            - "30"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
         bank_reference_number:
           type: string
+          description: "Unique number for merchant's bank deposit for funding."
+          maxLength: 20
+          minLength: 1
         batch_date:
           type: string
+          description: "Date of Batch of transaction YYYY-MM-DD"
+          example: "2011-11-01"
         batch_number:
           type: string
+          minLength: 1
+          maxLength: 23
+          description: "Batch that pulled this settlement transaction to initiate thee funding for the transaction."
+          example: "AA999AA999"
         card_number:
           type: string
+          description: "Masked Card number"
+          minLength: 1
+          maxLength: 25
+          example: "XXXXXXXXXXXX4321"
         card_presence_indicator:
           type: string
+          example: "7"
+          description: |
+            * `NO_ECI_PROVIDED` - "0"
+            * `SINGLE_PAYMENT_TRANSACTION_MOTO` - "1" 
+            * `RECURRING_TRANSACTION` - "2"
+            * `INSTALLMENT_PAYMENT` - "3"
+            * `SECURE_E_COMM` - "5" 
+            * `NON_AUTHENTICATION_E_COMM` - "6" 
+            * `CHANNEL_ENCRYPTED_E_COMM` - "7" 
+            * `NON_SECURE_E_COMM` - "8" 
+            * `DEFERRED_TRANSACTION` - "4"
+            * `OPTIONAL_REGIONAL_USE` - "9"
+            * `SINGLE_PAYMENT_TRANSACTION_CARDHOLDER_PRESENT` - "10" 
+            * `RE_AUTHORIZE_TRANSACTION` - "11" 
+            * `INTERACTIVE_VOICE_RESPONSE` - "12"
+            * `NOT_E_COMM` - "13" 
+          enum:
+            - "0"
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+            - "5"
+            - "6"
+            - "7"
+            - "8"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
         cardholder_id_method:
           type: string
+          description: "Indicates how the cardholder was identified by the merchant. This field is only for Visa transactions."
+          minLength: 6
+          maxLength: 6
+          example: "99AA99"
         cat_level:
           type: string
+          description: "Indicator if it is a card holder activated terminal."
+          minLength: 1
+          maxLength: 1
+          enum: 
+            - "Y"
+            - "N"
+          example: "N"
+          
         currency_conversion_rate:
           type: string
+          example: "0.000000000"
+          description: "Identifies the non-US currency conversion rate used to convert the value of total transaction amount"
         cvc2_result:
           type: string
         cvv2_result:
           type: string
         entry_mode:
           type: string
+          example: "9"
+          minLength: 0
+          maxLength: 2
+          description: |
+            * `UNKNOWN` - "0"
+            * `MANUAL` - "01"
+            * `MAGNETIC_STRIPE` - "02" 
+            * `OPTICAL_CARD_READER` - "04"
+            * `EMV` - "05" 
+            * `CONTACTLESS_CHIP` - "07" 
+            * `MOBILE_AND_ECOMMERCE` - "81" 
+            * `FALLBACK_TO_MAG_STRIPE` - "80"
+            * `BAR_CODE` - "03"
+            * `NOT_SPECIFIED` - "9"
+            * `CREDENTIAL_ON_FILE` - "10"
+            * `CONTACTLESS_MAGNETIC_STRIPE` - "11"
+            * `MAGNETIC_STRIPE_READ_ERROR` - "12"
+            * `SMART_CHIP_READ` - "13"
+            * `CONTACTLESS_SMART_CHIP_READ` - "14"
+            * `MAGNETIC_STRIPE_READ` - "15"
+            * `CONTACTLESS_MAGNETIC_STRIPE_READ` - "16"
+          enum:
+            - "0"
+            - "01"
+            - "02"
+            - "04"
+            - "05"
+            - "07"
+            - "81"
+            - "80"
+            - "03"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
         expiration_date:
           type: string
+          description: "Card Expiration date. MMDD"
+          minLength: 4
+          maxLength: 4
+          example: "0101"
         external_id:
           type: string
         funded_date:
           type: string
+          description: "Transaction Funded date. Typically date funded to FBO. YYYY-MM-DD"
+          example: "0101"
         health_care_card:
           type: string
         invoice_id:
           type: string
+          minLength: 1 
+          maxLength: 12
+          description: "Invoice number for the tranasction. Can be used as indentifier from gateway."
+          example: "AAA999AAA999"
         location_dba_name:
           type: string
+          description: "Trading name of the location processing tranasction"
+          minLength: 3
+          maxLength: 200
+          example: "DBA Name"
         market_specific_indicator:
           type: string
         mc_cardholder_authentication:
           type: string
+          description: "Indicates the type of cardholder authentication used in the authorization process in support of UCAF."
         mc_security_protocol:
+          description: "Indicates the presence and type of security protocol present in the authorization process in support of UCAF."
           type: string
         merchant_reference_number:
           type: string
@@ -24576,44 +24979,688 @@ components:
           type: string
         pinless_debit:
           type: string
+          minLength: 1
+          maxLength: 1
+          description: "Indicates pinless Debit. Y- Yes N - No"
+          enum:
+           - "Y"
+           - "N"
         reject_reason:
           type: string
+          minLength: 2
+          maxLength: 3
+          description: |
+            * `CODE_00` - "00": ""
+            * `CODE_001` - "001": "Entered"
+            * `CODE_002` - "002": "MERCHANT DESCRIPTOR MISSING OR INFORMATION INVALID"
+            * `CODE_003` - "003": "Error"
+            * `CODE_005` - "005": "loaded"
+            * `CODE_006` - "006": "Matched"
+            * `CODE_007` - "007": "BATCH RECORD MISSING OR INFORMATION INVALID"
+            * `CODE_008` - "008": "Released"
+            * `CODE_009` - "009": "DETAIL RECORD BYPASSED - BAD MERCHANT OR DESCRIPTOR"
+            * `CODE_01` - "01": "MERCHANT RECORD MISSING OR INFORMATION INVALID"
+            * `CODE_010` - "010": "Unposted"
+            * `CODE_011` - "011": "TRANSACTION CODE INVALID OR NOT ENTITLED FOR CARD PROD"
+            * `CODE_012` - "012": "Suppressed"
+            * `CODE_013` - "013": "Purged"
+            * `CODE_02` - "02": "MERCHANT DESCRIPTOR MISSING OR INFORMATION INVALID"
+            * `CODE_03` - "03": "INVALID RECORD IDENTIFICATION"
+            * `CODE_050` - "050": "Chargebacked"
+            * `CODE_07` - "07": "BATCH RECORD MISSING OR INFORMATION INVALID"
+            * `CODE_09` - "09": "DETAIL RECORD BYPASSED - BAD MERCHANT OR DESCRIPTOR"
+            * `CODE_0A` - "0A": "NF ON BANK AGENT (CHAIN AGENT # NOT ON AGENT BANK FILE)"
+            * `CODE_0B` - "0B": "BAD/MISSING MERC (MERC NOT ON MASTER/BAD MERCHANT STATUS)"
+            * `CODE_0C` - "0C": "REJECT EDS MERCH (PLMU EDSM IND=N (NOT XREF), & ON XREF)"
+            * `CODE_0E` - "0E": "OTHER MERCHANT TO FUND IS NOT FOUND OR BAD STATUS"
+            * `CODE_0F` - "0F": "BAD/MISSING DESC (INV VALUES NOT A-Z, 0-9, SPACE OR '*')"
+            * `CODE_0K` - "0K": "PTS DEP/NO BATCH (PLMU/SEC CODE ISSUE & MISSING BATCH REF)"
+            * `CODE_0L` - "0L": "REJECT EDS BATCH (BATCH SEC CODE AND (BATCH TERMINAL NO))"
+            * `CODE_0U` - "0U": "REJECT MERCHANT (120 TABLE/CLEARING BANK IND ISSUE)"
+            * `CODE_0V` - "0V": "NOT CLIENT CERT (SEC CODE NOT LISTED AS CRT ON PLMU)"
+            * `CODE_10` - "10": "CARDHOLDER ACCOUNT NUMBER INVALID"
+            * `CODE_11` - "11": "TRANSACTION CODE INVALID OR NOT ENTITLED FOR CARD PROD"
+            * `CODE_12` - "12": "TRANSACTION AMOUNT INVALID"
+            * `CODE_13` - "13": "TRANSACTION DATE INVALID"
+            * `CODE_14` - "14": "AUTH DATE INVALID"
+            * `CODE_15` - "15": "CARD EXPIRATION DATE INVALID"
+            * `CODE_16` - "16": "REFERENCE NUMBER INVALID"
+            * `CODE_17` - "17": "RECORD OUT OF SEQUENCE"
+            * `CODE_18` - "18": "DUPLICATE DETAIL RECORD"
+            * `CODE_19` - "19": "ADDITIONAL AMEX RECORD NOT AVAILABLE OR INCORRECT"
+            * `CODE_1A` - "1A": "ISSUE # NOT VALID (ISSUE-NO(2:1) = '0' OR HIGH VALUES)"
+            * `CODE_1B` - "1B": "INV ISS#-NOT SCS (SW/SO CARD &XLD1-ISSUE-NO BYTE2 NOT NUM)"
+            * `CODE_1C` - "1C": "INV CRDHLDR ERR (BAD CARDHOLDER ACCOUNT NUMBER(NOT NUMERIC))"
+            * `CODE_1K` - "1K": "INV TRANS CODE (TRANS. CODE IS INVALID (NOT 5-9))"
+            * `CODE_1L` - "1L": "SLS TRN(CA MRCH) (CASH ADVANCE MERCHANT & TRAN CODE = 5)"
+            * `CODE_1M` - "1M": "C/A TRN(SL MRCH) (SALE MERCHANT AND TRAN CODE = 7)"
+            * `CODE_1N` - "1N": "SALE/CASH TXN INVALID FOR (OC) MRCH"
+            * `CODE_1P` - "1P": "MERSUM/CASH ADV (SALE MERCHANT AND TRAN CODE = 7)"
+            * `CODE_1Q` - "1Q": "MERSUM/SALE TYPE (CASH ADVANCE MERCHANT & TRAN CODE = 5)"
+            * `CODE_1R` - "1R": "TRNCDE NOT 5,6,7 (TRAN CODE NOT 5, 6, 7"
+            * `CODE_1T` - "1T": "VISA MCC NE 6010 (VI TRAN/SALE MER & TRAN CODE AND = 7)"
+            * `CODE_1V` - "1V": "CR FOR MCC 6010"
+            * `CODE_1W` - "1W": "SVCTP/PLANCD ERR (BAD PROD & PLAN COMBO FOR TYPE OF MERCH)"
+            * `CODE_1Y` - "1Y": "SVC LVL INVALID (ENT SERV LVL NOT('F'/'B'/'K'/'P'/'M')"
+            * `CODE_1Z` - "1Z": "NO ENTITLE FOUND (ENTITLEMENT NOT FOUND FOR PRODUCT)"
+            * `CODE_200` - "200": "Card not in BIN tab."
+            * `CODE_201` - "201": "Service not defined"
+            * `CODE_202` - "202": "Service not assigned"
+            * `CODE_203` - "203": "Inw. fees not found"
+            * `CODE_204` - "204": "Out. fees not found"
+            * `CODE_205` - "205": "Fees not found"
+            * `CODE_206` - "206": "Luhn check failed"
+            * `CODE_207` - "207": "Destination missing"
+            * `CODE_208` - "208": "Invalid POS code"
+            * `CODE_209` - "209": "No service contract"
+            * `CODE_21` - "21": "BNB PRIVATE LABEL  BAD CREDIT PLAN"
+            * `CODE_210` - "210": "Batch not reconciled"
+            * `CODE_211` - "211": "Client not Found"
+            * `CODE_212` - "212": "No posting inst."
+            * `CODE_213` - "213": "No account record"
+            * `CODE_214` - "214": "GL Failed"
+            * `CODE_215` - "215": "Wrong Term. Catg."
+            * `CODE_216` - "216": "Wrong CardNo length"
+            * `CODE_217` - "217": "Zero Value"
+            * `CODE_218` - "218": "Contract Closed"
+            * `CODE_219` - "219": "DCC Mismatch"
+            * `CODE_22` - "22": "AUTH DECLINED - DELINQUENT ACCT, OVER CRED LIMIT, ETC"
+            * `CODE_220` - "220": "No Presentment"
+            * `CODE_221` - "221": "Device not found"
+            * `CODE_222` - "222": "Invalid DCC Format"
+            * `CODE_223` - "223": "No Payment Trans"
+            * `CODE_224` - "224": "Invalid trans date"
+            * `CODE_225` - "225": "Invalid Contract"
+            * `CODE_227` - "227": "Future Tran Date"
+            * `CODE_228` - "228": "Large Value"
+            * `CODE_229` - "229": "Late Presentment"
+            * `CODE_23` - "23": "AUTH DECLINED - LOST OR STOLEN CARD"
+            * `CODE_230` - "230": "Auth code required"
+            * `CODE_231` - "231": "Invalid Card Status"
+            * `CODE_232` - "232": "Invalid Acct Status"
+            * `CODE_233` - "233": "Invalid Contr Status"
+            * `CODE_234` - "234": "No posting inst. Ph1"
+            * `CODE_236` - "236": "Fee Rule IRD empty"
+            * `CODE_237` - "237": "Invalid MCC"
+            * `CODE_238` - "238": "Invalid Amex SE No"
+            * `CODE_239` - "239": "Invalid Card Prefix"
+            * `CODE_24` - "24": "AUTH REFERRAL"
+            * `CODE_240` - "240": "Inter not allowed"
+            * `CODE_242` - "242": "Invalid Merch Detail"
+            * `CODE_243` - "243": "Invalid AddendumData"
+            * `CODE_244` - "244": "Missing Service Tel"
+            * `CODE_245` - "245": "Reference not found"
+            * `CODE_246` - "246": "Invalid CVC2"
+            * `CODE_247` - "247": "Invalid AVS"
+            * `CODE_248` - "248": "Invalid RCC"
+            * `CODE_249` - "249": "Invalid Cash Tran"
+            * `CODE_25` - "25": "FOREIGN DETAIL INVALID - NON-NUMERIC DOLLAR AMOUNT"
+            * `CODE_251` - "251": "Inv. Acq Floor Limit"
+            * `CODE_252` - "252": "Inv. Mer Floor Limit"
+            * `CODE_253` - "253": "Inv. Auth Method"
+            * `CODE_254` - "254": "Inv. HC File Size"
+            * `CODE_255` - "255": "Inv. Cashback Amt"
+            * `CODE_256` - "256": "Inv. Acq Cash FL"
+            * `CODE_257` - "257": "Inv. Merch Cash FL"
+            * `CODE_259` - "259": "Missing company name"
+            * `CODE_26` - "26": "FOREIGN DETAIL INVALID - INCORRECT CURRENCY CODE"
+            * `CODE_260` - "260": "Invalid Product ID"
+            * `CODE_264` - "264": "Invalid Card Expiry"
+            * `CODE_265` - "265": "Invalid Trans Time"
+            * `CODE_266` - "266": "Invalid Payment Type"
+            * `CODE_267` - "267": "Inval Bank Sort Code"
+            * `CODE_268` - "268": "Invalid Acct Number"
+            * `CODE_269` - "269": "Inv. Acct Owner Name"
+            * `CODE_27` - "27": "DUPE EDIT"
+            * `CODE_270` - "270": "Invalid Tran ID"
+            * `CODE_271` - "271": "Invalid Card No"
+            * `CODE_272` - "272": "Invalid RT Flag"
+            * `CODE_273` - "273": "SMS flag not Maestro"
+            * `CODE_276` - "276": "Original not found."
+            * `CODE_28` - "28": "INVALID TRANSACTION AMOUNT"
+            * `CODE_280` - "280": "No bin override"
+            * `CODE_281` - "281": "Invalid CBDIP region"
+            * `CODE_29` - "29": "INVALID TRANSACTION AMOUNT"
+            * `CODE_2B` - "2B": "INV FGN AMT EXTN (FOREIGN AMT NOT NUMERIC OR ZERO)"
+            * `CODE_2C` - "2C": "FGN AMT NOT NUM (F-REC AND FOREIGN AMT NOT NUMERIC)"
+            * `CODE_2F` - "2F": "INV DT ON TRTIME (DDD NOT 1-366, TIME NOT 00-99)"
+            * `CODE_2H` - "2H": "INV TM ON TRTIME (XLD1 HHMMSS (HR, MIN, SEC) NOT VALID)"
+            * `CODE_2I` - "2I": "MC DESCNTRY IRA (MASTERCARD AND DEST COUNTRY IS IRAN)"
+            * `CODE_2J` - "2J": "INV FGN CURR CDE (F-REC CURR CODE NOT FOUND ON FOR CURR TBL)"
+            * `CODE_2L` - "2L": "INV XLD1TERMOCAP (XLD1-TERM-OCAP NOT 0 - 4 OR SPACE)"
+            * `CODE_2P` - "2P": "INV XLD1TERMTYPE (XLD1-TERM-TYPE NOT 0 - 9 OR SPACE)"
+            * `CODE_30` - "30": "TOTAL SALES AMOUNT OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_300` - "300": "Suspected fraud"
+            * `CODE_301` - "301": "Confirmed fraud"
+            * `CODE_302` - "302": "No fraud"
+            * `CODE_303` - "303": "Fraud bank loss"
+            * `CODE_304` - "304": "Fraud merchant loss"
+            * `CODE_31` - "31": "TOTAL CREDIT AMOUNT OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_32` - "32": "TOTAL CASH ADVANCE AMOUNT OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_33` - "33": "TOTAL SALES AUTH AMOUNT OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_34` - "34": "TOTAL CASH ADVANCE AUTH AMOUNT OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_35` - "35": "INV ACQ/PROC ID"
+            * `CODE_36` - "36": "INV PROCESS CODE"
+            * `CODE_37` - "37": "INV CASHOVER AMT"
+            * `CODE_3A` - "3A": "CHIP TRANSACTION AMOUNT INVALID OR ZERO"
+            * `CODE_3B` - "3B": "CHIP TRANSACTION TYPE NOT NUMERIC"
+            * `CODE_3C` - "3C": "CHIP TERMINAL TRANSACTION DATE NOT VALID"
+            * `CODE_3D` - "3D": "CHIP CURRENCY CODE IS NOT VALID ISO COUNTRY CODE"
+            * `CODE_3E` - "3E": "CHIP COUNTRY CODE IS NOT VALID ISO COUNTRY CODE"
+            * `CODE_3F` - "3F": "CHIP TRANSACTION CRYPTOGRAM BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3G` - "3G": "CHIP INTERCHANGE PROFILE BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3H` - "3H": "CHIP APPLICATION TRANS. COUNTER BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3I` - "3I": "CHIP UNPREDICTABLE NUMBER BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3J` - "3J": "CHIP TERMINAL VERIFICATION RESULTS BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3K` - "3K": "CHIP ISSUER APPLICATION DATA BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3L` - "3L": "CHIP USAGE CONTROL BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3M` - "3M": "CHIP CRYPTOGRAM INFORMATION DATA BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3N` - "3N": "CHIP CVM RESULTS BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3P` - "3P": "CHIP AID OR DF NAME BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3Q` - "3Q": "CHIP APPLICATION VERSION BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3R` - "3R": "CHIP TRANSACTION STATUS BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3S` - "3S": "CHIP TERMINAL TYPE BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_3T` - "3T": "CHIP TERMINAL CAPABILITY BYTES ARE NOT 0-9 OR A-F"
+            * `CODE_40` - "40": "TOTAL # SALES AUTH REQUEST OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_400` - "400": "Rejected Payment"
+            * `CODE_401` - "401": "Cancelled Payment"
+            * `CODE_402` - "402": "Payment Trans Back"
+            * `CODE_41` - "41": "INVALID OR MISSING PRODUCT CODE ON FLEET OR PURCHASE CARD"
+            * `CODE_42` - "42": "INVALID OR MISSING QUANTITY/SALE AMT ON FLEET OR PURCH. CARD"
+            * `CODE_43` - "43": "INVALID OR MISSING TAX AMOUNT ON FLEET OR PURCHASE CARD"
+            * `CODE_44` - "44": "FLEET OR PURCHASE CARD ITEM OUT-OF-BALANCE"
+            * `CODE_45` - "45": "DETL. TRANS. OUT-OF-BALANCE WITH FLEET OR PURCH CARD ITEMS"
+            * `CODE_46` - "46": "TOTAL # P/L AUTH REQUEST OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_47` - "47": "TOTAL # ADDRESS VERIF REQUEST OUT OF BALANCE OR NOT NUMERIC"
+            * `CODE_48` - "48": "DETAIL WAS RE-AUTH"
+            * `CODE_49` - "49": "DETAIL HELD FOR DELAY RETRY"
+            * `CODE_4A` - "4A": "MCC>0/B077 (MCC IS NOT RECOGNIZED)"
+            * `CODE_50` - "50": "DETAIL HELD FOR OPTIONAL REFERRAL"
+            * `CODE_52` - "52": "INVALID SIGNATURE - DETAIL ACCEPTED"
+            * `CODE_53` - "53": "INVALID TRANSACTION AMOUNT"
+            * `CODE_54` - "54": "INVALID TRANSACTION AMOUNT"
+            * `CODE_55` - "55": "INVALID TRANSACTION AMOUNT"
+            * `CODE_56` - "56": "INVALID TRANSACTION AMOUNT"
+            * `CODE_5H` - "5H": "-MC MCC NE 6010 (MC TRAN /SALE MER & TRAN CODE AND=7)"
+            * `CODE_61` - "61": "WARNING - MISSING AIRLINE ITINERARY INFORMATION"
+            * `CODE_62` - "62": "INVALID SIGNATURE - DETAIL REJECTED"
+            * `CODE_6A` - "6A": "-KUTAC015 RC=(??) (CURRENCY CONVERSION PROBLEM)"
+            * `CODE_6B` - "6B": "MSD CONTACTLESS TXN"
+            * `CODE_6C` - "6C": "CONTACTLESS SOLO/VISA SIG."
+            * `CODE_6D` - "6D": "CONTACTLESS WITH ADDENDA"
+            * `CODE_6E` - "6E": "INV. TXN TYPE CONTACTLESS"
+            * `CODE_6F` - "6F": "CONTACTLESS CUR <>826"
+            * `CODE_6G` - "6G": "CONTACTLESS AMT > MAX"
+            * `CODE_6H` - "6H": "CONTACTLESS NOT ALLOWED"
+            * `CODE_70` - "70": "AIRLINE ITINERARY:INVALID PASSENGER NAME INFORMATION"
+            * `CODE_71` - "71": "AIRLINE ITINERARY:INVALID DEPARTURE DATE"
+            * `CODE_72` - "72": "AIRLINE ITINERARY:INVALID CITY OF ORIGIN"
+            * `CODE_73` - "73": "AIRLINE ITINERARY:INVALID '1ST LEG' DATA"
+            * `CODE_74` - "74": "AIRLINE ITINERARY:INVALID '2ND,3RD OR 4TH LEG' DATA"
+            * `CODE_75` - "75": "AIRLINE ITINERARY:INVALID TICKET NUMBER"
+            * `CODE_76` - "76": "AIRLINE ITINERARY:INVALID STOP-OVER CODE"
+            * `CODE_77` - "77": "Airline itinerary: invalid"
+            * `CODE_7A` - "7A": "ORDER DATE > TRAN DATE"
+            * `CODE_7B` - "7B": "ORDER DATE NOT SPACES OR ZEROES"
+            * `CODE_7C` - "7C": "ORDER DATE INVALID"
+            * `CODE_7D` - "7D": "ORDER REF# INVALID (ORDER REF # <= SPACES)"
+            * `CODE_7E` - "7E": "SUMMARY CODE INVALID (NOT 'SUMM' OR 'LID')"
+            * `CODE_7F` - "7F": "MERCH VAT# <= SPACES OR FAILED MOD97 CHECK"
+            * `CODE_7H` - "7H": "DISCOUNT AMT NOT SPACES AND NOT NUMERIC"
+            * `CODE_7I` - "7I": "FREIGHT TAX AMT NOT = CALCULATED TAX AMT (+-.01)"
+            * `CODE_7J` - "7J": "VAT AMT NOT NUMERIC AND NOT SPACES"
+            * `CODE_7K` - "7K": "VAT AMT NUMERIC AND < .01 WITH VAT IND = 0"
+            * `CODE_7L` - "7L": "ITEM DESC. INVALID (NOT SPACES)"
+            * `CODE_7M` - "7M": "ITEM CODE INVALID (NOT SUMM = '0000', LID = VALID LIST)"
+            * `CODE_7N` - "7N": "ITEM UNIT OF MEASURE INVALID (SUMM = SPACES, LID<> SPACES)"
+            * `CODE_7O` - "7O": "ITEM CODE INVALID"
+            * `CODE_7P` - "7P": "ITEM DISCOUNT ID INVALID (NOT = SPACES,N,Y)"
+            * `CODE_7R` - "7R": "ITEM DISCOUNT AMT INVALID"
+            * `CODE_7S` - "7S": "ITEM QUANTITY INVALID"
+            * `CODE_7T` - "7T": "ITEM UNIT AMOUNT INVALID"
+            * `CODE_7U` - "7U": "ITEM LINE TOTAL INVALID"
+            * `CODE_7V` - "7V": "VAT AMT FAIL CALC"
+            * `CODE_7W` - "7W": "TRAN AMT. NOT = PURCHASE PIECES TOTALED + TOL"
+            * `CODE_7X` - "7X": "SEQUENCE ON EACH ITEM NOT = OR NOT SEQUENTIAL"
+            * `CODE_80` - "80": "ADDRESS VERIFICATION REQUEST"
+            * `CODE_81` - "81": "ADDRESS VERIFICATION ERROR"
+            * `CODE_82` - "82": "CONDITIONAL DEPOSIT REJECTED AS A RESULT OF ADDRESS VERIF"
+            * `CODE_83` - "83": "ADDRESS VERIF REQUESTED; MISSING INPUT ADDRESS VERIF RECORD"
+            * `CODE_87` - "87": "DUPLICATED NON BANK-CARD TRANSACTION FOR MEMO-POST MERCHANT"
+            * `CODE_8A` - "8A": "FRAUD FOUND (TRAN CODE IS 6 & CARD # ON FRAUD LIST)"
+            * `CODE_8B` - "8B": "CSHBK AMT NOTNUM (XD01 CASH BACK AMT NOT NUMERIC)"
+            * `CODE_8C` - "8C": "SWITCHAMT NOTNUM (SWITCH CARD AND SALE AMT NOT NUMERIC)"
+            * `CODE_8D` - "8D": "CRDAMT NOT NUM/0 (TRAN AMT NOT NUMERIC, OR ZERO, OR NEG AMT)"
+            * `CODE_8H` - "8H": "EX IND=D/TRNCD=6 (MM-EXCLUSION-IND = D & TRAN CODE = 6)"
+            * `CODE_8I` - "8I": "EI=Y/FDL=$1/TC=6 (CREDIT EXCLUSION ISSUE)"
+            * `CODE_8J` - "8J": "TC=5,7/AMT>49999 (TRAN CODE = 5 OR 7 AND AMOUNT > 49999.99)"
+            * `CODE_8K` - "8K": "TC=6/AMT>19999 (TRAN CODE = 6 AND AMOUNT > 19999.99)"
+            * `CODE_8L` - "8L": "AMT > AMT LIMIT (AMOUNT > ALLOWABLE LIMIT)"
+            * `CODE_8M` - "8M": "CRD AMT>49999.99 (AMOUNT > +49999.99)"
+            * `CODE_8O` - "8O": "INVALID TRANSACTION AMOUNT"
+            * `CODE_8Q` - "8Q": "SALE DTE NOT NUM (TRANSACTION DATE NOT NUMERIC)"
+            * `CODE_8R` - "8R": "INV CARD SALE DT (INVALID TRANSACTION DATE)"
+            * `CODE_8S` - "8S": "INV 04 SALE DATE (TRAN DATE OVER 210 DAYS OLD)"
+            * `CODE_8T` - "8T": "INV 05 SALE DATE (BAD RETURN CODE FROM DATE UTIL MODULE)"
+            * `CODE_8V` - "8V": "INV 04 TRAN DATE (SWITCH AND INVALID TRAN DATE)"
+            * `CODE_8W` - "8W": "INV EXPIRE DATE (EXP DATE HAS INV. MONTH/YEAR NOT 00-99)"
+            * `CODE_8X` - "8X": "EXP/SALE DTE ERR (SALE DATE > EXPIRE DATE)"
+            * `CODE_8Y` - "8Y": "EXP/CURR DTE ERR (CURRENT DATE > EXPIRE DATE)"
+            * `CODE_8Z` - "8Z": "INVALID TRANSACTION AMOUNT"
+            * `CODE_90` - "90": "INVALID CARD ACCOUNT NUMBER - SM10 TRANSACTIONS ONLY"
+            * `CODE_98` - "98": "SUBMISSION ACCEPTED"
+            * `CODE_99` - "99": "SUBMISSION REJECTED"
+            * `CODE_9A` - "9A": "BAD QUAL RC=(??) (TRANSACTION COULD NOT QUALIFY)"
+            * `CODE_9B` - "9B": "BAD QUAL 1ST DG= (1ST DIG OF 23 DIG REF NO = NOT NUMERIC)"
+            * `CODE_9C` - "9C": "BAD QUAL 2ND DG= (2ND DIG OF 23 DIG REF NO = NOT NUMERIC)"
+            * `CODE_9D` - "9D": "BAD PRD/PLN COMBO (INVALID PRODUCT AND PLAN CODE COMBO)"
+            * `CODE_9E` - "9E": "QUAL PLANCDE INV (QUALIFIER PLAN CODE <= 000)"
+            * `CODE_9F` - "9F": "QUAL RTN STAT=E7 (QUALIFIER RETURN CODE E7 (BAD U.S. AMT))"
+            * `CODE_9H` - "9H": "REF# NOT NUMERIC (DETAIL REFERENCE NO NOT NUMERIC)"
+            * `CODE_9I` - "9I": "REF# EQUAL ZEROS (DETAIL REFERENCE NO IS ZERO)"
+            * `CODE_9J` - "9J": "BAD BASE34 CALL (PROBLEM CONVERTING 23 DIG REF TO BASE 34)"
+            * `CODE_9K` - "9K": "INVALID GENREF # (INVALID CHECK DIGIT ON 23 DIGIT REF NO)"
+            * `CODE_9L` - "9L": "TRANSACTION NOT ACCEPTABLE ON MAESTRO INTL TXN"
+            * `CODE_9N` - "9N": "CHIP TRAN DATE NOT EQUAL TO SALES TRAN DATE"
+            * `CODE_S` - "s": "Acq BIN not found"
+          enum:
+            - "00"
+            - "001"
+            - "002"
+            - "003"
+            - "005"
+            - "006"
+            - "007"
+            - "008"
+            - "009"
+            - "01"
+            - "010"
+            - "011"
+            - "012"
+            - "013"
+            - "02"
+            - "03"
+            - "050"
+            - "07"
+            - "09"
+            - "0A"
+            - "0B"
+            - "0C"
+            - "0E"
+            - "0F"
+            - "0K"
+            - "0L"
+            - "0U"
+            - "0V"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
+            - "16"
+            - "17"
+            - "18"
+            - "19"
+            - "1A"
+            - "1B"
+            - "1C"
+            - "1K"
+            - "1L"
+            - "1M"
+            - "1N"
+            - "1P"
+            - "1Q"
+            - "1R"
+            - "1T"
+            - "1V"
+            - "1W"
+            - "1Y"
+            - "1Z"
+            - "200"
+            - "201"
+            - "202"
+            - "203"
+            - "204"
+            - "205"
+            - "206"
+            - "207"
+            - "208"
+            - "209"
+            - "21"
+            - "210"
+            - "211"
+            - "212"
+            - "213"
+            - "214"
+            - "215"
+            - "216"
+            - "217"
+            - "218"
+            - "219"
+            - "22"
+            - "220"
+            - "221"
+            - "222"
+            - "223"
+            - "224"
+            - "225"
+            - "227"
+            - "228"
+            - "229"
+            - "23"
+            - "230"
+            - "231"
+            - "232"
+            - "233"
+            - "234"
+            - "237"
+            - "238"
+            - "239"
+            - "24"
+            - "240"
+            - "242"
+            - "243"
+            - "244"
+            - "245"
+            - "246"
+            - "247"
+            - "248"
+            - "249"
+            - "25"
+            - "251"
+            - "252"
+            - "253"
+            - "254"
+            - "255"
+            - "256"
+            - "257"
+            - "259"
+            - "26"
+            - "260"
+            - "264"
+            - "265"
+            - "266"
+            - "267"
+            - "268"
+            - "269"
+            - "27"
+            - "270"
+            - "271"
+            - "272"
+            - "273"
+            - "276"
+            - "280"
+            - "281"
+            - "29"
+            - "2B"
+            - "2C"
+            - "2F"
+            - "2H"
+            - "2I"
+            - "2J"
+            - "2L"
+            - "2P"
+            - "30"
+            - "300"
+            - "301"
+            - "302"
+            - "303"
+            - "304"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
+            - "35"
+            - "36"
+            - "37"
+            - "3A"
+            - "3B"
+            - "3C"
+            - "3D"
+            - "3E"
+            - "3F"
+            - "3G"
+            - "3H"
+            - "3I"
+            - "3J"
+            - "3K"
+            - "3L"
+            - "3M"
+            - "3N"
+            - "3P"
+            - "3Q"
+            - "3R"
+            - "3S"
+            - "3T"
+            - "40"
+            - "400"
+            - "401"
+            - "402"
+            - "41"
+            - "42"
+            - "43"
+            - "44"
+            - "45"
+            - "46"
+            - "47"
+            - "48"
+            - "49"
+            - "4A"
+            - "50"
+            - "52"
+            - "53"
+            - "54"
+            - "55"
+            - "56"
+            - "5H"
+            - "61"
+            - "62"
+            - "6A"
+            - "6B"
+            - "6C"
+            - "6D"
+            - "6E"
+            - "6F"
+            - "6G"
+            - "6H"
+            - "70"
+            - "71"
+            - "72"
+            - "73"
+            - "74"
+            - "75"
+            - "76"
+            - "77"
+            - "7A"
+            - "7B"
+            - "7C"
+            - "7D"
+            - "7E"
+            - "7F"
+            - "7H"
+            - "7I"
+            - "7J"
+            - "7K"
+            - "7L"
+            - "7M"
+            - "7N"
+            - "7O"
+            - "7P"
+            - "7R"
+            - "7S"
+            - "7T"
+            - "7U"
+            - "7V"
+            - "7W"
+            - "7X"
+            - "80"
+            - "81"
+            - "82"
+            - "83"
+            - "87"
+            - "8A"
+            - "8B"
+            - "8C"
+            - "8D"
+            - "8H"
+            - "8I"
+            - "8J"
+            - "8K"
+            - "8L"
+            - "8M"
+            - "8O"
+            - "8Q"
+            - "8R"
+            - "8S"
+            - "8T"
+            - "8V"
+            - "8W"
+            - "8X"
+            - "8Y"
+            - "8Z"
+            - "90"
+            - "98"
+            - "99"
+            - "9A"
+            - "9B"
+            - "9C"
+            - "9D"
+            - "9E"
+            - "9F"
+            - "9H"
+            - "9I"
+            - "9J"
+            - "9K"
+            - "9L"
+            - "9N"
+            - "s"
         response_code:
           type: string
         soft_descriptor:
           type: string
+          description: "Name of the Sub Merchant."
         split_details:
           type: array
+          description: "Exchange added array for split details on a transaction. Used if splitting funding"
           items:
             $ref: '#/components/schemas/split_details_block'
         fee_details:
           type: array
+          description: "Exchange added array for fee details on a transaction. Used if using pricing through Exchange."
           items:
             $ref: '#/components/schemas/tx_fee_details_block'
         store_number:
           type: string
         submitted_currency_amount:
-          type: string
+          type: integer
+          minLength: 1 
+          maxLength: 4
+          description: "Amount the transaction was submitted in"
+          example: 15
         submitted_currency_code:
           type: string
+          minLength: 3 
+          maxLength: 3
+          description: "ISO 3 digit code of submitted currency"
         terminal_id:
           type: string
+          description: "Terminal ID tranasction was run at"
+          example: "00000"
         total_auth_amount:
-          type: string
+          type: integer
+          minLength: 1 
+          maxLength: 4
+          description: "Amount that was authed."
+          example: 15
         transaction_date:
           type: string
+          description: "Transaction date. YYYY-MM-DD"
+          example: "2011-01-01"
         transaction_integrity_class:
+          description: "Transaction integrity class."
+          minLength: 2
+          example : "X9"
           type: string
         transaction_mode:
           type: string
+          description: |
+            * UNKNOWN - "0"
+            * MANUAL - "M"
+            * ELECTRONIC - "E"
+            * SWIPED - "S"
+          enum:
+            - "0"
+            - "M"
+            - "E"
+            - "S"
+          minLength: 1
+          maxLength: 1
         transaction_source:
-          type: string
+          type: string  
         transaction_status:
           type: string
+          description: |
+            * UNKNOWN - "0"
+            * PROCESSED - "A"
+            * REJECTED - "R"
+            * DECLINED - "3"
+            * DROPPED - "4"
+            * CANCELLED - "5"
+          enum:
+            - "0"
+            - "A"
+            - "R"
+            - "3"
+            - "4"
+            - "5"
+          minLength: 1
+          maxLength: 1
         transaction_time:
           type: string
+          description: "Transaction time"
+          example: "00:00:00"
         transaction_type:
           type: string
+          description: |
+            * UNKNOWN - "0"
+            * MANUAL - "01"
+            * MAGNETIC_STRIPE - "02" 
+            * OPTICAL_CARD_READER - "04"
+            * EMV - "05" 
+            * CONTACTLESS_CHIP - "07" 
+            * MOBILE_AND_ECOMMERCE - "81" 
+            * FALLBACK_TO_MAG_STRIPE - "80"
+            * BAR_CODE - "03"
+            * NOT_SPECIFIED - "9"
+            * CREDENTIAL_ON_FILE - "10"
+            * CONTACTLESS_MAGNETIC_STRIPE - "11"
+            * MAGNETIC_STRIPE_READ_ERROR - "12"
+            * SMART_CHIP_READ - "13"
+            * CONTACTLESS_SMART_CHIP_READ - "14"
+            * MAGNETIC_STRIPE_READ - "15"
+            * CONTACTLESS_MAGNETIC_STRIPE_READ - "16"
+          enum:
+            - "0"
+            - "01"
+            - "02"
+            - "04"
+            - "05"
+            - "07"
+            - "81"
+            - "80"
+            - "03"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
+            - "16"
+          minLength: 2
+          maxLength: 2
+
         usage_indicator:
           type: string
         visa_chip_condition_code:
@@ -24626,36 +25673,67 @@ components:
           type: string
         location_id:
           type: string
+          example: "321444666111"
+          description: "SubMerchant MID the transaction was recieved on"
+          minLength: 12
+          maxLength: 12
         merchant_node_id:
           type: string
+          description: "Exchange added internal identifier for merchant node"
+          example: 321"
           format: int32
         pfac_node_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for PFAC node"
+          example: 12
         outlet_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for outlet node"
+          example: 123
         alliance_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for alliance"
+          example: 11000001
+          minLength: 8
+          maxLength: 8
         partner_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for partner"
+          example: 12000001
+          minLength: 8
+          maxLength: 8
         merchant_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for merchant id."
+          example: 123
         plan_code:
+          description: "Interchange rate / plan code."
           type: string
+          example: "V037"
+          maxLength: 4 
         reclass_code:
           type: string
         record_type:
           type: string
         hierarchy_id:
           type: string
+          example: "321444666999"
+          description: "Hierarchy MID the submerchant proceesed on"
+          minLength: 12
+          maxLength: 12
         hierarchy_level_no:
           type: string
+          description: "Type of node the hierarchy is. 60 - Pfac"
+          example: "60"
         date_added:
           type: string
+          description: "Exchange added field, date that the record was added into Exchange. YYYY-MM-DD"
+          example: "2022-01-01"
         surcharge_indicator:
           type: string
         surcharge_amount:
@@ -24771,10 +25849,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         transactions:
           type: array
           items:
@@ -24784,6 +25871,7 @@ components:
       properties:
         result:
           type: string
+          example: "SUCCESS"
           enum:
             - SUCCESS
             - ERROR
@@ -24794,10 +25882,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         rejects:
           type: array
           items:
