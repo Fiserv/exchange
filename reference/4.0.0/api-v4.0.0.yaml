@@ -5,6 +5,10 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/jay.dawson/devreviewspecs/4.00
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -25680,7 +25684,7 @@ components:
         merchant_node_id:
           type: string
           description: "Exchange added internal identifier for merchant node"
-          example: 321"
+          example: 321
           format: int32
         pfac_node_id:
           type: string
@@ -26133,7 +26137,7 @@ components:
         merchant_node_id:
           type: string
           description: "Exchange added internal identifier for merchant node"
-          example: 321"
+          example: 321
           format: int32
         pfac_node_id:
           type: string
