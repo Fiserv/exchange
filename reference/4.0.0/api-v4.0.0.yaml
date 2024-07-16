@@ -24496,68 +24496,465 @@ components:
       properties:
         _id:
           type: string
+          description: "Internal identifier"
+          example: "6f2522147afbba675c"
         processed_currency_code:
           type: string
+          minLength: 3
+          maxLength: 3
+          description: "Currency code in ISO 3 Digit"
         submerchant_id:
           type: string
+          description: "Submerchant MID"
+          example: "00032106609801"
         card_type:
           type: string
+          minLength: 1
+          maxLength: 5
+          description: |
+            * `UNKNOWN` - "0"
+            * `MASTERCARD` - "00001"
+            * `VISA` - "00002"
+            * `DISCOVER` - "00003"
+            * `PRIVATE_LABEL` - "00005"
+            * `AMEX` - "00006"
+            * `JAPANESE_CR_BUR` - "00007"
+            * `AMEX_ACQ` - "00008"
+            * `SIZES_UNLIMITED` - "8"
+            * `VOYAGER` - "00010"
+            * `DEBIT_CARD` - "00018"
+            * `JBS` - "11"
+            * `TELECHECK` - "12"
+            * `CHECK_WARRENTY` - "00033"
+            * `SWITCH_DEBIT` - "14"
+            * `PURCHASING_CARD` - "15"
+            * `ELECTRONIC_BENEFITS_TRANSFER` - "00027"
+            * `GATEWAY_DEBIT_CARD` - "00028"
+            * `STORED_VALUE_FUNDED` - "00029"
+            * `STORED_VALUE` - "00030"
+            * `PRIVATE_LBL_GEN` - "00031"
+            * `WRIGHT_EXPRESS` - "00035"
+            * `FLEETCOR` - "00036"
+            * `FLEET_ONE` - "00037"
+            * `PETROLEUM_5` - "24"
+            * `BILL_ME_LATER` - "00049"
+            * `APM` - "00050"
+            * `PAYPAL` - "00051"
+            * `MAESTRO` - "28"
+            * `VPAY` - "29"
+            * `INTERNATIONAL_MAESTRO` - "30"
+            * `VISA_ELECTRON_SIG` - "31"
+            * `VISA_DEBIT` - "32"
+            * `VISA_PURCHASING` - "33"
+            * `VISA_DEBIT_CHIP` - "34"
+            * `VISA_CHIP` - "35"
+            * `MASTERCARD_CONSUMER` - "36"
+            * `MASTERCARD_CHIP` - "37"
+            * `MASTERCARD_PURCHASING` - "38"
+            * `MASTERCARD_DEBIT` - "39"
+            * `DINERS` - "40"
+            * `MASTERCARD_DEBIT_CHIP` - "41"
+            * `TELECREDIT` - "42"
+            * `EUROPAY` - "43"
+            * `DINERS_CLUB` - "44"
+            * `JCB` - "45"
+            * `MDS` - "46"
+            * `STAR` - "00056"
+            * `AUS_DOM_DEBIT` - "48"
+            * `CHINA_UNION_PAY` - "49"
+            * `ELV` - "50"
+            * `GOOGLE` - "51"
+            * `AUSTRIA_DD` - "52"
+            * `FRANCE_DD` - "53"
+            * `ITALY_DD` - "54"
+            * `BELGIUM_DD` - "55"
+            * `RTBT_GERMANY` - "56"
+            * `RTBT_NETHERLANDS` - "57"
+            * `BANKSERV_MC` - "58"
+            * `BANKSERV_VISA` - "59"
+            * `BANKSERV_DINERS` - "60"
+            * `ONUS` - "61"
+            * `MISCELLANEOUS` - "00000"
+            * `BLACKHAWK` - "63"
+            * `EWIC` - "64"
+            * `OTHERS` - "65"
+            * `SVS_GIFT_CARDS` - "66"
+            * `VALUELINK` - "67"
+            * `FUELMAN_GASCARD` - "68"
+            * `SUPERVALU_HOUSE_CHAR` - "69"
+            * `ULTRA_DIAMOND_SHAMRO` - "70"
+            * `LOCAL_DOMESTIC_VISA` - "71"
+            * `LOCAL_DOMESTIC_MASTERCARD` - "72"
+            * `CASH_ADVANCE_VISA` - "73"
+            * `CASH_ADVANCE_MASTERCARD` - "74"
+            * `CASH_ADVANCE_DISCOVER` - "75"
+            * `CASH_ADVANCE_LOCAL_PAPER_VISA` - "76"
+            * `CASH_ADVANCE_LOCAL_PAPER_MASTERCARD` - "77"
+            * `VISA_DCC` - "78"
+            * `MASTERCARD_DCC` - "79"
+            * `VISA_PASS_THRU` - "80"
+            * `VISA_LOCAL_TRANS` - "81"
+            * `MASTERCARD_LOCAL_TRANS` - "82"
+            * `VISA_INTL_DEBIT` - "83"
+            * `VISA_LOCAL_PAPER_DEBIT` - "84"
+            * `MASTERCARD_INTL_DEBIT` - "85"
+            * `MASTERCARD_LOCAL_PAPER_DEBIT` - "86"
+            * `PRI_VAL` - "87"
+          enum:
+            - "0"
+            - "00001"
+            - "00002"
+            - "00003"
+            - "00005"
+            - "00006"
+            - "00007"
+            - "00008"
+            - "8"
+            - "00010"
+            - "00018"
+            - "11"
+            - "12"
+            - "00033"
+            - "14"
+            - "15"
+            - "00027"
+            - "00028"
+            - "00029"
+            - "00030"
+            - "00031"
+            - "00035"
+            - "00036"
+            - "00037"
+            - "24"
+            - "00049"
+            - "00050"
+            - "00051"
+            - "28"
+            - "29"
+            - "30"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
+            - "35"
+            - "36"
+            - "37"
+            - "38"
+            - "39"
+            - "40"
+            - "41"
+            - "42"
+            - "43"
+            - "44"
+            - "45"
+            - "46"
+            - "00056"
+            - "48"
+            - "49"
+            - "50"
+            - "51"
+            - "52"
+            - "53"
+            - "54"
+            - "55"
+            - "56"
+            - "57"
+            - "58"
+            - "59"
+            - "60"
+            - "61"
+            - "00000"
+            - "63"
+            - "64"
+            - "65"
+            - "66"
+            - "67"
+            - "68"
+            - "69"
+            - "70"
+            - "71"
+            - "72"
+            - "73"
+            - "74"
+            - "75"
+            - "76"
+            - "77"
+            - "78"
+            - "79"
+            - "80"
+            - "81"
+            - "82"
+            - "83"
+            - "84"
+            - "85"
+            - "86"
+            - "87"
         reject_indicator:
           type: string
+          minLength: 1
+          maxLength: 1
+          description: | 
+            Indicates if tranasction is rejected or not.
+            * `Rejected` - "Y"
+            * `Not Rejected` - "N"
+          example: "N"
+          enum:
+            - "N"
+            - "Y"
         transaction_amount:
-          type: string
+          type: integer
+          minLength: 1
+          maxLength: 4
+          description: "Amount captured transaction is for"
+          example: 15
         transaction_id:
           type: string
+          description: "Id of the transaction"
+          example: "6669800004321"
         airline_ticket_number:
           type: string
         auth_source:
           type: string
         authorization_amount:
-          type: string
+          type: integer
+          description: "Amount authorized for the transaction"
+          minLength: 1
+          maxLength: 4
+          example: 15
         reference_number:
           type: string
+          description: "Acquirer Reference Number"
+          example: "32199669966996699966456"
         authorization_code:
           type: string
+          description: "Authorization code. Generally, 6/7 alphanumeric code"
+          example: "ABC321"
         authorization_date:
           type: string
+          description: "Authorization date. YYYY-MM-DD Format"
+          example: "2021-11-01"
         authorization_response_code:
           type: string
+          description: "Response code from the authorizer."
+          example: "9Z"
         authorization_sic_code:
           type: string
         avs_flag:
           type: string
+          example: "A"
+          minLength: 1
+          maxLength: 2
+          description: |
+            Provides code for AVS response
+            * `NOT_PROVIDED` - "E"
+            * `ADDR_ONLY_DISCOVER_ADDR_ZIP_MATCH` - "A"
+            * `ADDRESS_MATCHES_ZIP_DOES_NOT_INTNL` - "B"
+            * `ADDRESS_AND_ZIP_DOES_NOT_MATCH_INTNL` - "C"
+            * `ADDRESS_DOES_NOT_MATCH` - "4"
+            * `ADDRESS_AND_ZIP_MATCH_INTNL_ISSUERS` - "D"
+            * `ISSUER_DOES_NOT_SUPPORT_AVS` - "1"
+            * `GLOBAL_NON_AVS_PARTICIPANT` - "G"
+            * `ADDRESS_AND_ZIP_MATCH_UK` - "F"
+            * `ADDRESS_DOES_NOT_MATCH_INTNL_ISSUERS` - "I"
+            * `ADDRESS_AND_ZIP_DOES_NOT_MATCH` - "N"
+            * `INTNL_ADDRESS_AND_ZIP_MATCH` - "M"
+            * `NO_RESPONSE_SENT` - "12"
+            * `ZIP_MATCHES_ADDRESS_DOES_NOT` - "Z"
+            * `ZIP_MATCHES_ADDRESS_DOES_NOT_INTNL` - "P"
+            * `ZIP_DOES_NOT_MATCH_INTNL` - "15"
+            * `RETRY` - "R"
+            * `CARD_TYPE_NOT_SUPPORTED` - "S"
+            * `INFORMATION_SYSTEM_NOT_AVAILABLE` - "0"
+            * `NINE_DIGIT_ZIP_MATCHES_ADDRESS_DOES_NOT` - "T"
+            * `ADDRESS_AND_ZIP_MATCH` - "Y"
+            * `ACCOUNT_HOLDER_NAME_MATCHES` - "21"
+            * `ACCOUNT_HOLDER_NAME_AND_ADDRESS_MATCH` - "22"
+            * `ACCOUNT_HOLDER_NAME_AND_ZIP_MATCH` - "23"
+            * `ACCOUNT_HOLDER_NAME_ADDRESS_AND_ZIP_MATCH` - "24"
+            * `ACCOUNT_HOLDER_NAME_DOES_NOT_MATCHES` - "25"
+            * `ACCOUNT_HOLDER_NAME_ADDRESS_AND_ZIP_DOES_NOT_MATCH` - "26"
+            * `AMEX_ACCOUNT_HOLDER_NAME_MATCHES` - "27"
+            * `AMEX_ACCOUNT_HOLDER_NAME_AND_ADDRESS_MATCH` - "28"
+            * `V` - "29"
+            * `ZERO` - "30"
+            * `ZIP_DOES_NOT_MATCH` - "31"
+            * `ADDRESS_AND_ZIP_DOES_NOT_MATCH_UK` - "32"
+            * `ADDR_AND_ZIP_DISCOVER_ADDR_ONLY_MATCH` - "33"
+            * `ERROR_RESPONSE_FOR_MERCHANT_CATEGORY_CODE` - "34"
+          enum:
+            - "E"
+            - "A"
+            - "B"
+            - "C"
+            - "4"
+            - "D"
+            - "1"
+            - "G"
+            - "F"
+            - "I"
+            - "N"
+            - "M"
+            - "12"
+            - "Z"
+            - "P"
+            - "15"
+            - "R"
+            - "S"
+            - "0"
+            - "T"
+            - "Y"
+            - "21"
+            - "22"
+            - "23"
+            - "24"
+            - "25"
+            - "26"
+            - "27"
+            - "28"
+            - "29"
+            - "30"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
         bank_reference_number:
           type: string
+          description: "Unique number for merchant's bank deposit for funding."
+          maxLength: 20
+          minLength: 1
         batch_date:
           type: string
+          description: "Date of Batch of transaction YYYY-MM-DD"
+          example: "2011-11-01"
         batch_number:
           type: string
+          minLength: 1
+          maxLength: 23
+          description: "Batch that pulled this settlement transaction to initiate thee funding for the transaction."
+          example: "AA999AA999"
         card_number:
           type: string
+          description: "Masked Card number"
+          minLength: 1
+          maxLength: 25
+          example: "XXXXXXXXXXXX4321"
         card_presence_indicator:
           type: string
+          example: "7"
+          description: |
+            * `NO_ECI_PROVIDED` - "0"
+            * `SINGLE_PAYMENT_TRANSACTION_MOTO` - "1" 
+            * `RECURRING_TRANSACTION` - "2"
+            * `INSTALLMENT_PAYMENT` - "3"
+            * `SECURE_E_COMM` - "5" 
+            * `NON_AUTHENTICATION_E_COMM` - "6" 
+            * `CHANNEL_ENCRYPTED_E_COMM` - "7" 
+            * `NON_SECURE_E_COMM` - "8" 
+            * `DEFERRED_TRANSACTION` - "4"
+            * `OPTIONAL_REGIONAL_USE` - "9"
+            * `SINGLE_PAYMENT_TRANSACTION_CARDHOLDER_PRESENT` - "10" 
+            * `RE_AUTHORIZE_TRANSACTION` - "11" 
+            * `INTERACTIVE_VOICE_RESPONSE` - "12"
+            * `NOT_E_COMM` - "13" 
+          enum:
+            - "0"
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+            - "5"
+            - "6"
+            - "7"
+            - "8"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
         cardholder_id_method:
           type: string
+          description: "Indicates how the cardholder was identified by the merchant. This field is only for Visa transactions."
+          minLength: 6
+          maxLength: 6
+          example: "99AA99"
         cat_level:
           type: string
+          description: "Indicator if it is a card holder activated terminal."
+          minLength: 1
+          maxLength: 1
+          enum: 
+            - "Y"
+            - "N"
+          example: "N"
+          
         currency_conversion_rate:
           type: string
+          example: "0.000000000"
+          description: "Identifies the non-US currency conversion rate used to convert the value of total transaction amount"
         cvc2_result:
           type: string
         cvv2_result:
           type: string
         entry_mode:
           type: string
+          example: "9"
+          minLength: 0
+          maxLength: 2
+          description: |
+            * `UNKNOWN` - "0"
+            * `MANUAL` - "01"
+            * `MAGNETIC_STRIPE` - "02" 
+            * `OPTICAL_CARD_READER` - "04"
+            * `EMV` - "05" 
+            * `CONTACTLESS_CHIP` - "07" 
+            * `MOBILE_AND_ECOMMERCE` - "81" 
+            * `FALLBACK_TO_MAG_STRIPE` - "80"
+            * `BAR_CODE` - "03"
+            * `NOT_SPECIFIED` - "9"
+            * `CREDENTIAL_ON_FILE` - "10"
+            * `CONTACTLESS_MAGNETIC_STRIPE` - "11"
+            * `MAGNETIC_STRIPE_READ_ERROR` - "12"
+            * `SMART_CHIP_READ` - "13"
+            * `CONTACTLESS_SMART_CHIP_READ` - "14"
+            * `MAGNETIC_STRIPE_READ` - "15"
+            * `CONTACTLESS_MAGNETIC_STRIPE_READ` - "16"
+          enum:
+            - "0"
+            - "01"
+            - "02"
+            - "04"
+            - "05"
+            - "07"
+            - "81"
+            - "80"
+            - "03"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
         expiration_date:
           type: string
+          description: "Card Expiration date. MMDD"
+          minLength: 4
+          maxLength: 4
+          example: "0101"
         external_id:
           type: string
         funded_date:
           type: string
+          description: "Transaction Funded date. Typically date funded to FBO. YYYY-MM-DD"
+          example: "0101"
         health_care_card:
           type: string
         invoice_id:
           type: string
+          minLength: 1 
+          maxLength: 12
+          description: "Invoice number for the tranasction. Can be used as indentifier from gateway."
+          example: "AAA999AAA999"
         location_dba_name:
           type: string
         market_specific_indicator:
@@ -24771,10 +25168,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         transactions:
           type: array
           items:
@@ -24784,6 +25190,7 @@ components:
       properties:
         result:
           type: string
+          example: "SUCCESS"
           enum:
             - SUCCESS
             - ERROR
@@ -24794,10 +25201,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         rejects:
           type: array
           items:
