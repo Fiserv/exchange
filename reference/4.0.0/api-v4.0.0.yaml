@@ -25618,8 +25618,49 @@ components:
           maxLength: 1
         transaction_time:
           type: string
+          description: "Transaction time"
+          example: "00:00:00"
         transaction_type:
           type: string
+          description: |
+            * UNKNOWN - "0"
+            * MANUAL - "01"
+            * MAGNETIC_STRIPE - "02" 
+            * OPTICAL_CARD_READER - "04"
+            * EMV - "05" 
+            * CONTACTLESS_CHIP - "07" 
+            * MOBILE_AND_ECOMMERCE - "81" 
+            * FALLBACK_TO_MAG_STRIPE - "80"
+            * BAR_CODE - "03"
+            * NOT_SPECIFIED - "9"
+            * CREDENTIAL_ON_FILE - "10"
+            * CONTACTLESS_MAGNETIC_STRIPE - "11"
+            * MAGNETIC_STRIPE_READ_ERROR - "12"
+            * SMART_CHIP_READ - "13"
+            * CONTACTLESS_SMART_CHIP_READ - "14"
+            * MAGNETIC_STRIPE_READ - "15"
+            * CONTACTLESS_MAGNETIC_STRIPE_READ - "16"
+          enum:
+            - "0"
+            - "01"
+            - "02"
+            - "04"
+            - "05"
+            - "07"
+            - "81"
+            - "80"
+            - "03"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
+            - "16"
+          minLength: 2
+          maxLength: 2
+
         usage_indicator:
           type: string
         visa_chip_condition_code:
@@ -25632,36 +25673,67 @@ components:
           type: string
         location_id:
           type: string
+          example: "321444666111"
+          description: "SubMerchant MID the transaction was recieved on"
+          minLength: 12
+          maxLength: 12
         merchant_node_id:
           type: string
+          description: "Exchange added internal identifier for merchant node"
+          example: 321"
           format: int32
         pfac_node_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for PFAC node"
+          example: 12
         outlet_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for outlet node"
+          example: 123
         alliance_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for alliance"
+          example: 11000001
+          minLength: 8
+          maxLength: 8
         partner_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for partner"
+          example: 12000001
+          minLength: 8
+          maxLength: 8
         merchant_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for merchant id."
+          example: 123
         plan_code:
+          description: "Interchange rate / plan code."
           type: string
+          example: "V037"
+          maxLength: 4 
         reclass_code:
           type: string
         record_type:
           type: string
         hierarchy_id:
           type: string
+          example: "321444666999"
+          description: "Hierarchy MID the submerchant proceesed on"
+          minLength: 12
+          maxLength: 12
         hierarchy_level_no:
           type: string
+          description: "Type of node the hierarchy is. 60 - Pfac"
+          example: "60"
         date_added:
           type: string
+          description: "Exchange added field, date that the record was added into Exchange. YYYY-MM-DD"
+          example: "2022-01-01"
         surcharge_indicator:
           type: string
         surcharge_amount:
