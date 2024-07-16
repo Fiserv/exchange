@@ -5,7 +5,6 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
-
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -26096,10 +26095,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         chargeback_adjustments:
           type: array
           items:
@@ -26119,29 +26127,52 @@ components:
       properties:
         _id:
           type: string
-        alliance_id:
+          description: "Internal identifier"
+          example: "6f2522147afbba675c"
+        merchant_node_id:
           type: string
-          format: int32
-        partner_id:
-          type: string
+          description: "Exchange added internal identifier for merchant node"
+          example: 321"
           format: int32
         pfac_node_id:
           type: string
           format: int32
-        merchant_id:
-          type: string
-          format: int32
-        merchant_node_id:
-          type: string
-          format: int32
+          description: "Exchange added internal identifier for PFAC node"
+          example: 12
         outlet_id:
           type: string
           format: int32
+          description: "Exchange added internal identifier for outlet node"
+          example: 123
+        alliance_id:
+          type: string
+          format: int32
+          description: "Exchange added internal identifier for alliance"
+          example: 11000001
+          minLength: 8
+          maxLength: 8
+        partner_id:
+          type: string
+          format: int32
+          description: "Exchange added internal identifier for partner"
+          example: 12000001
+          minLength: 8
+          maxLength: 8
+        merchant_id:
+          type: string
+          format: int32
+          description: "Exchange added internal identifier for merchant id."
+          example: 123
         location_id:
           type: string
+          example: "321444666111"
+          description: "SubMerchant MID the transaction was recieved on"
+          minLength: 12
+          maxLength: 12
         date_added:
           type: string
-          format: date
+          description: "Exchange added field, date that the record was added into Exchange. YYYY-MM-DD"
+          example: "2022-01-01"
         record_type:
           type: string
         hierarchy_id:
@@ -26150,24 +26181,223 @@ components:
           type: string
         location_dba_name:
           type: string
+          description: "Trading name of the location processing tranasction"
+          minLength: 3
+          maxLength: 200
+          example: "DBA Name"
         store_number:
           type: string
         external_id:
           type: string
         funded_date:
           type: string
+          description: "Original Transaction Funded date. Typically date funded to FBO. YYYY-MM-DD"
+          example: "2021-01-01"
         processed_date:
           type: string
+          description: "Date Adjustment Processed. YYYY-MM-DD"
+          example: "2021-01-01"
         currency_code:
           type: string
+          minLength: 3
+          maxLength: 3
+          description: "Currency code in ISO 3 Digit"
+          example: "840"
         dda_number:
           type: string
+          description: "Masked DDA Number XXXXX3211"
+          example: "XXXXX3211"
         aba_number:
           type: string
+          maxLength: 9
+          description: "Masked ABA Number XXXXX3211"
+          example: "XXXXX6699"
         adjustment_date:
           type: string
+          description: "Date Adjustment Processed. YYYY-MM-DD"
+          example: "2021-01-01"
         card_type:
           type: string
+          minLength: 1
+          maxLength: 5
+          description: |
+            * `UNKNOWN` - "0"
+            * `MASTERCARD` - "00001"
+            * `VISA` - "00002"
+            * `DISCOVER` - "00003"
+            * `PRIVATE_LABEL` - "00005"
+            * `AMEX` - "00006"
+            * `JAPANESE_CR_BUR` - "00007"
+            * `AMEX_ACQ` - "00008"
+            * `SIZES_UNLIMITED` - "8"
+            * `VOYAGER` - "00010"
+            * `DEBIT_CARD` - "00018"
+            * `JBS` - "11"
+            * `TELECHECK` - "12"
+            * `CHECK_WARRENTY` - "00033"
+            * `SWITCH_DEBIT` - "14"
+            * `PURCHASING_CARD` - "15"
+            * `ELECTRONIC_BENEFITS_TRANSFER` - "00027"
+            * `GATEWAY_DEBIT_CARD` - "00028"
+            * `STORED_VALUE_FUNDED` - "00029"
+            * `STORED_VALUE` - "00030"
+            * `PRIVATE_LBL_GEN` - "00031"
+            * `WRIGHT_EXPRESS` - "00035"
+            * `FLEETCOR` - "00036"
+            * `FLEET_ONE` - "00037"
+            * `PETROLEUM_5` - "24"
+            * `BILL_ME_LATER` - "00049"
+            * `APM` - "00050"
+            * `PAYPAL` - "00051"
+            * `MAESTRO` - "28"
+            * `VPAY` - "29"
+            * `INTERNATIONAL_MAESTRO` - "30"
+            * `VISA_ELECTRON_SIG` - "31"
+            * `VISA_DEBIT` - "32"
+            * `VISA_PURCHASING` - "33"
+            * `VISA_DEBIT_CHIP` - "34"
+            * `VISA_CHIP` - "35"
+            * `MASTERCARD_CONSUMER` - "36"
+            * `MASTERCARD_CHIP` - "37"
+            * `MASTERCARD_PURCHASING` - "38"
+            * `MASTERCARD_DEBIT` - "39"
+            * `DINERS` - "40"
+            * `MASTERCARD_DEBIT_CHIP` - "41"
+            * `TELECREDIT` - "42"
+            * `EUROPAY` - "43"
+            * `DINERS_CLUB` - "44"
+            * `JCB` - "45"
+            * `MDS` - "46"
+            * `STAR` - "00056"
+            * `AUS_DOM_DEBIT` - "48"
+            * `CHINA_UNION_PAY` - "49"
+            * `ELV` - "50"
+            * `GOOGLE` - "51"
+            * `AUSTRIA_DD` - "52"
+            * `FRANCE_DD` - "53"
+            * `ITALY_DD` - "54"
+            * `BELGIUM_DD` - "55"
+            * `RTBT_GERMANY` - "56"
+            * `RTBT_NETHERLANDS` - "57"
+            * `BANKSERV_MC` - "58"
+            * `BANKSERV_VISA` - "59"
+            * `BANKSERV_DINERS` - "60"
+            * `ONUS` - "61"
+            * `MISCELLANEOUS` - "00000"
+            * `BLACKHAWK` - "63"
+            * `EWIC` - "64"
+            * `OTHERS` - "65"
+            * `SVS_GIFT_CARDS` - "66"
+            * `VALUELINK` - "67"
+            * `FUELMAN_GASCARD` - "68"
+            * `SUPERVALU_HOUSE_CHAR` - "69"
+            * `ULTRA_DIAMOND_SHAMRO` - "70"
+            * `LOCAL_DOMESTIC_VISA` - "71"
+            * `LOCAL_DOMESTIC_MASTERCARD` - "72"
+            * `CASH_ADVANCE_VISA` - "73"
+            * `CASH_ADVANCE_MASTERCARD` - "74"
+            * `CASH_ADVANCE_DISCOVER` - "75"
+            * `CASH_ADVANCE_LOCAL_PAPER_VISA` - "76"
+            * `CASH_ADVANCE_LOCAL_PAPER_MASTERCARD` - "77"
+            * `VISA_DCC` - "78"
+            * `MASTERCARD_DCC` - "79"
+            * `VISA_PASS_THRU` - "80"
+            * `VISA_LOCAL_TRANS` - "81"
+            * `MASTERCARD_LOCAL_TRANS` - "82"
+            * `VISA_INTL_DEBIT` - "83"
+            * `VISA_LOCAL_PAPER_DEBIT` - "84"
+            * `MASTERCARD_INTL_DEBIT` - "85"
+            * `MASTERCARD_LOCAL_PAPER_DEBIT` - "86"
+            * `PRI_VAL` - "87"
+          enum:
+            - "0"
+            - "00001"
+            - "00002"
+            - "00003"
+            - "00005"
+            - "00006"
+            - "00007"
+            - "00008"
+            - "8"
+            - "00010"
+            - "00018"
+            - "11"
+            - "12"
+            - "00033"
+            - "14"
+            - "15"
+            - "00027"
+            - "00028"
+            - "00029"
+            - "00030"
+            - "00031"
+            - "00035"
+            - "00036"
+            - "00037"
+            - "24"
+            - "00049"
+            - "00050"
+            - "00051"
+            - "28"
+            - "29"
+            - "30"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
+            - "35"
+            - "36"
+            - "37"
+            - "38"
+            - "39"
+            - "40"
+            - "41"
+            - "42"
+            - "43"
+            - "44"
+            - "45"
+            - "46"
+            - "00056"
+            - "48"
+            - "49"
+            - "50"
+            - "51"
+            - "52"
+            - "53"
+            - "54"
+            - "55"
+            - "56"
+            - "57"
+            - "58"
+            - "59"
+            - "60"
+            - "61"
+            - "00000"
+            - "63"
+            - "64"
+            - "65"
+            - "66"
+            - "67"
+            - "68"
+            - "69"
+            - "70"
+            - "71"
+            - "72"
+            - "73"
+            - "74"
+            - "75"
+            - "76"
+            - "77"
+            - "78"
+            - "79"
+            - "80"
+            - "81"
+            - "82"
+            - "83"
+            - "84"
+            - "85"
+            - "86"
+            - "87"
         adjustment_code:
           type: string
         adjustment_description:
@@ -26330,10 +26560,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         chargebacks:
           type: array
           items:
@@ -26487,10 +26726,19 @@ components:
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         authorizations:
           type: array
           items:
