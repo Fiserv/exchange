@@ -25623,33 +25623,62 @@ components:
         transaction_type:
           type: string
           description: |
-            * UNKNOWN - "0"
-            * MANUAL - "01"
-            * MAGNETIC_STRIPE - "02" 
-            * OPTICAL_CARD_READER - "04"
-            * EMV - "05" 
-            * CONTACTLESS_CHIP - "07" 
-            * MOBILE_AND_ECOMMERCE - "81" 
-            * FALLBACK_TO_MAG_STRIPE - "80"
-            * BAR_CODE - "03"
-            * NOT_SPECIFIED - "9"
-            * CREDENTIAL_ON_FILE - "10"
-            * CONTACTLESS_MAGNETIC_STRIPE - "11"
-            * MAGNETIC_STRIPE_READ_ERROR - "12"
-            * SMART_CHIP_READ - "13"
-            * CONTACTLESS_SMART_CHIP_READ - "14"
-            * MAGNETIC_STRIPE_READ - "15"
-            * CONTACTLESS_MAGNETIC_STRIPE_READ - "16"
+            Indicates the type of transaction.
+            * `UNKNOWN` - "0"
+            * `TOTALS` - "1"
+            * `PURCHASE` - "5"
+            * `PRE_AUTH_REQUEST` - "3"
+            * `PRE_AUTH_COMPLETE` - "4"
+            * `REVERSAL` - "7"
+            * `RETURN` - "6"
+            * `CANCELLATION` - "107"
+            * `MAIL_AUTH` - "8"
+            * `ACTIVATE` - "9"
+            * `RELOAD` - "10"
+            * `VERIFICATION` - "11"
+            * `TELECHECK` - "12"
+            * `START_FUELING` - "13"
+            * `UNKNOWN_2` - "14"
+            * `FEE` - "15"
+            * `WITHDRAWAL` - "16"
+            * `DEPOSIT` - "17"
+            * `TRANSFER` - "18"
+            * `BALANCE_INQUIRY` - "19"
+            * `SCORE_FRAUD` - "20"
+            * `GENERATE_TOKEN` - "21"
+            * `ADJUSTMENT` - "22"
+            * `REPORT_LOST_STOLEN` - "23"
+            * `CLOSE_ACCOUNT` - "24"
+            * `FREEZE_ACCOUNT` - "25"
+            * `UNFREEZE_ACCOUNT` - "26"
+            * `TRANSACTION_HISTORY` - "27"
+            * `TIMEOUT_REVERSAL` - "28"
+            * `SETUP_AUTO_RELOAD` - "29"
+            * `RETURN_REVERSAL` - "30"
+            * `CASH_BACK` - "31"
+            * `FORCED` - "32"
+            * `PAYMENT_INITIALIZATION` - "33"
+            * `CHECK` - "34"
+            * `DIRECT_DEBIT_MANDATE` - "35"
+            * `TERMINAL_REGISTRATION` - "36"
+            * `FUNDING_CREDIT` - "37"
+            * `MONEY_TRANSFER_CREDIT` - "38"
+            * `ECOMMERCE_DEBIT` - "39"
+            * `BILL_PAY_DEBIT` - "40"
+            * `MONEY_TRANSFER_DEBIT` - "41"
+            * `FUNDING_DEBIT` - "42"
+            * `OTP` - "43"
+          example: "5"
           enum:
             - "0"
-            - "01"
-            - "02"
-            - "04"
-            - "05"
-            - "07"
-            - "81"
-            - "80"
-            - "03"
+            - "1"
+            - "5"
+            - "3"
+            - "4"
+            - "7"
+            - "6"
+            - "107"
+            - "8"
             - "9"
             - "10"
             - "11"
@@ -25658,8 +25687,34 @@ components:
             - "14"
             - "15"
             - "16"
-          minLength: 2
-          maxLength: 2
+            - "17"
+            - "18"
+            - "19"
+            - "20"
+            - "21"
+            - "22"
+            - "23"
+            - "24"
+            - "25"
+            - "26"
+            - "27"
+            - "28"
+            - "29"
+            - "30"
+            - "31"
+            - "32"
+            - "33"
+            - "34"
+            - "35"
+            - "36"
+            - "37"
+            - "38"
+            - "39"
+            - "40"
+            - "41"
+            - "42"
+            - "43"
+
 
         usage_indicator:
           type: string
@@ -26402,32 +26457,268 @@ components:
             - "87"
         adjustment_code:
           type: string
+          minLength: 1
+          maxLength: 2
+          description: |
+            Code representing various types of financial adjustments.
+            The descriptions for each code are as follows:
+            * `CB` - Chargebacks/Chargeback Reversals: Financial Adjustment for a chargeback.
+            * `12` - Interchange Charges: Interchange Access Fees.
+            * `13` - Service Charges: Discount fees and per trans fees.
+            * `14` - Service Charge Adjustments: Discount Rebates.
+            * `17` - Deposit Adjustments: Captures the amount of PTS Rejects that are not passed on for processing from a deposit so that the bank deposit balances.
+            * `23` - Third Party Adjustments: Captures the amount of Pass Thru Amex and Discover transactions to be funded by 3rd parties.
+            * `30` - Fees.
+            * `33` - Financial Adjustments: Any type of manual billing that can be submitted by the AM Team. Debit Card Chargebacks also fall into this category.
+            * `34` - Agent Bank: Does not apply to Merchant only to Agent Banks.
+            * `35` - Cash Advance Adjustment: Captures the amount of Cash Advance PTS Rejects that are not passed on for processing.
+            * `36` - Cost of Funds: Not currently in use.
+            * `37` - Deposit Adjustments: Deposit Funded in Error or Duplicate Deposit Adjustments.
+            * `40` - Address Verification: Address Verification charges.
+            * `41` - Authorizations: Authorization charges.
+            * `45` - Account Management Fees: Statement Fees, Location Fees, Add Loc Fees.
+            * `46` - WS Info. Mgr.: Product billing for WS Info Manager.
+            * `50` - Chargeback Transaction Processing: Was originally design to isolate CB transaction Processing fees but some come with Category 30 Instead.
+            * `51` - Debit: Debit Transaction and Authorization Fees.
+            * `60` - Data Capture: Batch Settlement and EDC Fees.
+            * `65` - Equipment: Equipment Fees.
+            * `66` - Communication: Tape and Lease Line Fees.
+            * `70` - Cash Advance: Cash Advance Acceptance Fees.
+            * `71` - CES Link: Fees for FDMS Link.
+            * `72` - Check Services: Check by Phone Fees.
+            * `73` - Funds Transfer: ACH and Wire Fees.
+            * `74` - Supplies: Supplies.
+            * `75` - Foreign Handling: Foreign handling Fees.
+            * `76` - Report: Special Report Fees.
+            * `77` - CES Translink: Not currently used.
+            * `78` - USave: Not currently used.
+            * `80` - Interchange: Plan Code Charges.
+            * `81` - Assessment: Assessment Fees.
+            * `82` - Non-Qual Transactions: Billback Fees.
+            * `83` - Agent Interchange: Does not apply to Merchant only to Agent Banks.
+            * `84` - Interchange/Assessment Adj.: Used to adjust any over bill in interchange or assessments.
+            * `93` - Debit Service Charge: Debit Trans fees.
+            * `94` - Debit: Bundled fees for Debit Interchange, Switch and Admin fees.
+          example: "CB"
+          enum:
+            - "CB"
+            - "12"
+            - "13"
+            - "14"
+            - "17"
+            - "23"
+            - "30"
+            - "33"
+            - "34"
+            - "35"
+            - "36"
+            - "37"
+            - "40"
+            - "41"
+            - "45"
+            - "46"
+            - "50"
+            - "51"
+            - "60"
+            - "65"
+            - "66"
+            - "70"
+            - "71"
+            - "72"
+            - "73"
+            - "74"
+            - "75"
+            - "76"
+            - "77"
+            - "78"
+            - "80"
+            - "81"
+            - "82"
+            - "83"
+            - "84"
+            - "93"
+            - "94"
         adjustment_description:
           type: string
+          minLength: 1
+          maxLength: 50
+          description: |
+            * `ID` - CHARGEBACKS
+            * `SERVICES OR CASH NOT PROVIDED TO CARDHOLDER` - Chargebacks where the service or cash was not provided to the cardholder.
+            * `REVERSALS` - Reversals
+            * `REVERSAL NO DESCRIPTION` - Reversal with no description
+            * `CHARGEBACK NO DESCRIPTION` - Chargeback with no description 
+          example: "CHARGEBACKS"
+          enum:
+            - "CHARGEBACKS"
+            - "SERVICES OR CASH NOT PROVIDED TO CARDHOLDER"
+            - "REVERSALS"
+            - "REVERSAL NO DESCRIPTION"
+            - "CHARGEBACK NO DESCRIPTION"
         adjustment_amount_sign:
           type: string
+          example: "+"
+          description: "Indicates if adjustment is positive or negative."
+          enum:
+            - "+"
+            - "-"
         adjustment_amount:
           type: string
+          description: "Amount of the adjustment. Sign amd amount to 2.dp"
+          example: "-20.00"
         adjustment_type:
           type: string
+          example: "D"
+          description: | 
+            Type of adjustment made
+            * `C` - CREDIT
+            * `D` - DEBIT
+          enum:
+           - "C"
+           - "D"
         invoice_date:
           type: string
+          description: "Date when the invoice to/from the merchant associated with this transaction. YYYY-MM-DD"
+          example: "2021-01-01"
+          
         adjustment_invoice_number:
           type: string
+          description: "Invoice Number"
         batch_number:
           type: string
+          minLength: 1
+          maxLength: 23
+          description: "Batch number of original transaction."
+          example: "AA999AA999"
         card_number:
           type: string
+          description: "Masked Card number"
+          minLength: 1
+          maxLength: 25
+          example: "XXXXXXXXXXXX4321"
         chargeback_code:
           type: string
+          example: "53"
+          minLength: 1
+          maxLength: 4
+          description: |
+            * `30` - Services/Merchandise Not Rendered
+            * `41` - Cancelled Recurring Transaction
+            * `53` - Not As Described/Defective
+            * `57` - Fraudulent Processing of Transactions
+            * `62` - Counterfeit Transaction
+            * `71` - Authorization Request Declined
+            * `72` - No Authorization
+            * `73` - Expired Card
+            * `74` - Late Presentment
+            * `75` - Cardholder Does Not Recognize
+            * `76` - Incorrect Transaction Code (Credit Posted as a Purchase)
+            * `77` - Non-Matching Account Number
+            * `80` - Incorrect Transaction Amount Or Account number
+            * `81` - Fraud - Card Present Environment
+            * `82` - Duplicate Processing
+            * `83` - Fraud - Card Not Present Environment
+            * `85` - Credit Not Processed
+            * `86` - Paid by Other Means
+            * `90` - Non-Receipt of Cash at ATM
+            * `93` - Fraud Monitoring Program
+            * `70 Int'l only` - Card Recovery Bulletin or Exception File
+            * `78 Int'l only` - Service Violation Code
+            * `1010` - EMV Liability Shift Counterfeit Fraud
+            * `1020` - EMV Liability Shift Non-Counterfeit Fraud
+            * `1030` - Other Fraud – Card Present Environment
+            * `1040` - Other Fraud – Card Absent Environment
+            * `1050` - Visa Fraud Monitoring Program
+            * `1110` - Card Recovery Bulletin
+            * `1120` - Declined Authorization
+            * `1130` - No Authorization
+            * `1210` - Late Presentment
+            * `1220` - Incorrect Transaction Code
+            * `1230` - Incorrect Currency
+            * `1240` - Incorrect Account Number
+            * `1250` - Incorrect Amount
+            * `1261` - Duplicate Processing
+            * `1262` - Paid by Other means
+            * `1270` - Invalid Data
+            * `1310` - Merchandise/Services Not Received
+            * `1320` - Cancelled Recurring
+            * `1330` - Not As Described or Defective Merchandise/Services
+            * `1340` - Counterfeit Merchandise
+            * `1350` - Misrepresentation
+            * `1360` - Credit Not Processed
+            * `1370` - Cancelled Merchandise/Services
+            * `1380` - Original Credit Transaction Not Accepted
+            * `1390` - Non-Receipt of Cash or Load Transaction Value
+            * `05` - Cardholder Does Not Agree with the Amount Billed
+            * `21` - Cardholder Does Not Recognize Transaction
+            * `22` - Transaction Certification (ICC Transaction)
+            * `23` - Transaction Information Document (TID) needed for cardholder's personal records expense report
+            * `41` - Fraud Investigation
+            * `42` - Potential Chargeback or Compliance Documentation
+            * `43` - Health Care Request
+            * `27` - HealthCare IIAS Auto-sub Data Retrieval Request
+            * `28` - Cardholder Requests with Signature
+            * `30` - Cardholder request due to dispute
+            * `33` - Fraud Analysis request
+            * `34` - Legal Process request
+            * `01` - Transaction Documentation Request
+            * `03` - Transaction Documentation Request Due to Cardholder Dispute
+            * `04` - Transaction Documentation Request for Fraud Analysis
+            * `05` - Good Faith Investigation
+            * `127` - Cardholder Does Not Recognize
+            * `147` - No Cardholder Authorization
+            * `154` - Cardholder Cancelled
+            * `155` - Non Receipt of Merchandise
+            * `158` - Request for Credit
+            * `169` - Correct Transaction Currency Code Not Provided
+            * `170` - Cardholder Cancelled
+            * `173` - Duplicate Billing
+            * `175` - Request for Credit
+            * `176` - Cardholder Does Not Recognize
+            * `177` - No Cardholder Authorization
+            * `193` - Fraud Investigation
+            * `680` - Cardholder Does Not Agree with Amount Billed
+            * `684` - Paid by Other Means
+            * `691` - Request for Copy
+            * `693` - No Cardholder Authorization
+            * `004` - Non-Receipt of Goods or Services
+            * `021` - Cancelled Recurring Transaction
+            * `024` - Cardholder Dispute Defective/Not as Described
+            * `059` - Cardholder Dispute Defective/Not as Described
+            * `061` - Debit Posted as Credit
+            * `062` - Credit Posted as Debit
+            * `063` - Quality of Goods or Services
+            * `40` - Duplicate Transaction
+            * `43` - Need Signed Copy
+            * `60` - Dispute Transaction
+            * `1B` - Possible Fraud
+            * `LP` - Loss Prevention
+            * `0` - Need Invoice
         case_number:
+          description: "Chargeback reference number. 	Reference number associated with the enquiry."
           type: string
+          maxLength: 23
+          example: "9999999"
         bank_reference_number:
           type: string
         sds_reference_number:
           type: string
         new_adjustment_description:
           type: string
+          description: |
+            Updated detailed description explaining the type of adjustment.
+            * `ID` - CHARGEBACKS
+            * `SERVICES OR CASH NOT PROVIDED TO CARDHOLDER` - Chargebacks where the service or cash was not provided to the cardholder.
+            * `REVERSALS` - Reversals
+            * `REVERSAL NO DESCRIPTION` - Reversal with no description
+            * `CHARGEBACK NO DESCRIPTION` - Chargeback with no description 
+          example: "CHARGEBACKS"
+          enum:
+            - "CHARGEBACKS"
+            - "SERVICES OR CASH NOT PROVIDED TO CARDHOLDER"
+            - "REVERSALS"
+            - "REVERSAL NO DESCRIPTION"
+            - "CHARGEBACK NO DESCRIPTION"
         transaction_count:
           type: string
         rate:
@@ -26440,17 +26731,29 @@ components:
             $ref: '#/components/schemas/tx_fee_details_block'
         submit_date:
           type: string
+          description: "Batch date YYYY-MM-DD"
+          example: "2021-01-01"
         special_reference_1:
           type: string
+          description: "Adjustment Order Number"
     AdjustmentsResponseDTO:
       type: object
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         adjustments:
           type: array
           items:
