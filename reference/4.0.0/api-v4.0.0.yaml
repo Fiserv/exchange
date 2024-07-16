@@ -21849,7 +21849,7 @@ components:
           example : "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
         transaction_pricing_external_id:
           type: string
-          description: Tranasction Pricing external ID, can be retrieved from offer API or Merchant Retrieve.
+          description: Transaction Pricing external ID, can be retrieved from offer API or Merchant Retrieve.
           example : "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
         processing_platform:
           type: string
@@ -24508,6 +24508,7 @@ components:
           example: "00032106609801"
         card_type:
           type: string
+          example: "00001"
           minLength: 1
           maxLength: 5
           description: |
@@ -24693,7 +24694,7 @@ components:
           minLength: 1
           maxLength: 1
           description: | 
-            Indicates if tranasction is rejected or not.
+            Indicates if transaction is rejected or not.
             * `Rejected` - "Y"
             * `Not Rejected` - "N"
           example: "N"
@@ -25564,7 +25565,7 @@ components:
           description: "ISO 3 digit code of submitted currency"
         terminal_id:
           type: string
-          description: "Terminal ID tranasction was run at"
+          description: "Terminal ID transaction was run at"
           example: "00000"
         total_auth_amount:
           type: integer
@@ -26220,6 +26221,7 @@ components:
           type: string
           minLength: 1
           maxLength: 5
+          example: "00001"
           description: |
             * `UNKNOWN` - "0"
             * `MASTERCARD` - "00001"
