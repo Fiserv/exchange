@@ -25680,7 +25680,7 @@ components:
         merchant_node_id:
           type: string
           description: "Exchange added internal identifier for merchant node"
-          example: 321"
+          example: 321
           format: int32
         pfac_node_id:
           type: string
@@ -26133,7 +26133,7 @@ components:
         merchant_node_id:
           type: string
           description: "Exchange added internal identifier for merchant node"
-          example: 321"
+          example: 321
           format: int32
         pfac_node_id:
           type: string
