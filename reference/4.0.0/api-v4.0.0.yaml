@@ -26578,23 +26578,147 @@ components:
            - "D"
         invoice_date:
           type: string
-          description: ""
+          description: "Date when the invoice to/from the merchant associated with this transaction. YYYY-MM-DD"
+          example: "2021-01-01"
+          
         adjustment_invoice_number:
           type: string
+          description: "Invoice Number"
         batch_number:
           type: string
+          minLength: 1
+          maxLength: 23
+          description: "Batch number of original transaction."
+          example: "AA999AA999"
         card_number:
           type: string
+          description: "Masked Card number"
+          minLength: 1
+          maxLength: 25
+          example: "XXXXXXXXXXXX4321"
         chargeback_code:
           type: string
+          example: "53"
+          minLength: 1
+          maxLength: 4
+          description: |
+            * `30` - Services/Merchandise Not Rendered
+            * `41` - Cancelled Recurring Transaction
+            * `53` - Not As Described/Defective
+            * `57` - Fraudulent Processing of Transactions
+            * `62` - Counterfeit Transaction
+            * `71` - Authorization Request Declined
+            * `72` - No Authorization
+            * `73` - Expired Card
+            * `74` - Late Presentment
+            * `75` - Cardholder Does Not Recognize
+            * `76` - Incorrect Transaction Code (Credit Posted as a Purchase)
+            * `77` - Non-Matching Account Number
+            * `80` - Incorrect Transaction Amount Or Account number
+            * `81` - Fraud - Card Present Environment
+            * `82` - Duplicate Processing
+            * `83` - Fraud - Card Not Present Environment
+            * `85` - Credit Not Processed
+            * `86` - Paid by Other Means
+            * `90` - Non-Receipt of Cash at ATM
+            * `93` - Fraud Monitoring Program
+            * `70 Int'l only` - Card Recovery Bulletin or Exception File
+            * `78 Int'l only` - Service Violation Code
+            * `1010` - EMV Liability Shift Counterfeit Fraud
+            * `1020` - EMV Liability Shift Non-Counterfeit Fraud
+            * `1030` - Other Fraud – Card Present Environment
+            * `1040` - Other Fraud – Card Absent Environment
+            * `1050` - Visa Fraud Monitoring Program
+            * `1110` - Card Recovery Bulletin
+            * `1120` - Declined Authorization
+            * `1130` - No Authorization
+            * `1210` - Late Presentment
+            * `1220` - Incorrect Transaction Code
+            * `1230` - Incorrect Currency
+            * `1240` - Incorrect Account Number
+            * `1250` - Incorrect Amount
+            * `1261` - Duplicate Processing
+            * `1262` - Paid by Other means
+            * `1270` - Invalid Data
+            * `1310` - Merchandise/Services Not Received
+            * `1320` - Cancelled Recurring
+            * `1330` - Not As Described or Defective Merchandise/Services
+            * `1340` - Counterfeit Merchandise
+            * `1350` - Misrepresentation
+            * `1360` - Credit Not Processed
+            * `1370` - Cancelled Merchandise/Services
+            * `1380` - Original Credit Transaction Not Accepted
+            * `1390` - Non-Receipt of Cash or Load Transaction Value
+            * `05` - Cardholder Does Not Agree with the Amount Billed
+            * `21` - Cardholder Does Not Recognize Transaction
+            * `22` - Transaction Certification (ICC Transaction)
+            * `23` - Transaction Information Document (TID) needed for cardholder's personal records expense report
+            * `41` - Fraud Investigation
+            * `42` - Potential Chargeback or Compliance Documentation
+            * `43` - Health Care Request
+            * `27` - HealthCare IIAS Auto-sub Data Retrieval Request
+            * `28` - Cardholder Requests with Signature
+            * `30` - Cardholder request due to dispute
+            * `33` - Fraud Analysis request
+            * `34` - Legal Process request
+            * `01` - Transaction Documentation Request
+            * `03` - Transaction Documentation Request Due to Cardholder Dispute
+            * `04` - Transaction Documentation Request for Fraud Analysis
+            * `05` - Good Faith Investigation
+            * `127` - Cardholder Does Not Recognize
+            * `147` - No Cardholder Authorization
+            * `154` - Cardholder Cancelled
+            * `155` - Non Receipt of Merchandise
+            * `158` - Request for Credit
+            * `169` - Correct Transaction Currency Code Not Provided
+            * `170` - Cardholder Cancelled
+            * `173` - Duplicate Billing
+            * `175` - Request for Credit
+            * `176` - Cardholder Does Not Recognize
+            * `177` - No Cardholder Authorization
+            * `193` - Fraud Investigation
+            * `680` - Cardholder Does Not Agree with Amount Billed
+            * `684` - Paid by Other Means
+            * `691` - Request for Copy
+            * `693` - No Cardholder Authorization
+            * `004` - Non-Receipt of Goods or Services
+            * `021` - Cancelled Recurring Transaction
+            * `024` - Cardholder Dispute Defective/Not as Described
+            * `059` - Cardholder Dispute Defective/Not as Described
+            * `061` - Debit Posted as Credit
+            * `062` - Credit Posted as Debit
+            * `063` - Quality of Goods or Services
+            * `40` - Duplicate Transaction
+            * `43` - Need Signed Copy
+            * `60` - Dispute Transaction
+            * `1B` - Possible Fraud
+            * `LP` - Loss Prevention
+            * `0` - Need Invoice
         case_number:
+          description: "Chargeback reference number. 	Reference number associated with the enquiry."
           type: string
+          maxLength: 23
+          example: "9999999"
         bank_reference_number:
           type: string
         sds_reference_number:
           type: string
         new_adjustment_description:
           type: string
+          description: |
+            Updated detailed description explaining the type of adjustment.
+            * `ID` - CHARGEBACKS
+            * `SERVICES OR CASH NOT PROVIDED TO CARDHOLDER` - Chargebacks where the service or cash was not provided to the cardholder.
+            * `REVERSALS` - Reversals
+            * `REVERSAL NO DESCRIPTION` - Reversal with no description
+            * `CHARGEBACK NO DESCRIPTION` - Chargeback with no description 
+          example: "CHARGEBACKS"
+          enum:
+            - "CHARGEBACKS"
+            - "SERVICES OR CASH NOT PROVIDED TO CARDHOLDER"
+            - "REVERSALS"
+            - "REVERSAL NO DESCRIPTION"
+            - "CHARGEBACK NO DESCRIPTION"
         transaction_count:
           type: string
         rate:
@@ -26607,17 +26731,29 @@ components:
             $ref: '#/components/schemas/tx_fee_details_block'
         submit_date:
           type: string
+          description: "Batch date YYYY-MM-DD"
+          example: "2021-01-01"
         special_reference_1:
           type: string
+          description: "Adjustment Order Number"
     AdjustmentsResponseDTO:
       type: object
       properties:
         limit:
           type: string
+          example: "50"
+          description: "Limit of records per page"
         page:
           type: string
+          example: "1"
+          description: "Page being pulled by the API"
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Results found or not found"
+          enum: 
+            - "FOUND"
+            - "NOT_FOUND"
         adjustments:
           type: array
           items:
