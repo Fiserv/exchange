@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -25534,7 +25535,6 @@ components:
             - "9L"
             - "9N"
             - "s"
-
         response_code:
           type: string
         soft_descriptor:
@@ -25553,23 +25553,69 @@ components:
         store_number:
           type: string
         submitted_currency_amount:
-          type: string
+          type: integer
+          minLength: 1 
+          maxLength: 4
+          description: "Amount the transaction was submitted in"
+          example: 15
         submitted_currency_code:
           type: string
+          minLength: 3 
+          maxLength: 3
+          description: "ISO 3 digit code of submitted currency"
         terminal_id:
           type: string
+          description: "Terminal ID tranasction was run at"
+          example: "00000"
         total_auth_amount:
-          type: string
+          type: integer
+          minLength: 1 
+          maxLength: 4
+          description: "Amount that was authed."
+          example: 15
         transaction_date:
           type: string
+          description: "Transaction date. YYYY-MM-DD"
+          example: "2011-01-01"
         transaction_integrity_class:
+          description: "Transaction integrity class."
+          minLength: 2
+          example : "X9"
           type: string
         transaction_mode:
           type: string
+          description: |
+            * UNKNOWN - "0"
+            * MANUAL - "M"
+            * ELECTRONIC - "E"
+            * SWIPED - "S"
+          enum:
+            - "0"
+            - "M"
+            - "E"
+            - "S"
+          minLength: 1
+          maxLength: 1
         transaction_source:
-          type: string
+          type: string  
         transaction_status:
           type: string
+          description: |
+            * UNKNOWN - "0"
+            * PROCESSED - "A"
+            * REJECTED - "R"
+            * DECLINED - "3"
+            * DROPPED - "4"
+            * CANCELLED - "5"
+          enum:
+            - "0"
+            - "A"
+            - "R"
+            - "3"
+            - "4"
+            - "5"
+          minLength: 1
+          maxLength: 1
         transaction_time:
           type: string
         transaction_type:
