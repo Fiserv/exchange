@@ -76,15 +76,10 @@ Supported accounts added to this request include:
 
 <!-- type: tab-end -->
 
-## Split by Transaction
-
-Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
-
-## Constructing the split instruction request
-
 ## Split on Auth
 
-Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
+Split on auth allows users through commercehub to submit instructions to split money on authorized amounts. These are then settled to their respective parties through Exchange.
+For split on auth info through CommerceHub, please see documentation [here](?path=docs/Resources/Guides/Partners/PFAC/Split-Settlement.md&branch=preview#account-type)
 
-## Constructing the split instruction request
+
 
