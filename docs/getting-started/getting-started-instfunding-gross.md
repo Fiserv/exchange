@@ -51,7 +51,7 @@ Please see below example:
 ```
 This instruction would generate settlements of $100.00 Credit to the submerchant, $15.00 Debit to the submerchant and a Credit settlement of $15.50 to the Aggregator.
 
-## Managing Chargeback through GROSS instructions
+## Managing Chargeback through Gross instructions
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
