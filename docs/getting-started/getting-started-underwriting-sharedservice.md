@@ -1,7 +1,7 @@
 # Shared Service 
 
 The shared service model utilises a decision coming back from Risk. The flow of the application may change depending on the decision sent. 
-Below is a process flow for an applicaiton going through the Risk service in a shared service model.
+Below is a process flow for an application going through the Risk service in a shared service model.
 
 <!-- !align: center -->
 ![<img src="risk_sequence.png" width="600"/>](/assets/images/risk_sequence.png)
@@ -13,8 +13,8 @@ This will occur when an application is being manually reviewed, and may require 
 
 ### In Manual Review / Back to Sales
 
-This response will be sent to Exchange from credit as a 'back to sales' response, with a comment to let the user know why this has occured and what is required.
-This will be checked by retrieving the merchant applications information through `/boarding/application` operation `'RETRIEVE_MERCHANT_HIERARCHY'` , where the `"credit_risk_check_response"` block will contain the current credit risk check info for the application. A `"decision": "MORE_INFO_REQUIRED"` indicates that the back to sales message has been recieved and is ready to be processed, where the risk reviewers comment `"credit_risk_comments":` can be viewed in order to know what is required to upload.
+This response will be sent to Exchange from credit as a 'back to sales' response, with a comment to let the user know why this has occurred and what is required.
+This will be checked by retrieving the merchant applications information through `/boarding/application` operation `'RETRIEVE_MERCHANT_HIERARCHY'` , where the `"credit_risk_check_response"` block will contain the current credit risk check info for the application. A `"decision": "MORE_INFO_REQUIRED"` indicates that the back to sales message has been received and is ready to be processed, where the risk reviewers comment `"credit_risk_comments":` can be viewed in order to know what is required to upload.
 
 ### Response process
 
@@ -41,8 +41,8 @@ These will have documents grouped within this category during the configuration 
 <!-- theme: info -->
 >**POST** `/fdapplication/upload_additional_files`
 
-The files to upload will be sent through the `/fdapplication/upload_additional_files` for the application application reference stated, and will require the payload to be sent as form-data. 
-The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
+The files to upload will be sent through the `/fdapplication/upload_additional_files` for the application reference stated, and will require the payload to be sent as form-data. 
+The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded binary file. Only one file at a time can be sent through the API.
 
 The request must contain the application reference, and the external id of what entity the document is for.
 
@@ -56,7 +56,7 @@ Example request body:
 }
 ```
 
-However, this request body will be dependant on the configuration of the documents. If mandatory meta data has been configured for the document, this must be added in the request body under a `document_data` object, seen below.
+However, this request body will be dependent on the configuration of the documents. If mandatory meta data has been configured for the document, this must be added in the request body under a `document_data` object, seen below.
 
 ```
 {
@@ -101,7 +101,7 @@ After all the files have been uploaded that have been requested, the user may no
 <!-- theme: info -->
 >**POST** `/boarding/application`
 
-After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
+After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is received due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
 ```json
 {
