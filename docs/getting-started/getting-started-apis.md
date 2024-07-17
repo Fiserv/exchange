@@ -32,7 +32,7 @@ titles: API Headers, Example
 | Header | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `Content-Type` | *string* | N/A |  Content type. Standard request Value (application/json), Document uploads require (multipart/form-data) |
-| `X-API-VERSION` | *string* | 1 | Version of the API to be specified. Latest version should be used where applicable. Example: 3 |
+| `X-API-VERSION` | *string* | 1 | Version of the API to be specified. Latest version should be used where applicable. Example: 4 |
 | `Authorization` | *string* | N/A | Used to send authentication to the server. Basic Auth where credentials are encrypted in Base64. |
 
 ---
@@ -44,7 +44,7 @@ titles: API Headers, Example
 ```json
 {
   "Content-Type": "application/json",
-  "X-API-VERSION": "3",
+  "X-API-VERSION": "4",
   "Authorization": "AUTHORIZATION"
 }
 ```
@@ -62,7 +62,7 @@ import requests
 
 url = "https://uat-api.carat-platforms.fiserv.com/oauth/token"
 headers = {
-    "X-API-VERSION": "3",
+    "X-API-VERSION": "4",
     "Content-Type": "application/json",
     "Authorization": "Authorization"
 }

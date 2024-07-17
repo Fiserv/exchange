@@ -6,7 +6,7 @@ tags: [Getting Started, Boarding, Application]
 # Boarding APIs
 
 Exchange allows the creation of applications on the system by using a set of boarding APIs. This is comprised of adding the Registered Legal Business Entity, and DBA locations (Outlets)
-Once an application is added, it can be submit to move into downstream systems, and once complete will return with the status 'Boarding complete'. The flow of an application may differ depending on what services on the system are being utlilized.
+Once an application is added, it can be submit to move into downstream systems, and once complete will return with the status 'Boarding complete'. The flow of an application may differ depending on what services on the system are being utilized.
 
 ---
 
@@ -26,7 +26,7 @@ type: tab
 titles: Add Application, Sample JSON
 -->
 
-The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal information , application settings and an offer package if used for adding processing offerings or equipement offerings.
+The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal/owner information to be sent, and any application settings to be submit.
 
 
 <!-- type: tab -->
@@ -314,7 +314,7 @@ titles: Update Merchant, Sample JSON
 -->
 
 The `/boarding/merchant` endpoint supports updating for the merchant level and subgroup level, while the `/boarding/outlet` allows the outlet to be updated.
-To update the outets and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
+To update the outlets and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
 The application reference must be added to the request, and operation type based on the update being made.
 
 - UPDATE_MERCHANT at `/boarding/update_merchant` for merchant level.
@@ -346,7 +346,7 @@ JSON format for `UPDATE_MERCHANT`:
 >**POST** `/fdapplication/upload_additional_files`
 
 Files can be uploaded to the application for record keeping purposes.  To upload to an application, the `/fdapplication/upload_additional_files` endpoint should be used and will require the payload to be sent as form-data. 
-The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api
+The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api.
 
 The request must contain the application reference, and the external id of what entity the document is for.
 Documents must be configured on the system in order to retrieve the external IDs, and once configured can be retrieved using the `/boarding/document_categories` endpoint.

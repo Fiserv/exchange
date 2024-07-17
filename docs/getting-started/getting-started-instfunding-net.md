@@ -183,7 +183,7 @@ For example, if we wanted to include a split of 4.50 to a third party on the sys
 
 ## Additional Scenarios
 
-Some scenarios may required additional debits or credits to keep the instruction balanced. Please see some additional scenarios below
+Some scenarios may require additional debits or credits to keep the instruction balanced. Please see some additional scenarios below
 
 #### Reimbursing the Submerchant
 
