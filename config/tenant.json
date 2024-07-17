@@ -17,7 +17,7 @@
       ]
     }
   ],
-  "getStartedFilePath": "/docs/getting-started/getting-started-overview.md",
+  "getStartedFilePath": "docs/get-started.md",
   "apiVersions": [
       {
         "version": "2.0.0",
