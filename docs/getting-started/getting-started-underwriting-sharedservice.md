@@ -4,7 +4,7 @@ The shared service model utilises a decision coming back from Risk. The flow of 
 Below is a process flow for an applicaiton going through the Risk service in a shared service model.
 
 <!-- !align: center -->
-![<img src="instructional_timeline.png" width="600"/>](/assets/images/risk_workflows.png)
+![<img src="risk_sequence.png" width="600"/>](/assets/images/risk_sequence.png)
 
 ## More info required flow
 
