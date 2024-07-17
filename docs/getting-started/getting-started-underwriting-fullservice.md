@@ -78,7 +78,7 @@ The user will be able to retrieve the hits received for a sub-merchant that is b
 <!-- theme: info -->
 >**POST** `/intelligence/retrieve_report`
 
-After retrieving the available reports for a sub-merchant, the user can then view the reports through the `/monitoring/retrieve_report` endpoint. This will require the entity type to be sent along with the references for the report. This will respond witht he information gathered from the third party for the report and will be required to be reviewed.
+After retrieving the available reports for a sub-merchant, the user can then view the reports through the `/monitoring/retrieve_report` endpoint. This will require the entity type to be sent along with the references for the report. This will respond with the information gathered from the third party for the report and will be required to be reviewed.
 
 #### Overwrite intelligence reports
 
@@ -127,7 +127,7 @@ titles: Screening steps, Monitoring Steps
 <!-- theme: info -->
 >**POST** `/boarding/application`
 
-After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is recieved due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
+After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is received due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
 ```json
 {
