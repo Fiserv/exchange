@@ -51,7 +51,7 @@ Please see below example:
 ```
 This instruction would generate settlements of $100.00 Credit to the submerchant, $15.00 Debit to the submerchant and a Credit settlement of $15.50 to the Aggregator.
 
-## Managing Chargeback through GROSS instructions
+## Managing Chargeback through Gross instructions
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
@@ -143,13 +143,15 @@ Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/
 
 ## Reimbursing the Submerchant
 
-There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
+There may be cases where the submerchant is owed money. In these cases, a debit to the operating account must be made to balance the instruction. 
+This can be done with gross intsructions by using the billing block to submit an `account_type:` `GROSS_FEE` of type `CREDIT` , which will debit the Aggregator for the specified `amount` and credit this to the submerchant.
 
 ## Reimbursing the Aggregator
 
-Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made to balance the instruction. 
+Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made in the debit block.
+This can be done by using the `account_type:` `GROSS_FEE` of type `DEBIT` , and specifying the `amount` - which will Debit the submerchant and credit the Aggregator.
 
-## Splitting to third parties through Net Funding
+## Splitting to third parties
 
 For information on Splitting funds, please see the following page [here](?path=docs/getting-started/getting-started-instfunding-split.md)
 

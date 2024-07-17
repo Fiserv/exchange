@@ -98,8 +98,8 @@
         link: docs/getting-started/v4-offerings.md
       - title: (Legacy V3) Pricing + Equipment offerings
         link: docs/getting-started/offerings.md
-    - title: Split funding by transaction 
-      link: docs/getting-started/split-details.md
+    # - title: Split funding by transaction 
+    #   link: docs/getting-started/split-details.md
     - title: Restricted MCCs
       link: docs/documentation/restricted_mccs.md
    # - title: Authentication
