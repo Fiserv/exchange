@@ -44,7 +44,7 @@ titles: API Headers, Example
 ```json
 {
   "Content-Type": "application/json",
-  "X-API-VERSION": "3",
+  "X-API-VERSION": "4",
   "Authorization": "AUTHORIZATION"
 }
 ```
