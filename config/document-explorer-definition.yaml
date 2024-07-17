@@ -30,7 +30,7 @@
 
 - sections:
     - title: Getting Started
-      link: docs/getting-started/get-started.md
+      link: docs/get-started.md
       open: true
       sections:
         - title: Using our APIs
