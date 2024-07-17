@@ -29,7 +29,7 @@
 ################################################################################
 header:
   productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
-getStarted: /docs/getting-started/getting-started-overview.md
+getStarted: /docs/getting-started/get-started.md
 benefits:
   - title: PayFacs
     description: Supporting Enterprise PayFac Business 
