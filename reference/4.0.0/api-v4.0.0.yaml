@@ -27049,7 +27049,7 @@ components:
           type: string
         dispute_type:
           type: string
-          example: ""
+          example: "Pre-Arbitration"
           minLength: 7
           maxLength: 22
           enum:
