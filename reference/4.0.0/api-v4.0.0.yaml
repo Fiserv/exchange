@@ -2691,7 +2691,7 @@ components:
         - amount
         - currency
         - processing_merchant_id
-        - split_detailstail
+        - split_details
         - transaction_date
         - transaction_type
       type: object
@@ -28652,13 +28652,13 @@ components:
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
           split_details:
-            target_merchant_id: "PRO00000000001"
+            target_merchant_id: "700100000050009"
             tx_source: "1"
             fixed_amount: "0.30"
             percentage_amount: "2.10"
-            detail: "Processing Fees"
-            reference": "SPLITREF"
-            transaction_type": 
+            detail: "Fees"
+            reference: "SPLITREF"
+            transaction_type: 
               - "PURCHASE"
               - "REFUND"
             account_type: "REVENUE_ACCOUNT"
