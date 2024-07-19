@@ -30,7 +30,7 @@
 
 - sections:
     - title: Getting Started
-      link: docs/introduction/exchange-intro.md
+      link: docs/get-started.md
       open: true
       sections:
         - title: Introduction
