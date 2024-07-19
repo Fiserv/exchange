@@ -27049,7 +27049,7 @@ components:
           type: string
         dispute_type:
           type: string
-          example: ""
+          example: "Pre-Arbitration"
           minLength: 7
           maxLength: 22
           enum:
@@ -27119,197 +27119,14 @@ components:
           example: 15.5
         reason_code:
           type: string
-          example: "1000"
+          example: "53"
           minLength: 1
           maxLength: 4
-          description: |
-            Indicates case scenarios
-            * `30` - Services/Merchandise Not Rendered
-            * `41` - Cancelled Recurring Transaction
-            * `53` - Not As Described/Defective
-            * `57` - Fraudulent Processing of Transactions
-            * `62` - Counterfeit Transaction
-            * `71` - Authorization Request Declined
-            * `72` - No Authorization
-            * `73` - Expired Card
-            * `74` - Late Presentment
-            * `75` - Cardholder Does Not Recognize
-            * `76` - Incorrect Transaction Code (Credit Posted as a Purchase)
-            * `77` - Non-Matching Account Number
-            * `80` - Incorrect Transaction Amount Or Account number
-            * `81` - Fraud- Card Present Environment
-            * `82` - Duplicate Processing
-            * `83` - Fraud- Card Not Present Environment
-            * `85` - Credit Not Processed
-            * `86` - Paid by Other Means
-            * `90` - Non-Receipt of Cash at ATM
-            * `93` - Fraud Monitoring Program
-            * `1010` - EMV Liability Shift Counterfeit Fraud
-            * `1020` - EMV Liability Shift Non-Counterfeit Fraud
-            * `1030` - Other Fraud – Card Present Environment
-            * `1040` - Other Fraud – Card Absent Environment
-            * `1050` - Visa Fraud Monitoring Program
-            * `1110` - Card Recovery Bulletin
-            * `1120` - Declined Authorization
-            * `1130` - No Authorization
-            * `1210` - Late Presentment
-            * `1220` - Incorrect Transaction Code
-            * `1230` - Incorrect Currency
-            * `1240` - Incorrect Account Number
-            * `1250` - Incorrect Amount
-            * `1261` - Duplicate Processing
-            * `1262` - Paid by Other Means
-            * `1270` - Invalid Data
-            * `1310` - Merchandise/Services Not Received
-            * `1320` - Cancelled Recurring
-            * `1330` - Not As Described or Defective Merchandise/Services
-            * `1340` - Counterfeit Merchandise
-            * `1350` - Misrepresentation
-            * `1360` - Credit Not Processed
-            * `1370` - Cancelled Merchandise/Services
-            * `1380` - Original Credit Transaction Not Accepted
-            * `1390` - Non-Receipt of Cash or Load Transaction Value
-            * `05` - (Retrievals) Cardholder Does Not Agree with the Amount Billed
-            * `21` - (Retrievals) Cardholder Does Not Recognize Transaction
-            * `22` - (Retrievals) Transaction Certification (ICC Transaction)
-            * `23` - (Retrievals) Transaction Information Document (TID) needed for cardholder's personal records expense report
-            * `41` - (Retrievals) Fraud Investigation
-            * `42` - (Retrievals) Potential Chargeback or Compliance Documentation
-            * `43` - (Retrievals) Health Care Request
-            * `27` - (Retrievals) HealthCare IIAS Auto-sub Data Retrieval Request
-            * `28` - (Retrievals) Cardholder Requests with Signature
-            * `30` - (Retrievals) Cardholder request due to dispute
-            * `33` - (Retrievals) Fraud Analysis request
-            * `34` - (Retrievals) Legal Process request
-            * `01` - (Retrievals) Transaction Documentation Request
-            * `03` - (Retrievals) Transaction Documentation Request Due to Cardholder Dispute
-            * `04` - (Retrievals) Transaction Documentation Request for Fraud Analysis
-            * `05` - (Retrievals) Good Faith Investigation
-            * `127` - (Retrievals)  Cardholder Does Not Recognize
-            * `147` - (Retrievals)  No Cardholder Authorization
-            * `154` - (Retrievals)  Cardholder Cancelled
-            * `155` - (Retrievals)  Non Receipt of Merchandise
-            * `158` - (Retrievals)  Request for Credit
-            * `169` - (Retrievals)  Correct Transaction Currency Code Not Provided
-            * `170` - (Retrievals)  Cardholder Cancelled
-            * `173` - (Retrievals)  Duplicate Billing
-            * `175` - (Retrievals)  Request for Credit
-            * `176` - (Retrievals)  Cardholder Does Not Recognize
-            * `177` - (Retrievals)  No Cardholder Authorization
-            * `193` - (Retrievals)  Fraud Investigation
-            * `680` - (Retrievals)  Cardholder Does Not Agree with Amount Billed
-            * `684` - (Retrievals)  Paid by Other Means
-            * `691` - (Retrievals)  Request for Copy
-            * `693` - (Retrievals)  No Cardholder Authorization
-            * `004` - (Retrievals)  Non-Receipt of Goods or Services
-            * `021` - (Retrievals)  Cancelled Recurring Transaction
-            * `024` - (Retrievals)  Cardholder Dispute Defective/Not as Described
-            * `059` - (Retrievals)  Cardholder Dispute Defective/Not as Described
-            * `061` - (Retrievals)  Debit Posted as Credit
-            * `062` - (Retrievals)  Credit Posted as Debit
-            * `063` - (Retrievals)  Quality of Goods or Services
-            * `40` - (Retrievals) Duplicate Transaction
-            * `43` - (Retrievals) Need Signed Copy
-            * `60` - (Retrievals) Dispute Transaction
-            * `1B` - (Retrievals) Possible Fraud
-            * `LP` - (Retrievals) Loss Prevention
-            * `0` - (Retrievals) Need Invoice
-            * `1` - (Retrievals) Need Signed Invoice
-          enum:
-            - "30"
-            - "41"
-            - "53"
-            - "57"
-            - "62"
-            - "71"
-            - "72"
-            - "73"
-            - "74"
-            - "75"
-            - "76"
-            - "77"
-            - "80"
-            - "81"
-            - "82"
-            - "83"
-            - "85"
-            - "86"
-            - "90"
-            - "93"
-            - "1010"
-            - "1020"
-            - "1030"
-            - "1040"
-            - "1050"
-            - "1110"
-            - "1120"
-            - "1130"
-            - "1210"
-            - "1220"
-            - "1230"
-            - "1240"
-            - "1250"
-            - "1261"
-            - "1262"
-            - "1270"
-            - "1310"
-            - "1320"
-            - "1330"
-            - "1340"
-            - "1350"
-            - "1360"
-            - "1370"
-            - "1380"
-            - "1390"
-            - "05"
-            - "21"
-            - "22"
-            - "23"
-            - "41"
-            - "42"
-            - "43"
-            - "27"
-            - "28"
-            - "30"
-            - "33"
-            - "34"
-            - "01"
-            - "03"
-            - "04"
-            - "05"
-            - "127"
-            - "147"
-            - "154"
-            - "155"
-            - "158"
-            - "169"
-            - "170"
-            - "173"
-            - "175"
-            - "176"
-            - "177"
-            - "193"
-            - "680"
-            - "684"
-            - "691"
-            - "693"
-            - "004"
-            - "021"
-            - "024"
-            - "059"
-            - "061"
-            - "062"
-            - "063"
-            - "40"
-            - "43"
-            - "60"
-            - "1B"
-            - "LP"
-            - "0"
-            - "1"
+          description: "Indicates code for chargeback scenario"
         reason_code_description:
           type: string
           description: "Descritpion of the reason code"
+          example: "Cardholder Dispute"
         ids_case_number:
           type: string
           description: "Internal dispute id associated with Case number."
