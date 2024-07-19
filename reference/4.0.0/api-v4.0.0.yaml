@@ -227,7 +227,7 @@ paths:
                 $ref: '#/components/examples/RequestMinimalOutlet'
               SplitDetailsPayload:
                 summary:  "Minimum standard Payload required to board, using defaults in configuration for settings. Includes Split details (Split details flag must be enabled on merchant level)"
-                $ref: '#/components/examples/RequestMinimalOutlet'
+                $ref: '#/components/examples/RequestMinimalOutletSplit'
         required: true
 
       responses:
