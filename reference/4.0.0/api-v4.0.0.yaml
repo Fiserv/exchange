@@ -3054,8 +3054,8 @@ components:
           example: "CHECKING"
           description: "Type of Bank account. SAVINGS cannot be used for account_type DEBIT,CHARGEBACK."
           enum:
-            - CHECKING
-            - SAVINGS
+            - "CHECKING"
+            - "SAVINGS"
         dda_number:
           type: string
           example: '123456789'
@@ -3089,6 +3089,9 @@ components:
       required:
         - account_type
         - bank_account_type
+        - dda_number
+        - routing_number
+        - country_code
       xml:
         name: customer
     NumberEmployees:
@@ -3897,14 +3900,21 @@ components:
         name: subgroup
     SubgroupContact:
       type: object
+      description: | 
+          Contact required if subgroup is billing/funding level
+          * `L` - "Legal"
+          * `B` - "Billing"
       properties:
         contact_type:
           type: string
-          description: L - Legal, B - Billing
+          description: | 
+            Contact type. Legal + Billing contact required if subgroup is billing/funding level
+            * `L` - "Legal"
+            * `B` - "Billing"
           example: "L"
           enum:
-            - L
-            - B
+            - "L"
+            - "B"
         contact_title:
           type: string
           example: "Mr."
@@ -3968,14 +3978,20 @@ components:
       properties:
         contact_type:
           type: string
-          description: Contact type - Legal, Billing, Trading, Shipping, Technical
+          description: | 
+            Contact type. Billing + Trading required. One contact allowed per type.
+            * `L` - "Legal"
+            * `B` - "Billing"
+            * `OT` - "Trading"
+            * `S` - "Shipping"
+            * `T` - "Technical"
           example: "OT"
           enum:
-            - L
-            - B
-            - OT
-            - S
-            - T
+            - "L"
+            - "B"
+            - "OT"
+            - "S"
+            - "T"
         contact_title:
           $ref: '#/components/schemas/Title'
         contact_first_name:
