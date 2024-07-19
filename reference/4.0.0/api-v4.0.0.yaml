@@ -27054,7 +27054,7 @@ components:
           maxLength: 22
           enum:
             - "Chargeback"
-            - "Pre_Arbitration"
+            - "Pre-Arbitration"
             - "Pre-Compliance"
             - "Filed Arbitration"
             - "Filed Compliance"
