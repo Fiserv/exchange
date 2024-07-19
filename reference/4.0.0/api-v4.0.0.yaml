@@ -5,6 +5,7 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+    url: https://virtserver.swaggerhub.com/jay.dawson/devreviewspecs/4.00
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -227,7 +228,7 @@ paths:
                 $ref: '#/components/examples/RequestMinimalOutlet'
               SplitDetailsPayload:
                 summary:  "Minimum standard Payload required to board, using defaults in configuration for settings. Includes Split details (Split details flag must be enabled on merchant level)"
-                $ref: '#/components/examples/RequestMinimalOutletSplit'
+                $ref: '#/components/examples/RequestMinimalOutlet'
         required: true
 
       responses:
@@ -27555,12 +27556,18 @@ components:
           example: "ABC321"
         invoice_number:
           type: string
+          description: "Discretionary 12 digit number sent on transaction by merchant"
+          example: "666989800199"
         airline_ticket_number:
           type: string
         sic_code:
           type: string
+          description: "MCC code"
+          
         receive_date:
           type: string
+          description: "Date Fiserv received the chargeback prior to sending to the merchant. YYYY-MM-DD"
+          example: "2021-01-01"
         adjustment_amount_sign:
           type: string
           example: "+"
@@ -27577,6 +27584,7 @@ components:
         soft_descriptor:
           type: string
           description: "Name of the Sub Merchant."
+          example: "DBA NAME - SAMPLE"
         submitted_transaction_currency_code:
           type: string
           minLength: 3
@@ -27595,6 +27603,7 @@ components:
           example: 20.00
         transaction_service_code:
           type: string
+          description: "Service code assigned on original transaction"
           example: "0"
         transaction_pos_entry_mode:
           type: string
