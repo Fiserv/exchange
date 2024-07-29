@@ -3,7 +3,7 @@ tags: [Getting Started, API Keys, Authentication]
 ---
 # Authentication
 
-Exchange uses the Oauth 2.0 Framework for authorizations. To generate token for authorization, the `/oauth/token` endpoint may be used, and credentials must be sent as a Basic Auth Header with the request.
+Exchange uses the Oauth 2.0 Framework for authorizations. To generate token for authorization, the `/oauth/token` endpoint is used, and credentials must be sent as a Basic Auth Header with the request.
 
 ## OAuth Token Request
 
@@ -72,7 +72,7 @@ titles: Generate Token Request , Generate Token Response
 <!-- theme: info -->
 >**POST** `/oauth/token`
 
-A Refresh token can be used to grand additional access tokens, past the expiration date of the original access token. This can be repeated until the refresh token expires or is revoked.
+A Refresh token can be used to grant additional access tokens, after the expiration date of the original access token. This can be repeated until the refreshed token expires or is revoked.
 
 ### Refresh Request
 <!--
@@ -91,7 +91,7 @@ titles: Refresh Token Request , Refresh Token Response
 | field | Type | Length | Description |
 | -------- | :--: | :------------: | ------------------ |
 | `grant_type` | *enum* | N/A |  Grant type of the token. Can be `client_credentials` or `refresh_token` |
-| `refresh_token` | *string* | 40 | Used to exchange for an additional access token .  |
+| `refresh_token` | *string* | 40 | Used to request an additional access token. |
 
 
 <!-- type: tab -->
@@ -120,7 +120,7 @@ titles: Refresh Token Request , Refresh Token Response
 | `expires_in` | *string* | 5 | Amount of seconds before the access token Expires.  |
 | `scope` | *string* | enum | Scope of access for the the token  |
 | `jti` | *string* | N/A | Unique token identifier  |
-| `refresh_token` | *string* | 40 | Used to exchange for an additional access token  |
+| `refresh_token` | *string* | 40 | Used to request an additional access token. |
 
 ---
 
@@ -131,7 +131,7 @@ titles: Refresh Token Request , Refresh Token Response
 During integration to the API, you may want to use a tool such as Postman to test APIs in the UAT environment.
 
 ## Authentication
-If testing using postman, the Auth tab can be used to authorise API requests. This can be done by using Auth type Outh 2.0, selecting Grant Type 'Client Credentials', entering the Access Token URL `{{URL}}/oauth/token`, Client ID as username, Client secret as password and getting new access token. It may be useful to create an environment in postman and use these as variables.
+If testing using Postman, the Auth tab can be used to authorize API requests. This can be done by using Auth type Outh 2.0, selecting Grant Type 'Client Credentials', entering the Access Token URL `{{URL}}/oauth/token`, Client ID as username, Client secret as password and getting new access token. It may be useful to create an environment in Postman and use these as variables.
 
 ![postman auth](/assets/images/auth_postman.png)
 

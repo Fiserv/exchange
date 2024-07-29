@@ -16,32 +16,33 @@ Building your Exchange integration
 
 <!-- type: card
 title: Using our APIs
-description: Submits an application to its next step in the workflow.
-link: ../api/?type=post&path=/boarding//application
+description: Introduction on our environments and how to use our APIs
+link: ?path=docs/getting-started/getting-started-apis.md
 -->
 <!-- type: card
 title: Authentication
-description: How to Authenticate to exchange
-link: ../api/?type=post&path=/boarding/add_application
+description: How to authenticate to use the Exchange APIs 
+link: ?path=docs/getting-started/getting-started-authorization.md
 -->
 
 <!-- type: card
 title: Boarding
 description: Start onboarding a submerchant by API
-link: ../api/?type=post&path=/boarding/outlet/add
+link: ?path=docs/getting-started/getting-started-boarding.md
 -->
 <!-- type: row-end -->
+
 <!-- type: row -->
 <!-- type: card
 title: Underwriting
-description: Submits an application to underwriting
-link: ../api/?type=post&path=/boarding//application
+description: Submits an application for underwriting checks and returns decision reports
+link: ?path=docs/getting-started/getting-started-underwriting.md
 -->
 
 <!-- type: card
 title: Funding
-description: Fund submerchants through exchange
-link: ../api/?type=post&path=/boarding/add_application
+description: Fund sub-merchants through Exchange
+link: ?path=docs/getting-started/getting-started-funding.md
 -->
 
 <!-- type: card
@@ -50,17 +51,19 @@ description: Consume reporting for funding that has happened through exchange
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 <!-- type: row-end -->
+
 <!-- type: row -->
+
 <!-- type: card
 title: Transactions
-description: Consume transactions that have been processed by your submerchants
-link: ../api/?type=post&path=/boarding//application
+description: Consume reporting for funding that has happened through Exchange
+link: ?path=docs/getting-started/getting-started-reporting-transactions.md
 -->
 
 <!-- type: card
 title: Maintenance
-description: Submit a maintenance case for a submerchant post-boarding
-link: ../api/?type=post&path=/boarding//application
+description: Submit a maintenance case for a sub-merchant post-boarding.
+link: ?path=docs/getting-started/getting-started-maintenance.md
 -->
 
 <!-- type: card

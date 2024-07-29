@@ -214,99 +214,100 @@ Example for updating the Blended rate, and split to third party. Data is taken f
     },
     "maintenance": {
         "maintenance_reference": "MC3000000111",
-        "merchant": {
-            "internal_mid" :"700100000000001",
-            "charges": {
-                "acquiring_offer": {
-                    "transaction_pricing_external_id": "TPI01-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                    "transaction_pricing_name": "Blended Offering",
-                    "transaction_pricing_ref": "Standard Blended Offering",
-                    "currency": "USD",
-                    "is_tier_price": "0",
-                    "tier_price_type": "1",
-                    "fee_collection_type": "BLENDED",
-                    "alliance_external_id": "ALL45-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                    "acquirer_external_id": "MAC85-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                    "processing_platform": "OTHER",
-                    "charge_items": [
-                        {
-                            "charge_item_external_id": "CHI06-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                            "charge_item_name": "Blended Processing Rate",
-                            "charge_item_ref": null,
-                            "charge_item_group_external_id": "CIG93-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                            "charge_item_group_name": "Blended Rate",
-                            "is_boarding_activated": "1",
-                            "is_activated": "1",
-                            "fee_collection_type": "BLENDED",
-                            "mp_pricing_type_code": "10011",
-                            "charge_decimals": "2",
-                            "is_invisible": "0",
-                            "tx_source": "1",
-                            "is_mandatory": "1",
-                            "is_merged_charges": "0",
-                            "charge_item_prices": [
-                                {
-                                    "charge_item_price_charges": [
-                                        {
-                                            "tier_number": "0",
-                                            "fee_type": "1",
-                                            "category": "2",
-                                            "perc_charge": "1.25",
-                                            "default_perc_charge": "0.00000",
-                                            "minimum_perc_charge": "0.00000",
-                                            "maximum_perc_charge": "100.00000"
-                                        },
-                                        {
-                                            "tier_number": "0",
-                                            "fee_type": "2",
-                                            "category": "2",
-                                            "base_charge": "1.20",
-                                            "default_base_charge": "0.00000",
-                                            "minimum_base_charge": "0.00000",
-                                            "maximum_base_charge": "9999.99000"
-
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "service_items": [
-                        {
-                            "service_charge_item_external_id": "SCI21-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
-                            "service_item_name": "Split to Third Party",
-                            "service_ownership": "2",
-                            "charge_ref": null,
-                            "is_boarding_activated": "1",
-                            "is_activated": "1",
-                            "charge_decimals": "2",
-                            "service_frequency": "7",
-                            "is_invisible": "0",
-                            "is_mandatory": "0",
-                            "tx_source": "1",
-                            "service_item_type": "1",
-                            "occurrence_type": null,
-                            "instalment_available": "2",
-                            "service_item_charges": [
-                                {
-                                    "fee_type": "1",
-                                    "perc_charge": "7.500",
-                                    "default_perc_charge": null,
-                                    "minimum_perc_charge": "0.00000",
-                                    "maximum_perc_charge": "100.00000",
-                                    "category": "2"
-                                }
-                            ],
-                            "split_details": {
-                                "target_merchant_id": "709900000101001",
-                                "target_hierarchy_type": 1,
-                                "target_node_id": "302321"
+        "merchant": [
+            {
+                "internal_mid": "700100000000001",
+                "charges": {
+                    "acquiring_offer": {
+                        "transaction_pricing_external_id": "TPI01-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                        "transaction_pricing_name": "Blended Offering",
+                        "transaction_pricing_ref": "Standard Blended Offering",
+                        "currency": "USD",
+                        "is_tier_price": "0",
+                        "tier_price_type": "1",
+                        "fee_collection_type": "BLENDED",
+                        "alliance_external_id": "ALL45-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                        "acquirer_external_id": "MAC85-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                        "processing_platform": "OTHER",
+                        "charge_items": [
+                            {
+                                "charge_item_external_id": "CHI06-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                "charge_item_name": "Blended Processing Rate",
+                                "charge_item_ref": null,
+                                "charge_item_group_external_id": "CIG93-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                "charge_item_group_name": "Blended Rate",
+                                "is_boarding_activated": "1",
+                                "is_activated": "1",
+                                "fee_collection_type": "BLENDED",
+                                "mp_pricing_type_code": "10011",
+                                "charge_decimals": "2",
+                                "is_invisible": "0",
+                                "tx_source": "1",
+                                "is_mandatory": "1",
+                                "is_merged_charges": "0",
+                                "charge_item_prices": [
+                                    {
+                                        "charge_item_price_charges": [
+                                            {
+                                                "tier_number": "0",
+                                                "fee_type": "1",
+                                                "category": "2",
+                                                "perc_charge": "1.25",
+                                                "default_perc_charge": "0.00000",
+                                                "minimum_perc_charge": "0.00000",
+                                                "maximum_perc_charge": "100.00000"
+                                            },
+                                            {
+                                                "tier_number": "0",
+                                                "fee_type": "2",
+                                                "category": "2",
+                                                "base_charge": "1.20",
+                                                "default_base_charge": "0.00000",
+                                                "minimum_base_charge": "0.00000",
+                                                "maximum_base_charge": "9999.99000"
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
-                        }
-                    ]
+                        ],
+                        "service_items": [
+                            {
+                                "service_charge_item_external_id": "SCI21-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                                "service_item_name": "Split to Third Party",
+                                "service_ownership": "2",
+                                "charge_ref": null,
+                                "is_boarding_activated": "1",
+                                "is_activated": "1",
+                                "charge_decimals": "2",
+                                "service_frequency": "7",
+                                "is_invisible": "0",
+                                "is_mandatory": "0",
+                                "tx_source": "1",
+                                "service_item_type": "1",
+                                "occurrence_type": null,
+                                "instalment_available": "2",
+                                "service_item_charges": [
+                                    {
+                                        "fee_type": "1",
+                                        "perc_charge": "7.500",
+                                        "default_perc_charge": null,
+                                        "minimum_perc_charge": "0.00000",
+                                        "maximum_perc_charge": "100.00000",
+                                        "category": "2"
+                                    }
+                                ],
+                                "split_details": {
+                                    "target_merchant_id": "709900000101001",
+                                    "target_hierarchy_type": 1,
+                                    "target_node_id": "302321"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
-        }
+        ]
     }
 }
 ```
