@@ -1,3 +1,7 @@
+---
+tags: [Getting Started, Underwriting, Risk, Application]
+---
+
 # Shared Service 
 
 The shared service model utilises a decision coming back from Risk. The flow of the application may change depending on the decision sent. 
