@@ -3277,7 +3277,8 @@ components:
           type: string
           description: ISO3 Country Code
           example: '840'
-          maxLength: 30
+          maxLength: 14
+          minLength: 2
         owner_position:
           description: | 
             Contact required if subgroup is billing/funding level. Only one contact per type.
@@ -6273,8 +6274,21 @@ components:
                     type: string
                     example: "840"
                   owner_position:
-                    description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
-                    example: "OW"
+                    description: | 
+                      Contact required if subgroup is billing/funding level. Only one contact per type.
+                      * `VICE PRESIDENT` - "Vice President"
+                      * `PRESIDENT` - "President"
+                      * `TR` - "Treasurer"
+                      * `OW` - "Owner"
+                      * `PA` - "Partner"
+                      * `CEO` - "Chief Executive Officer"
+                      * `MEMBER LLC` - "Member LLC"
+                      * `SEC` - "Secretary"
+                      * `DIR` - "Director"
+                      * `COO` - "Chief Operating Officer"
+                      * `OTH` - "Other"
+                      * `CFO` - "Chief Financial Officer"
+                    example: "CEO"
                     enum:
                       - VICE PRESIDENT
                       - PRESIDENT
@@ -6286,10 +6300,8 @@ components:
                       - SEC
                       - DIR
                       - COO
-                      - CEO
                       - OTH
                       - CFO
-                      - SP
                   is_main_principal:
                     type: string
                     example: "1"
@@ -14600,7 +14612,20 @@ components:
       description: ISO3 nationality code
       example: "840"
     Position:
-      description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
+      description: | 
+        Contact required if subgroup is billing/funding level. Only one contact per type.
+        * `VICE PRESIDENT` - "Vice President"
+        * `PRESIDENT` - "President"
+        * `TR` - "Treasurer"
+        * `OW` - "Owner"
+        * `PA` - "Partner"
+        * `CEO` - "Chief Executive Officer"
+        * `MEMBER LLC` - "Member LLC"
+        * `SEC` - "Secretary"
+        * `DIR` - "Director"
+        * `COO` - "Chief Operating Officer"
+        * `OTH` - "Other"
+        * `CFO` - "Chief Financial Officer"
       example: "CEO"
       enum:
         - VICE PRESIDENT
@@ -14613,10 +14638,8 @@ components:
         - SEC
         - DIR
         - COO
-        - CEO
         - OTH
         - CFO
-        - SP
     Email:
       type: string
       description: "Email Address. Must follow valid email format , eg. XXX@abc.com"

@@ -1,10 +1,14 @@
+---
+tags: [Getting Started, Underwriting, Risk, Application]
+---
+
 # Shared Service 
 
 The shared service model utilises a decision coming back from Risk. The flow of the application may change depending on the decision sent. 
 Below is a process flow for an application going through the Risk service in a shared service model.
 
 <!-- !align: center -->
-![<img src="risk_sequence.png" width="600"/>](/assets/images/risk_sequence.png)
+![<img src="risk_sequence.png" width="600"/>](/assets/images/shared_service_flow.png)
 
 ## More info required flow
 
