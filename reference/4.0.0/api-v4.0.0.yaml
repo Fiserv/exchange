@@ -3087,6 +3087,9 @@ components:
       required:
         - account_type
         - bank_account_type
+        - dda_number
+        - routing_number
+        - country_code
       xml:
         name: customer
     NumberEmployees:
@@ -3276,10 +3279,21 @@ components:
           example: '840'
           maxLength: 30
         owner_position:
-          type: string
-          description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
-          example: "OW"
-          maxLength: 30
+          description: | 
+            Contact required if subgroup is billing/funding level. Only one contact per type.
+            * `VICE PRESIDENT` - "Vice President"
+            * `PRESIDENT` - "President"
+            * `TR` - "Treasurer"
+            * `OW` - "Owner"
+            * `PA` - "Partner"
+            * `CEO` - "Chief Executive Officer"
+            * `MEMBER LLC` - "Member LLC"
+            * `SEC` - "Secretary"
+            * `DIR` - "Director"
+            * `COO` - "Chief Operating Officer"
+            * `OTH` - "Other"
+            * `CFO` - "Chief Financial Officer"
+          example: "CEO"
           enum:
             - VICE PRESIDENT
             - PRESIDENT
@@ -3291,10 +3305,9 @@ components:
             - SEC
             - DIR
             - COO
-            - CEO
             - OTH
             - CFO
-            - SP
+
         owner_phone_code:
           type: string
           example: "US|1"
@@ -3895,14 +3908,21 @@ components:
         name: subgroup
     SubgroupContact:
       type: object
+      description: | 
+          Contact required if subgroup is billing/funding level. Only one contact per type.
+          * `L` - "Legal"
+          * `B` - "Billing"
       properties:
         contact_type:
           type: string
-          description: L - Legal, B - Billing
+          description: | 
+            Contact type. Legal + Billing contact required if subgroup is billing/funding level. Only one contact per type.
+            * `L` - "Legal"
+            * `B` - "Billing"
           example: "L"
           enum:
-            - L
-            - B
+            - "L"
+            - "B"
         contact_title:
           type: string
           example: "Mr."
@@ -3966,14 +3986,20 @@ components:
       properties:
         contact_type:
           type: string
-          description: Contact type - Legal, Billing, Trading, Shipping, Technical
+          description: | 
+            Contact type. Billing + Trading required. One contact allowed per type.
+            * `L` - "Legal"
+            * `B` - "Billing"
+            * `OT` - "Trading"
+            * `S` - "Shipping"
+            * `T` - "Technical"
           example: "OT"
           enum:
-            - L
-            - B
-            - OT
-            - S
-            - T
+            - "L"
+            - "B"
+            - "OT"
+            - "S"
+            - "T"
         contact_title:
           $ref: '#/components/schemas/Title'
         contact_first_name:
@@ -5292,7 +5318,20 @@ components:
                     type: string
                     example: "840"
                   owner_position:
-                    description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
+                    description: | 
+                      Contact required if subgroup is billing/funding level. Only one contact per type.
+                      * `VICE PRESIDENT` - "Vice President"
+                      * `PRESIDENT` - "President"
+                      * `TR` - "Treasurer"
+                      * `OW` - "Owner"
+                      * `PA` - "Partner"
+                      * `CEO` - "Chief Executive Officer"
+                      * `MEMBER LLC` - "Member LLC"
+                      * `SEC` - "Secretary"
+                      * `DIR` - "Director"
+                      * `COO` - "Chief Operating Officer"
+                      * `OTH` - "Other"
+                      * `CFO` - "Chief Financial Officer"
                     example: "CEO"
                     enum:
                       - VICE PRESIDENT
@@ -5305,10 +5344,8 @@ components:
                       - SEC
                       - DIR
                       - COO
-                      - CEO
                       - OTH
                       - CFO
-                      - SP
                   is_main_principal:
                     type: string
                     example: '1'
@@ -15973,7 +16010,7 @@ components:
           $ref: '#/components/schemas/LocationIdQuery'
         location_dba_name:
           $ref: '#/components/schemas/LocationDbaNameQuery'
-        card_type_query:
+        card_type:
           $ref: '#/components/schemas/CardTypeQuery'
         date_added:
           $ref: '#/components/schemas/DateAddedQuery'
@@ -21648,8 +21685,6 @@ components:
     UpdateMaintenanceRequest:
       type: object
       properties:
-        request_source:
-          $ref: '#/components/schemas/requestsource'
         operation:
           $ref: '#/components/schemas/operationum'
         merchant:
@@ -21872,38 +21907,44 @@ components:
           $ref: '#/components/schemas/merchantum'
 
     subgroupum:
-      type: object
-      properties:
-        internal_mid:
-          type: string
-          description: internal mid of entity maintenance is being actioned on
-          example: "700100000000001"
-        banks:
-          type: array
-          items:
-            $ref: '#/components/schemas/MaintenanceBankDetail'
+      type: array
+      items:
+        type: object
+        properties:
+          internal_mid:
+            type: string
+            description: internal mid of entity maintenance is being actioned on
+            example: "700100000000001"
+          banks:
+            type: array
+            items:
+              $ref: '#/components/schemas/MaintenanceBankDetail'
     outletum:
-      type: object
-      properties:
-        internal_mid:
-          type: string
-          description: internal mid of entity maintenance is being actioned on
-          example: "700100000000001"
-        banks:
-          type: array
-          items:
-            $ref: '#/components/schemas/MaintenanceBankDetail'
+      type: array
+      items:
+        type: object
+        properties:
+          internal_mid:
+            type: string
+            description: internal mid of entity maintenance is being actioned on
+            example: "700100000000001"
+          banks:
+            type: array
+            items:
+              $ref: '#/components/schemas/MaintenanceBankDetail'
     merchantum:
-      type: object
-      properties:
-        internal_mid:
-          type: string
-          description: internal mid of entity maintenance is being actioned on
-          example: "700100000000001"
-        business_entity:
-          $ref: '#/components/schemas/businessentity'
-        charges:
-          $ref: '#/components/schemas/maintenanceOffering'
+      type: array
+      items:
+        type: object
+        properties:
+          internal_mid:
+            type: string
+            description: internal mid of entity maintenance is being actioned on
+            example: "700100000000001"
+          business_entity:
+            $ref: '#/components/schemas/businessentity'
+          charges:
+            $ref: '#/components/schemas/maintenanceOffering'
     maintenanceOffering:
       type: object
       properties:
@@ -27030,12 +27071,12 @@ components:
           type: string
         dispute_type:
           type: string
-          example: ""
+          example: "Pre-Arbitration"
           minLength: 7
           maxLength: 22
           enum:
             - "Chargeback"
-            - "Pre_Arbitration"
+            - "Pre-Arbitration"
             - "Pre-Compliance"
             - "Filed Arbitration"
             - "Filed Compliance"
@@ -27100,197 +27141,14 @@ components:
           example: 15.5
         reason_code:
           type: string
-          example: "1000"
+          example: "53"
           minLength: 1
           maxLength: 4
-          description: |
-            Indicates case scenarios
-            * `30` - Services/Merchandise Not Rendered
-            * `41` - Cancelled Recurring Transaction
-            * `53` - Not As Described/Defective
-            * `57` - Fraudulent Processing of Transactions
-            * `62` - Counterfeit Transaction
-            * `71` - Authorization Request Declined
-            * `72` - No Authorization
-            * `73` - Expired Card
-            * `74` - Late Presentment
-            * `75` - Cardholder Does Not Recognize
-            * `76` - Incorrect Transaction Code (Credit Posted as a Purchase)
-            * `77` - Non-Matching Account Number
-            * `80` - Incorrect Transaction Amount Or Account number
-            * `81` - Fraud- Card Present Environment
-            * `82` - Duplicate Processing
-            * `83` - Fraud- Card Not Present Environment
-            * `85` - Credit Not Processed
-            * `86` - Paid by Other Means
-            * `90` - Non-Receipt of Cash at ATM
-            * `93` - Fraud Monitoring Program
-            * `1010` - EMV Liability Shift Counterfeit Fraud
-            * `1020` - EMV Liability Shift Non-Counterfeit Fraud
-            * `1030` - Other Fraud – Card Present Environment
-            * `1040` - Other Fraud – Card Absent Environment
-            * `1050` - Visa Fraud Monitoring Program
-            * `1110` - Card Recovery Bulletin
-            * `1120` - Declined Authorization
-            * `1130` - No Authorization
-            * `1210` - Late Presentment
-            * `1220` - Incorrect Transaction Code
-            * `1230` - Incorrect Currency
-            * `1240` - Incorrect Account Number
-            * `1250` - Incorrect Amount
-            * `1261` - Duplicate Processing
-            * `1262` - Paid by Other Means
-            * `1270` - Invalid Data
-            * `1310` - Merchandise/Services Not Received
-            * `1320` - Cancelled Recurring
-            * `1330` - Not As Described or Defective Merchandise/Services
-            * `1340` - Counterfeit Merchandise
-            * `1350` - Misrepresentation
-            * `1360` - Credit Not Processed
-            * `1370` - Cancelled Merchandise/Services
-            * `1380` - Original Credit Transaction Not Accepted
-            * `1390` - Non-Receipt of Cash or Load Transaction Value
-            * `05` - (Retrievals) Cardholder Does Not Agree with the Amount Billed
-            * `21` - (Retrievals) Cardholder Does Not Recognize Transaction
-            * `22` - (Retrievals) Transaction Certification (ICC Transaction)
-            * `23` - (Retrievals) Transaction Information Document (TID) needed for cardholder's personal records expense report
-            * `41` - (Retrievals) Fraud Investigation
-            * `42` - (Retrievals) Potential Chargeback or Compliance Documentation
-            * `43` - (Retrievals) Health Care Request
-            * `27` - (Retrievals) HealthCare IIAS Auto-sub Data Retrieval Request
-            * `28` - (Retrievals) Cardholder Requests with Signature
-            * `30` - (Retrievals) Cardholder request due to dispute
-            * `33` - (Retrievals) Fraud Analysis request
-            * `34` - (Retrievals) Legal Process request
-            * `01` - (Retrievals) Transaction Documentation Request
-            * `03` - (Retrievals) Transaction Documentation Request Due to Cardholder Dispute
-            * `04` - (Retrievals) Transaction Documentation Request for Fraud Analysis
-            * `05` - (Retrievals) Good Faith Investigation
-            * `127` - (Retrievals)  Cardholder Does Not Recognize
-            * `147` - (Retrievals)  No Cardholder Authorization
-            * `154` - (Retrievals)  Cardholder Cancelled
-            * `155` - (Retrievals)  Non Receipt of Merchandise
-            * `158` - (Retrievals)  Request for Credit
-            * `169` - (Retrievals)  Correct Transaction Currency Code Not Provided
-            * `170` - (Retrievals)  Cardholder Cancelled
-            * `173` - (Retrievals)  Duplicate Billing
-            * `175` - (Retrievals)  Request for Credit
-            * `176` - (Retrievals)  Cardholder Does Not Recognize
-            * `177` - (Retrievals)  No Cardholder Authorization
-            * `193` - (Retrievals)  Fraud Investigation
-            * `680` - (Retrievals)  Cardholder Does Not Agree with Amount Billed
-            * `684` - (Retrievals)  Paid by Other Means
-            * `691` - (Retrievals)  Request for Copy
-            * `693` - (Retrievals)  No Cardholder Authorization
-            * `004` - (Retrievals)  Non-Receipt of Goods or Services
-            * `021` - (Retrievals)  Cancelled Recurring Transaction
-            * `024` - (Retrievals)  Cardholder Dispute Defective/Not as Described
-            * `059` - (Retrievals)  Cardholder Dispute Defective/Not as Described
-            * `061` - (Retrievals)  Debit Posted as Credit
-            * `062` - (Retrievals)  Credit Posted as Debit
-            * `063` - (Retrievals)  Quality of Goods or Services
-            * `40` - (Retrievals) Duplicate Transaction
-            * `43` - (Retrievals) Need Signed Copy
-            * `60` - (Retrievals) Dispute Transaction
-            * `1B` - (Retrievals) Possible Fraud
-            * `LP` - (Retrievals) Loss Prevention
-            * `0` - (Retrievals) Need Invoice
-            * `1` - (Retrievals) Need Signed Invoice
-          enum:
-            - "30"
-            - "41"
-            - "53"
-            - "57"
-            - "62"
-            - "71"
-            - "72"
-            - "73"
-            - "74"
-            - "75"
-            - "76"
-            - "77"
-            - "80"
-            - "81"
-            - "82"
-            - "83"
-            - "85"
-            - "86"
-            - "90"
-            - "93"
-            - "1010"
-            - "1020"
-            - "1030"
-            - "1040"
-            - "1050"
-            - "1110"
-            - "1120"
-            - "1130"
-            - "1210"
-            - "1220"
-            - "1230"
-            - "1240"
-            - "1250"
-            - "1261"
-            - "1262"
-            - "1270"
-            - "1310"
-            - "1320"
-            - "1330"
-            - "1340"
-            - "1350"
-            - "1360"
-            - "1370"
-            - "1380"
-            - "1390"
-            - "05"
-            - "21"
-            - "22"
-            - "23"
-            - "41"
-            - "42"
-            - "43"
-            - "27"
-            - "28"
-            - "30"
-            - "33"
-            - "34"
-            - "01"
-            - "03"
-            - "04"
-            - "05"
-            - "127"
-            - "147"
-            - "154"
-            - "155"
-            - "158"
-            - "169"
-            - "170"
-            - "173"
-            - "175"
-            - "176"
-            - "177"
-            - "193"
-            - "680"
-            - "684"
-            - "691"
-            - "693"
-            - "004"
-            - "021"
-            - "024"
-            - "059"
-            - "061"
-            - "062"
-            - "063"
-            - "40"
-            - "43"
-            - "60"
-            - "1B"
-            - "LP"
-            - "0"
-            - "1"
+          description: "Indicates code for chargeback scenario"
         reason_code_description:
           type: string
           description: "Descritpion of the reason code"
+          example: "Cardholder Dispute"
         ids_case_number:
           type: string
           description: "Internal dispute id associated with Case number."
@@ -28977,60 +28835,60 @@ components:
         maintenance:
           maintenance_reference: "MC3000000001"
           merchant:
-            internal_mid: "7001000000500001"
-            charges:
-              acquiring_offer:
-                alliance_external_id: "ALL59-32221-33421-AMN32-79F05-83AL3-940F5"
-                acquirer_external_id: "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
-                transaction_pricing_external_id: "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
-                processing_platform: "OTHER"
-                transaction_pricing_name: "Offer Pricing Name"
-                fee_collection_type: "BLENDED"
-                currency: "USD"
-                is_tier_price: "0"
-                charge_items:
-                  - charge_item_group_external_id: "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
-                    charge_item_external_id: "CHI23-329D0-940F5-151F3-A8128-94155-329D0"
-                    is_activated: "1"
-                    is_mandatory: "1"
-                    is_boarding_activated: "1"
-                    fee_collection_type: "BLENDED"
-                    charge_items_prices:
-                      - charge_items_price_charges:
-                          - {"fee_type": "1",
-                             "category": "2",
-                             "minimum_perc_charge": "0.00",
-                             "maximum_perc_charge": "15.00",
-                             "default_perc_charge": "0.00",
-                             "perc_charge": "0.35"}
-                          - {"fee_type": "2",
-                             "category": "2",
-                             "minimum_base_charge": "0.00",
-                             "maximum_base_charge": "10.00",
-                             "default_base_charge": "0.00",
-                             "base_charge": "1.15"}
-                service_items:
-                  - service_charge_item_external_id: "SC322-A8128-6318D-329D0-48954-F7549-A8128"
-                    service_item_name: "Beneficiary Split"
-                    is_boarding_activated: "1"
-                    service_frequency: "7"
-                    is_activated: "1"
-                    is_mandatory: "0"
-                    service_items_charges:
-                      - {"fee_type": "1",
-                         "category": "2",
-                         "minimum_perc_charge": "0.00",
-                         "maximum_perc_charge": "15.00",
-                         "default_perc_charge": "0.00",
-                         "perc_charge": "0.10"}
-                      - {"fee_type": "2",
-                         "category": "2",
-                         "minimum_base_charge": "0.00",
-                         "maximum_base_charge": "10.00",
-                         "default_base_charge": "0.00",
-                         "base_charge": "0.05"}
-                    split_details:
-                      target_merchant_id: "703200000000001"
+            - internal_mid: "7001000000500001"
+              charges:
+                acquiring_offer:
+                  alliance_external_id: "ALL59-32221-33421-AMN32-79F05-83AL3-940F5"
+                  acquirer_external_id: "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
+                  transaction_pricing_external_id: "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
+                  processing_platform: "OTHER"
+                  transaction_pricing_name: "Offer Pricing Name"
+                  fee_collection_type: "BLENDED"
+                  currency: "USD"
+                  is_tier_price: "0"
+                  charge_items:
+                    - charge_item_group_external_id: "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
+                      charge_item_external_id: "CHI23-329D0-940F5-151F3-A8128-94155-329D0"
+                      is_activated: "1"
+                      is_mandatory: "1"
+                      is_boarding_activated: "1"
+                      fee_collection_type: "BLENDED"
+                      charge_items_prices:
+                        - charge_items_price_charges:
+                            - {"fee_type": "1",
+                               "category": "2",
+                               "minimum_perc_charge": "0.00",
+                               "maximum_perc_charge": "15.00",
+                               "default_perc_charge": "0.00",
+                               "perc_charge": "0.35"}
+                            - {"fee_type": "2",
+                               "category": "2",
+                               "minimum_base_charge": "0.00",
+                               "maximum_base_charge": "10.00",
+                               "default_base_charge": "0.00",
+                               "base_charge": "1.15"}
+                  service_items:
+                    - service_charge_item_external_id: "SC322-A8128-6318D-329D0-48954-F7549-A8128"
+                      service_item_name: "Beneficiary Split"
+                      is_boarding_activated: "1"
+                      service_frequency: "7"
+                      is_activated: "1"
+                      is_mandatory: "0"
+                      service_items_charges:
+                        - {"fee_type": "1",
+                           "category": "2",
+                           "minimum_perc_charge": "0.00",
+                           "maximum_perc_charge": "15.00",
+                           "default_perc_charge": "0.00",
+                           "perc_charge": "0.10"}
+                        - {"fee_type": "2",
+                           "category": "2",
+                           "minimum_base_charge": "0.00",
+                           "maximum_base_charge": "10.00",
+                           "default_base_charge": "0.00",
+                           "base_charge": "0.05"}
+                      split_details:
+                        target_merchant_id: "703200000000001"
     RequestBankMaintenance:
       value:
         operation:
@@ -29038,16 +28896,16 @@ components:
         merchant:
           merchant_reference: "30083993"
         maintenance:
+          maintenance_reference: "MC3000000601"
           outlets:
-            maintenance_reference: "MC3000000601"
-            internal_mid : "7001000000500001"
-            banks:
-              - {_id: "12b5534faf9baf2232bb23c", bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
-                "CREDIT",
-                "DEBIT",
-                "CHARGEBACK"
-              ]
-              }
+            - internal_mid : "7001000000500001"
+              banks:
+                - {_id: "12b5534faf9baf2232bb23c", bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
+                  "CREDIT",
+                  "DEBIT",
+                  "CHARGEBACK"
+                ]
+                }
 
     RequestTransactionDateMID:
       value:
