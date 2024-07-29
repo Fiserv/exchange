@@ -225,10 +225,9 @@ paths:
               RequiredPayLoad:
                 summary: "Minimum standard Payload required to board, using defaults in configuration for settings"
                 $ref: '#/components/examples/RequestMinimalOutlet'
-              #SPLITDETAILS
-              # SplitDetailsPayload:
-              #   summary:  "Minimum standard Payload required to board, using defaults in configuration for settings. Includes Split details (Split details flag must be enabled on merchant level)"
-              #   $ref: '#/components/examples/RequestMinimalOutlet'
+              SplitDetailsPayload:
+                summary:  "Minimum standard Payload required to board, using defaults in configuration for settings. Includes Split details (Split details flag must be enabled on merchant level)"
+                $ref: '#/components/examples/RequestMinimalOutletSplit'
         required: true
 
       responses:
@@ -2692,7 +2691,7 @@ components:
         - amount
         - currency
         - processing_merchant_id
-        - split_detailstail
+        - split_details
         - transaction_date
         - transaction_type
       type: object
@@ -2843,20 +2842,19 @@ components:
                   example: "3"
                   minLength: 1
                   maxLength: 1
-                ### SPLITDETAILS
-                # split_detail_flag:
-                #   description: |
-                #     Allows splits to be added in the split_detail object in the add_outlet payload. Used to send amounts to third parties on the system.
-                #     Optional, default is 0.
-                #     `1` - "Enabled"
-                #     `0` - "Disabled"
-                #   type: string
-                #   enum:
-                #     - "1"
-                #     - "0"
-                #   example: "0"
-                #   minLength: 1
-                #   maxLength: 1
+                split_detail_flag:
+                  description: |
+                    Allows splits to be added in the split_detail object in the add_outlet payload. Used to send amounts to third parties on the system.
+                    Optional, default is 0.
+                    `1` - "Enabled"
+                    `0` - "Disabled"
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                  example: "0"
+                  minLength: 1
+                  maxLength: 1
                 settlement_method:
                   description: 1 - Instruction, 2 - Instruction on Transaction, 3 - Auto
                   type: string
@@ -3054,8 +3052,8 @@ components:
           example: "CHECKING"
           description: "Type of Bank account. SAVINGS cannot be used for account_type DEBIT,CHARGEBACK."
           enum:
-            - "CHECKING"
-            - "SAVINGS"
+            - CHECKING
+            - SAVINGS
         dda_number:
           type: string
           example: '123456789'
@@ -3281,10 +3279,21 @@ components:
           example: '840'
           maxLength: 30
         owner_position:
-          type: string
-          description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other
-          example: "OW"
-          maxLength: 30
+          description: | 
+            Contact required if subgroup is billing/funding level. Only one contact per type.
+            * `VICE PRESIDENT` - "Vice President"
+            * `PRESIDENT` - "President"
+            * `TR` - "Treasurer"
+            * `OW` - "Owner"
+            * `PA` - "Partner"
+            * `CEO` - "Chief Executive Officer"
+            * `MEMBER LLC` - "Member LLC"
+            * `SEC` - "Secretary"
+            * `DIR` - "Director"
+            * `COO` - "Chief Operating Officer"
+            * `OTH` - "Other"
+            * `CFO` - "Chief Financial Officer"
+          example: "CEO"
           enum:
             - VICE PRESIDENT
             - PRESIDENT
@@ -3296,9 +3305,9 @@ components:
             - SEC
             - DIR
             - COO
-            - CEO
             - OTH
             - CFO
+
         owner_phone_code:
           type: string
           example: "US|1"
@@ -5337,7 +5346,6 @@ components:
                       - COO
                       - OTH
                       - CFO
-                      - SP
                   is_main_principal:
                     type: string
                     example: '1'
@@ -12531,11 +12539,10 @@ components:
           $ref: '#/components/schemas/SettingsSubgroupOutlet'
         offer:
           $ref: '#/components/schemas/V4Offer'
-        ### SPLITDETAILS
-        # split_details:
-        #   type: array
-        #   items:
-        #     $ref: '#/components/schemas/OutletSplitDetails'
+        split_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutletSplitDetails'
         # offer_package:
         #   $ref: '#/components/schemas/OfferPackage'
     UpdateOutlet:
@@ -28503,13 +28510,13 @@ components:
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
           split_details:
-            target_merchant_id: "PRO00000000001"
+            target_merchant_id: "700100000050009"
             tx_source: "1"
             fixed_amount: "0.30"
             percentage_amount: "2.10"
-            detail: "Processing Fees"
-            reference": "SPLITREF"
-            transaction_type": 
+            detail: "Fees"
+            reference: "SPLITREF"
+            transaction_type: 
               - "PURCHASE"
               - "REFUND"
             account_type: "REVENUE_ACCOUNT"
