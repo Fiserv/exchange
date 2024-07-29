@@ -3900,14 +3900,14 @@ components:
     SubgroupContact:
       type: object
       description: | 
-          Contact required if subgroup is billing/funding level
+          Contact required if subgroup is billing/funding level. Only one contact per type.
           * `L` - "Legal"
           * `B` - "Billing"
       properties:
         contact_type:
           type: string
           description: | 
-            Contact type. Legal + Billing contact required if subgroup is billing/funding level
+            Contact type. Legal + Billing contact required if subgroup is billing/funding level. Only one contact per type.
             * `L` - "Legal"
             * `B` - "Billing"
           example: "L"
@@ -5309,7 +5309,20 @@ components:
                     type: string
                     example: "840"
                   owner_position:
-                    description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
+                    description: | 
+                      Contact required if subgroup is billing/funding level. Only one contact per type.
+                      * `VICE PRESIDENT` - "Vice President"
+                      * `PRESIDENT` - "President"
+                      * `TR` - "Treasurer"
+                      * `OW` - "Owner"
+                      * `PA` - "Partner"
+                      * `CEO` - "Chief Executive Officer"
+                      * `MEMBER LLC` - "Member LLC"
+                      * `SEC` - "Secretary"
+                      * `DIR` - "Director"
+                      * `COO` - "Chief Operating Officer"
+                      * `OTH` - "Other"
+                      * `CFO` - "Chief Financial Officer"
                     example: "CEO"
                     enum:
                       - VICE PRESIDENT
@@ -5322,7 +5335,6 @@ components:
                       - SEC
                       - DIR
                       - COO
-                      - CEO
                       - OTH
                       - CFO
                       - SP
@@ -15991,7 +16003,7 @@ components:
           $ref: '#/components/schemas/LocationIdQuery'
         location_dba_name:
           $ref: '#/components/schemas/LocationDbaNameQuery'
-        card_type_query:
+        card_type:
           $ref: '#/components/schemas/CardTypeQuery'
         date_added:
           $ref: '#/components/schemas/DateAddedQuery'
