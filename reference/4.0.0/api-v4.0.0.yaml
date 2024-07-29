@@ -21666,8 +21666,6 @@ components:
     UpdateMaintenanceRequest:
       type: object
       properties:
-        request_source:
-          $ref: '#/components/schemas/requestsource'
         operation:
           $ref: '#/components/schemas/operationum'
         merchant:
