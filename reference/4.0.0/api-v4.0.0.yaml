@@ -3282,7 +3282,7 @@ components:
           maxLength: 30
         owner_position:
           type: string
-          description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other, SP - Sole Propietor
+          description: TR - Treasurer, OW - Owner, PA - Partner, CEO, SEC - Secretary, DIR - Director, OTH - Other
           example: "OW"
           maxLength: 30
           enum:
@@ -3299,7 +3299,6 @@ components:
             - CEO
             - OTH
             - CFO
-            - SP
         owner_phone_code:
           type: string
           example: "US|1"
@@ -21667,8 +21666,6 @@ components:
     UpdateMaintenanceRequest:
       type: object
       properties:
-        request_source:
-          $ref: '#/components/schemas/requestsource'
         operation:
           $ref: '#/components/schemas/operationum'
         merchant:
@@ -21891,38 +21888,44 @@ components:
           $ref: '#/components/schemas/merchantum'
 
     subgroupum:
-      type: object
-      properties:
-        internal_mid:
-          type: string
-          description: internal mid of entity maintenance is being actioned on
-          example: "700100000000001"
-        banks:
-          type: array
-          items:
-            $ref: '#/components/schemas/MaintenanceBankDetail'
+      type: array
+      items:
+        type: object
+        properties:
+          internal_mid:
+            type: string
+            description: internal mid of entity maintenance is being actioned on
+            example: "700100000000001"
+          banks:
+            type: array
+            items:
+              $ref: '#/components/schemas/MaintenanceBankDetail'
     outletum:
-      type: object
-      properties:
-        internal_mid:
-          type: string
-          description: internal mid of entity maintenance is being actioned on
-          example: "700100000000001"
-        banks:
-          type: array
-          items:
-            $ref: '#/components/schemas/MaintenanceBankDetail'
+      type: array
+      items:
+        type: object
+        properties:
+          internal_mid:
+            type: string
+            description: internal mid of entity maintenance is being actioned on
+            example: "700100000000001"
+          banks:
+            type: array
+            items:
+              $ref: '#/components/schemas/MaintenanceBankDetail'
     merchantum:
-      type: object
-      properties:
-        internal_mid:
-          type: string
-          description: internal mid of entity maintenance is being actioned on
-          example: "700100000000001"
-        business_entity:
-          $ref: '#/components/schemas/businessentity'
-        charges:
-          $ref: '#/components/schemas/maintenanceOffering'
+      type: array
+      items:
+        type: object
+        properties:
+          internal_mid:
+            type: string
+            description: internal mid of entity maintenance is being actioned on
+            example: "700100000000001"
+          business_entity:
+            $ref: '#/components/schemas/businessentity'
+          charges:
+            $ref: '#/components/schemas/maintenanceOffering'
     maintenanceOffering:
       type: object
       properties:
@@ -28813,60 +28816,60 @@ components:
         maintenance:
           maintenance_reference: "MC3000000001"
           merchant:
-            internal_mid: "7001000000500001"
-            charges:
-              acquiring_offer:
-                alliance_external_id: "ALL59-32221-33421-AMN32-79F05-83AL3-940F5"
-                acquirer_external_id: "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
-                transaction_pricing_external_id: "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
-                processing_platform: "OTHER"
-                transaction_pricing_name: "Offer Pricing Name"
-                fee_collection_type: "BLENDED"
-                currency: "USD"
-                is_tier_price: "0"
-                charge_items:
-                  - charge_item_group_external_id: "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
-                    charge_item_external_id: "CHI23-329D0-940F5-151F3-A8128-94155-329D0"
-                    is_activated: "1"
-                    is_mandatory: "1"
-                    is_boarding_activated: "1"
-                    fee_collection_type: "BLENDED"
-                    charge_items_prices:
-                      - charge_items_price_charges:
-                          - {"fee_type": "1",
-                             "category": "2",
-                             "minimum_perc_charge": "0.00",
-                             "maximum_perc_charge": "15.00",
-                             "default_perc_charge": "0.00",
-                             "perc_charge": "0.35"}
-                          - {"fee_type": "2",
-                             "category": "2",
-                             "minimum_base_charge": "0.00",
-                             "maximum_base_charge": "10.00",
-                             "default_base_charge": "0.00",
-                             "base_charge": "1.15"}
-                service_items:
-                  - service_charge_item_external_id: "SC322-A8128-6318D-329D0-48954-F7549-A8128"
-                    service_item_name: "Beneficiary Split"
-                    is_boarding_activated: "1"
-                    service_frequency: "7"
-                    is_activated: "1"
-                    is_mandatory: "0"
-                    service_items_charges:
-                      - {"fee_type": "1",
-                         "category": "2",
-                         "minimum_perc_charge": "0.00",
-                         "maximum_perc_charge": "15.00",
-                         "default_perc_charge": "0.00",
-                         "perc_charge": "0.10"}
-                      - {"fee_type": "2",
-                         "category": "2",
-                         "minimum_base_charge": "0.00",
-                         "maximum_base_charge": "10.00",
-                         "default_base_charge": "0.00",
-                         "base_charge": "0.05"}
-                    split_details:
-                      target_merchant_id: "703200000000001"
+            - internal_mid: "7001000000500001"
+              charges:
+                acquiring_offer:
+                  alliance_external_id: "ALL59-32221-33421-AMN32-79F05-83AL3-940F5"
+                  acquirer_external_id: "MAC55-329D0-83AL3-CCE93-A8128-0979A-AMN32"
+                  transaction_pricing_external_id: "TPI11-AMN32-83AL3-5DDAD-329D0-5D200-A8128"
+                  processing_platform: "OTHER"
+                  transaction_pricing_name: "Offer Pricing Name"
+                  fee_collection_type: "BLENDED"
+                  currency: "USD"
+                  is_tier_price: "0"
+                  charge_items:
+                    - charge_item_group_external_id: "CIG11-76D76-A8128-99A38-940F5-6DEB5-LK288"
+                      charge_item_external_id: "CHI23-329D0-940F5-151F3-A8128-94155-329D0"
+                      is_activated: "1"
+                      is_mandatory: "1"
+                      is_boarding_activated: "1"
+                      fee_collection_type: "BLENDED"
+                      charge_items_prices:
+                        - charge_items_price_charges:
+                            - {"fee_type": "1",
+                               "category": "2",
+                               "minimum_perc_charge": "0.00",
+                               "maximum_perc_charge": "15.00",
+                               "default_perc_charge": "0.00",
+                               "perc_charge": "0.35"}
+                            - {"fee_type": "2",
+                               "category": "2",
+                               "minimum_base_charge": "0.00",
+                               "maximum_base_charge": "10.00",
+                               "default_base_charge": "0.00",
+                               "base_charge": "1.15"}
+                  service_items:
+                    - service_charge_item_external_id: "SC322-A8128-6318D-329D0-48954-F7549-A8128"
+                      service_item_name: "Beneficiary Split"
+                      is_boarding_activated: "1"
+                      service_frequency: "7"
+                      is_activated: "1"
+                      is_mandatory: "0"
+                      service_items_charges:
+                        - {"fee_type": "1",
+                           "category": "2",
+                           "minimum_perc_charge": "0.00",
+                           "maximum_perc_charge": "15.00",
+                           "default_perc_charge": "0.00",
+                           "perc_charge": "0.10"}
+                        - {"fee_type": "2",
+                           "category": "2",
+                           "minimum_base_charge": "0.00",
+                           "maximum_base_charge": "10.00",
+                           "default_base_charge": "0.00",
+                           "base_charge": "0.05"}
+                      split_details:
+                        target_merchant_id: "703200000000001"
     RequestBankMaintenance:
       value:
         operation:
@@ -28874,16 +28877,16 @@ components:
         merchant:
           merchant_reference: "30083993"
         maintenance:
+          maintenance_reference: "MC3000000601"
           outlets:
-            maintenance_reference: "MC3000000601"
-            internal_mid : "7001000000500001"
-            banks:
-              - {_id: "12b5534faf9baf2232bb23c", bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
-                "CREDIT",
-                "DEBIT",
-                "CHARGEBACK"
-              ]
-              }
+            - internal_mid : "7001000000500001"
+              banks:
+                - {_id: "12b5534faf9baf2232bb23c", bank_name: "Bank of Test", country_code: "840", zip_code: "12345", county_code: "CA", account_holder_name: "Jane Doe", bank_account_type: "CHECKING", dda_number: "123456789", routing_number: "333456789", account_type: [
+                  "CREDIT",
+                  "DEBIT",
+                  "CHARGEBACK"
+                ]
+                }
 
     RequestTransactionDateMID:
       value:
