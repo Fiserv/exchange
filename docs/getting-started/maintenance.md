@@ -37,36 +37,38 @@ Depending on the maintenance case, you will need to include the new details in t
 Example for bank change below:
 ```
 {
-  "operation": {
-    "operation_type": "UPDATE_MAINTENANCE"
-  },
-  "merchant": {
-    "merchant_reference": "30083993"
-  },
-  "maintenance": {
-    "outlets": {
-      "maintenance_reference": "MC3000000601",
-      "internal_mid": "7001000000500001",
-      "banks": [
-        {
-          "_id": "12b5534faf9baf2232bb23c",
-          "bank_name": "Bank of Test",
-          "country_code": "840",
-          "zip_code": "12345",
-          "county_code": "CA",
-          "account_holder_name": "Jane Doe",
-          "bank_account_type": "CHECKING",
-          "dda_number": "123456789",
-          "routing_number": "333456789",
-          "account_type": [
-            "CREDIT",
-            "DEBIT",
-            "CHARGEBACK"
-          ]
-        }
-      ]
+    "operation": {
+        "operation_type": "UPDATE_MAINTENANCE"
+    },
+    "merchant": {
+        "merchant_reference": "30083993"
+    },
+    "maintenance": {
+        "maintenance_reference": "MC3000000601",
+        "outlets": [
+            {
+                "internal_mid": "7001000000500001",
+                "banks": [
+                    {
+                        "_id": "12b5534faf9baf2232bb23c",
+                        "bank_name": "Bank of Test",
+                        "country_code": "840",
+                        "zip_code": "12345",
+                        "county_code": "CA",
+                        "account_holder_name": "Jane Doe",
+                        "bank_account_type": "CHECKING",
+                        "dda_number": "123456789",
+                        "routing_number": "333456789",
+                        "account_type": [
+                            "CREDIT",
+                            "DEBIT",
+                            "CHARGEBACK"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
-  }
 }
 ```
 ### Submitting the Maintenance Case
