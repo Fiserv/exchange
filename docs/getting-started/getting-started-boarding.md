@@ -6,19 +6,19 @@ tags: [Getting Started, Boarding, Application]
 # Boarding APIs
 
 Exchange allows the creation of applications on the system by using a set of boarding APIs. This is comprised of adding the Registered Legal Business Entity, and DBA locations (Outlets)
-Once an application is added, it can be submit to move into downstream systems, and once complete will return with the status 'Boarding complete'. The flow of an application may differ depending on what services on the system are being utilized.
+Once an application is added, it can be submitted to move into downstream systems, and once complete will return with the status 'Boarding Complete'. The flow of an application may differ depending on what services on the system are being utilized.
 
 ---
 
 ## Adding an application
 
-The standard submerchant hierarchy is built from a Merchant, a Chain and an outlet. These are sent using the `boarding/add_application` and `outlet/add` endpoints. The chain is added inside the add_application as a subgroup, and is used for structure. Outlets are added to a subgroup.
+The standard sub-merchant hierarchy is built from a Merchant, a Chain and a location (outlet). These are sent using the `boarding/add_application` and `outlet/add` endpoints. The chain is added inside the add_application as a subgroup, and is used for structure. Outlets are added to a subgroup.
 
 ![boarding_flow](/assets/images/boarding_flow.png)
 
 The basic API flow is as shown in diagram here:
 
-![boarding API](/assets/images/boarding_diagram.png)
+![boarding API](/assets/images/boarding_diagram_v2_resized.png)
 
 
 ### Adding the Merchant and Chain
@@ -31,7 +31,7 @@ type: tab
 titles: Add Application, Sample JSON
 -->
 
-The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal/owner information to be sent, and any application settings to be submit.
+The `/boarding/add_application` endpoint supports adding the merchant and chain level in one request. This will require legal information to be sent, principal/owner information to be sent, and any application settings to be submitted. An offer can be added at the business level, but typically is done at the outlet level as is in this example. 
 
 
 <!-- type: tab -->
@@ -107,8 +107,8 @@ type: tab
 titles: Add Outlet, Sample JSON
 -->
 
-The `/boarding/outlet/add` endpoint supports adding the outlet to an application, and will require the application reference and the parent MID of where the outlet should be added to be added to the request. This will be retrieved from the `ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant applications subgroup (as to add for the standard merchant-chain-outlet hierarchy). 
-The outlet will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the submerchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/offerings-v4.md)
+The `/boarding/outlet/add` endpoint supports adding the location (outlet) to an application. This will require the Application Reference and Parent MID to be included in the request to link the Location to the application. This is returned in the response to the`ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant application's subgroup. 
+The outlet will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the sub-merchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/v4-offerings.md)
 
 <!-- type: tab -->
 
@@ -234,7 +234,7 @@ type: tab
 titles: Application Submit, Sample JSON
 -->
 
-The `/boarding/application` endpoint supports submitting the application for the reference parsed. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response with where they need to be updated. This would require the application to be updated, and resubmit until it passes the validation. For full specs on this please see the  [API explorer](../api?type=post&path=/v1/apis).
+The `/boarding/application` endpoint supports submitting the application using the application reference. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response including what needs to be updated and where. This would require the application to be updated, and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
 
 #### DDA  Verification
 
@@ -300,13 +300,12 @@ For example payloads, please see [API explorer](../api?type=post&path=/boarding/
 
 #### Error handling 
 
-Upon submission to services in the system, it is possible to receive errors downstream if the data submit is invalid, or for other system errors.  These are reported in a set of fields in the status API 
+Upon submission to services in the system, it is possible to receive errors downstream if the data submitted is invalid, or for other system errors.  These are reported in a set of fields in the status API 
 
 ## Updating an application
 
-While an Application is in 'Open' status, this can be updated using the UPDATE requests, of which can be done for each level of the sub-merchant. 
-An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and a complete application can be submit by using the `APPLICATION_SUBMIT` request (pending validation). 
-Applications that are invalid will respond with the errors and their locations so that the entity may be updated, and resubmit. 
+While an Application is in 'Open' status, it can be updated using the UPDATE requests, this can be done for each level of the sub-merchant. 
+An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and the application can be submitted by using the `APPLICATION_SUBMIT` request (pending validation). Any validation errors will return a success : 0 , with the errors detailed in the bottom of the response, including what needs to be updated and where. This would require the application to be updated and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
 
 ### Application Update Requests
 
@@ -318,13 +317,13 @@ type: tab
 titles: Update Merchant, Sample JSON
 -->
 
-The `/boarding/merchant` endpoint supports updating for the merchant level and subgroup level, while the `/boarding/outlet` allows the outlet to be updated.
-To update the outlets and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
+The `/boarding/merchant` endpoint supports updating for the merchant level and subgroup level, while the `/boarding/outlet` allows the location (outlet) to be updated.
+To update the locations (outlets) and subgroups , the `outlet_external_id` or `sub_group_external_id` must also be added to the request to specify the outlet/sub group, which can be found using the `RETRIEVE_MERCHANT_HIERARCHY` operation at the `/boarding/application` endpoint (see [API specs for this request](../api?type=post&path=/v1/apis)).
 The application reference must be added to the request, and operation type based on the update being made.
 
 - UPDATE_MERCHANT at `/boarding/update_merchant` for merchant level.
 - UPDATE_MERCHANT_SUB_GROUP at `/boarding/subgroup/update` for subgroup level.
-- UPDATE_OUTLET at `/boarding/outlet/update` for outlet level.
+- UPDATE_OUTLET at `/boarding/outlet/update` for location (outlet) level.
 
 
 <!-- type: tab -->
@@ -350,8 +349,8 @@ JSON format for `UPDATE_MERCHANT`:
 <!-- theme: info -->
 >**POST** `/fdapplication/upload_additional_files`
 
-Files can be uploaded to the application for record keeping purposes.  To upload to an application, the `/fdapplication/upload_additional_files` endpoint should be used and will require the payload to be sent as form-data. 
-The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the api.
+Files can be uploaded to the application for record keeping purposes. To upload a document to an application, the `/fdapplication/upload_additional_files` endpoint should be used and will require the payload to be sent as form-data. 
+The form will require two keys, `request` and `file` - where the request is the body and file is an uploaded file. Only one file at a time can be sent through the API.
 
 The request must contain the application reference, and the external id of what entity the document is for.
 Documents must be configured on the system in order to retrieve the external IDs, and once configured can be retrieved using the `/boarding/document_categories` endpoint.
