@@ -18,7 +18,7 @@ The standard submerchant hierarchy is built from a Merchant, a Chain and an outl
 
 The basic API flow is as shown in diagram here:
 
-![boarding API](/assets/images/boarding_flow_diagram_updated.png)
+![boarding API](/assets/images/boarding_diagram_v2_resized.png)
 
 
 ### Adding the Merchant and Chain
