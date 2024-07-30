@@ -6,8 +6,15 @@ tags: [Getting Started, Underwriting, Risk, Application]
 
 ## Risk services available in Exchange
 
-If using Risk services in Exchange the PayFac will be able enable Credit risk and OFAC Screening, as well as OFAC monitoring for the sub-merchant. 
-The PayFac will be responsible for reviewing any possible matches retrieved at the business and principal levels to ensure that there is not match with the OFAC list. 
+If the PayFac is enabled to use Exchange to perform underwriting checks, they will be able to configure their criteria for the following:
+
+* AML, Negative Checks and OFAC/Sanction screening
+* Credit Risk
+* Entity and OFAC/Sanction Monitoring
+* Transaction Monitoring
+
+
+The PayFac will be responsible for reviewing the outcome of any underwriting checks that do not automatically approved, including any possible matches to OFAC/Sanctions databases and the Mastercard MATCH database.
 
 <!-- theme: danger -->
 > **If an OFAC hit is confirmed, the sub-merchant cannot be boarded and if already on the system will be held from funding.**
@@ -21,14 +28,14 @@ If confirming the report, the PayFac is confirming that the potential match is v
 
 ### Screening APIs
 
-#### Retrieve intelligence reports available
+#### Retrieve all available intelligence reports 
 
 <!-- theme: info -->
 >**POST** `/intelligence/retrieve_intelligence`
 
 The `/intelligence/retrieve_intelligence` endpoint can be used to retrieve all available screening reports for a sub-merchant application. This will include the business level, and the principal level. Each entry in the response will return an `entity_reference` to use in the `/intelligence/retrieve_report`.
 
-#### Retrieve intelligence reports
+#### Retrieve intelligence report details
 
 <!-- theme: info -->
 >**POST** `/intelligence/retrieve_report`
@@ -40,7 +47,7 @@ After retrieving the `entity_reference` from  the `/intelligence/retrieve_intell
 <!-- theme: info -->
 >**POST** `/intelligence/overwrite_aml_reports`
 
-This `/intelligence/overwrite_aml_reports` is used to overwrite OFAC reports for potential matches. The potential matches will need to be confirmed or discounted for the application where these are found. If any applications match it confirmed, the application will have to be cancelled. The user must add a review note for each entity as required. The request will need to contain the `intelligence_ref` and the `match_reference` for each entity overwritten. The decision will be added to the `status` as `"EM"` or `"NM"` , where EM represents Exact Match and NM represent No Match. Multiple reports can be reviewed in one request.
+This `/intelligence/overwrite_aml_reports` is used to overwrite AML, Negative Checks and OFAC/Sanction screening reports for potential matches. The potential matches will need to be confirmed or discounted for the application where these are found. If any applications match it confirmed, the application will have to be cancelled. The user must add a review note for each entity as required. The request will need to contain the `intelligence_ref` and the `match_reference` for each entity overwritten. The decision will be added to the `status` as `"EM"` or `"NM"` , where EM represents Exact Match and NM represent No Match. Multiple reports can be reviewed in one request.
 
 #### Overwrite credit risk check reports
 
