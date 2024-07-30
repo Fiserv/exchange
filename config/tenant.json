@@ -17,6 +17,7 @@
       ]
     }
   ],
+  "resourcesFilePath": "docs/Resources/Resources.md",
   "getStartedFilePath": "docs/get-started.md",
   "apiVersions": [
       {
@@ -31,7 +32,7 @@
         "releaseNotesPath": "/release-notes/release-notes-3.0.0.md",
         "apiSpecFileNames": ["api-v3.0.0"]
       },
-      {
+	        {
         "version": "4.0.0",
         "versionType": "major",
         "releaseNotesPath": "/release-notes/release-notes-4.0.0.md",
@@ -52,7 +53,7 @@
     "feature":[
       {
         "name": "sandBox",
-        "value": false
+        "value": true
       },
       {
         "name": "plugins",
@@ -64,10 +65,6 @@
       },
       {
         "name": "editParameterAPIExplorer",
-        "value": false
-      },
-      {
-        "name": "downloadPostman",
         "value": false
       }
   ]

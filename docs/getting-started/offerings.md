@@ -1,5 +1,8 @@
 # Offerings
 
+<!-- theme: info -->
+>This page is used for documentation on the Legacy Version 3 & 2 Offer Package APIs.
+
 ## Pricing and Equipment
 Exchange supports pricing and equipment added to Applications through the use of offerings and offer packages. Offerings are split into three types: Processsing, Equipment and Online. These offerings are created by the PayFac and added to an Offer Package, which can then be retrieved from the `/offering/avaliable` endpoint. Upon retrieving an Offer Package, the offerings avaliable in the package will be listed. Online and Equipment offerings can be retrieved by using their respective `/offering/retrieve_equipment_offering` and `/offering/retrieve_online_offering` endpoints for their full details. A selected Offering (by external ID) can have details grabbed in order to retrieve the pricing information and equipment information.
 
