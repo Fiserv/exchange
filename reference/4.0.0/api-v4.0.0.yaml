@@ -1086,7 +1086,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AuthorizationsSearchResponse'
               examples:
-                TransactionRejectResponse:
+                AuthSearchResponse:
                   summary: Example Payload for querying a single MID with the date transactions were added
                   $ref: '#/components/examples/AuthorizationResponse'
         "404":
@@ -28536,15 +28536,16 @@ components:
                telephone_number: "3339898989",
                email_address: "email@domain.com"}
           split_details:
-            target_merchant_id: "700100000050009"
-            tx_source: "1"
-            fixed_amount: "0.30"
-            percentage_amount: "2.10"
-            detail: "Fees"
-            reference: "SPLITREF"
-            transaction_type: 
-              - "PURCHASE"
-              - "REFUND"
+            - target_merchant_id: "700100000050009"
+              tx_source: "1"
+              fixed_amount: "0.30"
+              percentage_amount: "2.10"
+              detail: "Fees"
+              reference: "SPLITREF"
+              transaction_type: 
+                - "PURCHASE"
+                - "REFUND"
+              account_type: "REVENUE_ACCOUNT"
           offer:
             product_offer_code: "PRO00000000001"
             product_items:
