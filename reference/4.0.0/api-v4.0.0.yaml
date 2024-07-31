@@ -25083,7 +25083,7 @@ components:
         funded_date:
           type: string
           description: "Transaction Funded date. Typically date funded to FBO. YYYY-MM-DD"
-          example: "0101"
+          example: "2021-01-01"
         health_care_card:
           type: string
         invoice_id:
