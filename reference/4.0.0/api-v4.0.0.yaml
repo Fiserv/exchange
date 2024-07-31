@@ -422,6 +422,8 @@ paths:
                   $ref: '#/components/examples/StatusCheckAMLCreditErrors'
                 BoardingSubmissionFailure:
                   $ref: '#/components/examples/StatusBoardingSubmissionErrors'
+                BoardingDeclined:
+                  $ref: '#/components/examples/StatusBoardingUWDeclined'
 
 
         default:
@@ -8822,6 +8824,7 @@ components:
         - "APP_STATUS_AWAITING_MARKETPLACE_RESPONSE"
         - "APP_STATUS_MARKETPLACE_SUBMISSION_ERROR"
         - "APP_STATUS_MARKETPLACE_REJECTED"
+        - "UNDERWRITING_DECLINED"
     errorsarray:
       type: object
       properties:
@@ -32864,6 +32867,44 @@ components:
             errorMessage: Invalid SSN on owner 2. ssn should be 9 digits numeric
           - errorCode: 3
             errorMessage: (Owners) Primary Owner SSN is invalid
+    StatusBoardingUWDeclined:
+      value:
+        result: SUCCESS
+        operation:
+          operation_type: APPLICATION_STATUS_CHECK
+        application:
+          merchant_node_external_id: MEI9F-69396-D8877-2698B-CEB0D-8319A-C103B
+          sales_owner_user_external_id: USR7F-69396-D8877-2698B-CEB0D-8319A-C103B
+          aml_owner_user_external_id: USR7F-69396-D8877-2698B-CEB0D-8319A-C103B
+          risk_owner_user_external_id: USR7F-69396-D8877-2698B-CEB0D-8319A-C103B
+          creator_user_external_id: USRE0-69396-D8877-2698B-CEB0D-8319A-C103B
+          alliance_external_id: ALL87-69396-D8877-2698B-CEB0D-8319A-C103B
+          internal_mid: '700100000030005'
+          legal_name: MMISTest Legal Name
+          contact_title: Mr.
+          contact_first_name: JON
+          contact_last_name: CONSUMER
+          contact_address1: Street Name
+          contact_town_city: City
+          contact_county: CA
+          contact_postcode: '54321'
+          contact_country_code: '840'
+          contact_email: sampletest@fiserv.com
+          hold_suspend_flag: '0'
+          settlement_method: '1'
+          parent_type: ALLIANCE
+          reserve_flag: '0'
+          street_line_1: Address Name
+          city: City
+          county_code: CA
+          zip_code: '54321'
+          country_code: '840'
+          language_code: en_gb
+          date_added: '2021-12-06 08:58:13'
+          date_updated: '2021-12-06 14:33:01'
+          pfac_node_external_id: PEIA9-69396-D8877-2698B-CEB0D-8319A-C103B
+        status_external_id: APS72-55239-511B6-61FF7-0B2E9-8BDE3-BFA30
+        application_status_key: UNDERWRITING_DECLINED
     StatusSubmissionValidationErrors:
       value:
         result: SUCCESS
