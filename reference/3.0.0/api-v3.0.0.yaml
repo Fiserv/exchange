@@ -23815,6 +23815,7 @@ components:
       example: ">-"
       description: Decision HIGH_ALERT has been confirmed and updated to
         PAUSE_INDIVIDUAL_SETTLEMENT.
+
     RemoteAPISignatureRequest:
       type: object
       properties:
@@ -23825,11 +23826,6 @@ components:
               description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
               example: "333000000794"
-    RemoteAPISignatureResponse:
-      type: object
-      properties:
-        note:
-          $ref: '#/components/schemas/NoteRequest'
     CompleteAPISignatureRequest:
       type: object
       properties:
@@ -23843,8 +23839,24 @@ components:
     CompleteAPISignatureResponse:
       type: object
       properties:
-        note:
-          $ref: '#/components/schemas/NoteRequest'
+        result:
+          type: string
+          example: "SUCCESS"
+        operation:
+          $ref: '#/components/schemas/operation'
+        application:
+          $ref: '#/components/schemas/application'
+        application_relation:
+          $ref: '#/components/schemas/ApplicationRelation'
+    RemoteAPISignatureResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "SUCCESS"
+        url:
+          type: string
+          example: "https://secure.eu1.adobesign.com/public/apiesign?XXXXXXXXXX3-XXXXXXXXXXXXXXX-XXXXXXXXXXXd=XXXXXXXXXXXXXX"
     AddNoteRequest:
       required:
         - request_source
