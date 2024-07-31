@@ -3459,7 +3459,7 @@ components:
           enum: 
             - "REVENUE_ACCOUNT"
             - "FEE_ACCOUNT"
-        transaction_record_type:
+        transaction_record_types:
           type: array
           description: |
             Type of transaction the split applies to. 
@@ -28546,7 +28546,7 @@ components:
               percentage_amount: "2.10"
               detail: "Fees"
               reference: "SPLITREF"
-              transaction_record_type: 
+              transaction_record_types: 
                 - "1"
                 - "2"
               account_type: "REVENUE_ACCOUNT"
