@@ -28542,16 +28542,6 @@ components:
             transaction_type: 
               - "PURCHASE"
               - "REFUND"
-            account_type: "REVENUE_ACCOUNT"
-            product_items:
-                - product_code: "GTWY01"
-                  quantity: "1"
-                - product_code: "FEE_01"
-                  percentage_amount: "0.30000"
-                  fixed_amount: "0.00000"
-                - product_code: "FEE_02"
-                  fixed_amount: "0.10000"
-                  percentage_amount: "0.00000"
           offer:
             product_offer_code: "PRO00000000001"
             product_items:
