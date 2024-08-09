@@ -1,19 +1,19 @@
 
 # Split Funding
 
-## What is split funding?
+## What is Split Funding?
 
 Split funding allows the Aggregator to split funds from a processing sub-merchant to third parties on the system. Split funding solutions can be done by instructions by API at a summary, transaction or per auth level. Please see the relevant section for each method. 
 
-## Summary level Splits
+## Summary Level Splits
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
-### Constructing the split instruction request
+### Constructing the Split Instruction Request
 
 <!--
 type: tab
-titles: Split instructional funding, JSON instructional funding example
+titles: Split Instructional Funding, JSON Instructional Funding example
 -->
 
 The Instructional funding request will be constructed based on how the PayFac wants to fund the proessing merchants instructional hold, and define split amounts sent to non-processing merchants. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md) and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken and to define the split.
@@ -29,7 +29,7 @@ Supported accounts added to this request include:
 | Category    | Key                 | Description                                         |
 |-------------|---------------------|-----------------------------------------------------|
 | FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
-| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the submerchants Revenue account. Funds moved here will be credited to the submerchant.  |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the sub-merchants Revenue account. Funds moved here will be credited to the submerchant.  |
 | CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
 | SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
 | RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
@@ -76,7 +76,7 @@ Supported accounts added to this request include:
 
 <!-- type: tab-end -->
 
-## Transaction level
+## Transaction Level
 
 Instructional Split by transaction requires the instructions to be sent through the `/transaction-instruction/transaction-details` endpoint, where the request is sent on a transaction-by-transaction basis that must contain identifiers for Exchange to identify the transaction. The split can define how each Sale, Refund and Chargeback is funded and to the defined MID.
 
@@ -86,7 +86,7 @@ If the `/transaction-instruction/transaction-details` request has incorrect iden
 
 <!--
 type: tab
-titles: Required split identifiers, JSON Split details example
+titles: Required Split Identifiers, JSON Split Details Example
 -->
 
 Minimum grid of identifiers required for definined a split using `/transaction-instruction/transaction-details` , where Case number refers to instructing Chargebacks amounts.
@@ -151,12 +151,12 @@ JSON format for `transaction-instruction/transaction-details` , where `transacti
 
 ### Auto-Funding Split by Transaction
 
-Splits on a transaction level can also be done through Auto-funding, where pricing would be added to split a percentage or amount to a third party on the system. 
+Splits on a transaction level can also be done through Auto-Funding, where pricing would be added to split a percentage or amount to a third party on the system. 
 
 ## Split on Auth
 
-Split on auth allows users through commercehub to submit instructions to split money on authorized amounts. These are then settled to their respective parties through Exchange.
-For split on auth info through CommerceHub, please see documentation [here](?path=docs/Resources/Guides/Partners/PFAC/Split-Settlement.md&branch=preview#account-type)
+Split on auth allows users through Commerce Hub to submit instructions to split money on authorized amounts. These are then settled to their respective parties through Exchange.
+For split on auth info through Commerce Hub, please see documentation [here](https://developer.fiserv.com/product/CommerceHub/docs/?path=docs/Resources/Guides/Partners/PFAC/Split-Settlement.md&branch=main)
 
 
 
