@@ -5,12 +5,12 @@ This section will focus on creating Funding instructions for NET scenarios. Plea
 
 ## What is Net Instructional funding?
 
-Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the submerchant.
-For NET instructions, we will always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the submerchant. This is primarily done by utilizing the `FUNDING` block on the `/funding/instruction` endpoint.
+Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the sub-merchant.
+For NET instructions, we will always try to net out any billing before generating settlement, so that either 1 Credit is generated or 1 Debit is generated for the sub-merchant. This is primarily done by utilizing the `FUNDING` block on the `/funding/instruction` endpoint.
 
 Instructional Split funding extends the functionality of the `/funding/instruction` in order to allow a 'split_details' block, where the split is defined at a summary level for the processing MID, and 'non-processing' entities defined. Fees taken from the split amount will be received by the non-processing PayFac.
 
-## Constructing an instruction for Net funding 
+## Constructing an instruction for Net Funding 
 
 <!-- theme: info -->
 >**POST** `/funding/instruction`
@@ -54,15 +54,15 @@ For the funding block:
   ]
 }
 ```
-The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
+The settlement that will generate from this instruction will be a settlement of $84.50 to the sub-merchant, and $15.50 to the Aggregator 
 
-## Chargeback Management for Net funding
+## Chargeback Management for Net Funding
 
 Chargeback is represented through virtual accounts on the system, which means there are a few options on recouping or reimbursing amounts for the chargeback through instructional funding.
 
 The Chargeback virtual account keeps balances from Chargeback Adjustments that happen outside the system. This represents information that the chargeback has occurred, and this balance is used for validation when instruction funds with an `"account_type": "CHARGEBACK"`. There are two ways of doing this through Net instructions, seen below.
 
-### Using the Chargeback account
+### Using the Chargeback Account
 
 In order to use the chargeback account in the instruction, the `"account_type": "CHARGEBACK"` must be specified. This will make the instruction validate against the current Chargeback Virtual Account Balance.
 
@@ -126,19 +126,19 @@ If managing the Chargeback balances outside the system, additional amounts to re
 
 ##  Reserve Management
 
-If a submerchant is enabled for reserves through config on Exchange, instructions can be used collect and release API used to release. 
+If a sub-merchant is enabled for reserves through config on Exchange, instructions can be used collect and release API used to release. 
 
 ### Collecting Reserves
 
-Reserve amounts can be sent in the `/funding/instruction` API by using the `account_type:` `RESERVE`. The amount specified will be moved to the Reserve virtual account. The `/account/balance` API can be called to check the current balance of the Reserve account for the submerchant
+Reserve amounts can be sent in the `/funding/instruction` API by using the `account_type:` `RESERVE`. The amount specified will be moved to the Reserve virtual account. The `/account/balance` API can be called to check the current balance of the Reserve account for the sub-merchant
 
 ### Releasing and Deducting Reserves
 
 <!-- theme: info -->
 >**POST** `/reserve/release`
 
-Reserve amounts can be released back to the submerchant, or deducted to the Aggregator. First, the `/account/balance` API should be called to check the current balance of the Reserve account.
-Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the submerchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
+Reserve amounts can be released back to the sub-merchant or deducted from the sub-merchant and credited to the Aggregator. First, the `/account/balance` API should be called to check the current balance of the Reserve account.
+Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the sub-merchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
 The `release_reason` must be specified when adjusting amounts in the reserve account. 
 Amounts can be partially released, but cannot be greater than the current balance in the reserve account.
 Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will move to the `RESERVE_DEDUCTION_ACCOUNT`.
@@ -147,7 +147,7 @@ Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/
 ##  Split Account
 
 The Funding API can also handle a `split_details` object, which can be used to send amounts to third parties that are boarded on the system.
-For example, if we wanted to include a split of 4.50 to a third party on the system from the submerchants normal revenue, we would include the split details object with a type `CREDIT`
+For example, if we wanted to include a split of 4.50 to a third party on the system from the sub-merchants normal revenue, we would include the split details object with a type `CREDIT`
 
 <!-- theme: success -->
 >**IH Balance: 100**
@@ -185,13 +185,13 @@ For example, if we wanted to include a split of 4.50 to a third party on the sys
 
 Some scenarios may require additional debits or credits to keep the instruction balanced. Please see some additional scenarios below
 
-#### Reimbursing the Submerchant
+#### Reimbursing the Sub-Merchant
 
-There may be cases where the submerchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
+There may be cases where the sub-merchant is owed money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the operating account must be made to balance the instruction. 
 
 #### Reimbursing the Aggregator
 
-Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made to balance the instruction. 
+Similar to the above, there may be cases where the sub-merchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the sub-merchant must be made to balance the instruction. 
 
 #### Splitting to third parties through Net Funding
 
