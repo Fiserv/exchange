@@ -1,8 +1,8 @@
 ## Settlement API
 
-Settlements can be retrieved by UI or API and will show the type of settlement (Credit or Debit), effective date, settlement details, status and reference. We will only show settlements if Exchange is handling funding or billing for the submerchant.
+Settlements can be retrieved by UI or API and will show the type of settlement (Credit or Debit), effective date, settlement details, status and reference. We will only show settlements if Exchange is handling funding or billing for the sub-merchant.
 
-### Submerchant Settlements
+### Sub-Merchant Settlements
 
 <!-- theme: info -->
 >**POST** `/account/settlement-info`
@@ -16,11 +16,11 @@ The reference is uniquely assigned when the settlement is generated, and the *ef
 >**POST** `/settlement/rejects`
 
 In the scenario that an ACH reject occurs, the `/settlement/rejects` will report a rejected settlement for the MID.
-The settlement reference can be used to trade a rejected settlement to its inital settlement response from `/account/settlement-info` in order to see the instructions that were sent.
+The settlement reference can be used to trace a rejected settlement to its initial settlement response from `/account/settlement-info` in order to see the instructions that were sent.
 The reject endpoint will pull details for the rejected settlement, including a reason code, and the deposit that was rejected for the sub-merchant. 
 
 ### Aggregator Settlements
 
 Aggregator Settlements are rolled into one ACH settlement each day. 
 
-For full spec, please find API [Here](../api?type=post&path=/account/billing/fee-details) 
+For full spec on API Explorer, please find API [Here](../api?type=post&path=/account/settlement-info) 
