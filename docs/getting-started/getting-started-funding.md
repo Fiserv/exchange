@@ -4,13 +4,13 @@ This section explores instructions that can be sent by API for funding. This pri
 
 ## Instructional Funding
 
-### What is Instructional funding?
+### What is Instructional Funding?
 
 <!-- !align: center -->
 ![<img src="instructional_timeline.png" width="600"/>](/assets/images/instructional_timeline.png)
 
-Instructional funding, allows the use of the `/funding/instruction` endpoint in order to direct funds in the instructional hold for a given merchant ID, where the merchant revenue amount and PayFac fee amount is directed by the request. 
-Instructional funding also supports instructions sent through the `/funding/detailed-instruction` endpoint, where additional information can be added within an instruction through a 'details' block for reporting purposes. (details do not affect the funding, just act as information)
+Instructional Funding allows the use of the `/funding/instruction` endpoint in order to direct funds in the instructional hold for a given merchant ID.
+Instructional Funding also supports instructions sent through the `/funding/detailed-instruction` endpoint, where additional information can be added within an instruction through a 'details' block for reporting purposes. (details do not affect the funding, just act as information)
 
 ## Process flow 
 
@@ -64,15 +64,15 @@ For the funding block:
   ]
 }
 ```
-The settlement that will generate from this instruction will be a settlement of $84.50 to the submerchant, and $15.50 to the Aggregator 
+The settlement that will generate from this instruction will be a settlement of $84.50 to the sub-merchant, and $15.50 to the Aggregator 
 
 #### Billing
 
-The billing block is used to call out specific fee amounts to be collected, and can support billing gross fees + Service fees (depending on configuration of the submerchant). This is primarily used as part of a gross instruction.
+The billing block is used to call out specific fee amounts to be collected, and can support billing gross fees + Service fees (depending on configuration of the sub-merchant). This is primarily used as part of a gross instruction.
 
 For the billing block:
 <ul>
-  <li> type: CREDIT - Credits the specified amount, debiting from the submerchant (will net out for service fess configured for NET)
+  <li> type: CREDIT - Credits the specified amount, debiting from the sub-merchant (will net out for service fess configured for NET)
   <li> type: DEBIT - Not supported for the Billing block
 </ul>
 
@@ -80,10 +80,10 @@ For the billing block:
 
 <!--
 type: tab
-titles: Gross Billing Example, Ahdoc Billing Example
+titles: Gross Billing Example, Ad-hoc Billing Example
 -->
 
-Please see two examples by switching the tab,  on how the billing block can be used. This sample shows how the billing block can be used to bill for a gross instruction. 
+Please see two examples by switching the tab, on how the billing block can be used. This sample shows how the billing block can be used to bill for a gross instruction. 
 
 ##### Request:
 
@@ -114,7 +114,7 @@ Please see two examples by switching the tab,  on how the billing block can be u
 
 <!-- type: tab -->
 
-Example on how a submerchant could be billed an additional amount, outside of what is in the instructional hold.
+Example on how a sub-merchant could be billed an additional amount, outside of what is in the instructional hold.
 
 
 
@@ -141,13 +141,13 @@ Example on how a submerchant could be billed an additional amount, outside of wh
 
 #### Chargeback
 
-The Chargeback block is used to support recouping a chargeback amount, and debit the submerchant as part of a gross instruction.
+The Chargeback block is used to support recouping a chargeback amount, and debit the sub-merchant as part of a gross instruction.
 Validation will check that the chargeback account can support this amount being taken.
 
 For the Chargeback block:
 <ul>
   <li> type: CREDIT - Recoups a chargeback amount to the Aggregator
-  <li> type: DEBIT -  Reimbursing a chargeback reversal to the submerchant
+  <li> type: DEBIT -  Reimbursing a chargeback reversal to the sub-merchant
 </ul>
 
 <!--
@@ -194,7 +194,7 @@ Please see two examples by switching the tab, on how the chargeback block can be
 
 <!-- type: tab -->
 
-Example on how a chargeback reversal can be credited back to the submerchant in a gross instruction.
+Example on how a chargeback reversal can be credited back to the sub-merchant in a gross instruction.
 
 ##### Request:
 
@@ -285,16 +285,16 @@ The responsible party by default is the Aggregator. If an instruction is made to
 
 <!--
 type: tab
-titles: Instructional funding, JSON Instructional funding example
+titles: Instructional Funding, JSON Instructional Funding example
 -->
 
-The Instructional funding request will be constructed based on how the PayFac wants to fund the submerchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken. The request is grouped by three types of money movement - Funding, Billing, and Chargeback. These all have their own respective accounts that can be sent as credits, debits, and split.
+The Instructional Funding request will be constructed based on how the PayFac wants to fund the sub-merchants instructional hold. If sending funding instructions daily, this request will be sent every day during the instructional funding window. The [Trade account info](?path=docs/getting-started/account-operations.md)  and [transaction operations](?path=docs/getting-started/transactions.md) can be used to summarise the transactions and support calculating the fee amount to taken. The request is grouped by three types of money movement - Funding, Billing, and Chargeback. These all have their own respective accounts that can be sent as credits, debits, and split.
 
 | Category    | Key                 | Description                                         |
 |-------------|---------------------|-----------------------------------------------------|
 | FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
-| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the submerchants Revenue account. Funds moved here will be credited to the submerchant.  |
-| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the sub-merchants Revenue account. Funds moved here will be credited to the sub-merchant.  |
+| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the sub-merchant. |
 | SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
 | RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 
@@ -307,8 +307,8 @@ Supported accounts added to this request include:
 | Category    | Key                 | Description                                         |
 |-------------|---------------------|-----------------------------------------------------|
 | FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
-| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the submerchants Revenue account. Funds moved here will be credited to the submerchant.  |
-| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the sub-merchants Revenue account. Funds moved here will be credited to the sub-merchant.  |
+| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the sub-merchant. |
 | SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
 | RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 
@@ -403,13 +403,13 @@ The response of the instructional funding API will report the movement from the 
 
 <!-- type: card
 title: See Net Funding
-description: Funding instructions are sent as net, for a single overall settlement to the submerchant.
+description: Funding instructions are sent as net, for a single overall settlement to the sub-merchant.
 link: ?path=docs/getting-started/getting-started-instfunding-net.md
 
 -->
 <!-- type: card
 title: See Gross Funding
-description: Funding instructions that are sent as gross, for a single Credit and Single debit to the submerchant
+description: Funding instructions that are sent as gross, for a single Credit and Single debit to the sub-merchant
 link: ?path=docs/getting-started/getting-started-instfunding-gross.md
 -->
 
