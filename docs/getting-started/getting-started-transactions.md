@@ -701,14 +701,15 @@ titles: Request , Response
 ```
 <!-- type: tab-end -->
 
-## Auto-funding calculations
+## Auto-Funding Calculations
 
-Auto funding on Exchange performs calculations automatically based on configurations set for that sub-merchant. As this is done by the system, the calculations performed will be added to the corresponding transactions.
+Auto-Funding on Exchange performs calculations automatically based on configurations set for that sub-merchant. As this is done by the system, the calculations performed will be added to the corresponding transactions.
 
-### Processing fee caluclations
+### Processing Fee Caluclations
 
 To retrieve calculations performed by Auto fundings processing charges at a transaction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [here](../api/?type=post&path=/transaction)
-### Service fee calculations
 
-Within Auto funding, 'service billing' can be added to a submerchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [here](../api?type=post&path=/account/billing/fee-details) 
+### Service Fee calculations
+
+Within Auto-Funding, 'service billing' can be added to a sub-merchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [here](../api?type=post&path=/account/billing/fee-details) 
 

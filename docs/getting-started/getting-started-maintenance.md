@@ -5,19 +5,19 @@ tags: [Getting Started, Maintenance]
 
 ## What is Merchant Maintenance?
 
-When using exchange, you may want to update submerchant data or pricing after it has been boarded. In order to do this, a maintenance case must be created.
+When using exchange, you may want to update sub-merchant data or pricing after it has been boarded. In order to do this, a maintenance case must be created.
 
 ## General Maintenance process
 
 The user will be able to create a merchant maintenance case with the type of maintenance they would like to do, have this updated, and then submit the case.
 This is primarily be facilitated through the `/maintenance` endpoint.
 
-### Creating Maintenance Case
+### Creating Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the submerchant. 
+In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the sub-merchant. 
 The `old_details` will provide the data being updated, which can be used in the next endpoint to update.
 `merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant)
 
@@ -35,7 +35,7 @@ Example request body:
   }
 }
 ```
-### Updating Maintenance Case
+### Updating Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -87,7 +87,7 @@ Example for bank change below:
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If succesful, merchant has now been updated with the new details.
+Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If successful, merchant has now been updated with the new details.
 ```
 {
   "operation": {
@@ -144,7 +144,7 @@ titles: Request , Response
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Maintenance cases for a merchant can be searched using the `MAINTENANCE_SEARCH` operation. This allows the user to retrieve all current and previous maintenance cases made for a submerchant. The `maintenance_status` can be used to view what state the case is in.
+Maintenance cases for a merchant can be searched using the `MAINTENANCE_SEARCH` operation. This allows the user to retrieve all current and previous maintenance cases made for a sub-merchant. The `maintenance_status` can be used to view what state the case is in.
 
 <!--
 type: tab
@@ -227,7 +227,7 @@ titles: Request , Response
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Specific Maintenance cases for a merchant can be pulled using the `RETRIEVE_MAINTENANCE` operation. This allows the user to retrieve a specific maintenance case made for a submerchant. 
+Specific Maintenance cases for a merchant can be pulled using the `RETRIEVE_MAINTENANCE` operation. This allows the user to retrieve a specific maintenance case made for a sub-merchant. 
 
 <!--
 type: tab
@@ -523,3 +523,26 @@ titles: Request , Response
 }
 ```
 <!-- type: tab-end -->
+
+<!-- type: row -->
+
+<!-- type: card
+title: See Bank Maintenance
+description: Update a sub-merchants bank that is funded through Exchange
+link: ?path=docs/getting-started/getting-started-maintenance-bank.md
+
+-->
+<!-- type: card
+title: See Pricing Maintenance
+description: Update existing rates and fees on pricing that is done through exchange
+link: ?path=docs/getting-started/getting-started-maintenance-pricing.md
+-->
+
+<!-- type: card
+title: Add Additional Locations
+description: Add an additional location (outlet) to an existing on-boarded sub-bmerchant
+link: ?path=docs/getting-started/getting-started-maintenance-newlocation.md
+-->
+
+<!-- type: row-end -->
+

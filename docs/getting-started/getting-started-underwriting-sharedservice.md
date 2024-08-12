@@ -12,17 +12,16 @@ Below is a process flow for an application going through the Risk service in a s
 
 ## More info required flow
 
-When using shared services, the user may be asked to provide additional documentation during the credit risk screening process. 
-This will occur when an application is being manually reviewed, and may require supporting documents such as Bank statements or proof of address. 
-
+When using shared services, the user may be asked to provide additional documentation and/or information during the credit risk screening process. 
+This will occur when an application is being manually reviewed.
 ### In Manual Review / Back to Sales
 
-This response will be sent to Exchange from credit as a 'back to sales' response, with a comment to let the user know why this has occurred and what is required.
-This will be checked by retrieving the merchant applications information through `/boarding/application` operation `'RETRIEVE_MERCHANT_HIERARCHY'` , where the `"credit_risk_check_response"` block will contain the current credit risk check info for the application. A `"decision": "MORE_INFO_REQUIRED"` indicates that the back to sales message has been received and is ready to be processed, where the risk reviewers comment `"credit_risk_comments":` can be viewed in order to know what is required to upload.
+This response will be sent to Exchange from credit as a 'Back to Sales' response, with a comment to let the user know why this has occurred and what is required.
+This will be checked by retrieving the merchant applications information through the 'RETRIEVE_MERCHANT_HIERARCHY' endpoint, where the `"credit_risk_check_response"` block will contain the current credit risk check info for the application. A `"decision": "MORE_INFO_REQUIRED"` indicates that the back to sales message has been received and is ready to be processed, where the risk reviewers comment `"credit_risk_comments":` can be viewed in order to know what is being requested.
 
 ### Response process
 
-The user will be able to respond to the credit team with the additional documents requested by uploading them and submitting a comment back, 
+The user will be able to respond to the credit team with the additional documents and information requested by uploading them and submitting a comment back, 
 which will be facilitated through the `/fdapplication/upload_additional_files` , `/fdapplication/submit_additional_documents` and `/boarding/document_categories` endpoints.
 
 ### Retrieving document categories
@@ -36,6 +35,7 @@ The available categories are:
 - Proof of ID
 - Proof of Business
 - Proof of Address
+- Proof of Bank
 - Other
 
 These will have documents grouped within this category during the configuration done. The `tenant_udc_external_id` will be returned for the categories displayed.
@@ -87,7 +87,7 @@ However, this request body will be dependent on the configuration of the documen
 <!-- theme: info -->
 >**POST** `/fdapplication/submit_additional_documents`
 
-After all the files have been uploaded that have been requested, the user may now submit the documents to Exchange along with a note for the risk reviewer to see when viewing the documents. This can be used to talk to the credit risk reviewer.
+After all the files have been uploaded that have been requested, the user may now submit the documents to Exchange along with any responses to additional information requests for the risk reviewer to see.
 ```
 {
     "operation": {
@@ -105,7 +105,7 @@ After all the files have been uploaded that have been requested, the user may no
 <!-- theme: info -->
 >**POST** `/boarding/application`
 
-After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is received due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
+After an application is submitted , it will move to underwriting. If there are any situations where a Credit Risk Error or AML Error is received due to invalid data, an application can be unlocked using the unlock application endpoint. The application can then be submitted using the submit application endpoint.
 
 ```json
 {

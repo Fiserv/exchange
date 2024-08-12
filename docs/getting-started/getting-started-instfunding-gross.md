@@ -5,7 +5,7 @@ This section will focus on creating Funding instructions for Gross scenarios. Pl
 
 ## What is Gross Instructional funding?
 
-Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the submerchant.
+Instructional funding allows instructions to be sent via API to the instructional hold, for fees to be delegated, and funds to be settled to the sub-merchant.
 For Gross instructions, we will create one settlement for Credits, **and** one for debits (Where as Net funding is one overall settlement). This is primarily done by utilising the `FUNDING`, `BILLING` and `CHARGEBACK` block on the `/funding/instruction` endpoint.
 
 ## Constructing a Gross instruction 
@@ -49,7 +49,7 @@ Please see below example:
 }
 
 ```
-This instruction would generate settlements of $100.00 Credit to the submerchant, $15.00 Debit to the submerchant and a Credit settlement of $15.50 to the Aggregator.
+This instruction would generate settlements of $100.00 Credit to the sub-merchant, $15.00 Debit to the sub-merchant and a Credit settlement of $15.50 to the Aggregator.
 
 ## Managing Chargeback through Gross instructions
 
@@ -123,33 +123,33 @@ If managing the Chargeback balances outside the system, additional amounts to re
 ```
 ##  Reserve Management
 
-If a submerchant is enabled for reserves through config on Exchange, instructions can be used collect and release API used to release. 
+If a sub-merchant is enabled for reserves through config on Exchange, instructions can be used collect and release API used to release. 
 
 ### Collecting Reserves
 
-Reserve amounts can be sent in the `/funding/instruction` API by using the `account_type:` `RESERVE`. The amount specified will be moved to the Reserve virtual account. The `/account/balance` API can be called to check the current balance of the Reserve account for the submerchant
+Reserve amounts can be sent in the `/funding/instruction` API by using the `account_type:` `RESERVE`. The amount specified will be moved to the Reserve virtual account. The `/account/balance` API can be called to check the current balance of the Reserve account for the sub-merchant
 
 ### Releasing and Deducting Reserves
 
 <!-- theme: info -->
 >**POST** `/reserve/release`
 
-Reserve amounts can be released back to the submerchant, or deducted to the Aggregator. First, the `/account/balance` API should be called to check the current balance of the Reserve account.
-Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the submerchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
+Reserve amounts can be released back to the sub-merchant, or deducted to the Aggregator. First, the `/account/balance` API should be called to check the current balance of the Reserve account.
+Then, the `/reserve/release` Endpoint can be used. Specifying an `account_type:` of `RESERVE_RELEASE` will make the instruction release amounts to credit the sub-merchant, and an `account_type:` of `RESERVE_DEDUCTION` will deduct from the reserve to credit the Aggregator.
 The `release_reason` must be specified when adjusting amounts in the reserve account. 
 Amounts can be partially released, but cannot be greater than the current balance in the reserve account.
 Any amounts released will move to the `RESERVE_RELEASE_ACCOUNT` , and amounts deducted will move to the `RESERVE_DEDUCTION_ACCOUNT`.
 Please see full spec on the API Explorer [Here](../api/?type=post&path=/reserve/release) 
 
-## Reimbursing the Submerchant
+## Reimbursing the Sub-Merchant
 
-There may be cases where the submerchant is owed money. In these cases, a debit to the operating account must be made to balance the instruction. 
-This can be done with gross intsructions by using the billing block to submit an `account_type:` `GROSS_FEE` of type `CREDIT` , which will debit the Aggregator for the specified `amount` and credit this to the submerchant.
+There may be cases where the sub-merchant is owed money. In these cases, a debit to the operating account must be made to balance the instruction. 
+This can be done with gross instructions by using the billing block to submit an `account_type:` `GROSS_FEE` of type `CREDIT` , which will debit the Aggregator for the specified `amount` and credit this to the sub-merchant.
 
 ## Reimbursing the Aggregator
 
-Similar to the above, there may be cases where the submerchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the submerchant must be made in the debit block.
-This can be done by using the `account_type:` `GROSS_FEE` of type `DEBIT` , and specifying the `amount` - which will Debit the submerchant and credit the Aggregator.
+Similar to the above, there may be cases where the sub-merchant owes money, but the instructional hold does not have the balance to cover this. In these cases, a debit to the sub-merchant must be made in the debit block.
+This can be done by using the `account_type:` `GROSS_FEE` of type `DEBIT` , and specifying the `amount` - which will Debit the sub-merchant and credit the Aggregator.
 
 ## Splitting to third parties
 
