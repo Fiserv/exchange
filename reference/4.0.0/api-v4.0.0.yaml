@@ -15,9 +15,9 @@ paths:
       summary: Add an Application
       description: Adds a merchant, and a subgroup. Offerings can be retrieved with the offering APIs, and settings can be used for funding/billing settings when not using defaults. Returns identifiers Application reference, and internal MID. Application data will typically be the legal entity for the business.
       operationId: ADD_APPLICATION
-      x-group-name: Boarding Submerchant Applications
+      x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Add Application
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -53,7 +53,7 @@ paths:
       operationId: UPDATE_MERCHANT
       x-group-name: Update Application
       x-proxy-name: Update Merchant
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -77,10 +77,10 @@ paths:
       tags:
         - Application Boarding
       summary: Add Subgroup
-      description: Add Subgroup
-      x-group-name: Boarding Submerchant Applications
+      description: "Adds an additional Subgroup as a chain link between the Sub-Merchant’s Business and Trading Locations. A Subgroup is added by default when the Application is added, so this is only used to add additional Subgroups."
+      x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Additional Subgroup
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -110,10 +110,10 @@ paths:
       tags:
         - Application Boarding
       summary: Update Subgroup
-      description: Update Subgroup
+      description: "Updates a specified chain linked Subgroup underneath a merchant. Full data does not have to be provided, just the data that is being with new values."
       x-group-name: Update Application
       x-proxy-name: Update Subgroup
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -144,7 +144,7 @@ paths:
       tags:
         - Application Boarding
       summary: Retrieve Subgroup
-      description: Retrieve Subgroup
+      description: "Used to retrieve the full information for a chain linking Subgroup from a sub-merchant’s application."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -169,9 +169,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Retrieve Subgroup
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   # /boarding/subgroup/delete:
   #   post:
   #     tags:
@@ -204,19 +204,19 @@ paths:
   #               $ref: '#/components/schemas/error_response'
   #     x-group-name: Update Application
   #     x-proxy-name: Delete Subgroup
-  #     x-child-product-name: Boarding Submerchants
+  #     x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/add:
     post:
       tags:
         - Application Boarding
-      summary: Add Outlet
-      description: "Adds an outlet to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Outlet will typically be the data of the trading location, and multiple outlets can be added for submission if they share the same 'Merchant' level data (ie. under the same legal entity + info)"
+      summary: Add Location (Outlet)
+      description: "Adds a Location (outlet) to the parent mid and reference. Parent MID should be the internal_mid of the subgroup returned in add application or add subgroup, with reference that is also returned. Multiple DBA Locations (outlets) can be added for submission if they share the same 'Merchant' level data (i.e. under the same legal entity + info)"
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
-        description: Adding a new Merchant Outlet
+        description: Adding a new Merchant Location (Outlet)
         content:
           application/json:
             schema:
@@ -246,9 +246,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Add Outlet
-      x-child-product-name: Boarding Submerchants
+      x-group-name: Boarding Sub-Merchant Applications
+      x-proxy-name: Add Location (Outlet)
+      x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/update:
     post:
       tags:
@@ -284,13 +284,13 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Update Application
       x-proxy-name: Update Outlet
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/delete:
     post:
       tags:
         - Application Boarding
       summary: Delete Outlet
-      description: Deletes an additional outlet. Main outlet cannot be deleted, only updated. External ID retrieved in add_application response or through retrieving the application.
+      description: "Used to delete Locations (Outlets) from an application, however the main Location (Outlet) cannot be deleted. The External ID for the Location returned in the Add Location (outlet) or Application Retrieve is to be used in the request to identify the Location to delete."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -317,19 +317,19 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Update Application
       x-proxy-name: Delete Outlet
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/retrieve:
     post:
       tags:
         - Application Boarding
       summary: Retrieve Outlet
-      description: Retrieve Outlet
+      description: "Used to retrieve the full hierarchy from a sub-merchant’s application, including all associated data."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
-        description: Retrieving a Merchant Outlet
+        description: "Used to retrieve the full information for a Location (Outlet) from a sub-merchant’s application."
         content:
           application/json:
             schema:
@@ -348,15 +348,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
-      x-proxy-name: Retrieve Outlet
-      x-child-product-name: Boarding Submerchants
+      x-group-name: Information Retrieval
+      x-proxy-name: Retrieve Location
+      x-child-product-name: Boarding Sub-Merchants
   /boarding/////merchant:
     post:
       tags:
         - Application Boarding
       summary: Merchant Retrieve
-      description: Merchant Retrieve
+      description: "Used to retrieve the full hierarchy from a sub-merchant’s application, including all associated data."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -384,15 +384,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Retrieve Merchant Hierarchy
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding///application:
     post:
       tags:
         - Application Boarding
       summary: Application Status Check
-      description: Check the status of an application
+      description: "Used to check the current status of an application after it has been submitted."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -432,15 +432,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Application Status Check
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding//application:
     post:
       tags:
         - Application Boarding
       summary: Application Submission
-      description: Application Submission
+      description: "Submits the application for validation checks and downstream processes such as underwriting and onboarding. This is performed once the Application and all DBA Locations (outlets) required have been added."
       operationId: APPLICATION_SUBMIT
       requestBody:
         description: Application Submission
@@ -469,14 +469,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Boarding Submerchant Applications
+      x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Application Submit
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding/////application:
     post:
       tags:
         - Application Boarding
-      summary: Application Retrieve, using RETRIEVE_MERCHANT_HIERARCHY operation
+      summary: "Used to retrieve information about an application, such as funding settings and underwriting details."
       description: Application Retrieve
       requestBody:
         description: Application Retrieve
@@ -504,9 +504,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Retrieve Application
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding//////application:
     post:
       tags:
@@ -538,16 +538,16 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Update Application
       x-proxy-name: Unlock Application
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /boarding/remote_api_signature:
     post:
       tags:
         - Application Boarding
       summary: Generate signature link for an application
       description: "Starts remote signature process, and generates a link to sign documents. Signature will be checked every 10 minutes to see if completed by the system automatically. Can be manually checked using /boarding/complete_signature API. This flow is only required if requiring signed documents for onboarding, and doing this through remote signature."
-      x-group-name: Boarding Submerchant Applications
+      x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Remote Signature
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       responses:
         '405':
           description: Invalid input
@@ -568,9 +568,9 @@ paths:
         - Application Boarding
       summary: Verify signature link for an application
       description: "Manually pulls the system to check if signature has been completed. System pulls every 10 minutes regardless of this API being used. Must be called after signautre flow has started."
-      x-group-name: Boarding Submerchant Applications
+      x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Complete Signature
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       responses:
         '405':
           description: Invalid input
@@ -593,11 +593,11 @@ paths:
       tags:
         - Application Boarding
       summary: Add note to an Application
-      description: Adds notes to an application. Application must not be in boarding complete. Merchant must be in either of cancelled, active, held or suspended state.
+      description: "Adds notes to an application or sub-merchant account. or sub-merchant account. Notes cannot be added to an application that is at Boarding Complete status. A sub-merchant must be boarded to be able to add Notes to the Sub-Merchant Account."
       operationId: SUBMIT_NOTE
-      x-group-name: Boarding Submerchant Applications
+      x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Add Notes
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       responses:
         '405':
           description: Invalid input
@@ -618,11 +618,11 @@ paths:
       tags:
         - Application Boarding
       summary: Retrieve Notes for an application/merchant
-      description: Retrieve Notes for an application/merchant
+      description: "Used to Retrieve Notes added to an application/sub-merchant account."
       operationId: RETRIEVE_NOTE
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Retrieve Application Notes
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       responses:
         '405':
           description: Invalid input
@@ -643,11 +643,11 @@ paths:
       tags:
         - Application Boarding
       summary: Retrieve Var Sheet Information for boarded merchant
-      description: Retrieve Var Sheet information for an application/merchant
+      description: "Retrieve VAR Sheet information for an application/merchant. This can only be used once the sub-merchant application has been boarded."
       operationId: RETRIEVE_VAR_SHEET
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Retrieve VAR Sheet
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
       responses:
         '405':
           description: Invalid input
@@ -694,7 +694,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-proxy-name: List all offers
       x-group-name: Offers
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
 
   /product_offer/retrieve:
     post:
@@ -728,7 +728,7 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-proxy-name: Retrieve Offers
       x-group-name: Offers
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
 
   # /offering/available:
   #   post:
@@ -738,7 +738,7 @@ paths:
   #     description: "Retrieve Available configured Offerings. Request can be left Empty in order to retrieve all offerings, or criteria provided (if offer is configured with criteria). Retrieved External IDs can be put into the other offering retrieve endpoints to gather full details."
   #     operationId: LIST_AVAILABLE_OFFERINGS
   #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
+  #     x-child-product-name: Boarding Sub-Merchants
   #     x-proxy-name: Retrieve Available Offerings
   #     parameters:
   #       - {$ref: '#/components/parameters/ApiVersionHeader'}
@@ -771,7 +771,7 @@ paths:
   #     description: "Retrieves the Processing Offering specified. Will return pricing configured for Auto funding scenarios, and retrieve other pricing items such as entitlements that have been configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
   #     operationId: RETRIEVE_PROCESSING_OFFERING
   #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
+  #     x-child-product-name: Boarding Sub-Merchants
   #     x-proxy-name: Retrieve Processing Offerings
   #     parameters:
   #       - {$ref: '#/components/parameters/ApiVersionHeader'}
@@ -800,7 +800,7 @@ paths:
   #     summary: Retrieve Equipment Offering
   #     operationId: RETRIEVE_EQUIPMENT_OFFERING
   #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
+  #     x-child-product-name: Boarding Sub-Merchants
   #     x-proxy-name: Retrieve Equipment Offerings
   #     parameters:
   #       - {$ref: '#/components/parameters/ApiVersionHeader'}
@@ -830,7 +830,7 @@ paths:
   #     description: "Retrieves the Online Offering specified. Will return Gateways + VARs configured. These external IDs will be used in the boarding requests to specify what is sent with the application"
   #     operationId: RETRIEVE_ONLINE_OFFERING
   #     x-group-name: Offerings
-  #     x-child-product-name: Boarding Submerchants
+  #     x-child-product-name: Boarding Sub-Merchants
   #     x-proxy-name: Retrieve Online Offerings
   #     parameters:
   #       - {$ref: '#/components/parameters/ApiVersionHeader'}
@@ -912,7 +912,7 @@ paths:
         - Search Transactions
       summary: Get reject transactions.
       operationId: searchRejectTransactions
-      description: Retrieves the Reject  data provided from Clientline to Exchange. This typically represents rejects after a transaction authorization and is pulled into exchange on a daily cadence before the instructional hold window opens. Rejects usually have a matching deposit adjustment record to balance this out.
+      description: Retrieves the Reject  data provided from Clientline to Exchange. This typically represents rejects after a transaction authorization and is pulled into Exchange on a daily basis before the instructional hold window opens. Rejects usually have a matching deposit adjustment record to balance this out.
       x-group-name: Transactions
       x-proxy-name: Search Rejects
       parameters:
@@ -964,7 +964,7 @@ paths:
         - Search Transactions
       summary: Get chargeback transactions.
       operationId: searchChargebackTransactions
-      description: Retrieves the Chargeback  data provided from Clientline to Exchange. This typically represents a chargebacks cases movement (where there are new records for status changes), and is pulled into exchange on a daily cadence before the instructional hold window opens.
+      description: Retrieves the Chargeback  data provided from Clientline to Exchange. This typically represents a Chargeback case's movement (where there are new records for status changes), and is pulled into Exchange on a daily basis before the instructional hold window opens.
       x-group-name: Transactions
       x-proxy-name: Chargebacks
       parameters:
@@ -1013,7 +1013,7 @@ paths:
       tags:
         - Search Transactions
       summary: Get chargeback adjustment transactions.
-      description: Retrieves the Chargeback Adjusment data provided from Clientline to Exchange. This typically represents actual financial impact + adjustment of the Chargeback and is pulled into exchange on a daily cadence before the instructional hold window opens.
+      description: Retrieves the Chargeback adjustment data provided from Clientline to Exchange. This typically represents actual financial impact + adjustment of the Chargeback and is pulled into Exchange on a daily basis before the instructional hold window opens.
       operationId: searchChargebackAdjustmentTransactions
       x-group-name: Transactions
       x-proxy-name: Chargeback Adjustments
@@ -1117,7 +1117,7 @@ paths:
       x-group-name: Transactions
       x-proxy-name: Adjustments
       operationId: searchAdjustmentTransactions
-      description: Retrieves the Adjusment data provided from Clientline to Exchange.
+      description: Retrieves the adjustment data provided from Clientline to Exchange.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -1912,7 +1912,10 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Create Maintenance Case
       summary: Creating Maintenance Case
-      description: "Creates a Maintenance Case for a merchant to update bank information, or pricing (Managed funding). Updated information is provided in the UPDATE_MAINTENANCE call. When using maintenance type 'ADD_OUTLETS', returns the application reference for the additional outlet that can then be updated using UPDATE_OUTLET  endpoint and submitted using application_submit per standard application. Once submit, will be added to the merchant"
+      description: |
+        Used to create a Maintenance Case to update sub-merchant data. Updated information is then provided in the UPDATE_MAINTENANCE call.
+        When using maintenance type 'ADD_OUTLETS', returns the application reference for the additional Location (outlet) that can then be updated using UPDATE_OUTLET endpoint and submitted using application_submit per standard application. Once submitted and boarded, the New Location (Outlet) will be added to the merchant account.
+
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -1949,7 +1952,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Update Maintenance Case
       summary: Updating a Maintenance Case
-      description: Updates a Maintenance Case that has been created by the Create Maintenance API for a boarded Merchant. Can be used to update the information for the case, such as the bank information at the billing level, and pricing for managed funding.
+      description: "Updates a Maintenance Case that has been created by the Create Maintenance API for a boarded Sub-Merchant. Can be used to update the information for the case, such as the bank information at the billing level, and pricing for Auto-funding."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -1989,7 +1992,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Submit Maintenance Case
       summary: Submitting a Maintenance Case
-      description: Submitting a Maintenance Case for a Merchant with the updated information
+      description: "Submitting a Maintenance Case for a Sub-Merchant with the updated information"
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2021,7 +2024,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Search Maintenance Case
       summary: Searching a Maintenance Case
-      description: Searching for a Maintenance Case already created
+      description: "Used to search for a Maintenance Case and retrieve information about the Maintenance Case."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2053,7 +2056,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Retrieve Maintenance Case
       summary: Retrieving a Maintenace Case
-      description: Retrieving a Maintenance Case already Created
+      description: "Used to retrieve the details of a Maintenance Case once created."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2084,7 +2087,7 @@ paths:
         - Merchant Maintenance
       x-group-name: Merchant Maintenance
       x-proxy-name: Cancel Maintenance Case
-      summary: Cancelling a Maintenance Case
+      summary: "Used to cancel a Maintenance Case after creation. Cannot be used if the Maintenance Case has been completed."
       description: Cancelling a Maintenance Case
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
@@ -2178,15 +2181,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Add Third Party / Non-processing submerchant
-      x-child-product-name: Boarding Submerchants
+      x-group-name: Boarding Sub-Merchant Applications
+      x-proxy-name: Add Third Party / Non-Processing submerchant
+      x-child-product-name: Boarding Sub-Merchants
   /fdapplication/upload_additional_files:
     post:
       tags:
         - Application Boarding
       summary: Uploading Additional Documents to Exchange
-      description: Used to upload documents for an application. For users in a Shared Service model, may be required when requested from the Credit Risk reviewer ("back to sales") to be uploaded. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
+      description: "Used to upload supporting documents to an application before underwriting checks are performed. Sent as form-data with the file and request."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeaderDocument'}
@@ -2206,15 +2209,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Upload Additional Documents
-      x-child-product-name: Boarding Submerchants
+      x-group-name: Boarding Sub-Merchant Applications
+      x-proxy-name: Add Application Documents
+      x-child-product-name: Boarding Sub-Merchants
   /merchant/upload_additional_files:
     post:
       tags:
         - Merchant Maintenance
       summary: Uploading documents to existing Submerchant on
-      description: Used to upload documents for an existing Submerchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
+      description: Used to upload documents for an existing Sub-erchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2235,7 +2238,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Merchant Maintenance
-      x-proxy-name: Upload Documents to Existing Merchant
+      x-proxy-name: Upload Documents to Existing Sub-Merchant
   /boarding/document_categories:
     post:
       tags:
@@ -2266,15 +2269,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Data Retrieval
+      x-group-name: Information Retrieval
       x-proxy-name: Retrieve Configured Documents
-      x-child-product-name: Boarding Submerchants
+      x-child-product-name: Boarding Sub-Merchants
   /fdapplication/submit_additional_documents:
     post:
       tags:
         - Application Boarding
       summary: Submitting additional documents to application (Shared service model)
-      description: Submtting additional documents requested for review in Exchange. Applicable to Shared service model PayFacs with an application in a 'Back to sales' Status
+      description: "Used to upload supporting documents to an application before underwriting checks are performed."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2299,15 +2302,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Boarding Submerchant Applications
-      x-proxy-name: Submit additional documents for Application
-      x-child-product-name: Boarding Submerchants
+      x-group-name: Boarding Sub-Merchant Applications
+      x-proxy-name: Submit Additional Documents for Underwriting
+      x-child-product-name: Boarding Sub-Merchants
   /intelligence/retrieve_intelligence:
     post:
       tags:
         - Risk Screening
       summary: Retrieve Risk Available Reports List for Screening
-      description: Retrieve Risk Available Reports List for Screening
+      description: "Used to retrieve the decisions made in Underwriting Screening and the Underwriting Screening Report references."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2332,15 +2335,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Screening
+      x-group-name: Underwriting Screening
       x-proxy-name: Retrieve Avaliable Reports
-      x-child-product-name: Risk
+      x-child-product-name: Underwriting
   /intelligence/retrieve_report:
     post:
       tags:
         - Risk Screening
       summary: Retrieve Risk Full Report for Screening
-      description: Retrieve Risk Full Report for Screening
+      description: "Used to retrieve the Full Reports generated in Underwriting Screening. Uses the details returned in Retrieve Available Reports to return the a specified reports detail"
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2365,15 +2368,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Screening
-      x-proxy-name: Retrieve Full Report for Screening
-      x-child-product-name: Risk
+      x-group-name: Underwriting Screening
+      x-proxy-name: Retrieve Full Report
+      x-child-product-name: Underwriting
   /intelligence/overwrite_aml_reports:
     post:
       tags:
         - Risk Screening
       summary: Overwriting AML Report for Screening (OFAC Report)
-      description: Overwriting AML Report for Screening (OFAC Report)
+      description: "Used to update the decision for the AML Report and provide the review details."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2398,14 +2401,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Screening
-      x-proxy-name: Overwrite AML Report for Screening
-      x-child-product-name: Risk
+      x-group-name: Underwriting Screening
+      x-proxy-name: Overwrite AML Report
+      x-child-product-name: Underwriting
   /intelligence/overwrite_risk_reports:
     post:
       tags:
         - Risk Screening
-      summary: Overwriting CREDIT RISK Report for Screening (Diligence Reports), only for Full Services
+      summary: "Used to update the decision for Credit Risk Reports (such as MATCH and RNF) and provide the review details."
       description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
@@ -2431,15 +2434,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Screening
-      x-proxy-name: Overwrite Credit Risk report for screening
-      x-child-product-name: Risk
+      x-group-name: Underwriting Screening
+      x-proxy-name: Overwrite Credit Risk Report
+      x-child-product-name: Underwriting
   /intelligence/decision:
     post:
       tags:
         - Risk Screening
       summary: AML and CREDIT RISK decision.
-      description: Used to make the decision for the AML and CREDIT RISK process. This can only be done if the reports for AML and CREDIT RISK are all reviewed.
+      description: "Used to make the decision for the AML and Credit Risk process. This can only be done if the reports for AML and Credit Risk are all reviewed."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2464,15 +2467,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Screening
-      x-proxy-name: Risk Decision
-      x-child-product-name: Risk
+      x-group-name: Underwriting Screening
+      x-proxy-name: Underwriting Decision
+      x-child-product-name: Underwriting
   /monitoring/retrieve_hits:
     post:
       tags:
         - Risk Monitoring
       summary: Retrieve Risk Available Reports List for Monitoring
-      description: Retrieve Risk Available Reports List for Monitoring
+      description: "Used to retrieve the Alerts raised in Entity Monitoring and the Entity Monitoring Report references."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2497,15 +2500,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Monitoring
-      x-proxy-name: Retrieve Risk Avaliable Reports List for monitoring
-      x-child-product-name: Risk
+      x-group-name: Entity Monitoring
+      x-proxy-name: Retrieve Available Entity Monitoring Reports
+      x-child-product-name: Underwriting
   /monitoring/retrieve_report:
     post:
       tags:
         - Risk Monitoring
       summary: Retrieve Risk Full Reports for Monitoring
-      description: Retrieve Risk Full Reports for Monitoring
+      description: "Used to retrieve the Full Reports generated in Entity Monitoring. Uses the details returned in Retrieve Available Reports endpoint to return the Full detail of a Report."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2530,15 +2533,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Monitoring
-      x-proxy-name: Retrieve Risk Full Reports for Monitoring
-      x-child-product-name: Risk
+      x-group-name: Entity Monitoring
+      x-proxy-name: Retrieve Risk Full Reports for Entity Monitoring
+      x-child-product-name: Underwriting
   /monitoring/overwrite_monitoring_report:
     post:
       tags:
         - Risk Monitoring
       summary: Overwriting AML Report for Monitoring (OFAC Report)
-      description: Overwriting AML Report for Monitoring (OFAC Report)
+      description: "Used to update the decision for the Entity Monitoring Report and provide the review details."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2563,16 +2566,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Risk Monitoring
-      x-proxy-name: Overwrite AML report for Monitoring
-      x-child-product-name: Risk
+      x-group-name: Entity Monitoring
+      x-proxy-name: Overwrite Monitoring Report
+      x-child-product-name: Underwriting
   /transaction_monitoring/search:
 
     post:
       tags:
         - Transaction Monitoring
       summary: Search Transaction Monitoring Alerts
-      description: Search for Alerts raised after Monitoring the Transactions.
+      description: "Used to search for Alerts raised in Transaction Monitoring."
       requestBody:
         description: Search for Alerts on Transaction for Alliance and Partner PFACs
         content:
@@ -2595,13 +2598,13 @@ paths:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Transaction Monitoring
       x-proxy-name: Search Alerts
-      x-child-product-name: Risk
+      x-child-product-name: Underwriting
   /transaction_monitoring/retrieve:
     post:
       tags:
         - Transaction Monitoring
       summary: Retrieve Transaction Monitoring Alerts
-      description: Retrieve the Alerts raised after Monitoring the Transactions.
+      description: "Used to retrieve the full details of a Transaction Monitoring Alert. Uses the details returned in Transaction Alert Search to get the details."
       requestBody:
         description: Retrieve the Alerts on Transaction for Alliance and Partner PFACs
         content:
@@ -2623,14 +2626,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Transaction Monitoring
-      x-proxy-name: Retrieve Alerts
-      x-child-product-name: Risk
+      x-proxy-name: Retrieve Alert Details
+      x-child-product-name: Underwriting
   /transaction_monitoring/decision:
     post:
       tags:
         - Transaction Monitoring
       summary: Make Transaction Monitoring Decision
-      description: Make the Decision on the Alerts.
+      description: "Used to update the decision for the Transaction Monitoring Alerts and provide the review details."
       requestBody:
         description: Make the Decision on Transaction for Alliance and Partner PFACs
         content:
@@ -2652,8 +2655,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Transaction Monitoring
-      x-proxy-name: Make Decision
-      x-child-product-name: Risk
+      x-proxy-name: Overwrite Decision
+      x-child-product-name: Underwriting
 
 components:
   parameters:
