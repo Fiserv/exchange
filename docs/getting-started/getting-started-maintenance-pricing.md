@@ -5,9 +5,9 @@ tags: [Getting Started, Maintenance]
 
 ## What is Merchant Maintenance?
 
-When using exchange, you may want to update pricing after it has been boarded. In order to do this, a maintenance case must be created.
+When using Exchange for Auto-funding , you may want to update pricing after the sub-merchant has been boarded. In order to do this, a maintenance case must be created.
 
-### Creating Maintenance Request
+### Creating Maintenance Requests
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -17,7 +17,7 @@ type: tab
 titles: Request , Response 
 -->
 
-In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance type `UPDATE_PROCESSING_PRICING`, and the `merchant_reference` for the submerchant. 
+In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance type `UPDATE_PROCESSING_PRICING`, and the `merchant_reference` for the sub-merchant. 
 `merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant) , and the`internal_mid` of the level the pricing is on (usually merchant) should be retrieved for the next endpoint.  
 In the response of the case creation, the  `old_details` will be provided,which can be used in the next endpoint to update. Please see the other tab for an example response for maintenance creation.
 
@@ -40,7 +40,7 @@ In the response of the case creation, the  `old_details` will be provided,which 
 
 ###  Response 
 
-The response will provide the current details for the submerchant having the maintenance created for.
+The response will provide the current details for the sub-merchant having the maintenance created for.
 
 ```json
 {
