@@ -5,9 +5,9 @@ tags: [Getting Started, Maintenance]
 
 ## What is Merchant Maintenance?
 
-When using exchange, you may want to update pricing after it has been boarded. In order to do this, a maintenance case must be created.
+When using Exchange for Auto-funding , you may want to update pricing after the sub-merchant has been boarded. In order to do this, a maintenance case must be created.
 
-### Creating Maintenance Request
+### Creating Maintenance Requests
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -17,7 +17,7 @@ type: tab
 titles: Request , Response 
 -->
 
-In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance type `UPDATE_PROCESSING_PRICING`, and the `merchant_reference` for the submerchant. 
+In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance type `UPDATE_PROCESSING_PRICING`, and the `merchant_reference` for the sub-merchant. 
 `merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant) , and the`internal_mid` of the level the pricing is on (usually merchant) should be retrieved for the next endpoint.  
 In the response of the case creation, the  `old_details` will be provided,which can be used in the next endpoint to update. Please see the other tab for an example response for maintenance creation.
 
@@ -40,7 +40,7 @@ In the response of the case creation, the  `old_details` will be provided,which 
 
 ###  Response 
 
-The response will provide the current details for the submerchant having the maintenance created for.
+The response will provide the current details for the sub-merchant having the maintenance created for.
 
 ```json
 {
@@ -193,7 +193,7 @@ The response will provide the current details for the submerchant having the mai
 ```
 <!-- type: tab-end -->
 
-### Updating Maintenance Case
+### Updating Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -316,7 +316,7 @@ Example for updating the Blended rate, and split to third party. Data is taken f
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If succesful, merchant has now been updated with the new details.
+Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If successful, the sub-merchant has now been updated with the new details.
 Old details are send in the response under `old_details` , and new details under `/maintenance`
 
 <!--

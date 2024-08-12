@@ -27,7 +27,7 @@ link: ?path=docs/getting-started/getting-started-reporting-accounts.md
 
 <!-- type: card
 title: See Settlements
-description: See settled amounts out to submerchants
+description: See settled amounts out to sub-merchants
 link: ?path=docs/getting-started/getting-started-reporting-settlements.md
 -->
 <!-- type: row-end -->

@@ -54,7 +54,9 @@ This `/intelligence/overwrite_aml_reports` is used to overwrite AML, Negative Ch
 <!-- theme: info -->
 >**POST** `/intelligence/overwrite_risk_reports`
 
-The `/intelligence/overwrite_risk_reports` will be used to overwrite a credit risk check decision. This will only be applicable for users who are operating as a 'full-service' to retrieve reports from a third party. The `overall_decision` field will contain the final decision that the user is overwriting the generated decision for report for.
+The `/intelligence/overwrite_risk_reports` will be used to overwrite a credit risk check decision. This will only be applicable for users who are operating as a 'full-service' to retrieve reports from a third party. The `overall_decision` field will contain the final decision that the user is overwriting the generated decision for report for. This will also be used to overwrite possible matches from RNF and MATCH
+
+
 
 #### Application decision
 
@@ -131,7 +133,7 @@ titles: Screening steps, Monitoring Steps
 <!-- theme: info -->
 >**POST** `/boarding/application`
 
-After an application is submit, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is received due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
+After an application is submitted, it will move to underwriting. If there are every cases where a Credit Risk Error or AML error is received due to invalid data, an application can be unlocked in order to be updated and resubmit using the unlock application endpoint
 
 ```json
 {

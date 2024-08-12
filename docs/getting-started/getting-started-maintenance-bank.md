@@ -3,17 +3,17 @@ tags: [Getting Started, Maintenance]
 ---
 # Merchant Maintenance
 
-##  Maintenance process
+##  Maintenance Process
 
-The user will be able to create a merchant maintenance case with the type of maintenance they would like to do, have this updated, and then submit the case.
+The user will be able to create a maintenance case with the type of maintenance they would like to do, have this updated, and then submit the case.
 This is primarily be facilitated through the `/maintenance` endpoint.
 
-### Creating Maintenance Case
+### Creating Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the submerchant. 
+In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the sub-merchant. 
 The `old_details` will provide the data being updated, which can be used in the next endpoint to update.
 `merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant)
 
@@ -31,7 +31,7 @@ Example request body:
   }
 }
 ```
-### Updating Maintenance Case
+### Updating Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -81,7 +81,7 @@ Example for bank change below:
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If succesful, merchant has now been updated with the new details.
+Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If successful, the sub-merchant has now been updated with the new details.
 ```
 {
   "operation": {
