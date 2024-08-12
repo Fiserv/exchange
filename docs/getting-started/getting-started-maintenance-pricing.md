@@ -193,7 +193,7 @@ The response will provide the current details for the sub-merchant having the ma
 ```
 <!-- type: tab-end -->
 
-### Updating Maintenance Case
+### Updating Maintenance Cases
 
 <!-- theme: info -->
 >**POST** `/maintenance`
@@ -316,7 +316,7 @@ Example for updating the Blended rate, and split to third party. Data is taken f
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If succesful, merchant has now been updated with the new details.
+Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If successful, the sub-merchant has now been updated with the new details.
 Old details are send in the response under `old_details` , and new details under `/maintenance`
 
 <!--
