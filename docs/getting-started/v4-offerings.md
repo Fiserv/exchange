@@ -1,8 +1,8 @@
 # Product Offers
 
-Product offers group pricing, gateways, and billing items within exchange to be added during boarding. These are configured on the config portal, to be retrieved by a set of APIs - which are then added to your boarding requests. The product codes may change between environments, but once created identifier will remain the same.
+Product offers group pricing, gateways, and billing items within Exchange to be added during boarding. These are configured on the config portal, to be retrieved by a set of APIs - which are then added to your boarding requests. The product codes may change between environments, but once created identifier will remain the same.
 
-## List offers
+## List Offers
 
 <!-- theme: info -->
 >**POST** `/product_offer/list`
@@ -31,7 +31,7 @@ Sample Response :
 }
 ```
 
-## Retrieve offer
+## Retrieve Offer
 
 <!-- theme: info -->
 >**POST** `/product_offer/retrieve`
@@ -111,11 +111,11 @@ Key fields in the response include:
 | `offer.entitlements.entitlement_key`  | String            | Key of the entitlement. Example: `"VISA"`                                                                                                              |
 
 
-Please see full spec on the API explorer [endpoint](../api/?type=post&path=/boarding/////merchant)
+Please see full spec on the API explorer [endpoint](../api/?type=post&path=/product_offer/retrieve)
 
-## Adding into boarding
+## Adding into Boarding
 
-Once details are retrieved, this can be added to the boarding APIs under the offer block. Typically, this will be added on the outlet level under the offer item. An example of an offer payload that could be added to an outlet during boarding would look like below, after retrieving the information required.
+Once details are retrieved, these can be added to the boarding APIs under the offer block. Typically, this will be added on the outlet level under the offer item. An example of an offer payload that could be added to an outlet during boarding would look like below, after retrieving the information required.
 
 ```json
     "offer": {
