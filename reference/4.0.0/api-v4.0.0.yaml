@@ -3466,7 +3466,6 @@ components:
           example: "SPLITRATE01"
         account_type: 
           type: string
-          description: "System Generated Offer code that identifies the offer configured. Retrieved from product retrieval."
           example: "REVENUE_ACCOUNT"
           enum: 
             - "REVENUE_ACCOUNT"
