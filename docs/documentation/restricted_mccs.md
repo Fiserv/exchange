@@ -1,3 +1,7 @@
+---
+tags: [Boarding]
+---
+
 #  Restricted MCCs for Boarding API 
 
 <!-- theme: info -->
