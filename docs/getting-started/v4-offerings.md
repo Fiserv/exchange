@@ -1,3 +1,7 @@
+---
+tags: [Offers, Boarding]
+---
+
 # Product Offers
 
 Product offers group pricing, gateways, and billing items within Exchange to be added during boarding. These are configured on the config portal, to be retrieved by a set of APIs - which are then added to your boarding requests. The product codes may change between environments, but once created identifier will remain the same.
