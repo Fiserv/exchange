@@ -104,11 +104,11 @@ JSON format for `ADD_APPLICATION`:
 
 <!--
 type: tab
-titles: Add Outlet, Sample JSON
+titles: Add Location (Outlet) , Sample JSON
 -->
 
 The `/boarding/outlet/add` endpoint supports adding the location (outlet) to an application. This will require the Application Reference and Parent MID to be included in the request to link the Location to the application. This is returned in the response to the`ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant application's subgroup. 
-The outlet will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the sub-merchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/v4-offerings.md)
+The location (outlet) will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the sub-merchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/v4-offerings.md)
 
 <!-- type: tab -->
 
