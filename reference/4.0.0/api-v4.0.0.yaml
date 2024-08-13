@@ -296,7 +296,7 @@ paths:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
         - {$ref: '#/components/parameters/AuthorizationHeader'}
       requestBody:
-        description: Retrieving an additional outlet. Main outlet cannot be deleted, only updated.
+        description: Deletes an additional outlet. Main outlet cannot be deleted, only updated.
         content:
           application/json:
             schema:
@@ -316,7 +316,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Update Application
-      x-proxy-name: Delete Outlet
+      x-proxy-name: Delete Location (Outlet)
       x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/retrieve:
     post:
