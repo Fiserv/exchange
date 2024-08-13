@@ -1,3 +1,7 @@
+---
+tags: [Getting Started, Reporting, Virtual Accounts, Transactions]
+---
+
 # Reporting
 
 Reporting in Exchange can be broken down into three main sections. This includes Transactions, Virtual accounts, and Settlements. 
