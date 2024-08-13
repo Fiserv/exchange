@@ -21701,6 +21701,10 @@ components:
           - UPDATE_ONLINE_PRICING
           - CHANGE_BANK
           - ADD_OUTLETS
+          - CANCEL_LOCATION
+          - CHANGE_DBA
+          - CHANGE_DBA_CONTACT
+
     maintenancetypesPricing:
       type: array
       items:
@@ -21844,6 +21848,8 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
 
     MaintenanceSearchResponse:
       type: object
@@ -21926,6 +21932,9 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
+
 
 
 
@@ -21946,6 +21955,8 @@ components:
           $ref: '#/components/schemas/outletum'
         merchant:
           $ref: '#/components/schemas/merchantum'
+        cancel_location_details:
+          $ref: '#/components/schemas/cancellocationum'
 
     subgroupum:
       type: array
@@ -21960,6 +21971,38 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/MaintenanceBankDetail'
+          contacts:
+            type: array
+            items:
+              $ref: '#/components/schemas/OutletContact'
+          outlet_website:
+            type: string
+            description: website of the location the maintenance is being actioned on
+            example: "https://developer.fiserv.com/"
+          primary_email_address:
+            type: string
+            description: primary email address of the location the maintenance is being actioned on
+            example: "test@fiserv.com"
+          trade_name:
+            type: string
+            description: trade name of the location the maintenance is being actioned on
+            example: "Test"
+
+    cancellocationum:
+      type: object
+      properties:
+        location_to_cancel:
+          type: string
+          description: internal mid of the location to cancel
+          example: "700100000000001"
+        cancellation_reason:
+          type: string
+          description: the reason for cancellation
+          example: "Cancelled"
+          enum:
+            - Cancelled
+            - Cancelled For Fraud
+
     outletum:
       type: array
       items:
@@ -22445,6 +22488,8 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
     UpdateMaintenanceResponsePricing:
       type: object
       properties:
@@ -22472,6 +22517,18 @@ components:
           $ref: '#/components/schemas/odumr'
         new_details:
           $ref: '#/components/schemas/ndumr'
+        cancel_location_details:
+          $ref: '#/components/schemas/cancellocationum'
+    maintenanceerrors:
+      type: array
+      description: Maintenance Errors
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Errors resulting from submitting the maintenance case"
+            example: "Outlet : Outlet data is invalid - Location is already cancelled."
     maintenancedetailsumrPricing:
       type: object
       properties:
@@ -22531,6 +22588,37 @@ components:
                 type: string
                 description: bank id of the new bank
                 example: "62d91c7681b78a00594dd392"
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutletContact'
+        outlet_website:
+          type: string
+          description: website of the location the maintenance is being actioned on
+          example: "https://developer.fiserv.com/"
+        primary_email_address:
+          type: string
+          description: primary email address of the location the maintenance is being actioned on
+          example: "test@fiserv.com"
+        trade_name:
+          type: string
+          description: trade name of the location the maintenance is being actioned on
+          example: "MMISTest Trade name "
+        orderID:
+          type: string
+          description: 'OrderID returned from Marketplace submission'
+          example: "oABC1"
+        marketplace_maintenance_done:
+          type: string
+          description: | 
+            Whether or not the maintenance for this location has been submitted successfully to Marketplace.
+            * `0` - "Not Successful"
+            * `1` - "Successful"
+          example: "1"
+          enum:
+            - "1"
+            - "0"
+
 
 
     odumr:
