@@ -234,7 +234,7 @@ type: tab
 titles: Application Submit, Sample JSON
 -->
 
-The `/boarding/application` endpoint supports submitting the application using the application reference. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response including what needs to be updated and where. This would require the application to be updated, and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
+The `/boarding/application` endpoint supports submitting the application using the application reference. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success:` `0` , with the errors detailed in the bottom of the response including what needs to be updated and where. This would require the application to be updated, and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
 
 #### DDA  Verification
 
