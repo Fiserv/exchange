@@ -1,5 +1,5 @@
 ---
-tags: [Getting Started, Reporting, Virtual Accounts, Transactions]
+tags: [Getting Started, Reporting, Settlement, Transactions]
 ---
 
 # Reporting
