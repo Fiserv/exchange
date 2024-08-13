@@ -1,3 +1,6 @@
+---
+tags: [Getting Started, Funding]
+---
 
 # Gross Instructional Funding
 
