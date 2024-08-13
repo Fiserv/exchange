@@ -113,9 +113,10 @@ Key fields in the response include:
 
 Please see full spec on the API explorer [endpoint](../api/?type=post&path=/product_offer/retrieve)
 
-## Adding into Boarding
+## Adding an Offer during Boarding
 
-Once details are retrieved, these can be added to the boarding APIs under the offer block. Typically, this will be added on the outlet level under the offer item. An example of an offer payload that could be added to an outlet during boarding would look like below, after retrieving the information required.
+Once details are retrieved, these can be added to the boarding APIs under the offer block. Typically, this will be added on the Location (Outlet) level under the offer item. An example of an offer payload that could be added to a location during boarding would look like below, after retrieving the information required.
+This would add the gateway with `product_code` `GTWY01` , and Entitlements for Visa and Mastercard.
 
 ```json
     "offer": {
