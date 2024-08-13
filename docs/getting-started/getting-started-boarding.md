@@ -97,7 +97,7 @@ JSON format for `ADD_APPLICATION`:
 
 <!-- type: tab-end -->
 
-### Adding Outlets
+### Adding Locations (Outlets)
 
 <!-- theme: info -->
 >**POST** `/boarding/outlet/add`
