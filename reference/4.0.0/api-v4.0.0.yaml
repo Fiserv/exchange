@@ -5,6 +5,9 @@ info:
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
   version: '4.00'
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/jay.dawson/devreviewspecs/4.00
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
 paths:
@@ -316,7 +319,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Update Application
-      x-proxy-name: Delete Location (Outlet)
+      x-proxy-name: Delete Location
       x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/retrieve:
     post:
@@ -349,7 +352,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Information Retrieval
-      x-proxy-name: Retrieve Location
+      x-proxy-name: Retrieve Location (Outlet)
       x-child-product-name: Boarding Sub-Merchants
   /boarding/////merchant:
     post:
