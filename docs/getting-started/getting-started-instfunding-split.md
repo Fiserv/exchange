@@ -1,3 +1,6 @@
+---
+tags: [Getting Started, Funding, Split-Funding]
+---
 
 # Split Funding
 

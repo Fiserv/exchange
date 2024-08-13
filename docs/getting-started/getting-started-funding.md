@@ -1,3 +1,7 @@
+---
+tags: [Getting Started, Funding]
+---
+
 # Funding
 
 This section explores instructions that can be sent by API for funding. This primarily focuses on instructional funding, however adjustment instructions and Gross/Net fee billing can occur in addition to standard managed funding.

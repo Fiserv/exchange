@@ -1,7 +1,7 @@
-
 ---
 tags: [Getting Started, Boarding, Application]
 ---
+
 
 # Boarding APIs
 
@@ -97,18 +97,18 @@ JSON format for `ADD_APPLICATION`:
 
 <!-- type: tab-end -->
 
-### Adding Outlets
+### Adding Locations (Outlets)
 
 <!-- theme: info -->
 >**POST** `/boarding/outlet/add`
 
 <!--
 type: tab
-titles: Add Outlet, Sample JSON
+titles: Add Location (Outlet) , Sample JSON
 -->
 
 The `/boarding/outlet/add` endpoint supports adding the location (outlet) to an application. This will require the Application Reference and Parent MID to be included in the request to link the Location to the application. This is returned in the response to the`ADD_APPLICATION` request, and the parent MID will be the `internal_mid` of the merchant application's subgroup. 
-The outlet will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the sub-merchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/v4-offerings.md)
+The location (outlet) will contain the Offer, which is used to select which products and entitlements are going to be onboarded with the sub-merchant. Details for retrieving information from the offer can be retrieved using the `product_offer/list` and  `product_offer/retrieve` endpoints. For additional info on these endpoints and data seen here, please see the [Offerings page](?path=docs/getting-started/v4-offerings.md)
 
 <!-- type: tab -->
 
@@ -234,7 +234,7 @@ type: tab
 titles: Application Submit, Sample JSON
 -->
 
-The `/boarding/application` endpoint supports submitting the application using the application reference. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success` : 0 , with the errors detailed in the bottom of the response including what needs to be updated and where. This would require the application to be updated, and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
+The `/boarding/application` endpoint supports submitting the application using the application reference. This requires the operation type `APPLICATION_SUBMIT` to be added to the request. Please see adjacent example for this. Any validation errors will return a `success:` `0` , with the errors detailed in the bottom of the response including what needs to be updated and where. This would require the application to be updated, and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
 
 #### DDA  Verification
 

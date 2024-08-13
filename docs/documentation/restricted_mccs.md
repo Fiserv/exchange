@@ -1,6 +1,11 @@
+---
+tags: [Boarding]
+---
+
 #  Restricted MCCs for Boarding API 
 
-The following MCCs are restricted when boarding a sub-merchant for either AMEX Direct or AMEX Opt Blue. For a full list of MCCs, please speak to your Fiserv representative. 
+<!-- theme: info -->
+>The following MCCs are restricted when boarding a sub-merchant for either AMEX Direct or AMEX Opt Blue. For a full list of MCCs, please speak to your Fiserv representative. 
 
 | MCC  | RESTRICTED FOR AMEX DIRECT | RESTRICTED FOR OPT BLUE | RESTRICTED FOR AMEX DIRECT & OPT BLUE |
 | ---- | -------------------------- | ----------------------- | ------------------------------------- |
