@@ -2336,7 +2336,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Underwriting Screening
+      x-group-name: Application Underwriting Screening
       x-proxy-name: Retrieve Avaliable Reports
       x-child-product-name: Underwriting
   /intelligence/retrieve_report:
@@ -2369,7 +2369,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Underwriting Screening
+      x-group-name: Application Underwriting Screening
       x-proxy-name: Retrieve Full Report
       x-child-product-name: Underwriting
   /intelligence/overwrite_aml_reports:
@@ -2402,7 +2402,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Underwriting Screening
+      x-group-name: Application Underwriting Screening
       x-proxy-name: Overwrite AML Report
       x-child-product-name: Underwriting
   /intelligence/overwrite_risk_reports:
@@ -2435,7 +2435,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Underwriting Screening
+      x-group-name: Application Underwriting Screening
       x-proxy-name: Overwrite Credit Risk Report
       x-child-product-name: Underwriting
   /intelligence/decision:
@@ -2468,7 +2468,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error_response'
-      x-group-name: Underwriting Screening
+      x-group-name: Application Underwriting Screening
       x-proxy-name: Underwriting Decision
       x-child-product-name: Underwriting
   /monitoring/retrieve_hits:
@@ -12505,12 +12505,16 @@ components:
         amex_type:
           $ref: '#/components/schemas/AMEXType'
         turnover_bus_to_bus_perc:
+          description: "Percentage of Business to Business sales from total turnover"
           $ref: '#/components/schemas/PercentValue'
         turnover_bus_to_cons_perc:
+          description: "Percentage of Business to Consumer sales from total turnover"
           $ref: '#/components/schemas/PercentValue'
         card_bus_to_bus_perc:
+          description: "Total percentage of Business to Business sales from Card + Turnover"
           $ref: '#/components/schemas/PercentValue'
         card_bus_to_cons_perc:
+          description: "Total percentage of Business to Consumer sales from Card + Turnover"
           $ref: '#/components/schemas/PercentValue'
         highest_ticket_sales_amt:
           $ref: '#/components/schemas/HighestTV'
@@ -12556,10 +12560,12 @@ components:
           $ref: '#/components/schemas/ATV'
         banks:
           type: array
+          description : "Bank for the submerchant. Required on submerchants funding/billing level. ABA+DDA required. Bank Name required if Fund-the-sub setup. At least one field for bank address required, ie. country_code"
           items:
             $ref: '#/components/schemas/Bank'
         contacts:
           type: array
+          description: "Contacts for the Location."
           items:
             $ref: '#/components/schemas/OutletContact'
         # equipment_offer:
@@ -13609,6 +13615,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/AddressBlock'
     SettingsSubgroupOutlet:
+      description: "Funding, Billing and Reserve settings for the node. Should be set on the funding/billing level for the application."
       type: object
       properties:
         funding_flag:
@@ -14631,6 +14638,7 @@ components:
       description: ISO3 nationality code
       example: "840"
     Position:
+      type: string
       description: | 
         Contact required if subgroup is billing/funding level. Only one contact per type.
         * `VICE PRESIDENT` - "Vice President"
