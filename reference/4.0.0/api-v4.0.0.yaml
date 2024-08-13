@@ -12064,10 +12064,11 @@ components:
                       - "PARTNER"
                   document_key:
                     type: string
+                    description: "Type of Document. Agreement/Paper/Signature"
                     example: "MERCHANT_AGREEMENT"
                   document_api_key:
                     type: string
-                    description: "MA"
+                    description: "Type of Document. Agreement/Paper/Signature"
                     example: "MA"
                   document_description:
                     type: string
