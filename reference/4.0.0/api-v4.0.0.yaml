@@ -11743,6 +11743,10 @@ components:
                 - U
                 - V
                 - O
+            signature_date:
+              type: string
+              description: "Returned when using remote API signature. Provides the date system loaded the signed document and moved to next process state. YYYY-MM-DD HH:MM:SS "
+              example: "2024-08-07 15:07:59"
             reg_number:
               description: registration number of business
               type: string
@@ -11977,7 +11981,121 @@ components:
         documents:
           example: "[]"
         signed_documents:
-          example: "[]"
+          type: array
+          items:
+            type: object
+            properties:
+              file_name:
+                type: string
+                description: "Name of the document with system added suffix to uniquely identify"
+                example: "DOCUMENT_666989898"
+              document_sent_to_aml:
+                type: string
+                description: "Not Applicable"
+                example: "0"
+              agreement_id:
+                type: string
+                example: "C93AABCDD10VCDD5oICCDDIzLCDDDDN8888-99"
+              document_signed:
+                type: string
+                description: "1 - Yes 0- No"
+                example: "1"
+                enum:
+                  - "1"
+                  - "0"
+              document_sign_type:
+                type: string
+                description: "Type of Signature. Always Electronic for E-Sign"
+                example: "ELECTRONIC"
+                enum:
+                  - "PAPER"
+                  - "ELECTRONIC"
+              document_date_expire:
+                type: string
+                description: "Time until signature link expires"
+                example: "2022-01-11 12:01:11"
+              document_url:
+                type: string
+                example: "0"
+              document_echosign_status:
+                type: string
+                example: "SIGNED"
+              date_added:
+                type: string
+                description: "Date document added into system."
+                example: "2022-01-11 12:01:11"
+              date_updated:
+                type: string
+                description: "Date document was last updated in system"
+                example: "2022-01-11 12:01:11"
+              document_type_external_id:
+                type: string
+                description: "GUID for document type"
+                example: "DOC01-69001-69001-69001-69001-69001-69001"
+              application_external_id:
+                type: string
+                description: "GUID for Application retrieved"
+                example: "APL01-69001-69001-69001-69001-69001-69001"
+              document_external_id:
+                type: string
+                description: "GUID for the document"
+                example: "DCT01-69001-69001-69001-69001-69001-69001"
+              document_template_external_id:
+                type: string
+                description: "GUID for the Document Template"
+                example: "DTE01-69001-69001-69001-69001-69001-69001"
+              document_type:
+                type: object
+                properties:
+                  document_type_external_id:
+                    type: string
+                    description: "GUID for document type"
+                    example: "DOC01-69001-69001-69001-69001-69001-69001"
+                  document_name:
+                    type: string
+                    description: "Name of the Document uploaded"
+                    example: "DOCUMENT"
+                  parent_type:
+                    type: string
+                    description: "Entity this document is boarded under. PARTNER/ALLIANCE"
+                    example: "ALLIANCE"
+                    enum:
+                      - "ALLIANCE"
+                      - "PARTNER"
+                  document_key:
+                    type: string
+                    example: "MERCHANT_AGREEMENT"
+                  document_api_key:
+                    type: string
+                    description: "MA"
+                    example: "MA"
+                  document_description:
+                    type: string
+                    example: "Merchant Agreement"
+                    description: "Description for the document uploaded"
+                  document_group:
+                    type: string
+                    example: "APPLICATION"
+                  document_type:
+                    type: string
+                    example: "GENERATED"
+                  allow_template_upload:
+                    type: string
+                    example: "1"
+                  alliance_external_id:
+                    type: string
+                    example: "ALL01-69001-69001-69001-69001-69001-69001"
+                  partner_external_id:
+                    type: string
+                    example: "PAR01-69001-69001-69001-69001-69001-69001"
+              is_generated:
+                type: boolean
+                example : true
+              friendly_file_name:
+                type: string
+                example: "DOCUMENT"
+                description: "Original file name, used on portal."
+                
         settings:
           type: object
           properties:
