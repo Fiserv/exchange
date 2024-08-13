@@ -1,3 +1,6 @@
+---
+tags: [Getting Started, Funding]
+---
 
 # Net Instructional Funding 
 
