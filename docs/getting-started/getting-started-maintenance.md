@@ -528,19 +528,19 @@ titles: Request , Response
 
 <!-- type: card
 title: See Bank Maintenance
-description: Update a sub-merchants bank that is funded through Exchange
+description: Update bank account for a sub-merchant that is funded through Exchange
 link: ?path=docs/getting-started/getting-started-maintenance-bank.md
 
 -->
 <!-- type: card
 title: See Pricing Maintenance
-description: Update existing rates and fees on pricing that is done through exchange
+description: Update existing rates and fees on pricing that is done through Exchange
 link: ?path=docs/getting-started/getting-started-maintenance-pricing.md
 -->
 
 <!-- type: card
 title: Add Additional Locations
-description: Add an additional location (outlet) to an existing on-boarded sub-bmerchant
+description: Add an additional location (outlet) to an existing sub-merchant
 link: ?path=docs/getting-started/getting-started-maintenance-newlocation.md
 -->
 
