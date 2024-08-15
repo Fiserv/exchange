@@ -10,7 +10,7 @@ Once an application is added, it can be submitted to move into downstream system
 
 ---
 
-## Adding an application
+## Adding an Application
 
 The standard sub-merchant hierarchy is built from a Merchant, a Chain and a location (outlet). These are sent using the `boarding/add_application` and `outlet/add` endpoints. The chain is added inside the add_application as a subgroup, and is used for structure. Outlets are added to a subgroup.
 
@@ -292,17 +292,17 @@ A set of Validation is done upon using the submission endpoint. This can mean th
     }
 ```
 
-### Checking application status
+### Checking Application Status
 
 The application status check can be used to check current status of application. This will give information on the flow of the application. An application is considered complete once it has reached status 'Boarding Complete'. 
 This will also give you information on what credit risk state the application using the `"aml_process_state"`, `"aml_error"`, `"credit_risk_process_state"`, `"CREDIT_RISK_CHECK_ERROR"`. These report the current state, and any potential errors from the risk services.
 For example payloads, please see [API explorer](../api?type=post&path=/boarding///application)
 
-#### Error handling 
+#### Error Handling 
 
 Upon submission to services in the system, it is possible to receive errors downstream if the data submitted is invalid, or for other system errors.  These are reported in a set of fields in the status API 
 
-## Updating an application
+## Updating an Application
 
 While an Application is in 'Open' status, it can be updated using the UPDATE requests, this can be done for each level of the sub-merchant. 
 An applications status and information can be retrieved using the `APPLICATION_STATUS_CHECK` and `RETRIEVE_APPLICATION` requests, and the application can be submitted by using the `APPLICATION_SUBMIT` request (pending validation). Any validation errors will return a success : 0 , with the errors detailed in the bottom of the response, including what needs to be updated and where. This would require the application to be updated and resubmitted until it passes the validation. For full specs on this please see the [API Explorer](../api/?type=post&path=/boarding//application).
