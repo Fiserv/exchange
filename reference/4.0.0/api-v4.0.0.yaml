@@ -254,7 +254,7 @@ paths:
       tags:
         - Application Boarding
       summary: Update Outlet
-      description: Updates a specified outlet underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
+      description: Updates a specified Location (outlet) underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -323,7 +323,7 @@ paths:
       tags:
         - Application Boarding
       summary: Retrieve Outlet
-      description: "Used to retrieve the full hierarchy from a sub-merchant’s application, including all associated data."
+      description: "Used to retrieve the full information for a Location (Outlet) from a sub-merchant’s application."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -477,7 +477,7 @@ paths:
       tags:
         - Application Boarding
       summary: "Used to retrieve information about an application, such as funding settings and underwriting details."
-      description: Application Retrieve
+      description: "Used to retrieve information about an application, such as funding settings and underwriting details."
       requestBody:
         description: Application Retrieve
         content:
@@ -593,7 +593,7 @@ paths:
       tags:
         - Application Boarding
       summary: Add note to an Application
-      description: "Adds notes to an application or sub-merchant account. or sub-merchant account. Notes cannot be added to an application that is at Boarding Complete status. A sub-merchant must be boarded to be able to add Notes to the Sub-Merchant Account."
+      description: "Adds notes to an application or sub-merchant account. Notes cannot be added to an application that is at Boarding Complete status. A sub-merchant must be boarded to be able to add Notes to the Sub-Merchant Account."
       operationId: SUBMIT_NOTE
       x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Add Notes
@@ -2089,7 +2089,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Cancel Maintenance Case
       summary: "Used to cancel a Maintenance Case after creation. Cannot be used if the Maintenance Case has been completed."
-      description: Cancelling a Maintenance Case
+      description: "Used to cancel a Maintenance Case after creation. Cannot be used if the Maintenance Case has been completed."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2183,7 +2183,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Boarding Sub-Merchant Applications
-      x-proxy-name: Add Third Party / Non-Processing submerchant
+      x-proxy-name: Add Third Party / Non-Processing Sub-Merchant
       x-child-product-name: Boarding Sub-Merchants
   /fdapplication/upload_additional_files:
     post:
@@ -2218,7 +2218,7 @@ paths:
       tags:
         - Merchant Maintenance
       summary: Uploading documents to existing Submerchant on
-      description: Used to upload documents for an existing Sub-erchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
+      description: Used to upload documents for an existing Sub-Merchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2410,7 +2410,7 @@ paths:
       tags:
         - Risk Screening
       summary: "Used to update the decision for Credit Risk Reports (such as MATCH and RNF) and provide the review details."
-      description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
+      description: "Used to update the decision for Credit Risk Reports (such as MATCH and RNF) and provide the review details."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -3466,12 +3466,11 @@ components:
           example: "SPLITRATE01"
         account_type: 
           type: string
-          description: "System Generated Offer code that identifies the offer configured. Retrieved from product retrieval."
-          example: "REVENUE_ACCOUNT"
+          example: "REVENUE"
           enum: 
-            - "REVENUE_ACCOUNT"
-            - "FEE_ACCOUNT"
-        transaction_record_type:
+            - "REVENUE"
+            - "FEE"
+        transaction_record_types:
           type: array
           description: |
             Type of transaction the split applies to. 
@@ -11743,6 +11742,10 @@ components:
                 - U
                 - V
                 - O
+            signature_date:
+              type: string
+              description: "Returned when using remote API signature. Provides the date system loaded the signed document and moved to next process state. YYYY-MM-DD HH:MM:SS "
+              example: "2024-08-07 15:07:59"
             reg_number:
               description: registration number of business
               type: string
@@ -11977,7 +11980,122 @@ components:
         documents:
           example: "[]"
         signed_documents:
-          example: "[]"
+          type: array
+          items:
+            type: object
+            properties:
+              file_name:
+                type: string
+                description: "Name of the document with system added suffix to uniquely identify"
+                example: "DOCUMENT_666989898"
+              document_sent_to_aml:
+                type: string
+                description: "Not Applicable"
+                example: "0"
+              agreement_id:
+                type: string
+                example: "C93AABCDD10VCDD5oICCDDIzLCDDDDN8888-99"
+              document_signed:
+                type: string
+                description: "1 - Yes 0- No"
+                example: "1"
+                enum:
+                  - "1"
+                  - "0"
+              document_sign_type:
+                type: string
+                description: "Type of Signature. Always Electronic for E-Sign"
+                example: "ELECTRONIC"
+                enum:
+                  - "PAPER"
+                  - "ELECTRONIC"
+              document_date_expire:
+                type: string
+                description: "Time until signature link expires"
+                example: "2022-01-11 12:01:11"
+              document_url:
+                type: string
+                example: "0"
+              document_echosign_status:
+                type: string
+                example: "SIGNED"
+              date_added:
+                type: string
+                description: "Date document added into system."
+                example: "2022-01-11 12:01:11"
+              date_updated:
+                type: string
+                description: "Date document was last updated in system"
+                example: "2022-01-11 12:01:11"
+              document_type_external_id:
+                type: string
+                description: "GUID for document type"
+                example: "DOC01-69001-69001-69001-69001-69001-69001"
+              application_external_id:
+                type: string
+                description: "GUID for Application retrieved"
+                example: "APL01-69001-69001-69001-69001-69001-69001"
+              document_external_id:
+                type: string
+                description: "GUID for the document"
+                example: "DCT01-69001-69001-69001-69001-69001-69001"
+              document_template_external_id:
+                type: string
+                description: "GUID for the Document Template"
+                example: "DTE01-69001-69001-69001-69001-69001-69001"
+              document_type:
+                type: object
+                properties:
+                  document_type_external_id:
+                    type: string
+                    description: "GUID for document type"
+                    example: "DOC01-69001-69001-69001-69001-69001-69001"
+                  document_name:
+                    type: string
+                    description: "Name of the Document uploaded"
+                    example: "DOCUMENT"
+                  parent_type:
+                    type: string
+                    description: "Entity this document is boarded under. PARTNER/ALLIANCE"
+                    example: "ALLIANCE"
+                    enum:
+                      - "ALLIANCE"
+                      - "PARTNER"
+                  document_key:
+                    type: string
+                    description: "Type of Document. Agreement/Paper/Signature"
+                    example: "MERCHANT_AGREEMENT"
+                  document_api_key:
+                    type: string
+                    description: "Type of Document. Agreement/Paper/Signature"
+                    example: "MA"
+                  document_description:
+                    type: string
+                    example: "Merchant Agreement"
+                    description: "Description for the document uploaded"
+                  document_group:
+                    type: string
+                    example: "APPLICATION"
+                  document_type:
+                    type: string
+                    example: "GENERATED"
+                  allow_template_upload:
+                    type: string
+                    example: "1"
+                  alliance_external_id:
+                    type: string
+                    example: "ALL01-69001-69001-69001-69001-69001-69001"
+                  partner_external_id:
+                    type: string
+                    example: "PAR01-69001-69001-69001-69001-69001-69001"
+              is_generated:
+                type: boolean
+                example : true
+              friendly_file_name:
+                type: string
+                example: "DOCUMENT"
+                description: "Original file name, used on portal."
+                
         settings:
           type: object
           properties:
@@ -28947,10 +29065,10 @@ components:
               percentage_amount: "2.10"
               detail: "Fees"
               reference: "SPLITREF"
-              transaction_record_type: 
+              transaction_record_types: 
                 - "1"
                 - "2"
-              account_type: "REVENUE_ACCOUNT"
+              account_type: "REVENUE"
           offer:
             product_offer_code: "PRO00000000001"
             product_items:

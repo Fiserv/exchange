@@ -4,7 +4,7 @@ tags: [Getting Started, Developer Portal, API Keys]
 
 # Getting Started with Exchange
 
-The developer studio allows users to view and use documentation for Exchange. This is seperated into two sections, the [Documentation](?path=/docs/introduction/exchange-intro.md) and the specs + schema on the [API Explorer](../api/?type=post&path=/boarding/add_application)
+The developer studio allows users to view and use documentation for Exchange. This is seperated into two sections, the [Documentation](?path=docs/getting-started/getting-started-apis.md) and the specs + schema on the [API Explorer](../api/?type=post&path=/boarding/add_application)
 
 ---
 
@@ -16,7 +16,7 @@ Building your Exchange integration
 
 <!-- type: card
 title: Using our APIs
-description: Introduction on our environments and how to use our APIs
+description: Introduction to our environments and how to use our APIs
 link: ?path=docs/getting-started/getting-started-apis.md
 -->
 <!-- type: card
@@ -27,7 +27,7 @@ link: ?path=docs/getting-started/getting-started-authorization.md
 
 <!-- type: card
 title: Boarding
-description: Start onboarding a submerchant by API
+description: Start onboarding a sub-merchant by API
 link: ?path=docs/getting-started/getting-started-boarding.md
 -->
 <!-- type: row-end -->
@@ -47,7 +47,7 @@ link: ?path=docs/getting-started/getting-started-funding.md
 
 <!-- type: card
 title: Reporting
-description: Consume reporting for funding that has happened through exchange
+description: Consume reporting for funding that has happened through Exchange
 link: ../api/?type=post&path=/boarding/outlet/add
 -->
 <!-- type: row-end -->
@@ -56,7 +56,7 @@ link: ../api/?type=post&path=/boarding/outlet/add
 
 <!-- type: card
 title: Transactions
-description: Consume reporting for funding that has happened through Exchange
+description: Consume transactions that have been processed by your sub-merchants
 link: ?path=docs/getting-started/getting-started-reporting-transactions.md
 -->
 

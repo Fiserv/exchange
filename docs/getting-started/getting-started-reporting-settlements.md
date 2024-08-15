@@ -8,7 +8,7 @@ Settlements can be retrieved by UI or API and will show the type of settlement (
 >**POST** `/account/settlement-info`
 
 This is handled using the `/account/settlement-info` endpoint on a MID-by-MID basis. 
-The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the merchants bank account.
+The reference is uniquely assigned when the settlement is generated, and the *effective date* is the date that this settlement will actually be funded to the sub-merchants bank account.
 
 ### Settlement Rejects (ACH rejects)
 
