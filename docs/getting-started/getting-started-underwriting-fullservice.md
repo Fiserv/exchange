@@ -14,7 +14,7 @@ If the PayFac is enabled to use Exchange to perform underwriting checks, they wi
 * Transaction Monitoring
 
 
-The PayFac will be responsible for reviewing the outcome of any underwriting checks that do not automatically approved, including any possible matches to OFAC/Sanctions databases and the Mastercard MATCH database.
+The PayFac will be responsible for reviewing the outcome of any underwriting checks that do not automatically approve, including any possible matches to OFAC/Sanctions databases and the Mastercard MATCH database.
 
 <!-- theme: danger -->
 > **If an OFAC hit is confirmed, the sub-merchant cannot be boarded and if already on the system will be held from funding.**

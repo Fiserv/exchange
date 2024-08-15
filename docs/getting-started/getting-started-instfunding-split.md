@@ -32,8 +32,8 @@ Supported accounts added to this request include:
 | Category    | Key                 | Description                                         |
 |-------------|---------------------|-----------------------------------------------------|
 | FEE         | FEE_ACCOUNT         | Account used to send amounts to the fee account. Funds moved to Fee will be credited to the Aggregators Operating account            |
-| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the sub-merchants Revenue account. Funds moved here will be credited to the submerchant.  |
-| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the submerchant. |
+| REVENUE     | REVENUE_ACCOUNT     | Account used to send amounts to the sub-merchant's Revenue account. Funds moved here will be credited to the sub-merchant.  |
+| CHARGEBACK  | CHARGEBACK_ACCOUNT     | Account used for instructing chargeback amounts. Specifying type chargeback will used the Chargeback account balance to validate the instruction and use the chargeback bank account collected on the sub-merchant. |
 | SPLIT       | SPLIT_ACCOUNT       | Account used to split funds to third parties on the system.  |
 | RESERVE     | RESERVE_ACCOUNT     | Account used to move funds into a reserve account, for release or deduction in the future. |
 

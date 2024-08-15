@@ -254,7 +254,7 @@ paths:
       tags:
         - Application Boarding
       summary: Update Outlet
-      description: Updates a specified outlet underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
+      description: Updates a specified Location (outlet) underneath a merchant. Full data does not have to be provided, just the data that is being with new values.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -323,7 +323,7 @@ paths:
       tags:
         - Application Boarding
       summary: Retrieve Outlet
-      description: "Used to retrieve the full hierarchy from a sub-merchant’s application, including all associated data."
+      description: "Used to retrieve the full information for a Location (Outlet) from a sub-merchant’s application."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -477,7 +477,7 @@ paths:
       tags:
         - Application Boarding
       summary: "Used to retrieve information about an application, such as funding settings and underwriting details."
-      description: Application Retrieve
+      description: "Used to retrieve information about an application, such as funding settings and underwriting details."
       requestBody:
         description: Application Retrieve
         content:
@@ -593,7 +593,7 @@ paths:
       tags:
         - Application Boarding
       summary: Add note to an Application
-      description: "Adds notes to an application or sub-merchant account. or sub-merchant account. Notes cannot be added to an application that is at Boarding Complete status. A sub-merchant must be boarded to be able to add Notes to the Sub-Merchant Account."
+      description: "Adds notes to an application or sub-merchant account. Notes cannot be added to an application that is at Boarding Complete status. A sub-merchant must be boarded to be able to add Notes to the Sub-Merchant Account."
       operationId: SUBMIT_NOTE
       x-group-name: Boarding Sub-Merchant Applications
       x-proxy-name: Add Notes
@@ -2090,7 +2090,7 @@ paths:
       x-group-name: Merchant Maintenance
       x-proxy-name: Cancel Maintenance Case
       summary: "Used to cancel a Maintenance Case after creation. Cannot be used if the Maintenance Case has been completed."
-      description: Cancelling a Maintenance Case
+      description: "Used to cancel a Maintenance Case after creation. Cannot be used if the Maintenance Case has been completed."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2184,7 +2184,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Boarding Sub-Merchant Applications
-      x-proxy-name: Add Third Party / Non-Processing submerchant
+      x-proxy-name: Add Third Party / Non-Processing Sub-Merchant
       x-child-product-name: Boarding Sub-Merchants
   /fdapplication/upload_additional_files:
     post:
@@ -2219,7 +2219,7 @@ paths:
       tags:
         - Merchant Maintenance
       summary: Uploading documents to existing Submerchant on
-      description: Used to upload documents for an existing Sub-erchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
+      description: Used to upload documents for an existing Sub-Merchant. Sent as form-data with the file and request. Request document_data will depend on how the document being uploaded was configured, and tenant_udc_external_id is retrieved through the configured document categories endpoint.
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -2411,7 +2411,7 @@ paths:
       tags:
         - Risk Screening
       summary: "Used to update the decision for Credit Risk Reports (such as MATCH and RNF) and provide the review details."
-      description: Overwriting CREDIT RISK Report for Screening (Diligence Report)
+      description: "Used to update the decision for Credit Risk Reports (such as MATCH and RNF) and provide the review details."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -3467,12 +3467,11 @@ components:
           example: "SPLITRATE01"
         account_type: 
           type: string
-          description: "System Generated Offer code that identifies the offer configured. Retrieved from product retrieval."
-          example: "REVENUE_ACCOUNT"
+          example: "REVENUE"
           enum: 
-            - "REVENUE_ACCOUNT"
-            - "FEE_ACCOUNT"
-        transaction_record_type:
+            - "REVENUE"
+            - "FEE"
+        transaction_record_types:
           type: array
           description: |
             Type of transaction the split applies to. 
@@ -29155,10 +29154,10 @@ components:
               percentage_amount: "2.10"
               detail: "Fees"
               reference: "SPLITREF"
-              transaction_record_type: 
+              transaction_record_types: 
                 - "1"
                 - "2"
-              account_type: "REVENUE_ACCOUNT"
+              account_type: "REVENUE"
           offer:
             product_offer_code: "PRO00000000001"
             product_items:
