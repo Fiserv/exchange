@@ -10,7 +10,7 @@ Once an application is added, it can be submitted to move into downstream system
 
 ---
 
-## Adding an application
+## Adding an Application
 
 The standard sub-merchant hierarchy is built from a Merchant, a Chain and a location (outlet). These are sent using the `boarding/add_application` and `outlet/add` endpoints. The chain is added inside the add_application as a subgroup, and is used for structure. Outlets are added to a subgroup.
 
