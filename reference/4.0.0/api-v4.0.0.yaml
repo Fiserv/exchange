@@ -3466,10 +3466,10 @@ components:
           example: "SPLITRATE01"
         account_type: 
           type: string
-          example: "REVENUE_ACCOUNT"
+          example: "REVENUE"
           enum: 
-            - "REVENUE_ACCOUNT"
-            - "FEE_ACCOUNT"
+            - "REVENUE"
+            - "FEE"
         transaction_record_types:
           type: array
           description: |
@@ -29068,7 +29068,7 @@ components:
               transaction_record_types: 
                 - "1"
                 - "2"
-              account_type: "REVENUE_ACCOUNT"
+              account_type: "REVENUE"
           offer:
             product_offer_code: "PRO00000000001"
             product_items:
