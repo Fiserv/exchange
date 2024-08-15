@@ -144,7 +144,7 @@ titles: Request , Response
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Maintenance cases for a merchant can be searched using the `MAINTENANCE_SEARCH` operation. This allows the user to retrieve all current and previous maintenance cases made for a sub-merchant. The `maintenance_status` can be used to view what state the case is in.
+Maintenance cases for a sub-merchant can be searched using the `MAINTENANCE_SEARCH` operation. This allows the user to retrieve all current and previous maintenance cases made for a sub-merchant. The `maintenance_status` can be used to view what state the case is in.
 
 <!--
 type: tab
@@ -227,7 +227,7 @@ titles: Request , Response
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Specific Maintenance cases for a merchant can be pulled using the `RETRIEVE_MAINTENANCE` operation. This allows the user to retrieve a specific maintenance case made for a sub-merchant. 
+Specific Maintenance cases for a sub-merchant can be pulled using the `RETRIEVE_MAINTENANCE` operation. This allows the user to retrieve a specific maintenance case made for a sub-merchant. 
 
 <!--
 type: tab
