@@ -53,7 +53,7 @@ Below is a list of virtual accounts that can be called:
 | Merchant Fee Account        | MERCHANT_FEE_ACCOUNT      | Reports fees collected via pricing transaction billing or instructional funding will be reported here and roll up to the Fee account. Typically used in multiple outlet scenarios, where the funding level is above the outlets (Subgroup or Merchant). |
 | Service Fee Account         | SERVICE_FEE_ACCOUNT       | Reports 'service' items that are billed through pricing. This includes Monthly Charges, One-off charges, Billing Instruction Charges, SaaS Charges that are done via pricing. Typically used for Auto Funding. |
 | Gross Fee Account           | GROSS_FEE_ACCOUNT         | Reports fees when the sub-merchant is set up for gross billing. Will also report any additional GROSS_FEE instructions. |
-| Fee Collect Account         | FEE_COLLECT_ACCOUNT       | Reports Gross Fees that are billed through Pricing or instructions (where instructions are type GROSS_FEE and SERVICE_FEE) that debit the merchant. Will include amounts from Service Fee (if not set up with NET) and Gross Fee if used. |
+| Fee Collect Account         | FEE_COLLECT_ACCOUNT       | Reports Gross Fees that are billed through Pricing or instructions (where instructions are type GROSS_FEE and SERVICE_FEE) that debit the sub-merchant. Will include amounts from Service Fee (if not set up with NET) and Gross Fee if used. |
 | Fee Account                 | FEE_ACCOUNT               | Represents the final Fee to be settled to the Aggregator from this sub-merchant. |
 | Revenue Account             | REVENUE_ACCOUNT           | The final Revenue amount to be settled to the sub-merchant. |
 | Delay Funding Account       | DELAY_FUNDING_ACCOUNT     | Reports any funds that are currently delayed, to be settled. The delay will depend on the config set for Auto Funding. |
@@ -61,7 +61,7 @@ Below is a list of virtual accounts that can be called:
 | Reserve Account             | RESERVE_ACCOUNT           | Current Reserve balance for the sub-merchant  (collection done via instructions). |
 | Reserve Deduction Account   | RESERVE_DEDUCTION_ACCOUNT | Reports the deductions made from the reserve (or rolling reserve), crediting the Aggregator. Release done via API or Portal. |
 | Reserve Release Account     | RESERVE_RELEASE_ACCOUNT   | Reports funds released from the reserve (or rolling reserve), crediting the sub-merchant. Release done via API or portal. |
-| Split Account               | SPLIT_ACCOUNT             | Account on Third Parties on the system used to report funds that have been split out from a sub-merchant on the system to a third party. sub-merchants do not have this account. Will report at a summary level for amounts that are received. |
+| Split Account               | SPLIT_ACCOUNT             | Account on Third Parties on the system used to report funds that have been split out from a sub-merchant on the system to a third party. Sub-merchants do not have this account. Will report at a summary level for amounts that are received. |
 | Adjustment Account          | ADJUSTMENT_ACCOUNT        | Account used to report adjustments made in the system, typically through the adjustment block in the instructional funding API. |
 | Hold Account                | HOLD_ACCOUNT              | Reports amounts that are received for a Held account when a sub-merchant is held. If a sub-merchant is unheld, any amount stored as a result of holding the sub-merchant is released. The Hold account will also store amounts from transaction monitoring where this results in the transaction being held, or when using transaction instructions that have not matched any transaction details. |
 | Suspend Account             | SUSPEND_ACCOUNT           | Reports amounts that are received for a suspended account when a sub-merchant is suspended. |
@@ -124,7 +124,7 @@ For full spec, please find API [Here](../api/?type=post&path=/account/trade-deta
 <!-- theme: info -->
 >**POST** `/billing/fee-details`
 
-Within Auto funding, 'service billing' can be added to a sub-merchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. 
+Within Auto-Funding, 'service billing' can be added to a sub-merchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. 
 
 ```json
 {
