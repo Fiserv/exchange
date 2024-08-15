@@ -19,7 +19,7 @@ This is primarily be facilitated through the `/maintenance` endpoint.
 
 In order to create maintenance case, `/maintenance` endpoint must be used with operation_type : `CREATE_MAINTENANCE`. The user will need to provide the type of maintenance being performed, and the `merchant_reference` for the sub-merchant. 
 The `old_details` will provide the data being updated, which can be used in the next endpoint to update.
-`merchant_reference` can be found by retrieving the merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant)
+`merchant_reference` can be found by retrieving the sub-merchant using the `boarding/merchant` [endpoint](../api/?type=post&path=/boarding/////merchant)
 
 Example request body:
 ```
