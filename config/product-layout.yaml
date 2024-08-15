@@ -61,7 +61,7 @@ featuredFeatures:
         path: /intelligence/decision
   - title: Funding
     groupName: API Suite
-    description:   Fund submerchants through exchange
+    description: Fund sub-merchants through exchange
     relatedDocs: 
         - link: /docs/getting-started/funding.md
           title: Funding
@@ -71,7 +71,7 @@ featuredFeatures:
         path: /funding/instruction
   - title: Reporting
     groupName: API Suite
-    description:   View Reporting for submerchants funding + fees through Exchange
+    description:   View Reporting for sub-merchants funding + fees through Exchange
     relatedDocs: 
         - link: /docs/getting-started/getting-started-reporting.md  
           title: Reporting
@@ -91,7 +91,7 @@ featuredFeatures:
         path: /transaction
   - title: Maintenance
     groupName: API Suite
-    description:  Perform submerchant maintenance for pricing through API
+    description:  Perform sub-merchant maintenance for pricing through API
     relatedDocs:
       - link: docs/getting-started/getting-started-maintenance.md
         title: Instruct funding
