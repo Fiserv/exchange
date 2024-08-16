@@ -87,7 +87,7 @@ Example for bank change below:
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If successful, merchant has now been updated with the new details.
+Once this has been updated, we can now submit the case using the Maintenance reference number that was returned in the original Create Maintenance call. If successful, the sub-merchant has now been updated with the new details.
 ```
 {
   "operation": {
