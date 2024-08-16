@@ -5,7 +5,7 @@ tags: [Getting Started, Maintenance]
 
 ## What is Merchant Maintenance?
 
-When using exchange, you may want to update sub-merchant data or pricing after it has been boarded. In order to do this, a maintenance case must be created.
+When using Exchange, you may want to update sub-merchant data or pricing after it has been boarded. In order to do this, a maintenance case must be created.
 
 ## General Maintenance process
 
