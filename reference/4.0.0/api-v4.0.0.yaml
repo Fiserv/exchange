@@ -283,7 +283,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error_response'
       x-group-name: Update Application
-      x-proxy-name: Update Outlet
+      x-proxy-name: Update Location
       x-child-product-name: Boarding Sub-Merchants
   /boarding/outlet/delete:
     post:

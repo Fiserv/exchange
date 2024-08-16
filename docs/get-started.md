@@ -48,7 +48,7 @@ link: ?path=docs/getting-started/getting-started-funding.md
 <!-- type: card
 title: Reporting
 description: Consume reporting for funding that has happened through Exchange
-link: ../api/?type=post&path=/boarding/outlet/add
+link: ?path=docs/getting-started/getting-started-reporting.md
 -->
 <!-- type: row-end -->
 

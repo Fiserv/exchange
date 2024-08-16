@@ -707,7 +707,7 @@ titles: Request , Response
 
 Auto Funding on Exchange performs calculations automatically based on configurations set for that sub-merchant. As this is done by the system, the calculations performed will be added to the corresponding transactions.
 
-### Processing Fee Caluclations
+### Processing Fee Calculations
 
 To retrieve calculations performed by Auto Fundings processing charges at a transaction level, the `fee_details` block in the `/transaction` , `/transaction/chargeback-adjustments`, `/transaction/rejects`  endpoints can be used. This provides a breakdown of all charge items that have applied for this charge, and how they were calculated. For full spec, please find API [here](../api/?type=post&path=/transaction)
 
