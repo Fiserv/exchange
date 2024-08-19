@@ -906,6 +906,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
+  /transaction/passthrough:
+    post:
+      tags:
+        - Search Transactions
+      summary: Get normal transactions.
+      x-group-name: Transactions
+      x-proxy-name: Transaction Passthrough
+      description : Retrieves Passthrough Billing data provided from Clientline to Exchange. The date_added indicates the date the record was added to Exchange.
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassthroughDataSearchRequest'
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
+      responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassthroughTransactionDataResponse'
+        "404":
+          description: Transactions not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   /transaction/rejects:
     post:
       tags:
@@ -15804,7 +15848,33 @@ components:
             d|3[01])( (0\\d|1\\d|2[0-3]):([0-5]\\d):([0-5]\\d))?$"
           type: string
           description: Date Added Second Value
-
+    PostDateQuery:
+      required:
+      - operator
+      - value
+      type: object
+      properties:
+        operator:
+          type: string
+          description: Processed date operator
+          example: EQ
+          enum:
+          - EQ
+          - GT
+          - GE
+          - LT
+          - LE
+          - BW
+          - IN
+          - LK
+        value:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Processed date value
+          example: 2021-08-12
+        int:
+          type: boolean
     InvoiceIdQuery:
       required:
         - operator
@@ -15829,7 +15899,32 @@ components:
           minLength: 0
           type: string
           description: Invoice Number Value
-
+    FeeSequenceCodeQuery:
+      required:
+      - operator
+      - value
+      type: object
+      properties:
+        operator:
+          type: string
+          description: Fee Sequence Code Operator
+          example: EQ
+          enum:
+          - EQ
+          - GT
+          - GE
+          - LT
+          - LE
+          - BW
+          - IN
+          - LK
+        value:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Fee Sequence Code Value
+        int:
+          type: boolean
     LocationDbaNameQuery:
       required:
         - operator
@@ -24751,6 +24846,38 @@ components:
         auth_tracker:
           $ref: '#/components/schemas/AuthTrackerQuery'
       description: Query conditions - Cannot be empty.
+    PassthroughTransactionQueryDTO:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/AllianceIdQuery'
+        partner_id:
+          $ref: '#/components/schemas/PartnerIdQuery'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeIdQuery'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIdQuery'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeIdQuery'
+        merchant_reference:
+          $ref: '#/components/schemas/MerchantReferenceQuery'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/MerchantNodeExternalIdQuery'
+        outlet_id:
+          $ref: '#/components/schemas/OutletIdQuery'
+        location_id:
+          $ref: '#/components/schemas/LocationIdQuery'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDbaNameQuery'
+        card_type_query:
+          $ref: '#/components/schemas/CardTypeQuery'
+        date_added:
+          $ref: '#/components/schemas/DateAddedQuery'
+        fee_sequence_code: 
+          $ref: '#/components/schemas/FeeSequenceCodeQuery'
+        post_date:
+          $ref: '#/components/schemas/PostDateQuery'
+      description: Query conditions - Cannot be empty.
     TransactionSearchRequest:
       required:
         - limit
@@ -24772,6 +24899,28 @@ components:
           example: "1"
         query:
           $ref: '#/components/schemas/TransactionQueryDTO'
+    PassthroughSearchRequest:
+      required:
+        - limit
+        - query
+      type: object
+      properties:
+        limit:
+          maximum: 5000
+          minimum: 1
+          type: string
+          description: Size of the page - Cannot be empty.
+          format: int32
+          example: "6"
+        page:
+          minimum: 1
+          type: string
+          description: The page where to get those reports from
+          format: int32
+          example: "1"
+        query:
+          $ref: '#/components/schemas/PassthroughTransactionQueryDTO'
+
     Transaction:
       type: object
       properties:
@@ -26208,6 +26357,227 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Transaction'
+    PassthroughDataSearchQueryDTO:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/AllianceIdQuery'
+        partner_id:
+          $ref: '#/components/schemas/PartnerIdQuery'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeIdQuery'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIdQuery'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeIdQuery'
+        merchant_reference:
+          $ref: '#/components/schemas/MerchantReferenceQuery'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/MerchantNodeExternalIdQuery'
+        outlet_id:
+          $ref: '#/components/schemas/OutletIdQuery'
+        location_id:
+          $ref: '#/components/schemas/LocationIdQuery'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDbaNameQuery'
+        card_type_query:
+          $ref: '#/components/schemas/CardTypeQuery'
+        date_added:
+          $ref: '#/components/schemas/DateAddedQuery'
+        fee_sequence_code:
+          $ref: '#/components/schemas/FeeSequenceCodeQuery'
+        post_date:
+          $ref: '#/components/schemas/PostDateQuery'
+      description: Query conditions - Cannot be empty.
+    PassthroughTransactionDataResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/PassthroughTransactionResponseDTO'
+    PassthroughTransactionResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        summary_status:
+          type: string
+        passthrough_fees:
+          type: array
+          items:
+            $ref: '#/components/schemas/PfacMerchantBilling'
+    PfacMerchantBilling:
+      type: object
+      properties:
+        _id:
+          type: string
+        merchant_reference:
+          type: string
+        location_id:
+          type: string
+        merchant_node_id:
+          type: integer
+          format: int32
+        pfac_node_id:
+          type: integer
+          format: int32
+        processing_pfac_node_id:
+          type: integer
+          format: int32
+        outlet_id:
+          type: integer
+          format: int32
+        alliance_id:
+          type: integer
+          format: int32
+        partner_id:
+          type: integer
+          format: int32
+        merchant_id:
+          type: integer
+          format: int32
+        plan_code:
+          type: string
+        reclass_code:
+          type: string
+        date_added:
+          type: string
+          format: date-time
+        post_date:
+          type: string
+        fee_sequence_code:
+          type: string
+        amount:
+          type: number
+        product_id:
+          type: integer
+          format: int32
+        product_name:
+          type: string
+        description:
+          type: string
+        fee_group:
+          type: string
+          enum:
+          - EXCHANGE
+          - INTERCHANGE
+          - SCHEME
+          - OTHERS
+        calculation_type:
+          type: string
+          enum:
+          - FIXED
+          - IC_PLUS_PLUS
+          - COST_ROLLUP
+          - REV_SHARE
+          - PASS_THROUGH
+        merchant_fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantFeeDetail'
+        hierarchy_fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/HierarchyFeeDetail'
+        created_date:
+          type: string
+        text1:
+          type: string
+        text2:
+          type: string
+        plan_cd:
+          type: string
+        sub_merchant_name:
+          type: string
+        fee_desc:
+          type: string
+    HierarchyFeeDetail:
+      type: object
+      properties:
+        total_fee_amount:
+          type: number
+        node_id:
+          type: integer
+          format: int32
+        product_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductItem'
+    ProductItem:
+      type: object
+      properties:
+        total_fee_amount:
+          type: number
+        product_item_id:
+          type: string
+        fee_group:
+          type: integer
+          format: int32
+        product_code:
+          type: string
+        product_name:
+          type: string
+        calculation_type:
+          type: string
+        fixed_amount:
+          type: string
+        fixed_fee_amount:
+          type: string
+        percentage_amount:
+          type: string
+        percentage_fee_amount:
+          type: string
+    MerchantFeeDetail:
+      type: object
+      properties:
+        total_fee_amount:
+          type: number
+        product_item_id:
+          type: string
+        fee_group:
+          type: integer
+          format: int32
+        product_code:
+          type: string
+        product_name:
+          type: string
+        calculation_type:
+          type: string
+        fixed_amount:
+          type: string
+        fixed_fee_amount:
+          type: string
+        percentage_amount:
+          type: string
+        percentage_fee_amount:
+          type: string
+    PassthroughDataSearchRequest:
+      required:
+      - limit
+      - query
+      type: object
+      properties:
+        limit:
+          maximum: 5000
+          minimum: 1
+          type: integer
+          description: Size of the page - Cannot be empty.
+          format: int32
+          example: 6
+        page:
+          minimum: 1
+          type: integer
+          description: The page where to get those reports from
+          format: int32
+          example: 1
+        query:
+          $ref: '#/components/schemas/PassthroughDataSearchQueryDTO'
     TransactionsSearchResponse:
       type: object
       properties:
