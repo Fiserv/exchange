@@ -2751,6 +2751,7 @@ components:
         - processing_merchant_id
         - split_details
         - transaction_date
+        - transaction_record_type
         - transaction_type
       type: object
       properties:
@@ -2758,13 +2759,21 @@ components:
           type: string
           description: Date of transaction - Cannot be empty.
           example: "2021-09-02"
-
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -2789,6 +2798,20 @@ components:
           type: string
           description: Case number for a chargeback
           example: "TX0001"
+        transaction_code:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Transaction Code
+          example: A
+        commercehub_primary_txn_id:
+          type: string
+          description: commerceHub primary txn id.
+          example: "111"
+        commercehub_txn_id:
+          type: string
+          description: commerceHub txn id.
+          example: "11111111"
         processing_merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -16576,6 +16599,10 @@ components:
             - REJECT_ADJUSTMENT
             - PFAC_ADJUSTMENT
             - SPLIT
+        description:
+          type: string
+          description: "Description of the tranasction split"
+          example: "Split to third party"
       description: accounts - at least one details.
     TransactionInstructionDetailsDTO:
       required:
@@ -16626,20 +16653,37 @@ components:
             $ref: '#/components/schemas/TransactionInstructionDetailsResponseDTO'
     TransactionInstructionIdentifierRequest:
       required:
-        - transaction_date
-        - transaction_type
+      - amount
+      - processing_merchant_id
+      - transaction_date
+      - transaction_record_type
+      - transaction_type
       type: object
       properties:
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
         transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: "2021-09-02"
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+          example: 2021-09-02
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -16663,7 +16707,17 @@ components:
           minLength: 1
           type: string
           description: Case number for a chargeback
-          example: "TX0001"
+          example: TX0001
+        transaction_code:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Transaction Code
+          example: A
+        amount:
+          type: number
+          description: total amount of transaction - Cannot be empty.
+          example: 100.0
     TransactionInstructionStatusResponse:
       type: object
       properties:
@@ -16700,25 +16754,40 @@ components:
             $ref: '#/components/schemas/TransactionInstructionDetailsResponseDTO'
     TransactionInstructionReprocessRequest:
       required:
-        - amount
-        - currency
-        - note
-        - processing_merchant_id
-        - split_details
-        - transaction_date
-        - transaction_type
+      - amount
+      - currency
+      - note
+      - processing_merchant_id
+      - split_details
+      - transaction_date
+      - transaction_record_type
+      - transaction_type
       type: object
       properties:
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
         transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: "2021-09-02"
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+          example: 2021-09-02
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -16742,19 +16811,49 @@ components:
           minLength: 1
           type: string
           description: Case number for a chargeback
-          example: "TX0001"
-        processing_merchant_id:
+          example: TX0001
+        transaction_code:
+          maxLength: 20
+          minLength: 1
           type: string
-          description: Id of merchant - Cannot be empty.
-          example: "400000000005"
+          description: Transaction Code
+          example: A
         amount:
-          type: string
+          type: number
           description: total amount of transaction - Cannot be empty.
-          example: "100.00"
+          example: 100.0
         currency:
-          type: string
+          type: object
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            numericCode:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            symbol:
+              type: string
+            numericCodeAsString:
+              type: string
           description: Currency - Cannot be empty.
-          example: "USD"
+          example: USD
+        processing_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+          type: string
+          description: Date of processing.
+          example: 2021-09-02
+        commercehub_primary_txn_id:
+          type: string
+          description: commerceHub primary txn id.
+          example: "111"
+        commercehub_txn_id:
+          type: string
+          description: commerceHub txn id.
+          example: "11111111"
         split_details:
           type: array
           description: details - at least one details.
@@ -16763,7 +16862,7 @@ components:
         note:
           type: string
           description: A note for why the reprocess was done
-          example: "We forgot to send the data"
+          example: We forgot to send the data
     TransactionInstructionReprocessDetailsResponseDTO:
       type: object
       properties:
@@ -16851,24 +16950,39 @@ components:
           $ref: '#/components/schemas/TransactionInstructionErrorsDTO'
     TransactionInstructionDiscardRequest:
       required:
-        - amount
-        - currency
-        - note
-        - processing_merchant_id
-        - transaction_date
-        - transaction_type
+      - amount
+      - currency
+      - note
+      - processing_merchant_id
+      - transaction_date
+      - transaction_record_type
+      - transaction_type
       type: object
       properties:
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
         transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: "2021-09-02"
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+          example: 2021-09-02
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -16892,23 +17006,53 @@ components:
           minLength: 1
           type: string
           description: Case number for a chargeback
-          example: "TX0001"
-        processing_merchant_id:
+          example: TX0001
+        transaction_code:
+          maxLength: 20
+          minLength: 1
           type: string
-          description: Id of merchant - Cannot be empty.
-          example: "400000000005"
+          description: Transaction Code
+          example: A
         amount:
-          type: string
+          type: number
           description: total amount of transaction - Cannot be empty.
-          example: "100.00"
+          example: 100.0
         currency:
-          type: string
+          type: object
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            numericCode:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            symbol:
+              type: string
+            numericCodeAsString:
+              type: string
           description: Currency - Cannot be empty.
-          example: "USD"
+          example: USD
+        processing_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+          type: string
+          description: Date of processing.
+          example: 2021-09-02
+        commercehub_primary_txn_id:
+          type: string
+          description: commerceHub primary txn id.
+          example: "111"
+        commercehub_txn_id:
+          type: string
+          description: commerceHub txn id.
+          example: "11111111"
         note:
           type: string
           description: A note for why the reprocess was done
-          example: "We forgot to send the data"
+          example: We forgot to send the data
     AccountResponseDTO:
       required:
         - account_type
