@@ -938,6 +938,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PassthroughTransactionDataResponse'
+              examples:
+                PassthroughFeeResponse:
+                  summary: Example Payload for querying a single MID for a passthrough fee
+                  $ref: '#/components/examples/ResponsePassthrough'
         "404":
           description: Transactions not found
           content:
@@ -30565,6 +30569,74 @@ components:
             amount: '5.00'
             type: CREDIT
         
+    ResponsePassthrough:
+      value:
+        result: SUCCESS
+        response:
+          limit: '20'
+          page: '1'
+          summary_status: FOUND
+          passthrough_fees:
+            - _id: 6f2522147afbba675c
+              merchant_reference: '3000001'
+              location_id: '321000004321'
+              merchant_node_id: 300001
+              pfac_node_id: 1
+              processing_pfac_node_id: 1
+              outlet_id: 100000
+              alliance_id: 12000001
+              merchant_id: 90001
+              date_added: '2021-11-01T10:11:20.150'
+              post_date: '2021-10-30'
+              fee_sequence_code: '001'
+              amount: '6.1500'
+              fee_group: INTERCHANGE
+              calculation_type: PASS_THROUGH
+              merchant_fee_details:
+                - total_fee_amount: '6.1500'
+                  product_item_id: '12'
+                  fee_group: 2
+                  product_code: ALL_PASSTHROUGH
+                  product_name: IC+ Passthrough
+                  calculation_type: PASS_THROUGH
+                  fixed_amount: '6.1500'
+                  fixed_fee_amount: '6.1500'
+              created_date: '2021-11-01'
+              text1: VI-US 1
+              text2: ''
+              plan_cd: '123'
+              sub_merchant_name: ABC*DBA Name
+              fee_desc: VISA INTERCHANGE FEE
+            - _id: 6f2522147afbba675c
+              merchant_reference: '3000001'
+              location_id: '321000004321'
+              merchant_node_id: 300001
+              pfac_node_id: 1
+              processing_pfac_node_id: 1
+              outlet_id: 100000
+              alliance_id: 12000001
+              merchant_id: 90001
+              date_added: '2021-11-01T10:15:20.150'
+              post_date: '2021-10-30'
+              fee_sequence_code: '804'
+              amount: '0.0100'
+              fee_group: INTERCHANGE
+              calculation_type: PASS_THROUGH
+              merchant_fee_details:
+                - total_fee_amount: '0.0100'
+                  product_item_id: '13'
+                  fee_group: 2
+                  product_code: ALL_PASSTHROUGH
+                  product_name: IC+ Passthrough
+                  calculation_type: PASS_THROUGH
+                  fixed_amount: '0.01'
+                  fixed_fee_amount: '0.01'
+              created_date: '2021-11-01'
+              text1: VISA SALES DISCOUNT
+              text2: .000010 DISC RATE TIMES      $1000
+              plan_cd: ''
+              sub_merchant_name: ABC*DBA Name
+              fee_desc: VISA SALES DISCOUNT
 
     RequestNetCBReversalInstruction:
       value:
