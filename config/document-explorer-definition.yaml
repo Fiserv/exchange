@@ -33,44 +33,95 @@
       link: docs/get-started.md
       open: true
       sections:
-        - title: Introduction
-          link: docs/introduction/exchange-intro.md
-        - title: Onboarding Submerchants 
-          link: docs/getting-started/boarding.md
-        - title: Submerchant Funding 
-          link: docs/getting-started/funding.md
+        - title: Using our APIs
+          link: docs/getting-started/getting-started-apis.md
+        - title: Authentication
+          link: docs/getting-started/getting-started-authorization.md
+        - title: Boarding
+          link: docs/getting-started/getting-started-boarding.md
+        - title: Underwriting
+          open: true
+          link: docs/getting-started/getting-started-underwriting.md
+          sections: 
+          - title: Full Service
+            link: docs/getting-started/getting-started-underwriting-fullservice.md
+          - title: Shared Service
+            link: docs/getting-started/getting-started-underwriting-sharedservice.md
+        - title: Funding
+          link: docs/getting-started/getting-started-funding.md
+          open : true
+          sections:
+          - title: Net Instructional Funding
+            link: docs/getting-started/getting-started-instfunding-net.md
+          - title: Gross Instructional Funding
+            link: docs/getting-started/getting-started-instfunding-gross.md
+          - title: Transaction Instructions
+            link: docs/getting-started/getting-started-instfunding-split.md
+        - title: Reporting
+          link: docs/getting-started/getting-started-reporting.md
+          open : true
+          sections:
+          - title: Transactions
+            link: docs/getting-started/getting-started-reporting-transactions.md
+          - title: Virtual Accounts
+            link: docs/getting-started/getting-started-reporting-accounts.md
+          - title: Settlements
+            link: docs/getting-started/getting-started-reporting-settlements.md
+        # - title: Transactions
+        #   link: docs/getting-started/getting-started-transactions.md
+        - title: Maintenance
+          open: true
+          link: docs/getting-started/getting-started-maintenance.md
+          sections: 
+          - title: Bank Changes
+            link: docs/getting-started/getting-started-maintenance-bank.md
+          - title: Pricing Changes
+            link: docs/getting-started/getting-started-maintenance-pricing.md
+          - title: New Location
+            link: docs/getting-started/getting-started-maintenance-newlocation.md
+          
+        #- title: (OLD) Onboarding Submerchants 
+          #link: docs/getting-started/boarding.md
+        #- title: (OLD) Submerchant Funding 
+         # link: docs/getting-started/funding.md
+        #- title: (OLD) Introduction 
+         # link: docs/introduction/exchange-intro.md
 - sections:
   - title: Additional API Info
     link: docs/getting-started/api-info.md
     open: true
     sections:
-    - title: Authentication
-      link: docs/getting-started/oauth.md
-    - title: Virtual account operations
-      link: docs/getting-started/account-operations.md
-    - title: Submerchant onboarding
-      link: docs/getting-started/boarding.md
-    - title: OFAC and Credit risk checks
-      link: docs/getting-started/risk.md
-    - title: Funding
-      link: docs/getting-started/funding.md
-    - title: Information retrieval
-      link: docs/getting-started/information-retrieval.md
-    - title: Submerchant maintenance
-      link: docs/getting-started/maintenance.md
-    - title: Pricing + Equipment offerings
-      link: docs/getting-started/offerings.md
-    - title: Split funding by transaction 
-      link: docs/getting-started/split-details.md
-    - title: Transaction operations 
-      link: docs/getting-started/transactions.md
-    - title: Reporting & Settlement 
-      link: docs/getting-started/reporting.md
-    - title: Back to Sales
-      link: docs/getting-started/backtosales.md
+    - title: Pricing + Equipment Offerings
+      open: false
+      sections:
+      - title: Offers
+        link: docs/getting-started/v4-offerings.md
+      - title: (Legacy V3) Pricing + Equipment offerings
+        link: docs/getting-started/offerings.md
+    # - title: Split funding by transaction 
+    #   link: docs/getting-started/split-details.md
     - title: Restricted MCCs
       link: docs/documentation/restricted_mccs.md
-          
+   # - title: Authentication
+     # link: docs/getting-started/oauth.md
+    # - title: Virtual account operations
+    #   link: docs/getting-started/account-operations.md
+  #  - title: Submerchant onboarding
+   #   link: docs/getting-started/boarding.md
+    #- title: OFAC and Credit risk checks
+     # link: docs/getting-started/risk.md
+    # - title: Funding
+    #   link: docs/getting-started/funding.md
+    # - title: Information retrieval
+    #   link: docs/getting-started/information-retrieval.md
+    #- title: Submerchant maintenance
+     # link: docs/getting-started/maintenance.md
+    #- title: Transaction operations 
+     # link: docs/getting-started/transactions.md
+    #- title: Reporting & Settlement 
+     # link: docs/getting-started/reporting.md
+    #- title: Back to Sales
+     # link: docs/getting-started/backtosales.md
 - sections:
     - title: Release Notes
       open : false

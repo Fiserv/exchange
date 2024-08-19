@@ -31,80 +31,71 @@ header:
   productionDescription: Exchange is a platform that brings together  functionality required by a payment facilitator or marketplace to manage their sub-merchants. This includes offer management and onboarding configuration, merchant onboarding, underwriting, flexible funding options, and reporting.
 getStarted: docs/get-started.md
 benefits:
-  - title: Boarding
-    description: Fast end-to-end sub-merchant onboarding available through suite of APIs and UI.
-    icon: assets/images/business_icon_square.png
-  - title: Funding
-    description:  Direct splits for payouts to sub-merchants and beneficiaries through funding instructions.
-    icon: assets/images/money_icon_square.png
-  - title: Settlement 
-    description: Settlement details and reporting avaliable through Exchange.
-    icon: assets/images/statement_icon_square.png
-guides:
-  - title: Boarding API guide
-    description: Boarding a standard location through our API
-    link: docs/getting-started/boarding.md
-featuredFeatures:
   - title: Payment Facilitators
-    featured: true
-    description:  Supporting payment faciliators services and requirments
-    relatedDocs:
-      - link: /docs/getting-started/boarding.md
-        title: Sub-merchant boarding
-      - link: docs/getting-started/funding.md
-        title: Funding
-      - link: docs/getting-started/reporting.md 
-        title: Reporting & Settlement
+    description: Supporting clients who offer payment facilitation services to their sub-merchants.
+    icon: assets/images/business_icon_square.png
   - title: Marketplaces
-    featured: true
-    description:  Supporting Marketplace offerings with split payments
-    relatedDocs:
-      - link: /docs/getting-started/boarding.md
-        title: Sub-merchant boarding
-      - link: docs/getting-started/funding.md
-        title: Funding
-      - link: docs/getting-started/reporting.md 
-        title: Reporting & Settlement
-  - title: PayFac Lite
-    featured: true
-    description:  Supporting PayFac Lite 
-    relatedDocs:
-      - link: /docs/getting-started/boarding.md
-        title: Sub-merchant boarding
-      - link: docs/getting-started/funding.md
-        title: Funding
-      - link: docs/getting-started/reporting.md 
-        title: Reporting & Settlement
+    description:  Supporting clients who offer marketplace services to their sellers.
+    icon: assets/images/money_icon_square.png
+  - title: PayFac Lite 
+    description: Supporting ISV and referral partners under a Fiserv registered Payment Facilitator account.
+    icon: assets/images/statement_icon_square.png
+featuredFeatures:
   - title: Boarding
     groupName: API Suite
     description:  End-to-end boarding API 
     relatedDocs:
-      - link: /docs/getting-started/boarding.md
+      - link: /docs/getting-started/getting-started-boarding.md
         title: Sub-merchant boarding
-      - link: docs/getting-started/funding.md
-        title: Funding
-      - link: docs/getting-started/reporting.md 
-        title: Reporting & Settlement
     relatedAPIs: 
       - type: post       
         path: /boarding/add_application
+  - title: Underwriting
+    groupName: API Suite
+    description:  Supporting Underwriting + Monitoring through our API
+    relatedDocs:
+      - link: docs/getting-started/getting-started-underwriting.md
+        title: Sub-merchant boarding
+    relatedAPIs: 
+      - type: post       
+        path: /intelligence/decision
   - title: Funding
     groupName: API Suite
-    description:  Funding instructions and split details that can be sent through API.
-    relatedDocs:
-      - link: docs/getting-started/funding.md
-        title: Instruct funding
+    description: Fund sub-merchants through exchange
+    relatedDocs: 
+        - link: /docs/getting-started/funding.md
+          title: Funding
     relatedAPIs: 
       - type: post
-        title: Funding Instruction       
-        path: /funding/instruction        
-  - title: Reporting & Settlement
+        title: Funding Instruction
+        path: /funding/instruction
+  - title: Reporting
     groupName: API Suite
-    description:   Settlement details and reporting avaliable through Exchange.
+    description:   View Reporting for sub-merchants funding + fees through Exchange
     relatedDocs: 
-        - link: /docs/getting-started/reporting.md  
+        - link: /docs/getting-started/getting-started-reporting.md  
           title: Reporting
     relatedAPIs: 
       - type: post
-        title: Get Settlement Info    
-        path: /account/settlement-info   
+        title: Get Account Summary    
+        path: /account/account-summary   
+  - title: Transactions
+    groupName: API Suite
+    description:  View transactions and splits applied via the systems automated funding 
+    relatedDocs:
+      - link: docs/getting-started/getting-started-transactions.md
+        title: Instruct funding
+    relatedAPIs: 
+      - type: post
+        title: Search Transactions       
+        path: /transaction
+  - title: Maintenance
+    groupName: API Suite
+    description:  Perform sub-merchant maintenance for pricing through API
+    relatedDocs:
+      - link: docs/getting-started/getting-started-maintenance.md
+        title: Instruct funding
+    relatedAPIs: 
+      - type: post
+        title: Update Maintenance Case       
+        path: //maintenance  
