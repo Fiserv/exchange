@@ -26548,12 +26548,19 @@ components:
       properties:
         limit:
           type: string
+          example: "25"
+          description: "Limit of results per page"
         page:
           type: string
+          example: "1"
+          description: "Page being retrieved."
         summary_status:
           type: string
+          example: "FOUND"
+          description: "Status of results being searched for."
         passthrough_fees:
           type: array
+          description: "Object for passthrough billing details"
           items:
             $ref: '#/components/schemas/PfacMerchantBilling'
     PfacMerchantBilling:
@@ -26561,31 +26568,53 @@ components:
       properties:
         _id:
           type: string
+          description: "Internal identifier for the record"
+          example: "a9c6lkjd0ab33lm887j66afd"
         merchant_reference:
           type: string
+          description: "Merchant reference in the system"
+          minLength: 7
+          maxLength: 7
+          example: "3000001"
         location_id:
           type: string
+          description: "Location Merchant ID"
+          example: "101000000321"
         merchant_node_id:
           type: integer
           format: int32
+          description: "Internal merchant identifier"
+          example: "300001"
         pfac_node_id:
           type: integer
           format: int32
+          description: "Internal PFAC identifier"
+          example: "001"
         processing_pfac_node_id:
           type: integer
           format: int32
+          description: "Internal PFAC identifier"
+          example: "001"
         outlet_id:
           type: integer
           format: int32
+          description: "Internal Identifier of the Outlet"
+          example : "000001"
         alliance_id:
           type: integer
           format: int32
+          description: "Internal Identifier for the Alliance"
+          example: "12000001"
         partner_id:
           type: integer
           format: int32
+          description: "Internal Identifier for the Partner"
+          example: "13000001"
         merchant_id:
           type: integer
           format: int32
+          description : "Internal Identifier for the merchant"
+          example: "900001"
         plan_code:
           type: string
         reclass_code:
@@ -26593,12 +26622,17 @@ components:
         date_added:
           type: string
           format: date-time
+          description: "Date the record was added into the system"
         post_date:
           type: string
         fee_sequence_code:
           type: string
+          description: "Fee sequence code provided for the fee being billed. Provided from NORTH"
+          example: "AB1"
         amount:
           type: number
+          description: "Total amount being billed"
+          example: "0.0500"
         product_id:
           type: integer
           format: int32
@@ -26608,6 +26642,7 @@ components:
           type: string
         fee_group:
           type: string
+          example: "SCHEME"
           enum:
           - EXCHANGE
           - INTERCHANGE
@@ -26615,6 +26650,7 @@ components:
           - OTHERS
         calculation_type:
           type: string
+          example: "PASS_THROUGH"
           enum:
           - FIXED
           - IC_PLUS_PLUS
@@ -26631,16 +26667,27 @@ components:
             $ref: '#/components/schemas/HierarchyFeeDetail'
         created_date:
           type: string
+          description: "2024-08-01"
         text1:
           type: string
+          description: "First descriptor provided for the Passthrough Fee"
+          example: "SALES DISCOUNT"
         text2:
           type: string
+          description: "Second descriptor provided for the Passthrough Fee"
+          example: "0.000100 RATE TIMES $100"
         plan_cd:
           type: string
+          description: "Plan code provided for the fee being billed"
+          example: "A01"
         sub_merchant_name:
           type: string
+          description: "Sub-merchant Descriptor"
+          example: "ABC*DBA name"
         fee_desc:
           type: string
+          description: "Fee description being passed through"
+          example: "VISA ASSESSMENT FEE CR"
     HierarchyFeeDetail:
       type: object
       properties:
