@@ -2344,7 +2344,7 @@ paths:
       tags:
         - Risk Screening
       summary: Retrieve Risk Full Report for Screening
-      description: "Used to retrieve the Full Reports generated in Underwriting Screening. Uses the details returned in Retrieve Available Reports to return the a specified reports detail"
+      description: "Used to retrieve the Full Reports generated in Underwriting Screening. Uses the details returned in Retrieve Available Reports to return a specified reports detail"
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
