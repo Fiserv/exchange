@@ -906,6 +906,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
+  /transaction/passthrough:
+    post:
+      tags:
+        - Search Transactions
+      summary: Get normal transactions.
+      x-group-name: Transactions
+      x-proxy-name: Transaction Passthrough
+      description : Retrieves Passthrough Billing data provided from Clientline to Exchange. The date_added indicates the date the record was added to Exchange.
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassthroughDataSearchRequest'
+            examples:
+              QueryLocationDateAdded:
+                summary: Example Payload for querying a single MID with the date transactions were added
+                $ref: '#/components/examples/RequestTransactionDateMID'
+              QueryLocationBetweenDateAdded:
+                summary: Example Payload for querying a single MID between a date selection where transactions were added
+                $ref: '#/components/examples/RequestTransactionBetweenDateMID'
+        required: true
+      responses:
+        "200":
+          description: Found the transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassthroughTransactionDataResponse'
+              examples:
+                PassthroughFeeResponse:
+                  summary: Example Payload for querying a single MID for a passthrough fee
+                  $ref: '#/components/examples/ResponsePassthrough'
+        "404":
+          description: Transactions not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   /transaction/rejects:
     post:
       tags:
@@ -2707,6 +2755,7 @@ components:
         - processing_merchant_id
         - split_details
         - transaction_date
+        - transaction_record_type
         - transaction_type
       type: object
       properties:
@@ -2714,13 +2763,21 @@ components:
           type: string
           description: Date of transaction - Cannot be empty.
           example: "2021-09-02"
-
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -2745,6 +2802,20 @@ components:
           type: string
           description: Case number for a chargeback
           example: "TX0001"
+        transaction_code:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Transaction Code
+          example: A
+        commercehub_primary_txn_id:
+          type: string
+          description: commerceHub primary txn id.
+          example: "111"
+        commercehub_txn_id:
+          type: string
+          description: commerceHub txn id.
+          example: "11111111"
         processing_merchant_id:
           type: string
           description: Id of merchant - Cannot be empty.
@@ -15804,7 +15875,33 @@ components:
             d|3[01])( (0\\d|1\\d|2[0-3]):([0-5]\\d):([0-5]\\d))?$"
           type: string
           description: Date Added Second Value
-
+    PostDateQuery:
+      required:
+      - operator
+      - value
+      type: object
+      properties:
+        operator:
+          type: string
+          description: Processed date operator
+          example: EQ
+          enum:
+          - EQ
+          - GT
+          - GE
+          - LT
+          - LE
+          - BW
+          - IN
+          - LK
+        value:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Processed date value
+          example: 2021-08-12
+        int:
+          type: boolean
     InvoiceIdQuery:
       required:
         - operator
@@ -15829,7 +15926,32 @@ components:
           minLength: 0
           type: string
           description: Invoice Number Value
-
+    FeeSequenceCodeQuery:
+      required:
+      - operator
+      - value
+      type: object
+      properties:
+        operator:
+          type: string
+          description: Fee Sequence Code Operator
+          example: EQ
+          enum:
+          - EQ
+          - GT
+          - GE
+          - LT
+          - LE
+          - BW
+          - IN
+          - LK
+        value:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Fee Sequence Code Value
+        int:
+          type: boolean
     LocationDbaNameQuery:
       required:
         - operator
@@ -16481,6 +16603,10 @@ components:
             - REJECT_ADJUSTMENT
             - PFAC_ADJUSTMENT
             - SPLIT
+        description:
+          type: string
+          description: "Description of the tranasction split"
+          example: "Split to third party"
       description: accounts - at least one details.
     TransactionInstructionDetailsDTO:
       required:
@@ -16531,20 +16657,37 @@ components:
             $ref: '#/components/schemas/TransactionInstructionDetailsResponseDTO'
     TransactionInstructionIdentifierRequest:
       required:
-        - transaction_date
-        - transaction_type
+      - amount
+      - processing_merchant_id
+      - transaction_date
+      - transaction_record_type
+      - transaction_type
       type: object
       properties:
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
         transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: "2021-09-02"
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+          example: 2021-09-02
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -16568,7 +16711,17 @@ components:
           minLength: 1
           type: string
           description: Case number for a chargeback
-          example: "TX0001"
+          example: TX0001
+        transaction_code:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Transaction Code
+          example: A
+        amount:
+          type: number
+          description: total amount of transaction - Cannot be empty.
+          example: 100.0
     TransactionInstructionStatusResponse:
       type: object
       properties:
@@ -16605,25 +16758,40 @@ components:
             $ref: '#/components/schemas/TransactionInstructionDetailsResponseDTO'
     TransactionInstructionReprocessRequest:
       required:
-        - amount
-        - currency
-        - note
-        - processing_merchant_id
-        - split_details
-        - transaction_date
-        - transaction_type
+      - amount
+      - currency
+      - note
+      - processing_merchant_id
+      - split_details
+      - transaction_date
+      - transaction_record_type
+      - transaction_type
       type: object
       properties:
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
         transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: "2021-09-02"
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+          example: 2021-09-02
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -16647,19 +16815,49 @@ components:
           minLength: 1
           type: string
           description: Case number for a chargeback
-          example: "TX0001"
-        processing_merchant_id:
+          example: TX0001
+        transaction_code:
+          maxLength: 20
+          minLength: 1
           type: string
-          description: Id of merchant - Cannot be empty.
-          example: "400000000005"
+          description: Transaction Code
+          example: A
         amount:
-          type: string
+          type: number
           description: total amount of transaction - Cannot be empty.
-          example: "100.00"
+          example: 100.0
         currency:
-          type: string
+          type: object
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            numericCode:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            symbol:
+              type: string
+            numericCodeAsString:
+              type: string
           description: Currency - Cannot be empty.
-          example: "USD"
+          example: USD
+        processing_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+          type: string
+          description: Date of processing.
+          example: 2021-09-02
+        commercehub_primary_txn_id:
+          type: string
+          description: commerceHub primary txn id.
+          example: "111"
+        commercehub_txn_id:
+          type: string
+          description: commerceHub txn id.
+          example: "11111111"
         split_details:
           type: array
           description: details - at least one details.
@@ -16668,7 +16866,7 @@ components:
         note:
           type: string
           description: A note for why the reprocess was done
-          example: "We forgot to send the data"
+          example: We forgot to send the data
     TransactionInstructionReprocessDetailsResponseDTO:
       type: object
       properties:
@@ -16756,24 +16954,39 @@ components:
           $ref: '#/components/schemas/TransactionInstructionErrorsDTO'
     TransactionInstructionDiscardRequest:
       required:
-        - amount
-        - currency
-        - note
-        - processing_merchant_id
-        - transaction_date
-        - transaction_type
+      - amount
+      - currency
+      - note
+      - processing_merchant_id
+      - transaction_date
+      - transaction_record_type
+      - transaction_type
       type: object
       properties:
+        processing_merchant_id:
+          type: string
+          description: Id of merchant - Cannot be empty.
+          example: "400000000005"
+        sequence_number:
+          type: integer
+          description: Sequence number.
+          format: int32
+          example: 1
         transaction_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
           type: string
           description: Date of transaction - Cannot be empty.
-          example: "2021-09-02"
-        transaction_type:
-          type: string
-          description: "Type of transaction. 1: Purchase, 2: Refund, 3: Chargeback,\
+          example: 2021-09-02
+        transaction_record_type:
+          type: integer
+          description: "Type of transaction record. 1: Purchase, 2: Refund, 3: Chargeback,\
             \ 4: Chargeback Reversal"
           format: int32
-          example: "1"
+          example: 1
+        transaction_type:
+          type: string
+          description: Type of transaction
+          example: "5"
         transaction_id:
           maxLength: 20
           minLength: 1
@@ -16797,23 +17010,53 @@ components:
           minLength: 1
           type: string
           description: Case number for a chargeback
-          example: "TX0001"
-        processing_merchant_id:
+          example: TX0001
+        transaction_code:
+          maxLength: 20
+          minLength: 1
           type: string
-          description: Id of merchant - Cannot be empty.
-          example: "400000000005"
+          description: Transaction Code
+          example: A
         amount:
-          type: string
+          type: number
           description: total amount of transaction - Cannot be empty.
-          example: "100.00"
+          example: 100.0
         currency:
-          type: string
+          type: object
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            numericCode:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            symbol:
+              type: string
+            numericCodeAsString:
+              type: string
           description: Currency - Cannot be empty.
-          example: "USD"
+          example: USD
+        processing_date:
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+          type: string
+          description: Date of processing.
+          example: 2021-09-02
+        commercehub_primary_txn_id:
+          type: string
+          description: commerceHub primary txn id.
+          example: "111"
+        commercehub_txn_id:
+          type: string
+          description: commerceHub txn id.
+          example: "11111111"
         note:
           type: string
           description: A note for why the reprocess was done
-          example: "We forgot to send the data"
+          example: We forgot to send the data
     AccountResponseDTO:
       required:
         - account_type
@@ -24751,6 +24994,38 @@ components:
         auth_tracker:
           $ref: '#/components/schemas/AuthTrackerQuery'
       description: Query conditions - Cannot be empty.
+    PassthroughTransactionQueryDTO:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/AllianceIdQuery'
+        partner_id:
+          $ref: '#/components/schemas/PartnerIdQuery'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeIdQuery'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIdQuery'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeIdQuery'
+        merchant_reference:
+          $ref: '#/components/schemas/MerchantReferenceQuery'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/MerchantNodeExternalIdQuery'
+        outlet_id:
+          $ref: '#/components/schemas/OutletIdQuery'
+        location_id:
+          $ref: '#/components/schemas/LocationIdQuery'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDbaNameQuery'
+        card_type_query:
+          $ref: '#/components/schemas/CardTypeQuery'
+        date_added:
+          $ref: '#/components/schemas/DateAddedQuery'
+        fee_sequence_code: 
+          $ref: '#/components/schemas/FeeSequenceCodeQuery'
+        post_date:
+          $ref: '#/components/schemas/PostDateQuery'
+      description: Query conditions - Cannot be empty.
     TransactionSearchRequest:
       required:
         - limit
@@ -24772,6 +25047,28 @@ components:
           example: "1"
         query:
           $ref: '#/components/schemas/TransactionQueryDTO'
+    PassthroughSearchRequest:
+      required:
+        - limit
+        - query
+      type: object
+      properties:
+        limit:
+          maximum: 5000
+          minimum: 1
+          type: string
+          description: Size of the page - Cannot be empty.
+          format: int32
+          example: "6"
+        page:
+          minimum: 1
+          type: string
+          description: The page where to get those reports from
+          format: int32
+          example: "1"
+        query:
+          $ref: '#/components/schemas/PassthroughTransactionQueryDTO'
+
     Transaction:
       type: object
       properties:
@@ -26208,6 +26505,293 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Transaction'
+    PassthroughDataSearchQueryDTO:
+      type: object
+      properties:
+        alliance_id:
+          $ref: '#/components/schemas/AllianceIdQuery'
+        partner_id:
+          $ref: '#/components/schemas/PartnerIdQuery'
+        pfac_node_id:
+          $ref: '#/components/schemas/PfacNodeIdQuery'
+        merchant_id:
+          $ref: '#/components/schemas/MerchantIdQuery'
+        merchant_node_id:
+          $ref: '#/components/schemas/MerchantNodeIdQuery'
+        merchant_reference:
+          $ref: '#/components/schemas/MerchantReferenceQuery'
+        merchant_node_external_id:
+          $ref: '#/components/schemas/MerchantNodeExternalIdQuery'
+        outlet_id:
+          $ref: '#/components/schemas/OutletIdQuery'
+        location_id:
+          $ref: '#/components/schemas/LocationIdQuery'
+        location_dba_name:
+          $ref: '#/components/schemas/LocationDbaNameQuery'
+        card_type_query:
+          $ref: '#/components/schemas/CardTypeQuery'
+        date_added:
+          $ref: '#/components/schemas/DateAddedQuery'
+        fee_sequence_code:
+          $ref: '#/components/schemas/FeeSequenceCodeQuery'
+        post_date:
+          $ref: '#/components/schemas/PostDateQuery'
+      description: Query conditions - Cannot be empty.
+    PassthroughTransactionDataResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+        response:
+          $ref: '#/components/schemas/PassthroughTransactionResponseDTO'
+    PassthroughTransactionResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: string
+          example: "25"
+          description: "Limit of results per page"
+        page:
+          type: string
+          example: "1"
+          description: "Page being retrieved."
+        summary_status:
+          type: string
+          example: "FOUND"
+          description: "Status of results being searched for."
+        passthrough_fees:
+          type: array
+          description: "Object for passthrough billing details"
+          items:
+            $ref: '#/components/schemas/PfacMerchantBilling'
+    PfacMerchantBilling:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Internal identifier for the record"
+          example: "a9c6lkjd0ab33lm887j66afd"
+        merchant_reference:
+          type: string
+          description: "Merchant reference in the system"
+          minLength: 7
+          maxLength: 7
+          example: "3000001"
+        location_id:
+          type: string
+          description: "Location Merchant ID"
+          example: "101000000321"
+        merchant_node_id:
+          type: integer
+          format: int32
+          description: "Internal merchant identifier"
+          example: "300001"
+        pfac_node_id:
+          type: integer
+          format: int32
+          description: "Internal PFAC identifier"
+          example: "001"
+        processing_pfac_node_id:
+          type: integer
+          format: int32
+          description: "Internal PFAC identifier"
+          example: "001"
+        outlet_id:
+          type: integer
+          format: int32
+          description: "Internal Identifier of the Outlet"
+          example : "000001"
+        alliance_id:
+          type: integer
+          format: int32
+          description: "Internal Identifier for the Alliance"
+          example: "12000001"
+        partner_id:
+          type: integer
+          format: int32
+          description: "Internal Identifier for the Partner"
+          example: "13000001"
+        merchant_id:
+          type: integer
+          format: int32
+          description : "Internal Identifier for the merchant"
+          example: "900001"
+        # plan_code:
+        #   type: string
+        # reclass_code:
+        #   type: string
+        date_added:
+          type: string
+          format: date-time
+          description: "Date the record was added into the system"
+        post_date:
+          type: string
+        fee_sequence_code:
+          type: string
+          description: "Fee sequence code provided for the fee being billed. Provided from NORTH"
+          example: "AB1"
+        amount:
+          type: number
+          description: "Total amount being billed"
+          example: "0.0500"
+        # product_id:
+        #   type: integer
+        #   format: int32
+        # product_name:
+        #   type: string
+        # description:
+        #   type: string
+        fee_group:
+          type: string
+          example: "SCHEME"
+          enum:
+          - EXCHANGE
+          - INTERCHANGE
+          - SCHEME
+          - OTHERS
+        calculation_type:
+          type: string
+          description: "Always PASS_THROUGH for passthrough endpoint."
+          example: "PASS_THROUGH"
+          enum:
+          - FIXED
+          - IC_PLUS_PLUS
+          - COST_ROLLUP
+          - REV_SHARE
+          - PASS_THROUGH
+        merchant_fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MerchantFeeDetail'
+        hierarchy_fee_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/HierarchyFeeDetail'
+        created_date:
+          type: string
+          example: "2021-01-01"
+
+        text1:
+          type: string
+          description: "Fee descriptor provided for the Passthrough Fee"
+          example: "SALES DISCOUNT"
+        text2:
+          type: string
+          description: "Fee breakdown (if applicable) provided for the Passthrough Fee"
+          example: "0.000100 RATE TIMES $100"
+        plan_cd:
+          type: string
+          description: "Plan code provided for the fee being billed. Used for calculation (if applicable). Depending on the fee, some will use plan code and Fee Sequence Code, some will only use Fee Sequence Code."
+          example: "A01"
+        sub_merchant_name:
+          type: string
+          description: "Sub-merchant Descriptor"
+          example: "ABC*DBA name"
+        fee_desc:
+          type: string
+          description: "Fee description being passed through"
+          example: "VISA ASSESSMENT FEE CR"
+    HierarchyFeeDetail:
+      type: object
+      properties:
+        total_fee_amount:
+          type: number
+        node_id:
+          type: integer
+          format: int32
+        product_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductItem'
+    ProductItem:
+      type: object
+      properties:
+        total_fee_amount:
+          type: number
+        product_item_id:
+          type: string
+        fee_group:
+          type: integer
+          format: int32
+        product_code:
+          type: string
+        product_name:
+          type: string
+        calculation_type:
+          type: string
+        fixed_amount:
+          type: string
+        fixed_fee_amount:
+          type: string
+        percentage_amount:
+          type: string
+        percentage_fee_amount:
+          type: string
+    MerchantFeeDetail:
+      type: object
+      description: "Currently contains single element for passthrough fees, if Passthrough is being used in the merchants offer."
+      properties:
+        total_fee_amount:
+          type: number
+          example: 6.15
+          description: "Total amount of the fee being billed"
+        product_item_id:
+          type: string
+          example: "12"
+          description: "Product Id of the item."
+        fee_group:
+          type: integer
+          format: int32
+          example: "2"
+          description: "Group of the fee"
+        product_code:
+          type: string
+          example: "ALL_PASSTHROUGH"
+          description: "Exchange product code for the fee"
+        product_name:
+          type: string
+          example: "IC+ Passthrough"
+          description: "Exchange Product name for te fee"
+        calculation_type:
+          type: string
+          example: "PASS_THROUGH"
+          description: "Exchange calculation type for the fee"
+        fixed_amount:
+          type: string
+          example: "6.1500"
+          description: "Base amount for the fee"
+        fixed_fee_amount:
+          type: string
+          example: "6.1500"
+          description: "Base amount for the fee"
+        percentage_amount:
+          type: string
+        percentage_fee_amount:
+          type: string
+    PassthroughDataSearchRequest:
+      required:
+      - limit
+      - query
+      type: object
+      properties:
+        limit:
+          maximum: 5000
+          minimum: 1
+          type: integer
+          description: Size of the page - Cannot be empty.
+          format: int32
+          example: 6
+        page:
+          minimum: 1
+          type: integer
+          description: The page where to get those reports from
+          format: int32
+          example: 1
+        query:
+          $ref: '#/components/schemas/PassthroughDataSearchQueryDTO'
     TransactionsSearchResponse:
       type: object
       properties:
@@ -30004,6 +30588,74 @@ components:
             amount: '5.00'
             type: CREDIT
         
+    ResponsePassthrough:
+      value:
+        result: SUCCESS
+        response:
+          limit: '20'
+          page: '1'
+          summary_status: FOUND
+          passthrough_fees:
+            - _id: 6f2522147afbba675c
+              merchant_reference: '3000001'
+              location_id: '321000004321'
+              merchant_node_id: 300001
+              pfac_node_id: 1
+              processing_pfac_node_id: 1
+              outlet_id: 100000
+              alliance_id: 12000001
+              merchant_id: 90001
+              date_added: '2021-11-01T10:11:20.150'
+              post_date: '2021-10-30'
+              fee_sequence_code: '001'
+              amount: '6.1500'
+              fee_group: INTERCHANGE
+              calculation_type: PASS_THROUGH
+              merchant_fee_details:
+                - total_fee_amount: '6.1500'
+                  product_item_id: '12'
+                  fee_group: 2
+                  product_code: ALL_PASSTHROUGH
+                  product_name: IC+ Passthrough
+                  calculation_type: PASS_THROUGH
+                  fixed_amount: '6.1500'
+                  fixed_fee_amount: '6.1500'
+              created_date: '2021-11-01'
+              text1: VI-US 1
+              text2: ''
+              plan_cd: '123'
+              sub_merchant_name: ABC*DBA Name
+              fee_desc: VISA INTERCHANGE FEE
+            - _id: 6f2522147afbba675c
+              merchant_reference: '3000001'
+              location_id: '321000004321'
+              merchant_node_id: 300001
+              pfac_node_id: 1
+              processing_pfac_node_id: 1
+              outlet_id: 100000
+              alliance_id: 12000001
+              merchant_id: 90001
+              date_added: '2021-11-01T10:15:20.150'
+              post_date: '2021-10-30'
+              fee_sequence_code: '804'
+              amount: '0.0100'
+              fee_group: INTERCHANGE
+              calculation_type: PASS_THROUGH
+              merchant_fee_details:
+                - total_fee_amount: '0.0100'
+                  product_item_id: '13'
+                  fee_group: 2
+                  product_code: ALL_PASSTHROUGH
+                  product_name: IC+ Passthrough
+                  calculation_type: PASS_THROUGH
+                  fixed_amount: '0.01'
+                  fixed_fee_amount: '0.01'
+              created_date: '2021-11-01'
+              text1: VISA SALES DISCOUNT
+              text2: .000010 DISC RATE TIMES      $1000
+              plan_cd: ''
+              sub_merchant_name: ABC*DBA Name
+              fee_desc: VISA SALES DISCOUNT
 
     RequestNetCBReversalInstruction:
       value:
@@ -30770,6 +31422,29 @@ components:
             turnover_bus_to_cons_perc: '100'
             card_bus_to_bus_perc: '0'
             card_bus_to_cons_perc: '100'
+            offer:
+              product_offer_external_id: PRO92-4F80C-3D631-92U01-3215O-C0399-3215O
+              product_offer_name: Offer Name
+              currency: USD
+              product_offer_reference: REF01
+              product_items:
+                - product_item_external_id: PID92-4F80C-3D631-92U01-3215O-C0399-3215O
+                  product_name: Gateway
+                  product_code: '32001'
+                  relate_to: NORTH_GATEWAY_EQUIPMENT
+                  tx_source: '1'
+                  calculation_type: '1'
+                  revenue_share: '2'
+                  best_match: '0'
+                  charge_entity_level: '11'
+                  settlement_entity_level: '3'
+                  percentage_amount: '0.00000'
+                  fixed_amount: '0.00000'
+                  terminal_ids: ["10001"]
+              entitlements:
+                - entitlement_key: DISCOVER
+                - entitlement_key: MASTERCARD
+                - entitlement_key: VISA
             banks:
               6526632c352ecdba1a0b4bb1:
                 country_code: '840'
@@ -30878,144 +31553,6 @@ components:
                 legal_required: ''
                 shipping_required: ''
                 billing_required: ''
-            charges:
-              transaction_pricing_external_id: TPI46-99EC6-A5ABB-FF7A4-65923-32E33-F267D
-              transaction_pricing_name: Standard Entitlements
-              alliance_external_id: ALL4A-4394E-718DF-4076F-9346E-F2905-0560B
-              acquirer_external_id: MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9
-              processing_platform: OTHER
-              currency: USD
-              fee_collection_type: BLENDED
-              is_tier_price: '0'
-              tier_price_type: '1'
-              charge_items: []
-              charge_item_groups:
-                - charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                  charge_item_group_name: Entitlements Group
-                  fee_collection_type: BLENDED
-                  charge_items:
-                    - charge_item_external_id: CHI79-7F1ED-83686-B1082-7023A-B8508-8D017
-                      charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                      charge_item_name: VS MC Entitlement
-                      fee_collection_type: BLENDED
-                      mp_pricing_type_code: '10011'
-                      charge_decimals: '2'
-                      is_invisible: '0'
-                      is_activated: '1'
-                      is_boarding_activated: '1'
-                      is_mandatory: '1'
-                      is_merged_charges: '0'
-                      charge_item_prices:
-                        - charge_item_price_charges:
-                            - tier_number: '0'
-                              fee_type: '1'
-                              category: '2'
-                              perc_charge: '0.00000'
-                              default_perc_charge: '0.00000'
-                              minimum_perc_charge: '0.00000'
-                              maximum_perc_charge: '0.00000'
-                            - tier_number: '0'
-                              fee_type: '2'
-                              category: '2'
-                              base_charge: '0.00000'
-                              default_base_charge: '0.00000'
-                              minimum_base_charge: '0.00000'
-                              maximum_base_charge: '0.00000'
-                    - charge_item_external_id: CHI2B-35E03-51ED1-83031-A3100-D4391-61E15
-                      charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                      charge_item_name: AmexOptBlue A
-                      charge_item_ref: 777-1000105251
-                      fee_collection_type: BLENDED
-                      mp_pricing_type_code: '10011'
-                      charge_decimals: '2'
-                      is_invisible: '0'
-                      is_activated: '1'
-                      is_boarding_activated: '1'
-                      is_mandatory: '0'
-                      is_merged_charges: '0'
-                      charge_item_prices:
-                        - charge_item_price_charges:
-                            - tier_number: '0'
-                              fee_type: '1'
-                              category: '1'
-                              perc_charge: '0.00'
-                              default_perc_charge: '0.00000'
-                              minimum_perc_charge: '0.00000'
-                              maximum_perc_charge: '0.00000'
-                            - tier_number: '0'
-                              fee_type: '2'
-                              category: '1'
-                              base_charge: '0.00'
-                              default_base_charge: '0.00000'
-                              minimum_base_charge: '0.00000'
-                              maximum_base_charge: '0.00000'
-                    - charge_item_external_id: CHIB4-396C5-67915-33E99-E8791-0DA6F-8D1B4
-                      charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                      charge_item_name: Discover Entitlement
-                      fee_collection_type: BLENDED
-                      mp_pricing_type_code: '10011'
-                      charge_decimals: '2'
-                      is_invisible: '0'
-                      is_activated: '1'
-                      is_boarding_activated: '1'
-                      is_mandatory: '0'
-                      is_merged_charges: '0'
-                      charge_item_prices:
-                        - charge_item_price_charges:
-                            - tier_number: '0'
-                              fee_type: '1'
-                              category: '2'
-                              perc_charge: '0.00'
-                              default_perc_charge: '0.00000'
-                              minimum_perc_charge: '0.00000'
-                              maximum_perc_charge: '0.00000'
-                            - tier_number: '0'
-                              fee_type: '2'
-                              category: '2'
-                              base_charge: '0.00'
-                              default_base_charge: '0.00000'
-                              minimum_base_charge: '0.00000'
-                              maximum_base_charge: '0.00000'
-              tiers: []
-              service_items: []
-            package_name: Standard Package
-            onlineOffer:
-              equipment_offering_external_id: EQO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-              bundles:
-                - equipment_bundle_external_id: EQO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                  bundle_name: SYSTEM_GENERATED
-                  is_boarding_activated: '1'
-                  bundle_items:
-                    - equipment_bundle_item_external_id: EQO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                      terminal_quantity: '1'
-                      is_boarding_activated: '1'
-                      billing_plans: []
-                      equipment_features: []
-                      service:
-                        service_api_code: '94862'
-                        service_external_id: PRO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                        service_for: ECOM
-                        service_name: GTW
-                        terminal_ids:
-                          - '1054321'
-                      service_charges:
-                        - service_charge_item_external_id: SCO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                          service_frequency: '1'
-                          service_item_for: '1'
-                          service_item_name: Owned
-                          service_item_type: '2'
-                          charge_decimals: '2'
-                          fee_type: '3'
-                          minimum_base_charge: '0.00000'
-                          maximum_base_charge: '0.00000'
-                          default_base_charge: '0.00000'
-                          minimum_perc_charge: '0.00000'
-                          maximum_perc_charge: '0.00000'
-                          default_perc_charge: '0.00000'
-                          is_selected: '1'
-                          service_base_charge: '0.00'
-                          service_perc_charge: '0.00'
-                      service_features: []
             settings:
               funding_flag: '1'
               billing_flag: '1'
@@ -31686,106 +32223,6 @@ components:
             has_billing: '1'
             allow_instruction_api: '1'
             responsible_party: '0'
-          charges:
-            transaction_pricing_external_id: TPI46-4F80C-3D631-92U01-3215O-C0399-3215O
-            transaction_pricing_name: Standard Entitlements
-            alliance_external_id: ALL4A-4F80C-3D631-92U01-3215O-C0399-3215O
-            acquirer_external_id: MAC85-4F80C-3D631-92U01-3215O-C0399-3215O
-            processing_platform: OTHER
-            currency: USD
-            fee_collection_type: BLENDED
-            is_tier_price: '0'
-            tier_price_type: '1'
-            charge_items: []
-            charge_item_groups:
-              - charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                charge_item_group_name: Entitlements
-                fee_collection_type: BLENDED
-                charge_items:
-                  - charge_item_external_id: CHI79-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_name: Visa MC Entitlement
-                    fee_collection_type: BLENDED
-                    mp_pricing_type_code: '10011'
-                    charge_decimals: '2'
-                    is_invisible: '0'
-                    is_activated: '1'
-                    is_boarding_activated: '1'
-                    is_mandatory: '1'
-                    is_merged_charges: '0'
-                    charge_item_prices:
-                      - charge_item_price_charges:
-                          - tier_number: '0'
-                            fee_type: '1'
-                            category: '1'
-                            perc_charge: '0.00'
-                            default_perc_charge: '0.00'
-                            minimum_perc_charge: '0.00'
-                            maximum_perc_charge: '0.00'
-                          - tier_number: '0'
-                            fee_type: '2'
-                            category: '1'
-                            base_charge: '0.00'
-                            default_base_charge: '0.00'
-                            minimum_base_charge: '0.00'
-                            maximum_base_charge: '0.00'
-                  - charge_item_external_id: CHI2B-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_name: AmexOptBlue
-                    charge_item_ref: 777-1000105251
-                    fee_collection_type: BLENDED
-                    mp_pricing_type_code: '10011'
-                    charge_decimals: '2'
-                    is_invisible: '0'
-                    is_activated: '1'
-                    is_boarding_activated: '1'
-                    is_mandatory: '0'
-                    is_merged_charges: '0'
-                    charge_item_prices:
-                      - charge_item_price_charges:
-                          - tier_number: '0'
-                            fee_type: '1'
-                            category: '1'
-                            perc_charge: '0.00'
-                            default_perc_charge: '0.00'
-                            minimum_perc_charge: '0.00'
-                            maximum_perc_charge: '0.00'
-                          - tier_number: '0'
-                            fee_type: '2'
-                            category: '1'
-                            base_charge: '0.00'
-                            default_base_charge: '0.00'
-                            minimum_base_charge: '0.00'
-                            maximum_base_charge: '0.00'
-                  - charge_item_external_id: CHIB4-3480C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_name: Discover Entitlement
-                    fee_collection_type: BLENDED
-                    mp_pricing_type_code: '10011'
-                    charge_decimals: '2'
-                    is_invisible: '0'
-                    is_activated: '1'
-                    is_boarding_activated: '1'
-                    is_mandatory: '0'
-                    is_merged_charges: '0'
-                    charge_item_prices:
-                      - charge_item_price_charges:
-                          - tier_number: '0'
-                            fee_type: '1'
-                            category: '1'
-                            perc_charge: '0.00'
-                            default_perc_charge: '0.00'
-                            minimum_perc_charge: '0.00'
-                            maximum_perc_charge: '0.00'
-                          - tier_number: '0'
-                            fee_type: '2'
-                            category: '1'
-                            base_charge: '0.00'
-                            default_base_charge: '0.00'
-                            minimum_base_charge: '0.00'
-                            maximum_base_charge: '0.00'
-            tiers: []
-            service_items: []
           marketplace_application: false
           marketplace_errors:
             - errorCode: 1
@@ -31837,6 +32274,30 @@ components:
             chip_flag: Y
             card_bus_to_bus_perc: '10'
             card_bus_to_cons_perc: '90'
+            offer:
+              product_offer_external_id: PRO92-4F80C-3D631-92U01-3215O-C0399-3215O
+              product_offer_name: Offer Name
+              currency: USD
+              product_offer_reference: REF01
+              product_items:
+                - product_item_external_id: PID92-4F80C-3D631-92U01-3215O-C0399-3215O
+                  product_name: Gateway
+                  product_code: '32001'
+                  relate_to: NORTH_GATEWAY_EQUIPMENT
+                  tx_source: '1'
+                  calculation_type: '1'
+                  revenue_share: '2'
+                  best_match: '0'
+                  charge_entity_level: '11'
+                  settlement_entity_level: '3'
+                  percentage_amount: '0.00000'
+                  fixed_amount: '0.00000'
+                  terminal_ids: ["10001"]
+              entitlements:
+                - entitlement_key: DISCOVER
+                - entitlement_key: MASTERCARD
+                - entitlement_key: VISA
+            
             banks:
               654a60116aff61b71602eb94:
                 country_code: '840'
