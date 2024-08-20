@@ -26619,10 +26619,10 @@ components:
           format: int32
           description : "Internal Identifier for the merchant"
           example: "900001"
-        plan_code:
-          type: string
-        reclass_code:
-          type: string
+        # plan_code:
+        #   type: string
+        # reclass_code:
+        #   type: string
         date_added:
           type: string
           format: date-time
@@ -26637,13 +26637,13 @@ components:
           type: number
           description: "Total amount being billed"
           example: "0.0500"
-        product_id:
-          type: integer
-          format: int32
-        product_name:
-          type: string
-        description:
-          type: string
+        # product_id:
+        #   type: integer
+        #   format: int32
+        # product_name:
+        #   type: string
+        # description:
+        #   type: string
         fee_group:
           type: string
           example: "SCHEME"
@@ -26654,6 +26654,7 @@ components:
           - OTHERS
         calculation_type:
           type: string
+          description: "Always PASS_THROUGH for passthrough endpoint."
           example: "PASS_THROUGH"
           enum:
           - FIXED
@@ -26671,18 +26672,19 @@ components:
             $ref: '#/components/schemas/HierarchyFeeDetail'
         created_date:
           type: string
-          description: "2024-08-01"
+          example: "2021-01-01"
+
         text1:
           type: string
-          description: "First descriptor provided for the Passthrough Fee"
+          description: "Fee descriptor provided for the Passthrough Fee"
           example: "SALES DISCOUNT"
         text2:
           type: string
-          description: "Second descriptor provided for the Passthrough Fee"
+          description: "Fee breakdown (if applicable) provided for the Passthrough Fee"
           example: "0.000100 RATE TIMES $100"
         plan_cd:
           type: string
-          description: "Plan code provided for the fee being billed"
+          description: "Plan code provided for the fee being billed. Used for calculation (if applicable). Depending on the fee, some will use plan code and Fee Sequence Code, some will only use Fee Sequence Code."
           example: "A01"
         sub_merchant_name:
           type: string
@@ -26730,24 +26732,41 @@ components:
           type: string
     MerchantFeeDetail:
       type: object
+      description: "Currently contains single element for passthrough fees, if Passthrough is being used in the merchants offer."
       properties:
         total_fee_amount:
           type: number
+          example: 6.15
+          description: "Total amount of the fee being billed"
         product_item_id:
           type: string
+          example: "12"
+          description: "Product Id of the item."
         fee_group:
           type: integer
           format: int32
+          example: "2"
+          description: "Group of the fee"
         product_code:
           type: string
+          example: "ALL_PASSTHROUGH"
+          description: "Exchange product code for the fee"
         product_name:
           type: string
+          example: "IC+ Passthrough"
+          description: "Exchange Product name for te fee"
         calculation_type:
           type: string
+          example: "PASS_THROUGH"
+          description: "Exchange calculation type for the fee"
         fixed_amount:
           type: string
+          example: "6.1500"
+          description: "Base amount for the fee"
         fixed_fee_amount:
           type: string
+          example: "6.1500"
+          description: "Base amount for the fee"
         percentage_amount:
           type: string
         percentage_fee_amount:
@@ -31403,6 +31422,29 @@ components:
             turnover_bus_to_cons_perc: '100'
             card_bus_to_bus_perc: '0'
             card_bus_to_cons_perc: '100'
+            offer:
+              product_offer_external_id: PRO92-4F80C-3D631-92U01-3215O-C0399-3215O
+              product_offer_name: Offer Name
+              currency: USD
+              product_offer_reference: REF01
+              product_items:
+                - product_item_external_id: PID92-4F80C-3D631-92U01-3215O-C0399-3215O
+                  product_name: Gateway
+                  product_code: '32001'
+                  relate_to: NORTH_GATEWAY_EQUIPMENT
+                  tx_source: '1'
+                  calculation_type: '1'
+                  revenue_share: '2'
+                  best_match: '0'
+                  charge_entity_level: '11'
+                  settlement_entity_level: '3'
+                  percentage_amount: '0.00000'
+                  fixed_amount: '0.00000'
+                  terminal_ids: ["10001"]
+              entitlements:
+                - entitlement_key: DISCOVER
+                - entitlement_key: MASTERCARD
+                - entitlement_key: VISA
             banks:
               6526632c352ecdba1a0b4bb1:
                 country_code: '840'
@@ -31511,144 +31553,6 @@ components:
                 legal_required: ''
                 shipping_required: ''
                 billing_required: ''
-            charges:
-              transaction_pricing_external_id: TPI46-99EC6-A5ABB-FF7A4-65923-32E33-F267D
-              transaction_pricing_name: Standard Entitlements
-              alliance_external_id: ALL4A-4394E-718DF-4076F-9346E-F2905-0560B
-              acquirer_external_id: MAC85-E9418-02AAF-CCE93-1AADB-0979A-F81C9
-              processing_platform: OTHER
-              currency: USD
-              fee_collection_type: BLENDED
-              is_tier_price: '0'
-              tier_price_type: '1'
-              charge_items: []
-              charge_item_groups:
-                - charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                  charge_item_group_name: Entitlements Group
-                  fee_collection_type: BLENDED
-                  charge_items:
-                    - charge_item_external_id: CHI79-7F1ED-83686-B1082-7023A-B8508-8D017
-                      charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                      charge_item_name: VS MC Entitlement
-                      fee_collection_type: BLENDED
-                      mp_pricing_type_code: '10011'
-                      charge_decimals: '2'
-                      is_invisible: '0'
-                      is_activated: '1'
-                      is_boarding_activated: '1'
-                      is_mandatory: '1'
-                      is_merged_charges: '0'
-                      charge_item_prices:
-                        - charge_item_price_charges:
-                            - tier_number: '0'
-                              fee_type: '1'
-                              category: '2'
-                              perc_charge: '0.00000'
-                              default_perc_charge: '0.00000'
-                              minimum_perc_charge: '0.00000'
-                              maximum_perc_charge: '0.00000'
-                            - tier_number: '0'
-                              fee_type: '2'
-                              category: '2'
-                              base_charge: '0.00000'
-                              default_base_charge: '0.00000'
-                              minimum_base_charge: '0.00000'
-                              maximum_base_charge: '0.00000'
-                    - charge_item_external_id: CHI2B-35E03-51ED1-83031-A3100-D4391-61E15
-                      charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                      charge_item_name: AmexOptBlue A
-                      charge_item_ref: 777-1000105251
-                      fee_collection_type: BLENDED
-                      mp_pricing_type_code: '10011'
-                      charge_decimals: '2'
-                      is_invisible: '0'
-                      is_activated: '1'
-                      is_boarding_activated: '1'
-                      is_mandatory: '0'
-                      is_merged_charges: '0'
-                      charge_item_prices:
-                        - charge_item_price_charges:
-                            - tier_number: '0'
-                              fee_type: '1'
-                              category: '1'
-                              perc_charge: '0.00'
-                              default_perc_charge: '0.00000'
-                              minimum_perc_charge: '0.00000'
-                              maximum_perc_charge: '0.00000'
-                            - tier_number: '0'
-                              fee_type: '2'
-                              category: '1'
-                              base_charge: '0.00'
-                              default_base_charge: '0.00000'
-                              minimum_base_charge: '0.00000'
-                              maximum_base_charge: '0.00000'
-                    - charge_item_external_id: CHIB4-396C5-67915-33E99-E8791-0DA6F-8D1B4
-                      charge_item_group_external_id: CIGDA-6C617-43D1E-992EE-09A4C-09A86-20B15
-                      charge_item_name: Discover Entitlement
-                      fee_collection_type: BLENDED
-                      mp_pricing_type_code: '10011'
-                      charge_decimals: '2'
-                      is_invisible: '0'
-                      is_activated: '1'
-                      is_boarding_activated: '1'
-                      is_mandatory: '0'
-                      is_merged_charges: '0'
-                      charge_item_prices:
-                        - charge_item_price_charges:
-                            - tier_number: '0'
-                              fee_type: '1'
-                              category: '2'
-                              perc_charge: '0.00'
-                              default_perc_charge: '0.00000'
-                              minimum_perc_charge: '0.00000'
-                              maximum_perc_charge: '0.00000'
-                            - tier_number: '0'
-                              fee_type: '2'
-                              category: '2'
-                              base_charge: '0.00'
-                              default_base_charge: '0.00000'
-                              minimum_base_charge: '0.00000'
-                              maximum_base_charge: '0.00000'
-              tiers: []
-              service_items: []
-            package_name: Standard Package
-            onlineOffer:
-              equipment_offering_external_id: EQO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-              bundles:
-                - equipment_bundle_external_id: EQO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                  bundle_name: SYSTEM_GENERATED
-                  is_boarding_activated: '1'
-                  bundle_items:
-                    - equipment_bundle_item_external_id: EQO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                      terminal_quantity: '1'
-                      is_boarding_activated: '1'
-                      billing_plans: []
-                      equipment_features: []
-                      service:
-                        service_api_code: '94862'
-                        service_external_id: PRO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                        service_for: ECOM
-                        service_name: GTW
-                        terminal_ids:
-                          - '1054321'
-                      service_charges:
-                        - service_charge_item_external_id: SCO44-334DD-556DF-3321L-3215O-92U01-3LOBB
-                          service_frequency: '1'
-                          service_item_for: '1'
-                          service_item_name: Owned
-                          service_item_type: '2'
-                          charge_decimals: '2'
-                          fee_type: '3'
-                          minimum_base_charge: '0.00000'
-                          maximum_base_charge: '0.00000'
-                          default_base_charge: '0.00000'
-                          minimum_perc_charge: '0.00000'
-                          maximum_perc_charge: '0.00000'
-                          default_perc_charge: '0.00000'
-                          is_selected: '1'
-                          service_base_charge: '0.00'
-                          service_perc_charge: '0.00'
-                      service_features: []
             settings:
               funding_flag: '1'
               billing_flag: '1'
@@ -32319,106 +32223,6 @@ components:
             has_billing: '1'
             allow_instruction_api: '1'
             responsible_party: '0'
-          charges:
-            transaction_pricing_external_id: TPI46-4F80C-3D631-92U01-3215O-C0399-3215O
-            transaction_pricing_name: Standard Entitlements
-            alliance_external_id: ALL4A-4F80C-3D631-92U01-3215O-C0399-3215O
-            acquirer_external_id: MAC85-4F80C-3D631-92U01-3215O-C0399-3215O
-            processing_platform: OTHER
-            currency: USD
-            fee_collection_type: BLENDED
-            is_tier_price: '0'
-            tier_price_type: '1'
-            charge_items: []
-            charge_item_groups:
-              - charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                charge_item_group_name: Entitlements
-                fee_collection_type: BLENDED
-                charge_items:
-                  - charge_item_external_id: CHI79-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_name: Visa MC Entitlement
-                    fee_collection_type: BLENDED
-                    mp_pricing_type_code: '10011'
-                    charge_decimals: '2'
-                    is_invisible: '0'
-                    is_activated: '1'
-                    is_boarding_activated: '1'
-                    is_mandatory: '1'
-                    is_merged_charges: '0'
-                    charge_item_prices:
-                      - charge_item_price_charges:
-                          - tier_number: '0'
-                            fee_type: '1'
-                            category: '1'
-                            perc_charge: '0.00'
-                            default_perc_charge: '0.00'
-                            minimum_perc_charge: '0.00'
-                            maximum_perc_charge: '0.00'
-                          - tier_number: '0'
-                            fee_type: '2'
-                            category: '1'
-                            base_charge: '0.00'
-                            default_base_charge: '0.00'
-                            minimum_base_charge: '0.00'
-                            maximum_base_charge: '0.00'
-                  - charge_item_external_id: CHI2B-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_name: AmexOptBlue
-                    charge_item_ref: 777-1000105251
-                    fee_collection_type: BLENDED
-                    mp_pricing_type_code: '10011'
-                    charge_decimals: '2'
-                    is_invisible: '0'
-                    is_activated: '1'
-                    is_boarding_activated: '1'
-                    is_mandatory: '0'
-                    is_merged_charges: '0'
-                    charge_item_prices:
-                      - charge_item_price_charges:
-                          - tier_number: '0'
-                            fee_type: '1'
-                            category: '1'
-                            perc_charge: '0.00'
-                            default_perc_charge: '0.00'
-                            minimum_perc_charge: '0.00'
-                            maximum_perc_charge: '0.00'
-                          - tier_number: '0'
-                            fee_type: '2'
-                            category: '1'
-                            base_charge: '0.00'
-                            default_base_charge: '0.00'
-                            minimum_base_charge: '0.00'
-                            maximum_base_charge: '0.00'
-                  - charge_item_external_id: CHIB4-3480C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_group_external_id: CIGDA-4F80C-3D631-92U01-3215O-C0399-3215O
-                    charge_item_name: Discover Entitlement
-                    fee_collection_type: BLENDED
-                    mp_pricing_type_code: '10011'
-                    charge_decimals: '2'
-                    is_invisible: '0'
-                    is_activated: '1'
-                    is_boarding_activated: '1'
-                    is_mandatory: '0'
-                    is_merged_charges: '0'
-                    charge_item_prices:
-                      - charge_item_price_charges:
-                          - tier_number: '0'
-                            fee_type: '1'
-                            category: '1'
-                            perc_charge: '0.00'
-                            default_perc_charge: '0.00'
-                            minimum_perc_charge: '0.00'
-                            maximum_perc_charge: '0.00'
-                          - tier_number: '0'
-                            fee_type: '2'
-                            category: '1'
-                            base_charge: '0.00'
-                            default_base_charge: '0.00'
-                            minimum_base_charge: '0.00'
-                            maximum_base_charge: '0.00'
-            tiers: []
-            service_items: []
           marketplace_application: false
           marketplace_errors:
             - errorCode: 1
@@ -32470,6 +32274,30 @@ components:
             chip_flag: Y
             card_bus_to_bus_perc: '10'
             card_bus_to_cons_perc: '90'
+            offer:
+              product_offer_external_id: PRO92-4F80C-3D631-92U01-3215O-C0399-3215O
+              product_offer_name: Offer Name
+              currency: USD
+              product_offer_reference: REF01
+              product_items:
+                - product_item_external_id: PID92-4F80C-3D631-92U01-3215O-C0399-3215O
+                  product_name: Gateway
+                  product_code: '32001'
+                  relate_to: NORTH_GATEWAY_EQUIPMENT
+                  tx_source: '1'
+                  calculation_type: '1'
+                  revenue_share: '2'
+                  best_match: '0'
+                  charge_entity_level: '11'
+                  settlement_entity_level: '3'
+                  percentage_amount: '0.00000'
+                  fixed_amount: '0.00000'
+                  terminal_ids: ["10001"]
+              entitlements:
+                - entitlement_key: DISCOVER
+                - entitlement_key: MASTERCARD
+                - entitlement_key: VISA
+            
             banks:
               654a60116aff61b71602eb94:
                 country_code: '840'
