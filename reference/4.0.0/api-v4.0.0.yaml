@@ -5197,7 +5197,7 @@ components:
               example: "840"
             contact_email:
               type: string
-              example: "john.doe123@technologi.co.uk"
+              example: "john.doe123@fiserv.com"
             language_code:
               type: string
               example: "en_gb"
@@ -5458,7 +5458,7 @@ components:
                     example: '1477855436'
                   owner_email:
                     type: string
-                    example: "john.doe123@technologi.co.uk"
+                    example: "john.doe123@fiserv.com"
                   owner_ref:
                     type: string
                     example: "642ea28d43bb7a05360f285b"
@@ -6054,7 +6054,7 @@ components:
                       example: "CA"
                     email_address:
                       type: string
-                      example: "technologi@test.com"
+                      example: "fiserv@test.com"
                     ent_telephone_code:
                       type: string
                       example: "US|1"
@@ -30945,9 +30945,7 @@ components:
           merchant_node_id: '290549'
           sales_owner_user_id: '10001'
           internal_mid: '700100000000009'
-          package_name: Standard Package
           marketplace_order_id: R1ABx
-          merchant_node_external_id: MEI62-41BE6-E59ED-A9D43-FE236-D7B05-E17D4
           business_entity:
             legal_name: Legal name
             legal_short_name: Legal name
@@ -32124,8 +32122,6 @@ components:
             street_line_1: STREET RD
             county_code: WI
           merchant_node_id: '290001'
-          package_name: Standard Package
-          package_external_id: OPK02-4F80C-3D631-92U01-3215O-C0399-3215O
           business_entity:
             legal_name: Legal Name
             legal_short_name: Legal Name
@@ -32245,7 +32241,7 @@ components:
             outlet_ref: 6511feb954a02b716
             trade_name: Trade Name
             primary_email_address: mail@fiserv.com
-            outlet_website: http://google.co.uk
+            outlet_website: http://fiserv.com
             internal_mid: '70990000000001'
             statement_type: F
             mcc_code: '5699'
