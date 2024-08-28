@@ -141,3 +141,45 @@ This would add the gateway with `product_code` `GTWY01` , and Entitlements for V
       ]
     }
 ```
+
+## Attributes
+
+Some products may allow additional attributes to be sent. In particular, this may be used to send auto-close times, and settings Transarmor.  
+
+| **Key**                    | **Sample Value** | **Description**                                                                                              |
+|-----------------------------|-------------------|--------------------------------------------------------------------------------------------------------------|
+| `AUTO_CLOSE_HHMM`           | HH:MM            | Auto close time to be sent in format HH:MM. Can only be submit for applicable Equipment, with configuration done by Fiserv. |
+| `TOKEN_HIERARCHY_LEVEL`     | 04               | Hierarchy Level to be sent for the Transarmor settings. Sent under Transarmor product.                            |
+| `TA_TOKEN_VALUE`            | 9999             | Token Value sent for the Transarmor settings. 9999 for auto-assigned token. Sent under Transarmor product.        |
+| `TOKEN_PROVIDER`            | TransArmor       | Provider for the Token. Must be 'TransArmor'. Sent under Transarmor product.                                      |
+| `TRANSARMOR_SECURITY_LEVEL` | 03               | Security level for the Transarmor settings. Sent under Transarmor product.                                       |
+
+Upon boarding, these may then be submit with the product.
+
+Please see sample below for sending Auto close time: 
+
+```json
+    "offer": {
+      "product_offer_code": "PRO00000000001",
+      "product_items": [
+        {
+          "product_code": "GTWY01",
+          "quantity": "1",
+          "attributes": [
+            {
+              "key": "AUTO_CLOSE_HHMM",
+              "value": "23:00"
+            }
+          ]
+        }
+      ],
+      "entitlements": [
+        {
+          "entitlement_key": "VISA"
+        },
+        {
+          "entitlement_key": "MASTERCARD"
+        }
+      ]
+    }
+```
