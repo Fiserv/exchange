@@ -1249,7 +1249,6 @@ paths:
     post:
       tags:
         - Reserve Release
-      description: "Release funds that are currently held in the Reserve account for a sub-merchant. Can be released back to the sub-merchant, or deducted as collateral and settled to the PayFac account."
       summary: "Move fund by merchant id, total amount, currency and accounts."
       description: "Release funds that are currently held in the Reserve account for a sub-merchant. Can be released back to the sub-merchant, or deducted as collateral and settled to the PayFac account."
       operationId: reserveReleaseAccount
