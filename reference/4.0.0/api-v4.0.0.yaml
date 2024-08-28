@@ -3627,12 +3627,28 @@ components:
                   properties:
                     key:
                       type: string
-                      example: "TOKEN_PROVIDER"
-                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time"
+                      enum:
+                        - "AUTO_CLOSE_HHMM"
+                        - "GLOBAL_FEE_DETAIL"
+                        - "TOKEN_HIERARCHY_LEVEL"
+                        - "TA_TOKEN_VALUE"
+                        - "TOKEN_PROVIDER"
+                        - "TRANSARMOR_SECURITY_LEVEL"
+                      example: "AUTO_CLOSE_HHMM"
+                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time. Will use the value provided for the Key."
                     value:
                       type: string
                       example: "TransArmor"
-                      description: "Used to send the value of the attribute. Will depend on what service is used. Typically used to send values for transarmor or auto close time"
+                      description: | 
+                       Used to send the value of the attribute. Applicable values will depend on what service is used, please see offer documentation for more info. Typically used to send values for transarmor or auto close time.
+                       
+                        Sample values for attributes
+                        * `HH:MM` - "AUTO_CLOSE_HHMM"
+                        * `1001001` - "GLOBAL_FEE_DETAIL"
+                        * `04` - "TOKEN_HIERARCHY_LEVEL"
+                        * `4321` - "TA_TOKEN_VALUE"
+                        * `TransArmor` - "TOKEN_PROVIDER"
+                        * `03` - "TRANSARMOR_SECURITY_LEVEL"
     Acquiring:
       type: object
       description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
@@ -4375,17 +4391,34 @@ components:
                     description: "Max Value for fixed amounts being retrieved"
                   attributes:
                     type: array
-                    items:
+                    description: "Not required unless sending additional attributes. Typically used to send values for Transarmor or auto close time"
+                    items: 
                       type: object
                       properties:
                         key:
                           type: string
-                          example: TOKEN_PROVIDER
-                          description: "Key used for value in the attribute being added. Typically used for TransArmor and Auto close times."
+                          enum:
+                            - "AUTO_CLOSE_HHMM"
+                            - "GLOBAL_FEE_DETAIL"
+                            - "TOKEN_HIERARCHY_LEVEL"
+                            - "TA_TOKEN_VALUE"
+                            - "TOKEN_PROVIDER"
+                            - "TRANSARMOR_SECURITY_LEVEL"
+                          example: "AUTO_CLOSE_HHMM"
+                          description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time. Will use the value provided for the Key."
                         value:
                           type: string
-                          description: "Value used for attribute being added. Typically used for TransArmor and Auto close times."
                           example: "TransArmor"
+                          description: | 
+                           Used to send the value of the attribute. Applicable values will depend on what service is used, please see offer documentation for more info. Typically used to send values for transarmor or auto close time.
+                           
+                            Sample values for attributes
+                            * `HH:MM` - "AUTO_CLOSE_HHMM"
+                            * `1001001` - "GLOBAL_FEE_DETAIL"
+                            * `04` - "TOKEN_HIERARCHY_LEVEL"
+                            * `4321` - "TA_TOKEN_VALUE"
+                            * `TransArmor` - "TOKEN_PROVIDER"
+                            * `03` - "TRANSARMOR_SECURITY_LEVEL"
             entitlements:
               type: array
               items:
