@@ -1249,8 +1249,8 @@ paths:
     post:
       tags:
         - Reserve Release
-      description: "Release funds that are currently held in the Reserve account for a sub-merchant. Can be released back to the sub-merchant, or deducted as collateral and settled to the PayFac account."
       summary: "Move fund by merchant id, total amount, currency and accounts."
+      description: "Release funds that are currently held in the Reserve account for a sub-merchant. Can be released back to the sub-merchant, or deducted as collateral and settled to the PayFac account."
       operationId: reserveReleaseAccount
       x-group-name: Submerchant Account Operations
       x-proxy-name: Reserve Release
@@ -3626,12 +3626,28 @@ components:
                   properties:
                     key:
                       type: string
-                      example: "TOKEN_PROVIDER"
-                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time"
+                      enum:
+                        - "AUTO_CLOSE_HHMM"
+                        - "GLOBAL_FEE_DETAIL"
+                        - "TOKEN_HIERARCHY_LEVEL"
+                        - "TA_TOKEN_VALUE"
+                        - "TOKEN_PROVIDER"
+                        - "TRANSARMOR_SECURITY_LEVEL"
+                      example: "AUTO_CLOSE_HHMM"
+                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time. Will use the value provided for the Key."
                     value:
                       type: string
                       example: "TransArmor"
-                      description: "Used to send the value of the attribute. Will depend on what service is used. Typically used to send values for transarmor or auto close time"
+                      description: | 
+                       Used to send the value of the attribute. Applicable values will depend on what service is used, please see offer documentation for more info. Typically used to send values for transarmor or auto close time.
+                       
+                        Sample values for attributes
+                        * `HH:MM` - "AUTO_CLOSE_HHMM"
+                        * `1001001` - "GLOBAL_FEE_DETAIL"
+                        * `04` - "TOKEN_HIERARCHY_LEVEL"
+                        * `4321` - "TA_TOKEN_VALUE"
+                        * `TransArmor` - "TOKEN_PROVIDER"
+                        * `03` - "TRANSARMOR_SECURITY_LEVEL"
     Acquiring:
       type: object
       description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
@@ -4374,17 +4390,34 @@ components:
                     description: "Max Value for fixed amounts being retrieved"
                   attributes:
                     type: array
-                    items:
+                    description: "Not required unless sending additional attributes. Typically used to send values for Transarmor or auto close time"
+                    items: 
                       type: object
                       properties:
                         key:
                           type: string
-                          example: TOKEN_PROVIDER
-                          description: "Key used for value in the attribute being added. Typically used for TransArmor and Auto close times."
+                          enum:
+                            - "AUTO_CLOSE_HHMM"
+                            - "GLOBAL_FEE_DETAIL"
+                            - "TOKEN_HIERARCHY_LEVEL"
+                            - "TA_TOKEN_VALUE"
+                            - "TOKEN_PROVIDER"
+                            - "TRANSARMOR_SECURITY_LEVEL"
+                          example: "AUTO_CLOSE_HHMM"
+                          description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time. Will use the value provided for the Key."
                         value:
                           type: string
-                          description: "Value used for attribute being added. Typically used for TransArmor and Auto close times."
                           example: "TransArmor"
+                          description: | 
+                           Used to send the value of the attribute. Applicable values will depend on what service is used, please see offer documentation for more info. Typically used to send values for transarmor or auto close time.
+                           
+                            Sample values for attributes
+                            * `HH:MM` - "AUTO_CLOSE_HHMM"
+                            * `1001001` - "GLOBAL_FEE_DETAIL"
+                            * `04` - "TOKEN_HIERARCHY_LEVEL"
+                            * `4321` - "TA_TOKEN_VALUE"
+                            * `TransArmor` - "TOKEN_PROVIDER"
+                            * `03` - "TRANSARMOR_SECURITY_LEVEL"
             entitlements:
               type: array
               items:
@@ -22071,6 +22104,10 @@ components:
           - UPDATE_ONLINE_PRICING
           - CHANGE_BANK
           - ADD_OUTLETS
+          - CANCEL_LOCATION
+          - CHANGE_DBA
+          - CHANGE_DBA_CONTACT
+
     maintenancetypesPricing:
       type: array
       items:
@@ -22214,6 +22251,8 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
 
     MaintenanceSearchResponse:
       type: object
@@ -22296,6 +22335,9 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
+
 
 
 
@@ -22316,6 +22358,8 @@ components:
           $ref: '#/components/schemas/outletum'
         merchant:
           $ref: '#/components/schemas/merchantum'
+        cancel_location_details:
+          $ref: '#/components/schemas/cancellocationum'
 
     subgroupum:
       type: array
@@ -22330,6 +22374,38 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/MaintenanceBankDetail'
+          contacts:
+            type: array
+            items:
+              $ref: '#/components/schemas/OutletContact'
+          outlet_website:
+            type: string
+            description: website of the location the maintenance is being actioned on
+            example: "https://developer.fiserv.com/"
+          primary_email_address:
+            type: string
+            description: primary email address of the location the maintenance is being actioned on
+            example: "test@fiserv.com"
+          trade_name:
+            type: string
+            description: trade name of the location the maintenance is being actioned on
+            example: "Test"
+
+    cancellocationum:
+      type: object
+      properties:
+        location_to_cancel:
+          type: string
+          description: internal mid of the location to cancel
+          example: "700100000000001"
+        cancellation_reason:
+          type: string
+          description: the reason for cancellation
+          example: "Cancelled"
+          enum:
+            - Cancelled
+            - Cancelled For Fraud
+
     outletum:
       type: array
       items:
@@ -22815,6 +22891,8 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
     UpdateMaintenanceResponsePricing:
       type: object
       properties:
@@ -22842,6 +22920,18 @@ components:
           $ref: '#/components/schemas/odumr'
         new_details:
           $ref: '#/components/schemas/ndumr'
+        cancel_location_details:
+          $ref: '#/components/schemas/cancellocationum'
+    maintenanceerrors:
+      type: array
+      description: Maintenance Errors
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Errors resulting from submitting the maintenance case"
+            example: "Outlet : Outlet data is invalid - Location is already cancelled."
     maintenancedetailsumrPricing:
       type: object
       properties:
@@ -22901,6 +22991,37 @@ components:
                 type: string
                 description: bank id of the new bank
                 example: "62d91c7681b78a00594dd392"
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutletContact'
+        outlet_website:
+          type: string
+          description: website of the location the maintenance is being actioned on
+          example: "https://developer.fiserv.com/"
+        primary_email_address:
+          type: string
+          description: primary email address of the location the maintenance is being actioned on
+          example: "test@fiserv.com"
+        trade_name:
+          type: string
+          description: trade name of the location the maintenance is being actioned on
+          example: "MMISTest Trade name "
+        orderID:
+          type: string
+          description: 'OrderID returned from Marketplace submission'
+          example: "oABC1"
+        marketplace_maintenance_done:
+          type: string
+          description: | 
+            Whether or not the maintenance for this location has been submitted successfully to Marketplace.
+            * `0` - "Not Successful"
+            * `1` - "Successful"
+          example: "1"
+          enum:
+            - "1"
+            - "0"
+
 
 
     odumr:
