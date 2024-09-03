@@ -151,17 +151,17 @@ Reserve settings can be amended for an existing sub-merchant. This can be used t
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-The`AMEND_RESERVE` maintenance type must be used, and `merchant_reference` must be provided to create the case.
+The `AMEND_RESERVE` maintenance type must be used, and `merchant_reference` must be provided to create the case.
 
 This returns a `maintenance_reference`, unique to this case which can then be updated.
 
-### Updating the Add Reserve case
+### Updating the Amend Reserve case
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Adding the location (outlet) to the sub-merchant is the same as adding the original location (outlet) to an application, and uses the `/boarding/outlet/add` endpoint. The application reference required to be used is returned when creating the maintenance case, and the user should specify the `parent_mid` of the location (outlet) like the standard boarding process. Typically, this will be the subgroup of the application.
-
+Using the `maintenance_reference`, the case can then be updated. The new settings can be provided. The amended case must be updated same level as the original reserve, so if it was previously set on the "Merchant",
+ 
 ```json
 {
     "operation": {
