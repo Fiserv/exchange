@@ -131,8 +131,8 @@ For an instructional funding setup, the reserve would need to be enabled only. N
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submit using the `maintenance_reference`
-Once submit, a `"maintenance_status"`: "Completed" means the maintenance is complete.
+Once the case has been updated with the settings for the Reserve, it must be submit using the `maintenance_reference`.
+Once submit, a `"maintenance_status"`: "Completed" means the maintenance is complete, and reserve added.
 
 ```json
 {
