@@ -83,8 +83,12 @@
             link: docs/getting-started/getting-started-maintenance-reserves.md
             open: true
             sections: 
-            - title: Reserve Test 
-              link: docs/getting-started/getting-started-maintenance-reserves.md
+            - title: Add Reserve 
+              link: docs/getting-started/getting-started-maintenance-reserves-add.md
+            - title: Amend Reserve 
+              link: docs/getting-started/getting-started-maintenance-reserves-amend.md
+            - title: Remove Reserve 
+              link: docs/getting-started/getting-started-maintenance-reserves-remove.md
             
           
         #- title: (OLD) Onboarding Submerchants 
