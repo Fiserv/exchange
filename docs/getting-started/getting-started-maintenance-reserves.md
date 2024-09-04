@@ -17,8 +17,8 @@ link: ?path=docs/getting-started/getting-started-maintenance-reserves-add.md
 -->
 
 <!-- type: card
-title: Amend Reserve
-description: Amend an existing reserve for a sub-merchant
+title: Update Reserve
+description: Update an existing reserve for a sub-merchant
 link: ?path=docs/getting-started/getting-started-maintenance-reserves-amend.md
 -->
 
