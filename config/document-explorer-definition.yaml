@@ -85,7 +85,7 @@
             sections: 
             - title: Add Reserve 
               link: docs/getting-started/getting-started-maintenance-reserves-add.md
-            - title: Amend Reserve 
+            - title: Update Reserve 
               link: docs/getting-started/getting-started-maintenance-reserves-amend.md
             - title: Remove Reserve 
               link: docs/getting-started/getting-started-maintenance-reserves-remove.md
