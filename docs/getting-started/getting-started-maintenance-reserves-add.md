@@ -4,12 +4,12 @@ tags: [Getting Started, Maintenance, Reserves]
 ---
 # Reserve Maintenance
 
-Reserves can be added to sub-merchants to collect and managed amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions.
-Only one maintenance case for reserves on a sub-merchant can be created at a time.
+Reserves can be added to sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions.
+Only one maintenance case for reserves on a sub-merchant can be active at a time.
 
 ## Adding a Reserve
 
-To add a reserve to an existing sub-merchant, a Maintenance case must be created, updated and submit. 
+To add a reserve to an existing sub-merchant, a Maintenance case must be created, updated and submitted. 
 
 ### Creating the case
 
@@ -25,7 +25,7 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.  The settings you want to set the reserve up with will need to be provided.
+The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the location (outlet) level, but can also be on the Merchant or chain (subgroup).  The settings you want to set the reserve up with will need to be provided.
 For an auto-funding setup, these will drive how the reserve is collected. 
 
 
@@ -36,7 +36,7 @@ titles: Auto-Funding Request , Instructional Funding Request
 
 ### Auto-Funding Request 
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.  The settings you want to set the reserve up with will need to be provided, and will start collecting amounts at the next avaliable cycle. 
+The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the location (outlet) level, but can also be on the Merchant or chain (subgroup).  The settings you want to set the reserve up with will need to be provided, and the system will start collecting amounts at the next available cycle after the case is completed. 
 
 ```json
 {
@@ -104,8 +104,6 @@ For an instructional funding setup, the reserve would need to be enabled only. N
                     "take_reserves_flag": 1,
                     "reserve_type": 1,
                     "reserve_setting": 1,
-                    "reserve_daily_amount": 5,
-                    "reserve_trans_perc": 10,
                     "set_reserve_target": 1,
                     "reserve_target_amount": 500
                 }
@@ -131,8 +129,8 @@ For an instructional funding setup, the reserve would need to be enabled only. N
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submit using the `maintenance_reference`.
-Once submit, a `"maintenance_status"`: "Completed" means the maintenance is complete, and reserve added.
+Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
+Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve has been added.
 
 ```json
 {
