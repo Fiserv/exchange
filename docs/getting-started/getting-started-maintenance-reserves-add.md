@@ -36,6 +36,8 @@ titles: Auto-Funding Request , Instructional Funding Request
 
 ### Auto-Funding Request 
 
+The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.  The settings you want to set the reserve up with will need to be provided, and will start collecting amounts at the next avaliable cycle. 
+
 ```json
 {
     "operation": {
@@ -74,6 +76,7 @@ titles: Auto-Funding Request , Instructional Funding Request
 | `set_reserve_target`      | Integer   | Flag indicating whether to set a reserve target (1 for true, 0 for false). Will enable reserve_target_amount to be set for the sub-merchant.   |
 | `reserve_target_amount`   | Integer   | Maximum amount to collect for the sub-merchant when set_reserve_target is true.                                                                 |
 | `reserve_delay_days`      | Integer   | Used for reserve_type = 2 (Rolling). Sets the period of time for the rolling reserve to release amounts. Max 90.                                        |
+
 ---
 
 
@@ -81,7 +84,7 @@ titles: Auto-Funding Request , Instructional Funding Request
 
 ### Instructional Funding Request
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.  The settings you want to set the reserve up with will need to be provided.
+The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.
 For an instructional funding setup, the reserve would need to be enabled only. No settings would be applicable as these are collected by instructions.
 
 ```json
