@@ -4,7 +4,7 @@ tags: [Getting Started, Maintenance, Reserves]
 ---
 # Reserve Maintenance
 
-Reserves can be added to sub-merchants to collect and managed amounts for collateral through Exchange. A reserve can also be removed, but will require the user to instruct what will happen with any currently held funds. These will either need to be release prior to the maintenance case, or instructions specified in the Maintenance case on how much of the reserve should be released back to the sub-merchant, or released to the Aggregator.
+Reserves can be added to sub-merchants to collect and managed amounts for collateral through Exchange. A Reserve can also be removed, but will require the user to instruct what will happen with any currently held funds. Any currently held funds in Reserve will either need to be released prior to the maintenance case or during the maintenance case (Released to Sub-Merchant or Aggregator).  
 
 ## Removing an existing Reserve
 
@@ -15,9 +15,12 @@ Reserves can be added to sub-merchants to collect and managed amounts for collat
 
 To remove a reserve from an existing sub-merchant, the `REMOVE_RESERVE` maintenance type must be used on the create  
 
-This returns a `maintenance_reference`, unique to this case which can then be updated.
+This returns a `maintenance_reference`, unique to this case which can then be updated. The currently held Reserve amount is returned when creating the case, which will be used in the Update step.
 
 ### Updating the case
+
+Once created, the case must be updated.
+Any amount held in the Reserve must be instructed to be released, or deducted in the maintenance case. `remove_reserve_flag` must be `1` when removing reserve from a node. 
 
 ```json
 {
@@ -25,17 +28,16 @@ This returns a `maintenance_reference`, unique to this case which can then be up
         "operation_type": "UPDATE_MAINTENANCE"
     },
     "merchant": {
-        "merchant_reference": "30083993"
+        "merchant_reference": "30010001"
     },
     "maintenance": {
-        "maintenance_reference": "MC3000000931",
+        "maintenance_reference": "MC3000000001",
         "merchant": {
-            "internal_mid": "20375515",
+            "internal_mid": "100010000001",
             "reserve": {
                 "remove_reserve_flag": 1,
-                "release_deduct_funds": 1,
-                "release_amount": 0,
-                "deduct_amount": 0
+                "release_amount": 10,
+                "deduct_amount": 5
             }
         }
     }
@@ -46,8 +48,8 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 | Field Name           | Data Type | Description                                                                                                                                                                                                        |
 |----------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `remove_reserve_flag` | Integer   | Flag indicating if reserve should be removed. 1 - Yes 2 - No                                                                                                                                                    |
-| `release_amount`     | Integer   | Amount of currently held reserve that will be released and settled to the sub-merchant after the case is complete. `release_amount` + `deduct_amount` must equal the amount currently held in reserve.            |
-| `deduct_amount`      | Integer   | Amount of currently held reserve that will be deducted and settled to the Aggregator after the case is submitted. `release_amount` + `deduct_amount` must equal the amount currently held in reserve.       |
+| `release_amount`     | Number   | Amount of currently held reserve that will be released and settled to the sub-merchant after the case is complete. `release_amount` + `deduct_amount` must equal the amount currently held in reserve. Must be positive            |
+| `deduct_amount`      | Number   | Amount of currently held reserve that will be deducted and settled to the Aggregator after the case is submitted. `release_amount` + `deduct_amount` must equal the amount currently held in reserve. Must be positive      |
 
 
 ### Submitting the Case

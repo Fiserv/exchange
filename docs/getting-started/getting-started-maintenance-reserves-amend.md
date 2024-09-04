@@ -5,11 +5,11 @@ tags: [Getting Started, Maintenance, Reserves]
 
 # Reserve Maintenance
 
-Reserves can be added to sub-merchants to collect and managed amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions.
-Only one maintenance case for reserves on a sub-merchant can be created at a time.
-## Amending a Reserve
+Reserves can be added to sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions. Only one maintenance case for reserves on a sub-merchant can be active at a time.
 
-Reserve settings can be amended for an existing sub-merchant. This can be used to update how the reserve collects for Auto-Funding. 
+## Updating a Reserve
+
+Reserve settings can be updated for an existing sub-merchant. This can be used to update how the reserve collects for Auto-Funding, or to raise the collection amount for the reserve.
 
 ### Creating the case
 
@@ -20,12 +20,12 @@ The `AMEND_RESERVE` maintenance type must be used, and `merchant_reference` must
 
 This returns a `maintenance_reference`, unique to this case which can then be updated.
 
-### Updating the Amend Reserve case
+### Updating the Reserve 
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Using the `maintenance_reference`, the case can then be updated and the new settings can be provided. The amended case must be updated same level as the original reserve, so if it was previously set on the "outlet" , then it must still be amended on the outlet.
+Using the `maintenance_reference`, the case can then be updated and the new settings can be provided. The case must be updated on the same level as the original reserve, so if it was previously set on the "location" (outlet) , then it must still be updated on the location (outlet).
  
 ```json
 {
@@ -41,7 +41,6 @@ Using the `maintenance_reference`, the case can then be updated and the new sett
             {
                 "internal_mid": "8001000000100001",
                 "reserve": {
-                    "take_reserves_flag": 1,
                     "reserve_type": 1,
                     "reserve_setting": 1,
                     "reserve_daily_amount": 5,
@@ -57,7 +56,6 @@ Using the `maintenance_reference`, the case can then be updated and the new sett
 
 | Field Name              | Data Type | Description                                                                                                                                    |
 |-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `take_reserves_flag`      | Integer   | Flag indicating whether to take reserves (1 for true, 0 for false).                                                                            |
 | `reserve_type`            | Integer   | Type of reserve being configured. 1 - Normal, 2 - Rolling.                                                                                     |
 | `reserve_setting`         | Integer   | Reserve collection setting. 1 - Percentage, 2 - Base.                                                                                          |
 | `reserve_daily_amount`    | Integer   | Amount to be collected daily. Used for reserve_setting = 2 (Base), specifies the daily amount taken into reserve for the sub-merchant.         |
@@ -72,8 +70,8 @@ Using the `maintenance_reference`, the case can then be updated and the new sett
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submit using the `maintenance_reference`.
-Once submit, a `"maintenance_status"`: "Completed" means the maintenance is complete, and reserve updated.
+Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
+Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve settings have been updated.
 
 ```json
 {
