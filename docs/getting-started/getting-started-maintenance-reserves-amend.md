@@ -39,7 +39,7 @@ When updating a reserve, all settings can be updated. If reserves are no longer 
     },
     "maintenance": {
         "maintenance_reference": "MC3000000001",
-        "outelts": [
+        "outlets": [
             {
                 "internal_mid": "8001000000100001",
                 "reserve": {
