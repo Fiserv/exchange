@@ -4,12 +4,12 @@ tags: [Getting Started, Maintenance, Reserves]
 ---
 # Reserve Maintenance
 
-Reserves can be added to sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions.
+Reserves can be enabled for sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions.
 Only one maintenance case for reserves on a sub-merchant can be active at a time.
 
 ## Adding a Reserve
 
-To add a reserve to an existing sub-merchant, a Maintenance case must be created, updated and submitted. 
+To enable reserves for an existing sub-merchant, a Maintenance case must be created, updated and submitted. 
 
 ### Creating the case
 
@@ -27,10 +27,6 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 
 <!-- theme: warning -->
 > `take_reserve_flag` must be `1` when adding reserve.
-
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the location (outlet) level, but can also be on the Merchant or chain (subgroup).  The settings you want to set the reserve up with will need to be provided.
-For an auto-funding setup, these will drive how the reserve is collected. 
-
 
 <!--
 type: tab

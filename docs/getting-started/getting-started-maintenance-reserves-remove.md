@@ -6,21 +6,25 @@ tags: [Getting Started, Maintenance, Reserves]
 
 Reserves can be added to sub-merchants to collect and managed amounts for collateral through Exchange. A Reserve can also be removed, but will require the user to instruct what will happen with any currently held funds. Any currently held funds in Reserve will either need to be released prior to the maintenance case or during the maintenance case (Released to Sub-Merchant or Aggregator).  
 
-## Removing an existing Reserve
+## Removing an Existing Reserve
 
 ### Creating the case
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-To remove a reserve from an existing sub-merchant, the `REMOVE_RESERVE` maintenance type must be used on the create  
+To remove a reserve from an existing sub-merchant, the `REMOVE_RESERVE` maintenance type must be used and `merchant_reference` must be provided to create the case.
 
 This returns a `maintenance_reference`, unique to this case which can then be updated. The currently held Reserve amount is returned when creating the case, which will be used in the Update step.
+
+<!-- theme: warning -->
+> The full reserve balance must be released or deducted to be able to remove reserves.
+
 
 ### Updating the case
 
 Once created, the case must be updated.
-Any amount held in the Reserve must be instructed to be released, or deducted in the maintenance case. `remove_reserve_flag` must be `1` when removing reserve from a node. 
+Any amount held in the Reserve must be instructed to be released, or deducted in the maintenance case. It is possible to divide the total reserve balance across both release and deduct. `remove_reserve_flag` must be `1` when removing reserve from a node. 
 
 ```json
 {
@@ -57,8 +61,8 @@ Any amount held in the Reserve must be instructed to be released, or deducted in
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submit using the `maintenance_reference`
-Once submit, a `"maintenance_status"`: "Completed" means the maintenance is complete and the reserve has been removed.
+Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`
+Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete and the reserve has been removed.
 
 ```json
 {

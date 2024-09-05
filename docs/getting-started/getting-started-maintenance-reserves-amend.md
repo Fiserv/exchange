@@ -9,7 +9,7 @@ Reserves can be added to sub-merchants to collect and manage amounts for collate
 
 ## Updating a Reserve
 
-Reserve settings can be updated for an existing sub-merchant. This can be used to update how the reserve collects for Auto-Funding, or to raise the collection amount for the reserve.
+Reserve settings can be updated for a sub-merchant. This can be used to update how the reserve collects for Auto-Funding, or to raise the collection amount for the reserve. This can also be used to stop collecting reserves from a sub-merchant but retain the current reserve balance for future use.
 
 ### Creating the case
 
@@ -26,6 +26,8 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 >**POST** `/maintenance`
 
 Using the `maintenance_reference`, the case can then be updated and the new settings can be provided. The case must be updated on the same level as the original reserve, so if it was previously set on the "location" (outlet) , then it must still be updated on the location (outlet).
+
+When updating a reserve, all settings can be updated. If reserves are no longer to be collected, but the reserve balance retained, whichever has been set from `"reserve_daily_amount"` or `"reserve_trans_perc"` should be set to `“0”`.
  
 ```json
 {
@@ -37,7 +39,7 @@ Using the `maintenance_reference`, the case can then be updated and the new sett
     },
     "maintenance": {
         "maintenance_reference": "MC3000000001",
-        "outelts": [
+        "outlets": [
             {
                 "internal_mid": "8001000000100001",
                 "reserve": {
