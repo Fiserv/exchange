@@ -12,13 +12,13 @@ These are split into three cases, to add, amend, or remove a reserve.
 
 <!-- type: card
 title: Add Reserve
-description: Add a new reserve to an existing sub-merchant
+description: Enable reserves for an existing sub-merchant
 link: ?path=docs/getting-started/getting-started-maintenance-reserves-add.md
 -->
 
 <!-- type: card
 title: Update Reserve
-description: Update an existing reserve for a sub-merchant
+description: Update reserve settings for a sub-merchant
 link: ?path=docs/getting-started/getting-started-maintenance-reserves-amend.md
 -->
 
