@@ -1249,8 +1249,8 @@ paths:
     post:
       tags:
         - Reserve Release
-      description: "Release funds that are currently held in the Reserve account for a sub-merchant. Can be released back to the sub-merchant, or deducted as collateral and settled to the PayFac account."
       summary: "Move fund by merchant id, total amount, currency and accounts."
+      description: "Release funds that are currently held in the Reserve account for a sub-merchant. Can be released back to the sub-merchant, or deducted as collateral and settled to the PayFac account."
       operationId: reserveReleaseAccount
       x-group-name: Submerchant Account Operations
       x-proxy-name: Reserve Release
@@ -2019,6 +2019,15 @@ paths:
               CHANGE_BANK:
                 summary: Example Payload for updating Bank Info
                 $ref: '#/components/examples/RequestBankMaintenance'
+              ADD_RESERVE:
+                summary: Example Payload for ADD_RESERVE
+                $ref: '#/components/examples/RequestAddReserveUpdateMaintenance'
+              AMEND_RESERVE:
+                summary: Example Payload for AMEND_RESERVE
+                $ref: '#/components/examples/RequestAmendReserveUpdateMaintenance'
+              REMOVE_RESERVE:
+                summary: Example Payload for REMOVE_RESERVE
+                $ref: '#/components/examples/RequestRemoveReserveUpdateMaintenance'
 
         required: true
       responses:
@@ -3626,12 +3635,28 @@ components:
                   properties:
                     key:
                       type: string
-                      example: "TOKEN_PROVIDER"
-                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time"
+                      enum:
+                        - "AUTO_CLOSE_HHMM"
+                        - "GLOBAL_FEE_DETAIL"
+                        - "TOKEN_HIERARCHY_LEVEL"
+                        - "TA_TOKEN_VALUE"
+                        - "TOKEN_PROVIDER"
+                        - "TRANSARMOR_SECURITY_LEVEL"
+                      example: "AUTO_CLOSE_HHMM"
+                      description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time. Will use the value provided for the Key."
                     value:
                       type: string
                       example: "TransArmor"
-                      description: "Used to send the value of the attribute. Will depend on what service is used. Typically used to send values for transarmor or auto close time"
+                      description: | 
+                       Used to send the value of the attribute. Applicable values will depend on what service is used, please see offer documentation for more info. Typically used to send values for transarmor or auto close time.
+                       
+                        Sample values for attributes
+                        * `HH:MM` - "AUTO_CLOSE_HHMM"
+                        * `1001001` - "GLOBAL_FEE_DETAIL"
+                        * `04` - "TOKEN_HIERARCHY_LEVEL"
+                        * `4321` - "TA_TOKEN_VALUE"
+                        * `TransArmor` - "TOKEN_PROVIDER"
+                        * `03` - "TRANSARMOR_SECURITY_LEVEL"
     Acquiring:
       type: object
       description: "Used to submit pricing through the API for the application. Should be sent on the billing + funding level."
@@ -4374,17 +4399,34 @@ components:
                     description: "Max Value for fixed amounts being retrieved"
                   attributes:
                     type: array
-                    items:
+                    description: "Not required unless sending additional attributes. Typically used to send values for Transarmor or auto close time"
+                    items: 
                       type: object
                       properties:
                         key:
                           type: string
-                          example: TOKEN_PROVIDER
-                          description: "Key used for value in the attribute being added. Typically used for TransArmor and Auto close times."
+                          enum:
+                            - "AUTO_CLOSE_HHMM"
+                            - "GLOBAL_FEE_DETAIL"
+                            - "TOKEN_HIERARCHY_LEVEL"
+                            - "TA_TOKEN_VALUE"
+                            - "TOKEN_PROVIDER"
+                            - "TRANSARMOR_SECURITY_LEVEL"
+                          example: "AUTO_CLOSE_HHMM"
+                          description: "Key used to send attribute. Will depend on what service is being used. Typically used to send values for Transarmor or auto close time. Will use the value provided for the Key."
                         value:
                           type: string
-                          description: "Value used for attribute being added. Typically used for TransArmor and Auto close times."
                           example: "TransArmor"
+                          description: | 
+                           Used to send the value of the attribute. Applicable values will depend on what service is used, please see offer documentation for more info. Typically used to send values for transarmor or auto close time.
+                           
+                            Sample values for attributes
+                            * `HH:MM` - "AUTO_CLOSE_HHMM"
+                            * `1001001` - "GLOBAL_FEE_DETAIL"
+                            * `04` - "TOKEN_HIERARCHY_LEVEL"
+                            * `4321` - "TA_TOKEN_VALUE"
+                            * `TransArmor` - "TOKEN_PROVIDER"
+                            * `03` - "TRANSARMOR_SECURITY_LEVEL"
             entitlements:
               type: array
               items:
@@ -7237,13 +7279,13 @@ components:
           example: "003"
         hierarchy_id:
           type: string
-          example: "52600006201"
+          example: "53200006201"
         hierarchy_level_no:
           type: string
           example: "60"
         location_id:
           type: string
-          example: "52600006201"
+          example: "53200006201"
         location_dba_name:
           type: string
           example: "PAYMENT"
@@ -22071,6 +22113,13 @@ components:
           - UPDATE_ONLINE_PRICING
           - CHANGE_BANK
           - ADD_OUTLETS
+          - CANCEL_LOCATION
+          - CHANGE_DBA
+          - CHANGE_DBA_CONTACT
+          - ADD_RESERVE
+          - REMOVE_RESERVE
+          - AMEND_RESERVE
+
     maintenancetypesPricing:
       type: array
       items:
@@ -22214,6 +22263,8 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
 
     MaintenanceSearchResponse:
       type: object
@@ -22296,6 +22347,9 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
+
 
 
 
@@ -22316,6 +22370,8 @@ components:
           $ref: '#/components/schemas/outletum'
         merchant:
           $ref: '#/components/schemas/merchantum'
+        cancel_location_details:
+          $ref: '#/components/schemas/cancellocationum'
 
     subgroupum:
       type: array
@@ -22330,6 +22386,41 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/MaintenanceBankDetail'
+
+          reserve:
+            $ref: '#/components/schemas/maintenanceReserveDetails'
+          contacts:
+            type: array
+            items:
+              $ref: '#/components/schemas/OutletContact'
+          outlet_website:
+            type: string
+            description: website of the location the maintenance is being actioned on
+            example: "https://developer.fiserv.com/"
+          primary_email_address:
+            type: string
+            description: primary email address of the location the maintenance is being actioned on
+            example: "test@fiserv.com"
+          trade_name:
+            type: string
+            description: trade name of the location the maintenance is being actioned on
+            example: "Test"
+
+    cancellocationum:
+      type: object
+      properties:
+        location_to_cancel:
+          type: string
+          description: internal mid of the location to cancel
+          example: "700100000000001"
+        cancellation_reason:
+          type: string
+          description: the reason for cancellation
+          example: "Cancelled"
+          enum:
+            - Cancelled
+            - Cancelled For Fraud
+
     outletum:
       type: array
       items:
@@ -22343,6 +22434,8 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/MaintenanceBankDetail'
+          reserve:
+            $ref: '#/components/schemas/maintenanceReserveDetails'
     merchantum:
       type: array
       items:
@@ -22356,6 +22449,72 @@ components:
             $ref: '#/components/schemas/businessentity'
           charges:
             $ref: '#/components/schemas/maintenanceOffering'
+
+          reserve:
+            $ref: '#/components/schemas/maintenanceReserveDetails'
+
+    maintenanceReserveDetails:
+      type: object
+      description: "This object needs to be present in case of ADD_RESERVE, AMEND_RESERVE, REMOVE_RESERVE"
+      properties:
+        take_reserves_flag:
+          type: integer
+          description: "Activate reserve flag: 0 - Deactivate reserve; 1 - Activate reserve; Used only in case of ADD_RESERVE"
+          enum: 
+            - "0"
+            - "1"
+        reserve_type:
+          type: integer
+          description: "Reserve Type: 0 - No reserve; 1 - Normal; 2 - Rolling. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "1"
+          enum: 
+            - "0"
+            - "1"
+            - "2"
+        reserve_setting:
+          type: integer
+          description: "Reserve Setting: 1 - Percent; 2 - Fixed. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "2"
+          enum: 
+            - "0"
+            - "1"
+            - "2"
+        reserve_daily_amount:
+          type: number
+          description: "Reserve daily amount. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "10.50"
+        reserve_trans_perc:
+          type: integer
+          description: "Reserve Transactions Percentage. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "2.5"
+        set_reserve_target:
+          type: integer
+          description: "Set Reserve Target: 0 - No; 1 - Yes. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "1"
+          enum: 
+            - "0"
+            - "1"
+        reserve_target_amount:
+          type: number
+          description: "Reserve Target Amount. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "100"
+        reserve_delay_days:
+          type: integer
+          description: "Reserve Delay in Days. Used only in case of ADD_RESERVE, AMEND_RESERVE, for type rolling reserve"
+          example: "2"
+          
+        remove_reserve_flag:
+          type: integer
+          description: "Remove reserve flag: 0 - Keep reserve on Node; 1 - Deactivate reserve; Used only in case of REMOVE_RESERVE"
+          example: "1"
+        release_amount:
+          type: number
+          description: "Releases Amount back to Sub-Merchant. Used only in case of REMOVE_RESERVE"
+          example: "10.00"
+        deduct_amount:
+          type: number
+          description: "Deduct Amount from sub-merchants reserve to the Aggregators operating account. Used only in case of REMOVE_RESERVE"
+          example: "15.00"
     maintenanceOffering:
       type: object
       properties:
@@ -22815,6 +22974,8 @@ components:
           $ref: '#/components/schemas/maintenancemmr'
         maintenance_details:
           $ref: '#/components/schemas/maintenancedetailsumr'
+        maintenance_errors:
+          $ref: '#/components/schemas/maintenanceerrors'
     UpdateMaintenanceResponsePricing:
       type: object
       properties:
@@ -22842,6 +23003,18 @@ components:
           $ref: '#/components/schemas/odumr'
         new_details:
           $ref: '#/components/schemas/ndumr'
+        cancel_location_details:
+          $ref: '#/components/schemas/cancellocationum'
+    maintenanceerrors:
+      type: array
+      description: Maintenance Errors
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Errors resulting from submitting the maintenance case"
+            example: "Outlet : Outlet data is invalid - Location is already cancelled."
     maintenancedetailsumrPricing:
       type: object
       properties:
@@ -22901,6 +23074,39 @@ components:
                 type: string
                 description: bank id of the new bank
                 example: "62d91c7681b78a00594dd392"
+        reserve:
+          $ref: '#/components/schemas/reseroveod'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutletContact'
+        outlet_website:
+          type: string
+          description: website of the location the maintenance is being actioned on
+          example: "https://developer.fiserv.com/"
+        primary_email_address:
+          type: string
+          description: primary email address of the location the maintenance is being actioned on
+          example: "test@fiserv.com"
+        trade_name:
+          type: string
+          description: trade name of the location the maintenance is being actioned on
+          example: "MMISTest Trade name "
+        orderID:
+          type: string
+          description: 'OrderID returned from Marketplace submission'
+          example: "oABC1"
+        marketplace_maintenance_done:
+          type: string
+          description: | 
+            Whether or not the maintenance for this location has been submitted successfully to Marketplace.
+            * `0` - "Not Successful"
+            * `1` - "Successful"
+          example: "1"
+          enum:
+            - "1"
+            - "0"
+
 
 
     odumr:
@@ -22928,6 +23134,77 @@ components:
       properties:
         62d91c7681b78a00594dd392:
           $ref: '#/components/schemas/bidod'
+        internal_mid:
+          type: string
+          description: Internal MID of entity
+        reserve:
+          $ref: '#/components/schemas/reseroveod'
+    reseroveod:
+      type: object
+      description: In case of ADD_RESERVE, AMEND_RESERVE, REMOVE_RESERVE maintenance cases
+      properties:
+        take_reserves_flag:
+          type: integer
+          description: "Activate reserve flag: 0 - Deactivate reserve; 1 - Activate reserve; Used only in case of ADD_RESERVE"
+          example: "1"
+          enum: 
+            - "1"
+            - "0"
+        reserve_type:
+          type: integer
+          description: "Reserve Type: 0 - No reserve; 1 - Normal; 2 - Rolling. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "1"
+          enum: 
+            - "0"
+            - "1"
+            - "2"
+        reserve_setting:
+          type: integer
+          description: "Reserve Setting: 1 - Percent; 2 - Fixed. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "2"
+          enum: 
+            - "1"
+            - "2"
+        reserve_daily_amount:
+          type: number
+          description: "Reserve daily amount. Sets daily flat rate to collect for reserve. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "10.00"
+        reserve_trans_perc:
+          type: integer
+          description: "Reserve Transactions Percentage. Sets the percentage that will be collected for reserve.Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "2.5"
+        set_reserve_target:
+          type: integer
+          description: "Set Reserve Target: 0 - No; 1 - Yes. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "1"
+          enum:
+            - "0"
+            - "1"
+        reserve_target_amount:
+          type: number
+          description: "Reserve Target Amount. Used only in case of ADD_RESERVE, AMEND_RESERVE"
+          example: "200"
+        reserve_delay_days:
+          type: integer
+          description: "Reserve Delay in Days. Used only in case of ADD_RESERVE, AMEND_RESERVE where rolling reserve is enabled"
+          example: "2"
+          
+        remove_reserve_flag:
+          type: integer
+          description: "Activate reserve flag: 0 - Deactivate reserve; 1 - Activate reserve; Used only in case of REMOVE_RESERVE"
+          enum:
+            - "0"
+            - "1"
+          example: "1"
+        release_amount:
+          type: number
+          description: "Release Amount back to sub-merchant. Used only in case of REMOVE_RESERVE"
+          example: "100"
+        deduct_amount:
+          type: number
+          description: "Deduct Amount from the sub-merchants reserve to the Aggregator. Used only in case of REMOVE_RESERVE"
+          example : "100"
+
     bidod:
       type: object
       properties:
@@ -23007,7 +23284,7 @@ components:
         maintenance_external_id:
           type: string
           description: the maintenance case external id
-          example: "MTNCB-651E4-E0CCC-5453A-1C07D-5E526-AF699"
+          example: "MTNCB-651E4-E0CCC-5453A-1C07D-5E532-AF699"
         creator_user_external_id:
           type: string
           description: the external id for creator user
@@ -24804,7 +25081,7 @@ components:
         external_mid:
           type: string
           description: the external mid
-          example: "526326668887"
+          example: "532326668887"
         contact_information:
           $ref: '#/components/schemas/ContactInformationVar'
         account_setup_information:
@@ -24855,10 +25132,10 @@ components:
       properties:
         merchant_number:
           type: string
-          example: "52630000001"
+          example: "53230000001"
         nashvile_mid:
           type: string
-          example: "52630002342"
+          example: "53230002342"
         business_type:
           type: string
           example: "RETAIL"
@@ -26434,7 +26711,7 @@ components:
         txm_unique_id:
           type: string
           description: "Identifier for the tranasction"
-          example: "-52606609801-52606609801"
+          example: "-53206609801-53206609801"
         amount:
           type: string
           description: "Amount of the original transaction"
@@ -26442,11 +26719,11 @@ components:
         source_merchant_id:
           type: string
           description: "Source of the transaction being split"
-          example: "52606609801"
+          example: "53206609801"
         target_merchant_id:
           type: string
           description: "Target of the split amount, typically will show the amount being split to a third party on the system"
-          example: "52606609802"
+          example: "53206609802"
         source_node_id:
           type: string
           description: "Merchant node ID of the source merchant"
@@ -28806,7 +29083,7 @@ components:
           transactions:
             - _id: "6f2522147afbba675c"
               processed_currency_code: '840'
-              submerchant_id: '00052606609801'
+              submerchant_id: '00053206609801'
               card_type: '00001'
               reject_indicator: 'N'
               transaction_amount: "10"
@@ -28865,7 +29142,7 @@ components:
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
-              location_id: '52606609801'
+              location_id: '53206609801'
               merchant_node_id: "20000"
               pfac_node_id: "10"
               outlet_id: "10000"
@@ -28874,7 +29151,7 @@ components:
               plan_code: "VABC"
               reclass_code: ''
               record_type: "CREDIT_DETAIL_FUNDED"
-              hierarchy_id: '52606609801'
+              hierarchy_id: '53206609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
@@ -28892,7 +29169,7 @@ components:
           transactions:
             - _id: 6f2522147afbba675c
               processed_currency_code: '840'
-              submerchant_id: '00052606609801'
+              submerchant_id: '00053206609801'
               card_type: '00001'
               reject_indicator: 'N'
               transaction_amount: "10"
@@ -28937,10 +29214,10 @@ components:
               split_details:
                 - processing_fee: '0.0100'
                   hold_flag: "STORE_SPLIT"
-                  txm_unique_id: '-52606609801-52606609801'
+                  txm_unique_id: '-53206609801-53206609801'
                   amount: '10.00'
-                  source_merchant_id: '52606609801'
-                  target_merchant_id: '52606609801'
+                  source_merchant_id: '53206609801'
+                  target_merchant_id: '53206609801'
                   source_node_id: "20000"
                   target_hierarchy_type: "1"
                   target_node_id: "20000"
@@ -28961,7 +29238,7 @@ components:
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
-              location_id: '52606609801'
+              location_id: '53206609801'
               merchant_node_id: "20000"
               pfac_node_id: "10"
               outlet_id: "10000"
@@ -28970,7 +29247,7 @@ components:
               plan_code: "VABC"
               reclass_code: ''
               record_type: "CREDIT_DETAIL_FUNDED"
-              hierarchy_id: '52606609801'
+              hierarchy_id: '53206609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
@@ -28988,7 +29265,7 @@ components:
           transactions:
             - _id: 6f2522147afbba675c
               processed_currency_code: '840'
-              submerchant_id: '00052606609801'
+              submerchant_id: '00053206609801'
               card_type: '00001'
               reject_indicator: 'N'
               transaction_amount: "10"
@@ -29033,10 +29310,10 @@ components:
               split_details:
                 - processing_fee: '0.0100'
                   hold_flag: "STORE_SPLIT"
-                  txm_unique_id: '-52606609801-52606609801'
+                  txm_unique_id: '-53206609801-53206609801'
                   amount: '10.00'
-                  source_merchant_id: '52606609801'
-                  target_merchant_id: '52606609801'
+                  source_merchant_id: '53206609801'
+                  target_merchant_id: '53206609801'
                   source_node_id: "20000"
                   target_hierarchy_type: "1"
                   target_node_id: "20000"
@@ -29071,7 +29348,7 @@ components:
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
-              location_id: '52606609801'
+              location_id: '53206609801'
               merchant_node_id: "20000"
               pfac_node_id: "10"
               outlet_id: "10000"
@@ -29080,7 +29357,7 @@ components:
               plan_code: "VABC"
               reclass_code: ''
               record_type: "CREDIT_DETAIL_FUNDED"
-              hierarchy_id: '52606609801'
+              hierarchy_id: '53206609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
@@ -29098,7 +29375,7 @@ components:
           transactions:
             - _id: 6f2522147afbba675c
               processed_currency_code: '840'
-              submerchant_id: '00052606609801'
+              submerchant_id: '00053206609801'
               card_type: '00001'
               reject_indicator: 'Y'
               transaction_amount: "10"
@@ -29157,7 +29434,7 @@ components:
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
-              location_id: '52606609801'
+              location_id: '53206609801'
               merchant_node_id: "20000"
               pfac_node_id: "10"
               outlet_id: "10000"
@@ -29166,7 +29443,7 @@ components:
               plan_code: VABC
               reclass_code: ''
               record_type: CREDIT_DETAIL_FUNDED
-              hierarchy_id: '52606609801'
+              hierarchy_id: '53206609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
@@ -29184,7 +29461,7 @@ components:
           transactions:
             - _id: 6f2522147afbba675c
               processed_currency_code: '840'
-              submerchant_id: '00052606609801'
+              submerchant_id: '00053206609801'
               card_type: '00001'
               reject_indicator: 'Y'
               transaction_amount: "10"
@@ -29243,7 +29520,7 @@ components:
               visa_purchase_identifier: ''
               visa_purchase_identifier_format: '1'
               visa_service_develop: '1'
-              location_id: '52606609801'
+              location_id: '53206609801'
               merchant_node_id: "20000"
               pfac_node_id: "10"
               outlet_id: "10000"
@@ -29263,7 +29540,7 @@ components:
               plan_code: VABC
               reclass_code: ''
               record_type: CREDIT_DETAIL_FUNDED
-              hierarchy_id: '52606609801'
+              hierarchy_id: '53206609801'
               hierarchy_level_no: '10'
               date_added: '2021-11-01'
               surcharge_indicator: ''
@@ -29285,10 +29562,10 @@ components:
               merchant_id: "2000"
               merchant_node_id: "8000"
               outlet_id: "4000"
-              location_id: '52606609801'
+              location_id: '53206609801'
               date_added: '2021-11-01'
               record_type: AUTHORIZATION_DETAILS
-              hierarchy_id: '52606609801'
+              hierarchy_id: '53206609801'
               hierarchy_level_no: '60'
               location_dba_name: MMISTest DBA Name
               store_number: ''
@@ -29382,10 +29659,10 @@ components:
               merchant_id: "2000"
               merchant_node_id: "8000"
               outlet_id: "3000"
-              location_id: '526232132199'
+              location_id: '532232132199'
               date_added: '2021-11-01'
               record_type: "CHARGEBACK_DETAIL"
-              hierarchy_id: '526232000099'
+              hierarchy_id: '532232000099'
               hierarchy_level_no: '10'
               location_dba_name: "MMISTest DBA NAME"
               store_number: ''
@@ -29421,7 +29698,7 @@ components:
               receive_date: '20211011'
               adjustment_amount_sign: +
               adjustment_amount: "10.30"
-              submerchant_id: '000526333132199'
+              submerchant_id: '000532333132199'
               soft_descriptor: "ABC*MMISTest Business"
               submitted_transaction_currency_code: '840'
               submitted_transaction_amount_sign: "+"
@@ -29448,10 +29725,10 @@ components:
               merchant_id: "2000"
               merchant_node_id: "8000"
               outlet_id: "3000"
-              location_id: '526232132199'
+              location_id: '532232132199'
               date_added: '2021-11-10'
               record_type: "ADJUSTMENT_DETAIL"
-              hierarchy_id: '526232000099'
+              hierarchy_id: '532232000099'
               hierarchy_level_no: '10'
               location_dba_name: "MMISTest DBA NAME"
               store_number: ''
@@ -29497,10 +29774,10 @@ components:
               merchant_id: "2000"
               merchant_node_id: "8000"
               outlet_id: "3000"
-              location_id: '526232132199'
+              location_id: '532232132199'
               date_added: '2021-11-10'
               record_type: "ADJUSTMENT_DETAIL"
-              hierarchy_id: '526232000099'
+              hierarchy_id: '532232000099'
               hierarchy_level_no: '10'
               location_dba_name: "MMISTest DBA NAME"
               store_number: ''
@@ -29955,7 +30232,7 @@ components:
         operation:
           operation_type: "UPDATE_MAINTENANCE"
         merchant:
-          merchant_reference: "30083993"
+          merchant_reference: "30083001"
         maintenance:
           maintenance_reference: "MC3000000001"
           merchant:
@@ -30018,7 +30295,7 @@ components:
         operation:
           operation_type: "UPDATE_MAINTENANCE"
         merchant:
-          merchant_reference: "30083993"
+          merchant_reference: "30083001"
         maintenance:
           maintenance_reference: "MC3000000601"
           outlets:
@@ -30031,6 +30308,60 @@ components:
                 ]
                 }
 
+    RequestAddReserveUpdateMaintenance:
+      value:
+        operation:
+          operation_type: "UPDATE_MAINTENANCE"
+        merchant:
+          merchant_reference: "30083001"
+        maintenance:
+          maintenance_reference: "MC3000000601"
+          merchant:
+            internal_mid: "7001000000500001"
+            reserve: {
+              "take_reserves_flag": 1,
+              "reserve_type": 1,
+              "reserve_setting": 1,
+              "reserve_daily_amount": 600,
+              "reserve_trans_perc": 14,
+              "set_reserve_target": 1,
+              "reserve_target_amount": 600,
+              "reserve_delay_days": 6
+            }
+    RequestAmendReserveUpdateMaintenance:
+      value:
+        operation:
+          operation_type: "UPDATE_MAINTENANCE"
+        merchant:
+          merchant_reference: "30083001"
+        maintenance:
+          maintenance_reference: "MC3000000601"
+          merchant:
+            internal_mid: "7001000000500001"
+            reserve: {
+              "reserve_type": 1,
+              "reserve_setting": 1,
+              "reserve_daily_amount": 600,
+              "reserve_trans_perc": 14,
+              "set_reserve_target": 1,
+              "reserve_target_amount": 600,
+              "reserve_delay_days": 6
+            }
+    RequestRemoveReserveUpdateMaintenance:
+      value:
+        operation:
+          operation_type: "UPDATE_MAINTENANCE"
+        merchant:
+          merchant_reference: "30083001"
+        maintenance:
+          maintenance_reference: "MC3000000601"
+          merchant:
+            internal_mid: "7001000000500001"
+            reserve: {
+              "remove_reserve_flag": 0,
+              "release_amount": 0,
+              "deduct_amount": 0
+            }
     RequestTransactionDateMID:
       value:
         limit: 5
@@ -30038,7 +30369,7 @@ components:
         query:
           location_id:
             {operator: "EQ",
-             value : "52606609801"}
+             value : "53206609801"}
           date_added:
             { operator: "EQ",
               value : "2022-01-01"}
@@ -30049,7 +30380,7 @@ components:
         query:
           location_id:
             {operator: "EQ",
-             value : "52606609801"}
+             value : "53206609801"}
           date_added:
             { operator: "BW",
               value : "2022-01-01",
@@ -30057,7 +30388,7 @@ components:
             }
     RequestAccountSummary:
       value:
-        merchant_id: '526266998801'
+        merchant_id: '532266998801'
         currency: USD
         date: "2023-01-15"
 
@@ -30174,7 +30505,7 @@ components:
             aba: '666989898'
             effective_date: '2022-01-15'
             settlement_ref: 'SETAB-B3221-B3LKX1-C8C33-LOE98-PLKAA-OP992'
-            mid: '526266998801'
+            mid: '532266998801'
 
     RequestGenerateToken:
       value:
@@ -30347,7 +30678,7 @@ components:
             aba: '6669898321'
             effective_date: '2021-11-01'
             settlement_ref: SETR2-KC6A9-APLOE-29919-79LPA-EUI79-KC679
-            mid: '52600000321'
+            mid: '53200000321'
 
     ResponseAccountInstructionalHold:
       value:
@@ -30359,7 +30690,7 @@ components:
           previous_balance: '795.1400'
           today_in: '0.0000'
           today_out: '0.0000'
-          merchant_id: '52600000321'
+          merchant_id: '53200000321'
     ResponseManageSettlement:
       value:
         result: SUCCESS
@@ -30730,15 +31061,15 @@ components:
           date_updated:
             $date:
               $numberLong: '1697017417702'
-          _id: 65266e49e9f7b031cd0cf480
-          merchant_id: 6526632b352ecdba1a0b4bad
+          _id: 65326e49e9f7b031cd0cf480
+          merchant_id: 6532632b352ecdba1a0b4bad
           merchant_node_id: null
           merchant_reference: '3015001'
           funding_settings_id: null
           account_settings_id: null
           quote_id: null
-          main_owner: 652663b191c0d5feb105cd13
-          main_outlet: 6526632b352ecdba1a0b4bb0
+          main_owner: 653263b191c0d5feb105cd13
+          main_outlet: 6532632b352ecdba1a0b4bb0
           total_outlets: 1
           total_billings: null
           total_chains: 0
@@ -30746,41 +31077,41 @@ components:
           credit_risk_decision: null
           credit_risk_classification: null
           risk_classification: null
-          intelligence_data_ref: 652664be3188ceadc30466e4
+          intelligence_data_ref: 653264be3188ceadc30466e4
           intelligence_ref: null
           tin_validated: "1"
-          risk_ref: 652664c495a6acf90e0f2f65
+          risk_ref: 653264c495a6acf90e0f2f65
           aml_ref: null
           owner:
             - date_added: null
               date_updated: null
-              owner_id: 652663b191c0d5feb105cd13
+              owner_id: 653263b191c0d5feb105cd13
           submerchants: null
           merchant_sub_group:
-            6526632b352ecdba1a0b4baf:
+            6532632b352ecdba1a0b4baf:
               date_added: null
               date_updated: null
               sub_group_id: '78551'
-              sub_group_data_id: 6526632b352ecdba1a0b4baf
+              sub_group_data_id: 6532632b352ecdba1a0b4baf
               merchant_node_id: '290552'
               parent_id: null
               parent_mid: '700100000000009'
               internal_mid: '700100000000000'
               sub_group_type: CHAIN
-              application_relation_reference: 6526632b352ecdba1a0b4bae
+              application_relation_reference: 6532632b352ecdba1a0b4bae
               application_reference: '333000051001'
               group_name: Chain
               external_mid: ''
           chain: null
           outlet:
-            6526632b352ecdba1a0b4bb0:
+            6532632b352ecdba1a0b4bb0:
               date_added: null
               date_updated: null
               outlet_number: 1
               crud_outlet_id: null
               outlet_auto_id: '131795'
               merchant_node_id: '290555'
-              outlet_id: 6526632b352ecdba1a0b4bb0
+              outlet_id: 6532632b352ecdba1a0b4bb0
               sub_group_id: '78551'
               outlet_arrangement_id: null
               merchant_node_external_id: MEID1-89118-3DAF8-31AA6-A2119-B8C45-25CDE
@@ -30933,7 +31264,7 @@ components:
           funding_level: '3'
           pricing_level: OUTLET
           registration_address:
-            contact_ref: 65266a9f9632ad1ba705dfd5
+            contact_ref: 65326a9f9632ad1ba705dfd5
             country_code: '840'
             city: City
             zip_code: '33398'
@@ -30981,9 +31312,9 @@ components:
               owner_phone_code: US|1
               owner_phone_no: '3339898989'
               owner_email: mail@fiserv.com
-              owner_ref: 652663b191c0d5feb105cd13
+              owner_ref: 653263b191c0d5feb105cd13
               contacts:
-                - contact_ref: 652663b191c0d5feb105cd14
+                - contact_ref: 653263b191c0d5feb105cd14
                   country_code: '840'
                   city: City
                   floor: '1'
@@ -31006,9 +31337,9 @@ components:
           client_external_id: CLIC3-7732F-718DF-A55A9-DE5B2-A3832-9E3B0
           alliance_external_id: ALL4A-7732F-718DF-A55A9-DE5B2-A3832-9E3B0
           partner_external_id: PARF1-A2402-25EFD-ED5B8-1E499-3F905-51188
-          merchant_relation: 65266e49e9f7b031cd0cf480
+          merchant_relation: 65326e49e9f7b031cd0cf480
           merchant_reference: '3015005'
-          merchant_data_id: 6526632b352ecdba1a0b4bad
+          merchant_data_id: 6532632b352ecdba1a0b4bad
           parent_type: PARTNER
           status_id: '5'
           hold_suspend_flag: '0'
@@ -31380,13 +31711,13 @@ components:
             date_added: '2021-01-11 08:56:11'
             date_updated: '2021-01-11 09:43:53'
             package_external_id: OPK02-DD217-0F2E9-7C810-CC924-C7D40-6DB98
-            outlet_ref: 6526632b352ecdba1a0b4bb0
+            outlet_ref: 6532632b352ecdba1a0b4bb0
             trade_name: Legal name
             visitation_required: '0'
             primary_email_address: mail@fiserv.com
             outlet_website: https://fiserv.com
-            internal_mid: '526200009001'
-            external_mid: '526200009001'
+            internal_mid: '532200009001'
+            external_mid: '532200009001'
             mcc_code: '5733'
             full_mcc_code: 5733A
             prod_serv_sold: Services
@@ -31444,7 +31775,7 @@ components:
                 - entitlement_key: MASTERCARD
                 - entitlement_key: VISA
             banks:
-              6526632c352ecdba1a0b4bb1:
+              6532632c352ecdba1a0b4bb1:
                 country_code: '840'
                 bank_account_number: '33398989898'
                 bank_sort_code: ''
@@ -31461,10 +31792,10 @@ components:
                 dda_number_masked: '*******9898'
                 routing_number: '026009593'
                 routing_number_masked: '*****9593'
-                _id: 6526632c352ecdba1a0b4bb1
+                _id: 6532632c352ecdba1a0b4bb1
                 dda_validated: '1'
             contacts:
-              6526643ab8173420ff0ee234:
+              6532643ab8173420ff0ee234:
                 contact_type: OT
                 contact_first_name: Jane
                 contact_last_name: Consumer
@@ -31479,9 +31810,9 @@ components:
                 floor: '1'
                 province: province
                 suite_apart_number: '1'
-              6526643ab8173420ff0ee235:
+              6532643ab8173420ff0ee235:
                 contact_type: OTALT
-              6526643ab8173420ff0ee236:
+              6532643ab8173420ff0ee236:
                 contact_type: B
                 contact_first_name: Jane
                 contact_last_name: Consumer
@@ -31497,7 +31828,7 @@ components:
                 floor: '1'
                 province: province
                 suite_apart_number: '1'
-              6526643ab8173420ff0ee237:
+              6532643ab8173420ff0ee237:
                 contact_type: S
                 contact_first_name: Jane
                 contact_last_name: Consumer
@@ -31515,7 +31846,7 @@ components:
                 province: province
                 suite_apart_number: '1'
                 shipping_method: '1'
-              6526643ab8173420ff0ee238:
+              6532643ab8173420ff0ee238:
                 contact_type: T
                 contact_first_name: Jane
                 contact_last_name: Consumer
@@ -31530,7 +31861,7 @@ components:
                 floor: '1'
                 province: province
                 suite_apart_number: '1'
-              6526643ab8173420ff0ee239:
+              6532643ab8173420ff0ee239:
                 contact_type: L
                 contact_first_name: Jane
                 contact_last_name: Consumer
@@ -31616,7 +31947,7 @@ components:
             merchant_node_external_id: MEO44-334DD-556DF-3321L-3215O-92U01-3LOBB
             merchant_node_id: '290552'
             merchant_reference: '3015001'
-            sub_group_data_id: 6526632b352ecdba1a0b4baf
+            sub_group_data_id: 6532632b352ecdba1a0b4baf
             sub_group_type: CHAIN
             parent_mid: '700100000000009'
             internal_mid: '700100000000040'
@@ -31665,7 +31996,7 @@ components:
             contacts:
               - contact_type: L
                 country_code: '840'
-            external_mid: '526200009001'
+            external_mid: '532200009001'
         merchant_hierarchy:
           - merchant_node_external_id: MEI62-41BE6-E59ED-A9D43-FE236-D7B05-E17D4
             pfac_node_external_id: PEO44-334DD-556DF-3321L-3215O-92U01-3LOBB
@@ -31694,15 +32025,15 @@ components:
             descendant_external_id: MEID1-89118-3DAF8-31AA6-A2119-B8C45-25CDE
             billing_flag: '1'
             funding_flag: '1'
-            internal_mid: '526200009001'
-            external_mid: '526200009001'
+            internal_mid: '532200009001'
+            external_mid: '532200009001'
             hold_suspend_flag: '0'
             depth: '2'
             entity_type: OUTLET
             trade_name: Legal name
             outlet_number: 1
         settings:
-          '526200009001':
+          '532200009001':
             billing:
               billing_frequency: '1'
               has_transaction_billing: '0'
@@ -31763,7 +32094,7 @@ components:
             $date:
               $numberLong: '1697017513368'
           _id:
-            $oid: 652664be3188ceadc30466e4
+            $oid: 653264be3188ceadc30466e4
           application_reference: '333000051001'
           merchant_reference: null
           maintenance_reference: null
@@ -31771,7 +32102,7 @@ components:
           mus_status: 0
           aml_check_response: null
           credit_risk_check_response:
-            check_reference: 652664c495a6acf90e0f2f65
+            check_reference: 653264c495a6acf90e0f2f65
             check_purpose: null
             decision: AWAITING_DILIGENCE_RESPONSE
             original_decision: null
@@ -31805,9 +32136,9 @@ components:
             pending_aml_rules: null
             pending_credit_risk_rules: null
             _id: null
-            merchant_ref: 6526632b352ecdba1a0b4bad
+            merchant_ref: 6532632b352ecdba1a0b4bad
             owners:
-              652663b191c0d5feb105cd13:
+              653263b191c0d5feb105cd13:
                 date_added: null
                 date_updated: null
                 name: Jane Consumer
@@ -31816,7 +32147,7 @@ components:
                 pending_aml_rules: null
                 pending_credit_risk_rules: null
                 _id: null
-                owner_ref: 652663b191c0d5feb105cd13
+                owner_ref: 653263b191c0d5feb105cd13
                 is_monitored: 0
                 mongoDb: []
             mongoDb: []
@@ -31824,11 +32155,11 @@ components:
             date_added: null
             date_updated: null
             _id: null
-            billing_ref: 6526632b352ecdba1a0b4bab
+            billing_ref: 6532632b352ecdba1a0b4bab
             banks: null
             mongoDb: []
           outlets:
-            6526632b352ecdba1a0b4bb0:
+            6532632b352ecdba1a0b4bb0:
               date_added: null
               date_updated: null
               name: Legal name
@@ -31837,7 +32168,7 @@ components:
               pending_aml_rules: null
               pending_credit_risk_rules: null
               _id: null
-              outlet_ref: 6526632b352ecdba1a0b4bb0
+              outlet_ref: 6532632b352ecdba1a0b4bb0
               is_monitored: 0
               OH_monitoring_enabled: '0'
               OH_monitoring_mode: false
@@ -31880,7 +32211,7 @@ components:
           aml_error: null
           mongoDb: []
         OH_monitoring:
-          - outlet_ref: 6526632b352ecdba1a0b4bb0
+          - outlet_ref: 6532632b352ecdba1a0b4bb0
             is_monitored: 0
             OH_monitoring_enabled: '0'
             OH_monitoring_mode: false
@@ -32410,7 +32741,7 @@ components:
             sub_group_type: CHAIN
             parent_mid: '700100000000007'
             internal_mid: '700100000000008'
-            external_mid: '526300006501'
+            external_mid: '532300006501'
             group_name: Chain
             root_merchant_node_id: '290001'
             hold_suspend_flag: '0'
@@ -32471,7 +32802,7 @@ components:
             billing_flag: '0'
             funding_flag: '0'
             internal_mid: '700100000000008'
-            external_mid: '526300006501'
+            external_mid: '532300006501'
             hold_suspend_flag: '0'
             depth: '1'
             entity_type: SUB_MERCHANT_GROUP
@@ -33505,7 +33836,7 @@ components:
             - UPDATE_PROCESSING_PRICING
           old_details:
             outlets:
-              652663665ddfeeba1a0b4bb0:
+              653263665ddfeeba1a0b4bb0:
                 acquiringOffer:
                   transaction_pricing_external_id: TPI46-C475E-82BE7-B1AA4-9A026-89381-4EA08
                   transaction_pricing_id: '100'
