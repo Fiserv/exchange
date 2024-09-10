@@ -17610,7 +17610,7 @@ components:
 
         reject_reason_more_info:
           type: string
-          example: '001000000100001      32100001          ACCOUNT FROZEN                    0101",'
+          example: "001000000100001      32100001          ACCOUNT FROZEN                    0101"
         hierarchy:
           type: string
           example: "MERCHANT"
