@@ -3200,6 +3200,12 @@ components:
           description: "Legal Name for the business. Special characters other than [, ], ~, | are allowed."
           minLength: 2
           maxLength: 24
+        legal_short_name:
+          type: string
+          example: "MMISTest Business"
+          description: "Truncated/Shortened Legal Name for the business. Special characters other than [, ], ~, | are allowed. Can be specified directly in the request, or will automatically be written using the truncated 'legal_name' if more than 24 characters are used."
+          minLength: 2
+          maxLength: 24
         ownership_entity_type:
           type: string
           description: type of merchant... L - Limited Liability co, G - Government, N - Partnership, S - Association/Estate/Trust, X - Tax Exempt Organisation, U - Public Corp, V - Private Corp, O - Proprietorship
