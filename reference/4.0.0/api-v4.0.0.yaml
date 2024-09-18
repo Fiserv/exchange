@@ -2247,7 +2247,7 @@ paths:
       tags:
         - Application Boarding
       summary: Uploading Additional Documents to Exchange
-      description: "Used to upload supporting documents to an application before underwriting checks are performed. Sent as form-data with the file and request."
+      description: "Used to upload supporting documents to an application either before underwriting checks are performed, or requested during underwriting checks. Sent as form-data with the file and request."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeaderDocument'}
@@ -2335,7 +2335,7 @@ paths:
       tags:
         - Application Boarding
       summary: Submitting additional documents to application (Shared service model)
-      description: "Used to upload supporting documents to an application before underwriting checks are performed."
+      description: "Used to submit the uploaded supporting documents to the credit risk team for review."
       parameters:
         - {$ref: '#/components/parameters/ApiVersionHeader'}
         - {$ref: '#/components/parameters/ContentTypeHeader'}
