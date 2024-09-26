@@ -539,6 +539,40 @@ paths:
       x-group-name: Update Application
       x-proxy-name: Unlock Application
       x-child-product-name: Boarding Sub-Merchants
+
+  /boarding///////application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Cancel application
+      description: "Cancels an open application within Exchange. Cancelled applications cannot be re-opened."
+      requestBody:
+        description: "Cancels an open application within Exchange. Cancelled applications cannot be re-opened."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationCancelRequest'
+            examples:
+              CancelRequest:
+                $ref: '#/components/examples/cancelRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationCancelResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Update Application
+      x-proxy-name: Cancel Application
+      x-child-product-name: Boarding Sub-Merchants
+
   /boarding/remote_api_signature:
     post:
       tags:
@@ -2869,7 +2903,7 @@ components:
         business_entity:
           $ref: '#/components/schemas/BusinessEntity'
         owners:
-          description: Principals for the location. Any principals above 25 percent ownership should be disclosed here. 
+          description: "Principals and beneficial owners for the business. Any owners with 25% ownership or above must be listed, including any beneficial owners from parent companies."
           type: array
           items:
             $ref: '#/components/schemas/Principal'
@@ -3065,7 +3099,7 @@ components:
       properties:
         application_reference:
           type: string
-          example: "33300005765"
+          example: "55500005765"
         business_entity:
           $ref: '#/components/schemas/BusinessEntity'
         owners:
@@ -3372,7 +3406,7 @@ components:
         contact_dob:
           type: string
           example: "2000-01-01"
-          description: "YYYY-MM-DD Format. DoB must be in range between 18 - 100 years old"
+          description: "YYYY-MM-DD Format. DoB must be in range between 18 - 100 years old. Not required when `ownership_entity_type` = “G”."
         owner_nationality:
           type: string
           description: ISO3 Country Code
@@ -3380,6 +3414,7 @@ components:
           maxLength: 14
           minLength: 2
         owner_position:
+          type: string
           description: | 
             Contact required if subgroup is billing/funding level. Only one contact per type.
             * `VICE PRESIDENT` - "Vice President"
@@ -3418,7 +3453,7 @@ components:
           type: string
           maxLength: 10
           example: '3339898988'
-          description: "Must follow valid phone no. structure."
+          description: "Must follow valid phone no. structure. eg. US phone number cannot start with 1"
         owner_alt_phone_code:
           type: string
           example: "US|1"
@@ -3441,6 +3476,7 @@ components:
         owner_tin_ssn_number:
           type: string
           example: '666989898'
+          description: "Not required when `ownership_entity_type` = “G”."
           minLength: 9
           maxLength: 9
         is_main_principal:
@@ -3453,7 +3489,7 @@ components:
           type: string
           example: "1"
         ownership_perc:
-          description: Ownership of principal being added, principals above 25% ownership should be declared
+          description: "Ownership of principal being added, principals above 25% ownership should be declared. Must be less than 25% when `ownership_entity_type` = “G”."
           type: string
           example: "100"
           maxLength: 30
@@ -5562,7 +5598,7 @@ components:
               example: "0"
             application_reference:
               type: string
-              example: "333000003793"
+              example: "555000003793"
             application_type:
               type: string
               example: "NA"
@@ -6529,7 +6565,7 @@ components:
               example: '0'
             application_reference:
               type: string
-              example: '333000003793'
+              example: '555000003793'
             application_type:
               type: string
               example: "NA"
@@ -9023,6 +9059,21 @@ components:
       allOf:
         - $ref: '#/components/schemas/UnlockApplicationOperation'
         - $ref: '#/components/schemas/ApplicationFullDetail'
+    ApplicationCancelResponse:
+      required:
+        - request_source
+      type: object
+      properties:
+        submit_success:
+          type: string
+          description: "Indicates that the request was successful actioned, with no errors"
+          example : "1"
+          enum:
+            - "1"
+            - "0"
+      allOf:
+        - $ref: '#/components/schemas/CancelApplicationOperation'
+        - $ref: '#/components/schemas/ApplicationFullDetail'
     MerchantRetrieveResponse:
       required:
         - request_source
@@ -10033,6 +10084,7 @@ components:
           $ref: '#/components/schemas/applicationUnlock'
       allOf:
         - $ref: '#/components/schemas/UnlockApplicationOperation'
+
     applicationUnlock:
       required:
         - request_source
@@ -10042,6 +10094,24 @@ components:
           type: string
           description: "External ID of the application, can be retrieved by application retrieve API or in responses when boarding the application"
           example: "APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123"
+    ApplicationCancelRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/applicationCancel'
+      allOf:
+        - $ref: '#/components/schemas/CancelApplicationOperation'
+    applicationCancel:
+      required:
+        - request_source
+      type: object
+      properties:
+        application_reference:
+          type: string
+          description: "Identifier for the application returned in the boarding response."
+          example: "555000010001"
     MerchantRetrieveRequest:
       required:
         - merchant
@@ -10163,6 +10233,17 @@ components:
           description: Operation
           example:
             operation_type: APPLICATION_UNLOCK
+          allOf:
+            - $ref: '#/components/schemas/GeneralOperation'
+    CancelApplicationOperation:
+      required:
+        - operation
+      type: object
+      properties:
+        operation:
+          description: Operation
+          example:
+            operation_type: APPLICATION_CANCEL
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
     MerchantUpdate:
@@ -13739,7 +13820,7 @@ components:
       minLength: 12
       type: string
       description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
-      example: "333000000794"
+      example: "555000000794"
     Status:
       type: string
       description: "1 =  Verified 0 = Unverified"
@@ -23524,7 +23605,7 @@ components:
         application_reference:
           type: string
           description: "Returned when using maintenance type 'ADD_OUTLETS', returns the application reference for the additional outlet that can then be updated using UPDATE_OUTLET  endpoint and submitted using application_submit per standard application. Once submit, will be added to the merchant"
-          example: "333000051001"
+          example: "555000051001"
         maintenance_types:
           $ref: '#/components/schemas/maintenancetypes'
         old_details:
@@ -23618,7 +23699,7 @@ components:
         application_reference:
           type: string
           description: application reference number
-          example: "333000010344"
+          example: "555000010344"
         tenant_udc_external_id:
           type: string
           description: Retrieved from the configured document Endpoint. Documents must have a configured base from the config portal.
@@ -23779,7 +23860,7 @@ components:
       properties:
         application_reference:
           type: string
-          example: "333000010344"
+          example: "555000010344"
     Accounts:
       type: array
       items:
@@ -25158,7 +25239,7 @@ components:
             application_reference:
               description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
-              example: "333000000794"
+              example: "555000000794"
     RemoteAPISignatureResponse:
       type: object
       properties:
@@ -25177,7 +25258,7 @@ components:
             application_reference:
               description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
-              example: "333000000794"
+              example: "555000000794"
     CompleteAPISignatureResponse:
       type: object
       properties:
@@ -25211,7 +25292,7 @@ components:
             application_reference:
               type: string
               description: the application reference number
-              example: "333000004027"
+              example: "555000004027"
 
     RetrieveVarSheetRequest:
       required:
@@ -25251,7 +25332,7 @@ components:
         application_reference:
           type: string
           description: the application reference number
-          example: "333000004027"
+          example: "555000004027"
         merchant_reference:
           type: string
           description: the application reference number
@@ -30067,7 +30148,7 @@ components:
     RequestMinimalOutletSplit:
       value:
         application:
-          application_reference: "333000050001"
+          application_reference: "555000050001"
         outlet:
           parent_mid: "700100000050001"
           trade_name: "MMISTest Business Name"
@@ -30162,7 +30243,7 @@ components:
     RequestMinimalOutlet:
       value:
         application:
-          application_reference: "333000050001"
+          application_reference: "555000050001"
         outlet:
           parent_mid: "700100000050001"
           trade_name: "MMISTest Business Name"
@@ -31247,14 +31328,14 @@ components:
           operation_type: APPLICATION_SUBMIT
 
         application:
-          application_reference: '333000000005'
+          application_reference: '555000000005'
     RetrieveRequestApplication:
       value:
         operation:
           operation_type: RETRIEVE_MERCHANT_HIERARCHY
 
         application:
-          application_reference: "333000000008"
+          application_reference: "555000000008"
     unlockRequest:
       value:
         operation:
@@ -31262,6 +31343,13 @@ components:
 
         application:
           application_external_id: APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123
+    cancelRequest:
+      value:
+        operation:
+          operation_type: "APPLICATION_CANCEL"
+
+        application:
+          application_reference: "555000084126"
     RetrieveMerchantResponse:
       value:
         result: SUCCESS
@@ -31313,7 +31401,7 @@ components:
               internal_mid: '700100000000000'
               sub_group_type: CHAIN
               application_relation_reference: 6532632b352ecdba1a0b4bae
-              application_reference: '333000051001'
+              application_reference: '555000051001'
               group_name: Chain
               external_mid: ''
           chain: null
@@ -31617,7 +31705,7 @@ components:
             allow_instruction_api: '1'
             responsible_party: '0'
           signed_documents: []
-          application_reference: '333000000000'
+          application_reference: '555000000000'
           documents: []
           marketplace_application: true
           accounts:
@@ -32309,7 +32397,7 @@ components:
               $numberLong: '1697017513368'
           _id:
             $oid: 653264be3188ceadc30466e4
-          application_reference: '333000051001'
+          application_reference: '555000051001'
           merchant_reference: null
           maintenance_reference: null
           deleted: 0
@@ -32446,7 +32534,7 @@ components:
               "$numberLong": '1699373431699'
           _id: f66053e8654a6060053
           application_id: '80000'
-          application_reference: '333000050001'
+          application_reference: '555000050001'
           application_type:
           quote_id:
           price_model:
@@ -32710,7 +32798,7 @@ components:
           _id: 654a1098067b6980610107b6
           parent_pfac_node_external_id: PEIB6-4F80C-3D631-92U01-3215O-C0399-3215O
           multiple_outlet: '0'
-          application_reference: '333000000001'
+          application_reference: '555000000001'
           application_type: NA
           bank_lock: '0'
           application_resubmitted: '0'
@@ -33096,7 +33184,7 @@ components:
               "$numberLong": '1199373107400'
           _id:
             "$oid": 630b9a81903354a6905
-          application_reference: '333000000002'
+          application_reference: '555000000002'
           merchant_reference:
           maintenance_reference:
           deleted: 0
@@ -33354,7 +33442,7 @@ components:
           funding_frequency: '1'
           parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
           multiple_outlet: '0'
-          application_reference: '333000053001'
+          application_reference: '555000053001'
           application_type: NA
           bank_lock: '0'
           application_resubmitted: '0'
@@ -33705,7 +33793,7 @@ components:
           parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
           partner_external_id: PARF1-C475E-82BE7-B1AA4-9A026-89381-4EA08
           multiple_outlet: '0'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: NA
           bank_lock: '0'
           has_processing_mid: '1'
@@ -33774,7 +33862,7 @@ components:
           date_updated: '2021-11-01 15:50:39'
           _id: 6571e4bafb0234279603ff15
           application_id: '80344'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: null
           quote_id: null
           price_model: null
@@ -33891,7 +33979,7 @@ components:
           parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
           partner_external_id: PARF1-C475E-82BE7-B1AA4-9A026-89381-4EA08
           multiple_outlet: '0'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: NA
           bank_lock: '0'
           has_processing_mid: '1'
@@ -33915,7 +34003,7 @@ components:
           date_updated: '2021-11-01 15:50:39'
           _id: 6571e4bafb0234279603ff15
           application_id: '80344'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: null
           quote_id: null
           price_model: null
@@ -34025,7 +34113,7 @@ components:
         maintenance_details:
           maintenance_reference: MC3000000005
           merchant_reference: '3014321'
-          application_reference: '333000051002'
+          application_reference: '555000051002'
           maintenance_types:
             - ADD_OUTLETS
 
@@ -34477,7 +34565,7 @@ components:
     UploadDocumenRequesttSample:
       value:
         application:
-          application_reference: '3330000500012'
+          application_reference: '5550000500012'
           tenant_udc_external_id: TDCA!-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
     RetrieveOfferSampleCriteria:
       value:
