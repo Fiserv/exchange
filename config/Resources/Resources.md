@@ -1,16 +1,16 @@
 ---
-tags: [Getting Started]
+tags: [Getting Started, Postman]
 ---
 
 # Developer Resources
 
-This page provides resources to help you successfully integrate with Exchange APIs
+This page provides resources to support integration with Exchange APIs
 
 ---
 
 ## API Specifications
 
-You can [view API specs](../api/?type=post&path=/boarding/add_application) of Exchanges APIs on Developer Studio
+You may [view API specs](../api/?type=post&path=/boarding/add_application) of Exchange APIs on the API Explorer.
 
 ---
 
