@@ -126,6 +126,20 @@ titles: Refresh Token Request , Refresh Token Response
 
 <!-- type: tab-end -->
 
+### Revoke Token
+
+<!-- theme: info -->
+>**POST** `/oauth/revoke`
+
+A `refresh_token` can be revoked using the `/oauth/revoke` endpoint. This will mean the refresh token can no longer be used and will require reauthentication.
+
+```json
+{
+    "grant_type": "refresh_token",
+    "refresh_token": "llskE60vwzavcPhI6c1411bO69aV4jPxEVfwv4p"
+}
+```
+
 # Postman
 
 During integration to the API, you may want to use a tool such as Postman to test APIs in the UAT environment.
