@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
-  version: '4.00'
+  version: 4.0.0
 servers:
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
@@ -1988,6 +1988,37 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-group-name: Authentication
       x-proxy-name: OAuth Token
+  /oauth/revoke:
+    post:
+      tags:
+        - OAuth Token
+      summary: Revoke Token
+      description: 'Revokes an active refresh token'
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Revoke an active token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/revoke_token'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRevoke_Response'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-group-name: Authentication
+      x-proxy-name: Revoke Token
   /maintenance:
     post:
       tags:
@@ -19444,8 +19475,20 @@ components:
         mapping:
           client_credentials: '#/components/schemas/grant_type_object'
       allOf:
+        - $ref: '#/components/schemas/revoke_grant_type_object'
+        - $ref: '#/components/schemas/refresh_token_object'
+    revoke_token:
+      required:
+        - grant_type
+      type: object
+      discriminator:
+        propertyName: grant_type
+        mapping:
+          client_credentials: '#/components/schemas/grant_type_object'
+      allOf:
         - $ref: '#/components/schemas/grant_type_object'
         - $ref: '#/components/schemas/refresh_token_object'
+      
     OAuth_Response:
       type: object
       properties:
@@ -19477,6 +19520,13 @@ components:
           items:
             type: string
           example: "68abc334-1133-8811-9988-903er82aad"
+    OAuthRevoke_Response:
+      type: object
+      properties:
+        result:
+          type: string
+          description: "Result of the token revoke API"
+          example: "SUCCESS"
     OverwriteCreditRequest:
       type: object
       properties:
@@ -23891,6 +23941,15 @@ components:
           example: "client_credentials"
           enum:
             - client_credentials
+            - refresh_token
+    revoke_grant_type_object:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: The type of grant requested, Refresh.
+          example: "refresh_token"
+          enum:
             - refresh_token
     refresh_token_object:
       type: object
