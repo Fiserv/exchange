@@ -19,6 +19,7 @@ You may [view API specs](../api/?type=post&path=/boarding/add_application) of Ex
 <!-- theme: info -->
 > Exchange will be releasing Postman Collection to use soon.
 
+
 ---
 
 ## Additional Links
