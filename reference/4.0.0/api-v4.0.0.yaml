@@ -19481,13 +19481,15 @@ components:
       required:
         - grant_type
       type: object
-      discriminator:
-        propertyName: grant_type
-        mapping:
-          client_credentials: '#/components/schemas/grant_type_object'
-      allOf:
-        - $ref: '#/components/schemas/grant_type_object'
-        - $ref: '#/components/schemas/refresh_token_object'
+      properties:
+        grant_type:
+          type: string
+          description: 'Grant type, for item being revoked should be refresh_token'
+          example: "refresh_token"
+        refresh_token:
+          type: string
+          description: "The refresh token being revoked"
+          example: "f17717317f4ea744b04fce476428b74529ada809"
       
     OAuth_Response:
       type: object
