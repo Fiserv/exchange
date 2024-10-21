@@ -22783,6 +22783,23 @@ components:
               $ref: '#/components/schemas/MaintenanceBankDetail'
           reserve:
             $ref: '#/components/schemas/maintenanceReserveDetails'
+          contacts:
+            type: array
+            items:
+              $ref: '#/components/schemas/OutletContact'
+          outlet_website:
+            type: string
+            description: website of the location the maintenance is being actioned on
+            example: "https://developer.fiserv.com/"
+          primary_email_address:
+            type: string
+            description: primary email address of the location the maintenance is being actioned on
+            example: "test@fiserv.com"
+          trade_name:
+            type: string
+            description: trade name of the location the maintenance is being actioned on
+            example: "Test"
+
     merchantum:
       type: array
       items:
