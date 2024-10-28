@@ -116,37 +116,34 @@ When updating a reserve, all settings can be updated. If reserves are no longer 
         "operation_type": "UPDATE_MAINTENANCE"
     },
     "merchant": {
-        "merchant_reference": "30083001"
+        "merchant_reference": "5001001"
     },
     "maintenance": {
-        "maintenance_reference": "MC3000000001",
+        "maintenance_reference": "MC5000001001",
         "outlets": [
             {
-                "internal_mid": "8001000000100001",
-                "reserve": {
-                    "reserve_type": 1,
-                    "reserve_setting": 1,
-                    "reserve_daily_amount": 5,
-                    "reserve_trans_perc": 10,
-                    "set_reserve_target": 1,
-                    "reserve_target_amount": 500
-                }
+                "internal_mid": "326023000001",
+                "contacts": [
+                    {
+                        "_id": "ad42966777630006671f6bcd",
+                        "contact_type": "OT",
+                        "contact_first_name": "Billy",
+                        "contact_last_name": "Shears",
+                        "country_code": "840",
+                        "city": "New York",
+                        "zip_code": "10001",
+                        "street_line_1": "Broadway",
+                        "county_code": "NY",
+                        "email_address": "example@fiserv.com",
+                        "ent_telephone_code": "US|1",
+                        "telephone_number": "3339898989"
+                    }
+                ]
             }
         ]
     }
 }
 ```
-
-| Field Name              | Data Type | Description                                                                                                                                    |
-|-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `reserve_type`            | Integer   | Type of reserve being configured. 1 - Normal, 2 - Rolling.                                                                                     |
-| `reserve_setting`         | Integer   | Reserve collection setting. 1 - Percentage, 2 - Base.                                                                                          |
-| `reserve_daily_amount`    | Integer   | Amount to be collected daily. Used for reserve_setting = 2 (Base), specifies the daily amount taken into reserve for the sub-merchant.         |
-| `reserve_trans_perc`      | Integer   | Used for reserve_setting = 1 (Percentage). Specifies the percentage taken out of the transactions for the sub-merchant.                        |
-| `set_reserve_target`      | Integer   | Flag indicating whether to set a reserve target (1 for true, 0 for false). Will enable reserve_target_amount to be set for the sub-merchant.   |
-| `reserve_target_amount`   | Integer   | Maximum amount to collect for the sub-merchant when set_reserve_target is true.                                                                 |
-| `reserve_delay_days`      | Integer   | Used for reserve_type = 2 (Rolling). Sets the period of time for the rolling reserve to release amounts. Max 90.                                        |
-
 
 ### Submitting the Case
 
