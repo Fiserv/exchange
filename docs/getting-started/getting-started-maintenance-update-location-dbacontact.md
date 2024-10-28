@@ -20,6 +20,87 @@ The `AMEND_RESERVE` maintenance type must be used, and `merchant_reference` must
 
 This returns a `maintenance_reference`, unique to this case which can then be updated.
 
+```json
+{
+    "result": "SUCCESS",
+    "operation": {
+        "operation_type": "CREATE_MAINTENANCE"
+    },
+    "maintenance": {
+        "maintenance_reference": "MC5000001001",
+        "merchant_reference": "5001001",
+        "maintenance_status": "Open",
+        "has_errors": "0",
+        "maintenance_external_id": "MTXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "creator_user_external_id": "USXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "status_external_id": "MTXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "owner_user_external_id": "USXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+    },
+    "settings": {
+        "funding_flag": "0",
+        "billing_flag": "0",
+        "reserve_flag": "0",
+        "526023475886": {
+            "billing": {
+                "billing_frequency": "0",
+                "billing_day": "0",
+                "billing_month": "0",
+                "has_transaction_billing": "0",
+                "tx_fees_billing_method": "0",
+                "other_fees_billing_method": "2",
+                "has_equipment_billing": "0",
+                "has_service_billing": "0"
+            },
+            "funding": {
+                "funding_frequency": "0",
+                "funding_day": "0",
+                "funding_month": "0",
+                "delay_funding_flag": "0",
+                "settlement_method": "0",
+                "tx_instruction_on": "0",
+                "tx_source_ach": "0",
+                "tx_source_card": "1",
+                "tx_source_ach_funding_option": "0",
+                "tx_source_ach_settlement_method": "0",
+                "tx_source_card_funding_option": "2",
+                "tx_source_card_settlement_method": "2"
+            },
+            "reserve": {
+                "set_reserve_target": "0"
+            }
+        }
+    },
+    "maintenance_details": {
+        "maintenance_reference": "MC5000001001",
+        "merchant_reference": "5001001",
+        "maintenance_types": [
+            "CHANGE_DBA_CONTACT"
+        ],
+        "old_details": {
+            "outlets": {
+                "ad42966777630006671f6f7d": {
+                    "contacts": {
+                        "ad42966777630006671f6bcd": {
+                            "contact_type": "OT",
+                            "contact_first_name": "Jane",
+                            "contact_last_name": "Doe",
+                            "country_code": "840",
+                            "city": "Sparks",
+                            "zip_code": "89431",
+                            "street_line_1": "Sheila Lane",
+                            "county_code": "NV",
+                            "email_address": "email@domain.com",
+                            "ent_telephone_code": "US|1",
+                            "telephone_number": "3339898989"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
 ### Updating the Reserve 
 
 <!-- theme: info -->
