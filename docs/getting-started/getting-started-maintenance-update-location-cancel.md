@@ -140,9 +140,12 @@ Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is c
 }
 ```
 
-| `maintenance_status` Responses             | Data Type | Description                                                                                                                                    |
-|-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
-| `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
-| `Completed`      | String   |  Maintenance case has completed, and synced.                                                                        |
-| `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than `maintenance_types` , which affect a merchant in downstream systems as well as a maintenance type that is only applied within exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
+#### `maintenance_status` Responses
+
+| Responses                                 | Data Type | Description                                                                                                                                                   |
+|-------------------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Awaiting Maintenance Marketplace Boarding` | String    | Initial transient status for submission downstream.                                                                                                            |
+| `Awaiting Maintenance Marketplace Response` | String    | Maintenance details submitted downstream and confirmation received. Adds `orderId` into `maintenance_details`.                                                  |
+| `Completed`                               | String    | Maintenance case has been completed and synced.                                                                                                                |
+| `Partially Applied`                       | String    | Applicable for maintenance cases with multiple `maintenance_types`. If the case is canceled before downstream sync completes, it is marked as partially applied. |
+                                                                    |
