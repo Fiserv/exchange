@@ -18869,9 +18869,20 @@ components:
       properties:
         settlement_date:
           type: string
-          description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
+          description: "Date of settlement is processed. Format YYYY-MM-DD"
 
           example: "2020-02-20"
+        effective_date:
+          type: string
+          description: |
+            Date that a settlement generated is effective for. 
+            Some Examples:
+            * If `settlement_date` is monday, and standard funding window being used, `effective_date` will be the next day
+            * If `settlement_date` is a weekend, (or a friday and using T+2 window) `effective_date` will be the next working day.
+            * If delay funding is configured, `effective_date` will be standard settlement time plus the delay.
+            
+            
+          example: "2020-02-21"
         currency:
           type: string
           description: Currency - Cannot be empty.
