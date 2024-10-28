@@ -1,36 +1,102 @@
 
 ---
-tags: [Getting Started, Maintenance, Reserves]
+tags: [Getting Started, Maintenance, Boarding]
 ---
-# Reserve Maintenance
+# DBA Maintenance
 
-Reserves can be enabled for sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions.
-Only one maintenance case for reserves on a sub-merchant can be active at a time.
+Exchange allows boarding of sub-merchants on the system. Once on-boarded, 
 
-## Adding a Reserve
+## Updating DBA info
 
-To enable reserves for an existing sub-merchant, a Maintenance case must be created, updated and submitted. 
+To update DBA info for an existing sub-merchant, a Maintenance case must be created, updated and submit. 
 
 ### Creating the case
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-The`ADD_RESERVE` maintenance type must be used, and `merchant_reference` must be provided to create the case.
+The`CHANGE_DBA` maintenance type must be used, and `merchant_reference` must be provided to create the case.
 
-This returns a `maintenance_reference`, unique to this case which can then be updated.
+This returns a `maintenance_reference`, and the `old_details` 
 
-### Updating the Add Reserve case
+
+```json
+{
+    "result": "SUCCESS",
+    "operation": {
+        "operation_type": "CREATE_MAINTENANCE"
+    },
+    "maintenance": {
+        "maintenance_reference": "MC5000000001",
+        "merchant_reference": "5000001",
+        "maintenance_status": "Open",
+        "has_errors": "0",
+        "maintenance_external_id": "MTBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
+        "creator_user_external_id": "USBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
+        "status_external_id": "MTS5F-C475E-82BE7-B1AA4-9A026-89381-4EA08",
+        "owner_user_external_id": "USABC-C475E-82BE7-B1AA4-9A026-89381-4EA08"
+    },
+    "settings": {
+        "funding_flag": "0",
+        "billing_flag": "0",
+        "reserve_flag": "0",
+        "526030471886": {
+            "billing": {
+                "billing_frequency": "0",
+                "billing_day": "0",
+                "billing_month": "0",
+                "has_transaction_billing": "0",
+                "tx_fees_billing_method": "0",
+                "other_fees_billing_method": "2",
+                "has_equipment_billing": "0",
+                "has_service_billing": "0"
+            },
+            "funding": {
+                "funding_frequency": "0",
+                "funding_day": "0",
+                "funding_month": "0",
+                "delay_funding_flag": "0",
+                "settlement_method": "0",
+                "tx_instruction_on": "0",
+                "tx_source_ach": "0",
+                "tx_source_card": "1",
+                "tx_source_ach_funding_option": "0",
+                "tx_source_ach_settlement_method": "0",
+                "tx_source_card_funding_option": "2",
+                "tx_source_card_settlement_method": "2"
+            },
+            "reserve": {
+                "set_reserve_target": "0"
+            }
+        }
+    },
+    "maintenance_details": {
+        "maintenance_reference": "MC5000000001",
+        "merchant_reference": "5000001",
+        "maintenance_types": [
+            "CHANGE_DBA"
+        ],
+        "old_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                    "primary_email_address": "testaddress@fiserv.com",
+                    "outlet_website": "https://fiserv.com",
+                    "trade_name": "MMISTEST Tradename"
+                }
+            }
+        }
+    }
+}
+```
+
+### Updating the DBA Case
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-<!-- theme: warning -->
-> `take_reserve_flag` must be `1` when adding reserve.
-
 <!--
 type: tab
-titles: Auto-Funding Request , Instructional Funding Request
+titles: Request , Response
 -->
 
 ### Auto-Funding Request 
@@ -43,22 +109,16 @@ The reserve settings must be added on the funding/billing level of the sub-merch
         "operation_type": "UPDATE_MAINTENANCE"
     },
     "merchant": {
-        "merchant_reference": "30083001"
+        "merchant_reference": "5000001"
     },
     "maintenance": {
-        "maintenance_reference": "MC3000000001",
+        "maintenance_reference": "MC5000000001",
         "outlets": [
             {
-                "internal_mid": "8001000000100001",
-                "reserve": {
-                    "take_reserves_flag": 1,
-                    "reserve_type": 1,
-                    "reserve_setting": 1,
-                    "reserve_daily_amount": 5,
-                    "reserve_trans_perc": 10,
-                    "set_reserve_target": 1,
-                    "reserve_target_amount": 500
-                }
+                "internal_mid": "321000071001",
+                "primary_email_address": "newemail@fiserv.com",
+                "outlet_website": "https://developer.fiserv.com/product/exchange",
+                "trade_name": "MMISTEST NewDBA"
             }
         ]
     }
@@ -81,33 +141,85 @@ The reserve settings must be added on the funding/billing level of the sub-merch
 
 <!-- type: tab -->
 
-### Instructional Funding Request
+### Response
 
 The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.
 For an instructional funding setup, the reserve would need to be enabled only. No settings would be applicable as these are collected by instructions.
 
 ```json
 {
+    "result": "SUCCESS",
     "operation": {
         "operation_type": "UPDATE_MAINTENANCE"
     },
-    "merchant": {
-        "merchant_reference": "30083001"
-    },
     "maintenance": {
-        "maintenance_reference": "MC3000000001",
-        "outlets": [
-            {
-                "internal_mid": "8001000000100001",
-                "reserve": {
-                    "take_reserves_flag": 1,
-                    "reserve_type": 1,
-                    "reserve_setting": 1,
-                    "set_reserve_target": 1,
-                    "reserve_target_amount": 500
+        "maintenance_reference": "MC5000000001",
+        "merchant_reference": "5000001",
+        "maintenance_status": "Open",
+        "has_errors": "0",
+        "maintenance_external_id": "MTBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
+        "creator_user_external_id": "USBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
+        "status_external_id": "MTS5F-C475E-82BE7-B1AA4-9A026-89381-4EA08",
+        "owner_user_external_id": "USABC-C475E-82BE7-B1AA4-9A026-89381-4EA08"
+    },
+    "settings": {
+        "funding_flag": "0",
+        "billing_flag": "0",
+        "reserve_flag": "0",
+        "526030471886": {
+            "billing": {
+                "billing_frequency": "0",
+                "billing_day": "0",
+                "billing_month": "0",
+                "has_transaction_billing": "0",
+                "tx_fees_billing_method": "0",
+                "other_fees_billing_method": "2",
+                "has_equipment_billing": "0",
+                "has_service_billing": "0"
+            },
+            "funding": {
+                "funding_frequency": "0",
+                "funding_day": "0",
+                "funding_month": "0",
+                "delay_funding_flag": "0",
+                "settlement_method": "0",
+                "tx_instruction_on": "0",
+                "tx_source_ach": "0",
+                "tx_source_card": "1",
+                "tx_source_ach_funding_option": "0",
+                "tx_source_ach_settlement_method": "0",
+                "tx_source_card_funding_option": "2",
+                "tx_source_card_settlement_method": "2"
+            },
+            "reserve": {
+                "set_reserve_target": "0"
+            }
+        }
+    },
+    "maintenance_details": {
+        "maintenance_reference": "MC5000000001",
+        "merchant_reference": "5000001",
+        "maintenance_types": [
+            "CHANGE_DBA"
+        ],
+        "old_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                    "primary_email_address": "testaddress@fiserv.com",
+                    "outlet_website": "https://fiserv.com",
+                    "trade_name": "MMISTEST Tradename"
                 }
             }
-        ]
+        },
+        "new_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                "primary_email_address": "newemail@fiserv.com",
+                "outlet_website": "https://developer.fiserv.com/product/exchange",
+                "trade_name": "MMISTEST NewDBA"
+            }
+            }
+        }
     }
 }
 ```
