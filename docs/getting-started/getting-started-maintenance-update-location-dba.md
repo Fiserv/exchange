@@ -9,6 +9,11 @@ Exchange allows boarding of sub-merchants on the system. Once on-boarded,
 ## Updating DBA info
 
 To update DBA info for an existing sub-merchant, a Maintenance case must be created, updated and submit. 
+The following fields may  be updated for a location with this case: 
+
+* `primary_email_address`
+*  `outlet_website`
+*  `trade_name`
 
 ### Creating the case
 

@@ -1,15 +1,26 @@
 
 ---
-tags: [Getting Started, Maintenance, Reserves]
+tags: [Getting Started, Maintenance, Update Location]
 ---
 
-# Reserve Maintenance
+# DBA Maintenance
 
-Reserves can be added to sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions. Only one maintenance case for reserves on a sub-merchant can be active at a time.
+Certain DBA contact information can be updated through a maintenance case in exchange, which will flow through to downstream systems.
 
-## Updating a Reserve
+## Updating a DBA Contact
 
-Reserve settings can be updated for a sub-merchant. This can be used to update how the reserve collects for Auto-Funding, or to raise the collection amount for the reserve. This can also be used to stop collecting reserves from a sub-merchant but retain the current reserve balance for future use.
+The following fields may be updated for a locations contacts with this case: 
+
+*  `contact_first_name`
+*  `contact_last_name`
+*  `country_code`
+*  `city`
+*  `zip_code`
+*  `street_line_1`
+*  `county_code`
+*  `email_address`
+*  `ent_telephone_code`
+*  `telephone_number`
 
 ### Creating the case
 
