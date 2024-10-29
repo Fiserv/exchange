@@ -1,6 +1,6 @@
 
 ---
-tags: [Getting Started, Maintenance, Location]
+tags: [Getting Started, Maintenance, Update Location, Cancel Location]
 ---
 
 #  Cancel Location Maintenance
