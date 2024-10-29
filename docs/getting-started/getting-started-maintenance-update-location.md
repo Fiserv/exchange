@@ -1,6 +1,6 @@
 
 ---
-tags: [Getting Started, Maintenance]
+tags: [Getting Started, Maintenance, Cancel Location, Update Location]
 ---
 
 # Updating Location Data
@@ -17,13 +17,13 @@ link: ?path=docs/getting-started/getting-started-maintenance-update-location-can
 
 <!-- type: card
 title: Update DBA
-description: Update reserve settings for a sub-merchant
+description: Update DBA information for a location
 link: ?path=docs/getting-started/getting-started-maintenance-update-location-dba.md
 -->
 
 <!-- type: card
 title: Update DBA Contact
-description: Remove an existing reserve for a sub-merchant
+description: Update DBA contact information for a location
 link: ?path=docs/getting-started/getting-started-maintenance-update-location-dbacontact.md
 -->
 
