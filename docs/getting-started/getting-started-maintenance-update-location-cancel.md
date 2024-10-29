@@ -1,15 +1,16 @@
 
 ---
-tags: [Getting Started, Maintenance, Location]
+tags: [Getting Started, Maintenance, Update Location, Cancel Location]
 ---
 
 #  Cancel Location Maintenance
 
-Locations can be cancelled through exchange through a maintenance case. This will submit to downstream systems for the location to be cancelled.
+Locations can be cancelled through exchange using a maintenance case. This will submit to downstream systems for the location to be cancelled.
 
 ## Cancel a location
 
-To cancel an existing sub-merchant, a Maintenance case must be created, updated and submitted. 
+To cancel an existing sub-merchant, a Maintenance case must be created, updated and submitted.
+If the sub-merchant is doing billing or funding through the platform, all money must be cleared and the account must first be 'suspended'. Please see the suspend endpoint [here](../api/?type=post&path=/account) 
 
 ### Creating the case
 
@@ -25,7 +26,9 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the location (outlet) level, but can also be on the Merchant or chain (subgroup).  The settings you want to set the reserve up with will need to be provided, and the system will start collecting amounts at the next available cycle after the case is completed. 
+The merchant level internal MID is required to be provided, which can be acquired from the retrieve API or when storing from initial submission. 
+The `cancel_location_details` block is then used to specify the location (outlet) that is being cancelled. This will usually be the processing MID of the sub-merchant. 
+The `cancellation_reason` must be provided, which allows values 'Cancelled' or 'Cancelled for Fraud'.
 
 ```json
 {
@@ -53,8 +56,8 @@ The reserve settings must be added on the funding/billing level of the sub-merch
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
-Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve has been added.
+Once the case has been updated with the location to be cancelled, it must be submit.
+Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
 {
@@ -72,8 +75,8 @@ Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is c
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
-Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve has been added.
+The initial `"maintenance_status"` will be `Awaiting Maintenance Marketplace Boarding` , and can be expected to move to `Completed` within an hour. 
+The maintenance case can be retrieved to review the details, and to check on the `maintenance_status`.
 
 ```json
 {
