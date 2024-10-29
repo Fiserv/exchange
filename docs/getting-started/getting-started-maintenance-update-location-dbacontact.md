@@ -1,11 +1,11 @@
 
 ---
-tags: [Getting Started, Maintenance, Reserves]
+tags: [Getting Started, Maintenance, Update Location]
 ---
 
-# Reserve Maintenance
+# DBA Maintenance
 
-Reserves can be added to sub-merchants to collect and manage amounts for collateral through Exchange. For Auto-Funding, this can be used to setup a reserve to collect automatically based on settings. For Instructional funding, reserves can be enabled and collected with funding instructions. Only one maintenance case for reserves on a sub-merchant can be active at a time.
+Certain DBA information can be updated through a maintenance case in exchange, which will flow through to downstream systems.
 
 ## Updating a Reserve
 
