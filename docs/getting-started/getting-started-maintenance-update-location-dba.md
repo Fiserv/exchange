@@ -1,10 +1,10 @@
 
 ---
-tags: [Getting Started, Maintenance, Boarding]
+tags: [Getting Started, Maintenance, Boarding, Update Location]
 ---
 # DBA Maintenance
 
-Exchange allows boarding of sub-merchants on the system. Once on-boarded, 
+Locations can be cancelled through exchange using a maintenance case. This will submit to downstream systems for the location to be cancelled.
 
 ## Updating DBA info
 
@@ -104,9 +104,9 @@ type: tab
 titles: Request , Response
 -->
 
-### Auto-Funding Request 
+### Update Request
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the location (outlet) level, but can also be on the Merchant or chain (subgroup).  The settings you want to set the reserve up with will need to be provided, and the system will start collecting amounts at the next available cycle after the case is completed. 
+The new details must be provided on the outlet for the location being updated. The internal MID must be provided in order to identify the location. 
 
 ```json
 {
@@ -128,16 +128,17 @@ The reserve settings must be added on the funding/billing level of the sub-merch
         ]
     }
 }
-
+```
 ---
 
 
 <!-- type: tab -->
 
-### Response
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.
-For an instructional funding setup, the reserve would need to be enabled only. No settings would be applicable as these are collected by instructions.
+### Update Response
+
+A successful update request will provide a response, which contains the old and new details being updated. 
+Once updated successfully, can be submit.
 
 ```json
 {
@@ -150,10 +151,10 @@ For an instructional funding setup, the reserve would need to be enabled only. N
         "merchant_reference": "5000001",
         "maintenance_status": "Open",
         "has_errors": "0",
-        "maintenance_external_id": "MTBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
-        "creator_user_external_id": "USBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
-        "status_external_id": "MTS5F-C475E-82BE7-B1AA4-9A026-89381-4EA08",
-        "owner_user_external_id": "USABC-C475E-82BE7-B1AA4-9A026-89381-4EA08"
+        "maintenance_external_id": "MTBCD-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "creator_user_external_id": "USBCD-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "status_external_id": "MTS5F-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "owner_user_external_id": "USABC-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
     },
     "settings": {
         "funding_flag": "0",
@@ -226,8 +227,8 @@ For an instructional funding setup, the reserve would need to be enabled only. N
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
-Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve has been added.
+Once the case has been updated with the location to be cancelled, it must be submit using the `maintenance_reference`.
+Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
 {
@@ -302,13 +303,27 @@ The maintenance case can be retrieved to review the details, and to check on the
         "maintenance_reference": "MC5000001001",
         "merchant_reference": "5001001",
         "maintenance_types": [
-            "CANCEL_LOCATION"
+            "CHANGE_DBA"
         ],
-        "cancel_location_details": {
-            "location_to_cancel": "325000100001",
-            "cancellation_reason": "Cancelled"
-        },
         "orderId": "xe001"
+        "old_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                    "primary_email_address": "testaddress@fiserv.com",
+                    "outlet_website": "https://fiserv.com",
+                    "trade_name": "MMISTEST Tradename"
+                }
+            }
+        },
+        "new_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                    "primary_email_address": "newemail@fiserv.com",
+                    "outlet_website": "https://fiserv.com",
+                    "trade_name": "MMISTEST NewDBA"
+                }
+            }
+        }
     }
 }
 ```
