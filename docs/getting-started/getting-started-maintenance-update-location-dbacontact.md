@@ -117,9 +117,8 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Using the `maintenance_reference`, the case can then be updated and the new settings can be provided. The case must be updated on the same level as the original reserve, so if it was previously set on the "location" (outlet) , then it must still be updated on the location (outlet).
-
-When updating a reserve, all settings can be updated. If reserves are no longer to be collected, but the reserve balance retained, whichever has been set from `"reserve_daily_amount"` or `"reserve_trans_perc"` should be set to `“0”`.
+Using the `maintenance_reference`, the case can then be updated and the new outlet contact info provided. This will update the main contact for the outlet. 
+The `_id` must be provided from the previous case, and new details provided below. `contact_type` also must be provided and should match from the original contact data.
  
 ```json
 {
