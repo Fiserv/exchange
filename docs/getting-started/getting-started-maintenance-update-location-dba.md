@@ -1,10 +1,10 @@
 
 ---
-tags: [Getting Started, Maintenance, Boarding]
+tags: [Getting Started, Maintenance, Boarding, Update Location]
 ---
 # DBA Maintenance
 
-Exchange allows boarding of sub-merchants on the system. Once on-boarded, 
+Locations can be cancelled through exchange using a maintenance case. This will submit to downstream systems for the location to be cancelled.
 
 ## Updating DBA info
 
@@ -104,9 +104,9 @@ type: tab
 titles: Request , Response
 -->
 
-### Auto-Funding Request 
+### Update Request
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the location (outlet) level, but can also be on the Merchant or chain (subgroup).  The settings you want to set the reserve up with will need to be provided, and the system will start collecting amounts at the next available cycle after the case is completed. 
+The new details must be provided on the outlet for the location being updated. The internal MID must be provided in order to identify the location. 
 
 ```json
 {
@@ -129,27 +129,16 @@ The reserve settings must be added on the funding/billing level of the sub-merch
     }
 }
 ```
-
-| Field Name              | Data Type | Description                                                                                                                                    |
-|-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `take_reserves_flag`      | Integer   | Flag indicating whether to take reserves (1 for true, 0 for false).                                                                            |
-| `reserve_type`            | Integer   | Type of reserve being configured. 1 - Normal, 2 - Rolling.                                                                                     |
-| `reserve_setting`         | Integer   | Reserve collection setting. 1 - Percentage, 2 - Base.                                                                                          |
-| `reserve_daily_amount`    | Integer   | Amount to be collected daily. Used for reserve_setting = 2 (Base), specifies the daily amount taken into reserve for the sub-merchant.         |
-| `reserve_trans_perc`      | Integer   | Used for reserve_setting = 1 (Percentage). Specifies the percentage taken out of the transactions for the sub-merchant.                        |
-| `set_reserve_target`      | Integer   | Flag indicating whether to set a reserve target (1 for true, 0 for false). Will enable reserve_target_amount to be set for the sub-merchant.   |
-| `reserve_target_amount`   | Integer   | Maximum amount to collect for the sub-merchant when set_reserve_target is true.                                                                 |
-| `reserve_delay_days`      | Integer   | Used for reserve_type = 2 (Rolling). Sets the period of time for the rolling reserve to release amounts. Max 90.                                        |
-
 ---
 
 
 <!-- type: tab -->
 
-### Response
 
-The reserve settings must be added on the funding/billing level of the sub-merchant. This will usually be at the outlet level, but can also be on the Merchant or subgroup.
-For an instructional funding setup, the reserve would need to be enabled only. No settings would be applicable as these are collected by instructions.
+### Update Response
+
+A successful update request will provide a response, which contains the old and new details being updated. 
+Once updated successfully, can be submit.
 
 ```json
 {
@@ -162,10 +151,10 @@ For an instructional funding setup, the reserve would need to be enabled only. N
         "merchant_reference": "5000001",
         "maintenance_status": "Open",
         "has_errors": "0",
-        "maintenance_external_id": "MTBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
-        "creator_user_external_id": "USBCD-C475E-82BE7-B1AA4-9A026-89381-4EA08",
-        "status_external_id": "MTS5F-C475E-82BE7-B1AA4-9A026-89381-4EA08",
-        "owner_user_external_id": "USABC-C475E-82BE7-B1AA4-9A026-89381-4EA08"
+        "maintenance_external_id": "MTBCD-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "creator_user_external_id": "USBCD-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "status_external_id": "MTS5F-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "owner_user_external_id": "USABC-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
     },
     "settings": {
         "funding_flag": "0",
@@ -228,14 +217,7 @@ For an instructional funding setup, the reserve would need to be enabled only. N
     }
 }
 ```
-
-| Field Name              | Data Type | Description                                                                                                                                    |
-|-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `take_reserves_flag`      | Integer   | Flag indicating whether to take reserves (1 for true, 0 for false).                                                                            |
-| `reserve_type`            | Integer   | Type of reserve being configured. 1 - Normal, 2 - Rolling.                                                                                     |
-| `set_reserve_target`      | Integer   | Flag indicating whether to set a reserve target (1 for true, 0 for false). Will enable `reserve_target_amount` to be set for the sub-merchant.  |
-| `reserve_target_amount`   | Integer   | Maximum amount to collect for the sub-merchant when `set_reserve_target` is true.                                                              |
-                                                          
+                                                      
 ---
 <!-- type: tab-end -->
 
@@ -245,8 +227,8 @@ For an instructional funding setup, the reserve would need to be enabled only. N
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
-Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve has been added.
+Once the case has been updated with the location to be cancelled, it must be submit using the `maintenance_reference`.
+Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
 {
@@ -258,3 +240,97 @@ Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is c
     }
 }
 ```
+
+### Retrieving the Case
+
+<!-- theme: info -->
+>**POST** `/maintenance`
+
+The initial `"maintenance_status"` will be `Awaiting Maintenance Marketplace Boarding` , and can be expected to move to `Completed` within an hour. 
+The maintenance case can be retrieved to review the details, and to check on the `maintenance_status`.
+
+```json
+{
+    "result": "SUCCESS",
+    "operation": {
+        "operation_type": "RETRIEVE_MAINTENANCE"
+    },
+    "maintenance": {
+        "maintenance_reference": "MC5000001001",
+        "merchant_reference": "5001001",
+        "maintenance_status": "Awaiting Maintenance Marketplace Boarding",
+        "has_errors": "0",
+        "maintenance_external_id": "MTXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "creator_user_external_id": "USXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "status_external_id": "MTXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+        "owner_user_external_id": "USXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+    },
+    "settings": {
+        "funding_flag": "0",
+        "billing_flag": "0",
+        "reserve_flag": "0",
+        "526030471886": {
+            "billing": {
+                "billing_frequency": "0",
+                "billing_day": "0",
+                "billing_month": "0",
+                "has_transaction_billing": "0",
+                "tx_fees_billing_method": "0",
+                "other_fees_billing_method": "2",
+                "has_equipment_billing": "0",
+                "has_service_billing": "0"
+            },
+            "funding": {
+                "funding_frequency": "0",
+                "funding_day": "0",
+                "funding_month": "0",
+                "delay_funding_flag": "0",
+                "settlement_method": "0",
+                "tx_instruction_on": "0",
+                "tx_source_ach": "0",
+                "tx_source_card": "1",
+                "tx_source_ach_funding_option": "0",
+                "tx_source_ach_settlement_method": "0",
+                "tx_source_card_funding_option": "2",
+                "tx_source_card_settlement_method": "2"
+            },
+            "reserve": {
+                "set_reserve_target": "0"
+            }
+        }
+    },
+    "maintenance_details": {
+        "maintenance_reference": "MC5000001001",
+        "merchant_reference": "5001001",
+        "maintenance_types": [
+            "CHANGE_DBA"
+        ],
+        "orderId": "xe001"
+        "old_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                    "primary_email_address": "testaddress@fiserv.com",
+                    "outlet_website": "https://fiserv.com",
+                    "trade_name": "MMISTEST Tradename"
+                }
+            }
+        },
+        "new_details": {
+            "outlets": {
+                "6c933e018965d93e0147": {
+                    "primary_email_address": "newemail@fiserv.com",
+                    "outlet_website": "https://fiserv.com",
+                    "trade_name": "MMISTEST NewDBA"
+                }
+            }
+        }
+    }
+}
+```
+
+| maintenance_status Responses             | Data Type | Description                                                                                                                                    |
+|-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
+| `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
+| `Completed`      | String   |  Maintenance case has completed, and synced.                                                                        |
+| `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than `maintenance_types` , which affect a merchant in downstream systems as well as a maintenance type that is only applied within exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
