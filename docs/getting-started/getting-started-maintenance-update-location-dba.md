@@ -305,7 +305,7 @@ The maintenance case can be retrieved to review the details, and to check on the
         "maintenance_types": [
             "CHANGE_DBA"
         ],
-        "orderId": "xe001"
+        "orderId": "xe001",
         "old_details": {
             "outlets": {
                 "6c933e018965d93e0147": {
@@ -328,7 +328,7 @@ The maintenance case can be retrieved to review the details, and to check on the
 }
 ```
 
-| maintenance_status Responses             | Data Type | Description                                                                                                                                    |
+| `maintenance_status` | Data Type | Description                                                                                                                                    |
 |-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
 | `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
