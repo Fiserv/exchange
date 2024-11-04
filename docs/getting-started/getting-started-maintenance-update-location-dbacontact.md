@@ -178,8 +178,11 @@ Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is c
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-The initial `"maintenance_status"` will be `Awaiting Maintenance Marketplace Boarding` , and can be expected to move to `Completed` within an hour. 
 The maintenance case can be retrieved to review the details, and to check on the `maintenance_status`.
+The `"maintenance_status"` shows the current state of the case. 
+For cases that sync downstream, we will have additional statuses that show the syncing process before completion and are provided below.
+Upon submission, the status will be `Awaiting Maintenance Marketplace Boarding` , and can be expected to move to `Completed` within an hour. 
+
 
 ```json
 {
