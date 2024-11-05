@@ -27,7 +27,7 @@ The following fields may be updated for a locations contacts with this case:
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-The `AMEND_RESERVE` maintenance type must be used, and `merchant_reference` must be provided to create the case.
+The `CHANGE_DBA_CONTACT` maintenance type must be used, and `merchant_reference` must be provided to create the case.
 
 This returns a `maintenance_reference`, unique to this case which can then be updated.
 
@@ -118,7 +118,8 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 >**POST** `/maintenance`
 
 Using the `maintenance_reference`, the case can then be updated and the new outlet contact info provided. This will update the main contact for the outlet. 
-The `_id` must be provided from the previous case, and new details provided below. `contact_type` also must be provided and should match from the original contact data.
+The `_id` of the contact and `internal_mid` of the location must be provided in the request, and is contained in the the previous create maintenance response. 
+The new details can then provided below. `contact_type` also must be provided and should match from the original contact data "OT" currently.
  
 ```json
 {
@@ -160,8 +161,8 @@ The `_id` must be provided from the previous case, and new details provided belo
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the settings for the Reserve, it must be submitted using the `maintenance_reference`.
-Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is complete, and the reserve settings have been updated.
+Once the case has been updated with the location to be cancelled, it must be submit using the `maintenance_reference`.
+Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
 {
@@ -173,6 +174,22 @@ Once submitted, a `"maintenance_status"`: "Completed" means the maintenance is c
     }
 }
 ```
+
+If the response of the maintenance case returns `"has_errors" : 1` , this means the new submission failed validation. The maintenance_error for this is provided in the `maintenance_errors` array.
+
+Example snippet below: 
+
+```json
+...
+    "maintenance_errors": [
+        {
+            "message": "Outlet : Outlet data is invalid - No new details have been submitted"
+        }
+    ]
+...
+```
+
+
 ### Retrieving the Case
 
 <!-- theme: info -->
@@ -182,7 +199,6 @@ The maintenance case can be retrieved to review the details, and to check on the
 The `"maintenance_status"` shows the current state of the case. 
 For cases that sync downstream, we will have additional statuses that show the syncing process before completion and are provided below.
 Upon submission, the status will be `Awaiting Maintenance Marketplace Boarding` , and can be expected to move to `Completed` within an hour. 
-
 
 ```json
 {
