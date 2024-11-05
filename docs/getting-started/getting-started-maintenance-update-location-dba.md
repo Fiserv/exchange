@@ -227,7 +227,7 @@ Once updated successfully, can be submit.
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the location to be cancelled, it must be submit using the `maintenance_reference`.
+Once the case has been updated with the location details, it must be submit using the `maintenance_reference`.
 Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
