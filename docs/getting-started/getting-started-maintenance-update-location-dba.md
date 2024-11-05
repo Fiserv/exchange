@@ -241,6 +241,20 @@ Once submit, this will begin syncing downstream and will need to be retrieved fo
 }
 ```
 
+If the response of the maintenance case returns `"has_errors" : 1` , this means the new submission failed validation. The maintenance_error for this is provided in the `maintenance_errors` array.
+
+Example snippet below: 
+
+```json
+...
+    "maintenance_errors": [
+        {
+            "message": "Outlet : Outlet data is invalid - No new details have been submitted"
+        }
+    ]
+...
+```
+
 ### Retrieving the Case
 
 <!-- theme: info -->
