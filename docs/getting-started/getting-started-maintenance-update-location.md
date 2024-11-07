@@ -11,7 +11,7 @@ Data can be updated in the downstream systems by using merchant maintenance. The
 
 <!-- type: card
 title: Cancel Location
-description: Cancel an existing location downstream
+description: Cancel an existing location
 link: ?path=docs/getting-started/getting-started-maintenance-update-location-cancel.md
 -->
 
