@@ -4,11 +4,11 @@ tags: [Getting Started, Maintenance, Boarding, Update Location]
 ---
 # DBA Maintenance
 
-Locations can be cancelled through exchange using a maintenance case. This will submit to downstream systems for the location to be cancelled.
+Locations can be updated through Exchange using a maintenance case. This will submit to downstream systems for the location to be updated.
 
 ## Updating DBA info
 
-To update DBA info for an existing sub-merchant, a Maintenance case must be created, updated and submit. 
+To update DBA info for an existing sub-merchant, a Maintenance case must be created, updated and submitted. 
 The following fields may  be updated for a location with this case: 
 
 * `primary_email_address`
@@ -138,7 +138,7 @@ The new details must be provided on the outlet for the location being updated. T
 ### Update Response
 
 A successful update request will provide a response, which contains the old and new details being updated. 
-Once updated successfully, can be submit.
+Once updated successfully, can be submitted.
 
 ```json
 {
@@ -227,8 +227,8 @@ Once updated successfully, can be submit.
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the location to be cancelled, it must be submit using the `maintenance_reference`.
-Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
+Once the case has been updated with the location details, it must be submitted using the `maintenance_reference`.
+Once submitted, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
 {
@@ -351,4 +351,4 @@ Upon submission, the status will be `Awaiting Maintenance Marketplace Boarding` 
 | `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
 | `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
 | `Completed`      | String   |  Maintenance case has completed, and synced.                                                                        |
-| `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than `maintenance_types` , which affect a merchant in downstream systems as well as a maintenance type that is only applied within exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
+| `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than one `maintenance_types` , which affect a location in downstream systems as well as a maintenance type that is only applied within Exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
