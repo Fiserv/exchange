@@ -112,12 +112,12 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 }
 ```
 
-### Updating the Reserve 
+### Updating the DBA Contact Case
 
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Using the `maintenance_reference`, the case can then be updated and the new DBA contact details provided. This will update the main contact for the outlet. 
+Using the `maintenance_reference`, the case can then be updated and the new DBA contact details provided. This will update the DBA contact for the outlet. 
 The `_id` of the contact and `internal_mid` of the location must be provided in the request, and is contained in the the previous create maintenance response. 
 The new details can then provided below. `contact_type` also must be provided and should match from the original contact data "OT" currently.
  
@@ -268,6 +268,6 @@ Upon submission, the status will be `Awaiting Maintenance Marketplace Boarding` 
 | maintenance_status Responses             | Data Type | Description                                                                                                                                    |
 |-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
-| `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
+| `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submitted downstream and awaiting confirmation. Adds `orderId` into `maintenance_details`.                                                              |
 | `Completed`      | String   |  Maintenance case has completed, and synced.                                                                        |
 | `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than one `maintenance_types` , which affect a location in downstream systems as well as a maintenance type that is only applied within Exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
