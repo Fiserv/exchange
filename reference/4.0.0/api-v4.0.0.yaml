@@ -18833,10 +18833,12 @@ components:
           example: "0.0500"
         fee_details:
           type: array
+          description: "Used for pulling billing details for legacy pricing type."
           items:
             $ref: '#/components/schemas/BillingFeeDetailBreakdown'
         product_items:
           type: array
+          description: "Used for pulling billing details for new offering type."
           items:
             $ref: '#/components/schemas/V2BillingFeeDetailBreakdown'
 
