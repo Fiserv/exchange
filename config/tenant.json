@@ -4,7 +4,7 @@
   "brand": "Fiserv",
   "brandLogoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Fiserv_Logo.jpg",
   "solution": ["merchants", "carat"],
-  "brandDescription": "Exchange offers Payment Facilitators and Marketplaces integrations for Merchant onboarding, reporting, risk decisioning and settlements all in the same platform. ",
+  "brandDescription": "Exchange offers Aggregators services for sub-merchant onboarding, reporting, risk decisioning and settlements.",
   "categories": [
     {
       "name": "businessTypes",
@@ -17,7 +17,7 @@
       ]
     }
   ],
-  
+  "resourcesFilePath": "/docs/Resources/Resources.md",
   "getStartedFilePath": "docs/get-started.md",
   "apiVersions": [
       {
@@ -42,7 +42,7 @@
   "product": {
     "featured": true,
     "logoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Portal_Logo.png",
-    "description": "Exchange offers Payment Facilitators and Marketplaces integrations for Merchant onboarding, reporting, risk decisioning and settlements all in the same platform.",
+    "description": "Exchange offers Aggregators services for sub-merchant onboarding, reporting, risk decisioning and settlements.",
     "longDescription":"Exchange offers Payment Facilitators and Marketplaces integrations for Merchant onboarding, reporting, risk decisioning and settlements all in the same platform. Please see our collection of APIs for information on our services provided.",
     "apiSpecification": "/v1/apis/Exchange",
     "layout": "/v1/layouts/Exchange",

@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
-  version: '4.00'
+  version: 4.0.0
 servers:
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
@@ -539,6 +539,40 @@ paths:
       x-group-name: Update Application
       x-proxy-name: Unlock Application
       x-child-product-name: Boarding Sub-Merchants
+
+  /boarding///////application:
+    post:
+      tags:
+        - Application Boarding
+      summary: Cancel application
+      description: "Cancels an open application within Exchange. Cancelled applications cannot be re-opened."
+      requestBody:
+        description: "Cancels an open application within Exchange. Cancelled applications cannot be re-opened."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationCancelRequest'
+            examples:
+              CancelRequest:
+                $ref: '#/components/examples/cancelRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationCancelResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+      x-group-name: Update Application
+      x-proxy-name: Cancel Application
+      x-child-product-name: Boarding Sub-Merchants
+
   /boarding/remote_api_signature:
     post:
       tags:
@@ -1287,7 +1321,11 @@ paths:
     post:
       tags:
         - Account Operations
-      summary: "Holds, releases, or suspends a submerchant"
+      summary: |
+        Holds, releases, or suspends a sub-merchant and their nodes. 
+        If MID provided in request is funding level or below, will action all nodes up to the funding level.
+        If MID provided in request is above funding level, will action entire sub-merchant
+        
       x-group-name: Submerchant Account Operations
       x-proxy-name: Hold/Release/Suspend Submerchant
       parameters:
@@ -1533,6 +1571,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillingFeeDetailsResponse'
+              examples:
+                FeeDetailsExample:
+                  $ref : '#/components/examples/V2FeeDetails'
+                LegacyPricingExample:
+                  $ref : '#/components/examples/V1FeeDetails'
+
         "404":
           description: Merchant/Account not found
           content:
@@ -1954,6 +1998,37 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-group-name: Authentication
       x-proxy-name: OAuth Token
+  /oauth/revoke:
+    post:
+      tags:
+        - OAuth Token
+      summary: Revoke Token
+      description: 'Revokes an active refresh token'
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Revoke an active token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/revoke_token'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRevoke_Response'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-group-name: Authentication
+      x-proxy-name: Revoke Token
   /maintenance:
     post:
       tags:
@@ -2869,7 +2944,7 @@ components:
         business_entity:
           $ref: '#/components/schemas/BusinessEntity'
         owners:
-          description: Principals for the location. Any principals above 25 percent ownership should be disclosed here. 
+          description: "Principals and beneficial owners for the business. Any owners with 25% ownership or above must be listed, including any beneficial owners from parent companies."
           type: array
           items:
             $ref: '#/components/schemas/Principal'
@@ -3065,7 +3140,7 @@ components:
       properties:
         application_reference:
           type: string
-          example: "33300005765"
+          example: "55500005765"
         business_entity:
           $ref: '#/components/schemas/BusinessEntity'
         owners:
@@ -3372,7 +3447,7 @@ components:
         contact_dob:
           type: string
           example: "2000-01-01"
-          description: "YYYY-MM-DD Format. DoB must be in range between 18 - 100 years old"
+          description: "YYYY-MM-DD Format. DoB must be in range between 18 - 100 years old. Not required when `ownership_entity_type` = “G”."
         owner_nationality:
           type: string
           description: ISO3 Country Code
@@ -3380,6 +3455,7 @@ components:
           maxLength: 14
           minLength: 2
         owner_position:
+          type: string
           description: | 
             Contact required if subgroup is billing/funding level. Only one contact per type.
             * `VICE PRESIDENT` - "Vice President"
@@ -3418,7 +3494,7 @@ components:
           type: string
           maxLength: 10
           example: '3339898988'
-          description: "Must follow valid phone no. structure."
+          description: "Must follow valid phone no. structure. eg. US phone number cannot start with 1"
         owner_alt_phone_code:
           type: string
           example: "US|1"
@@ -3441,6 +3517,7 @@ components:
         owner_tin_ssn_number:
           type: string
           example: '666989898'
+          description: "Not required when `ownership_entity_type` = “G”."
           minLength: 9
           maxLength: 9
         is_main_principal:
@@ -3453,7 +3530,7 @@ components:
           type: string
           example: "1"
         ownership_perc:
-          description: Ownership of principal being added, principals above 25% ownership should be declared
+          description: "Ownership of principal being added, principals above 25% ownership should be declared. Must be less than 25% when `ownership_entity_type` = “G”."
           type: string
           example: "100"
           maxLength: 30
@@ -5562,7 +5639,7 @@ components:
               example: "0"
             application_reference:
               type: string
-              example: "333000003793"
+              example: "555000003793"
             application_type:
               type: string
               example: "NA"
@@ -6529,7 +6606,7 @@ components:
               example: '0'
             application_reference:
               type: string
-              example: '333000003793'
+              example: '555000003793'
             application_type:
               type: string
               example: "NA"
@@ -9023,6 +9100,21 @@ components:
       allOf:
         - $ref: '#/components/schemas/UnlockApplicationOperation'
         - $ref: '#/components/schemas/ApplicationFullDetail'
+    ApplicationCancelResponse:
+      required:
+        - request_source
+      type: object
+      properties:
+        submit_success:
+          type: string
+          description: "Indicates that the request was successful actioned, with no errors"
+          example : "1"
+          enum:
+            - "1"
+            - "0"
+      allOf:
+        - $ref: '#/components/schemas/CancelApplicationOperation'
+        - $ref: '#/components/schemas/ApplicationFullDetail'
     MerchantRetrieveResponse:
       required:
         - request_source
@@ -10033,6 +10125,7 @@ components:
           $ref: '#/components/schemas/applicationUnlock'
       allOf:
         - $ref: '#/components/schemas/UnlockApplicationOperation'
+
     applicationUnlock:
       required:
         - request_source
@@ -10042,6 +10135,24 @@ components:
           type: string
           description: "External ID of the application, can be retrieved by application retrieve API or in responses when boarding the application"
           example: "APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123"
+    ApplicationCancelRequest:
+      required:
+        - request_source
+      type: object
+      properties:
+        application:
+          $ref: '#/components/schemas/applicationCancel'
+      allOf:
+        - $ref: '#/components/schemas/CancelApplicationOperation'
+    applicationCancel:
+      required:
+        - request_source
+      type: object
+      properties:
+        application_reference:
+          type: string
+          description: "Identifier for the application returned in the boarding response."
+          example: "555000010001"
     MerchantRetrieveRequest:
       required:
         - merchant
@@ -10163,6 +10274,17 @@ components:
           description: Operation
           example:
             operation_type: APPLICATION_UNLOCK
+          allOf:
+            - $ref: '#/components/schemas/GeneralOperation'
+    CancelApplicationOperation:
+      required:
+        - operation
+      type: object
+      properties:
+        operation:
+          description: Operation
+          example:
+            operation_type: APPLICATION_CANCEL
           allOf:
             - $ref: '#/components/schemas/GeneralOperation'
     MerchantUpdate:
@@ -13739,7 +13861,7 @@ components:
       minLength: 12
       type: string
       description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
-      example: "333000000794"
+      example: "555000000794"
     Status:
       type: string
       description: "1 =  Verified 0 = Unverified"
@@ -18539,9 +18661,20 @@ components:
       type: object
       properties:
         fee_group:
-          description: "Identifies the group of the charge. Currently only supports value 1"
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
           enum:
             - "1"
+            - "2"
+            - "3"
+            - "4"
           type: string
           example: "1"
         fee_type:
@@ -18700,8 +18833,14 @@ components:
           example: "0.0500"
         fee_details:
           type: array
+          description: "Used for pulling billing details for legacy pricing type."
           items:
             $ref: '#/components/schemas/BillingFeeDetailBreakdown'
+        product_items:
+          type: array
+          description: "Used for pulling billing details for new offering type."
+          items:
+            $ref: '#/components/schemas/V2BillingFeeDetailBreakdown'
 
 
     BillingFeeDetailBreakdown:
@@ -18748,6 +18887,51 @@ components:
           type: string
           description: "Billing calculated"
           example: "0.5000"
+    V2BillingFeeDetailBreakdown:
+      type: object
+      description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
+      properties:
+        product_item_id:
+          type: string
+          description: "Unique Product ID for the item being billed"
+          example: "111"
+        fee_group:
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
+          enum:
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+          type: string
+          example: "1"
+        product_code:
+          type: string
+          description: "Product Code for the product that was billed"
+          example: "MONTHLY_FEE"
+        product_name:
+          type: string
+          description: "Name that was configured for the product being billed"
+          example: "Monthly Fee"
+        unit_charge:
+          type: string
+          description: "Amount configured to bill from the charge added at the submerchant"
+          example: "0.5000"
+        quantity:
+          type: string
+          description: "Quantity of billing applied from charge"
+          example: "1"
+        amount:
+          type: string
+          description: "Billing calculated"
+          example: "0.5000"
     SettlementInfoRequest:
       required:
         - currency
@@ -18757,8 +18941,17 @@ components:
       properties:
         settlement_date:
           type: string
-          description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
+          description: "Date of settlement is processed. Format YYYY-MM-DD"
 
+          example: "2020-02-20"
+        effective_date:
+          type: string
+          description: |
+            Date that a settlement generated is effective for. 
+            Example:
+            * If `settlement_date` is a weekend, `effective_date` will be the next working day.
+            
+            
           example: "2020-02-20"
         currency:
           type: string
@@ -19363,8 +19556,22 @@ components:
         mapping:
           client_credentials: '#/components/schemas/grant_type_object'
       allOf:
-        - $ref: '#/components/schemas/grant_type_object'
+        - $ref: '#/components/schemas/revoke_grant_type_object'
         - $ref: '#/components/schemas/refresh_token_object'
+    revoke_token:
+      required:
+        - grant_type
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: 'Grant type, for item being revoked should be refresh_token'
+          example: "refresh_token"
+        refresh_token:
+          type: string
+          description: "The refresh token being revoked"
+          example: "f17717317f4ea744b04fce476428b74529ada809"
+      
     OAuth_Response:
       type: object
       properties:
@@ -19396,6 +19603,13 @@ components:
           items:
             type: string
           example: "68abc334-1133-8811-9988-903er82aad"
+    OAuthRevoke_Response:
+      type: object
+      properties:
+        result:
+          type: string
+          description: "Result of the token revoke API"
+          example: "SUCCESS"
     OverwriteCreditRequest:
       type: object
       properties:
@@ -22650,6 +22864,23 @@ components:
               $ref: '#/components/schemas/MaintenanceBankDetail'
           reserve:
             $ref: '#/components/schemas/maintenanceReserveDetails'
+          contacts:
+            type: array
+            items:
+              $ref: '#/components/schemas/OutletContact'
+          outlet_website:
+            type: string
+            description: website of the location the maintenance is being actioned on
+            example: "https://developer.fiserv.com/"
+          primary_email_address:
+            type: string
+            description: primary email address of the location the maintenance is being actioned on
+            example: "test@fiserv.com"
+          trade_name:
+            type: string
+            description: trade name of the location the maintenance is being actioned on
+            example: "Test"
+
     merchantum:
       type: array
       items:
@@ -23524,7 +23755,7 @@ components:
         application_reference:
           type: string
           description: "Returned when using maintenance type 'ADD_OUTLETS', returns the application reference for the additional outlet that can then be updated using UPDATE_OUTLET  endpoint and submitted using application_submit per standard application. Once submit, will be added to the merchant"
-          example: "333000051001"
+          example: "555000051001"
         maintenance_types:
           $ref: '#/components/schemas/maintenancetypes'
         old_details:
@@ -23618,7 +23849,7 @@ components:
         application_reference:
           type: string
           description: application reference number
-          example: "333000010344"
+          example: "555000010344"
         tenant_udc_external_id:
           type: string
           description: Retrieved from the configured document Endpoint. Documents must have a configured base from the config portal.
@@ -23779,7 +24010,7 @@ components:
       properties:
         application_reference:
           type: string
-          example: "333000010344"
+          example: "555000010344"
     Accounts:
       type: array
       items:
@@ -23810,6 +24041,15 @@ components:
           example: "client_credentials"
           enum:
             - client_credentials
+            - refresh_token
+    revoke_grant_type_object:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: The type of grant requested, Refresh.
+          example: "refresh_token"
+          enum:
             - refresh_token
     refresh_token_object:
       type: object
@@ -25158,7 +25398,7 @@ components:
             application_reference:
               description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
-              example: "333000000794"
+              example: "555000000794"
     RemoteAPISignatureResponse:
       type: object
       properties:
@@ -25177,7 +25417,7 @@ components:
             application_reference:
               description: 'Unique System generated Application identifier. Can be retrieved from the application, or stored from response when initially onboarding the application'
               type: string
-              example: "333000000794"
+              example: "555000000794"
     CompleteAPISignatureResponse:
       type: object
       properties:
@@ -25211,7 +25451,7 @@ components:
             application_reference:
               type: string
               description: the application reference number
-              example: "333000004027"
+              example: "555000004027"
 
     RetrieveVarSheetRequest:
       required:
@@ -25251,7 +25491,7 @@ components:
         application_reference:
           type: string
           description: the application reference number
-          example: "333000004027"
+          example: "555000004027"
         merchant_reference:
           type: string
           description: the application reference number
@@ -27234,10 +27474,22 @@ components:
           example: "12"
           description: "Product Id of the item."
         fee_group:
-          type: integer
-          format: int32
-          example: "2"
-          description: "Group of the fee"
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
+          enum:
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+          type: string
+          example: "1"
         product_code:
           type: string
           example: "ALL_PASSTHROUGH"
@@ -30067,7 +30319,7 @@ components:
     RequestMinimalOutletSplit:
       value:
         application:
-          application_reference: "333000050001"
+          application_reference: "555000050001"
         outlet:
           parent_mid: "700100000050001"
           trade_name: "MMISTest Business Name"
@@ -30077,8 +30329,6 @@ components:
           visitation_required: "1"
           primary_email_address: "email@domain.com"
           mcc_code: "5733"
-          discover_required: "1"
-          amex_required: "1"
           amex_volume: "2000.00"
           turnover_bus_to_bus_perc: "0"
           turnover_bus_to_cons_perc: "100"
@@ -30162,7 +30412,7 @@ components:
     RequestMinimalOutlet:
       value:
         application:
-          application_reference: "333000050001"
+          application_reference: "555000050001"
         outlet:
           parent_mid: "700100000050001"
           trade_name: "MMISTest Business Name"
@@ -30172,8 +30422,6 @@ components:
           visitation_required: "1"
           primary_email_address: "email@domain.com"
           mcc_code: "5733"
-          discover_required: "1"
-          amex_required: "1"
           amex_volume: "2000.00"
           turnover_bus_to_bus_perc: "0"
           turnover_bus_to_cons_perc: "100"
@@ -31247,14 +31495,14 @@ components:
           operation_type: APPLICATION_SUBMIT
 
         application:
-          application_reference: '333000000005'
+          application_reference: '555000000005'
     RetrieveRequestApplication:
       value:
         operation:
           operation_type: RETRIEVE_MERCHANT_HIERARCHY
 
         application:
-          application_reference: "333000000008"
+          application_reference: "555000000008"
     unlockRequest:
       value:
         operation:
@@ -31262,6 +31510,13 @@ components:
 
         application:
           application_external_id: APL01-75CDF-663EB-79CBA-DF321-BEUIP-KL123
+    cancelRequest:
+      value:
+        operation:
+          operation_type: "APPLICATION_CANCEL"
+
+        application:
+          application_reference: "555000084126"
     RetrieveMerchantResponse:
       value:
         result: SUCCESS
@@ -31313,7 +31568,7 @@ components:
               internal_mid: '700100000000000'
               sub_group_type: CHAIN
               application_relation_reference: 6532632b352ecdba1a0b4bae
-              application_reference: '333000051001'
+              application_reference: '555000051001'
               group_name: Chain
               external_mid: ''
           chain: null
@@ -31617,7 +31872,7 @@ components:
             allow_instruction_api: '1'
             responsible_party: '0'
           signed_documents: []
-          application_reference: '333000000000'
+          application_reference: '555000000000'
           documents: []
           marketplace_application: true
           accounts:
@@ -32309,7 +32564,7 @@ components:
               $numberLong: '1697017513368'
           _id:
             $oid: 653264be3188ceadc30466e4
-          application_reference: '333000051001'
+          application_reference: '555000051001'
           merchant_reference: null
           maintenance_reference: null
           deleted: 0
@@ -32446,7 +32701,7 @@ components:
               "$numberLong": '1699373431699'
           _id: f66053e8654a6060053
           application_id: '80000'
-          application_reference: '333000050001'
+          application_reference: '555000050001'
           application_type:
           quote_id:
           price_model:
@@ -32710,7 +32965,7 @@ components:
           _id: 654a1098067b6980610107b6
           parent_pfac_node_external_id: PEIB6-4F80C-3D631-92U01-3215O-C0399-3215O
           multiple_outlet: '0'
-          application_reference: '333000000001'
+          application_reference: '555000000001'
           application_type: NA
           bank_lock: '0'
           application_resubmitted: '0'
@@ -33096,7 +33351,7 @@ components:
               "$numberLong": '1199373107400'
           _id:
             "$oid": 630b9a81903354a6905
-          application_reference: '333000000002'
+          application_reference: '555000000002'
           merchant_reference:
           maintenance_reference:
           deleted: 0
@@ -33354,7 +33609,7 @@ components:
           funding_frequency: '1'
           parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
           multiple_outlet: '0'
-          application_reference: '333000053001'
+          application_reference: '555000053001'
           application_type: NA
           bank_lock: '0'
           application_resubmitted: '0'
@@ -33705,7 +33960,7 @@ components:
           parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
           partner_external_id: PARF1-C475E-82BE7-B1AA4-9A026-89381-4EA08
           multiple_outlet: '0'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: NA
           bank_lock: '0'
           has_processing_mid: '1'
@@ -33774,7 +34029,7 @@ components:
           date_updated: '2021-11-01 15:50:39'
           _id: 6571e4bafb0234279603ff15
           application_id: '80344'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: null
           quote_id: null
           price_model: null
@@ -33891,7 +34146,7 @@ components:
           parent_pfac_node_external_id: PEIB6-C475E-82BE7-B1AA4-9A026-89381-4EA08
           partner_external_id: PARF1-C475E-82BE7-B1AA4-9A026-89381-4EA08
           multiple_outlet: '0'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: NA
           bank_lock: '0'
           has_processing_mid: '1'
@@ -33915,7 +34170,7 @@ components:
           date_updated: '2021-11-01 15:50:39'
           _id: 6571e4bafb0234279603ff15
           application_id: '80344'
-          application_reference: '333000000003'
+          application_reference: '555000000003'
           application_type: null
           quote_id: null
           price_model: null
@@ -34025,7 +34280,7 @@ components:
         maintenance_details:
           maintenance_reference: MC3000000005
           merchant_reference: '3014321'
-          application_reference: '333000051002'
+          application_reference: '555000051002'
           maintenance_types:
             - ADD_OUTLETS
 
@@ -34228,6 +34483,35 @@ components:
           hold_amount: '0.0000'
           reprocessed_amount: '0.0000'
           transaction_hold_amount: '0.0000'
+    V2FeeDetails:
+      value:
+        result: SUCCESS
+        billing_merchant_id: '325000001001'
+        total_amount: '10.0000'
+        product_items:
+          - product_item_id: '100'
+            fee_group: 1
+            product_code: MONTHLY_FEE
+            product_name: Monthly Fee
+            unit_charge: '15.0000'
+            quantity: 1
+            amount: '15.0000'
+
+    V1FeeDetails:
+      value:
+        result: "SUCCESS"
+        billing_merchant_id: '325000004321'
+        total_amount: '0.0500'
+        fee_details:
+          - merchant_id: '325000004321'
+            billing_type: "ACQUIRING_CHARGE"
+            charge_item_external_id: "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4"
+            charge_title: "Sample Blended Rate"
+            date: '2022-01-01'
+            unit_charge: '0.5000'
+            quantity: '1'
+            amount: '0.5000'
+            
     StatusCheckBoardingComplete:
       value:
         result: SUCCESS
@@ -34477,7 +34761,7 @@ components:
     UploadDocumenRequesttSample:
       value:
         application:
-          application_reference: '3330000500012'
+          application_reference: '5550000500012'
           tenant_udc_external_id: TDCA!-1F4CE-CFKSL-3BBLD-3BCAE-C022B-CFKSL
     RetrieveOfferSampleCriteria:
       value:
