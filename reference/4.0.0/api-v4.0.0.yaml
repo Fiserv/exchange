@@ -1321,7 +1321,11 @@ paths:
     post:
       tags:
         - Account Operations
-      summary: "Holds, releases, or suspends a submerchant"
+      summary: |
+        Holds, releases, or suspends a sub-merchant and their nodes. 
+        If MID provided in request is funding level or below, will action all nodes up to the funding level.
+        If MID provided in request is above funding level, will action entire sub-merchant
+        
       x-group-name: Submerchant Account Operations
       x-proxy-name: Hold/Release/Suspend Submerchant
       parameters:
