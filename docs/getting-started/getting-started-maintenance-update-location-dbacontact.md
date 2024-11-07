@@ -3,13 +3,13 @@
 tags: [Getting Started, Maintenance, Update Location]
 ---
 
-# DBA Maintenance
+# DBA Contact Maintenance
 
-Certain DBA contact information can be updated through a maintenance case in exchange, which will flow through to downstream systems.
+Certain DBA contact information can be updated through a maintenance case in Exchange, which will flow through to downstream systems.
 
 ## Updating a DBA Contact
 
-The following fields may be updated for a locations contacts with this case: 
+The following fields may be updated for a location's DBA contact with this case: 
 
 *  `contact_first_name`
 *  `contact_last_name`
@@ -117,7 +117,7 @@ This returns a `maintenance_reference`, unique to this case which can then be up
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Using the `maintenance_reference`, the case can then be updated and the new outlet contact info provided. This will update the main contact for the outlet. 
+Using the `maintenance_reference`, the case can then be updated and the new DBA contact details provided. This will update the main contact for the outlet. 
 The `_id` of the contact and `internal_mid` of the location must be provided in the request, and is contained in the the previous create maintenance response. 
 The new details can then provided below. `contact_type` also must be provided and should match from the original contact data "OT" currently.
  
@@ -161,8 +161,8 @@ The new details can then provided below. `contact_type` also must be provided an
 <!-- theme: info -->
 >**POST** `/maintenance`
 
-Once the case has been updated with the location to be cancelled, it must be submit using the `maintenance_reference`.
-Once submit, this will begin syncing downstream and will need to be retrieved for updates on completion.
+Once the case has been updated with the new DBA contact details, it must be submitted using the `maintenance_reference`.
+Once submitted, this will begin syncing downstream and will need to be retrieved for updates on completion.
 
 ```json
 {
@@ -270,4 +270,4 @@ Upon submission, the status will be `Awaiting Maintenance Marketplace Boarding` 
 | `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
 | `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
 | `Completed`      | String   |  Maintenance case has completed, and synced.                                                                        |
-| `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than `maintenance_types` , which affect a merchant in downstream systems as well as a maintenance type that is only applied within exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
+| `Partially Applied`      | String   |  Only applicable for maintenance cases that have more than one `maintenance_types` , which affect a location in downstream systems as well as a maintenance type that is only applied within Exchange. If the case is cancelled before the dowstream syncs are complete, the case is marked as partially applied.                                                                        |
