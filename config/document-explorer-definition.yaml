@@ -89,6 +89,16 @@
               link: docs/getting-started/getting-started-maintenance-reserves-amend.md
             - title: Remove Reserve 
               link: docs/getting-started/getting-started-maintenance-reserves-remove.md
+          - title: Update Location
+            link: docs/getting-started/getting-started-maintenance-update-location.md
+            open: true
+            sections: 
+            - title: Cancel Location 
+              link: docs/getting-started/getting-started-maintenance-update-location-cancel.md
+            - title: Update DBA 
+              link: docs/getting-started/getting-started-maintenance-update-location-dba.md
+            - title: Update DBA Contact 
+              link: docs/getting-started/getting-started-maintenance-update-location-dbacontact.md
             
           
         #- title: (OLD) Onboarding Submerchants 

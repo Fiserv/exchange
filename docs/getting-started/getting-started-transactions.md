@@ -6,6 +6,8 @@ tags: [Getting Started, Reporting, Transactions, Chargebacks, Auto funding]
 
 Exchange processes transactions daily, making them available in our reporting APIs. These transactions flow into the [virtual accounts](../docs/getting-started/getting-started-reporting.md) if funding is conducted through Exchange. You can access them via the `/transaction/...` endpoints visible on the [API Explorer](../api/?type=post&path-/transaction). The field `date_added` indicates the date the transaction was added to our system.
 
+The transaction endpoints (other than authorizations) finish updating by the Funding Window opening time (will depend on if the sub-merchant is T+1 or T+2) 
+
 ## Requests
 
 A 'query' can be created by adjusting the database operator and values being searched for:
@@ -524,7 +526,7 @@ titles: Request , Response
 <!-- theme: info -->
 >**POST** `/transaction/authorizations`
 
-Reports authorizations being loaded into the system, typically every 15 minutes.
+Reports authorizations being loaded into the system, typically within 30 minutes.
 
 <!--
 type: tab
@@ -711,5 +713,6 @@ To retrieve calculations performed by Auto fundings processing charges at a tran
 
 ### Service Fee calculations
 
-Within Auto-Funding, 'service billing' can be added to a sub-merchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [here](../api?type=post&path=/account/billing/fee-details) 
+Within Auto-Funding, 'service billing' can be added to a sub-merchant. This allows for the user to bill for non-transaction related charges such as a monthly charge. By calling the `/billing/fee-details` endpoint this will retrieve any service charge items that have been billed for that day. For full spec, please find API [here](../api?type=post&path=/account/billing/fee-details).
+This will include billing for any `product_item` that has `"relate_to": "BILLING"` in the current pricing structure. 
 

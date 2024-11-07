@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: Exchange APIs Documentation
   description: "To authenticate with Fiserv you use your API token, the authentication type is: OAuth 2.0"
-  version: '4.00'
+  version: 4.0.0
 servers:
   - {url: 'https://uat-api.carat-platforms.fiserv.com/', description: Exchange Stage}
   - {url: 'https://api.carat-platforms.fiserv.com/', description: Exchange Production}
@@ -1567,6 +1567,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillingFeeDetailsResponse'
+              examples:
+                FeeDetailsExample:
+                  $ref : '#/components/examples/V2FeeDetails'
+                LegacyPricingExample:
+                  $ref : '#/components/examples/V1FeeDetails'
+
         "404":
           description: Merchant/Account not found
           content:
@@ -1988,6 +1994,37 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-group-name: Authentication
       x-proxy-name: OAuth Token
+  /oauth/revoke:
+    post:
+      tags:
+        - OAuth Token
+      summary: Revoke Token
+      description: 'Revokes an active refresh token'
+      parameters:
+        - {$ref: '#/components/parameters/ApiVersionHeader'}
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/AuthorizationHeader'}
+      requestBody:
+        description: Revoke an active token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/revoke_token'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRevoke_Response'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-group-name: Authentication
+      x-proxy-name: Revoke Token
   /maintenance:
     post:
       tags:
@@ -18620,9 +18657,20 @@ components:
       type: object
       properties:
         fee_group:
-          description: "Identifies the group of the charge. Currently only supports value 1"
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
           enum:
             - "1"
+            - "2"
+            - "3"
+            - "4"
           type: string
           example: "1"
         fee_type:
@@ -18783,6 +18831,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BillingFeeDetailBreakdown'
+        product_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2BillingFeeDetailBreakdown'
 
 
     BillingFeeDetailBreakdown:
@@ -18829,6 +18881,51 @@ components:
           type: string
           description: "Billing calculated"
           example: "0.5000"
+    V2BillingFeeDetailBreakdown:
+      type: object
+      description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
+      properties:
+        product_item_id:
+          type: string
+          description: "Unique Product ID for the item being billed"
+          example: "111"
+        fee_group:
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
+          enum:
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+          type: string
+          example: "1"
+        product_code:
+          type: string
+          description: "Product Code for the product that was billed"
+          example: "MONTHLY_FEE"
+        product_name:
+          type: string
+          description: "Name that was configured for the product being billed"
+          example: "Monthly Fee"
+        unit_charge:
+          type: string
+          description: "Amount configured to bill from the charge added at the submerchant"
+          example: "0.5000"
+        quantity:
+          type: string
+          description: "Quantity of billing applied from charge"
+          example: "1"
+        amount:
+          type: string
+          description: "Billing calculated"
+          example: "0.5000"
     SettlementInfoRequest:
       required:
         - currency
@@ -18838,8 +18935,17 @@ components:
       properties:
         settlement_date:
           type: string
-          description: Date of settlement - Cannot be empty. Format YYYY-MM-DD
+          description: "Date of settlement is processed. Format YYYY-MM-DD"
 
+          example: "2020-02-20"
+        effective_date:
+          type: string
+          description: |
+            Date that a settlement generated is effective for. 
+            Example:
+            * If `settlement_date` is a weekend, `effective_date` will be the next working day.
+            
+            
           example: "2020-02-20"
         currency:
           type: string
@@ -19444,8 +19550,22 @@ components:
         mapping:
           client_credentials: '#/components/schemas/grant_type_object'
       allOf:
-        - $ref: '#/components/schemas/grant_type_object'
+        - $ref: '#/components/schemas/revoke_grant_type_object'
         - $ref: '#/components/schemas/refresh_token_object'
+    revoke_token:
+      required:
+        - grant_type
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: 'Grant type, for item being revoked should be refresh_token'
+          example: "refresh_token"
+        refresh_token:
+          type: string
+          description: "The refresh token being revoked"
+          example: "f17717317f4ea744b04fce476428b74529ada809"
+      
     OAuth_Response:
       type: object
       properties:
@@ -19477,6 +19597,13 @@ components:
           items:
             type: string
           example: "68abc334-1133-8811-9988-903er82aad"
+    OAuthRevoke_Response:
+      type: object
+      properties:
+        result:
+          type: string
+          description: "Result of the token revoke API"
+          example: "SUCCESS"
     OverwriteCreditRequest:
       type: object
       properties:
@@ -22731,6 +22858,23 @@ components:
               $ref: '#/components/schemas/MaintenanceBankDetail'
           reserve:
             $ref: '#/components/schemas/maintenanceReserveDetails'
+          contacts:
+            type: array
+            items:
+              $ref: '#/components/schemas/OutletContact'
+          outlet_website:
+            type: string
+            description: website of the location the maintenance is being actioned on
+            example: "https://developer.fiserv.com/"
+          primary_email_address:
+            type: string
+            description: primary email address of the location the maintenance is being actioned on
+            example: "test@fiserv.com"
+          trade_name:
+            type: string
+            description: trade name of the location the maintenance is being actioned on
+            example: "Test"
+
     merchantum:
       type: array
       items:
@@ -23891,6 +24035,15 @@ components:
           example: "client_credentials"
           enum:
             - client_credentials
+            - refresh_token
+    revoke_grant_type_object:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: The type of grant requested, Refresh.
+          example: "refresh_token"
+          enum:
             - refresh_token
     refresh_token_object:
       type: object
@@ -27315,10 +27468,22 @@ components:
           example: "12"
           description: "Product Id of the item."
         fee_group:
-          type: integer
-          format: int32
-          example: "2"
-          description: "Group of the fee"
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
+          enum:
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+          type: string
+          example: "1"
         product_code:
           type: string
           example: "ALL_PASSTHROUGH"
@@ -34316,6 +34481,35 @@ components:
           hold_amount: '0.0000'
           reprocessed_amount: '0.0000'
           transaction_hold_amount: '0.0000'
+    V2FeeDetails:
+      value:
+        result: SUCCESS
+        billing_merchant_id: '325000001001'
+        total_amount: '10.0000'
+        product_items:
+          - product_item_id: '100'
+            fee_group: 1
+            product_code: MONTHLY_FEE
+            product_name: Monthly Fee
+            unit_charge: '15.0000'
+            quantity: 1
+            amount: '15.0000'
+
+    V1FeeDetails:
+      value:
+        result: "SUCCESS"
+        billing_merchant_id: '325000004321'
+        total_amount: '0.0500'
+        fee_details:
+          - merchant_id: '325000004321'
+            billing_type: "ACQUIRING_CHARGE"
+            charge_item_external_id: "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4"
+            charge_title: "Sample Blended Rate"
+            date: '2022-01-01'
+            unit_charge: '0.5000'
+            quantity: '1'
+            amount: '0.5000'
+            
     StatusCheckBoardingComplete:
       value:
         result: SUCCESS

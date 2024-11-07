@@ -8,7 +8,8 @@ Exchange uses a set of virtual accounts and automatic settlement generation for 
 
 ## Virtual Accounts
 
-Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any physical bank accounts for the sub-merchants or PayFacs
+Virtual accounts hold calculated funding information for sub-merchants in order for the PayFacs to facilitate the distribution  of funds. These accounts are not representative of any physical bank accounts for the sub-merchants or PayFacs.
+Amounts will move during the funding cycle, and will finish updating at the end of the funding cycle.
 
 ### Trade Accounts
 
