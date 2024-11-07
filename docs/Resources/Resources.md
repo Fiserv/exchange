@@ -25,4 +25,3 @@ Exchange will be releasing Postman Collections to use soon.
 
 - Get started [here](?path=docs/get-started.md)
 
----
