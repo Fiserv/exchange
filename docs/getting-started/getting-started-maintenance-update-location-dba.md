@@ -346,7 +346,7 @@ Upon submission, the status will be `Awaiting Maintenance Marketplace Boarding` 
 }
 ```
 
-| `maintenance_status` | Data Type | Description                                                                                                                                    |
+| maintenance_status Responses | Data Type | Description                                                                                                                                    |
 |-------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Awaiting Maintenance Marketplace Boarding`      | String   |  Initial transient status for submission downstream.                                                                        |
 | `Awaiting Maintenance Marketplace Response`      | String   |  Maintenance details submit downstream and confirmation. Adds `orderId` into `maintenance_details`.                                                              |
