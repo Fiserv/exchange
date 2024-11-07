@@ -1567,6 +1567,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillingFeeDetailsResponse'
+              examples:
+                FeeDetailsExample:
+                  $ref : '#/components/examples/V2FeeDetails'
+                LegacyPricingExample:
+                  $ref : '#/components/examples/V1FeeDetails'
+
         "404":
           description: Merchant/Account not found
           content:
@@ -18814,6 +18820,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BillingFeeDetailBreakdown'
+        product_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2BillingFeeDetailBreakdown'
 
 
     BillingFeeDetailBreakdown:
@@ -18860,6 +18870,40 @@ components:
           type: string
           description: "Billing calculated"
           example: "0.5000"
+    V2BillingFeeDetailBreakdown:
+      type: object
+      description: "Provides a breakdown of the fee amounts calculated on transactions today using Auto funding. Reported at a submerchant level."
+      properties:
+        product_item_id:
+          type: string
+          description: "Unique Product ID for the item being billed"
+          example: "111"
+        fee_group:
+          type: string
+          description: "Identifies the group of the charge. Currently only supports value 1 "
+          example: "1"
+          enum: 
+            - "1"
+        product_code:
+          type: string
+          description: "Product Code for the product that was billed"
+          example: "MONTHLY_FEE"
+        product_name:
+          type: string
+          description: "Name that was configured for the product being billed"
+          example: "Monthly Fee"
+        unit_charge:
+          type: string
+          description: "Amount configured to bill from the charge added at the submerchant"
+          example: "0.5000"
+        quantity:
+          type: string
+          description: "Quantity of billing applied from charge"
+          example: "1"
+        amount:
+          type: string
+          description: "Billing calculated"
+          example: "0.5000"
     SettlementInfoRequest:
       required:
         - currency
@@ -18877,12 +18921,12 @@ components:
           description: |
             Date that a settlement generated is effective for. 
             Some Examples:
-            * If `settlement_date` is monday, and standard funding window being used, `effective_date` will be the next day
-            * If `settlement_date` is a weekend, (or a friday and using T+2 window) `effective_date` will be the next working day.
-            * If delay funding is configured, `effective_date` will be standard settlement time plus the delay.
+            * If delay funding is configured, `effective_date` will be 
+            * If `settlement_date` is a weekend, `effective_date` will be the next working day.
+            * If delay funding is configured, `effective_date` will be 
             
             
-          example: "2020-02-21"
+          example: "2020-02-20"
         currency:
           type: string
           description: Currency - Cannot be empty.
@@ -34405,6 +34449,35 @@ components:
           hold_amount: '0.0000'
           reprocessed_amount: '0.0000'
           transaction_hold_amount: '0.0000'
+    V2FeeDetails:
+      value:
+        result: SUCCESS
+        billing_merchant_id: '325000001001'
+        total_amount: '10.0000'
+        product_items:
+          - product_item_id: '100'
+            fee_group: 1
+            product_code: MONTHLY_FEE
+            product_name: Monthly Fee
+            unit_charge: '15.0000'
+            quantity: 1
+            amount: '15.0000'
+
+    V1FeeDetails:
+      value:
+        result: "SUCCESS"
+        billing_merchant_id: '325000004321'
+        total_amount: '0.0500'
+        fee_details:
+          - merchant_id: '325000004321'
+            billing_type: "ACQUIRING_CHARGE"
+            charge_item_external_id: "CHIBC-2DLPO-01B99-2DLPO-2DLPO-01B99-A3LK4"
+            charge_title: "Sample Blended Rate"
+            date: '2022-01-01'
+            unit_charge: '0.5000'
+            quantity: '1'
+            amount: '0.5000'
+            
     StatusCheckBoardingComplete:
       value:
         result: SUCCESS
