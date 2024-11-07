@@ -18657,9 +18657,20 @@ components:
       type: object
       properties:
         fee_group:
-          description: "Identifies the group of the charge. Currently only supports value 1"
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
           enum:
             - "1"
+            - "2"
+            - "3"
+            - "4"
           type: string
           example: "1"
         fee_type:
@@ -18879,11 +18890,22 @@ components:
           description: "Unique Product ID for the item being billed"
           example: "111"
         fee_group:
-          type: string
-          description: "Identifies the group of the charge. Currently only supports value 1 "
-          example: "1"
-          enum: 
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
+          enum:
             - "1"
+            - "2"
+            - "3"
+            - "4"
+          type: string
+          example: "1"
         product_code:
           type: string
           description: "Product Code for the product that was billed"
@@ -18920,10 +18942,8 @@ components:
           type: string
           description: |
             Date that a settlement generated is effective for. 
-            Some Examples:
-            * If delay funding is configured, `effective_date` will be 
+            Example:
             * If `settlement_date` is a weekend, `effective_date` will be the next working day.
-            * If delay funding is configured, `effective_date` will be 
             
             
           example: "2020-02-20"
@@ -27448,10 +27468,22 @@ components:
           example: "12"
           description: "Product Id of the item."
         fee_group:
-          type: integer
-          format: int32
-          example: "2"
-          description: "Group of the fee"
+          description: | 
+            Identifies the group of the charge.
+            * `1` - EXCHANGE
+            * `2` - INTERCHANGE
+            * `3` - SCHEME
+            * `4` - OTHERS
+            
+            Billing and transaction fees will be type `1`
+            Passthrough fees in trade-details and passthrough endpoint may be `2` , `3` or `4` depending on the fee type.
+          enum:
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+          type: string
+          example: "1"
         product_code:
           type: string
           example: "ALL_PASSTHROUGH"
